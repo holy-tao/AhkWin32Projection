@@ -13,9 +13,9 @@
  */
 class MPEG_SERVICE_REQUEST extends Win32Struct
 {
-    static sizeof => 184
+    static sizeof => 168
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -31,7 +31,7 @@ class MPEG_SERVICE_REQUEST extends Win32Struct
     Context{
         get {
             if(!this.HasProp("__Context"))
-                this.__Context := MPEG_CONTEXT(8, this)
+                this.__Context := MPEG_CONTEXT(4, this)
             return this.__Context
         }
     }
@@ -40,16 +40,16 @@ class MPEG_SERVICE_REQUEST extends Win32Struct
      * @type {Integer}
      */
     Pid {
-        get => NumGet(this, 16, "ushort")
-        set => NumPut("ushort", value, this, 16)
+        get => NumGet(this, 12, "ushort")
+        set => NumPut("ushort", value, this, 12)
     }
 
     /**
      * @type {Integer}
      */
     TableId {
-        get => NumGet(this, 18, "char")
-        set => NumPut("char", value, this, 18)
+        get => NumGet(this, 14, "char")
+        set => NumPut("char", value, this, 14)
     }
 
     /**
@@ -58,7 +58,7 @@ class MPEG_SERVICE_REQUEST extends Win32Struct
     Filter{
         get {
             if(!this.HasProp("__Filter"))
-                this.__Filter := MPEG2_FILTER(24, this)
+                this.__Filter := MPEG2_FILTER(16, this)
             return this.__Filter
         }
     }
@@ -67,7 +67,7 @@ class MPEG_SERVICE_REQUEST extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 176, "uint")
-        set => NumPut("uint", value, this, 176)
+        get => NumGet(this, 164, "uint")
+        set => NumPut("uint", value, this, 164)
     }
 }

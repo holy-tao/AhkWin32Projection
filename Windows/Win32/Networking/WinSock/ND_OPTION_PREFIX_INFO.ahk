@@ -10,7 +10,7 @@ class ND_OPTION_PREFIX_INFO extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

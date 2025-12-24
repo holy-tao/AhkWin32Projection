@@ -17,7 +17,7 @@
  */
 class WRDS_CONNECTION_SETTINGS extends Win32Struct
 {
-    static sizeof => 3784
+    static sizeof => 3760
 
     static packingSize => 8
 

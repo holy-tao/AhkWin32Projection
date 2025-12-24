@@ -12,9 +12,9 @@
  */
 class LOGPEN extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * 
@@ -32,7 +32,7 @@ class LOGPEN extends Win32Struct
     lopnWidth{
         get {
             if(!this.HasProp("__lopnWidth"))
-                this.__lopnWidth := POINT(8, this)
+                this.__lopnWidth := POINT(4, this)
             return this.__lopnWidth
         }
     }
@@ -42,7 +42,7 @@ class LOGPEN extends Win32Struct
      * @type {COLORREF}
      */
     lopnColor {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 }

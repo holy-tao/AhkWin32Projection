@@ -13,9 +13,9 @@
  */
 class CompositionFrameDisplayInstance extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {LUID}
@@ -75,7 +75,7 @@ class CompositionFrameDisplayInstance extends Win32Struct
     finalTransform{
         get {
             if(!this.HasProp("__finalTransform"))
-                this.__finalTransform := PresentationTransform(32, this)
+                this.__finalTransform := PresentationTransform(28, this)
             return this.__finalTransform
         }
     }
@@ -87,8 +87,8 @@ class CompositionFrameDisplayInstance extends Win32Struct
      * @type {Integer}
      */
     requiredCrossAdapterCopy {
-        get => NumGet(this, 56, "char")
-        set => NumPut("char", value, this, 56)
+        get => NumGet(this, 52, "char")
+        set => NumPut("char", value, this, 52)
     }
 
     /**
@@ -98,7 +98,7 @@ class CompositionFrameDisplayInstance extends Win32Struct
      * @type {Integer}
      */
     colorSpace {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

@@ -48,7 +48,7 @@ class DD_SURFACE_MORE extends Win32Struct
     ddsCapsEx{
         get {
             if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(24, this)
+                this.__ddsCapsEx := DDSCAPSEX(20, this)
             return this.__ddsCapsEx
         }
     }
@@ -58,7 +58,7 @@ class DD_SURFACE_MORE extends Win32Struct
      * @type {Integer}
      */
     dwSurfaceHandle {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

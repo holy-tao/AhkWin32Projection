@@ -22,9 +22,9 @@
  */
 class FAX_EVENTW extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -46,7 +46,7 @@ class FAX_EVENTW extends Win32Struct
     TimeStamp{
         get {
             if(!this.HasProp("__TimeStamp"))
-                this.__TimeStamp := FILETIME(8, this)
+                this.__TimeStamp := FILETIME(4, this)
             return this.__TimeStamp
         }
     }
@@ -58,8 +58,8 @@ class FAX_EVENTW extends Win32Struct
      * @type {Integer}
      */
     DeviceId {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -69,8 +69,8 @@ class FAX_EVENTW extends Win32Struct
      * @type {Integer}
      */
     EventId {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -80,7 +80,7 @@ class FAX_EVENTW extends Win32Struct
      * @type {Integer}
      */
     JobId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

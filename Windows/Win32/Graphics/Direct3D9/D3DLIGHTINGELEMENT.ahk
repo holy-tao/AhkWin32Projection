@@ -8,9 +8,9 @@
  */
 class D3DLIGHTINGELEMENT extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {D3DVECTOR}
@@ -29,7 +29,7 @@ class D3DLIGHTINGELEMENT extends Win32Struct
     dvNormal{
         get {
             if(!this.HasProp("__dvNormal"))
-                this.__dvNormal := D3DVECTOR(16, this)
+                this.__dvNormal := D3DVECTOR(12, this)
             return this.__dvNormal
         }
     }

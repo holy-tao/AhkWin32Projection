@@ -9,13 +9,13 @@
  */
 class WTS_SOCKADDR extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _u_e__Union extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 28
+        static packingSize => 4
 
         class _ipv4 extends Win32Struct {
             static sizeof => 16
@@ -131,7 +131,7 @@ class WTS_SOCKADDR extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(8, this)
+                this.__u := %this.__Class%._u_e__Union(4, this)
             return this.__u
         }
     }

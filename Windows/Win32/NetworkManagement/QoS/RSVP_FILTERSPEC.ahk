@@ -16,9 +16,9 @@
  */
 class RSVP_FILTERSPEC extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the type of FILTERSPEC using the <b>FilterSpec</b> enumeration.
@@ -35,7 +35,7 @@ class RSVP_FILTERSPEC extends Win32Struct
     FilterSpecV4{
         get {
             if(!this.HasProp("__FilterSpecV4"))
-                this.__FilterSpecV4 := RSVP_FILTERSPEC_V4(8, this)
+                this.__FilterSpecV4 := RSVP_FILTERSPEC_V4(4, this)
             return this.__FilterSpecV4
         }
     }
@@ -46,7 +46,7 @@ class RSVP_FILTERSPEC extends Win32Struct
     FilterSpecV6{
         get {
             if(!this.HasProp("__FilterSpecV6"))
-                this.__FilterSpecV6 := RSVP_FILTERSPEC_V6(8, this)
+                this.__FilterSpecV6 := RSVP_FILTERSPEC_V6(4, this)
             return this.__FilterSpecV6
         }
     }
@@ -57,7 +57,7 @@ class RSVP_FILTERSPEC extends Win32Struct
     FilterSpecV6Flow{
         get {
             if(!this.HasProp("__FilterSpecV6Flow"))
-                this.__FilterSpecV6Flow := RSVP_FILTERSPEC_V6_FLOW(8, this)
+                this.__FilterSpecV6Flow := RSVP_FILTERSPEC_V6_FLOW(4, this)
             return this.__FilterSpecV6Flow
         }
     }
@@ -68,7 +68,7 @@ class RSVP_FILTERSPEC extends Win32Struct
     FilterSpecV4Gpi{
         get {
             if(!this.HasProp("__FilterSpecV4Gpi"))
-                this.__FilterSpecV4Gpi := RSVP_FILTERSPEC_V4_GPI(8, this)
+                this.__FilterSpecV4Gpi := RSVP_FILTERSPEC_V4_GPI(4, this)
             return this.__FilterSpecV4Gpi
         }
     }
@@ -79,7 +79,7 @@ class RSVP_FILTERSPEC extends Win32Struct
     FilterSpecV6Gpi{
         get {
             if(!this.HasProp("__FilterSpecV6Gpi"))
-                this.__FilterSpecV6Gpi := RSVP_FILTERSPEC_V6_GPI(8, this)
+                this.__FilterSpecV6Gpi := RSVP_FILTERSPEC_V6_GPI(4, this)
             return this.__FilterSpecV6Gpi
         }
     }

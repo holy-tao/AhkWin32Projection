@@ -12,7 +12,7 @@ class HistogramGrid extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Width of the sensor output that histogram is collected from.

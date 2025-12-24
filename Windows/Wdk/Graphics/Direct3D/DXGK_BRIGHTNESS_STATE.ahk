@@ -9,7 +9,7 @@ class DXGK_BRIGHTNESS_STATE extends Win32Struct
 {
     static sizeof => 4
 
-    static packingSize => 4
+    static packingSize => 1
 
     /**
      * This bitfield backs the following members:

@@ -34,7 +34,7 @@ class DD_GETEXTENDEDMODEDATA extends Win32Struct
     mode{
         get {
             if(!this.HasProp("__mode"))
-                this.__mode := D3DDISPLAYMODE(16, this)
+                this.__mode := D3DDISPLAYMODE(12, this)
             return this.__mode
         }
     }

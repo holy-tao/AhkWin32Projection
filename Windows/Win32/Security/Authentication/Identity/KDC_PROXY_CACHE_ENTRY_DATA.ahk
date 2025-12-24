@@ -68,7 +68,7 @@ class KDC_PROXY_CACHE_ENTRY_DATA extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(64, this)
+                this.__LogonId := LUID(60, this)
             return this.__LogonId
         }
     }

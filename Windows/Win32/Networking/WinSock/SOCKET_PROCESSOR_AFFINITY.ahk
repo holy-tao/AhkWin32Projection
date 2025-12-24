@@ -17,7 +17,7 @@ class SOCKET_PROCESSOR_AFFINITY extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 4
+    static packingSize => 2
 
     /**
      * A structure to represent a system wide processor number. This <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-processor_number">PROCESSOR_NUMBER</a> structure contains a

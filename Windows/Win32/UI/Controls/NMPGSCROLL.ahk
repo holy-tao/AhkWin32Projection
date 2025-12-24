@@ -49,7 +49,7 @@ class NMPGSCROLL extends Win32Struct
     rcParent{
         get {
             if(!this.HasProp("__rcParent"))
-                this.__rcParent := RECT(32, this)
+                this.__rcParent := RECT(28, this)
             return this.__rcParent
         }
     }
@@ -59,8 +59,8 @@ class NMPGSCROLL extends Win32Struct
      * @type {Integer}
      */
     iDir {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -70,8 +70,8 @@ class NMPGSCROLL extends Win32Struct
      * @type {Integer}
      */
     iXpos {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -81,8 +81,8 @@ class NMPGSCROLL extends Win32Struct
      * @type {Integer}
      */
     iYpos {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -92,7 +92,7 @@ class NMPGSCROLL extends Win32Struct
      * @type {Integer}
      */
     iScroll {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

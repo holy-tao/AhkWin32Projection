@@ -12,7 +12,7 @@ class NDR64_BINDINGS extends Win32Struct
 {
     static sizeof => 18
 
-    static packingSize => 6
+    static packingSize => 2
 
     /**
      * @type {NDR64_BIND_PRIMITIVE}

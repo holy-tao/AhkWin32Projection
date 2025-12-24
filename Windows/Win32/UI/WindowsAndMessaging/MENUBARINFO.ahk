@@ -36,7 +36,7 @@ class MENUBARINFO extends Win32Struct
     rcBar{
         get {
             if(!this.HasProp("__rcBar"))
-                this.__rcBar := RECT(8, this)
+                this.__rcBar := RECT(4, this)
             return this.__rcBar
         }
     }

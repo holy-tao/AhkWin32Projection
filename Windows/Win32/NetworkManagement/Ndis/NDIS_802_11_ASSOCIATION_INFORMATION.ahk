@@ -9,9 +9,9 @@
  */
 class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -35,7 +35,7 @@ class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
     RequestFixedIEs{
         get {
             if(!this.HasProp("__RequestFixedIEs"))
-                this.__RequestFixedIEs := NDIS_802_11_AI_REQFI(8, this)
+                this.__RequestFixedIEs := NDIS_802_11_AI_REQFI(6, this)
             return this.__RequestFixedIEs
         }
     }
@@ -44,6 +44,14 @@ class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     RequestIELength {
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    OffsetRequestIEs {
         get => NumGet(this, 20, "uint")
         set => NumPut("uint", value, this, 20)
     }
@@ -51,17 +59,9 @@ class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
     /**
      * @type {Integer}
      */
-    OffsetRequestIEs {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
-    }
-
-    /**
-     * @type {Integer}
-     */
     AvailableResponseFixedIEs {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
+        get => NumGet(this, 24, "ushort")
+        set => NumPut("ushort", value, this, 24)
     }
 
     /**
@@ -70,7 +70,7 @@ class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
     ResponseFixedIEs{
         get {
             if(!this.HasProp("__ResponseFixedIEs"))
-                this.__ResponseFixedIEs := NDIS_802_11_AI_RESFI(30, this)
+                this.__ResponseFixedIEs := NDIS_802_11_AI_RESFI(26, this)
             return this.__ResponseFixedIEs
         }
     }
@@ -79,15 +79,15 @@ class NDIS_802_11_ASSOCIATION_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     ResponseIELength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     OffsetResponseIEs {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

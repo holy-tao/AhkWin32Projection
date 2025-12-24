@@ -70,7 +70,7 @@ class WHEA_AER_ROOTPORT_DESCRIPTOR extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := AER_ROOTPORT_DESCRIPTOR_FLAGS(16, this)
+                this.__Flags := AER_ROOTPORT_DESCRIPTOR_FLAGS(14, this)
             return this.__Flags
         }
     }

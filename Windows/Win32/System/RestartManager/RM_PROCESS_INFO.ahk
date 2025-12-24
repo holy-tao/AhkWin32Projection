@@ -11,9 +11,9 @@
  */
 class RM_PROCESS_INFO extends Win32Struct
 {
-    static sizeof => 672
+    static sizeof => 668
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains an <a href="https://docs.microsoft.com/windows/desktop/api/restartmanager/ns-restartmanager-rm_unique_process">RM_UNIQUE_PROCESS</a> structure that  uniquely identifies the application by its PID and the time the process began.
@@ -32,8 +32,8 @@ class RM_PROCESS_INFO extends Win32Struct
      * @type {String}
      */
     strAppName {
-        get => StrGet(this.ptr + 16, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 255, "UTF-16")
+        get => StrGet(this.ptr + 12, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 12, 255, "UTF-16")
     }
 
     /**
@@ -41,8 +41,8 @@ class RM_PROCESS_INFO extends Win32Struct
      * @type {String}
      */
     strServiceShortName {
-        get => StrGet(this.ptr + 528, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 528, 63, "UTF-16")
+        get => StrGet(this.ptr + 524, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 524, 63, "UTF-16")
     }
 
     /**
@@ -50,8 +50,8 @@ class RM_PROCESS_INFO extends Win32Struct
      * @type {Integer}
      */
     ApplicationType {
-        get => NumGet(this, 656, "int")
-        set => NumPut("int", value, this, 656)
+        get => NumGet(this, 652, "int")
+        set => NumPut("int", value, this, 652)
     }
 
     /**
@@ -59,8 +59,8 @@ class RM_PROCESS_INFO extends Win32Struct
      * @type {Integer}
      */
     AppStatus {
-        get => NumGet(this, 660, "uint")
-        set => NumPut("uint", value, this, 660)
+        get => NumGet(this, 656, "uint")
+        set => NumPut("uint", value, this, 656)
     }
 
     /**
@@ -70,8 +70,8 @@ class RM_PROCESS_INFO extends Win32Struct
      * @type {Integer}
      */
     TSSessionId {
-        get => NumGet(this, 664, "uint")
-        set => NumPut("uint", value, this, 664)
+        get => NumGet(this, 660, "uint")
+        set => NumPut("uint", value, this, 660)
     }
 
     /**
@@ -80,7 +80,7 @@ class RM_PROCESS_INFO extends Win32Struct
      * @type {BOOL}
      */
     bRestartable {
-        get => NumGet(this, 668, "int")
-        set => NumPut("int", value, this, 668)
+        get => NumGet(this, 664, "int")
+        set => NumPut("int", value, this, 664)
     }
 }

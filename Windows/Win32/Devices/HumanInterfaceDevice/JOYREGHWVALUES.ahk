@@ -11,9 +11,9 @@
  */
 class JOYREGHWVALUES extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 92
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The values returned by the hardware.

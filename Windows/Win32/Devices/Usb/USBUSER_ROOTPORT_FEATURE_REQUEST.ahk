@@ -11,7 +11,7 @@ class USBUSER_ROOTPORT_FEATURE_REQUEST extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {USBUSER_REQUEST_HEADER}
@@ -30,7 +30,7 @@ class USBUSER_ROOTPORT_FEATURE_REQUEST extends Win32Struct
     Parameters{
         get {
             if(!this.HasProp("__Parameters"))
-                this.__Parameters := RAW_ROOTPORT_FEATURE(18, this)
+                this.__Parameters := RAW_ROOTPORT_FEATURE(16, this)
             return this.__Parameters
         }
     }

@@ -19,7 +19,7 @@
  */
 class D3D12_UNORDERED_ACCESS_VIEW_DESC extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 

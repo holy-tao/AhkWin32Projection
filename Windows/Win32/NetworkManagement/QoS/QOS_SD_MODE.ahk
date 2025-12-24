@@ -10,9 +10,9 @@
  */
 class QOS_SD_MODE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The QOS object 

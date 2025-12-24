@@ -13,7 +13,7 @@
  */
 class PEER_CONNECTION_INFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 

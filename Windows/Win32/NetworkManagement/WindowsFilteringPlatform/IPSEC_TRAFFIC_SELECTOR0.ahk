@@ -7,9 +7,9 @@
  */
 class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -47,8 +47,8 @@ class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct
      * @type {Integer}
      */
     startV4Address {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -57,7 +57,7 @@ class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct
     startV6Address{
         get {
             if(!this.HasProp("__startV6AddressProxyArray"))
-                this.__startV6AddressProxyArray := Win32FixedArray(this.ptr + 16, 16, Primitive, "char")
+                this.__startV6AddressProxyArray := Win32FixedArray(this.ptr + 12, 16, Primitive, "char")
             return this.__startV6AddressProxyArray
         }
     }
@@ -66,8 +66,8 @@ class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct
      * @type {Integer}
      */
     endV4Address {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -76,7 +76,7 @@ class IPSEC_TRAFFIC_SELECTOR0 extends Win32Struct
     endV6Address{
         get {
             if(!this.HasProp("__endV6AddressProxyArray"))
-                this.__endV6AddressProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "char")
+                this.__endV6AddressProxyArray := Win32FixedArray(this.ptr + 28, 16, Primitive, "char")
             return this.__endV6AddressProxyArray
         }
     }

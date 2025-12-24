@@ -13,7 +13,7 @@ class FILE_OBJECTID_BUFFER extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * The identifier that uniquely identifies the file or directory within the volume on which it resides.

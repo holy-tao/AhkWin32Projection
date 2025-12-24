@@ -11,9 +11,9 @@
  */
 class D3DLIGHT9 extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 104
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: **[**D3DLIGHTTYPE**](./d3dlighttype.md)**
@@ -37,7 +37,7 @@ class D3DLIGHT9 extends Win32Struct
     Diffuse{
         get {
             if(!this.HasProp("__Diffuse"))
-                this.__Diffuse := D3DCOLORVALUE(8, this)
+                this.__Diffuse := D3DCOLORVALUE(4, this)
             return this.__Diffuse
         }
     }
@@ -52,7 +52,7 @@ class D3DLIGHT9 extends Win32Struct
     Specular{
         get {
             if(!this.HasProp("__Specular"))
-                this.__Specular := D3DCOLORVALUE(24, this)
+                this.__Specular := D3DCOLORVALUE(20, this)
             return this.__Specular
         }
     }
@@ -67,7 +67,7 @@ class D3DLIGHT9 extends Win32Struct
     Ambient{
         get {
             if(!this.HasProp("__Ambient"))
-                this.__Ambient := D3DCOLORVALUE(40, this)
+                this.__Ambient := D3DCOLORVALUE(36, this)
             return this.__Ambient
         }
     }
@@ -82,7 +82,7 @@ class D3DLIGHT9 extends Win32Struct
     Position{
         get {
             if(!this.HasProp("__Position"))
-                this.__Position := D3DVECTOR(56, this)
+                this.__Position := D3DVECTOR(52, this)
             return this.__Position
         }
     }
@@ -97,7 +97,7 @@ class D3DLIGHT9 extends Win32Struct
     Direction{
         get {
             if(!this.HasProp("__Direction"))
-                this.__Direction := D3DVECTOR(72, this)
+                this.__Direction := D3DVECTOR(64, this)
             return this.__Direction
         }
     }
@@ -110,8 +110,8 @@ class D3DLIGHT9 extends Win32Struct
      * @type {Float}
      */
     Range {
-        get => NumGet(this, 84, "float")
-        set => NumPut("float", value, this, 84)
+        get => NumGet(this, 76, "float")
+        set => NumPut("float", value, this, 76)
     }
 
     /**
@@ -124,6 +124,30 @@ class D3DLIGHT9 extends Win32Struct
      * @type {Float}
      */
     Falloff {
+        get => NumGet(this, 80, "float")
+        set => NumPut("float", value, this, 80)
+    }
+
+    /**
+     * Type: **float**
+     * 
+     * 
+     * Value specifying how the light intensity changes over distance. Attenuation values are ignored for directional lights. This member represents an attenuation constant. For information about attenuation, see [Light Properties (Direct3D 9)](light-properties.md). Valid values for this member range from 0.0 to infinity. For non-directional lights, all three attenuation values should not be set to 0.0 at the same time.
+     * @type {Float}
+     */
+    Attenuation0 {
+        get => NumGet(this, 84, "float")
+        set => NumPut("float", value, this, 84)
+    }
+
+    /**
+     * Type: **float**
+     * 
+     * 
+     * Value specifying how the light intensity changes over distance. Attenuation values are ignored for directional lights. This member represents an attenuation constant. For information about attenuation, see [Light Properties (Direct3D 9)](light-properties.md). Valid values for this member range from 0.0 to infinity. For non-directional lights, all three attenuation values should not be set to 0.0 at the same time.
+     * @type {Float}
+     */
+    Attenuation1 {
         get => NumGet(this, 88, "float")
         set => NumPut("float", value, this, 88)
     }
@@ -135,33 +159,9 @@ class D3DLIGHT9 extends Win32Struct
      * Value specifying how the light intensity changes over distance. Attenuation values are ignored for directional lights. This member represents an attenuation constant. For information about attenuation, see [Light Properties (Direct3D 9)](light-properties.md). Valid values for this member range from 0.0 to infinity. For non-directional lights, all three attenuation values should not be set to 0.0 at the same time.
      * @type {Float}
      */
-    Attenuation0 {
+    Attenuation2 {
         get => NumGet(this, 92, "float")
         set => NumPut("float", value, this, 92)
-    }
-
-    /**
-     * Type: **float**
-     * 
-     * 
-     * Value specifying how the light intensity changes over distance. Attenuation values are ignored for directional lights. This member represents an attenuation constant. For information about attenuation, see [Light Properties (Direct3D 9)](light-properties.md). Valid values for this member range from 0.0 to infinity. For non-directional lights, all three attenuation values should not be set to 0.0 at the same time.
-     * @type {Float}
-     */
-    Attenuation1 {
-        get => NumGet(this, 96, "float")
-        set => NumPut("float", value, this, 96)
-    }
-
-    /**
-     * Type: **float**
-     * 
-     * 
-     * Value specifying how the light intensity changes over distance. Attenuation values are ignored for directional lights. This member represents an attenuation constant. For information about attenuation, see [Light Properties (Direct3D 9)](light-properties.md). Valid values for this member range from 0.0 to infinity. For non-directional lights, all three attenuation values should not be set to 0.0 at the same time.
-     * @type {Float}
-     */
-    Attenuation2 {
-        get => NumGet(this, 100, "float")
-        set => NumPut("float", value, this, 100)
     }
 
     /**
@@ -172,8 +172,8 @@ class D3DLIGHT9 extends Win32Struct
      * @type {Float}
      */
     Theta {
-        get => NumGet(this, 104, "float")
-        set => NumPut("float", value, this, 104)
+        get => NumGet(this, 96, "float")
+        set => NumPut("float", value, this, 96)
     }
 
     /**
@@ -184,7 +184,7 @@ class D3DLIGHT9 extends Win32Struct
      * @type {Float}
      */
     Phi {
-        get => NumGet(this, 108, "float")
-        set => NumPut("float", value, this, 108)
+        get => NumGet(this, 100, "float")
+        set => NumPut("float", value, this, 100)
     }
 }

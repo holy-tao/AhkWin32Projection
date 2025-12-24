@@ -11,17 +11,17 @@
  */
 class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
 {
-    static sizeof => 1096
+    static sizeof => 1080
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Specific_e__Union extends Win32Struct {
-        static sizeof => 1084
-        static packingSize => 8
+        static sizeof => 1072
+        static packingSize => 4
 
         class _FacialFeatures extends Win32Struct {
-            static sizeof => 1080
-            static packingSize => 8
+            static sizeof => 1072
+            static packingSize => 4
     
             class _HardwareInfo extends Win32Struct {
                 static sizeof => 1044
@@ -89,7 +89,7 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
             HardwareInfo{
                 get {
                     if(!this.HasProp("__HardwareInfo"))
-                        this.__HardwareInfo := %this.__Class%._HardwareInfo(32, this)
+                        this.__HardwareInfo := %this.__Class%._HardwareInfo(28, this)
                     return this.__HardwareInfo
                 }
             }
@@ -111,8 +111,8 @@ class WINBIO_EXTENDED_SENSOR_INFO extends Win32Struct
         }
     
         class _Iris extends Win32Struct {
-            static sizeof => 32
-            static packingSize => 8
+            static sizeof => 28
+            static packingSize => 4
     
             /**
              * @type {RECT}

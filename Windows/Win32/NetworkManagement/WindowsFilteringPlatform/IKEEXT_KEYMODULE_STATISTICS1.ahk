@@ -12,7 +12,7 @@ class IKEEXT_KEYMODULE_STATISTICS1 extends Win32Struct
 {
     static sizeof => 544
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * IPv4 common statistics.

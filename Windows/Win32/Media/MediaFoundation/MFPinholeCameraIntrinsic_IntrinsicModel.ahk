@@ -12,9 +12,9 @@
  */
 class MFPinholeCameraIntrinsic_IntrinsicModel extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The width for the pinhole camera intrinsic model, in pixels.

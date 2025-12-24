@@ -9,7 +9,7 @@ class USB_DEVICE_CAPABILITY_FIRMWARE_STATUS_DESCRIPTOR extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 4
+    static packingSize => 1
 
     class _bmAttributes_e__Union extends Win32Struct {
         static sizeof => 4

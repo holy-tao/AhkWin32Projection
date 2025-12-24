@@ -7,9 +7,9 @@
  */
 class USB_DEVICE_CAPABILITY_POWER_DELIVERY_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 18
 
-    static packingSize => 4
+    static packingSize => 2
 
     class _bmAttributes_e__Union extends Win32Struct {
         static sizeof => 4

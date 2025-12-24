@@ -11,7 +11,7 @@ class ENHMETAHEADER3 extends Win32Struct
 {
     static sizeof => 88
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

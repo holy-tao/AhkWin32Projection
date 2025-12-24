@@ -11,7 +11,7 @@
  */
 class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -46,7 +46,7 @@ class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
     HardwareCapabilities{
         get {
             if(!this.HasProp("__HardwareCapabilities"))
-                this.__HardwareCapabilities := INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES(16, this)
+                this.__HardwareCapabilities := INTERFACE_HARDWARE_TIMESTAMP_CAPABILITIES(9, this)
             return this.__HardwareCapabilities
         }
     }
@@ -60,7 +60,7 @@ class INTERFACE_TIMESTAMP_CAPABILITIES extends Win32Struct
     SoftwareCapabilities{
         get {
             if(!this.HasProp("__SoftwareCapabilities"))
-                this.__SoftwareCapabilities := INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES(27, this)
+                this.__SoftwareCapabilities := INTERFACE_SOFTWARE_TIMESTAMP_CAPABILITIES(20, this)
             return this.__SoftwareCapabilities
         }
     }

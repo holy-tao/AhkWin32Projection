@@ -8,9 +8,9 @@
  */
 class USB_HUB_INFORMATION extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 74
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * @type {USB_HUB_DESCRIPTOR}

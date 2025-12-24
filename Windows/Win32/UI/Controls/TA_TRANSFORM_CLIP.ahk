@@ -8,9 +8,9 @@
  */
 class TA_TRANSFORM_CLIP extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {TA_TRANSFORM}

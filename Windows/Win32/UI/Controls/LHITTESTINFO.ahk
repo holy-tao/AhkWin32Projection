@@ -18,7 +18,7 @@ class LHITTESTINFO extends Win32Struct
 {
     static sizeof => 4288
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-point">POINT</a></b>

@@ -10,7 +10,7 @@ class CDROM_EXCLUSIVE_LOCK extends Win32Struct
 {
     static sizeof => 72
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CDROM_EXCLUSIVE_ACCESS}

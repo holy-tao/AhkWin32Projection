@@ -34,7 +34,7 @@ class NFC_LLCP_SOCKET_SERVICE_INFO extends Win32Struct
     sServiceName{
         get {
             if(!this.HasProp("__sServiceName"))
-                this.__sServiceName := NFC_LLCP_SERVICE_NAME_ENTRY(16, this)
+                this.__sServiceName := NFC_LLCP_SERVICE_NAME_ENTRY(12, this)
             return this.__sServiceName
         }
     }

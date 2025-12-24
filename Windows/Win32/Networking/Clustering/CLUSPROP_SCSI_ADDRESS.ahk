@@ -12,9 +12,9 @@
  */
 class CLUSPROP_SCSI_ADDRESS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CLUSPROP_VALUE}
@@ -33,7 +33,7 @@ class CLUSPROP_SCSI_ADDRESS extends Win32Struct
     Base2{
         get {
             if(!this.HasProp("__Base2"))
-                this.__Base2 := CLUS_SCSI_ADDRESS(16, this)
+                this.__Base2 := CLUS_SCSI_ADDRESS(12, this)
             return this.__Base2
         }
     }

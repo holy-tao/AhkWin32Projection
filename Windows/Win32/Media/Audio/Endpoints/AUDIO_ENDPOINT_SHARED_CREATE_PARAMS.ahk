@@ -8,9 +8,9 @@
  */
 class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -42,7 +42,7 @@ class AUDIO_ENDPOINT_SHARED_CREATE_PARAMS extends Win32Struct
     wfxDeviceFormat{
         get {
             if(!this.HasProp("__wfxDeviceFormat"))
-                this.__wfxDeviceFormat := WAVEFORMATEX(16, this)
+                this.__wfxDeviceFormat := WAVEFORMATEX(12, this)
             return this.__wfxDeviceFormat
         }
     }

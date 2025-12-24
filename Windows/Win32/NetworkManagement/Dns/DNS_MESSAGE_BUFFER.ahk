@@ -16,9 +16,9 @@
  */
 class DNS_MESSAGE_BUFFER extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 14
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/windns/ns-windns-dns_header">DNS_HEADER</a> structure that contains the header for the DNS message.

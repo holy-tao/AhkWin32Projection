@@ -9,7 +9,7 @@
  */
 class DISPLAYCONFIG_SET_MONITOR_SPECIALIZATION extends Win32Struct
 {
-    static sizeof => 304
+    static sizeof => 296
 
     static packingSize => 8
 
@@ -31,8 +31,8 @@ class DISPLAYCONFIG_SET_MONITOR_SPECIALIZATION extends Win32Struct
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -55,31 +55,31 @@ class DISPLAYCONFIG_SET_MONITOR_SPECIALIZATION extends Win32Struct
      * @type {Integer}
      */
     value {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     specializationType {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
      * @type {Pointer<Guid>}
      */
     specializationSubType {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {String}
      */
     specializationApplicationName {
-        get => StrGet(this.ptr + 48, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 48, 127, "UTF-16")
+        get => StrGet(this.ptr + 40, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 40, 127, "UTF-16")
     }
 }

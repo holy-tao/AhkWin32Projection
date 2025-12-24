@@ -13,7 +13,7 @@
  */
 class IPSEC_SA_DETAILS1 extends Win32Struct
 {
-    static sizeof => 232
+    static sizeof => 216
 
     static packingSize => 8
 
@@ -54,7 +54,7 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
     saBundle{
         get {
             if(!this.HasProp("__saBundle"))
-                this.__saBundle := IPSEC_SA_BUNDLE1(88, this)
+                this.__saBundle := IPSEC_SA_BUNDLE1(80, this)
             return this.__saBundle
         }
     }
@@ -63,8 +63,8 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
      * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
      */
     udpEncapsulation {
-        get => NumGet(this, 200, "ptr")
-        set => NumPut("ptr", value, this, 200)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 
     /**
@@ -72,8 +72,8 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
      * @type {Pointer<FWPM_FILTER0>}
      */
     transportFilter {
-        get => NumGet(this, 208, "ptr")
-        set => NumPut("ptr", value, this, 208)
+        get => NumGet(this, 192, "ptr")
+        set => NumPut("ptr", value, this, 192)
     }
 
     /**
@@ -83,7 +83,7 @@ class IPSEC_SA_DETAILS1 extends Win32Struct
     virtualIfTunnelInfo{
         get {
             if(!this.HasProp("__virtualIfTunnelInfo"))
-                this.__virtualIfTunnelInfo := IPSEC_VIRTUAL_IF_TUNNEL_INFO0(216, this)
+                this.__virtualIfTunnelInfo := IPSEC_VIRTUAL_IF_TUNNEL_INFO0(200, this)
             return this.__virtualIfTunnelInfo
         }
     }

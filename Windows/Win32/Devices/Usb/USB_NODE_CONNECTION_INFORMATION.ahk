@@ -28,7 +28,7 @@ class USB_NODE_CONNECTION_INFORMATION extends Win32Struct
     DeviceDescriptor{
         get {
             if(!this.HasProp("__DeviceDescriptor"))
-                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(8, this)
+                this.__DeviceDescriptor := USB_DEVICE_DESCRIPTOR(4, this)
             return this.__DeviceDescriptor
         }
     }
@@ -37,48 +37,48 @@ class USB_NODE_CONNECTION_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     CurrentConfigurationValue {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
+        get => NumGet(this, 22, "char")
+        set => NumPut("char", value, this, 22)
     }
 
     /**
      * @type {BOOLEAN}
      */
     LowSpeed {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
+        get => NumGet(this, 23, "char")
+        set => NumPut("char", value, this, 23)
     }
 
     /**
      * @type {BOOLEAN}
      */
     DeviceIsHub {
-        get => NumGet(this, 28, "char")
-        set => NumPut("char", value, this, 28)
+        get => NumGet(this, 24, "char")
+        set => NumPut("char", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     DeviceAddress {
-        get => NumGet(this, 30, "ushort")
-        set => NumPut("ushort", value, this, 30)
+        get => NumGet(this, 26, "ushort")
+        set => NumPut("ushort", value, this, 26)
     }
 
     /**
      * @type {Integer}
      */
     NumberOfOpenPipes {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
      * @type {Integer}
      */
     ConnectionStatus {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 
     /**

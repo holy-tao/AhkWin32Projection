@@ -44,7 +44,7 @@ class DIDEVICEIMAGEINFOA extends Win32Struct
     rcOverlay{
         get {
             if(!this.HasProp("__rcOverlay"))
-                this.__rcOverlay := RECT(272, this)
+                this.__rcOverlay := RECT(268, this)
             return this.__rcOverlay
         }
     }
@@ -53,16 +53,16 @@ class DIDEVICEIMAGEINFOA extends Win32Struct
      * @type {Integer}
      */
     dwObjID {
-        get => NumGet(this, 288, "uint")
-        set => NumPut("uint", value, this, 288)
+        get => NumGet(this, 284, "uint")
+        set => NumPut("uint", value, this, 284)
     }
 
     /**
      * @type {Integer}
      */
     dwcValidPts {
-        get => NumGet(this, 292, "uint")
-        set => NumPut("uint", value, this, 292)
+        get => NumGet(this, 288, "uint")
+        set => NumPut("uint", value, this, 288)
     }
 
     /**

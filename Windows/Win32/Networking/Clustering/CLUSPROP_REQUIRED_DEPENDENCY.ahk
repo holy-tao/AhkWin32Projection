@@ -28,9 +28,9 @@
  */
 class CLUSPROP_REQUIRED_DEPENDENCY extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/clusapi/ns-clusapi-clusprop_value">CLUSPROP_VALUE</a> structure describing whether the data 

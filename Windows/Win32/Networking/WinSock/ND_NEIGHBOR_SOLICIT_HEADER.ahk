@@ -12,7 +12,7 @@ class ND_NEIGHBOR_SOLICIT_HEADER extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {ICMP_MESSAGE}

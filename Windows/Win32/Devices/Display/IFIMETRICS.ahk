@@ -22,7 +22,7 @@
  */
 class IFIMETRICS extends Win32Struct
 {
-    static sizeof => 200
+    static sizeof => 192
 
     static packingSize => 8
 
@@ -706,7 +706,7 @@ class IFIMETRICS extends Win32Struct
     panose{
         get {
             if(!this.HasProp("__panose"))
-                this.__panose := PANOSE(176, this)
+                this.__panose := PANOSE(172, this)
             return this.__panose
         }
     }
@@ -716,7 +716,7 @@ class IFIMETRICS extends Win32Struct
      * @type {Pointer<Void>}
      */
     Align {
-        get => NumGet(this, 192, "ptr")
-        set => NumPut("ptr", value, this, 192)
+        get => NumGet(this, 184, "ptr")
+        set => NumPut("ptr", value, this, 184)
     }
 }

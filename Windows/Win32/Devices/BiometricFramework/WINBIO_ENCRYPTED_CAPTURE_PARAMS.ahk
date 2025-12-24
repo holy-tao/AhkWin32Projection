@@ -34,7 +34,7 @@ class WINBIO_ENCRYPTED_CAPTURE_PARAMS extends Win32Struct
     Format{
         get {
             if(!this.HasProp("__Format"))
-                this.__Format := WINBIO_REGISTERED_FORMAT(8, this)
+                this.__Format := WINBIO_REGISTERED_FORMAT(6, this)
             return this.__Format
         }
     }

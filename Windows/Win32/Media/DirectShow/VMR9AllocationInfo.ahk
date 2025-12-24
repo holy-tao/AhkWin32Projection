@@ -12,7 +12,7 @@ class VMR9AllocationInfo extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ne-vmr9-vmr9surfaceallocationflags">VMR9SurfaceAllocationFlags</a> enumeration type.

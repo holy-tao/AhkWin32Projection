@@ -23,9 +23,9 @@
  */
 class BITMAPV5HEADER extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 124
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of bytes required by the structure. Applications should use this member to determine which bitmap information header structure is being used.
@@ -220,7 +220,7 @@ class BITMAPV5HEADER extends Win32Struct
     bV5Endpoints{
         get {
             if(!this.HasProp("__bV5Endpoints"))
-                this.__bV5Endpoints := CIEXYZTRIPLE(64, this)
+                this.__bV5Endpoints := CIEXYZTRIPLE(60, this)
             return this.__bV5Endpoints
         }
     }
@@ -230,8 +230,8 @@ class BITMAPV5HEADER extends Win32Struct
      * @type {Integer}
      */
     bV5GammaRed {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -239,8 +239,8 @@ class BITMAPV5HEADER extends Win32Struct
      * @type {Integer}
      */
     bV5GammaGreen {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
     }
 
     /**
@@ -248,8 +248,8 @@ class BITMAPV5HEADER extends Win32Struct
      * @type {Integer}
      */
     bV5GammaBlue {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
@@ -257,8 +257,8 @@ class BITMAPV5HEADER extends Win32Struct
      * @type {Integer}
      */
     bV5Intent {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
@@ -266,8 +266,8 @@ class BITMAPV5HEADER extends Win32Struct
      * @type {Integer}
      */
     bV5ProfileData {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 
     /**
@@ -275,8 +275,8 @@ class BITMAPV5HEADER extends Win32Struct
      * @type {Integer}
      */
     bV5ProfileSize {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
     }
 
     /**
@@ -284,7 +284,7 @@ class BITMAPV5HEADER extends Win32Struct
      * @type {Integer}
      */
     bV5Reserved {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 }

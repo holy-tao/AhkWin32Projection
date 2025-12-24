@@ -32,9 +32,9 @@
  */
 class NVME_CDW11_FEATURES extends Win32Struct
 {
-    static sizeof => 168
+    static sizeof => 160
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies an [NVME_CDW11_FEATURE_NUMBER_OF_QUEUES](ns-nvme-nvme_cdw11_feature_number_of_queues.md) structure containing values that indicates the number of queues that the host requests for this controller.

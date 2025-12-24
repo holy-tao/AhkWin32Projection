@@ -14,9 +14,9 @@
  */
 class JET_DBINFOMISC4 extends Win32Struct
 {
-    static sizeof => 368
+    static sizeof => 348
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -49,8 +49,8 @@ class JET_DBINFOMISC4 extends Win32Struct
      * @type {Integer}
      */
     dbstate {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -59,7 +59,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     lgposConsistent{
         get {
             if(!this.HasProp("__lgposConsistent"))
-                this.__lgposConsistent := JET_LGPOS(48, this)
+                this.__lgposConsistent := JET_LGPOS(40, this)
             return this.__lgposConsistent
         }
     }
@@ -70,7 +70,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     logtimeConsistent{
         get {
             if(!this.HasProp("__logtimeConsistent"))
-                this.__logtimeConsistent := JET_LOGTIME(56, this)
+                this.__logtimeConsistent := JET_LOGTIME(48, this)
             return this.__logtimeConsistent
         }
     }
@@ -81,7 +81,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     logtimeAttach{
         get {
             if(!this.HasProp("__logtimeAttach"))
-                this.__logtimeAttach := JET_LOGTIME(64, this)
+                this.__logtimeAttach := JET_LOGTIME(56, this)
             return this.__logtimeAttach
         }
     }
@@ -92,7 +92,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     lgposAttach{
         get {
             if(!this.HasProp("__lgposAttach"))
-                this.__lgposAttach := JET_LGPOS(72, this)
+                this.__lgposAttach := JET_LGPOS(64, this)
             return this.__lgposAttach
         }
     }
@@ -103,7 +103,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     logtimeDetach{
         get {
             if(!this.HasProp("__logtimeDetach"))
-                this.__logtimeDetach := JET_LOGTIME(80, this)
+                this.__logtimeDetach := JET_LOGTIME(72, this)
             return this.__logtimeDetach
         }
     }
@@ -114,7 +114,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     lgposDetach{
         get {
             if(!this.HasProp("__lgposDetach"))
-                this.__lgposDetach := JET_LGPOS(88, this)
+                this.__lgposDetach := JET_LGPOS(80, this)
             return this.__lgposDetach
         }
     }
@@ -125,7 +125,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     signLog{
         get {
             if(!this.HasProp("__signLog"))
-                this.__signLog := JET_SIGNATURE(96, this)
+                this.__signLog := JET_SIGNATURE(88, this)
             return this.__signLog
         }
     }
@@ -136,7 +136,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     bkinfoFullPrev{
         get {
             if(!this.HasProp("__bkinfoFullPrev"))
-                this.__bkinfoFullPrev := JET_BKINFO(128, this)
+                this.__bkinfoFullPrev := JET_BKINFO(116, this)
             return this.__bkinfoFullPrev
         }
     }
@@ -147,7 +147,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     bkinfoIncPrev{
         get {
             if(!this.HasProp("__bkinfoIncPrev"))
-                this.__bkinfoIncPrev := JET_BKINFO(152, this)
+                this.__bkinfoIncPrev := JET_BKINFO(140, this)
             return this.__bkinfoIncPrev
         }
     }
@@ -158,7 +158,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     bkinfoFullCur{
         get {
             if(!this.HasProp("__bkinfoFullCur"))
-                this.__bkinfoFullCur := JET_BKINFO(176, this)
+                this.__bkinfoFullCur := JET_BKINFO(164, this)
             return this.__bkinfoFullCur
         }
     }
@@ -167,6 +167,30 @@ class JET_DBINFOMISC4 extends Win32Struct
      * @type {Integer}
      */
     fShadowingDisabled {
+        get => NumGet(this, 188, "uint")
+        set => NumPut("uint", value, this, 188)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    fUpgradeDb {
+        get => NumGet(this, 192, "uint")
+        set => NumPut("uint", value, this, 192)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwMajorVersion {
+        get => NumGet(this, 196, "uint")
+        set => NumPut("uint", value, this, 196)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwMinorVersion {
         get => NumGet(this, 200, "uint")
         set => NumPut("uint", value, this, 200)
     }
@@ -174,7 +198,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {Integer}
      */
-    fUpgradeDb {
+    dwBuildNumber {
         get => NumGet(this, 204, "uint")
         set => NumPut("uint", value, this, 204)
     }
@@ -182,15 +206,15 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwMajorVersion {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
+    lSPNumber {
+        get => NumGet(this, 208, "int")
+        set => NumPut("int", value, this, 208)
     }
 
     /**
      * @type {Integer}
      */
-    dwMinorVersion {
+    cbPageSize {
         get => NumGet(this, 212, "uint")
         set => NumPut("uint", value, this, 212)
     }
@@ -198,7 +222,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwBuildNumber {
+    genMinRequired {
         get => NumGet(this, 216, "uint")
         set => NumPut("uint", value, this, 216)
     }
@@ -206,33 +230,9 @@ class JET_DBINFOMISC4 extends Win32Struct
     /**
      * @type {Integer}
      */
-    lSPNumber {
-        get => NumGet(this, 220, "int")
-        set => NumPut("int", value, this, 220)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    cbPageSize {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    genMinRequired {
-        get => NumGet(this, 228, "uint")
-        set => NumPut("uint", value, this, 228)
-    }
-
-    /**
-     * @type {Integer}
-     */
     genMaxRequired {
-        get => NumGet(this, 232, "uint")
-        set => NumPut("uint", value, this, 232)
+        get => NumGet(this, 220, "uint")
+        set => NumPut("uint", value, this, 220)
     }
 
     /**
@@ -241,7 +241,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     logtimeGenMaxCreate{
         get {
             if(!this.HasProp("__logtimeGenMaxCreate"))
-                this.__logtimeGenMaxCreate := JET_LOGTIME(240, this)
+                this.__logtimeGenMaxCreate := JET_LOGTIME(224, this)
             return this.__logtimeGenMaxCreate
         }
     }
@@ -250,8 +250,8 @@ class JET_DBINFOMISC4 extends Win32Struct
      * @type {Integer}
      */
     ulRepairCount {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
+        get => NumGet(this, 232, "uint")
+        set => NumPut("uint", value, this, 232)
     }
 
     /**
@@ -260,7 +260,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     logtimeRepair{
         get {
             if(!this.HasProp("__logtimeRepair"))
-                this.__logtimeRepair := JET_LOGTIME(256, this)
+                this.__logtimeRepair := JET_LOGTIME(236, this)
             return this.__logtimeRepair
         }
     }
@@ -269,16 +269,16 @@ class JET_DBINFOMISC4 extends Win32Struct
      * @type {Integer}
      */
     ulRepairCountOld {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
+        get => NumGet(this, 244, "uint")
+        set => NumPut("uint", value, this, 244)
     }
 
     /**
      * @type {Integer}
      */
     ulECCFixSuccess {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
+        get => NumGet(this, 248, "uint")
+        set => NumPut("uint", value, this, 248)
     }
 
     /**
@@ -287,7 +287,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     logtimeECCFixSuccess{
         get {
             if(!this.HasProp("__logtimeECCFixSuccess"))
-                this.__logtimeECCFixSuccess := JET_LOGTIME(272, this)
+                this.__logtimeECCFixSuccess := JET_LOGTIME(252, this)
             return this.__logtimeECCFixSuccess
         }
     }
@@ -296,16 +296,16 @@ class JET_DBINFOMISC4 extends Win32Struct
      * @type {Integer}
      */
     ulECCFixSuccessOld {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
+        get => NumGet(this, 260, "uint")
+        set => NumPut("uint", value, this, 260)
     }
 
     /**
      * @type {Integer}
      */
     ulECCFixFail {
-        get => NumGet(this, 284, "uint")
-        set => NumPut("uint", value, this, 284)
+        get => NumGet(this, 264, "uint")
+        set => NumPut("uint", value, this, 264)
     }
 
     /**
@@ -314,7 +314,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     logtimeECCFixFail{
         get {
             if(!this.HasProp("__logtimeECCFixFail"))
-                this.__logtimeECCFixFail := JET_LOGTIME(288, this)
+                this.__logtimeECCFixFail := JET_LOGTIME(268, this)
             return this.__logtimeECCFixFail
         }
     }
@@ -323,16 +323,16 @@ class JET_DBINFOMISC4 extends Win32Struct
      * @type {Integer}
      */
     ulECCFixFailOld {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
+        get => NumGet(this, 276, "uint")
+        set => NumPut("uint", value, this, 276)
     }
 
     /**
      * @type {Integer}
      */
     ulBadChecksum {
-        get => NumGet(this, 300, "uint")
-        set => NumPut("uint", value, this, 300)
+        get => NumGet(this, 280, "uint")
+        set => NumPut("uint", value, this, 280)
     }
 
     /**
@@ -341,7 +341,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     logtimeBadChecksum{
         get {
             if(!this.HasProp("__logtimeBadChecksum"))
-                this.__logtimeBadChecksum := JET_LOGTIME(304, this)
+                this.__logtimeBadChecksum := JET_LOGTIME(284, this)
             return this.__logtimeBadChecksum
         }
     }
@@ -350,16 +350,16 @@ class JET_DBINFOMISC4 extends Win32Struct
      * @type {Integer}
      */
     ulBadChecksumOld {
-        get => NumGet(this, 312, "uint")
-        set => NumPut("uint", value, this, 312)
+        get => NumGet(this, 292, "uint")
+        set => NumPut("uint", value, this, 292)
     }
 
     /**
      * @type {Integer}
      */
     genCommitted {
-        get => NumGet(this, 316, "uint")
-        set => NumPut("uint", value, this, 316)
+        get => NumGet(this, 296, "uint")
+        set => NumPut("uint", value, this, 296)
     }
 
     /**
@@ -368,7 +368,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     bkinfoCopyPrev{
         get {
             if(!this.HasProp("__bkinfoCopyPrev"))
-                this.__bkinfoCopyPrev := JET_BKINFO(320, this)
+                this.__bkinfoCopyPrev := JET_BKINFO(300, this)
             return this.__bkinfoCopyPrev
         }
     }
@@ -379,7 +379,7 @@ class JET_DBINFOMISC4 extends Win32Struct
     bkinfoDiffPrev{
         get {
             if(!this.HasProp("__bkinfoDiffPrev"))
-                this.__bkinfoDiffPrev := JET_BKINFO(344, this)
+                this.__bkinfoDiffPrev := JET_BKINFO(324, this)
             return this.__bkinfoDiffPrev
         }
     }

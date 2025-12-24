@@ -8,9 +8,9 @@
  */
 class D3DKMT_ADAPTERINFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class D3DKMT_ADAPTERINFO extends Win32Struct
     AdapterLuid{
         get {
             if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(8, this)
+                this.__AdapterLuid := LUID(4, this)
             return this.__AdapterLuid
         }
     }
@@ -35,15 +35,15 @@ class D3DKMT_ADAPTERINFO extends Win32Struct
      * @type {Integer}
      */
     NumOfSources {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
      * @type {BOOL}
      */
     bPrecisePresentRegionsPreferred {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 }

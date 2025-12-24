@@ -76,7 +76,7 @@ class SERVICE_NOTIFY_2A extends Win32Struct
     ServiceStatus{
         get {
             if(!this.HasProp("__ServiceStatus"))
-                this.__ServiceStatus := SERVICE_STATUS_PROCESS(32, this)
+                this.__ServiceStatus := SERVICE_STATUS_PROCESS(28, this)
             return this.__ServiceStatus
         }
     }
@@ -86,8 +86,8 @@ class SERVICE_NOTIFY_2A extends Win32Struct
      * @type {Integer}
      */
     dwNotificationTriggered {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**

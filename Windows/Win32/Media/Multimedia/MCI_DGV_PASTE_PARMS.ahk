@@ -41,7 +41,7 @@ class MCI_DGV_PASTE_PARMS extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(16, this)
+                this.__rc := RECT(12, this)
             return this.__rc
         }
     }
@@ -51,8 +51,8 @@ class MCI_DGV_PASTE_PARMS extends Win32Struct
      * @type {Integer}
      */
     dwAudioStream {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -60,7 +60,7 @@ class MCI_DGV_PASTE_PARMS extends Win32Struct
      * @type {Integer}
      */
     dwVideoStream {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

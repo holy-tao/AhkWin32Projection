@@ -48,7 +48,7 @@ class WHV_VP_EXCEPTION_CONTEXT extends Win32Struct
     ExceptionInfo{
         get {
             if(!this.HasProp("__ExceptionInfo"))
-                this.__ExceptionInfo := WHV_VP_EXCEPTION_INFO(24, this)
+                this.__ExceptionInfo := WHV_VP_EXCEPTION_INFO(20, this)
             return this.__ExceptionInfo
         }
     }
@@ -57,8 +57,8 @@ class WHV_VP_EXCEPTION_CONTEXT extends Win32Struct
      * @type {Integer}
      */
     ExceptionType {
-        get => NumGet(this, 32, "char")
-        set => NumPut("char", value, this, 32)
+        get => NumGet(this, 28, "char")
+        set => NumPut("char", value, this, 28)
     }
 
     /**
@@ -67,7 +67,7 @@ class WHV_VP_EXCEPTION_CONTEXT extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 33, 3, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 29, 3, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }
@@ -76,8 +76,8 @@ class WHV_VP_EXCEPTION_CONTEXT extends Win32Struct
      * @type {Integer}
      */
     ErrorCode {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**

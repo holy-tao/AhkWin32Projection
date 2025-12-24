@@ -10,7 +10,7 @@ class ColorMap extends Win32Struct
 {
     static sizeof => 1200
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Color}

@@ -11,7 +11,7 @@ class FSVIDEO_REVERSE_MOUSE_POINTER extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {FSCNTL_SCREEN_INFO}

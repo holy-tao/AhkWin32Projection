@@ -10,7 +10,7 @@ class MIB_IPDESTROW extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {MIB_IPFORWARDROW}

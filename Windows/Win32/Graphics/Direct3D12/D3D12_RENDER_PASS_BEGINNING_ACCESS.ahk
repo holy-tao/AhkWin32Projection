@@ -13,9 +13,9 @@
  */
 class D3D12_RENDER_PASS_BEGINNING_ACCESS extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ne-d3d12-d3d12_render_pass_beginning_access_type">D3D12_RENDER_PASS_BEGINNING_ACCESS_TYPE</a>. The type of access being requested.
@@ -32,7 +32,7 @@ class D3D12_RENDER_PASS_BEGINNING_ACCESS extends Win32Struct
     Clear{
         get {
             if(!this.HasProp("__Clear"))
-                this.__Clear := D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS(8, this)
+                this.__Clear := D3D12_RENDER_PASS_BEGINNING_ACCESS_CLEAR_PARAMETERS(4, this)
             return this.__Clear
         }
     }
@@ -43,7 +43,7 @@ class D3D12_RENDER_PASS_BEGINNING_ACCESS extends Win32Struct
     PreserveLocal{
         get {
             if(!this.HasProp("__PreserveLocal"))
-                this.__PreserveLocal := D3D12_RENDER_PASS_BEGINNING_ACCESS_PRESERVE_LOCAL_PARAMETERS(8, this)
+                this.__PreserveLocal := D3D12_RENDER_PASS_BEGINNING_ACCESS_PRESERVE_LOCAL_PARAMETERS(4, this)
             return this.__PreserveLocal
         }
     }

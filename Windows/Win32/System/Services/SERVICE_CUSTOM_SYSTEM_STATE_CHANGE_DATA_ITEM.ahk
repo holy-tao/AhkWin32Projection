@@ -10,11 +10,11 @@ class SERVICE_CUSTOM_SYSTEM_STATE_CHANGE_DATA_ITEM extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _u_e__Union extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         class _s extends Win32Struct {
             static sizeof => 8

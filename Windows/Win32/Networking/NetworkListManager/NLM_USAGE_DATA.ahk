@@ -12,9 +12,9 @@
  */
 class NLM_USAGE_DATA extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The data usage of a plan, represented in megabytes.
@@ -32,7 +32,7 @@ class NLM_USAGE_DATA extends Win32Struct
     LastSyncTime{
         get {
             if(!this.HasProp("__LastSyncTime"))
-                this.__LastSyncTime := FILETIME(8, this)
+                this.__LastSyncTime := FILETIME(4, this)
             return this.__LastSyncTime
         }
     }

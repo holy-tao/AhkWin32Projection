@@ -11,9 +11,9 @@
  */
 class DEVHTINFO extends Win32Struct
 {
-    static sizeof => 160
+    static sizeof => 132
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Is a set of caller-supplied flags indicating halftone attributes. See the <b>flHTFlags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/winddi/ns-winddi-gdiinfo">GDIINFO</a> structure for a complete list of possible values.
@@ -51,7 +51,7 @@ class DEVHTINFO extends Win32Struct
     ColorInfo{
         get {
             if(!this.HasProp("__ColorInfo"))
-                this.__ColorInfo := COLORINFO(16, this)
+                this.__ColorInfo := COLORINFO(12, this)
             return this.__ColorInfo
         }
     }

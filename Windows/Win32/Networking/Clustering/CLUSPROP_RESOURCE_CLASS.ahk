@@ -17,9 +17,9 @@
  */
 class CLUSPROP_RESOURCE_CLASS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CLUSPROP_VALUE}
@@ -38,7 +38,7 @@ class CLUSPROP_RESOURCE_CLASS extends Win32Struct
      * @type {Integer}
      */
     rc {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 }

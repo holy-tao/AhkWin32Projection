@@ -15,9 +15,9 @@
  */
 class PPP_INFO_2 extends Win32Struct
 {
-    static sizeof => 320
+    static sizeof => 304
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 
@@ -53,7 +53,7 @@ class PPP_INFO_2 extends Win32Struct
     ipx{
         get {
             if(!this.HasProp("__ipx"))
-                this.__ipx := PPP_IPXCP_INFO(120, this)
+                this.__ipx := PPP_IPXCP_INFO(116, this)
             return this.__ipx
         }
     }
@@ -66,7 +66,7 @@ class PPP_INFO_2 extends Win32Struct
     at{
         get {
             if(!this.HasProp("__at"))
-                this.__at := PPP_ATCP_INFO(176, this)
+                this.__at := PPP_ATCP_INFO(168, this)
             return this.__at
         }
     }
@@ -79,7 +79,7 @@ class PPP_INFO_2 extends Win32Struct
     ccp{
         get {
             if(!this.HasProp("__ccp"))
-                this.__ccp := PPP_CCP_INFO(248, this)
+                this.__ccp := PPP_CCP_INFO(240, this)
             return this.__ccp
         }
     }
@@ -92,7 +92,7 @@ class PPP_INFO_2 extends Win32Struct
     lcp{
         get {
             if(!this.HasProp("__lcp"))
-                this.__lcp := PPP_LCP_INFO(272, this)
+                this.__lcp := PPP_LCP_INFO(260, this)
             return this.__lcp
         }
     }

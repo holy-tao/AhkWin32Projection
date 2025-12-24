@@ -11,9 +11,9 @@
  */
 class EMRSETDIBITSTODEVICE extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 76
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

@@ -213,7 +213,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     LastModifiedTime{
         get {
             if(!this.HasProp("__LastModifiedTime"))
-                this.__LastModifiedTime := FILETIME(48, this)
+                this.__LastModifiedTime := FILETIME(44, this)
             return this.__LastModifiedTime
         }
     }
@@ -225,7 +225,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     ExpireTime{
         get {
             if(!this.HasProp("__ExpireTime"))
-                this.__ExpireTime := FILETIME(56, this)
+                this.__ExpireTime := FILETIME(52, this)
             return this.__ExpireTime
         }
     }
@@ -237,7 +237,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     LastAccessTime{
         get {
             if(!this.HasProp("__LastAccessTime"))
-                this.__LastAccessTime := FILETIME(64, this)
+                this.__LastAccessTime := FILETIME(60, this)
             return this.__LastAccessTime
         }
     }
@@ -249,7 +249,7 @@ class INTERNET_CACHE_ENTRY_INFOA extends Win32Struct
     LastSyncTime{
         get {
             if(!this.HasProp("__LastSyncTime"))
-                this.__LastSyncTime := FILETIME(72, this)
+                this.__LastSyncTime := FILETIME(68, this)
             return this.__LastSyncTime
         }
     }

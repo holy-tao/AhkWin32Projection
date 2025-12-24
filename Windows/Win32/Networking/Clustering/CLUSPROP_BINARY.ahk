@@ -14,9 +14,9 @@
  */
 class CLUSPROP_BINARY extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CLUSPROP_VALUE}
@@ -36,7 +36,7 @@ class CLUSPROP_BINARY extends Win32Struct
     rgb{
         get {
             if(!this.HasProp("__rgbProxyArray"))
-                this.__rgbProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
+                this.__rgbProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "char")
             return this.__rgbProxyArray
         }
     }

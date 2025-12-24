@@ -13,9 +13,9 @@
  */
 class DXGI_OUTDUPL_DESC extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb173064(v=vs.85)">DXGI_MODE_DESC</a> structure that describes the display mode of the duplicated output.
@@ -34,8 +34,8 @@ class DXGI_OUTDUPL_DESC extends Win32Struct
      * @type {Integer}
      */
     Rotation {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -43,7 +43,7 @@ class DXGI_OUTDUPL_DESC extends Win32Struct
      * @type {BOOL}
      */
     DesktopImageInSystemMemory {
-        get => NumGet(this, 36, "int")
-        set => NumPut("int", value, this, 36)
+        get => NumGet(this, 32, "int")
+        set => NumPut("int", value, this, 32)
     }
 }

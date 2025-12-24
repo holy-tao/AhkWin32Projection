@@ -9,9 +9,9 @@
  */
 class WLAN_QOS_INFO extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {WLAN_QOS_CAPABILITIES}
@@ -38,7 +38,7 @@ class WLAN_QOS_INFO extends Win32Struct
     connectionQoSInfo{
         get {
             if(!this.HasProp("__connectionQoSInfo"))
-                this.__connectionQoSInfo := WLAN_CONNECTION_QOS_INFO(24, this)
+                this.__connectionQoSInfo := WLAN_CONNECTION_QOS_INFO(20, this)
             return this.__connectionQoSInfo
         }
     }

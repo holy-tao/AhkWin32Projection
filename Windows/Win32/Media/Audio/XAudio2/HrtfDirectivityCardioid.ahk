@@ -10,9 +10,9 @@
  */
 class HrtfDirectivityCardioid extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Descriptor for the cardioid pattern. The type parameter must be set to HrtfDirectivityType.Cardioid.

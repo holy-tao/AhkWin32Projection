@@ -9,7 +9,7 @@ class D3DKMT_SETQUEUEDLIMIT extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

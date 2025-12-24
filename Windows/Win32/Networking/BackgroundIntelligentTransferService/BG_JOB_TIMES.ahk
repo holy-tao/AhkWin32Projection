@@ -12,7 +12,7 @@ class BG_JOB_TIMES extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Time the job was created. The time is specified as 

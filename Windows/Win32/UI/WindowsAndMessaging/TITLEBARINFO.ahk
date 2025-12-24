@@ -10,9 +10,9 @@
  */
 class TITLEBARINFO extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -34,7 +34,7 @@ class TITLEBARINFO extends Win32Struct
     rcTitleBar{
         get {
             if(!this.HasProp("__rcTitleBar"))
-                this.__rcTitleBar := RECT(8, this)
+                this.__rcTitleBar := RECT(4, this)
             return this.__rcTitleBar
         }
     }
@@ -81,13 +81,13 @@ class TITLEBARINFO extends Win32Struct
     rgstate{
         get {
             if(!this.HasProp("__rgstateProxyArray"))
-                this.__rgstateProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "uint")
+                this.__rgstateProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "uint")
             return this.__rgstateProxyArray
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 48
+        this.cbSize := 44
     }
 }

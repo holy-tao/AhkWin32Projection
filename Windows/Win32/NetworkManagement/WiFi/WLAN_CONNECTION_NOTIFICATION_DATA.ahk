@@ -18,9 +18,9 @@
  */
 class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
 {
-    static sizeof => 576
+    static sizeof => 572
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_connection_mode">WLAN_CONNECTION_MODE</a> value that specifies the mode of the connection.
@@ -49,7 +49,7 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(520, this)
+                this.__dot11Ssid := DOT11_SSID(516, this)
             return this.__dot11Ssid
         }
     }
@@ -59,8 +59,8 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
      * @type {Integer}
      */
     dot11BssType {
-        get => NumGet(this, 556, "int")
-        set => NumPut("int", value, this, 556)
+        get => NumGet(this, 552, "int")
+        set => NumPut("int", value, this, 552)
     }
 
     /**
@@ -68,8 +68,8 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
      * @type {BOOL}
      */
     bSecurityEnabled {
-        get => NumGet(this, 560, "int")
-        set => NumPut("int", value, this, 560)
+        get => NumGet(this, 556, "int")
+        set => NumPut("int", value, this, 556)
     }
 
     /**
@@ -77,8 +77,8 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
      * @type {Integer}
      */
     wlanReasonCode {
-        get => NumGet(this, 564, "uint")
-        set => NumPut("uint", value, this, 564)
+        get => NumGet(this, 560, "uint")
+        set => NumPut("uint", value, this, 560)
     }
 
     /**
@@ -86,8 +86,8 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 568, "uint")
-        set => NumPut("uint", value, this, 568)
+        get => NumGet(this, 564, "uint")
+        set => NumPut("uint", value, this, 564)
     }
 
     /**
@@ -95,7 +95,7 @@ class WLAN_CONNECTION_NOTIFICATION_DATA extends Win32Struct
      * @type {String}
      */
     strProfileXml {
-        get => StrGet(this.ptr + 572, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 572, 0, "UTF-16")
+        get => StrGet(this.ptr + 568, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 568, 0, "UTF-16")
     }
 }

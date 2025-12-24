@@ -7,9 +7,9 @@
  */
 class NDIS_IPSEC_OFFLOAD_V1 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Supported extends Win32Struct {
         static sizeof => 20

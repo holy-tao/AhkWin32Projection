@@ -12,9 +12,9 @@
  */
 class EMRSETCOLORSPACE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Base structure for all record types.

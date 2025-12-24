@@ -17,7 +17,7 @@ class D2D1_GRADIENT_MESH_PATCH extends Win32Struct
 {
     static sizeof => 208
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The coordinate-space location of the control point in column 0 and row 0 of the tensor grid.

@@ -13,9 +13,9 @@
  */
 class WTS_USER_DATA extends Win32Struct
 {
-    static sizeof => 1216
+    static sizeof => 1200
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A string value that specifies the directory where the client startup program resides. This value corresponds to the <b>WorkDirectory</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_client_data">WTS_CLIENT_DATA</a> structure.
@@ -42,7 +42,7 @@ class WTS_USER_DATA extends Win32Struct
     UserTimeZone{
         get {
             if(!this.HasProp("__UserTimeZone"))
-                this.__UserTimeZone := WTS_TIME_ZONE_INFORMATION(1032, this)
+                this.__UserTimeZone := WTS_TIME_ZONE_INFORMATION(1028, this)
             return this.__UserTimeZone
         }
     }

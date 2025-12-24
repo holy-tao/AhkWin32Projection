@@ -22,7 +22,7 @@
  */
 class FAX_DEVICE_STATUSW extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 144
 
     static packingSize => 8
 
@@ -184,7 +184,7 @@ class FAX_DEVICE_STATUSW extends Win32Struct
     StartTime{
         get {
             if(!this.HasProp("__StartTime"))
-                this.__StartTime := FILETIME(96, this)
+                this.__StartTime := FILETIME(92, this)
             return this.__StartTime
         }
     }
@@ -196,8 +196,8 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * @type {Integer}
      */
     Status {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
     }
 
     /**
@@ -207,8 +207,8 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * @type {PWSTR}
      */
     StatusString {
-        get => NumGet(this, 112, "ptr")
-        set => NumPut("ptr", value, this, 112)
+        get => NumGet(this, 104, "ptr")
+        set => NumPut("ptr", value, this, 104)
     }
 
     /**
@@ -220,7 +220,7 @@ class FAX_DEVICE_STATUSW extends Win32Struct
     SubmittedTime{
         get {
             if(!this.HasProp("__SubmittedTime"))
-                this.__SubmittedTime := FILETIME(120, this)
+                this.__SubmittedTime := FILETIME(112, this)
             return this.__SubmittedTime
         }
     }
@@ -232,8 +232,8 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * @type {Integer}
      */
     TotalPages {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 
     /**
@@ -243,8 +243,8 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * @type {PWSTR}
      */
     Tsid {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 
     /**
@@ -254,7 +254,7 @@ class FAX_DEVICE_STATUSW extends Win32Struct
      * @type {PWSTR}
      */
     UserName {
-        get => NumGet(this, 144, "ptr")
-        set => NumPut("ptr", value, this, 144)
+        get => NumGet(this, 136, "ptr")
+        set => NumPut("ptr", value, this, 136)
     }
 }

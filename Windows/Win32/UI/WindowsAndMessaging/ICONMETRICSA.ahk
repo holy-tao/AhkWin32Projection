@@ -14,9 +14,9 @@
  */
 class ICONMETRICSA extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 76
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>UINT</b>
@@ -78,6 +78,6 @@ class ICONMETRICSA extends Win32Struct
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 80
+        this.cbSize := 76
     }
 }

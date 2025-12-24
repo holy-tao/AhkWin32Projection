@@ -36,9 +36,9 @@
  */
 class WIN32_FIND_DATAA extends Win32Struct
 {
-    static sizeof => 328
+    static sizeof => 320
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The file attributes of a file.
@@ -65,7 +65,7 @@ class WIN32_FIND_DATAA extends Win32Struct
     ftCreationTime{
         get {
             if(!this.HasProp("__ftCreationTime"))
-                this.__ftCreationTime := FILETIME(8, this)
+                this.__ftCreationTime := FILETIME(4, this)
             return this.__ftCreationTime
         }
     }
@@ -86,7 +86,7 @@ class WIN32_FIND_DATAA extends Win32Struct
     ftLastAccessTime{
         get {
             if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(16, this)
+                this.__ftLastAccessTime := FILETIME(12, this)
             return this.__ftLastAccessTime
         }
     }
@@ -106,7 +106,7 @@ class WIN32_FIND_DATAA extends Win32Struct
     ftLastWriteTime{
         get {
             if(!this.HasProp("__ftLastWriteTime"))
-                this.__ftLastWriteTime := FILETIME(24, this)
+                this.__ftLastWriteTime := FILETIME(20, this)
             return this.__ftLastWriteTime
         }
     }
@@ -121,8 +121,8 @@ class WIN32_FIND_DATAA extends Win32Struct
      * @type {Integer}
      */
     nFileSizeHigh {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -130,8 +130,8 @@ class WIN32_FIND_DATAA extends Win32Struct
      * @type {Integer}
      */
     nFileSizeLow {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -145,8 +145,8 @@ class WIN32_FIND_DATAA extends Win32Struct
      * @type {Integer}
      */
     dwReserved0 {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -154,8 +154,8 @@ class WIN32_FIND_DATAA extends Win32Struct
      * @type {Integer}
      */
     dwReserved1 {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -163,8 +163,8 @@ class WIN32_FIND_DATAA extends Win32Struct
      * @type {String}
      */
     cFileName {
-        get => StrGet(this.ptr + 48, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 48, 259, "UTF-8")
+        get => StrGet(this.ptr + 44, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 44, 259, "UTF-8")
     }
 
     /**
@@ -174,7 +174,7 @@ class WIN32_FIND_DATAA extends Win32Struct
      * @type {String}
      */
     cAlternateFileName {
-        get => StrGet(this.ptr + 308, 13, "UTF-8")
-        set => StrPut(value, this.ptr + 308, 13, "UTF-8")
+        get => StrGet(this.ptr + 304, 13, "UTF-8")
+        set => StrPut(value, this.ptr + 304, 13, "UTF-8")
     }
 }

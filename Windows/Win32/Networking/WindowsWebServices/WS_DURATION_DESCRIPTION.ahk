@@ -10,7 +10,7 @@
  */
 class WS_DURATION_DESCRIPTION extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -33,7 +33,7 @@ class WS_DURATION_DESCRIPTION extends Win32Struct
     maxValue{
         get {
             if(!this.HasProp("__maxValue"))
-                this.__maxValue := WS_DURATION(40, this)
+                this.__maxValue := WS_DURATION(36, this)
             return this.__maxValue
         }
     }
@@ -50,7 +50,7 @@ class WS_DURATION_DESCRIPTION extends Win32Struct
      * @type {Pointer<WS_DURATION_COMPARISON_CALLBACK>}
      */
     comparer {
-        get => NumGet(this, 80, "ptr")
-        set => NumPut("ptr", value, this, 80)
+        get => NumGet(this, 72, "ptr")
+        set => NumPut("ptr", value, this, 72)
     }
 }

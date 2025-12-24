@@ -10,9 +10,9 @@
  */
 class TPMPARAMS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>UINT</b>
@@ -34,13 +34,13 @@ class TPMPARAMS extends Win32Struct
     rcExclude{
         get {
             if(!this.HasProp("__rcExclude"))
-                this.__rcExclude := RECT(8, this)
+                this.__rcExclude := RECT(4, this)
             return this.__rcExclude
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 24
+        this.cbSize := 20
     }
 }

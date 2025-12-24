@@ -12,9 +12,9 @@
  */
 class NVME_COMPLETION_ENTRY extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _DW2_e__Union extends Win32Struct {
         static sizeof => 4
@@ -47,8 +47,8 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
     }
 
     class _DW3_e__Union extends Win32Struct {
-        static sizeof => 12
-        static packingSize => 8
+        static sizeof => 6
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -64,7 +64,7 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
         Status{
             get {
                 if(!this.HasProp("__Status"))
-                    this.__Status := NVME_COMMAND_STATUS(4, this)
+                    this.__Status := NVME_COMMAND_STATUS(2, this)
                 return this.__Status
             }
         }
@@ -117,7 +117,7 @@ class NVME_COMPLETION_ENTRY extends Win32Struct
     DW3{
         get {
             if(!this.HasProp("__DW3"))
-                this.__DW3 := %this.__Class%._DW3_e__Union(16, this)
+                this.__DW3 := %this.__Class%._DW3_e__Union(12, this)
             return this.__DW3
         }
     }

@@ -10,9 +10,9 @@
  */
 class SimilarityDumpData extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The index of the <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydata">SimilarityData</a> structure in the similarity traits table.
@@ -30,7 +30,7 @@ class SimilarityDumpData extends Win32Struct
     m_Data{
         get {
             if(!this.HasProp("__m_Data"))
-                this.__m_Data := SimilarityData(8, this)
+                this.__m_Data := SimilarityData(4, this)
             return this.__m_Data
         }
     }

@@ -12,9 +12,9 @@
  */
 class CLUSPROP_FILETIME extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CLUSPROP_VALUE}
@@ -34,7 +34,7 @@ class CLUSPROP_FILETIME extends Win32Struct
     ft{
         get {
             if(!this.HasProp("__ft"))
-                this.__ft := FILETIME(16, this)
+                this.__ft := FILETIME(12, this)
             return this.__ft
         }
     }

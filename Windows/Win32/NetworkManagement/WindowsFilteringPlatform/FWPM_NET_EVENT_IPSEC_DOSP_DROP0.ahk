@@ -11,9 +11,9 @@
  */
 class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Internet Protocol (IP) version.
@@ -30,8 +30,8 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
      * @type {Integer}
      */
     publicHostV4Addr {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -40,7 +40,7 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
     publicHostV6Addr{
         get {
             if(!this.HasProp("__publicHostV6AddrProxyArray"))
-                this.__publicHostV6AddrProxyArray := Win32FixedArray(this.ptr + 8, 16, Primitive, "char")
+                this.__publicHostV6AddrProxyArray := Win32FixedArray(this.ptr + 4, 16, Primitive, "char")
             return this.__publicHostV6AddrProxyArray
         }
     }
@@ -49,8 +49,8 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
      * @type {Integer}
      */
     internalHostV4Addr {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -59,7 +59,7 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
     internalHostV6Addr{
         get {
             if(!this.HasProp("__internalHostV6AddrProxyArray"))
-                this.__internalHostV6AddrProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
+                this.__internalHostV6AddrProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")
             return this.__internalHostV6AddrProxyArray
         }
     }
@@ -69,8 +69,8 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
      * @type {Integer}
      */
     failureStatus {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -78,7 +78,7 @@ class FWPM_NET_EVENT_IPSEC_DOSP_DROP0 extends Win32Struct
      * @type {Integer}
      */
     direction {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 }

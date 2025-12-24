@@ -13,9 +13,9 @@
  */
 class DDCAPS_DX7 extends Win32Struct
 {
-    static sizeof => 384
+    static sizeof => 380
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size of the structure, in bytes. This member must be initialized before the structure is used.
@@ -546,7 +546,7 @@ class DDCAPS_DX7 extends Win32Struct
     ddsCaps{
         get {
             if(!this.HasProp("__ddsCaps"))
-                this.__ddsCaps := DDSCAPS2(368, this)
+                this.__ddsCaps := DDSCAPS2(364, this)
             return this.__ddsCaps
         }
     }

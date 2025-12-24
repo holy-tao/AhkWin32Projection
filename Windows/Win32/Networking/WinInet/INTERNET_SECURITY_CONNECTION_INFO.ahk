@@ -9,9 +9,9 @@
  */
 class INTERNET_SECURITY_CONNECTION_INFO extends Win32Struct
 {
-    static sizeof => 720
+    static sizeof => 716
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -46,7 +46,7 @@ class INTERNET_SECURITY_CONNECTION_INFO extends Win32Struct
     cipherInfo{
         get {
             if(!this.HasProp("__cipherInfo"))
-                this.__cipherInfo := SecPkgContext_CipherInfo(40, this)
+                this.__cipherInfo := SecPkgContext_CipherInfo(36, this)
             return this.__cipherInfo
         }
     }

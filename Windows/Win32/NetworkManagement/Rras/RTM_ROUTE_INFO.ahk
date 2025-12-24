@@ -11,7 +11,7 @@
  */
 class RTM_ROUTE_INFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -264,7 +264,7 @@ class RTM_ROUTE_INFO extends Win32Struct
     PrefInfo{
         get {
             if(!this.HasProp("__PrefInfo"))
-                this.__PrefInfo := RTM_PREF_INFO(32, this)
+                this.__PrefInfo := RTM_PREF_INFO(28, this)
             return this.__PrefInfo
         }
     }
@@ -274,8 +274,8 @@ class RTM_ROUTE_INFO extends Win32Struct
      * @type {Integer}
      */
     BelongsToViews {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -283,8 +283,8 @@ class RTM_ROUTE_INFO extends Win32Struct
      * @type {Pointer<Void>}
      */
     EntitySpecificInfo {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -294,7 +294,7 @@ class RTM_ROUTE_INFO extends Win32Struct
     NextHopsList{
         get {
             if(!this.HasProp("__NextHopsList"))
-                this.__NextHopsList := RTM_NEXTHOP_LIST(56, this)
+                this.__NextHopsList := RTM_NEXTHOP_LIST(48, this)
             return this.__NextHopsList
         }
     }

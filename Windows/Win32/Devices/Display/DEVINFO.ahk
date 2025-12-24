@@ -46,7 +46,7 @@
  */
 class DEVINFO extends Win32Struct
 {
-    static sizeof => 320
+    static sizeof => 312
 
     static packingSize => 8
 
@@ -383,7 +383,7 @@ class DEVINFO extends Win32Struct
     lfDefaultFont{
         get {
             if(!this.HasProp("__lfDefaultFont"))
-                this.__lfDefaultFont := LOGFONTW(8, this)
+                this.__lfDefaultFont := LOGFONTW(4, this)
             return this.__lfDefaultFont
         }
     }
@@ -395,7 +395,7 @@ class DEVINFO extends Win32Struct
     lfAnsiVarFont{
         get {
             if(!this.HasProp("__lfAnsiVarFont"))
-                this.__lfAnsiVarFont := LOGFONTW(104, this)
+                this.__lfAnsiVarFont := LOGFONTW(96, this)
             return this.__lfAnsiVarFont
         }
     }
@@ -407,7 +407,7 @@ class DEVINFO extends Win32Struct
     lfAnsiFixFont{
         get {
             if(!this.HasProp("__lfAnsiFixFont"))
-                this.__lfAnsiFixFont := LOGFONTW(200, this)
+                this.__lfAnsiFixFont := LOGFONTW(188, this)
             return this.__lfAnsiFixFont
         }
     }
@@ -417,8 +417,8 @@ class DEVINFO extends Win32Struct
      * @type {Integer}
      */
     cFonts {
-        get => NumGet(this, 292, "uint")
-        set => NumPut("uint", value, this, 292)
+        get => NumGet(this, 280, "uint")
+        set => NumPut("uint", value, this, 280)
     }
 
     /**
@@ -426,8 +426,8 @@ class DEVINFO extends Win32Struct
      * @type {Integer}
      */
     iDitherFormat {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
+        get => NumGet(this, 284, "uint")
+        set => NumPut("uint", value, this, 284)
     }
 
     /**
@@ -435,8 +435,8 @@ class DEVINFO extends Win32Struct
      * @type {Integer}
      */
     cxDither {
-        get => NumGet(this, 300, "ushort")
-        set => NumPut("ushort", value, this, 300)
+        get => NumGet(this, 288, "ushort")
+        set => NumPut("ushort", value, this, 288)
     }
 
     /**
@@ -444,8 +444,8 @@ class DEVINFO extends Win32Struct
      * @type {Integer}
      */
     cyDither {
-        get => NumGet(this, 302, "ushort")
-        set => NumPut("ushort", value, this, 302)
+        get => NumGet(this, 290, "ushort")
+        set => NumPut("ushort", value, this, 290)
     }
 
     /**
@@ -455,7 +455,7 @@ class DEVINFO extends Win32Struct
     hpalDefault{
         get {
             if(!this.HasProp("__hpalDefault"))
-                this.__hpalDefault := HPALETTE(304, this)
+                this.__hpalDefault := HPALETTE(296, this)
             return this.__hpalDefault
         }
     }
@@ -572,7 +572,7 @@ class DEVINFO extends Win32Struct
      * @type {Integer}
      */
     flGraphicsCaps2 {
-        get => NumGet(this, 312, "uint")
-        set => NumPut("uint", value, this, 312)
+        get => NumGet(this, 304, "uint")
+        set => NumPut("uint", value, this, 304)
     }
 }

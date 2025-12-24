@@ -8,9 +8,9 @@
  */
 class PIPE_DIMENSIONS extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {KS_COMPRESSION}
@@ -29,7 +29,7 @@ class PIPE_DIMENSIONS extends Win32Struct
     MaxExpansionPin{
         get {
             if(!this.HasProp("__MaxExpansionPin"))
-                this.__MaxExpansionPin := KS_COMPRESSION(16, this)
+                this.__MaxExpansionPin := KS_COMPRESSION(12, this)
             return this.__MaxExpansionPin
         }
     }
@@ -40,7 +40,7 @@ class PIPE_DIMENSIONS extends Win32Struct
     EndPin{
         get {
             if(!this.HasProp("__EndPin"))
-                this.__EndPin := KS_COMPRESSION(32, this)
+                this.__EndPin := KS_COMPRESSION(24, this)
             return this.__EndPin
         }
     }

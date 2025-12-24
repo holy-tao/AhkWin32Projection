@@ -15,7 +15,7 @@
  */
 class DD_BLTDATA extends Win32Struct
 {
-    static sizeof => 272
+    static sizeof => 264
 
     static packingSize => 8
 
@@ -310,7 +310,7 @@ class DD_BLTDATA extends Win32Struct
     rOrigDest{
         get {
             if(!this.HasProp("__rOrigDest"))
-                this.__rOrigDest := RECTL(216, this)
+                this.__rOrigDest := RECTL(212, this)
             return this.__rOrigDest
         }
     }
@@ -322,7 +322,7 @@ class DD_BLTDATA extends Win32Struct
     rOrigSrc{
         get {
             if(!this.HasProp("__rOrigSrc"))
-                this.__rOrigSrc := RECTL(232, this)
+                this.__rOrigSrc := RECTL(228, this)
             return this.__rOrigSrc
         }
     }
@@ -332,8 +332,8 @@ class DD_BLTDATA extends Win32Struct
      * @type {Integer}
      */
     dwRectCnt {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
+        get => NumGet(this, 244, "uint")
+        set => NumPut("uint", value, this, 244)
     }
 
     /**
@@ -341,8 +341,8 @@ class DD_BLTDATA extends Win32Struct
      * @type {Pointer<RECT>}
      */
     prDestRects {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
     }
 
     /**
@@ -350,8 +350,8 @@ class DD_BLTDATA extends Win32Struct
      * @type {Integer}
      */
     dwAFlags {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 
     /**
@@ -361,7 +361,7 @@ class DD_BLTDATA extends Win32Struct
     ddargbScaleFactors{
         get {
             if(!this.HasProp("__ddargbScaleFactors"))
-                this.__ddargbScaleFactors := DDARGB(268, this)
+                this.__ddargbScaleFactors := DDARGB(260, this)
             return this.__ddargbScaleFactors
         }
     }

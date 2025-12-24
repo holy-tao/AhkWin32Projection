@@ -12,7 +12,7 @@ class sockaddr_in6_old extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * 

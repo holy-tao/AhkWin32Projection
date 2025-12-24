@@ -12,9 +12,9 @@
  */
 class KERB_CLEANUP_MACHINE_PKINIT_CREDS_REQUEST extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The type of the message. You should set this to <b>KerbCleanupMachinePkinitCredsMessage</b>.
@@ -32,7 +32,7 @@ class KERB_CLEANUP_MACHINE_PKINIT_CREDS_REQUEST extends Win32Struct
     LogonId{
         get {
             if(!this.HasProp("__LogonId"))
-                this.__LogonId := LUID(8, this)
+                this.__LogonId := LUID(4, this)
             return this.__LogonId
         }
     }

@@ -11,9 +11,9 @@
  */
 class CHANGER_READ_ELEMENT_STATUS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A
@@ -33,7 +33,7 @@ class CHANGER_READ_ELEMENT_STATUS extends Win32Struct
      * @type {BOOLEAN}
      */
     VolumeTagInfo {
-        get => NumGet(this, 16, "char")
-        set => NumPut("char", value, this, 16)
+        get => NumGet(this, 12, "char")
+        set => NumPut("char", value, this, 12)
     }
 }

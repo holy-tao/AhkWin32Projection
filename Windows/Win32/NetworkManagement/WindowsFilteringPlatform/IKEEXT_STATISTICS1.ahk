@@ -13,9 +13,9 @@
  */
 class IKEEXT_STATISTICS1 extends Win32Struct
 {
-    static sizeof => 1664
+    static sizeof => 1660
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Statistics specific to IKE.

@@ -15,9 +15,9 @@
  */
 class EXTLOGFONTW extends Win32Struct
 {
-    static sizeof => 328
+    static sizeof => 320
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies some of the attributes of the specified font. This member is a <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure.
@@ -113,7 +113,7 @@ class EXTLOGFONTW extends Win32Struct
     elfPanose{
         get {
             if(!this.HasProp("__elfPanose"))
-                this.__elfPanose := PANOSE(312, this)
+                this.__elfPanose := PANOSE(308, this)
             return this.__elfPanose
         }
     }

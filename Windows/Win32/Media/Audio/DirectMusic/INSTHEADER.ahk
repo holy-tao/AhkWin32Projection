@@ -8,9 +8,9 @@
  */
 class INSTHEADER extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class INSTHEADER extends Win32Struct
     Locale{
         get {
             if(!this.HasProp("__Locale"))
-                this.__Locale := MIDILOCALE(8, this)
+                this.__Locale := MIDILOCALE(4, this)
             return this.__Locale
         }
     }

@@ -14,9 +14,9 @@
  */
 class PERBANDINFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * If <b>TRUE</b>, GDI redraws the previous band. If <b>FALSE</b>, GDI draws the next band.
@@ -34,7 +34,7 @@ class PERBANDINFO extends Win32Struct
     szlBand{
         get {
             if(!this.HasProp("__szlBand"))
-                this.__szlBand := SIZE(8, this)
+                this.__szlBand := SIZE(4, this)
             return this.__szlBand
         }
     }
@@ -44,8 +44,8 @@ class PERBANDINFO extends Win32Struct
      * @type {Integer}
      */
     ulHorzRes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -53,7 +53,7 @@ class PERBANDINFO extends Win32Struct
      * @type {Integer}
      */
     ulVertRes {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

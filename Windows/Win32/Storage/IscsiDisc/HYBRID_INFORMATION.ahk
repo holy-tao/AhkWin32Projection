@@ -223,7 +223,7 @@ class HYBRID_INFORMATION extends Win32Struct
         SupportedCommands{
             get {
                 if(!this.HasProp("__SupportedCommands"))
-                    this.__SupportedCommands := %this.__Class%._SupportedCommands(16, this)
+                    this.__SupportedCommands := %this.__Class%._SupportedCommands(12, this)
                 return this.__SupportedCommands
             }
         }

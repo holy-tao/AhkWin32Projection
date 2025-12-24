@@ -8,9 +8,9 @@
  */
 class RFX_GFX_MSG_RDP_DATA extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 6
 
-    static packingSize => 4
+    static packingSize => 2
 
     /**
      * @type {RFX_GFX_MSG_HEADER}

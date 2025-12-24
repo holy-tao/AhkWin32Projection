@@ -44,15 +44,15 @@ class WNODE_EVENT_REFERENCE extends Win32Struct
      * @type {Integer}
      */
     TargetInstanceIndex {
-        get => NumGet(this, 54, "uint")
-        set => NumPut("uint", value, this, 54)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
      * @type {String}
      */
     TargetInstanceName {
-        get => StrGet(this.ptr + 54, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 54, 0, "UTF-16")
+        get => StrGet(this.ptr + 52, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 52, 0, "UTF-16")
     }
 }

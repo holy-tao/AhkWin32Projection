@@ -28,9 +28,9 @@
  */
 class D3D11_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a></b>
@@ -73,7 +73,7 @@ class D3D11_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture1D{
         get {
             if(!this.HasProp("__Texture1D"))
-                this.__Texture1D := D3D11_TEX1D_DSV(16, this)
+                this.__Texture1D := D3D11_TEX1D_DSV(12, this)
             return this.__Texture1D
         }
     }
@@ -84,7 +84,7 @@ class D3D11_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture1DArray{
         get {
             if(!this.HasProp("__Texture1DArray"))
-                this.__Texture1DArray := D3D11_TEX1D_ARRAY_DSV(16, this)
+                this.__Texture1DArray := D3D11_TEX1D_ARRAY_DSV(12, this)
             return this.__Texture1DArray
         }
     }
@@ -95,7 +95,7 @@ class D3D11_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2D{
         get {
             if(!this.HasProp("__Texture2D"))
-                this.__Texture2D := D3D11_TEX2D_DSV(16, this)
+                this.__Texture2D := D3D11_TEX2D_DSV(12, this)
             return this.__Texture2D
         }
     }
@@ -106,7 +106,7 @@ class D3D11_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2DArray{
         get {
             if(!this.HasProp("__Texture2DArray"))
-                this.__Texture2DArray := D3D11_TEX2D_ARRAY_DSV(16, this)
+                this.__Texture2DArray := D3D11_TEX2D_ARRAY_DSV(12, this)
             return this.__Texture2DArray
         }
     }
@@ -117,7 +117,7 @@ class D3D11_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2DMS{
         get {
             if(!this.HasProp("__Texture2DMS"))
-                this.__Texture2DMS := D3D11_TEX2DMS_DSV(16, this)
+                this.__Texture2DMS := D3D11_TEX2DMS_DSV(12, this)
             return this.__Texture2DMS
         }
     }
@@ -128,7 +128,7 @@ class D3D11_DEPTH_STENCIL_VIEW_DESC extends Win32Struct
     Texture2DMSArray{
         get {
             if(!this.HasProp("__Texture2DMSArray"))
-                this.__Texture2DMSArray := D3D11_TEX2DMS_ARRAY_DSV(16, this)
+                this.__Texture2DMSArray := D3D11_TEX2DMS_ARRAY_DSV(12, this)
             return this.__Texture2DMSArray
         }
     }

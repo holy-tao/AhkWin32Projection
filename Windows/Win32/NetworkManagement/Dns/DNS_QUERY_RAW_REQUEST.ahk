@@ -127,7 +127,7 @@ class DNS_QUERY_RAW_REQUEST extends Win32Struct
      * @type {String}
      */
     maxSa {
-        get => StrGet(this.ptr + 104, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 104, 31, "UTF-16")
+        get => StrGet(this.ptr + 100, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 100, 31, "UTF-16")
     }
 }

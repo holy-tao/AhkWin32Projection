@@ -22,7 +22,7 @@
  */
 class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -80,7 +80,7 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
     PointerPosition{
         get {
             if(!this.HasProp("__PointerPosition"))
-                this.__PointerPosition := DXGI_OUTDUPL_POINTER_POSITION(32, this)
+                this.__PointerPosition := DXGI_OUTDUPL_POINTER_POSITION(28, this)
             return this.__PointerPosition
         }
     }
@@ -90,8 +90,8 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
      * @type {Integer}
      */
     TotalMetadataBufferSize {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -99,7 +99,7 @@ class DXGI_OUTDUPL_FRAME_INFO extends Win32Struct
      * @type {Integer}
      */
     PointerShapeBufferSize {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

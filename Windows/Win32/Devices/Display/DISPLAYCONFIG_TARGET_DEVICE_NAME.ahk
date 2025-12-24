@@ -18,9 +18,9 @@
  */
 class DISPLAYCONFIG_TARGET_DEVICE_NAME extends Win32Struct
 {
-    static sizeof => 424
+    static sizeof => 420
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_device_info_header">DISPLAYCONFIG_DEVICE_INFO_HEADER</a> structure that contains information about the request for the target device name. The caller should set the <b>type</b> member of DISPLAYCONFIG_DEVICE_INFO_HEADER to DISPLAYCONFIG_DEVICE_INFO_GET_TARGET_NAME and the <b>adapterId</b> and <b>id</b> members of DISPLAYCONFIG_DEVICE_INFO_HEADER to the target for which the caller wants the target device name. The caller should set the <b>size</b> member of DISPLAYCONFIG_DEVICE_INFO_HEADER to at least the size of the DISPLAYCONFIG_TARGET_DEVICE_NAME structure.
@@ -41,7 +41,7 @@ class DISPLAYCONFIG_TARGET_DEVICE_NAME extends Win32Struct
     flags{
         get {
             if(!this.HasProp("__flags"))
-                this.__flags := DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS(24, this)
+                this.__flags := DISPLAYCONFIG_TARGET_DEVICE_NAME_FLAGS(20, this)
             return this.__flags
         }
     }
@@ -51,8 +51,8 @@ class DISPLAYCONFIG_TARGET_DEVICE_NAME extends Win32Struct
      * @type {Integer}
      */
     outputTechnology {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -60,8 +60,8 @@ class DISPLAYCONFIG_TARGET_DEVICE_NAME extends Win32Struct
      * @type {Integer}
      */
     edidManufactureId {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
+        get => NumGet(this, 28, "ushort")
+        set => NumPut("ushort", value, this, 28)
     }
 
     /**
@@ -69,8 +69,8 @@ class DISPLAYCONFIG_TARGET_DEVICE_NAME extends Win32Struct
      * @type {Integer}
      */
     edidProductCodeId {
-        get => NumGet(this, 34, "ushort")
-        set => NumPut("ushort", value, this, 34)
+        get => NumGet(this, 30, "ushort")
+        set => NumPut("ushort", value, this, 30)
     }
 
     /**
@@ -78,8 +78,8 @@ class DISPLAYCONFIG_TARGET_DEVICE_NAME extends Win32Struct
      * @type {Integer}
      */
     connectorInstance {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -87,8 +87,8 @@ class DISPLAYCONFIG_TARGET_DEVICE_NAME extends Win32Struct
      * @type {String}
      */
     monitorFriendlyDeviceName {
-        get => StrGet(this.ptr + 40, 63, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 63, "UTF-16")
+        get => StrGet(this.ptr + 36, 63, "UTF-16")
+        set => StrPut(value, this.ptr + 36, 63, "UTF-16")
     }
 
     /**
@@ -96,7 +96,7 @@ class DISPLAYCONFIG_TARGET_DEVICE_NAME extends Win32Struct
      * @type {String}
      */
     monitorDevicePath {
-        get => StrGet(this.ptr + 168, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 168, 127, "UTF-16")
+        get => StrGet(this.ptr + 164, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 164, 127, "UTF-16")
     }
 }

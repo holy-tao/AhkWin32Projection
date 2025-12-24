@@ -8,9 +8,9 @@
  */
 class D3DKMT_OPENADAPTERFROMGDIDISPLAYNAME extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 80
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {String}
@@ -34,7 +34,7 @@ class D3DKMT_OPENADAPTERFROMGDIDISPLAYNAME extends Win32Struct
     AdapterLuid{
         get {
             if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(72, this)
+                this.__AdapterLuid := LUID(68, this)
             return this.__AdapterLuid
         }
     }
@@ -43,7 +43,7 @@ class D3DKMT_OPENADAPTERFROMGDIDISPLAYNAME extends Win32Struct
      * @type {Integer}
      */
     VidPnSourceId {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 }

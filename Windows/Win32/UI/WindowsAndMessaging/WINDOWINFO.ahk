@@ -10,9 +10,9 @@
  */
 class WINDOWINFO extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -34,7 +34,7 @@ class WINDOWINFO extends Win32Struct
     rcWindow{
         get {
             if(!this.HasProp("__rcWindow"))
-                this.__rcWindow := RECT(8, this)
+                this.__rcWindow := RECT(4, this)
             return this.__rcWindow
         }
     }
@@ -48,7 +48,7 @@ class WINDOWINFO extends Win32Struct
     rcClient{
         get {
             if(!this.HasProp("__rcClient"))
-                this.__rcClient := RECT(24, this)
+                this.__rcClient := RECT(20, this)
             return this.__rcClient
         }
     }
@@ -60,8 +60,8 @@ class WINDOWINFO extends Win32Struct
      * @type {Integer}
      */
     dwStyle {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -71,8 +71,8 @@ class WINDOWINFO extends Win32Struct
      * @type {Integer}
      */
     dwExStyle {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -82,8 +82,8 @@ class WINDOWINFO extends Win32Struct
      * @type {Integer}
      */
     dwWindowStatus {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -93,8 +93,8 @@ class WINDOWINFO extends Win32Struct
      * @type {Integer}
      */
     cxWindowBorders {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -104,8 +104,8 @@ class WINDOWINFO extends Win32Struct
      * @type {Integer}
      */
     cyWindowBorders {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -115,8 +115,8 @@ class WINDOWINFO extends Win32Struct
      * @type {Integer}
      */
     atomWindowType {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
+        get => NumGet(this, 56, "ushort")
+        set => NumPut("ushort", value, this, 56)
     }
 
     /**
@@ -126,12 +126,12 @@ class WINDOWINFO extends Win32Struct
      * @type {Integer}
      */
     wCreatorVersion {
-        get => NumGet(this, 62, "ushort")
-        set => NumPut("ushort", value, this, 62)
+        get => NumGet(this, 58, "ushort")
+        set => NumPut("ushort", value, this, 58)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 64
+        this.cbSize := 60
     }
 }

@@ -21,7 +21,7 @@
  */
 class REBARBANDINFOW extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 128
 
     static packingSize => 8
 
@@ -550,7 +550,7 @@ class REBARBANDINFOW extends Win32Struct
     rcChevronLocation{
         get {
             if(!this.HasProp("__rcChevronLocation"))
-                this.__rcChevronLocation := RECT(112, this)
+                this.__rcChevronLocation := RECT(108, this)
             return this.__rcChevronLocation
         }
     }
@@ -563,12 +563,12 @@ class REBARBANDINFOW extends Win32Struct
      * @type {Integer}
      */
     uChevronState {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 124, "uint")
+        set => NumPut("uint", value, this, 124)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 136
+        this.cbSize := 128
     }
 }

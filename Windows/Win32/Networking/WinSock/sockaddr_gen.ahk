@@ -18,7 +18,7 @@ class sockaddr_gen extends Win32Struct
 {
     static sizeof => 80
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * IP address information expressed in a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr</a> structure.

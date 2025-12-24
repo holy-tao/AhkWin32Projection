@@ -154,7 +154,7 @@ class POST_PROCESS_PARAMETERS extends Win32Struct
     SessionStartTime{
         get {
             if(!this.HasProp("__SessionStartTime"))
-                this.__SessionStartTime := FILETIME(128, this)
+                this.__SessionStartTime := FILETIME(124, this)
             return this.__SessionStartTime
         }
     }

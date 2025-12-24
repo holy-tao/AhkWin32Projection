@@ -13,7 +13,7 @@ class TOKEN_CONTROL extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/l-gly">locally unique identifier</a> (LUID) identifying this instance of the token object.

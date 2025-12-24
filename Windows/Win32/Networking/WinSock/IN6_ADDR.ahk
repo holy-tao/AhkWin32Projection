@@ -13,7 +13,7 @@ class IN6_ADDR extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 2
 
     class _u_e__Union extends Win32Struct {
         static sizeof => 16

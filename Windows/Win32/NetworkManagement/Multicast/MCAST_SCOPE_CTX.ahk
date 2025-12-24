@@ -10,9 +10,9 @@
  */
 class MCAST_SCOPE_CTX extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Identifier for the multicast scope, in the form of an 
@@ -35,7 +35,7 @@ class MCAST_SCOPE_CTX extends Win32Struct
     Interface{
         get {
             if(!this.HasProp("__Interface"))
-                this.__Interface := IPNG_ADDRESS(24, this)
+                this.__Interface := IPNG_ADDRESS(20, this)
             return this.__Interface
         }
     }
@@ -48,7 +48,7 @@ class MCAST_SCOPE_CTX extends Win32Struct
     ServerID{
         get {
             if(!this.HasProp("__ServerID"))
-                this.__ServerID := IPNG_ADDRESS(48, this)
+                this.__ServerID := IPNG_ADDRESS(40, this)
             return this.__ServerID
         }
     }

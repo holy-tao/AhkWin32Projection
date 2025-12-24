@@ -26,9 +26,9 @@
  */
 class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_render_target_type">D2D1_RENDER_TARGET_TYPE</a></b>
@@ -50,7 +50,7 @@ class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
     pixelFormat{
         get {
             if(!this.HasProp("__pixelFormat"))
-                this.__pixelFormat := D2D1_PIXEL_FORMAT(8, this)
+                this.__pixelFormat := D2D1_PIXEL_FORMAT(4, this)
             return this.__pixelFormat
         }
     }
@@ -62,8 +62,8 @@ class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
      * @type {Float}
      */
     dpiX {
-        get => NumGet(this, 16, "float")
-        set => NumPut("float", value, this, 16)
+        get => NumGet(this, 12, "float")
+        set => NumPut("float", value, this, 12)
     }
 
     /**
@@ -73,8 +73,8 @@ class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
      * @type {Float}
      */
     dpiY {
-        get => NumGet(this, 20, "float")
-        set => NumPut("float", value, this, 20)
+        get => NumGet(this, 16, "float")
+        set => NumPut("float", value, this, 16)
     }
 
     /**
@@ -84,8 +84,8 @@ class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
      * @type {Integer}
      */
     usage {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -95,7 +95,7 @@ class D2D1_RENDER_TARGET_PROPERTIES extends Win32Struct
      * @type {Integer}
      */
     minLevel {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

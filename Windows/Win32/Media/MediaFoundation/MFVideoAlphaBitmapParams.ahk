@@ -13,7 +13,7 @@ class MFVideoAlphaBitmapParams extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Bitwise OR of one or more flags from the <a href="https://docs.microsoft.com/windows/win32/api/evr9/ne-evr9-mfvideoalphabitmapflags">MFVideoAlphaBitmapFlags</a> enumeration. These flags indicate which of the other structure members contain valid information.

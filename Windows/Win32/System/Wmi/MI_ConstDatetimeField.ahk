@@ -12,9 +12,9 @@
  */
 class MI_ConstDatetimeField extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A field of type <a href="https://docs.microsoft.com/windows/desktop/api/mi/ns-mi-mi_datetime">MI_Datetime</a>.
@@ -33,8 +33,8 @@ class MI_ConstDatetimeField extends Win32Struct
      * @type {Integer}
      */
     exists {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
+        get => NumGet(this, 36, "char")
+        set => NumPut("char", value, this, 36)
     }
 
     /**
@@ -42,7 +42,7 @@ class MI_ConstDatetimeField extends Win32Struct
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 41, "char")
-        set => NumPut("char", value, this, 41)
+        get => NumGet(this, 37, "char")
+        set => NumPut("char", value, this, 37)
     }
 }

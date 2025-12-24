@@ -11,9 +11,9 @@
  */
 class MPEG_DATE_AND_TIME extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 8
 
-    static packingSize => 4
+    static packingSize => 2
 
     /**
      * Specifies the date, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-mpeg_date">MPEG_DATE</a> structure.
@@ -34,7 +34,7 @@ class MPEG_DATE_AND_TIME extends Win32Struct
     T{
         get {
             if(!this.HasProp("__T"))
-                this.__T := MPEG_TIME(6, this)
+                this.__T := MPEG_TIME(4, this)
             return this.__T
         }
     }

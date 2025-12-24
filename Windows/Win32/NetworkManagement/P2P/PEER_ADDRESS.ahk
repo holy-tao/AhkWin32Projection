@@ -12,9 +12,9 @@
  */
 class PEER_ADDRESS extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the size of this structure.
@@ -32,7 +32,7 @@ class PEER_ADDRESS extends Win32Struct
     sin6{
         get {
             if(!this.HasProp("__sin6"))
-                this.__sin6 := SOCKADDR_IN6(8, this)
+                this.__sin6 := SOCKADDR_IN6(4, this)
             return this.__sin6
         }
     }

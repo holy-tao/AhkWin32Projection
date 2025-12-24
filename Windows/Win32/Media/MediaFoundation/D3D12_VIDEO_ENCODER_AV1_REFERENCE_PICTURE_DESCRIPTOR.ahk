@@ -10,7 +10,7 @@ class D3D12_VIDEO_ENCODER_AV1_REFERENCE_PICTURE_DESCRIPTOR extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

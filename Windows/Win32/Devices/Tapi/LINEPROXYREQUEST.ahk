@@ -94,8 +94,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _SetAgentGroup extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 28
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -111,7 +111,7 @@ class LINEPROXYREQUEST extends Win32Struct
         GroupList{
             get {
                 if(!this.HasProp("__GroupList"))
-                    this.__GroupList := LINEAGENTGROUPLIST(8, this)
+                    this.__GroupList := LINEAGENTGROUPLIST(4, this)
                 return this.__GroupList
             }
         }
@@ -196,8 +196,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentStatus extends Win32Struct {
-        static sizeof => 64
-        static packingSize => 8
+        static sizeof => 60
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -213,7 +213,7 @@ class LINEPROXYREQUEST extends Win32Struct
         AgentStatus{
             get {
                 if(!this.HasProp("__AgentStatus"))
-                    this.__AgentStatus := LINEAGENTSTATUS(8, this)
+                    this.__AgentStatus := LINEAGENTSTATUS(4, this)
                 return this.__AgentStatus
             }
         }
@@ -262,8 +262,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentActivityList extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 28
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -279,7 +279,7 @@ class LINEPROXYREQUEST extends Win32Struct
         ActivityList{
             get {
                 if(!this.HasProp("__ActivityList"))
-                    this.__ActivityList := LINEAGENTACTIVITYLIST(8, this)
+                    this.__ActivityList := LINEAGENTACTIVITYLIST(4, this)
                 return this.__ActivityList
             }
         }
@@ -287,8 +287,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentGroupList extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 28
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -304,7 +304,7 @@ class LINEPROXYREQUEST extends Win32Struct
         GroupList{
             get {
                 if(!this.HasProp("__GroupList"))
-                    this.__GroupList := LINEAGENTGROUPLIST(8, this)
+                    this.__GroupList := LINEAGENTGROUPLIST(4, this)
                 return this.__GroupList
             }
         }
@@ -489,8 +489,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetAgentSessionList extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 28
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -506,7 +506,7 @@ class LINEPROXYREQUEST extends Win32Struct
         SessionList{
             get {
                 if(!this.HasProp("__SessionList"))
-                    this.__SessionList := LINEAGENTSESSIONLIST(8, this)
+                    this.__SessionList := LINEAGENTSESSIONLIST(4, this)
                 return this.__SessionList
             }
         }
@@ -616,8 +616,8 @@ class LINEPROXYREQUEST extends Win32Struct
     }
 
     class _GetQueueInfo extends Win32Struct {
-        static sizeof => 64
-        static packingSize => 8
+        static sizeof => 56
+        static packingSize => 4
 
         /**
          * @type {Integer}
@@ -633,7 +633,7 @@ class LINEPROXYREQUEST extends Win32Struct
         QueueInfo{
             get {
                 if(!this.HasProp("__QueueInfo"))
-                    this.__QueueInfo := LINEQUEUEINFO(8, this)
+                    this.__QueueInfo := LINEQUEUEINFO(4, this)
                 return this.__QueueInfo
             }
         }
@@ -642,7 +642,7 @@ class LINEPROXYREQUEST extends Win32Struct
 
     class _GetGroupList extends Win32Struct {
         static sizeof => 24
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {LINEAGENTGROUPLIST}

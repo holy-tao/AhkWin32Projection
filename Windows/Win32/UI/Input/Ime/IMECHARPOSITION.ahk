@@ -13,9 +13,9 @@
  */
 class IMECHARPOSITION extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size of the structure, in bytes.
@@ -63,7 +63,7 @@ class IMECHARPOSITION extends Win32Struct
     rcDocument{
         get {
             if(!this.HasProp("__rcDocument"))
-                this.__rcDocument := RECT(24, this)
+                this.__rcDocument := RECT(20, this)
             return this.__rcDocument
         }
     }

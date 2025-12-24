@@ -427,7 +427,7 @@ class LINEDEVCAPS extends Win32Struct
     MinDialParams{
         get {
             if(!this.HasProp("__MinDialParams"))
-                this.__MinDialParams := LINEDIALPARAMS(160, this)
+                this.__MinDialParams := LINEDIALPARAMS(156, this)
             return this.__MinDialParams
         }
     }
@@ -439,7 +439,7 @@ class LINEDEVCAPS extends Win32Struct
     MaxDialParams{
         get {
             if(!this.HasProp("__MaxDialParams"))
-                this.__MaxDialParams := LINEDIALPARAMS(176, this)
+                this.__MaxDialParams := LINEDIALPARAMS(172, this)
             return this.__MaxDialParams
         }
     }
@@ -451,7 +451,7 @@ class LINEDEVCAPS extends Win32Struct
     DefaultDialParams{
         get {
             if(!this.HasProp("__DefaultDialParams"))
-                this.__DefaultDialParams := LINEDIALPARAMS(192, this)
+                this.__DefaultDialParams := LINEDIALPARAMS(188, this)
             return this.__DefaultDialParams
         }
     }
@@ -461,8 +461,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwNumTerminals {
-        get => NumGet(this, 208, "uint")
-        set => NumPut("uint", value, this, 208)
+        get => NumGet(this, 204, "uint")
+        set => NumPut("uint", value, this, 204)
     }
 
     /**
@@ -471,8 +471,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwTerminalCapsSize {
-        get => NumGet(this, 212, "uint")
-        set => NumPut("uint", value, this, 212)
+        get => NumGet(this, 208, "uint")
+        set => NumPut("uint", value, this, 208)
     }
 
     /**
@@ -481,8 +481,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwTerminalCapsOffset {
-        get => NumGet(this, 216, "uint")
-        set => NumPut("uint", value, this, 216)
+        get => NumGet(this, 212, "uint")
+        set => NumPut("uint", value, this, 212)
     }
 
     /**
@@ -490,8 +490,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwTerminalTextEntrySize {
-        get => NumGet(this, 220, "uint")
-        set => NumPut("uint", value, this, 220)
+        get => NumGet(this, 216, "uint")
+        set => NumPut("uint", value, this, 216)
     }
 
     /**
@@ -499,8 +499,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwTerminalTextSize {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
+        get => NumGet(this, 220, "uint")
+        set => NumPut("uint", value, this, 220)
     }
 
     /**
@@ -508,8 +508,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwTerminalTextOffset {
-        get => NumGet(this, 228, "uint")
-        set => NumPut("uint", value, this, 228)
+        get => NumGet(this, 224, "uint")
+        set => NumPut("uint", value, this, 224)
     }
 
     /**
@@ -517,8 +517,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwDevSpecificSize {
-        get => NumGet(this, 232, "uint")
-        set => NumPut("uint", value, this, 232)
+        get => NumGet(this, 228, "uint")
+        set => NumPut("uint", value, this, 228)
     }
 
     /**
@@ -526,8 +526,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwDevSpecificOffset {
-        get => NumGet(this, 236, "uint")
-        set => NumPut("uint", value, this, 236)
+        get => NumGet(this, 232, "uint")
+        set => NumPut("uint", value, this, 232)
     }
 
     /**
@@ -536,8 +536,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwLineFeatures {
-        get => NumGet(this, 240, "uint")
-        set => NumPut("uint", value, this, 240)
+        get => NumGet(this, 236, "uint")
+        set => NumPut("uint", value, this, 236)
     }
 
     /**
@@ -546,8 +546,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwSettableDevStatus {
-        get => NumGet(this, 244, "uint")
-        set => NumPut("uint", value, this, 244)
+        get => NumGet(this, 240, "uint")
+        set => NumPut("uint", value, this, 240)
     }
 
     /**
@@ -555,8 +555,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwDeviceClassesSize {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
+        get => NumGet(this, 244, "uint")
+        set => NumPut("uint", value, this, 244)
     }
 
     /**
@@ -565,8 +565,8 @@ class LINEDEVCAPS extends Win32Struct
      * @type {Integer}
      */
     dwDeviceClassesOffset {
-        get => NumGet(this, 252, "uint")
-        set => NumPut("uint", value, this, 252)
+        get => NumGet(this, 248, "uint")
+        set => NumPut("uint", value, this, 248)
     }
 
     /**

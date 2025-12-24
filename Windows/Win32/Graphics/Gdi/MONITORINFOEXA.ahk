@@ -15,9 +15,9 @@
  */
 class MONITORINFOEXA extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 72
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {MONITORINFO}
@@ -35,7 +35,7 @@ class MONITORINFOEXA extends Win32Struct
      * @type {String}
      */
     szDevice {
-        get => StrGet(this.ptr + 48, 31, "UTF-8")
-        set => StrPut(value, this.ptr + 48, 31, "UTF-8")
+        get => StrGet(this.ptr + 40, 31, "UTF-8")
+        set => StrPut(value, this.ptr + 40, 31, "UTF-8")
     }
 }

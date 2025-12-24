@@ -7,13 +7,13 @@
  */
 class WINDOWS_IAS_QUERY extends Win32Struct
 {
-    static sizeof => 1680
+    static sizeof => 1676
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _irdaAttribute_e__Union extends Win32Struct {
         static sizeof => 1028
-        static packingSize => 8
+        static packingSize => 4
 
         class _irdaAttribOctetSeq extends Win32Struct {
             static sizeof => 1028

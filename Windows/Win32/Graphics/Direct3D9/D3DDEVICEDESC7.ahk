@@ -26,7 +26,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     dpcLineCaps{
         get {
             if(!this.HasProp("__dpcLineCaps"))
-                this.__dpcLineCaps := D3DPRIMCAPS(8, this)
+                this.__dpcLineCaps := D3DPRIMCAPS(4, this)
             return this.__dpcLineCaps
         }
     }
@@ -37,7 +37,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     dpcTriCaps{
         get {
             if(!this.HasProp("__dpcTriCaps"))
-                this.__dpcTriCaps := D3DPRIMCAPS(64, this)
+                this.__dpcTriCaps := D3DPRIMCAPS(60, this)
             return this.__dpcTriCaps
         }
     }
@@ -46,6 +46,14 @@ class D3DDEVICEDESC7 extends Win32Struct
      * @type {Integer}
      */
     dwDeviceRenderBitDepth {
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwDeviceZBufferBitDepth {
         get => NumGet(this, 120, "uint")
         set => NumPut("uint", value, this, 120)
     }
@@ -53,7 +61,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwDeviceZBufferBitDepth {
+    dwMinTextureWidth {
         get => NumGet(this, 124, "uint")
         set => NumPut("uint", value, this, 124)
     }
@@ -61,7 +69,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwMinTextureWidth {
+    dwMinTextureHeight {
         get => NumGet(this, 128, "uint")
         set => NumPut("uint", value, this, 128)
     }
@@ -69,7 +77,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwMinTextureHeight {
+    dwMaxTextureWidth {
         get => NumGet(this, 132, "uint")
         set => NumPut("uint", value, this, 132)
     }
@@ -77,7 +85,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwMaxTextureWidth {
+    dwMaxTextureHeight {
         get => NumGet(this, 136, "uint")
         set => NumPut("uint", value, this, 136)
     }
@@ -85,7 +93,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwMaxTextureHeight {
+    dwMaxTextureRepeat {
         get => NumGet(this, 140, "uint")
         set => NumPut("uint", value, this, 140)
     }
@@ -93,7 +101,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwMaxTextureRepeat {
+    dwMaxTextureAspectRatio {
         get => NumGet(this, 144, "uint")
         set => NumPut("uint", value, this, 144)
     }
@@ -101,23 +109,23 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwMaxTextureAspectRatio {
+    dwMaxAnisotropy {
         get => NumGet(this, 148, "uint")
         set => NumPut("uint", value, this, 148)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwMaxAnisotropy {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
     }
 
     /**
      * @type {Float}
      */
     dvGuardBandLeft {
+        get => NumGet(this, 152, "float")
+        set => NumPut("float", value, this, 152)
+    }
+
+    /**
+     * @type {Float}
+     */
+    dvGuardBandTop {
         get => NumGet(this, 156, "float")
         set => NumPut("float", value, this, 156)
     }
@@ -125,7 +133,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvGuardBandTop {
+    dvGuardBandRight {
         get => NumGet(this, 160, "float")
         set => NumPut("float", value, this, 160)
     }
@@ -133,7 +141,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvGuardBandRight {
+    dvGuardBandBottom {
         get => NumGet(this, 164, "float")
         set => NumPut("float", value, this, 164)
     }
@@ -141,23 +149,23 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvGuardBandBottom {
+    dvExtentsAdjust {
         get => NumGet(this, 168, "float")
         set => NumPut("float", value, this, 168)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dvExtentsAdjust {
-        get => NumGet(this, 172, "float")
-        set => NumPut("float", value, this, 172)
     }
 
     /**
      * @type {Integer}
      */
     dwStencilCaps {
+        get => NumGet(this, 172, "uint")
+        set => NumPut("uint", value, this, 172)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwFVFCaps {
         get => NumGet(this, 176, "uint")
         set => NumPut("uint", value, this, 176)
     }
@@ -165,7 +173,7 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwFVFCaps {
+    dwTextureOpCaps {
         get => NumGet(this, 180, "uint")
         set => NumPut("uint", value, this, 180)
     }
@@ -173,41 +181,33 @@ class D3DDEVICEDESC7 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwTextureOpCaps {
-        get => NumGet(this, 184, "uint")
-        set => NumPut("uint", value, this, 184)
-    }
-
-    /**
-     * @type {Integer}
-     */
     wMaxTextureBlendStages {
-        get => NumGet(this, 188, "ushort")
-        set => NumPut("ushort", value, this, 188)
+        get => NumGet(this, 184, "ushort")
+        set => NumPut("ushort", value, this, 184)
     }
 
     /**
      * @type {Integer}
      */
     wMaxSimultaneousTextures {
-        get => NumGet(this, 190, "ushort")
-        set => NumPut("ushort", value, this, 190)
+        get => NumGet(this, 186, "ushort")
+        set => NumPut("ushort", value, this, 186)
     }
 
     /**
      * @type {Integer}
      */
     dwMaxActiveLights {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 188, "uint")
+        set => NumPut("uint", value, this, 188)
     }
 
     /**
      * @type {Float}
      */
     dvMaxVertexW {
-        get => NumGet(this, 196, "float")
-        set => NumPut("float", value, this, 196)
+        get => NumGet(this, 192, "float")
+        set => NumPut("float", value, this, 192)
     }
 
     /**

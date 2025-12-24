@@ -16,7 +16,7 @@ class AVIStreamHeader extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains a FOURCC that specifies the type of the data contained in the stream. The following standard AVI values for video and audio are defined.

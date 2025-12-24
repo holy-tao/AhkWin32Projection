@@ -13,9 +13,9 @@
  */
 class PPP_INFO extends Win32Struct
 {
-    static sizeof => 240
+    static sizeof => 232
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 
@@ -51,7 +51,7 @@ class PPP_INFO extends Win32Struct
     ipx{
         get {
             if(!this.HasProp("__ipx"))
-                this.__ipx := PPP_IPXCP_INFO(112, this)
+                this.__ipx := PPP_IPXCP_INFO(108, this)
             return this.__ipx
         }
     }
@@ -64,7 +64,7 @@ class PPP_INFO extends Win32Struct
     at{
         get {
             if(!this.HasProp("__at"))
-                this.__at := PPP_ATCP_INFO(168, this)
+                this.__at := PPP_ATCP_INFO(160, this)
             return this.__at
         }
     }

@@ -19,9 +19,9 @@
  */
 class TASK_TRIGGER extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size of this structure, in bytes.
@@ -169,7 +169,7 @@ class TASK_TRIGGER extends Win32Struct
     Type{
         get {
             if(!this.HasProp("__Type"))
-                this.__Type := TRIGGER_TYPE_UNION(40, this)
+                this.__Type := TRIGGER_TYPE_UNION(36, this)
             return this.__Type
         }
     }
@@ -179,8 +179,8 @@ class TASK_TRIGGER extends Win32Struct
      * @type {Integer}
      */
     Reserved2 {
-        get => NumGet(this, 64, "ushort")
-        set => NumPut("ushort", value, this, 64)
+        get => NumGet(this, 60, "ushort")
+        set => NumPut("ushort", value, this, 60)
     }
 
     /**
@@ -188,7 +188,7 @@ class TASK_TRIGGER extends Win32Struct
      * @type {Integer}
      */
     wRandomMinutesInterval {
-        get => NumGet(this, 66, "ushort")
-        set => NumPut("ushort", value, this, 66)
+        get => NumGet(this, 62, "ushort")
+        set => NumPut("ushort", value, this, 62)
     }
 }

@@ -9,9 +9,9 @@
  */
 class DOT11_ASSOCIATION_START_PARAMETERS extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NDIS_OBJECT_HEADER}
@@ -41,7 +41,7 @@ class DOT11_ASSOCIATION_START_PARAMETERS extends Win32Struct
     SSID{
         get {
             if(!this.HasProp("__SSID"))
-                this.__SSID := DOT11_SSID(16, this)
+                this.__SSID := DOT11_SSID(12, this)
             return this.__SSID
         }
     }
@@ -50,15 +50,15 @@ class DOT11_ASSOCIATION_START_PARAMETERS extends Win32Struct
      * @type {Integer}
      */
     uIHVDataOffset {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     uIHVDataSize {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 }

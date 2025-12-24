@@ -33,7 +33,7 @@ class VMR9MonitorInfo extends Win32Struct
     rcMonitor{
         get {
             if(!this.HasProp("__rcMonitor"))
-                this.__rcMonitor := RECT(8, this)
+                this.__rcMonitor := RECT(4, this)
             return this.__rcMonitor
         }
     }

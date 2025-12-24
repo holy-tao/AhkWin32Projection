@@ -9,13 +9,13 @@
  */
 class USB_HUB_INFORMATION_EX extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 80
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _u_e__Union extends Win32Struct {
-        static sizeof => 74
-        static packingSize => 8
+        static sizeof => 72
+        static packingSize => 2
 
         /**
          * @type {USB_HUB_DESCRIPTOR}
@@ -63,7 +63,7 @@ class USB_HUB_INFORMATION_EX extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(8, this)
+                this.__u := %this.__Class%._u_e__Union(6, this)
             return this.__u
         }
     }

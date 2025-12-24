@@ -97,7 +97,7 @@ class PERF_DATA_BLOCK extends Win32Struct
     SystemTime{
         get {
             if(!this.HasProp("__SystemTime"))
-                this.__SystemTime := SYSTEMTIME(40, this)
+                this.__SystemTime := SYSTEMTIME(36, this)
             return this.__SystemTime
         }
     }

@@ -8,9 +8,9 @@
  */
 class DXVA_VideoDesc extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -58,7 +58,7 @@ class DXVA_VideoDesc extends Win32Struct
     InputSampleFreq{
         get {
             if(!this.HasProp("__InputSampleFreq"))
-                this.__InputSampleFreq := DXVA_Frequency(24, this)
+                this.__InputSampleFreq := DXVA_Frequency(20, this)
             return this.__InputSampleFreq
         }
     }
@@ -69,7 +69,7 @@ class DXVA_VideoDesc extends Win32Struct
     OutputFrameFreq{
         get {
             if(!this.HasProp("__OutputFrameFreq"))
-                this.__OutputFrameFreq := DXVA_Frequency(32, this)
+                this.__OutputFrameFreq := DXVA_Frequency(28, this)
             return this.__OutputFrameFreq
         }
     }

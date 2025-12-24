@@ -105,7 +105,7 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
     PasswordLastSet{
         get {
             if(!this.HasProp("__PasswordLastSet"))
-                this.__PasswordLastSet := FILETIME(8, this)
+                this.__PasswordLastSet := FILETIME(4, this)
             return this.__PasswordLastSet
         }
     }
@@ -119,7 +119,7 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
     BadPasswordTime{
         get {
             if(!this.HasProp("__BadPasswordTime"))
-                this.__BadPasswordTime := FILETIME(16, this)
+                this.__BadPasswordTime := FILETIME(12, this)
             return this.__BadPasswordTime
         }
     }
@@ -133,7 +133,7 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
     LockoutTime{
         get {
             if(!this.HasProp("__LockoutTime"))
-                this.__LockoutTime := FILETIME(24, this)
+                this.__LockoutTime := FILETIME(20, this)
             return this.__LockoutTime
         }
     }
@@ -145,8 +145,8 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
      * @type {Integer}
      */
     BadPasswordCount {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -156,8 +156,8 @@ class NET_VALIDATE_PERSISTED_FIELDS extends Win32Struct
      * @type {Integer}
      */
     PasswordHistoryLength {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**

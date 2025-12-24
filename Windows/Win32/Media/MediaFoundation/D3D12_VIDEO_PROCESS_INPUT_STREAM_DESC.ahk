@@ -16,7 +16,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_DESC extends Win32Struct
 {
     static sizeof => 112
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A value from the [DXGI_FORMAT](/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format) enumeration specifying the format of the input stream. In the case of stereo, this format is the format of both inputs.

@@ -11,7 +11,7 @@
  */
 class GLOBAL_USER_POWER_POLICY extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -32,7 +32,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     PowerButtonAc{
         get {
             if(!this.HasProp("__PowerButtonAc"))
-                this.__PowerButtonAc := POWER_ACTION_POLICY(8, this)
+                this.__PowerButtonAc := POWER_ACTION_POLICY(4, this)
             return this.__PowerButtonAc
         }
     }
@@ -45,7 +45,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     PowerButtonDc{
         get {
             if(!this.HasProp("__PowerButtonDc"))
-                this.__PowerButtonDc := POWER_ACTION_POLICY(24, this)
+                this.__PowerButtonDc := POWER_ACTION_POLICY(16, this)
             return this.__PowerButtonDc
         }
     }
@@ -58,7 +58,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     SleepButtonAc{
         get {
             if(!this.HasProp("__SleepButtonAc"))
-                this.__SleepButtonAc := POWER_ACTION_POLICY(40, this)
+                this.__SleepButtonAc := POWER_ACTION_POLICY(28, this)
             return this.__SleepButtonAc
         }
     }
@@ -71,7 +71,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     SleepButtonDc{
         get {
             if(!this.HasProp("__SleepButtonDc"))
-                this.__SleepButtonDc := POWER_ACTION_POLICY(56, this)
+                this.__SleepButtonDc := POWER_ACTION_POLICY(40, this)
             return this.__SleepButtonDc
         }
     }
@@ -84,7 +84,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     LidCloseAc{
         get {
             if(!this.HasProp("__LidCloseAc"))
-                this.__LidCloseAc := POWER_ACTION_POLICY(72, this)
+                this.__LidCloseAc := POWER_ACTION_POLICY(52, this)
             return this.__LidCloseAc
         }
     }
@@ -97,7 +97,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     LidCloseDc{
         get {
             if(!this.HasProp("__LidCloseDc"))
-                this.__LidCloseDc := POWER_ACTION_POLICY(88, this)
+                this.__LidCloseDc := POWER_ACTION_POLICY(64, this)
             return this.__LidCloseDc
         }
     }
@@ -110,7 +110,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
     DischargePolicy{
         get {
             if(!this.HasProp("__DischargePolicyProxyArray"))
-                this.__DischargePolicyProxyArray := Win32FixedArray(this.ptr + 104, 4, SYSTEM_POWER_LEVEL, "")
+                this.__DischargePolicyProxyArray := Win32FixedArray(this.ptr + 80, 4, SYSTEM_POWER_LEVEL, "")
             return this.__DischargePolicyProxyArray
         }
     }
@@ -121,7 +121,7 @@ class GLOBAL_USER_POWER_POLICY extends Win32Struct
      * @type {Integer}
      */
     GlobalFlags {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
     }
 }

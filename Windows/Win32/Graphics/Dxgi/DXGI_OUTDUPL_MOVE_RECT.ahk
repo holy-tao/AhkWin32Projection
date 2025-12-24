@@ -15,7 +15,7 @@ class DXGI_OUTDUPL_MOVE_RECT extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The starting position of a rectangle.

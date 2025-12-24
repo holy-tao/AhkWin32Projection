@@ -59,7 +59,7 @@ class DXVA_VideoSample32 extends Win32Struct
     rcSrc{
         get {
             if(!this.HasProp("__rcSrc"))
-                this.__rcSrc := RECT(32, this)
+                this.__rcSrc := RECT(28, this)
             return this.__rcSrc
         }
     }
@@ -70,7 +70,7 @@ class DXVA_VideoSample32 extends Win32Struct
     rcDst{
         get {
             if(!this.HasProp("__rcDst"))
-                this.__rcDst := RECT(48, this)
+                this.__rcDst := RECT(44, this)
             return this.__rcDst
         }
     }

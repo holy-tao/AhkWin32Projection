@@ -8,9 +8,9 @@
  */
 class UDATE extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 18
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * @type {SYSTEMTIME}

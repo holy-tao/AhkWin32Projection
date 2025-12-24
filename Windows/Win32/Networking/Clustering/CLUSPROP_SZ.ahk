@@ -11,9 +11,9 @@
  */
 class CLUSPROP_SZ extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CLUSPROP_VALUE}
@@ -31,7 +31,7 @@ class CLUSPROP_SZ extends Win32Struct
      * @type {String}
      */
     sz {
-        get => StrGet(this.ptr + 16, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 16, 0, "UTF-16")
+        get => StrGet(this.ptr + 12, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 12, 0, "UTF-16")
     }
 }

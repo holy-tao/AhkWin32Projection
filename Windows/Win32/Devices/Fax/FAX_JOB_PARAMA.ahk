@@ -20,7 +20,7 @@
  */
 class FAX_JOB_PARAMA extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -132,7 +132,7 @@ class FAX_JOB_PARAMA extends Win32Struct
     ScheduleTime{
         get {
             if(!this.HasProp("__ScheduleTime"))
-                this.__ScheduleTime := SYSTEMTIME(72, this)
+                this.__ScheduleTime := SYSTEMTIME(68, this)
             return this.__ScheduleTime
         }
     }
@@ -144,8 +144,8 @@ class FAX_JOB_PARAMA extends Win32Struct
      * @type {Integer}
      */
     DeliveryReportType {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -155,8 +155,8 @@ class FAX_JOB_PARAMA extends Win32Struct
      * @type {PSTR}
      */
     DeliveryReportAddress {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 
     /**
@@ -166,8 +166,8 @@ class FAX_JOB_PARAMA extends Win32Struct
      * @type {PSTR}
      */
     DocumentName {
-        get => NumGet(this, 104, "ptr")
-        set => NumPut("ptr", value, this, 104)
+        get => NumGet(this, 96, "ptr")
+        set => NumPut("ptr", value, this, 96)
     }
 
     /**
@@ -177,8 +177,8 @@ class FAX_JOB_PARAMA extends Win32Struct
      * @type {Integer}
      */
     CallHandle {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
@@ -190,7 +190,7 @@ class FAX_JOB_PARAMA extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 120, 3, Primitive, "ptr")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 112, 3, Primitive, "ptr")
             return this.__ReservedProxyArray
         }
     }

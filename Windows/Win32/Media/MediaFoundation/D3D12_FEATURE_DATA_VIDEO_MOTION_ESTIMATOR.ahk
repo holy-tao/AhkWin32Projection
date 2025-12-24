@@ -14,7 +14,7 @@ class D3D12_FEATURE_DATA_VIDEO_MOTION_ESTIMATOR extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * In multi-adapter operation, identifies the physical adapter of the device this operation applies to.

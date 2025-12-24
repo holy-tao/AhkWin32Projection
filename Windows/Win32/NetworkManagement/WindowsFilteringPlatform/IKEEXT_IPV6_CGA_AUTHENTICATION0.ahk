@@ -12,7 +12,7 @@
  */
 class IKEEXT_IPV6_CGA_AUTHENTICATION0 extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -58,7 +58,7 @@ class IKEEXT_IPV6_CGA_AUTHENTICATION0 extends Win32Struct
     cgaModifier{
         get {
             if(!this.HasProp("__cgaModifier"))
-                this.__cgaModifier := FWP_BYTE_ARRAY16(24, this)
+                this.__cgaModifier := FWP_BYTE_ARRAY16(20, this)
             return this.__cgaModifier
         }
     }
@@ -70,7 +70,7 @@ class IKEEXT_IPV6_CGA_AUTHENTICATION0 extends Win32Struct
      * @type {Integer}
      */
     cgaCollisionCount {
-        get => NumGet(this, 40, "char")
-        set => NumPut("char", value, this, 40)
+        get => NumGet(this, 36, "char")
+        set => NumPut("char", value, this, 36)
     }
 }

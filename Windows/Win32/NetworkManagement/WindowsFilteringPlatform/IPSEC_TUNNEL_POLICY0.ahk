@@ -65,7 +65,7 @@ class IPSEC_TUNNEL_POLICY0 extends Win32Struct
     saIdleTimeout{
         get {
             if(!this.HasProp("__saIdleTimeout"))
-                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(56, this)
+                this.__saIdleTimeout := IPSEC_SA_IDLE_TIMEOUT0(52, this)
             return this.__saIdleTimeout
         }
     }

@@ -10,9 +10,9 @@
  */
 class VMR9VideoDesc extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size of the structure, in bytes.
@@ -66,7 +66,7 @@ class VMR9VideoDesc extends Win32Struct
     InputSampleFreq{
         get {
             if(!this.HasProp("__InputSampleFreq"))
-                this.__InputSampleFreq := VMR9Frequency(24, this)
+                this.__InputSampleFreq := VMR9Frequency(20, this)
             return this.__InputSampleFreq
         }
     }
@@ -78,7 +78,7 @@ class VMR9VideoDesc extends Win32Struct
     OutputFrameFreq{
         get {
             if(!this.HasProp("__OutputFrameFreq"))
-                this.__OutputFrameFreq := VMR9Frequency(32, this)
+                this.__OutputFrameFreq := VMR9Frequency(28, this)
             return this.__OutputFrameFreq
         }
     }

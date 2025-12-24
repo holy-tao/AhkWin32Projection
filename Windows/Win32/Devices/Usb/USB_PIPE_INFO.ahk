@@ -8,9 +8,9 @@
  */
 class USB_PIPE_INFO extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {USB_ENDPOINT_DESCRIPTOR}

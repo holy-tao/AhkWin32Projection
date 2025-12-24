@@ -11,9 +11,9 @@
  */
 class MPEG2_FILTER extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 148
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the version number of the structure. This value must be 1 or higher.
@@ -154,7 +154,7 @@ class MPEG2_FILTER extends Win32Struct
     Dsmcc{
         get {
             if(!this.HasProp("__Dsmcc"))
-                this.__Dsmcc := DSMCC_FILTER_OPTIONS(80, this)
+                this.__Dsmcc := DSMCC_FILTER_OPTIONS(76, this)
             return this.__Dsmcc
         }
     }
@@ -164,8 +164,8 @@ class MPEG2_FILTER extends Win32Struct
      * @type {BOOL}
      */
     fSpecifyAtscOptions {
-        get => NumGet(this, 140, "int")
-        set => NumPut("int", value, this, 140)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
@@ -175,7 +175,7 @@ class MPEG2_FILTER extends Win32Struct
     Atsc{
         get {
             if(!this.HasProp("__Atsc"))
-                this.__Atsc := ATSC_FILTER_OPTIONS(144, this)
+                this.__Atsc := ATSC_FILTER_OPTIONS(140, this)
             return this.__Atsc
         }
     }

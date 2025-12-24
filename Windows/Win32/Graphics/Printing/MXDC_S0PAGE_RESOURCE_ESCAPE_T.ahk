@@ -37,9 +37,9 @@
  */
 class MXDC_S0PAGE_RESOURCE_ESCAPE_T extends Win32Struct
 {
-    static sizeof => 296
+    static sizeof => 288
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An [**MXDC\_ESCAPE\_HEADER\_T**](mxdcescapeheader.md) structure with its **opCode** member set to MXDCOP\_SET\_S0PAGE\_RESOURCE.
@@ -60,7 +60,7 @@ class MXDC_S0PAGE_RESOURCE_ESCAPE_T extends Win32Struct
     xpsS0PageResourcePassthrough{
         get {
             if(!this.HasProp("__xpsS0PageResourcePassthrough"))
-                this.__xpsS0PageResourcePassthrough := MXDC_XPS_S0PAGE_RESOURCE_T(16, this)
+                this.__xpsS0PageResourcePassthrough := MXDC_XPS_S0PAGE_RESOURCE_T(12, this)
             return this.__xpsS0PageResourcePassthrough
         }
     }

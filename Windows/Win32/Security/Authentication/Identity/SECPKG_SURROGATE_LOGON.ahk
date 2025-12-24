@@ -8,7 +8,7 @@
  */
 class SECPKG_SURROGATE_LOGON extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -26,7 +26,7 @@ class SECPKG_SURROGATE_LOGON extends Win32Struct
     SurrogateLogonID{
         get {
             if(!this.HasProp("__SurrogateLogonID"))
-                this.__SurrogateLogonID := LUID(8, this)
+                this.__SurrogateLogonID := LUID(4, this)
             return this.__SurrogateLogonID
         }
     }
@@ -35,15 +35,15 @@ class SECPKG_SURROGATE_LOGON extends Win32Struct
      * @type {Integer}
      */
     EntryCount {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
      * @type {Pointer<SECPKG_SURROGATE_LOGON_ENTRY>}
      */
     Entries {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

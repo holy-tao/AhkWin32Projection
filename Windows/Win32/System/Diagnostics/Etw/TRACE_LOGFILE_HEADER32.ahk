@@ -9,7 +9,7 @@
  */
 class TRACE_LOGFILE_HEADER32 extends Win32Struct
 {
-    static sizeof => 280
+    static sizeof => 272
 
     static packingSize => 8
 
@@ -205,6 +205,14 @@ class TRACE_LOGFILE_HEADER32 extends Win32Struct
      * @type {Integer}
      */
     BootTime {
+        get => NumGet(this, 240, "int64")
+        set => NumPut("int64", value, this, 240)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    PerfFreq {
         get => NumGet(this, 248, "int64")
         set => NumPut("int64", value, this, 248)
     }
@@ -212,7 +220,7 @@ class TRACE_LOGFILE_HEADER32 extends Win32Struct
     /**
      * @type {Integer}
      */
-    PerfFreq {
+    StartTime {
         get => NumGet(this, 256, "int64")
         set => NumPut("int64", value, this, 256)
     }
@@ -220,24 +228,16 @@ class TRACE_LOGFILE_HEADER32 extends Win32Struct
     /**
      * @type {Integer}
      */
-    StartTime {
-        get => NumGet(this, 264, "int64")
-        set => NumPut("int64", value, this, 264)
-    }
-
-    /**
-     * @type {Integer}
-     */
     ReservedFlags {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
+        get => NumGet(this, 264, "uint")
+        set => NumPut("uint", value, this, 264)
     }
 
     /**
      * @type {Integer}
      */
     BuffersLost {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
+        get => NumGet(this, 268, "uint")
+        set => NumPut("uint", value, this, 268)
     }
 }

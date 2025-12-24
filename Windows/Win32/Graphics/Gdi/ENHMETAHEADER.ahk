@@ -11,9 +11,9 @@
  */
 class ENHMETAHEADER extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 108
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The record type. This member must specify the value assigned to the EMR_HEADER constant.
@@ -209,7 +209,7 @@ class ENHMETAHEADER extends Win32Struct
     szlMicrometers{
         get {
             if(!this.HasProp("__szlMicrometers"))
-                this.__szlMicrometers := SIZE(104, this)
+                this.__szlMicrometers := SIZE(100, this)
             return this.__szlMicrometers
         }
     }

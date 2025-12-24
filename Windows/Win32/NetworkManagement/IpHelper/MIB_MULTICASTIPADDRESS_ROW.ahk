@@ -22,7 +22,7 @@
  */
 class MIB_MULTICASTIPADDRESS_ROW extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -43,8 +43,8 @@ class MIB_MULTICASTIPADDRESS_ROW extends Win32Struct
      * @type {Integer}
      */
     InterfaceIndex {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -54,7 +54,7 @@ class MIB_MULTICASTIPADDRESS_ROW extends Win32Struct
     InterfaceLuid{
         get {
             if(!this.HasProp("__InterfaceLuid"))
-                this.__InterfaceLuid := NET_LUID_LH(72, this)
+                this.__InterfaceLuid := NET_LUID_LH(64, this)
             return this.__InterfaceLuid
         }
     }
@@ -66,7 +66,7 @@ class MIB_MULTICASTIPADDRESS_ROW extends Win32Struct
     ScopeId{
         get {
             if(!this.HasProp("__ScopeId"))
-                this.__ScopeId := SCOPE_ID(88, this)
+                this.__ScopeId := SCOPE_ID(80, this)
             return this.__ScopeId
         }
     }

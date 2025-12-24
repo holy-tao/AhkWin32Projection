@@ -22,7 +22,7 @@ class GOPHER_FIND_DATAA extends Win32Struct
 {
     static sizeof => 808
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Friendly name of an object. An application can display this string to allow the user to select the object.

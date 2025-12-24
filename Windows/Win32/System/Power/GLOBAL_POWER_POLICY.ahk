@@ -13,7 +13,7 @@
  */
 class GLOBAL_POWER_POLICY extends Win32Struct
 {
-    static sizeof => 160
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -38,7 +38,7 @@ class GLOBAL_POWER_POLICY extends Win32Struct
     mach{
         get {
             if(!this.HasProp("__mach"))
-                this.__mach := GLOBAL_MACHINE_POWER_POLICY(144, this)
+                this.__mach := GLOBAL_MACHINE_POWER_POLICY(120, this)
             return this.__mach
         }
     }

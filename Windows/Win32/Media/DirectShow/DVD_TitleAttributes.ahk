@@ -50,7 +50,7 @@ class DVD_TitleAttributes extends Win32Struct
     VideoAttributes{
         get {
             if(!this.HasProp("__VideoAttributes"))
-                this.__VideoAttributes := DVD_VideoAttributes(8, this)
+                this.__VideoAttributes := DVD_VideoAttributes(4, this)
             return this.__VideoAttributes
         }
     }
@@ -60,8 +60,8 @@ class DVD_TitleAttributes extends Win32Struct
      * @type {Integer}
      */
     ulNumberOfAudioStreams {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**

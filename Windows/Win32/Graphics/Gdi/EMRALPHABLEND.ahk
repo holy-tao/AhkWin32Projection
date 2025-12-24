@@ -14,9 +14,9 @@
  */
 class EMRALPHABLEND extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 108
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
@@ -112,7 +112,7 @@ class EMRALPHABLEND extends Win32Struct
     xformSrc{
         get {
             if(!this.HasProp("__xformSrc"))
-                this.__xformSrc := XFORM(56, this)
+                this.__xformSrc := XFORM(52, this)
             return this.__xformSrc
         }
     }
@@ -122,8 +122,8 @@ class EMRALPHABLEND extends Win32Struct
      * @type {COLORREF}
      */
     crBkColorSrc {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 
     /**
@@ -131,8 +131,8 @@ class EMRALPHABLEND extends Win32Struct
      * @type {Integer}
      */
     iUsageSrc {
-        get => NumGet(this, 84, "uint")
-        set => NumPut("uint", value, this, 84)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -140,8 +140,8 @@ class EMRALPHABLEND extends Win32Struct
      * @type {Integer}
      */
     offBmiSrc {
-        get => NumGet(this, 88, "uint")
-        set => NumPut("uint", value, this, 88)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -149,8 +149,8 @@ class EMRALPHABLEND extends Win32Struct
      * @type {Integer}
      */
     cbBmiSrc {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -158,8 +158,8 @@ class EMRALPHABLEND extends Win32Struct
      * @type {Integer}
      */
     offBitsSrc {
-        get => NumGet(this, 96, "uint")
-        set => NumPut("uint", value, this, 96)
+        get => NumGet(this, 92, "uint")
+        set => NumPut("uint", value, this, 92)
     }
 
     /**
@@ -167,8 +167,8 @@ class EMRALPHABLEND extends Win32Struct
      * @type {Integer}
      */
     cbBitsSrc {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -176,8 +176,8 @@ class EMRALPHABLEND extends Win32Struct
      * @type {Integer}
      */
     cxSrc {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
+        get => NumGet(this, 100, "int")
+        set => NumPut("int", value, this, 100)
     }
 
     /**
@@ -185,7 +185,7 @@ class EMRALPHABLEND extends Win32Struct
      * @type {Integer}
      */
     cySrc {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
+        get => NumGet(this, 104, "int")
+        set => NumPut("int", value, this, 104)
     }
 }

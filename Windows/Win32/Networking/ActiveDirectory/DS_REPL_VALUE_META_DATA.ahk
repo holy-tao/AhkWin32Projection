@@ -90,7 +90,7 @@ class DS_REPL_VALUE_META_DATA extends Win32Struct
     ftimeLastOriginatingChange{
         get {
             if(!this.HasProp("__ftimeLastOriginatingChange"))
-                this.__ftimeLastOriginatingChange := FILETIME(56, this)
+                this.__ftimeLastOriginatingChange := FILETIME(52, this)
             return this.__ftimeLastOriginatingChange
         }
     }

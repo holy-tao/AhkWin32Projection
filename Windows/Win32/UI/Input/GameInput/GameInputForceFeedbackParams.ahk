@@ -13,12 +13,12 @@
  */
 class GameInputForceFeedbackParams extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 112
 
     static packingSize => 8
 
     class _data_e__Union extends Win32Struct {
-        static sizeof => 112
+        static sizeof => 104
         static packingSize => 8
 
         /**

@@ -14,7 +14,7 @@ class DXVAHD_STREAM_STATE_OUTPUT_RATE_DATA extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies how the device performs frame-rate conversion, if required. The default state value is <b>FALSE</b> (interpolation).

@@ -50,7 +50,7 @@ class MFCameraExtrinsic_CalibratedTransform extends Win32Struct
     Orientation{
         get {
             if(!this.HasProp("__Orientation"))
-                this.__Orientation := MF_QUATERNION(24, this)
+                this.__Orientation := MF_QUATERNION(20, this)
             return this.__Orientation
         }
     }

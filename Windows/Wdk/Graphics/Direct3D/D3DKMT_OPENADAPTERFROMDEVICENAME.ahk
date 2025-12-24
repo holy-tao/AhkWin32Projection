@@ -34,7 +34,7 @@ class D3DKMT_OPENADAPTERFROMDEVICENAME extends Win32Struct
     AdapterLuid{
         get {
             if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(16, this)
+                this.__AdapterLuid := LUID(12, this)
             return this.__AdapterLuid
         }
     }

@@ -9,9 +9,9 @@
  */
 class DDMCCOMPBUFFERINFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -59,7 +59,7 @@ class DDMCCOMPBUFFERINFO extends Win32Struct
     ddCompCaps{
         get {
             if(!this.HasProp("__ddCompCaps"))
-                this.__ddCompCaps := DDSCAPS2(24, this)
+                this.__ddCompCaps := DDSCAPS2(20, this)
             return this.__ddCompCaps
         }
     }
@@ -70,7 +70,7 @@ class DDMCCOMPBUFFERINFO extends Win32Struct
     ddPixelFormat{
         get {
             if(!this.HasProp("__ddPixelFormat"))
-                this.__ddPixelFormat := DDPIXELFORMAT(40, this)
+                this.__ddPixelFormat := DDPIXELFORMAT(36, this)
             return this.__ddPixelFormat
         }
     }

@@ -9,11 +9,11 @@ class DVD_DISC_CONTROL_BLOCK_HEADER extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 4
+    static packingSize => 1
 
     class _ProhibitedActions_e__Union extends Win32Struct {
         static sizeof => 4
-        static packingSize => 4
+        static packingSize => 1
 
         /**
          * @type {Array<Byte>}

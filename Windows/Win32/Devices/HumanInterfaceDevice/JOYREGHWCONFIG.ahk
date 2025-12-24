@@ -11,9 +11,9 @@
  */
 class JOYREGHWCONFIG extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 112
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {JOYREGHWSETTINGS}
@@ -40,7 +40,7 @@ class JOYREGHWCONFIG extends Win32Struct
     hwv{
         get {
             if(!this.HasProp("__hwv"))
-                this.__hwv := JOYREGHWVALUES(16, this)
+                this.__hwv := JOYREGHWVALUES(12, this)
             return this.__hwv
         }
     }
@@ -49,15 +49,15 @@ class JOYREGHWCONFIG extends Win32Struct
      * @type {Integer}
      */
     dwType {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
      * @type {Integer}
      */
     dwReserved {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 }

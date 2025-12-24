@@ -16,7 +16,7 @@
  */
 class DIJOYCONFIG extends Win32Struct
 {
-    static sizeof => 1176
+    static sizeof => 1168
 
     static packingSize => 8
 
@@ -55,8 +55,8 @@ class DIJOYCONFIG extends Win32Struct
      * @type {Integer}
      */
     dwGain {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
@@ -64,8 +64,8 @@ class DIJOYCONFIG extends Win32Struct
      * @type {String}
      */
     wszType {
-        get => StrGet(this.ptr + 140, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 140, 255, "UTF-16")
+        get => StrGet(this.ptr + 132, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 132, 255, "UTF-16")
     }
 
     /**
@@ -73,8 +73,8 @@ class DIJOYCONFIG extends Win32Struct
      * @type {String}
      */
     wszCallout {
-        get => StrGet(this.ptr + 652, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 652, 255, "UTF-16")
+        get => StrGet(this.ptr + 644, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 644, 255, "UTF-16")
     }
 
     /**
@@ -82,7 +82,7 @@ class DIJOYCONFIG extends Win32Struct
      * @type {Pointer<Guid>}
      */
     guidGameport {
-        get => NumGet(this, 1168, "ptr")
-        set => NumPut("ptr", value, this, 1168)
+        get => NumGet(this, 1160, "ptr")
+        set => NumPut("ptr", value, this, 1160)
     }
 }

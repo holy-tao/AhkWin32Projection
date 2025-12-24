@@ -13,9 +13,9 @@
  */
 class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 72
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_random_number">OPM_RANDOM_NUMBER</a> structure. This structure contains the same 128-bit random number that the application sent to the driver in the <a href="https://docs.microsoft.com/windows/desktop/api/ksopmapi/ns-ksopmapi-opm_get_info_parameters">OPM_GET_INFO_PARAMETERS</a> or <a href="https://docs.microsoft.com/windows/desktop/api/opmapi/nf-opmapi-iopmvideooutput-coppcompatiblegetinformation">OPM_COPP_COMPATIBLE_GET_INFO_PARAMETERS</a> structure.
@@ -83,7 +83,7 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
     ksvB{
         get {
             if(!this.HasProp("__ksvB"))
-                this.__ksvB := OPM_HDCP_KEY_SELECTION_VECTOR(25, this)
+                this.__ksvB := OPM_HDCP_KEY_SELECTION_VECTOR(24, this)
             return this.__ksvB
         }
     }
@@ -95,7 +95,7 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__ReservedProxyArray"))
-                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 30, 11, Primitive, "char")
+                this.__ReservedProxyArray := Win32FixedArray(this.ptr + 29, 11, Primitive, "char")
             return this.__ReservedProxyArray
         }
     }
@@ -107,7 +107,7 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 41, 16, Primitive, "char")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 40, 16, Primitive, "char")
             return this.__Reserved2ProxyArray
         }
     }
@@ -119,7 +119,7 @@ class OPM_CONNECTED_HDCP_DEVICE_INFORMATION extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 57, 16, Primitive, "char")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 56, 16, Primitive, "char")
             return this.__Reserved3ProxyArray
         }
     }

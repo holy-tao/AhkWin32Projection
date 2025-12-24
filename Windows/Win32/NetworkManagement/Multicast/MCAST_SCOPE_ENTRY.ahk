@@ -12,7 +12,7 @@
  */
 class MCAST_SCOPE_ENTRY extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -37,7 +37,7 @@ class MCAST_SCOPE_ENTRY extends Win32Struct
     LastAddr{
         get {
             if(!this.HasProp("__LastAddr"))
-                this.__LastAddr := IPNG_ADDRESS(72, this)
+                this.__LastAddr := IPNG_ADDRESS(60, this)
             return this.__LastAddr
         }
     }
@@ -47,8 +47,8 @@ class MCAST_SCOPE_ENTRY extends Win32Struct
      * @type {Integer}
      */
     TTL {
-        get => NumGet(this, 92, "uint")
-        set => NumPut("uint", value, this, 92)
+        get => NumGet(this, 80, "uint")
+        set => NumPut("uint", value, this, 80)
     }
 
     /**
@@ -58,7 +58,7 @@ class MCAST_SCOPE_ENTRY extends Win32Struct
     ScopeDesc{
         get {
             if(!this.HasProp("__ScopeDesc"))
-                this.__ScopeDesc := UNICODE_STRING(96, this)
+                this.__ScopeDesc := UNICODE_STRING(88, this)
             return this.__ScopeDesc
         }
     }

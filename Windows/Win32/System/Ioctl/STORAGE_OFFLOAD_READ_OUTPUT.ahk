@@ -81,7 +81,7 @@ class STORAGE_OFFLOAD_READ_OUTPUT extends Win32Struct
     Token{
         get {
             if(!this.HasProp("__Token"))
-                this.__Token := STORAGE_OFFLOAD_TOKEN(24, this)
+                this.__Token := STORAGE_OFFLOAD_TOKEN(20, this)
             return this.__Token
         }
     }

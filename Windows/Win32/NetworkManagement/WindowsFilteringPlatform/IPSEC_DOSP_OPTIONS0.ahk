@@ -12,7 +12,7 @@
  */
 class IPSEC_DOSP_OPTIONS0 extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -215,7 +215,7 @@ class IPSEC_DOSP_OPTIONS0 extends Win32Struct
     internalV6AddrMask{
         get {
             if(!this.HasProp("__internalV6AddrMask"))
-                this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(120, this)
+                this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(113, this)
             return this.__internalV6AddrMask
         }
     }

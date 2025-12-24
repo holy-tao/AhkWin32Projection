@@ -10,7 +10,7 @@ class FSVIDEO_SCREEN_INFORMATION extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 4
+    static packingSize => 2
 
     /**
      * @type {COORD}

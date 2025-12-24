@@ -12,9 +12,9 @@
  */
 class NVME_CDW12_DIRECTIVE_RECEIVE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [NVME_CDW12_DIRECTIVE_RECEIVE_STREAMS_ALLOCATE_RESOURCES](ns-nvme-nvme_cdw12_directive_receive_streams_allocate_resources.md) structure that specifies the number of namespace streams requested.

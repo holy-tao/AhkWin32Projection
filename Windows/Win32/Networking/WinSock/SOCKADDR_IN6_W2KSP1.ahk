@@ -18,9 +18,9 @@
  */
 class SOCKADDR_IN6_W2KSP1 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The address family for the transport address. This member should always be set to AF_INET6.

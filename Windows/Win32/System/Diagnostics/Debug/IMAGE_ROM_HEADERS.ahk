@@ -9,9 +9,9 @@
  */
 class IMAGE_ROM_HEADERS extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 76
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {IMAGE_FILE_HEADER}
@@ -30,7 +30,7 @@ class IMAGE_ROM_HEADERS extends Win32Struct
     OptionalHeader{
         get {
             if(!this.HasProp("__OptionalHeader"))
-                this.__OptionalHeader := IMAGE_ROM_OPTIONAL_HEADER(24, this)
+                this.__OptionalHeader := IMAGE_ROM_OPTIONAL_HEADER(20, this)
             return this.__OptionalHeader
         }
     }

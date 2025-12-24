@@ -34,7 +34,7 @@ class DDNT_GETFORMATDATA extends Win32Struct
     format{
         get {
             if(!this.HasProp("__format"))
-                this.__format := DDPIXELFORMAT(16, this)
+                this.__format := DDPIXELFORMAT(12, this)
             return this.__format
         }
     }

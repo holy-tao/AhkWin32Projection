@@ -7,9 +7,9 @@
  */
 class RemotableHandle extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _u extends Win32Struct {
         static sizeof => 8
@@ -47,7 +47,7 @@ class RemotableHandle extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u(8, this)
+                this.__u := %this.__Class%._u(4, this)
             return this.__u
         }
     }

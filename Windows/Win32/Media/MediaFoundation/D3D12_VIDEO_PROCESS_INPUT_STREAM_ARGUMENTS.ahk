@@ -17,7 +17,7 @@
  */
 class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS extends Win32Struct
 {
-    static sizeof => 208
+    static sizeof => 200
 
     static packingSize => 8
 
@@ -50,8 +50,8 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -61,7 +61,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS extends Win32Struct
     RateInfo{
         get {
             if(!this.HasProp("__RateInfo"))
-                this.__RateInfo := D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE(64, this)
+                this.__RateInfo := D3D12_VIDEO_PROCESS_INPUT_STREAM_RATE(56, this)
             return this.__RateInfo
         }
     }
@@ -73,7 +73,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS extends Win32Struct
     FilterLevels{
         get {
             if(!this.HasProp("__FilterLevelsProxyArray"))
-                this.__FilterLevelsProxyArray := Win32FixedArray(this.ptr + 72, 32, Primitive, "int")
+                this.__FilterLevelsProxyArray := Win32FixedArray(this.ptr + 64, 32, Primitive, "int")
             return this.__FilterLevelsProxyArray
         }
     }
@@ -85,7 +85,7 @@ class D3D12_VIDEO_PROCESS_INPUT_STREAM_ARGUMENTS extends Win32Struct
     AlphaBlending{
         get {
             if(!this.HasProp("__AlphaBlending"))
-                this.__AlphaBlending := D3D12_VIDEO_PROCESS_ALPHA_BLENDING(200, this)
+                this.__AlphaBlending := D3D12_VIDEO_PROCESS_ALPHA_BLENDING(192, this)
             return this.__AlphaBlending
         }
     }

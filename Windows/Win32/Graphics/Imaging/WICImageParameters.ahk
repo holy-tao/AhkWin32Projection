@@ -22,7 +22,7 @@ class WICImageParameters extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The pixel format to which the image is processed before it is written to the encoder.

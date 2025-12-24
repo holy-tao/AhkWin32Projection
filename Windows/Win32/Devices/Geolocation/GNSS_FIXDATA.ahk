@@ -12,7 +12,7 @@
  */
 class GNSS_FIXDATA extends Win32Struct
 {
-    static sizeof => 680
+    static sizeof => 672
 
     static packingSize => 8
 
@@ -46,7 +46,7 @@ class GNSS_FIXDATA extends Win32Struct
     FixTimeStamp{
         get {
             if(!this.HasProp("__FixTimeStamp"))
-                this.__FixTimeStamp := FILETIME(16, this)
+                this.__FixTimeStamp := FILETIME(12, this)
             return this.__FixTimeStamp
         }
     }
@@ -55,24 +55,24 @@ class GNSS_FIXDATA extends Win32Struct
      * @type {BOOL}
      */
     IsFinalFix {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
      * @type {NTSTATUS}
      */
     FixStatus {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
      * @type {Integer}
      */
     FixLevelOfDetails {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -81,7 +81,7 @@ class GNSS_FIXDATA extends Win32Struct
     BasicData{
         get {
             if(!this.HasProp("__BasicData"))
-                this.__BasicData := GNSS_FIXDATA_BASIC(40, this)
+                this.__BasicData := GNSS_FIXDATA_BASIC(32, this)
             return this.__BasicData
         }
     }
@@ -92,7 +92,7 @@ class GNSS_FIXDATA extends Win32Struct
     AccuracyData{
         get {
             if(!this.HasProp("__AccuracyData"))
-                this.__AccuracyData := GNSS_FIXDATA_ACCURACY(88, this)
+                this.__AccuracyData := GNSS_FIXDATA_ACCURACY(80, this)
             return this.__AccuracyData
         }
     }
@@ -103,7 +103,7 @@ class GNSS_FIXDATA extends Win32Struct
     SatelliteData{
         get {
             if(!this.HasProp("__SatelliteData"))
-                this.__SatelliteData := GNSS_FIXDATA_SATELLITE(152, this)
+                this.__SatelliteData := GNSS_FIXDATA_SATELLITE(144, this)
             return this.__SatelliteData
         }
     }

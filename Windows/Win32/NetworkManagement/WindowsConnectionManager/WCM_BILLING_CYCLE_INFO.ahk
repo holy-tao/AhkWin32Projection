@@ -11,9 +11,9 @@
  */
 class WCM_BILLING_CYCLE_INFO extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>FILETIME</b>

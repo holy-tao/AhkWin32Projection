@@ -10,9 +10,9 @@
  */
 class WINBIO_UNIT_SCHEMA extends Win32Struct
 {
-    static sizeof => 2592
+    static sizeof => 2588
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A value that identifies the biometric unit.
@@ -149,7 +149,7 @@ class WINBIO_UNIT_SCHEMA extends Win32Struct
     FirmwareVersion{
         get {
             if(!this.HasProp("__FirmwareVersion"))
-                this.__FirmwareVersion := WINBIO_VERSION(2584, this)
+                this.__FirmwareVersion := WINBIO_VERSION(2580, this)
             return this.__FirmwareVersion
         }
     }

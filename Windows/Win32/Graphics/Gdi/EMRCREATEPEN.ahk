@@ -12,9 +12,9 @@
  */
 class EMRCREATEPEN extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
@@ -44,7 +44,7 @@ class EMRCREATEPEN extends Win32Struct
     lopn{
         get {
             if(!this.HasProp("__lopn"))
-                this.__lopn := LOGPEN(16, this)
+                this.__lopn := LOGPEN(12, this)
             return this.__lopn
         }
     }

@@ -17,7 +17,7 @@ class ONEX_RESULT_UPDATE_DATA extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the current 802.1X authentication status. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/dot1x/ns-dot1x-onex_status">ONEX_STATUS</a> structure.

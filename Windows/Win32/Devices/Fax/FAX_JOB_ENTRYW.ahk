@@ -24,7 +24,7 @@
  */
 class FAX_JOB_ENTRYW extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -211,7 +211,7 @@ class FAX_JOB_ENTRYW extends Win32Struct
     ScheduleTime{
         get {
             if(!this.HasProp("__ScheduleTime"))
-                this.__ScheduleTime := SYSTEMTIME(104, this)
+                this.__ScheduleTime := SYSTEMTIME(100, this)
             return this.__ScheduleTime
         }
     }
@@ -223,8 +223,8 @@ class FAX_JOB_ENTRYW extends Win32Struct
      * @type {Integer}
      */
     DeliveryReportType {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
     }
 
     /**
@@ -234,8 +234,8 @@ class FAX_JOB_ENTRYW extends Win32Struct
      * @type {PWSTR}
      */
     DeliveryReportAddress {
-        get => NumGet(this, 128, "ptr")
-        set => NumPut("ptr", value, this, 128)
+        get => NumGet(this, 120, "ptr")
+        set => NumPut("ptr", value, this, 120)
     }
 
     /**
@@ -245,7 +245,7 @@ class FAX_JOB_ENTRYW extends Win32Struct
      * @type {PWSTR}
      */
     DocumentName {
-        get => NumGet(this, 136, "ptr")
-        set => NumPut("ptr", value, this, 136)
+        get => NumGet(this, 128, "ptr")
+        set => NumPut("ptr", value, this, 128)
     }
 }

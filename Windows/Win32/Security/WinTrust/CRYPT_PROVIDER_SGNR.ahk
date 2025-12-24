@@ -10,7 +10,7 @@
  */
 class CRYPT_PROVIDER_SGNR extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class CRYPT_PROVIDER_SGNR extends Win32Struct
     sftVerifyAsOf{
         get {
             if(!this.HasProp("__sftVerifyAsOf"))
-                this.__sftVerifyAsOf := FILETIME(8, this)
+                this.__sftVerifyAsOf := FILETIME(4, this)
             return this.__sftVerifyAsOf
         }
     }
@@ -40,8 +40,8 @@ class CRYPT_PROVIDER_SGNR extends Win32Struct
      * @type {Integer}
      */
     csCertChain {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -49,8 +49,8 @@ class CRYPT_PROVIDER_SGNR extends Win32Struct
      * @type {Pointer<CRYPT_PROVIDER_CERT>}
      */
     pasCertChain {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 
     /**
@@ -76,8 +76,8 @@ class CRYPT_PROVIDER_SGNR extends Win32Struct
      * @type {Integer}
      */
     dwSignerType {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -85,8 +85,8 @@ class CRYPT_PROVIDER_SGNR extends Win32Struct
      * @type {Pointer<CMSG_SIGNER_INFO>}
      */
     psSigner {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -94,8 +94,8 @@ class CRYPT_PROVIDER_SGNR extends Win32Struct
      * @type {Integer}
      */
     dwError {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -103,8 +103,8 @@ class CRYPT_PROVIDER_SGNR extends Win32Struct
      * @type {Integer}
      */
     csCounterSigners {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -112,8 +112,8 @@ class CRYPT_PROVIDER_SGNR extends Win32Struct
      * @type {Pointer<CRYPT_PROVIDER_SGNR>}
      */
     pasCounterSigners {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -121,7 +121,7 @@ class CRYPT_PROVIDER_SGNR extends Win32Struct
      * @type {Pointer<CERT_CHAIN_CONTEXT>}
      */
     pChainContext {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

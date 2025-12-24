@@ -77,7 +77,7 @@ class POLICYSETTINGSTATUSINFO extends Win32Struct
     timeLogged{
         get {
             if(!this.HasProp("__timeLogged"))
-                this.__timeLogged := SYSTEMTIME(40, this)
+                this.__timeLogged := SYSTEMTIME(36, this)
             return this.__timeLogged
         }
     }

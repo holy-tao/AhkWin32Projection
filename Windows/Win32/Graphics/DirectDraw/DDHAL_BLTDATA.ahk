@@ -10,7 +10,7 @@
  */
 class DDHAL_BLTDATA extends Win32Struct
 {
-    static sizeof => 264
+    static sizeof => 256
 
     static packingSize => 8
 
@@ -117,7 +117,7 @@ class DDHAL_BLTDATA extends Win32Struct
     rOrigDest{
         get {
             if(!this.HasProp("__rOrigDest"))
-                this.__rOrigDest := RECTL(216, this)
+                this.__rOrigDest := RECTL(212, this)
             return this.__rOrigDest
         }
     }
@@ -128,7 +128,7 @@ class DDHAL_BLTDATA extends Win32Struct
     rOrigSrc{
         get {
             if(!this.HasProp("__rOrigSrc"))
-                this.__rOrigSrc := RECTL(232, this)
+                this.__rOrigSrc := RECTL(228, this)
             return this.__rOrigSrc
         }
     }
@@ -137,15 +137,15 @@ class DDHAL_BLTDATA extends Win32Struct
      * @type {Integer}
      */
     dwRectCnt {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
+        get => NumGet(this, 244, "uint")
+        set => NumPut("uint", value, this, 244)
     }
 
     /**
      * @type {Pointer<RECT>}
      */
     prDestRects {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
+        get => NumGet(this, 248, "ptr")
+        set => NumPut("ptr", value, this, 248)
     }
 }

@@ -14,9 +14,9 @@
  */
 class AVISTREAMINFOA extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 140
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Four-character code indicating the stream type. The following constants have been defined for the data commonly found in AVI streams:
@@ -231,7 +231,7 @@ class AVISTREAMINFOA extends Win32Struct
     rcFrame{
         get {
             if(!this.HasProp("__rcFrame"))
-                this.__rcFrame := RECT(56, this)
+                this.__rcFrame := RECT(52, this)
             return this.__rcFrame
         }
     }
@@ -241,8 +241,8 @@ class AVISTREAMINFOA extends Win32Struct
      * @type {Integer}
      */
     dwEditCount {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -250,8 +250,8 @@ class AVISTREAMINFOA extends Win32Struct
      * @type {Integer}
      */
     dwFormatChangeCount {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -259,7 +259,7 @@ class AVISTREAMINFOA extends Win32Struct
      * @type {String}
      */
     szName {
-        get => StrGet(this.ptr + 80, 63, "UTF-8")
-        set => StrPut(value, this.ptr + 80, 63, "UTF-8")
+        get => StrGet(this.ptr + 76, 63, "UTF-8")
+        set => StrPut(value, this.ptr + 76, 63, "UTF-8")
     }
 }

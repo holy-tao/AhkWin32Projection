@@ -10,7 +10,7 @@ class KSPROPERTY_CAMERACONTROL_REGION_OF_INTEREST_S extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {RECT}

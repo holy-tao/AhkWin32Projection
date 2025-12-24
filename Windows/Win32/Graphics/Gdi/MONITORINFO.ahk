@@ -10,9 +10,9 @@
  */
 class MONITORINFO extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size of the structure, in bytes.
@@ -32,7 +32,7 @@ class MONITORINFO extends Win32Struct
     rcMonitor{
         get {
             if(!this.HasProp("__rcMonitor"))
-                this.__rcMonitor := RECT(8, this)
+                this.__rcMonitor := RECT(4, this)
             return this.__rcMonitor
         }
     }
@@ -44,7 +44,7 @@ class MONITORINFO extends Win32Struct
     rcWork{
         get {
             if(!this.HasProp("__rcWork"))
-                this.__rcWork := RECT(24, this)
+                this.__rcWork := RECT(20, this)
             return this.__rcWork
         }
     }
@@ -67,12 +67,12 @@ class MONITORINFO extends Win32Struct
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 48
+        this.cbSize := 40
     }
 }

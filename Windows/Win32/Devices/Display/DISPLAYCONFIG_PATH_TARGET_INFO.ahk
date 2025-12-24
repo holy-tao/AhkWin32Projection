@@ -17,9 +17,9 @@
  */
 class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The identifier of the adapter that the path is on.
@@ -111,7 +111,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
     refreshRate{
         get {
             if(!this.HasProp("__refreshRate"))
-                this.__refreshRate := DISPLAYCONFIG_RATIONAL(32, this)
+                this.__refreshRate := DISPLAYCONFIG_RATIONAL(28, this)
             return this.__refreshRate
         }
     }
@@ -121,8 +121,8 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
      * @type {Integer}
      */
     scanLineOrdering {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
@@ -132,8 +132,8 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
      * @type {BOOL}
      */
     targetAvailable {
-        get => NumGet(this, 44, "int")
-        set => NumPut("int", value, this, 44)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -211,7 +211,7 @@ class DISPLAYCONFIG_PATH_TARGET_INFO extends Win32Struct
      * @type {Integer}
      */
     statusFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

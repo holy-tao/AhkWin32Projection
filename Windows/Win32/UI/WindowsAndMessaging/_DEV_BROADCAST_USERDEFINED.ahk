@@ -17,7 +17,7 @@ class _DEV_BROADCAST_USERDEFINED extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Information about the device affected by a 

@@ -8,7 +8,7 @@
  */
 class DOT11_WFD_DEVICE_ENTRY extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -26,7 +26,7 @@ class DOT11_WFD_DEVICE_ENTRY extends Win32Struct
     PhySpecificInfo{
         get {
             if(!this.HasProp("__PhySpecificInfo"))
-                this.__PhySpecificInfo := DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(8, this)
+                this.__PhySpecificInfo := DOT11_BSS_ENTRY_PHY_SPECIFIC_INFO(4, this)
             return this.__PhySpecificInfo
         }
     }
@@ -37,7 +37,7 @@ class DOT11_WFD_DEVICE_ENTRY extends Win32Struct
     dot11BSSID{
         get {
             if(!this.HasProp("__dot11BSSIDProxyArray"))
-                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "char")
+                this.__dot11BSSIDProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "char")
             return this.__dot11BSSIDProxyArray
         }
     }
@@ -46,8 +46,8 @@ class DOT11_WFD_DEVICE_ENTRY extends Win32Struct
      * @type {Integer}
      */
     dot11BSSType {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -56,7 +56,7 @@ class DOT11_WFD_DEVICE_ENTRY extends Win32Struct
     TransmitterAddress{
         get {
             if(!this.HasProp("__TransmitterAddressProxyArray"))
-                this.__TransmitterAddressProxyArray := Win32FixedArray(this.ptr + 44, 6, Primitive, "char")
+                this.__TransmitterAddressProxyArray := Win32FixedArray(this.ptr + 32, 6, Primitive, "char")
             return this.__TransmitterAddressProxyArray
         }
     }
@@ -65,14 +65,30 @@ class DOT11_WFD_DEVICE_ENTRY extends Win32Struct
      * @type {Integer}
      */
     lRSSI {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
      * @type {Integer}
      */
     uLinkQuality {
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    usBeaconPeriod {
+        get => NumGet(this, 48, "ushort")
+        set => NumPut("ushort", value, this, 48)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    ullTimestamp {
         get => NumGet(this, 56, "uint")
         set => NumPut("uint", value, this, 56)
     }
@@ -80,15 +96,7 @@ class DOT11_WFD_DEVICE_ENTRY extends Win32Struct
     /**
      * @type {Integer}
      */
-    usBeaconPeriod {
-        get => NumGet(this, 60, "ushort")
-        set => NumPut("ushort", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    ullTimestamp {
+    ullBeaconHostTimestamp {
         get => NumGet(this, 64, "uint")
         set => NumPut("uint", value, this, 64)
     }
@@ -96,7 +104,7 @@ class DOT11_WFD_DEVICE_ENTRY extends Win32Struct
     /**
      * @type {Integer}
      */
-    ullBeaconHostTimestamp {
+    ullProbeResponseHostTimestamp {
         get => NumGet(this, 72, "uint")
         set => NumPut("uint", value, this, 72)
     }
@@ -104,23 +112,31 @@ class DOT11_WFD_DEVICE_ENTRY extends Win32Struct
     /**
      * @type {Integer}
      */
-    ullProbeResponseHostTimestamp {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
-    }
-
-    /**
-     * @type {Integer}
-     */
     usCapabilityInformation {
-        get => NumGet(this, 88, "ushort")
-        set => NumPut("ushort", value, this, 88)
+        get => NumGet(this, 80, "ushort")
+        set => NumPut("ushort", value, this, 80)
     }
 
     /**
      * @type {Integer}
      */
     uBeaconIEsOffset {
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    uBeaconIEsLength {
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    uProbeResponseIEsOffset {
         get => NumGet(this, 92, "uint")
         set => NumPut("uint", value, this, 92)
     }
@@ -128,24 +144,8 @@ class DOT11_WFD_DEVICE_ENTRY extends Win32Struct
     /**
      * @type {Integer}
      */
-    uBeaconIEsLength {
+    uProbeResponseIEsLength {
         get => NumGet(this, 96, "uint")
         set => NumPut("uint", value, this, 96)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uProbeResponseIEsOffset {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    uProbeResponseIEsLength {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
     }
 }

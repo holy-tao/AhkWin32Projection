@@ -9,7 +9,7 @@ class HIDP_VALUE_CAPS extends Win32Struct
 {
     static sizeof => 72
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

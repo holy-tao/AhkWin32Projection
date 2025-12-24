@@ -12,9 +12,9 @@
  */
 class RM_UNIQUE_PROCESS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The product identifier (PID).
@@ -32,7 +32,7 @@ class RM_UNIQUE_PROCESS extends Win32Struct
     ProcessStartTime{
         get {
             if(!this.HasProp("__ProcessStartTime"))
-                this.__ProcessStartTime := FILETIME(8, this)
+                this.__ProcessStartTime := FILETIME(4, this)
             return this.__ProcessStartTime
         }
     }

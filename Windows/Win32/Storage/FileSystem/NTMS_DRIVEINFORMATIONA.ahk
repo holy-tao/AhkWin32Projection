@@ -132,7 +132,7 @@ class NTMS_DRIVEINFORMATIONA extends Win32Struct
     LastCleanedTs{
         get {
             if(!this.HasProp("__LastCleanedTs"))
-                this.__LastCleanedTs := SYSTEMTIME(160, this)
+                this.__LastCleanedTs := SYSTEMTIME(156, this)
             return this.__LastCleanedTs
         }
     }

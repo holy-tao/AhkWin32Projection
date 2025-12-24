@@ -9,7 +9,7 @@
  */
 class DELTA_HEADER_INFO extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 80
 
     static packingSize => 8
 
@@ -70,7 +70,7 @@ class DELTA_HEADER_INFO extends Win32Struct
     TargetHash{
         get {
             if(!this.HasProp("__TargetHash"))
-                this.__TargetHash := DELTA_HASH(48, this)
+                this.__TargetHash := DELTA_HASH(44, this)
             return this.__TargetHash
         }
     }

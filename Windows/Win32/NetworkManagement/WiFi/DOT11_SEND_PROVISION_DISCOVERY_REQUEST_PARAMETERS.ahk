@@ -10,9 +10,9 @@
  */
 class DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 76
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NDIS_OBJECT_HEADER}
@@ -66,7 +66,7 @@ class DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS extends Win32Struct
     GroupID{
         get {
             if(!this.HasProp("__GroupID"))
-                this.__GroupID := DOT11_WFD_GROUP_ID(24, this)
+                this.__GroupID := DOT11_WFD_GROUP_ID(20, this)
             return this.__GroupID
         }
     }
@@ -75,23 +75,23 @@ class DOT11_SEND_PROVISION_DISCOVERY_REQUEST_PARAMETERS extends Win32Struct
      * @type {BOOLEAN}
      */
     bUseGroupID {
-        get => NumGet(this, 72, "char")
-        set => NumPut("char", value, this, 72)
+        get => NumGet(this, 64, "char")
+        set => NumPut("char", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     uIEsOffset {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
      * @type {Integer}
      */
     uIEsLength {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 }

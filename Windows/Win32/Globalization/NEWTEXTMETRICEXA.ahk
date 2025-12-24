@@ -17,7 +17,7 @@ class NEWTEXTMETRICEXA extends Win32Struct
 {
     static sizeof => 96
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-newtextmetrica">NEWTEXTMETRIC</a> structure.

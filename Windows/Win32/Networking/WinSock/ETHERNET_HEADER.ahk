@@ -10,9 +10,9 @@
  */
 class ETHERNET_HEADER extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * @type {DL_EUI48}
@@ -31,7 +31,7 @@ class ETHERNET_HEADER extends Win32Struct
     Source{
         get {
             if(!this.HasProp("__Source"))
-                this.__Source := DL_EUI48(24, this)
+                this.__Source := DL_EUI48(13, this)
             return this.__Source
         }
     }
@@ -40,15 +40,15 @@ class ETHERNET_HEADER extends Win32Struct
      * @type {Integer}
      */
     Type {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
+        get => NumGet(this, 26, "ushort")
+        set => NumPut("ushort", value, this, 26)
     }
 
     /**
      * @type {Integer}
      */
     Length {
-        get => NumGet(this, 48, "ushort")
-        set => NumPut("ushort", value, this, 48)
+        get => NumGet(this, 26, "ushort")
+        set => NumPut("ushort", value, this, 26)
     }
 }

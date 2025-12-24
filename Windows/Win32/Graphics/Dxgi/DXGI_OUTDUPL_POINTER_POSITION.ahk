@@ -12,9 +12,9 @@
  */
 class DXGI_OUTDUPL_POINTER_POSITION extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The position of the hardware cursor relative to the top-left of the adapter output.

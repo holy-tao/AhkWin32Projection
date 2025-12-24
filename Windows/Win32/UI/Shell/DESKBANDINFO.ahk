@@ -10,9 +10,9 @@
  */
 class DESKBANDINFO extends Win32Struct
 {
-    static sizeof => 560
+    static sizeof => 556
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -32,7 +32,7 @@ class DESKBANDINFO extends Win32Struct
     ptMinSize{
         get {
             if(!this.HasProp("__ptMinSize"))
-                this.__ptMinSize := POINTL(8, this)
+                this.__ptMinSize := POINTL(4, this)
             return this.__ptMinSize
         }
     }
@@ -46,7 +46,7 @@ class DESKBANDINFO extends Win32Struct
     ptMaxSize{
         get {
             if(!this.HasProp("__ptMaxSize"))
-                this.__ptMaxSize := POINTL(16, this)
+                this.__ptMaxSize := POINTL(12, this)
             return this.__ptMaxSize
         }
     }
@@ -62,7 +62,7 @@ class DESKBANDINFO extends Win32Struct
     ptIntegral{
         get {
             if(!this.HasProp("__ptIntegral"))
-                this.__ptIntegral := POINTL(24, this)
+                this.__ptIntegral := POINTL(20, this)
             return this.__ptIntegral
         }
     }
@@ -76,7 +76,7 @@ class DESKBANDINFO extends Win32Struct
     ptActual{
         get {
             if(!this.HasProp("__ptActual"))
-                this.__ptActual := POINTL(32, this)
+                this.__ptActual := POINTL(28, this)
             return this.__ptActual
         }
     }
@@ -88,8 +88,8 @@ class DESKBANDINFO extends Win32Struct
      * @type {String}
      */
     wszTitle {
-        get => StrGet(this.ptr + 40, 255, "UTF-16")
-        set => StrPut(value, this.ptr + 40, 255, "UTF-16")
+        get => StrGet(this.ptr + 36, 255, "UTF-16")
+        set => StrPut(value, this.ptr + 36, 255, "UTF-16")
     }
 
     /**
@@ -97,8 +97,8 @@ class DESKBANDINFO extends Win32Struct
      * @type {Integer}
      */
     dwModeFlags {
-        get => NumGet(this, 552, "uint")
-        set => NumPut("uint", value, this, 552)
+        get => NumGet(this, 548, "uint")
+        set => NumPut("uint", value, this, 548)
     }
 
     /**
@@ -108,7 +108,7 @@ class DESKBANDINFO extends Win32Struct
      * @type {COLORREF}
      */
     crBkgnd {
-        get => NumGet(this, 556, "uint")
-        set => NumPut("uint", value, this, 556)
+        get => NumGet(this, 552, "uint")
+        set => NumPut("uint", value, this, 552)
     }
 }

@@ -10,9 +10,9 @@
  */
 class QOS_SHAPING_RATE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The QOS object 

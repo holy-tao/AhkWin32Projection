@@ -10,9 +10,9 @@
  */
 class PARAFORMAT2 extends Win32Struct
 {
-    static sizeof => 192
+    static sizeof => 188
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {PARAFORMAT}

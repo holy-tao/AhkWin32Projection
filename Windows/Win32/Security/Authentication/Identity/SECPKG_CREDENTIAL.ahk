@@ -101,7 +101,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
     ModifiedId{
         get {
             if(!this.HasProp("__ModifiedId"))
-                this.__ModifiedId := LUID(48, this)
+                this.__ModifiedId := LUID(44, this)
             return this.__ModifiedId
         }
     }
@@ -111,8 +111,8 @@ class SECPKG_CREDENTIAL extends Win32Struct
      * @type {Integer}
      */
     fCredentials {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -120,8 +120,8 @@ class SECPKG_CREDENTIAL extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -131,7 +131,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
     PrincipalName{
         get {
             if(!this.HasProp("__PrincipalName"))
-                this.__PrincipalName := SECPKG_BYTE_VECTOR(64, this)
+                this.__PrincipalName := SECPKG_BYTE_VECTOR(60, this)
             return this.__PrincipalName
         }
     }
@@ -143,7 +143,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
     PackageList{
         get {
             if(!this.HasProp("__PackageList"))
-                this.__PackageList := SECPKG_BYTE_VECTOR(72, this)
+                this.__PackageList := SECPKG_BYTE_VECTOR(68, this)
             return this.__PackageList
         }
     }
@@ -155,7 +155,7 @@ class SECPKG_CREDENTIAL extends Win32Struct
     MarshaledSuppliedCreds{
         get {
             if(!this.HasProp("__MarshaledSuppliedCreds"))
-                this.__MarshaledSuppliedCreds := SECPKG_BYTE_VECTOR(80, this)
+                this.__MarshaledSuppliedCreds := SECPKG_BYTE_VECTOR(76, this)
             return this.__MarshaledSuppliedCreds
         }
     }

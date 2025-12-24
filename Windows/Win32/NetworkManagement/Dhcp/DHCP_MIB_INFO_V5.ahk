@@ -84,7 +84,7 @@ class DHCP_MIB_INFO_V5 extends Win32Struct
     ServerStartTime{
         get {
             if(!this.HasProp("__ServerStartTime"))
-                this.__ServerStartTime := DATE_TIME(32, this)
+                this.__ServerStartTime := DATE_TIME(28, this)
             return this.__ServerStartTime
         }
     }
@@ -94,6 +94,15 @@ class DHCP_MIB_INFO_V5 extends Win32Struct
      * @type {Integer}
      */
     QtnNumLeases {
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
+    }
+
+    /**
+     * This member is not currently used. Please set this to value 0x00000000.
+     * @type {Integer}
+     */
+    QtnPctQtnLeases {
         get => NumGet(this, 40, "uint")
         set => NumPut("uint", value, this, 40)
     }
@@ -102,7 +111,7 @@ class DHCP_MIB_INFO_V5 extends Win32Struct
      * This member is not currently used. Please set this to value 0x00000000.
      * @type {Integer}
      */
-    QtnPctQtnLeases {
+    QtnProbationLeases {
         get => NumGet(this, 44, "uint")
         set => NumPut("uint", value, this, 44)
     }
@@ -111,7 +120,7 @@ class DHCP_MIB_INFO_V5 extends Win32Struct
      * This member is not currently used. Please set this to value 0x00000000.
      * @type {Integer}
      */
-    QtnProbationLeases {
+    QtnNonQtnLeases {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
     }
@@ -120,7 +129,7 @@ class DHCP_MIB_INFO_V5 extends Win32Struct
      * This member is not currently used. Please set this to value 0x00000000.
      * @type {Integer}
      */
-    QtnNonQtnLeases {
+    QtnExemptLeases {
         get => NumGet(this, 52, "uint")
         set => NumPut("uint", value, this, 52)
     }
@@ -129,7 +138,7 @@ class DHCP_MIB_INFO_V5 extends Win32Struct
      * This member is not currently used. Please set this to value 0x00000000.
      * @type {Integer}
      */
-    QtnExemptLeases {
+    QtnCapableClients {
         get => NumGet(this, 56, "uint")
         set => NumPut("uint", value, this, 56)
     }
@@ -138,18 +147,9 @@ class DHCP_MIB_INFO_V5 extends Win32Struct
      * This member is not currently used. Please set this to value 0x00000000.
      * @type {Integer}
      */
-    QtnCapableClients {
+    QtnIASErrors {
         get => NumGet(this, 60, "uint")
         set => NumPut("uint", value, this, 60)
-    }
-
-    /**
-     * This member is not currently used. Please set this to value 0x00000000.
-     * @type {Integer}
-     */
-    QtnIASErrors {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -157,8 +157,8 @@ class DHCP_MIB_INFO_V5 extends Win32Struct
      * @type {Integer}
      */
     DelayedOffers {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -166,8 +166,8 @@ class DHCP_MIB_INFO_V5 extends Win32Struct
      * @type {Integer}
      */
     ScopesWithDelayedOffers {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -175,8 +175,8 @@ class DHCP_MIB_INFO_V5 extends Win32Struct
      * @type {Integer}
      */
     Scopes {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**

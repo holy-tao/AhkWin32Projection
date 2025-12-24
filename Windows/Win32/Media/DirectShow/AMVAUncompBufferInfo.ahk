@@ -20,7 +20,7 @@ class AMVAUncompBufferInfo extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Minimum number of surfaces to allocate.

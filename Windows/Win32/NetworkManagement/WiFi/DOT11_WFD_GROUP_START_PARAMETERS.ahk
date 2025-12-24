@@ -11,7 +11,7 @@ class DOT11_WFD_GROUP_START_PARAMETERS extends Win32Struct
 {
     static sizeof => 10
 
-    static packingSize => 5
+    static packingSize => 2
 
     /**
      * @type {NDIS_OBJECT_HEADER}
@@ -30,7 +30,7 @@ class DOT11_WFD_GROUP_START_PARAMETERS extends Win32Struct
     AdvertisedOperatingChannel{
         get {
             if(!this.HasProp("__AdvertisedOperatingChannel"))
-                this.__AdvertisedOperatingChannel := DOT11_WFD_CHANNEL(5, this)
+                this.__AdvertisedOperatingChannel := DOT11_WFD_CHANNEL(4, this)
             return this.__AdvertisedOperatingChannel
         }
     }

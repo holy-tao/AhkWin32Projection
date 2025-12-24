@@ -11,9 +11,9 @@
  */
 class TCP_REQUEST_QUERY_INFORMATION_EX_W2K extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The <a href="https://docs.microsoft.com/windows/desktop/api/tdiinfo/ns-tdiinfo-tdiobjectid">TDIObjectID</a> structure that defines the type of information being requested from the TCP driver by <a href="https://docs.microsoft.com/windows/desktop/api/tcpioctl/ni-tcpioctl-ioctl_tcp_query_information_ex">IOCTL_TCP_QUERY_INFORMATION_EX</a>.
@@ -34,7 +34,7 @@ class TCP_REQUEST_QUERY_INFORMATION_EX_W2K extends Win32Struct
     Context{
         get {
             if(!this.HasProp("__ContextProxyArray"))
-                this.__ContextProxyArray := Win32FixedArray(this.ptr + 24, 16, Primitive, "char")
+                this.__ContextProxyArray := Win32FixedArray(this.ptr + 20, 16, Primitive, "char")
             return this.__ContextProxyArray
         }
     }

@@ -12,9 +12,9 @@
  */
 class NVME_CDW13_FEATURES extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies an [NVME_CDW13_FEATURE_HOST_MEMORY_BUFFER](ns-nvme-nvme_cdw13_feature_host_memory_buffer.md) structure containing a value that specifies the lower 32 bits of the physical location of the Host Memory Descriptor List.

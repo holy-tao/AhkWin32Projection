@@ -8,7 +8,7 @@
  */
 class DDHAL_DRVSETCOLORKEYDATA extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -34,7 +34,7 @@ class DDHAL_DRVSETCOLORKEYDATA extends Win32Struct
     ckNew{
         get {
             if(!this.HasProp("__ckNew"))
-                this.__ckNew := DDCOLORKEY(16, this)
+                this.__ckNew := DDCOLORKEY(12, this)
             return this.__ckNew
         }
     }
@@ -43,15 +43,15 @@ class DDHAL_DRVSETCOLORKEYDATA extends Win32Struct
      * @type {HRESULT}
      */
     ddRVal {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
      * @type {Pointer<LPDDHAL_SETCOLORKEY>}
      */
     SetColorKey {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 }

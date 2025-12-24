@@ -29,7 +29,7 @@ class VBS_ENCLAVE_REPORT extends Win32Struct
 {
     static sizeof => 224
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The total size of the signed statement in the report, including the sizes of the <b>VBS_ENCLAVE_REPORT</b> structure and of all the variable data blocks, in bytes.

@@ -7,13 +7,13 @@
  */
 class FILTER_AGGREGATE_BASIC_INFORMATION extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Type_e__Union extends Win32Struct {
-        static sizeof => 20
-        static packingSize => 8
+        static sizeof => 16
+        static packingSize => 4
 
         class _MiniFilter extends Win32Struct {
             static sizeof => 16

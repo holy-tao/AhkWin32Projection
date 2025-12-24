@@ -16,7 +16,7 @@ class WNV_POLICY_MISMATCH_PARAM extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>ADDRESS_FAMILY</b>

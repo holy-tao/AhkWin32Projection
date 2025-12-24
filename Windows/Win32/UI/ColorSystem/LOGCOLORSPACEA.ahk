@@ -39,9 +39,9 @@
  */
 class LOGCOLORSPACEA extends Win32Struct
 {
-    static sizeof => 344
+    static sizeof => 328
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Color space signature. At present, this member should always be set to LCS_SIGNATURE.
@@ -95,7 +95,7 @@ class LOGCOLORSPACEA extends Win32Struct
     lcsEndpoints{
         get {
             if(!this.HasProp("__lcsEndpoints"))
-                this.__lcsEndpoints := CIEXYZTRIPLE(24, this)
+                this.__lcsEndpoints := CIEXYZTRIPLE(20, this)
             return this.__lcsEndpoints
         }
     }
@@ -105,8 +105,8 @@ class LOGCOLORSPACEA extends Win32Struct
      * @type {Integer}
      */
     lcsGammaRed {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -114,8 +114,8 @@ class LOGCOLORSPACEA extends Win32Struct
      * @type {Integer}
      */
     lcsGammaGreen {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -123,8 +123,8 @@ class LOGCOLORSPACEA extends Win32Struct
      * @type {Integer}
      */
     lcsGammaBlue {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -132,7 +132,7 @@ class LOGCOLORSPACEA extends Win32Struct
      * @type {String}
      */
     lcsFilename {
-        get => StrGet(this.ptr + 84, 259, "UTF-8")
-        set => StrPut(value, this.ptr + 84, 259, "UTF-8")
+        get => StrGet(this.ptr + 68, 259, "UTF-8")
+        set => StrPut(value, this.ptr + 68, 259, "UTF-8")
     }
 }

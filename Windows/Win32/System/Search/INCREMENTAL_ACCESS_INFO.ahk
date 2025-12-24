@@ -10,9 +10,9 @@
  */
 class INCREMENTAL_ACCESS_INFO extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>DWORD</b>
@@ -34,7 +34,7 @@ class INCREMENTAL_ACCESS_INFO extends Win32Struct
     ftLastModifiedTime{
         get {
             if(!this.HasProp("__ftLastModifiedTime"))
-                this.__ftLastModifiedTime := FILETIME(8, this)
+                this.__ftLastModifiedTime := FILETIME(4, this)
             return this.__ftLastModifiedTime
         }
     }

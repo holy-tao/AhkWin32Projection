@@ -48,7 +48,7 @@ class WHV_MEMORY_ACCESS_CONTEXT extends Win32Struct
     AccessInfo{
         get {
             if(!this.HasProp("__AccessInfo"))
-                this.__AccessInfo := WHV_MEMORY_ACCESS_INFO(24, this)
+                this.__AccessInfo := WHV_MEMORY_ACCESS_INFO(20, this)
             return this.__AccessInfo
         }
     }

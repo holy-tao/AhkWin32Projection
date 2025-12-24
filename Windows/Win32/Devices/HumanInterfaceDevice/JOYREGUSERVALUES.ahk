@@ -9,9 +9,9 @@
  */
 class JOYREGUSERVALUES extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 100
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -27,7 +27,7 @@ class JOYREGUSERVALUES extends Win32Struct
     jrvRanges{
         get {
             if(!this.HasProp("__jrvRanges"))
-                this.__jrvRanges := JOYRANGE(8, this)
+                this.__jrvRanges := JOYRANGE(4, this)
             return this.__jrvRanges
         }
     }
@@ -38,7 +38,7 @@ class JOYREGUSERVALUES extends Win32Struct
     jpDeadZone{
         get {
             if(!this.HasProp("__jpDeadZone"))
-                this.__jpDeadZone := JOYPOS(80, this)
+                this.__jpDeadZone := JOYPOS(76, this)
             return this.__jpDeadZone
         }
     }

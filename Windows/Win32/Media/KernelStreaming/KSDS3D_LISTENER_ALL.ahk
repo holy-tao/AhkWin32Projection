@@ -8,9 +8,9 @@
  */
 class KSDS3D_LISTENER_ALL extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DS3DVECTOR}
@@ -29,7 +29,7 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
     Velocity{
         get {
             if(!this.HasProp("__Velocity"))
-                this.__Velocity := DS3DVECTOR(16, this)
+                this.__Velocity := DS3DVECTOR(12, this)
             return this.__Velocity
         }
     }
@@ -40,7 +40,7 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
     OrientFront{
         get {
             if(!this.HasProp("__OrientFront"))
-                this.__OrientFront := DS3DVECTOR(32, this)
+                this.__OrientFront := DS3DVECTOR(24, this)
             return this.__OrientFront
         }
     }
@@ -51,7 +51,7 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
     OrientTop{
         get {
             if(!this.HasProp("__OrientTop"))
-                this.__OrientTop := DS3DVECTOR(48, this)
+                this.__OrientTop := DS3DVECTOR(36, this)
             return this.__OrientTop
         }
     }
@@ -60,23 +60,23 @@ class KSDS3D_LISTENER_ALL extends Win32Struct
      * @type {Float}
      */
     DistanceFactor {
-        get => NumGet(this, 60, "float")
-        set => NumPut("float", value, this, 60)
+        get => NumGet(this, 48, "float")
+        set => NumPut("float", value, this, 48)
     }
 
     /**
      * @type {Float}
      */
     RolloffFactor {
-        get => NumGet(this, 64, "float")
-        set => NumPut("float", value, this, 64)
+        get => NumGet(this, 52, "float")
+        set => NumPut("float", value, this, 52)
     }
 
     /**
      * @type {Float}
      */
     DopplerFactor {
-        get => NumGet(this, 68, "float")
-        set => NumPut("float", value, this, 68)
+        get => NumGet(this, 56, "float")
+        set => NumPut("float", value, this, 56)
     }
 }

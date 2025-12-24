@@ -82,7 +82,7 @@ class ScriptDebugEventInformation extends Win32Struct
     EventPosition{
         get {
             if(!this.HasProp("__EventPosition"))
-                this.__EventPosition := ScriptDebugPosition(8, this)
+                this.__EventPosition := ScriptDebugPosition(4, this)
             return this.__EventPosition
         }
     }
@@ -93,7 +93,7 @@ class ScriptDebugEventInformation extends Win32Struct
     EventSpanEnd{
         get {
             if(!this.HasProp("__EventSpanEnd"))
-                this.__EventSpanEnd := ScriptDebugPosition(16, this)
+                this.__EventSpanEnd := ScriptDebugPosition(12, this)
             return this.__EventSpanEnd
         }
     }

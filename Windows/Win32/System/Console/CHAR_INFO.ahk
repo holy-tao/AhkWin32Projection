@@ -11,7 +11,7 @@ class CHAR_INFO extends Win32Struct
 {
     static sizeof => 6
 
-    static packingSize => 3
+    static packingSize => 2
 
     class _Char_e__Union extends Win32Struct {
         static sizeof => 3

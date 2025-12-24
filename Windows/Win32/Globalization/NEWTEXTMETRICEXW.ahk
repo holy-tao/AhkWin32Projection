@@ -15,9 +15,9 @@
  */
 class NEWTEXTMETRICEXW extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 100
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-newtextmetrica">NEWTEXTMETRIC</a> structure.
@@ -38,7 +38,7 @@ class NEWTEXTMETRICEXW extends Win32Struct
     ntmFontSig{
         get {
             if(!this.HasProp("__ntmFontSig"))
-                this.__ntmFontSig := FONTSIGNATURE(80, this)
+                this.__ntmFontSig := FONTSIGNATURE(76, this)
             return this.__ntmFontSig
         }
     }

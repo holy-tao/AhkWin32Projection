@@ -17,7 +17,7 @@
  */
 class NMLVCUSTOMDRAW extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 136
 
     static packingSize => 8
 
@@ -158,7 +158,7 @@ class NMLVCUSTOMDRAW extends Win32Struct
     rcText{
         get {
             if(!this.HasProp("__rcText"))
-                this.__rcText := RECT(120, this)
+                this.__rcText := RECT(116, this)
             return this.__rcText
         }
     }
@@ -171,7 +171,7 @@ class NMLVCUSTOMDRAW extends Win32Struct
      * @type {Integer}
      */
     uAlign {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 }

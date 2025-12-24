@@ -10,9 +10,9 @@
  */
 class IKEEXT_COMMON_STATISTICS1 extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * IPv4 common statistics.

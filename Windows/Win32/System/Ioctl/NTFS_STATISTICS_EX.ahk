@@ -512,7 +512,7 @@ class NTFS_STATISTICS_EX extends Win32Struct
     BitmapWritesUserLevel{
         get {
             if(!this.HasProp("__BitmapWritesUserLevel"))
-                this.__BitmapWritesUserLevel := %this.__Class%._BitmapWritesUserLevel(200, this)
+                this.__BitmapWritesUserLevel := %this.__Class%._BitmapWritesUserLevel(196, this)
             return this.__BitmapWritesUserLevel
         }
     }
@@ -587,7 +587,7 @@ class NTFS_STATISTICS_EX extends Win32Struct
     MftBitmapWritesUserLevel{
         get {
             if(!this.HasProp("__MftBitmapWritesUserLevel"))
-                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(264, this)
+                this.__MftBitmapWritesUserLevel := %this.__Class%._MftBitmapWritesUserLevel(260, this)
             return this.__MftBitmapWritesUserLevel
         }
     }

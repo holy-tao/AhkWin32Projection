@@ -9,9 +9,9 @@
  */
 class VPN_TS_IP_ADDRESS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -27,7 +27,7 @@ class VPN_TS_IP_ADDRESS extends Win32Struct
     v4{
         get {
             if(!this.HasProp("__v4"))
-                this.__v4 := IN_ADDR(8, this)
+                this.__v4 := IN_ADDR(4, this)
             return this.__v4
         }
     }
@@ -38,7 +38,7 @@ class VPN_TS_IP_ADDRESS extends Win32Struct
     v6{
         get {
             if(!this.HasProp("__v6"))
-                this.__v6 := IN6_ADDR(8, this)
+                this.__v6 := IN6_ADDR(4, this)
             return this.__v6
         }
     }

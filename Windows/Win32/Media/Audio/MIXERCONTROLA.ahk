@@ -13,9 +13,9 @@
  */
 class MIXERCONTROLA extends Win32Struct
 {
-    static sizeof => 152
+    static sizeof => 148
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Bounds_e__Union extends Win32Struct {
         static sizeof => 24
@@ -293,7 +293,7 @@ class MIXERCONTROLA extends Win32Struct
     Bounds{
         get {
             if(!this.HasProp("__Bounds"))
-                this.__Bounds := %this.__Class%._Bounds_e__Union(104, this)
+                this.__Bounds := %this.__Class%._Bounds_e__Union(100, this)
             return this.__Bounds
         }
     }
@@ -305,7 +305,7 @@ class MIXERCONTROLA extends Win32Struct
     Metrics{
         get {
             if(!this.HasProp("__Metrics"))
-                this.__Metrics := %this.__Class%._Metrics_e__Union(128, this)
+                this.__Metrics := %this.__Class%._Metrics_e__Union(124, this)
             return this.__Metrics
         }
     }

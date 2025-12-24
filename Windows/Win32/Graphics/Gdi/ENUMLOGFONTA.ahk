@@ -14,9 +14,9 @@
  */
 class ENUMLOGFONTA extends Win32Struct
 {
-    static sizeof => 160
+    static sizeof => 156
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logfonta">LOGFONT</a> structure that defines the attributes of a font.

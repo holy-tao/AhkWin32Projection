@@ -10,7 +10,7 @@ class WINBIO_PRIVATE_SENSOR_TYPE_INFO extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

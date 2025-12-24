@@ -16,9 +16,9 @@
  */
 class D2D1_RENDERING_CONTROLS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The buffer precision used by default if the buffer precision is not otherwise specified by the effect or by the transform.
@@ -36,7 +36,7 @@ class D2D1_RENDERING_CONTROLS extends Win32Struct
     tileSize{
         get {
             if(!this.HasProp("__tileSize"))
-                this.__tileSize := D2D_SIZE_U(8, this)
+                this.__tileSize := D2D_SIZE_U(4, this)
             return this.__tileSize
         }
     }

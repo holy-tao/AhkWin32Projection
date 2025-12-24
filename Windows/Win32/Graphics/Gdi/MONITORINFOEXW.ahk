@@ -15,9 +15,9 @@
  */
 class MONITORINFOEXW extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 104
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {MONITORINFO}
@@ -35,7 +35,7 @@ class MONITORINFOEXW extends Win32Struct
      * @type {String}
      */
     szDevice {
-        get => StrGet(this.ptr + 48, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 48, 31, "UTF-16")
+        get => StrGet(this.ptr + 40, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 40, 31, "UTF-16")
     }
 }

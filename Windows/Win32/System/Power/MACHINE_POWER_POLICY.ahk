@@ -12,9 +12,9 @@
  */
 class MACHINE_POWER_POLICY extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The current structure revision level. Set this value by calling <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-getcurrentpowerpolicies">GetCurrentPowerPolicies</a> or  <a href="https://docs.microsoft.com/windows/desktop/api/powrprof/nf-powrprof-readpwrscheme">ReadPwrScheme</a> before using a <b>MACHINE_POWER_POLICY</b> structure to set power policy.
@@ -154,7 +154,7 @@ class MACHINE_POWER_POLICY extends Win32Struct
     OverThrottledDc{
         get {
             if(!this.HasProp("__OverThrottledDc"))
-                this.__OverThrottledDc := POWER_ACTION_POLICY(56, this)
+                this.__OverThrottledDc := POWER_ACTION_POLICY(52, this)
             return this.__OverThrottledDc
         }
     }

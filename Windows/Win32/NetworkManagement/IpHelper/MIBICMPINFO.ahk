@@ -18,9 +18,9 @@
  */
 class MIBICMPINFO extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 104
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An 
@@ -43,7 +43,7 @@ class MIBICMPINFO extends Win32Struct
     icmpOutStats{
         get {
             if(!this.HasProp("__icmpOutStats"))
-                this.__icmpOutStats := MIBICMPSTATS(56, this)
+                this.__icmpOutStats := MIBICMPSTATS(52, this)
             return this.__icmpOutStats
         }
     }

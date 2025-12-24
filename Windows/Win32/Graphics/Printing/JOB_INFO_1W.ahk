@@ -161,7 +161,7 @@ class JOB_INFO_1W extends Win32Struct
     Submitted{
         get {
             if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(80, this)
+                this.__Submitted := SYSTEMTIME(76, this)
             return this.__Submitted
         }
     }

@@ -157,16 +157,16 @@ class SYSTEM_CPU_SET_INFORMATION extends Win32Struct
          * @type {Integer}
          */
         Reserved {
-            get => NumGet(this, 14, "uint")
-            set => NumPut("uint", value, this, 14)
+            get => NumGet(this, 12, "uint")
+            set => NumPut("uint", value, this, 12)
         }
     
         /**
          * @type {Integer}
          */
         SchedulingClass {
-            get => NumGet(this, 14, "char")
-            set => NumPut("char", value, this, 14)
+            get => NumGet(this, 12, "char")
+            set => NumPut("char", value, this, 12)
         }
     
         /**

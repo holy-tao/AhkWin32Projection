@@ -11,7 +11,7 @@ class D3DMATRIX extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Float}

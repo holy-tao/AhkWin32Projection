@@ -67,7 +67,7 @@ class DML_ROI_POOLING_OPERATOR_DESC extends Win32Struct
     PooledSize{
         get {
             if(!this.HasProp("__PooledSize"))
-                this.__PooledSize := DML_SIZE_2D(32, this)
+                this.__PooledSize := DML_SIZE_2D(28, this)
             return this.__PooledSize
         }
     }

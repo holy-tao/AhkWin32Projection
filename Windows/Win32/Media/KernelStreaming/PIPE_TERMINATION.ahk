@@ -10,9 +10,9 @@
  */
 class PIPE_TERMINATION extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -44,7 +44,7 @@ class PIPE_TERMINATION extends Win32Struct
     PhysicalRange{
         get {
             if(!this.HasProp("__PhysicalRange"))
-                this.__PhysicalRange := KS_FRAMING_RANGE(16, this)
+                this.__PhysicalRange := KS_FRAMING_RANGE(12, this)
             return this.__PhysicalRange
         }
     }
@@ -55,7 +55,7 @@ class PIPE_TERMINATION extends Win32Struct
     OptimalRange{
         get {
             if(!this.HasProp("__OptimalRange"))
-                this.__OptimalRange := KS_FRAMING_RANGE_WEIGHTED(32, this)
+                this.__OptimalRange := KS_FRAMING_RANGE_WEIGHTED(24, this)
             return this.__OptimalRange
         }
     }
@@ -66,7 +66,7 @@ class PIPE_TERMINATION extends Win32Struct
     Compression{
         get {
             if(!this.HasProp("__Compression"))
-                this.__Compression := KS_COMPRESSION(56, this)
+                this.__Compression := KS_COMPRESSION(44, this)
             return this.__Compression
         }
     }

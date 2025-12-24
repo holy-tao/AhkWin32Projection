@@ -14,7 +14,7 @@
  */
 class VMEMHEAP extends Win32Struct
 {
-    static sizeof => 256
+    static sizeof => 248
 
     static packingSize => 8
 
@@ -118,7 +118,7 @@ class VMEMHEAP extends Win32Struct
     ddsCapsEx{
         get {
             if(!this.HasProp("__ddsCapsEx"))
-                this.__ddsCapsEx := DDSCAPSEX(184, this)
+                this.__ddsCapsEx := DDSCAPSEX(180, this)
             return this.__ddsCapsEx
         }
     }
@@ -130,7 +130,7 @@ class VMEMHEAP extends Win32Struct
     ddsCapsExAlt{
         get {
             if(!this.HasProp("__ddsCapsExAlt"))
-                this.__ddsCapsExAlt := DDSCAPSEX(200, this)
+                this.__ddsCapsExAlt := DDSCAPSEX(192, this)
             return this.__ddsCapsExAlt
         }
     }
@@ -140,8 +140,8 @@ class VMEMHEAP extends Win32Struct
      * @type {Integer}
      */
     liPhysAGPBase {
-        get => NumGet(this, 216, "int64")
-        set => NumPut("int64", value, this, 216)
+        get => NumGet(this, 208, "int64")
+        set => NumPut("int64", value, this, 208)
     }
 
     /**
@@ -151,7 +151,7 @@ class VMEMHEAP extends Win32Struct
     hdevAGP{
         get {
             if(!this.HasProp("__hdevAGP"))
-                this.__hdevAGP := HANDLE(224, this)
+                this.__hdevAGP := HANDLE(216, this)
             return this.__hdevAGP
         }
     }
@@ -161,8 +161,8 @@ class VMEMHEAP extends Win32Struct
      * @type {Pointer<Void>}
      */
     pvPhysRsrv {
-        get => NumGet(this, 232, "ptr")
-        set => NumPut("ptr", value, this, 232)
+        get => NumGet(this, 224, "ptr")
+        set => NumPut("ptr", value, this, 224)
     }
 
     /**
@@ -170,8 +170,8 @@ class VMEMHEAP extends Win32Struct
      * @type {Pointer<Integer>}
      */
     pAgpCommitMask {
-        get => NumGet(this, 240, "ptr")
-        set => NumPut("ptr", value, this, 240)
+        get => NumGet(this, 232, "ptr")
+        set => NumPut("ptr", value, this, 232)
     }
 
     /**
@@ -179,7 +179,7 @@ class VMEMHEAP extends Win32Struct
      * @type {Integer}
      */
     dwAgpCommitMaskSize {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
+        get => NumGet(this, 240, "uint")
+        set => NumPut("uint", value, this, 240)
     }
 }

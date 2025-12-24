@@ -17,7 +17,7 @@
  */
 class RAS_CONNECTION_3 extends Win32Struct
 {
-    static sizeof => 800
+    static sizeof => 784
 
     static packingSize => 8
 
@@ -96,8 +96,8 @@ class RAS_CONNECTION_3 extends Win32Struct
      * @type {Integer}
      */
     rasQuarState {
-        get => NumGet(this, 784, "int")
-        set => NumPut("int", value, this, 784)
+        get => NumGet(this, 772, "int")
+        set => NumPut("int", value, this, 772)
     }
 
     /**
@@ -107,7 +107,7 @@ class RAS_CONNECTION_3 extends Win32Struct
     timer{
         get {
             if(!this.HasProp("__timer"))
-                this.__timer := FILETIME(792, this)
+                this.__timer := FILETIME(776, this)
             return this.__timer
         }
     }

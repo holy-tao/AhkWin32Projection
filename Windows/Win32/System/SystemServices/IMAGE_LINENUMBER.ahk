@@ -7,9 +7,9 @@
  */
 class IMAGE_LINENUMBER extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 6
 
-    static packingSize => 4
+    static packingSize => 2
 
     class _Type_e__Union extends Win32Struct {
         static sizeof => 4

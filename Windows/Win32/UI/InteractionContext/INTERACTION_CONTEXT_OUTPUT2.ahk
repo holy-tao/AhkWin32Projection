@@ -12,13 +12,13 @@
  */
 class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 88
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _arguments_e__Union extends Win32Struct {
-        static sizeof => 72
-        static packingSize => 8
+        static sizeof => 60
+        static packingSize => 4
 
         /**
          * @type {INTERACTION_ARGUMENTS_MANIPULATION}
@@ -117,7 +117,7 @@ class INTERACTION_CONTEXT_OUTPUT2 extends Win32Struct
     arguments{
         get {
             if(!this.HasProp("__arguments"))
-                this.__arguments := %this.__Class%._arguments_e__Union(32, this)
+                this.__arguments := %this.__Class%._arguments_e__Union(28, this)
             return this.__arguments
         }
     }

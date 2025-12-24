@@ -10,9 +10,9 @@
  */
 class WLAN_AVAILABLE_NETWORK extends Win32Struct
 {
-    static sizeof => 632
+    static sizeof => 628
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains the profile name associated with the network.  If the network does not have a profile, this member will be empty.  If multiple profiles are associated with the network, there will be multiple entries with the same SSID in the visible network list. Profile names are case-sensitive. This string must be NULL-terminated.

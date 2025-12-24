@@ -22,9 +22,9 @@
  */
 class NONCLIENTMETRICSA extends Win32Struct
 {
-    static sizeof => 360
+    static sizeof => 344
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size of the structure, in bytes. The caller must set this to <c>sizeof(NONCLIENTMETRICS)</c>. For   information about application compatibility, see Remarks.
@@ -117,7 +117,7 @@ class NONCLIENTMETRICSA extends Win32Struct
     lfSmCaptionFont{
         get {
             if(!this.HasProp("__lfSmCaptionFont"))
-                this.__lfSmCaptionFont := LOGFONTA(96, this)
+                this.__lfSmCaptionFont := LOGFONTA(92, this)
             return this.__lfSmCaptionFont
         }
     }
@@ -127,8 +127,8 @@ class NONCLIENTMETRICSA extends Win32Struct
      * @type {Integer}
      */
     iMenuWidth {
-        get => NumGet(this, 156, "int")
-        set => NumPut("int", value, this, 156)
+        get => NumGet(this, 152, "int")
+        set => NumPut("int", value, this, 152)
     }
 
     /**
@@ -136,8 +136,8 @@ class NONCLIENTMETRICSA extends Win32Struct
      * @type {Integer}
      */
     iMenuHeight {
-        get => NumGet(this, 160, "int")
-        set => NumPut("int", value, this, 160)
+        get => NumGet(this, 156, "int")
+        set => NumPut("int", value, this, 156)
     }
 
     /**
@@ -147,7 +147,7 @@ class NONCLIENTMETRICSA extends Win32Struct
     lfMenuFont{
         get {
             if(!this.HasProp("__lfMenuFont"))
-                this.__lfMenuFont := LOGFONTA(168, this)
+                this.__lfMenuFont := LOGFONTA(160, this)
             return this.__lfMenuFont
         }
     }
@@ -159,7 +159,7 @@ class NONCLIENTMETRICSA extends Win32Struct
     lfStatusFont{
         get {
             if(!this.HasProp("__lfStatusFont"))
-                this.__lfStatusFont := LOGFONTA(232, this)
+                this.__lfStatusFont := LOGFONTA(220, this)
             return this.__lfStatusFont
         }
     }
@@ -171,7 +171,7 @@ class NONCLIENTMETRICSA extends Win32Struct
     lfMessageFont{
         get {
             if(!this.HasProp("__lfMessageFont"))
-                this.__lfMessageFont := LOGFONTA(296, this)
+                this.__lfMessageFont := LOGFONTA(280, this)
             return this.__lfMessageFont
         }
     }
@@ -183,12 +183,12 @@ class NONCLIENTMETRICSA extends Win32Struct
      * @type {Integer}
      */
     iPaddedBorderWidth {
-        get => NumGet(this, 356, "int")
-        set => NumPut("int", value, this, 356)
+        get => NumGet(this, 340, "int")
+        set => NumPut("int", value, this, 340)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 360
+        this.cbSize := 344
     }
 }

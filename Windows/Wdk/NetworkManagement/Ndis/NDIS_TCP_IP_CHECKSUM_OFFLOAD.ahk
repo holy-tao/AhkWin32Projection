@@ -9,7 +9,7 @@ class NDIS_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _IPv4Transmit extends Win32Struct {
         static sizeof => 8

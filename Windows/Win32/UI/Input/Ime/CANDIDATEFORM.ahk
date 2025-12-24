@@ -13,7 +13,7 @@ class CANDIDATEFORM extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Candidate list identifier. It is 0 for the first list, 1 for the second, and so on. The maximum index is 3.

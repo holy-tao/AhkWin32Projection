@@ -14,9 +14,9 @@
  */
 class EMRCREATECOLORSPACEW extends Win32Struct
 {
-    static sizeof => 640
+    static sizeof => 612
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
@@ -46,7 +46,7 @@ class EMRCREATECOLORSPACEW extends Win32Struct
     lcs{
         get {
             if(!this.HasProp("__lcs"))
-                this.__lcs := LOGCOLORSPACEW(16, this)
+                this.__lcs := LOGCOLORSPACEW(12, this)
             return this.__lcs
         }
     }
@@ -67,8 +67,8 @@ class EMRCREATECOLORSPACEW extends Win32Struct
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 624, "uint")
-        set => NumPut("uint", value, this, 624)
+        get => NumGet(this, 600, "uint")
+        set => NumPut("uint", value, this, 600)
     }
 
     /**
@@ -76,8 +76,8 @@ class EMRCREATECOLORSPACEW extends Win32Struct
      * @type {Integer}
      */
     cbData {
-        get => NumGet(this, 628, "uint")
-        set => NumPut("uint", value, this, 628)
+        get => NumGet(this, 604, "uint")
+        set => NumPut("uint", value, this, 604)
     }
 
     /**
@@ -87,7 +87,7 @@ class EMRCREATECOLORSPACEW extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 632, 1, Primitive, "char")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 608, 1, Primitive, "char")
             return this.__DataProxyArray
         }
     }

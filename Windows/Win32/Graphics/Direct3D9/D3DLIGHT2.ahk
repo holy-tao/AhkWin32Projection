@@ -9,9 +9,9 @@
  */
 class D3DLIGHT2 extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 80
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -57,7 +57,7 @@ class D3DLIGHT2 extends Win32Struct
     dvDirection{
         get {
             if(!this.HasProp("__dvDirection"))
-                this.__dvDirection := D3DVECTOR(40, this)
+                this.__dvDirection := D3DVECTOR(36, this)
             return this.__dvDirection
         }
     }
@@ -66,6 +66,14 @@ class D3DLIGHT2 extends Win32Struct
      * @type {Float}
      */
     dvRange {
+        get => NumGet(this, 48, "float")
+        set => NumPut("float", value, this, 48)
+    }
+
+    /**
+     * @type {Float}
+     */
+    dvFalloff {
         get => NumGet(this, 52, "float")
         set => NumPut("float", value, this, 52)
     }
@@ -73,7 +81,7 @@ class D3DLIGHT2 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvFalloff {
+    dvAttenuation0 {
         get => NumGet(this, 56, "float")
         set => NumPut("float", value, this, 56)
     }
@@ -81,7 +89,7 @@ class D3DLIGHT2 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvAttenuation0 {
+    dvAttenuation1 {
         get => NumGet(this, 60, "float")
         set => NumPut("float", value, this, 60)
     }
@@ -89,7 +97,7 @@ class D3DLIGHT2 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvAttenuation1 {
+    dvAttenuation2 {
         get => NumGet(this, 64, "float")
         set => NumPut("float", value, this, 64)
     }
@@ -97,7 +105,7 @@ class D3DLIGHT2 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvAttenuation2 {
+    dvTheta {
         get => NumGet(this, 68, "float")
         set => NumPut("float", value, this, 68)
     }
@@ -105,24 +113,16 @@ class D3DLIGHT2 extends Win32Struct
     /**
      * @type {Float}
      */
-    dvTheta {
+    dvPhi {
         get => NumGet(this, 72, "float")
         set => NumPut("float", value, this, 72)
-    }
-
-    /**
-     * @type {Float}
-     */
-    dvPhi {
-        get => NumGet(this, 76, "float")
-        set => NumPut("float", value, this, 76)
     }
 
     /**
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 76, "uint")
+        set => NumPut("uint", value, this, 76)
     }
 }

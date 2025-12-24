@@ -15,9 +15,9 @@
  */
 class D2D1_BRUSH_PROPERTIES extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>FLOAT</b>
@@ -39,7 +39,7 @@ class D2D1_BRUSH_PROPERTIES extends Win32Struct
     transform{
         get {
             if(!this.HasProp("__transform"))
-                this.__transform := D2D_MATRIX_3X2_F(8, this)
+                this.__transform := D2D_MATRIX_3X2_F(4, this)
             return this.__transform
         }
     }

@@ -87,7 +87,7 @@ class VMRALLOCATIONINFO extends Win32Struct
     szNativeSize{
         get {
             if(!this.HasProp("__szNativeSize"))
-                this.__szNativeSize := SIZE(48, this)
+                this.__szNativeSize := SIZE(44, this)
             return this.__szNativeSize
         }
     }

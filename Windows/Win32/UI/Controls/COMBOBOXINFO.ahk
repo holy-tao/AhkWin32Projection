@@ -20,7 +20,7 @@
  */
 class COMBOBOXINFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -44,7 +44,7 @@ class COMBOBOXINFO extends Win32Struct
     rcItem{
         get {
             if(!this.HasProp("__rcItem"))
-                this.__rcItem := RECT(8, this)
+                this.__rcItem := RECT(4, this)
             return this.__rcItem
         }
     }
@@ -58,7 +58,7 @@ class COMBOBOXINFO extends Win32Struct
     rcButton{
         get {
             if(!this.HasProp("__rcButton"))
-                this.__rcButton := RECT(24, this)
+                this.__rcButton := RECT(20, this)
             return this.__rcButton
         }
     }
@@ -68,8 +68,8 @@ class COMBOBOXINFO extends Win32Struct
      * @type {Integer}
      */
     stateButton {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -81,7 +81,7 @@ class COMBOBOXINFO extends Win32Struct
     hwndCombo{
         get {
             if(!this.HasProp("__hwndCombo"))
-                this.__hwndCombo := HWND(48, this)
+                this.__hwndCombo := HWND(40, this)
             return this.__hwndCombo
         }
     }
@@ -95,7 +95,7 @@ class COMBOBOXINFO extends Win32Struct
     hwndItem{
         get {
             if(!this.HasProp("__hwndItem"))
-                this.__hwndItem := HWND(56, this)
+                this.__hwndItem := HWND(48, this)
             return this.__hwndItem
         }
     }
@@ -109,13 +109,13 @@ class COMBOBOXINFO extends Win32Struct
     hwndList{
         get {
             if(!this.HasProp("__hwndList"))
-                this.__hwndList := HWND(64, this)
+                this.__hwndList := HWND(56, this)
             return this.__hwndList
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 72
+        this.cbSize := 64
     }
 }

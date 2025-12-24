@@ -50,7 +50,7 @@ class NMHDFILTERBTNCLICK extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(32, this)
+                this.__rc := RECT(28, this)
             return this.__rc
         }
     }

@@ -54,7 +54,7 @@ class D3D12_VIDEO_ENCODER_SEQUENCE_CONTROL_DESC extends Win32Struct
     IntraRefreshConfig{
         get {
             if(!this.HasProp("__IntraRefreshConfig"))
-                this.__IntraRefreshConfig := D3D12_VIDEO_ENCODER_INTRA_REFRESH(8, this)
+                this.__IntraRefreshConfig := D3D12_VIDEO_ENCODER_INTRA_REFRESH(4, this)
             return this.__IntraRefreshConfig
         }
     }

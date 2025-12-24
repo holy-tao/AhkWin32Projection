@@ -7,9 +7,9 @@
  */
 class NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 88
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _IPv4Transmit extends Win32Struct {
         static sizeof => 24
@@ -250,7 +250,7 @@ class NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD extends Win32Struct
     IPv6Receive{
         get {
             if(!this.HasProp("__IPv6Receive"))
-                this.__IPv6Receive := %this.__Class%._IPv6Receive(72, this)
+                this.__IPv6Receive := %this.__Class%._IPv6Receive(68, this)
             return this.__IPv6Receive
         }
     }

@@ -39,7 +39,7 @@ class ONEX_AUTH_PARAMS extends Win32Struct
     oneXConnProfile{
         get {
             if(!this.HasProp("__oneXConnProfile"))
-                this.__oneXConnProfile := ONEX_VARIABLE_BLOB(8, this)
+                this.__oneXConnProfile := ONEX_VARIABLE_BLOB(4, this)
             return this.__oneXConnProfile
         }
     }
@@ -49,8 +49,8 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * @type {Integer}
      */
     authIdentity {
-        get => NumGet(this, 16, "int")
-        set => NumPut("int", value, this, 16)
+        get => NumGet(this, 12, "int")
+        set => NumPut("int", value, this, 12)
     }
 
     /**
@@ -58,8 +58,8 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * @type {Integer}
      */
     dwQuarantineState {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -73,8 +73,8 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -140,8 +140,8 @@ class ONEX_AUTH_PARAMS extends Win32Struct
      * @type {Integer}
      */
     dwSessionId {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**

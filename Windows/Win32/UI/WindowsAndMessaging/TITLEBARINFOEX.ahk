@@ -34,7 +34,7 @@ class TITLEBARINFOEX extends Win32Struct
     rcTitleBar{
         get {
             if(!this.HasProp("__rcTitleBar"))
-                this.__rcTitleBar := RECT(8, this)
+                this.__rcTitleBar := RECT(4, this)
             return this.__rcTitleBar
         }
     }
@@ -79,7 +79,7 @@ class TITLEBARINFOEX extends Win32Struct
     rgstate{
         get {
             if(!this.HasProp("__rgstateProxyArray"))
-                this.__rgstateProxyArray := Win32FixedArray(this.ptr + 24, 6, Primitive, "uint")
+                this.__rgstateProxyArray := Win32FixedArray(this.ptr + 20, 6, Primitive, "uint")
             return this.__rgstateProxyArray
         }
     }

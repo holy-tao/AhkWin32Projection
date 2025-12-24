@@ -96,9 +96,9 @@
  */
 class D3D12_DEPTH_STENCIL_DESC1 extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies whether to enable depth testing. Set this member to <b>TRUE</b> to enable depth testing.
@@ -161,7 +161,7 @@ class D3D12_DEPTH_STENCIL_DESC1 extends Win32Struct
     FrontFace{
         get {
             if(!this.HasProp("__FrontFace"))
-                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC(24, this)
+                this.__FrontFace := D3D12_DEPTH_STENCILOP_DESC(20, this)
             return this.__FrontFace
         }
     }
@@ -173,7 +173,7 @@ class D3D12_DEPTH_STENCIL_DESC1 extends Win32Struct
     BackFace{
         get {
             if(!this.HasProp("__BackFace"))
-                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC(40, this)
+                this.__BackFace := D3D12_DEPTH_STENCILOP_DESC(36, this)
             return this.__BackFace
         }
     }
@@ -183,7 +183,7 @@ class D3D12_DEPTH_STENCIL_DESC1 extends Win32Struct
      * @type {BOOL}
      */
     DepthBoundsTestEnable {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 }

@@ -48,7 +48,7 @@ class LINEATTRS extends Win32Struct
     elWidth{
         get {
             if(!this.HasProp("__elWidth"))
-                this.__elWidth := FLOAT_LONG(16, this)
+                this.__elWidth := FLOAT_LONG(12, this)
             return this.__elWidth
         }
     }
@@ -60,8 +60,8 @@ class LINEATTRS extends Win32Struct
      * @type {Float}
      */
     eMiterLimit {
-        get => NumGet(this, 24, "float")
-        set => NumPut("float", value, this, 24)
+        get => NumGet(this, 20, "float")
+        set => NumPut("float", value, this, 20)
     }
 
     /**
@@ -69,8 +69,8 @@ class LINEATTRS extends Win32Struct
      * @type {Integer}
      */
     cstyle {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**

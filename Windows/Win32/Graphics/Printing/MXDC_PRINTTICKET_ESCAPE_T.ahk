@@ -35,9 +35,9 @@
  */
 class MXDC_PRINTTICKET_ESCAPE_T extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [**MXDC\_ESCAPE\_HEADER\_T**](mxdcescapeheader.md) structure with its **opCode** member set to MXDCOP\_PRINTTICKET\_FIXED\_PAGE, MXDCOP\_PRINTTICKET\_FIXED\_DOC, or MXDCOP\_PRINTTICKET\_FIXED\_DOC\_SEQ.
@@ -58,7 +58,7 @@ class MXDC_PRINTTICKET_ESCAPE_T extends Win32Struct
     printTicketData{
         get {
             if(!this.HasProp("__printTicketData"))
-                this.__printTicketData := MXDC_PRINTTICKET_DATA_T(16, this)
+                this.__printTicketData := MXDC_PRINTTICKET_DATA_T(12, this)
             return this.__printTicketData
         }
     }

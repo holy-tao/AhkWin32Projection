@@ -9,7 +9,7 @@ class WHEA_PCI_SLOT_NUMBER extends Win32Struct
 {
     static sizeof => 4
 
-    static packingSize => 4
+    static packingSize => 1
 
     class _u_e__Union extends Win32Struct {
         static sizeof => 4

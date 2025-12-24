@@ -52,7 +52,7 @@ class NMRBAUTOSIZE extends Win32Struct
     rcTarget{
         get {
             if(!this.HasProp("__rcTarget"))
-                this.__rcTarget := RECT(32, this)
+                this.__rcTarget := RECT(28, this)
             return this.__rcTarget
         }
     }
@@ -67,7 +67,7 @@ class NMRBAUTOSIZE extends Win32Struct
     rcActual{
         get {
             if(!this.HasProp("__rcActual"))
-                this.__rcActual := RECT(48, this)
+                this.__rcActual := RECT(44, this)
             return this.__rcActual
         }
     }

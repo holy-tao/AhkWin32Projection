@@ -13,9 +13,9 @@
  */
 class MIB_ICMP extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 104
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 

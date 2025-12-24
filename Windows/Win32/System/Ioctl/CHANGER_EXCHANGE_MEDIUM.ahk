@@ -10,9 +10,9 @@
  */
 class CHANGER_EXCHANGE_MEDIUM extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 

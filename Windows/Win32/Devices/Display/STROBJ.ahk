@@ -50,7 +50,7 @@ class STROBJ extends Win32Struct
     rclBkGround{
         get {
             if(!this.HasProp("__rclBkGround"))
-                this.__rclBkGround := RECTL(16, this)
+                this.__rclBkGround := RECTL(12, this)
             return this.__rclBkGround
         }
     }

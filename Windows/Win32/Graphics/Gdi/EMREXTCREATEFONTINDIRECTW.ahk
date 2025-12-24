@@ -13,9 +13,9 @@
  */
 class EMREXTCREATEFONTINDIRECTW extends Win32Struct
 {
-    static sizeof => 344
+    static sizeof => 332
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
@@ -45,7 +45,7 @@ class EMREXTCREATEFONTINDIRECTW extends Win32Struct
     elfw{
         get {
             if(!this.HasProp("__elfw"))
-                this.__elfw := EXTLOGFONTW(16, this)
+                this.__elfw := EXTLOGFONTW(12, this)
             return this.__elfw
         }
     }

@@ -21,9 +21,9 @@
  */
 class DEVMODEA extends Win32Struct
 {
-    static sizeof => 160
+    static sizeof => 156
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A zero-terminated character array that specifies the "friendly" name of the printer or display; for example, "PCL/HP LaserJet" in the case of PCL/HP LaserJet. This string is unique among device drivers. Note that this name may be truncated to fit in the <b>dmDeviceName</b> array.
@@ -215,6 +215,22 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmOrientation {
+        get => NumGet(this, 44, "short")
+        set => NumPut("short", value, this, 44)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dmPaperSize {
+        get => NumGet(this, 46, "short")
+        set => NumPut("short", value, this, 46)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dmPaperLength {
         get => NumGet(this, 48, "short")
         set => NumPut("short", value, this, 48)
     }
@@ -222,7 +238,7 @@ class DEVMODEA extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmPaperSize {
+    dmPaperWidth {
         get => NumGet(this, 50, "short")
         set => NumPut("short", value, this, 50)
     }
@@ -230,7 +246,7 @@ class DEVMODEA extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmPaperLength {
+    dmScale {
         get => NumGet(this, 52, "short")
         set => NumPut("short", value, this, 52)
     }
@@ -238,7 +254,7 @@ class DEVMODEA extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmPaperWidth {
+    dmCopies {
         get => NumGet(this, 54, "short")
         set => NumPut("short", value, this, 54)
     }
@@ -246,7 +262,7 @@ class DEVMODEA extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmScale {
+    dmDefaultSource {
         get => NumGet(this, 56, "short")
         set => NumPut("short", value, this, 56)
     }
@@ -254,25 +270,9 @@ class DEVMODEA extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmCopies {
+    dmPrintQuality {
         get => NumGet(this, 58, "short")
         set => NumPut("short", value, this, 58)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dmDefaultSource {
-        get => NumGet(this, 60, "short")
-        set => NumPut("short", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dmPrintQuality {
-        get => NumGet(this, 62, "short")
-        set => NumPut("short", value, this, 62)
     }
 
     /**
@@ -281,7 +281,7 @@ class DEVMODEA extends Win32Struct
     dmPosition{
         get {
             if(!this.HasProp("__dmPosition"))
-                this.__dmPosition := POINTL(48, this)
+                this.__dmPosition := POINTL(44, this)
             return this.__dmPosition
         }
     }
@@ -290,16 +290,16 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmDisplayOrientation {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
      * @type {Integer}
      */
     dmDisplayFixedOutput {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -312,8 +312,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmColor {
-        get => NumGet(this, 64, "short")
-        set => NumPut("short", value, this, 64)
+        get => NumGet(this, 60, "short")
+        set => NumPut("short", value, this, 60)
     }
 
     /**
@@ -340,8 +340,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmDuplex {
-        get => NumGet(this, 66, "short")
-        set => NumPut("short", value, this, 66)
+        get => NumGet(this, 62, "short")
+        set => NumPut("short", value, this, 62)
     }
 
     /**
@@ -349,8 +349,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmYResolution {
-        get => NumGet(this, 68, "short")
-        set => NumPut("short", value, this, 68)
+        get => NumGet(this, 64, "short")
+        set => NumPut("short", value, this, 64)
     }
 
     /**
@@ -358,8 +358,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmTTOption {
-        get => NumGet(this, 70, "short")
-        set => NumPut("short", value, this, 70)
+        get => NumGet(this, 66, "short")
+        set => NumPut("short", value, this, 66)
     }
 
     /**
@@ -367,8 +367,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmCollate {
-        get => NumGet(this, 72, "short")
-        set => NumPut("short", value, this, 72)
+        get => NumGet(this, 68, "short")
+        set => NumPut("short", value, this, 68)
     }
 
     /**
@@ -378,7 +378,7 @@ class DEVMODEA extends Win32Struct
     dmFormName{
         get {
             if(!this.HasProp("__dmFormNameProxyArray"))
-                this.__dmFormNameProxyArray := Win32FixedArray(this.ptr + 74, 32, Primitive, "char")
+                this.__dmFormNameProxyArray := Win32FixedArray(this.ptr + 70, 32, Primitive, "char")
             return this.__dmFormNameProxyArray
         }
     }
@@ -388,8 +388,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmLogPixels {
-        get => NumGet(this, 106, "ushort")
-        set => NumPut("ushort", value, this, 106)
+        get => NumGet(this, 102, "ushort")
+        set => NumPut("ushort", value, this, 102)
     }
 
     /**
@@ -397,8 +397,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmBitsPerPel {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 
     /**
@@ -406,8 +406,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmPelsWidth {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 108, "uint")
+        set => NumPut("uint", value, this, 108)
     }
 
     /**
@@ -415,6 +415,14 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmPelsHeight {
+        get => NumGet(this, 112, "uint")
+        set => NumPut("uint", value, this, 112)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dmDisplayFlags {
         get => NumGet(this, 116, "uint")
         set => NumPut("uint", value, this, 116)
     }
@@ -422,17 +430,9 @@ class DEVMODEA extends Win32Struct
     /**
      * @type {Integer}
      */
-    dmDisplayFlags {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
-    }
-
-    /**
-     * @type {Integer}
-     */
     dmNup {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
     }
 
     /**
@@ -442,8 +442,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmDisplayFrequency {
-        get => NumGet(this, 124, "uint")
-        set => NumPut("uint", value, this, 124)
+        get => NumGet(this, 120, "uint")
+        set => NumPut("uint", value, this, 120)
     }
 
     /**
@@ -477,8 +477,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmICMMethod {
-        get => NumGet(this, 128, "uint")
-        set => NumPut("uint", value, this, 128)
+        get => NumGet(this, 124, "uint")
+        set => NumPut("uint", value, this, 124)
     }
 
     /**
@@ -509,8 +509,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmICMIntent {
-        get => NumGet(this, 132, "uint")
-        set => NumPut("uint", value, this, 132)
+        get => NumGet(this, 128, "uint")
+        set => NumPut("uint", value, this, 128)
     }
 
     /**
@@ -540,8 +540,8 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmMediaType {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 
     /**
@@ -576,6 +576,15 @@ class DEVMODEA extends Win32Struct
      * @type {Integer}
      */
     dmDitherType {
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
+    }
+
+    /**
+     * Not used; must be zero.
+     * @type {Integer}
+     */
+    dmReserved1 {
         get => NumGet(this, 140, "uint")
         set => NumPut("uint", value, this, 140)
     }
@@ -584,16 +593,16 @@ class DEVMODEA extends Win32Struct
      * Not used; must be zero.
      * @type {Integer}
      */
-    dmReserved1 {
+    dmReserved2 {
         get => NumGet(this, 144, "uint")
         set => NumPut("uint", value, this, 144)
     }
 
     /**
-     * Not used; must be zero.
+     * This member must be zero.
      * @type {Integer}
      */
-    dmReserved2 {
+    dmPanningWidth {
         get => NumGet(this, 148, "uint")
         set => NumPut("uint", value, this, 148)
     }
@@ -602,17 +611,8 @@ class DEVMODEA extends Win32Struct
      * This member must be zero.
      * @type {Integer}
      */
-    dmPanningWidth {
+    dmPanningHeight {
         get => NumGet(this, 152, "uint")
         set => NumPut("uint", value, this, 152)
-    }
-
-    /**
-     * This member must be zero.
-     * @type {Integer}
-     */
-    dmPanningHeight {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
     }
 }

@@ -11,9 +11,9 @@
  */
 class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The length of the header.
@@ -40,7 +40,7 @@ class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
     UserName{
         get {
             if(!this.HasProp("__UserName"))
-                this.__UserName := SECPKG_SHORT_VECTOR(8, this)
+                this.__UserName := SECPKG_SHORT_VECTOR(4, this)
             return this.__UserName
         }
     }
@@ -52,7 +52,7 @@ class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
     DomainName{
         get {
             if(!this.HasProp("__DomainName"))
-                this.__DomainName := SECPKG_SHORT_VECTOR(16, this)
+                this.__DomainName := SECPKG_SHORT_VECTOR(12, this)
             return this.__DomainName
         }
     }
@@ -64,7 +64,7 @@ class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
     PackedCredentials{
         get {
             if(!this.HasProp("__PackedCredentials"))
-                this.__PackedCredentials := SECPKG_BYTE_VECTOR(24, this)
+                this.__PackedCredentials := SECPKG_BYTE_VECTOR(20, this)
             return this.__PackedCredentials
         }
     }
@@ -74,7 +74,7 @@ class SECPKG_SUPPLIED_CREDENTIAL extends Win32Struct
      * @type {Integer}
      */
     CredFlags {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 }

@@ -16,9 +16,9 @@
  */
 class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The file system attribute information for a file or directory.
@@ -43,7 +43,7 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct
     ftCreationTime{
         get {
             if(!this.HasProp("__ftCreationTime"))
-                this.__ftCreationTime := FILETIME(8, this)
+                this.__ftCreationTime := FILETIME(4, this)
             return this.__ftCreationTime
         }
     }
@@ -63,7 +63,7 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct
     ftLastAccessTime{
         get {
             if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(16, this)
+                this.__ftLastAccessTime := FILETIME(12, this)
             return this.__ftLastAccessTime
         }
     }
@@ -82,7 +82,7 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct
     ftLastWriteTime{
         get {
             if(!this.HasProp("__ftLastWriteTime"))
-                this.__ftLastWriteTime := FILETIME(24, this)
+                this.__ftLastWriteTime := FILETIME(20, this)
             return this.__ftLastWriteTime
         }
     }
@@ -96,8 +96,8 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct
      * @type {Integer}
      */
     nFileSizeHigh {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -108,7 +108,7 @@ class WIN32_FILE_ATTRIBUTE_DATA extends Win32Struct
      * @type {Integer}
      */
     nFileSizeLow {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

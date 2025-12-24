@@ -9,7 +9,7 @@
  */
 class KS_FRAMING_ITEM extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -102,7 +102,7 @@ class KS_FRAMING_ITEM extends Win32Struct
     FramingRange{
         get {
             if(!this.HasProp("__FramingRange"))
-                this.__FramingRange := KS_FRAMING_RANGE_WEIGHTED(56, this)
+                this.__FramingRange := KS_FRAMING_RANGE_WEIGHTED(52, this)
             return this.__FramingRange
         }
     }

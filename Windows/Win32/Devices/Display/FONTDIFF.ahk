@@ -14,9 +14,9 @@
  */
 class FONTDIFF extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * 
@@ -174,7 +174,7 @@ class FONTDIFF extends Win32Struct
     ptlCaret{
         get {
             if(!this.HasProp("__ptlCaret"))
-                this.__ptlCaret := POINTL(16, this)
+                this.__ptlCaret := POINTL(12, this)
             return this.__ptlCaret
         }
     }

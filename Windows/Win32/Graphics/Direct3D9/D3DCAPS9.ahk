@@ -29,7 +29,7 @@ class D3DCAPS9 extends Win32Struct
 {
     static sizeof => 304
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddevtype">D3DDEVTYPE</a></b>

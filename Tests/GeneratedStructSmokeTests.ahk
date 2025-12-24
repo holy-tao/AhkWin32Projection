@@ -17,6 +17,7 @@
 #Include ../Windows/Win32/System/Diagnostics/Debug/CONTEXT.ahk
 #Include ../Windows/Win32/Foundation/Apis.ahk
 #Include ../Windows/Win32/System/Memory/Apis.ahk
+#Include ../Windows/Win32/Storage/FileSystem/BY_HANDLE_FILE_INFORMATION.ahk
 #Include ../Windows/Win32/Storage/Nvme/NVME_OCP_DEVICE_CAPABILITIES_LOG.ahk
 
 /**
@@ -177,6 +178,20 @@ class GeneratedStructSmokeTests {
             YUnit.Assert(!test.Xmm1._owned)
             YUnit.Assert(!test.Xmm2._owned)
             YUnit.Assert(!test.Xmm3._owned)
+        }
+
+        /**
+         * Regression test for https://github.com/holy-tao/AhkWin32Projection/issues/109
+         */
+        EmbeddedStructs_WithPackingSizeLessThanParent_AreProjectedCorrectly(){
+            test := BY_HANDLE_FILE_INFORMATION()
+            NumPut("uint64", 0x12345678, test.ptr + 4) ; Set ftCreationTime.dwLowDateTime
+            NumPut("uint64", 0x87654321, test.ptr + 8) ; Set ftCreationTime.dwHighDateTime
+
+            Assert.Equals(test.ftCreationTime.ptr, test.ptr + 4)
+            Assert.Equals(test.dwFileAttributes, 0)
+            Assert.Equals(test.ftCreationTime.dwLowDateTime, 0x12345678)
+            Assert.Equals(test.ftCreationTime.dwHighDateTime, 0x87654321)
         }
     }
 

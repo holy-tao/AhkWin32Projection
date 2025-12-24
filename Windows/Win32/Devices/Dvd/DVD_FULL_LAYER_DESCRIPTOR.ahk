@@ -8,9 +8,9 @@
  */
 class DVD_FULL_LAYER_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 2056
+    static sizeof => 2052
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DVD_LAYER_DESCRIPTOR}

@@ -11,9 +11,9 @@
  */
 class TOUCH_HIT_TESTING_INPUT extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The ID of the pointer. You cannot pass this value to the input message process and  retrieve additional pointer info through <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getpointerinfo">GetPointerInfo</a>.
@@ -31,7 +31,7 @@ class TOUCH_HIT_TESTING_INPUT extends Win32Struct
     point{
         get {
             if(!this.HasProp("__point"))
-                this.__point := POINT(8, this)
+                this.__point := POINT(4, this)
             return this.__point
         }
     }
@@ -52,7 +52,7 @@ class TOUCH_HIT_TESTING_INPUT extends Win32Struct
     boundingBox{
         get {
             if(!this.HasProp("__boundingBox"))
-                this.__boundingBox := RECT(16, this)
+                this.__boundingBox := RECT(12, this)
             return this.__boundingBox
         }
     }
@@ -64,7 +64,7 @@ class TOUCH_HIT_TESTING_INPUT extends Win32Struct
     nonOccludedBoundingBox{
         get {
             if(!this.HasProp("__nonOccludedBoundingBox"))
-                this.__nonOccludedBoundingBox := RECT(32, this)
+                this.__nonOccludedBoundingBox := RECT(28, this)
             return this.__nonOccludedBoundingBox
         }
     }
@@ -74,7 +74,7 @@ class TOUCH_HIT_TESTING_INPUT extends Win32Struct
      * @type {Integer}
      */
     orientation {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

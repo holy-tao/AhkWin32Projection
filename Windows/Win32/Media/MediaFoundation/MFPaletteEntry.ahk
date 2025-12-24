@@ -15,7 +15,7 @@ class MFPaletteEntry extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 4
+    static packingSize => 1
 
     /**
      * [MFARGB](./ns-mfobjects-mfargb.md) structure that contains an RGB color.

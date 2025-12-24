@@ -13,7 +13,7 @@ class SUB_Q_CHANNEL_DATA extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * @type {SUB_Q_CURRENT_POSITION}

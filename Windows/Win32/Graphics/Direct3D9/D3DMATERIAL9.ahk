@@ -14,9 +14,9 @@
  */
 class D3DMATERIAL9 extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: **[**D3DCOLORVALUE**](d3dcolorvalue.md)**

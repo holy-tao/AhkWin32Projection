@@ -13,9 +13,9 @@
  */
 class BITMAPV4HEADER extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 108
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of bytes required by the structure. Applications should use this member to determine which bitmap information header structure is being used.
@@ -195,7 +195,7 @@ class BITMAPV4HEADER extends Win32Struct
     bV4Endpoints{
         get {
             if(!this.HasProp("__bV4Endpoints"))
-                this.__bV4Endpoints := CIEXYZTRIPLE(64, this)
+                this.__bV4Endpoints := CIEXYZTRIPLE(60, this)
             return this.__bV4Endpoints
         }
     }
@@ -205,8 +205,8 @@ class BITMAPV4HEADER extends Win32Struct
      * @type {Integer}
      */
     bV4GammaRed {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
@@ -214,8 +214,8 @@ class BITMAPV4HEADER extends Win32Struct
      * @type {Integer}
      */
     bV4GammaGreen {
-        get => NumGet(this, 116, "uint")
-        set => NumPut("uint", value, this, 116)
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
     }
 
     /**
@@ -223,7 +223,7 @@ class BITMAPV4HEADER extends Win32Struct
      * @type {Integer}
      */
     bV4GammaBlue {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 }

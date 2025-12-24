@@ -10,9 +10,9 @@
  */
 class KSCAMERA_METADATA_BACKGROUNDSEGMENTATIONMASK extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {KSCAMERA_METADATA_ITEMHEADER}

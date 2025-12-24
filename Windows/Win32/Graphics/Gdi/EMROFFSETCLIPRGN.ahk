@@ -13,7 +13,7 @@ class EMROFFSETCLIPRGN extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

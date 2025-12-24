@@ -10,9 +10,9 @@
  */
 class ApplicationProcessRecycleInfo extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Indicates whether the process is one that can be recycled. For example, only COM+ server applications can be recycled, and applications running as Windows services cannot be recycled.
@@ -90,7 +90,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
     TimeForAutomaticRecycling{
         get {
             if(!this.HasProp("__TimeForAutomaticRecycling"))
-                this.__TimeForAutomaticRecycling := FILETIME(40, this)
+                this.__TimeForAutomaticRecycling := FILETIME(36, this)
             return this.__TimeForAutomaticRecycling
         }
     }
@@ -100,8 +100,8 @@ class ApplicationProcessRecycleInfo extends Win32Struct
      * @type {Integer}
      */
     MemoryLimitInKB {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -109,8 +109,8 @@ class ApplicationProcessRecycleInfo extends Win32Struct
      * @type {Integer}
      */
     MemoryUsageInKBLastCheck {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -118,8 +118,8 @@ class ApplicationProcessRecycleInfo extends Win32Struct
      * @type {Integer}
      */
     ActivationLimit {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -127,8 +127,8 @@ class ApplicationProcessRecycleInfo extends Win32Struct
      * @type {Integer}
      */
     NumActivationsLastReported {
-        get => NumGet(this, 60, "uint")
-        set => NumPut("uint", value, this, 60)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 
     /**
@@ -136,8 +136,8 @@ class ApplicationProcessRecycleInfo extends Win32Struct
      * @type {Integer}
      */
     CallLimit {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
@@ -145,7 +145,7 @@ class ApplicationProcessRecycleInfo extends Win32Struct
      * @type {Integer}
      */
     NumCallsLastReported {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 }

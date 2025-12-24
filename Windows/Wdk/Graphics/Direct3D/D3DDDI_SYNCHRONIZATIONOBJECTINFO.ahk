@@ -7,9 +7,9 @@
  */
 class D3DDDI_SYNCHRONIZATIONOBJECTINFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -61,7 +61,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO extends Win32Struct
     SynchronizationMutex{
         get {
             if(!this.HasProp("__SynchronizationMutex"))
-                this.__SynchronizationMutex := %this.__Class%._SynchronizationMutex(8, this)
+                this.__SynchronizationMutex := %this.__Class%._SynchronizationMutex(4, this)
             return this.__SynchronizationMutex
         }
     }
@@ -72,7 +72,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO extends Win32Struct
     Semaphore{
         get {
             if(!this.HasProp("__Semaphore"))
-                this.__Semaphore := %this.__Class%._Semaphore(8, this)
+                this.__Semaphore := %this.__Class%._Semaphore(4, this)
             return this.__Semaphore
         }
     }
@@ -83,7 +83,7 @@ class D3DDDI_SYNCHRONIZATIONOBJECTINFO extends Win32Struct
     Reserved{
         get {
             if(!this.HasProp("__Reserved"))
-                this.__Reserved := %this.__Class%._Reserved(8, this)
+                this.__Reserved := %this.__Class%._Reserved(4, this)
             return this.__Reserved
         }
     }

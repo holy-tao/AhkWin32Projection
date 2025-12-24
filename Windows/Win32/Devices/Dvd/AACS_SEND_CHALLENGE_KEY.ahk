@@ -8,9 +8,9 @@
  */
 class AACS_SEND_CHALLENGE_KEY extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 84
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class AACS_SEND_CHALLENGE_KEY extends Win32Struct
     ChallengeKey{
         get {
             if(!this.HasProp("__ChallengeKey"))
-                this.__ChallengeKey := AACS_CHALLENGE_KEY(8, this)
+                this.__ChallengeKey := AACS_CHALLENGE_KEY(4, this)
             return this.__ChallengeKey
         }
     }

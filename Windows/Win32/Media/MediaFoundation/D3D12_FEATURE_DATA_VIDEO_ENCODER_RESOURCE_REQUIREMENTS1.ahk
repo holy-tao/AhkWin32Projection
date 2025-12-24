@@ -10,7 +10,7 @@
  */
 class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 112
 
     static packingSize => 8
 
@@ -55,7 +55,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     PictureTargetResolution{
         get {
             if(!this.HasProp("__PictureTargetResolution"))
-                this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(32, this)
+                this.__PictureTargetResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(28, this)
             return this.__PictureTargetResolution
         }
     }
@@ -64,14 +64,22 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
      * @type {BOOL}
      */
     IsSupported {
-        get => NumGet(this, 40, "int")
-        set => NumPut("int", value, this, 40)
+        get => NumGet(this, 36, "int")
+        set => NumPut("int", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     CompressedBitstreamBufferAccessAlignment {
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    EncoderMetadataBufferAccessAlignment {
         get => NumGet(this, 44, "uint")
         set => NumPut("uint", value, this, 44)
     }
@@ -79,7 +87,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     /**
      * @type {Integer}
      */
-    EncoderMetadataBufferAccessAlignment {
+    MaxEncoderOutputMetadataBufferSize {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
     }
@@ -87,17 +95,9 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     /**
      * @type {Integer}
      */
-    MaxEncoderOutputMetadataBufferSize {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
-    }
-
-    /**
-     * @type {Integer}
-     */
     OptionalMetadata {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -106,7 +106,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     CodecConfiguration{
         get {
             if(!this.HasProp("__CodecConfiguration"))
-                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(64, this)
+                this.__CodecConfiguration := D3D12_VIDEO_ENCODER_CODEC_CONFIGURATION(56, this)
             return this.__CodecConfiguration
         }
     }
@@ -117,7 +117,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     EncoderOutputMetadataQPMapTextureDimensions{
         get {
             if(!this.HasProp("__EncoderOutputMetadataQPMapTextureDimensions"))
-                this.__EncoderOutputMetadataQPMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(80, this)
+                this.__EncoderOutputMetadataQPMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(72, this)
             return this.__EncoderOutputMetadataQPMapTextureDimensions
         }
     }
@@ -128,7 +128,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     EncoderOutputMetadataSATDMapTextureDimensions{
         get {
             if(!this.HasProp("__EncoderOutputMetadataSATDMapTextureDimensions"))
-                this.__EncoderOutputMetadataSATDMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(88, this)
+                this.__EncoderOutputMetadataSATDMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(80, this)
             return this.__EncoderOutputMetadataSATDMapTextureDimensions
         }
     }
@@ -139,7 +139,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
     EncoderOutputMetadataBitAllocationMapTextureDimensions{
         get {
             if(!this.HasProp("__EncoderOutputMetadataBitAllocationMapTextureDimensions"))
-                this.__EncoderOutputMetadataBitAllocationMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(96, this)
+                this.__EncoderOutputMetadataBitAllocationMapTextureDimensions := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(88, this)
             return this.__EncoderOutputMetadataBitAllocationMapTextureDimensions
         }
     }
@@ -148,23 +148,23 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RESOURCE_REQUIREMENTS1 extends Win32Struc
      * @type {Integer}
      */
     EncoderOutputMetadataFramePSNRComponentsNumber {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 96, "uint")
+        set => NumPut("uint", value, this, 96)
     }
 
     /**
      * @type {Integer}
      */
     EncoderOutputMetadataSubregionsPSNRComponentsNumber {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
     }
 
     /**
      * @type {Integer}
      */
     EncoderOutputMetadataSubregionsPSNRResolvedMetadataBufferSize {
-        get => NumGet(this, 112, "uint")
-        set => NumPut("uint", value, this, 112)
+        get => NumGet(this, 104, "uint")
+        set => NumPut("uint", value, this, 104)
     }
 }

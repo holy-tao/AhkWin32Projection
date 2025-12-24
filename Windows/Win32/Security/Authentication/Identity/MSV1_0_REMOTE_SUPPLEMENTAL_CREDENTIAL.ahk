@@ -10,7 +10,7 @@ class MSV1_0_REMOTE_SUPPLEMENTAL_CREDENTIAL extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

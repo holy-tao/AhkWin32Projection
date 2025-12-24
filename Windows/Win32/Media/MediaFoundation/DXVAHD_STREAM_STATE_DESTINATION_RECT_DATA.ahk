@@ -10,9 +10,9 @@
  */
 class DXVAHD_STREAM_STATE_DESTINATION_RECT_DATA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies whether to use the destination rectangle, or use the entire output surface. The default state value is <b>FALSE</b>.
@@ -59,7 +59,7 @@ class DXVAHD_STREAM_STATE_DESTINATION_RECT_DATA extends Win32Struct
     DestinationRect{
         get {
             if(!this.HasProp("__DestinationRect"))
-                this.__DestinationRect := RECT(8, this)
+                this.__DestinationRect := RECT(4, this)
             return this.__DestinationRect
         }
     }

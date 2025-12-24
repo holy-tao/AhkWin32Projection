@@ -12,7 +12,7 @@ class RGNDATAHEADER extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size, in bytes, of the header.

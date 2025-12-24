@@ -10,7 +10,7 @@ class WINBIO_CALIBRATION_INFO extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

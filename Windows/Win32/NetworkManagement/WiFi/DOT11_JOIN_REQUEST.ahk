@@ -27,7 +27,7 @@ class DOT11_JOIN_REQUEST extends Win32Struct
     OperationalRateSet{
         get {
             if(!this.HasProp("__OperationalRateSet"))
-                this.__OperationalRateSet := DOT11_RATE_SET(8, this)
+                this.__OperationalRateSet := DOT11_RATE_SET(4, this)
             return this.__OperationalRateSet
         }
     }
@@ -36,8 +36,8 @@ class DOT11_JOIN_REQUEST extends Win32Struct
      * @type {Integer}
      */
     uChCenterFrequency {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
+        get => NumGet(this, 136, "uint")
+        set => NumPut("uint", value, this, 136)
     }
 
     /**

@@ -106,7 +106,7 @@ class QUOTA_LIMITS_EX extends Win32Struct
     CpuRateLimit{
         get {
             if(!this.HasProp("__CpuRateLimit"))
-                this.__CpuRateLimit := RATE_QUOTA_LIMIT(88, this)
+                this.__CpuRateLimit := RATE_QUOTA_LIMIT(84, this)
             return this.__CpuRateLimit
         }
     }

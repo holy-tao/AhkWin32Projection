@@ -297,7 +297,7 @@ class NVME_OCP_DEVICE_SMART_INFORMATION_LOG_V3 extends Win32Struct
     DSSDSpecVersion{
         get {
             if(!this.HasProp("__DSSDSpecVersion"))
-                this.__DSSDSpecVersion := %this.__Class%._DSSDSpecVersion(104, this)
+                this.__DSSDSpecVersion := %this.__Class%._DSSDSpecVersion(98, this)
             return this.__DSSDSpecVersion
         }
     }

@@ -57,7 +57,7 @@ class HEAACWAVEINFO extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <b>WAVEFORMATEX</b> structure that describes the core AAC stream,

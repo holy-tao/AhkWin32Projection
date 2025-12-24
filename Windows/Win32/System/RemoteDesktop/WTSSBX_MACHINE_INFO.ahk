@@ -43,7 +43,7 @@ class WTSSBX_MACHINE_INFO extends Win32Struct
     InternalIPAddress{
         get {
             if(!this.HasProp("__InternalIPAddress"))
-                this.__InternalIPAddress := WTSSBX_IP_ADDRESS(1168, this)
+                this.__InternalIPAddress := WTSSBX_IP_ADDRESS(1164, this)
             return this.__InternalIPAddress
         }
     }
@@ -53,8 +53,8 @@ class WTSSBX_MACHINE_INFO extends Win32Struct
      * @type {Integer}
      */
     dwMaxSessionsLimit {
-        get => NumGet(this, 1196, "uint")
-        set => NumPut("uint", value, this, 1196)
+        get => NumGet(this, 1192, "uint")
+        set => NumPut("uint", value, this, 1192)
     }
 
     /**
@@ -62,8 +62,8 @@ class WTSSBX_MACHINE_INFO extends Win32Struct
      * @type {Integer}
      */
     ServerWeight {
-        get => NumGet(this, 1200, "uint")
-        set => NumPut("uint", value, this, 1200)
+        get => NumGet(this, 1196, "uint")
+        set => NumPut("uint", value, this, 1196)
     }
 
     /**
@@ -71,8 +71,8 @@ class WTSSBX_MACHINE_INFO extends Win32Struct
      * @type {Integer}
      */
     SingleSessionMode {
-        get => NumGet(this, 1204, "int")
-        set => NumPut("int", value, this, 1204)
+        get => NumGet(this, 1200, "int")
+        set => NumPut("int", value, this, 1200)
     }
 
     /**
@@ -80,8 +80,8 @@ class WTSSBX_MACHINE_INFO extends Win32Struct
      * @type {Integer}
      */
     InDrain {
-        get => NumGet(this, 1208, "int")
-        set => NumPut("int", value, this, 1208)
+        get => NumGet(this, 1204, "int")
+        set => NumPut("int", value, this, 1204)
     }
 
     /**
@@ -89,7 +89,7 @@ class WTSSBX_MACHINE_INFO extends Win32Struct
      * @type {Integer}
      */
     MachineState {
-        get => NumGet(this, 1212, "int")
-        set => NumPut("int", value, this, 1212)
+        get => NumGet(this, 1208, "int")
+        set => NumPut("int", value, this, 1208)
     }
 }

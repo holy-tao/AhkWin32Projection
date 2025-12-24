@@ -14,9 +14,9 @@
  */
 class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>ADDRESS_FAMILY</b>
@@ -38,7 +38,7 @@ class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct
     PA{
         get {
             if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(8, this)
+                this.__PA := WNV_IP_ADDRESS(4, this)
             return this.__PA
         }
     }
@@ -112,7 +112,7 @@ class WNV_PROVIDER_ADDRESS_CHANGE_PARAM extends Win32Struct
      * @type {Integer}
      */
     AddressState {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

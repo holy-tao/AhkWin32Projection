@@ -10,9 +10,9 @@
  */
 class D2D1_SIMPLE_COLOR_PROFILE extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The xy coordinates of the red primary in the CIExyY color space.

@@ -15,7 +15,7 @@ class D3D11_VIDEO_COLOR extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {D3D11_VIDEO_COLOR_YCbCrA}

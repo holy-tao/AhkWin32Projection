@@ -14,9 +14,9 @@
  */
 class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <b>If TRUE</b>, the <b>SourceAspectRatio</b> and <b>DestinationAspectRatio</b> members contain valid values<b></b>. Otherwise, the pixel aspect ratios are unspecified.
@@ -34,7 +34,7 @@ class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
     SourceAspectRatio{
         get {
             if(!this.HasProp("__SourceAspectRatio"))
-                this.__SourceAspectRatio := DXVAHD_RATIONAL(8, this)
+                this.__SourceAspectRatio := DXVAHD_RATIONAL(4, this)
             return this.__SourceAspectRatio
         }
     }
@@ -46,7 +46,7 @@ class DXVAHD_STREAM_STATE_ASPECT_RATIO_DATA extends Win32Struct
     DestinationAspectRatio{
         get {
             if(!this.HasProp("__DestinationAspectRatio"))
-                this.__DestinationAspectRatio := DXVAHD_RATIONAL(16, this)
+                this.__DestinationAspectRatio := DXVAHD_RATIONAL(12, this)
             return this.__DestinationAspectRatio
         }
     }

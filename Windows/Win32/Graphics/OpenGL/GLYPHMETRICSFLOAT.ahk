@@ -14,7 +14,7 @@ class GLYPHMETRICSFLOAT extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the width of the smallest rectangle (the glyph's black box) that completely encloses the glyph.

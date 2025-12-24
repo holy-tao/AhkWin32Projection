@@ -12,9 +12,9 @@
  */
 class D3D12_FEATURE_DATA_VIDEO_PROCESS_REFERENCE_INFO extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An integer indicating which physical adapter of the device the operation applies to, in a multi-adapter operation.

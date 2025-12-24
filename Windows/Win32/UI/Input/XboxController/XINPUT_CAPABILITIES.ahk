@@ -26,9 +26,9 @@
  */
 class XINPUT_CAPABILITIES extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * 
@@ -96,7 +96,7 @@ class XINPUT_CAPABILITIES extends Win32Struct
     Gamepad{
         get {
             if(!this.HasProp("__Gamepad"))
-                this.__Gamepad := XINPUT_GAMEPAD(8, this)
+                this.__Gamepad := XINPUT_GAMEPAD(4, this)
             return this.__Gamepad
         }
     }
@@ -108,7 +108,7 @@ class XINPUT_CAPABILITIES extends Win32Struct
     Vibration{
         get {
             if(!this.HasProp("__Vibration"))
-                this.__Vibration := XINPUT_VIBRATION(20, this)
+                this.__Vibration := XINPUT_VIBRATION(16, this)
             return this.__Vibration
         }
     }

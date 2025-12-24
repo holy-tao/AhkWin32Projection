@@ -71,7 +71,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS extends Win32
     InputResolution{
         get {
             if(!this.HasProp("__InputResolution"))
-                this.__InputResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(48, this)
+                this.__InputResolution := D3D12_VIDEO_ENCODER_PICTURE_RESOLUTION_DESC(44, this)
             return this.__InputResolution
         }
     }
@@ -134,7 +134,7 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS extends Win32
     MotionSearch{
         get {
             if(!this.HasProp("__MotionSearch"))
-                this.__MotionSearch := D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION(120, this)
+                this.__MotionSearch := D3D12_VIDEO_ENCODER_MOTION_SEARCH_CONFIGURATION(116, this)
             return this.__MotionSearch
         }
     }
@@ -143,15 +143,15 @@ class D3D12_FEATURE_DATA_VIDEO_ENCODER_RATE_CONTROL_FRAME_ANALYSIS extends Win32
      * @type {Integer}
      */
     Pow2DownscaleFactor {
-        get => NumGet(this, 136, "uint")
-        set => NumPut("uint", value, this, 136)
+        get => NumGet(this, 132, "uint")
+        set => NumPut("uint", value, this, 132)
     }
 
     /**
      * @type {Integer}
      */
     SupportFlags {
-        get => NumGet(this, 140, "int")
-        set => NumPut("int", value, this, 140)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 }

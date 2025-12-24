@@ -9,13 +9,13 @@
  */
 class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Specific_e__Union extends Win32Struct {
-        static sizeof => 32
-        static packingSize => 8
+        static sizeof => 28
+        static packingSize => 4
 
         class _FacialFeatures extends Win32Struct {
             static sizeof => 8
@@ -57,8 +57,8 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
         }
     
         class _Fingerprint extends Win32Struct {
-            static sizeof => 32
-            static packingSize => 8
+            static sizeof => 28
+            static packingSize => 4
     
             class _EnrollmentRequirements extends Win32Struct {
                 static sizeof => 24
@@ -128,7 +128,7 @@ class WINBIO_EXTENDED_ENGINE_INFO extends Win32Struct
             EnrollmentRequirements{
                 get {
                     if(!this.HasProp("__EnrollmentRequirements"))
-                        this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(8, this)
+                        this.__EnrollmentRequirements := %this.__Class%._EnrollmentRequirements(4, this)
                     return this.__EnrollmentRequirements
                 }
             }

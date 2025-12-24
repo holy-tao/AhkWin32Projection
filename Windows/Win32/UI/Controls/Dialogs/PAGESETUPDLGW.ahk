@@ -103,7 +103,7 @@ class PAGESETUPDLGW extends Win32Struct
     ptPaperSize{
         get {
             if(!this.HasProp("__ptPaperSize"))
-                this.__ptPaperSize := POINT(40, this)
+                this.__ptPaperSize := POINT(36, this)
             return this.__ptPaperSize
         }
     }
@@ -117,7 +117,7 @@ class PAGESETUPDLGW extends Win32Struct
     rtMinMargin{
         get {
             if(!this.HasProp("__rtMinMargin"))
-                this.__rtMinMargin := RECT(48, this)
+                this.__rtMinMargin := RECT(44, this)
             return this.__rtMinMargin
         }
     }
@@ -131,7 +131,7 @@ class PAGESETUPDLGW extends Win32Struct
     rtMargin{
         get {
             if(!this.HasProp("__rtMargin"))
-                this.__rtMargin := RECT(64, this)
+                this.__rtMargin := RECT(60, this)
             return this.__rtMargin
         }
     }

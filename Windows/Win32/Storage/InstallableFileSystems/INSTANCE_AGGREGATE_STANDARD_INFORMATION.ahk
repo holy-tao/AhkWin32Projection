@@ -7,13 +7,13 @@
  */
 class INSTANCE_AGGREGATE_STANDARD_INFORMATION extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Type_e__Union extends Win32Struct {
-        static sizeof => 36
-        static packingSize => 8
+        static sizeof => 32
+        static packingSize => 4
 
         class _MiniFilter extends Win32Struct {
             static sizeof => 32

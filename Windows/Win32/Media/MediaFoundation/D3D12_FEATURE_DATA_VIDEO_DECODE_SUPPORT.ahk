@@ -72,7 +72,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
     FrameRate{
         get {
             if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(40, this)
+                this.__FrameRate := DXGI_RATIONAL(36, this)
             return this.__FrameRate
         }
     }
@@ -82,8 +82,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     BitRate {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -91,8 +91,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     SupportFlags {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -100,8 +100,8 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     ConfigurationFlags {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -109,7 +109,7 @@ class D3D12_FEATURE_DATA_VIDEO_DECODE_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     DecodeTier {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

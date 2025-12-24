@@ -7,7 +7,7 @@
  */
 class MORRSLT extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -39,38 +39,46 @@ class MORRSLT extends Win32Struct
      * @type {PWSTR}
      */
     pwchRead {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 18, "ptr")
+        set => NumPut("ptr", value, this, 18)
     }
 
     /**
      * @type {PWSTR}
      */
     pwchComp {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 18, "ptr")
+        set => NumPut("ptr", value, this, 18)
     }
 
     /**
      * @type {Integer}
      */
     cchRead {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
+        get => NumGet(this, 26, "ushort")
+        set => NumPut("ushort", value, this, 26)
     }
 
     /**
      * @type {Integer}
      */
     cchComp {
-        get => NumGet(this, 32, "ushort")
-        set => NumPut("ushort", value, this, 32)
+        get => NumGet(this, 26, "ushort")
+        set => NumPut("ushort", value, this, 26)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     pchInputPos {
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
+    }
+
+    /**
+     * @type {Pointer<Integer>}
+     */
+    pchOutputIdxWDD {
         get => NumGet(this, 40, "ptr")
         set => NumPut("ptr", value, this, 40)
     }
@@ -78,7 +86,7 @@ class MORRSLT extends Win32Struct
     /**
      * @type {Pointer<Integer>}
      */
-    pchOutputIdxWDD {
+    pchReadIdxWDD {
         get => NumGet(this, 48, "ptr")
         set => NumPut("ptr", value, this, 48)
     }
@@ -86,56 +94,48 @@ class MORRSLT extends Win32Struct
     /**
      * @type {Pointer<Integer>}
      */
-    pchReadIdxWDD {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
-    }
-
-    /**
-     * @type {Pointer<Integer>}
-     */
     pchCompIdxWDD {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     paMonoRubyPos {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
      * @type {Pointer<WDD>}
      */
     pWDD {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     cWDD {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**
      * @type {Pointer<Void>}
      */
     pPrivate {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
      * @type {String}
      */
     BLKBuff {
-        get => StrGet(this.ptr + 96, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 96, 0, "UTF-16")
+        get => StrGet(this.ptr + 88, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 88, 0, "UTF-16")
     }
 }

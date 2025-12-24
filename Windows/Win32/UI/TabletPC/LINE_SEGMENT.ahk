@@ -12,7 +12,7 @@ class LINE_SEGMENT extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Point that represents the start of the line segment. The point is in ink space coordinates.

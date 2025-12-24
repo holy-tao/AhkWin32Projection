@@ -17,7 +17,7 @@
  */
 class RAS_CONNECTION_2 extends Win32Struct
 {
-    static sizeof => 856
+    static sizeof => 840
 
     static packingSize => 8
 

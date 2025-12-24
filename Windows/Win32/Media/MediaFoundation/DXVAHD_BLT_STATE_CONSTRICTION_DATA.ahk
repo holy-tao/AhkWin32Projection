@@ -20,9 +20,9 @@
  */
 class DXVAHD_BLT_STATE_CONSTRICTION_DATA extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * If <b>TRUE</b>, downsampling is enabled<b></b>. Otherwise, downsampling is disabled and the <b>Size</b> member is ignored. The default state value is <b>FALSE</b> (downsampling is disabled).
@@ -40,7 +40,7 @@ class DXVAHD_BLT_STATE_CONSTRICTION_DATA extends Win32Struct
     Size{
         get {
             if(!this.HasProp("__Size"))
-                this.__Size := SIZE(8, this)
+                this.__Size := SIZE(4, this)
             return this.__Size
         }
     }

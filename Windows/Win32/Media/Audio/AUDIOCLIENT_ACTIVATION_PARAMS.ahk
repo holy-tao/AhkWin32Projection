@@ -12,9 +12,9 @@
  */
 class AUDIOCLIENT_ACTIVATION_PARAMS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A member of the [AUDIOCLIENT_ACTIVATION_TYPE](ns-audioclientactivationparams-audioclient_activation_params) specifying the type of audio interface activation. Currently default activation and loopback activation are supported.
@@ -31,7 +31,7 @@ class AUDIOCLIENT_ACTIVATION_PARAMS extends Win32Struct
     ProcessLoopbackParams{
         get {
             if(!this.HasProp("__ProcessLoopbackParams"))
-                this.__ProcessLoopbackParams := AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS(8, this)
+                this.__ProcessLoopbackParams := AUDIOCLIENT_PROCESS_LOOPBACK_PARAMS(4, this)
             return this.__ProcessLoopbackParams
         }
     }

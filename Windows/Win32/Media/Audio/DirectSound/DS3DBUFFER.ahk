@@ -8,9 +8,9 @@
  */
 class DS3DBUFFER extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class DS3DBUFFER extends Win32Struct
     vPosition{
         get {
             if(!this.HasProp("__vPosition"))
-                this.__vPosition := D3DVECTOR(8, this)
+                this.__vPosition := D3DVECTOR(4, this)
             return this.__vPosition
         }
     }
@@ -37,7 +37,7 @@ class DS3DBUFFER extends Win32Struct
     vVelocity{
         get {
             if(!this.HasProp("__vVelocity"))
-                this.__vVelocity := D3DVECTOR(24, this)
+                this.__vVelocity := D3DVECTOR(16, this)
             return this.__vVelocity
         }
     }
@@ -46,16 +46,16 @@ class DS3DBUFFER extends Win32Struct
      * @type {Integer}
      */
     dwInsideConeAngle {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
      * @type {Integer}
      */
     dwOutsideConeAngle {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -64,7 +64,7 @@ class DS3DBUFFER extends Win32Struct
     vConeOrientation{
         get {
             if(!this.HasProp("__vConeOrientation"))
-                this.__vConeOrientation := D3DVECTOR(48, this)
+                this.__vConeOrientation := D3DVECTOR(36, this)
             return this.__vConeOrientation
         }
     }
@@ -73,31 +73,31 @@ class DS3DBUFFER extends Win32Struct
      * @type {Integer}
      */
     lConeOutsideVolume {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
      * @type {Float}
      */
     flMinDistance {
-        get => NumGet(this, 64, "float")
-        set => NumPut("float", value, this, 64)
+        get => NumGet(this, 52, "float")
+        set => NumPut("float", value, this, 52)
     }
 
     /**
      * @type {Float}
      */
     flMaxDistance {
-        get => NumGet(this, 68, "float")
-        set => NumPut("float", value, this, 68)
+        get => NumGet(this, 56, "float")
+        set => NumPut("float", value, this, 56)
     }
 
     /**
      * @type {Integer}
      */
     dwMode {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 }

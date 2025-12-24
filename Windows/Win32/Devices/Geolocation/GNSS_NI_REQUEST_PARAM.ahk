@@ -12,7 +12,7 @@ class GNSS_NI_REQUEST_PARAM extends Win32Struct
 {
     static sizeof => 1600
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

@@ -14,9 +14,9 @@
  */
 class DISPLAYCONFIG_SOURCE_MODE extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The width in pixels of the source mode.
@@ -52,7 +52,7 @@ class DISPLAYCONFIG_SOURCE_MODE extends Win32Struct
     position{
         get {
             if(!this.HasProp("__position"))
-                this.__position := POINTL(16, this)
+                this.__position := POINTL(12, this)
             return this.__position
         }
     }

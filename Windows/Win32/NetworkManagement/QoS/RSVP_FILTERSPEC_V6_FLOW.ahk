@@ -10,9 +10,9 @@
  */
 class RSVP_FILTERSPEC_V6_FLOW extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * IPv4 address for which the FILTERSPEC flow label applies, expressed as an <a href="https://docs.microsoft.com/windows/desktop/api/qossp/ns-qossp-in_addr_ipv6">IN_ADDR_IPV6</a> structure.

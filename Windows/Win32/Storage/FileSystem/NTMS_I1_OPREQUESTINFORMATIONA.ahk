@@ -27,7 +27,7 @@ class NTMS_I1_OPREQUESTINFORMATIONA extends Win32Struct
     Submitted{
         get {
             if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(8, this)
+                this.__Submitted := SYSTEMTIME(4, this)
             return this.__Submitted
         }
     }
@@ -36,24 +36,24 @@ class NTMS_I1_OPREQUESTINFORMATIONA extends Win32Struct
      * @type {Integer}
      */
     State {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {String}
      */
     szMessage {
-        get => StrGet(this.ptr + 28, 126, "UTF-8")
-        set => StrPut(value, this.ptr + 28, 126, "UTF-8")
+        get => StrGet(this.ptr + 24, 126, "UTF-8")
+        set => StrPut(value, this.ptr + 24, 126, "UTF-8")
     }
 
     /**
      * @type {Integer}
      */
     Arg1Type {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 152, "uint")
+        set => NumPut("uint", value, this, 152)
     }
 
     /**

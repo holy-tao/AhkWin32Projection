@@ -10,9 +10,9 @@
  */
 class RESOURCE_FAILURE_INFO_BUFFER extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The version of this structure. Set this parameter to <b>RESOURCE_FAILURE_INFO_VERSION_1</b> (0x1).
@@ -30,7 +30,7 @@ class RESOURCE_FAILURE_INFO_BUFFER extends Win32Struct
     Info{
         get {
             if(!this.HasProp("__Info"))
-                this.__Info := RESOURCE_FAILURE_INFO(8, this)
+                this.__Info := RESOURCE_FAILURE_INFO(4, this)
             return this.__Info
         }
     }

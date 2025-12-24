@@ -10,7 +10,7 @@ class AUTHZ_AUDIT_EVENT_TYPE_UNION extends Win32Struct
 {
     static sizeof => 6
 
-    static packingSize => 6
+    static packingSize => 2
 
     /**
      * @type {AUTHZ_AUDIT_EVENT_TYPE_LEGACY}

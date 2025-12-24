@@ -99,7 +99,7 @@ class GETCONTEXTMENUEX extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(16, this)
+                this.__pt := POINT(12, this)
             return this.__pt
         }
     }

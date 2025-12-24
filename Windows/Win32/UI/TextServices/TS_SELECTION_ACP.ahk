@@ -12,7 +12,7 @@ class TS_SELECTION_ACP extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Contains the start position of the selection.

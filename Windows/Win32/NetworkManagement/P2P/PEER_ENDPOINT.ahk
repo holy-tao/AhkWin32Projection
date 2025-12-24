@@ -17,7 +17,7 @@
  */
 class PEER_ENDPOINT extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -39,7 +39,7 @@ class PEER_ENDPOINT extends Win32Struct
      * @type {PWSTR}
      */
     pwzEndpointName {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 }

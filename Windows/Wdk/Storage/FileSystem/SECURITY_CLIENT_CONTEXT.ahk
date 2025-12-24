@@ -64,7 +64,7 @@ class SECURITY_CLIENT_CONTEXT extends Win32Struct
     ClientTokenControl{
         get {
             if(!this.HasProp("__ClientTokenControl"))
-                this.__ClientTokenControl := TOKEN_CONTROL(32, this)
+                this.__ClientTokenControl := TOKEN_CONTROL(28, this)
             return this.__ClientTokenControl
         }
     }

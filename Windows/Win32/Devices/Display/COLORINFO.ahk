@@ -18,9 +18,9 @@
  */
 class COLORINFO extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 120
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * 
@@ -41,7 +41,7 @@ class COLORINFO extends Win32Struct
     Green{
         get {
             if(!this.HasProp("__Green"))
-                this.__Green := CIECHROMA(16, this)
+                this.__Green := CIECHROMA(12, this)
             return this.__Green
         }
     }
@@ -53,7 +53,7 @@ class COLORINFO extends Win32Struct
     Blue{
         get {
             if(!this.HasProp("__Blue"))
-                this.__Blue := CIECHROMA(32, this)
+                this.__Blue := CIECHROMA(24, this)
             return this.__Blue
         }
     }
@@ -65,7 +65,7 @@ class COLORINFO extends Win32Struct
     Cyan{
         get {
             if(!this.HasProp("__Cyan"))
-                this.__Cyan := CIECHROMA(48, this)
+                this.__Cyan := CIECHROMA(36, this)
             return this.__Cyan
         }
     }
@@ -77,7 +77,7 @@ class COLORINFO extends Win32Struct
     Magenta{
         get {
             if(!this.HasProp("__Magenta"))
-                this.__Magenta := CIECHROMA(64, this)
+                this.__Magenta := CIECHROMA(48, this)
             return this.__Magenta
         }
     }
@@ -89,7 +89,7 @@ class COLORINFO extends Win32Struct
     Yellow{
         get {
             if(!this.HasProp("__Yellow"))
-                this.__Yellow := CIECHROMA(80, this)
+                this.__Yellow := CIECHROMA(60, this)
             return this.__Yellow
         }
     }
@@ -103,7 +103,7 @@ class COLORINFO extends Win32Struct
     AlignmentWhite{
         get {
             if(!this.HasProp("__AlignmentWhite"))
-                this.__AlignmentWhite := CIECHROMA(96, this)
+                this.__AlignmentWhite := CIECHROMA(72, this)
             return this.__AlignmentWhite
         }
     }
@@ -113,6 +113,60 @@ class COLORINFO extends Win32Struct
      * @type {Integer}
      */
     RedGamma {
+        get => NumGet(this, 84, "int")
+        set => NumPut("int", value, this, 84)
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    GreenGamma {
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
+    }
+
+    /**
+     * Are the gamma corrections of display devices that permit the display device to display colors between the primary colors with accuracy. The values of these members should be in the range from 0 through 6.5535, which means that the numbers that are actually stored in these members must be in the range from 0 through 65535. For more information about these members and this data type, see the following Remarks section.
+     * @type {Integer}
+     */
+    BlueGamma {
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    MagentaInCyanDye {
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    YellowInCyanDye {
+        get => NumGet(this, 100, "int")
+        set => NumPut("int", value, this, 100)
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    CyanInMagentaDye {
+        get => NumGet(this, 104, "int")
+        set => NumPut("int", value, this, 104)
+    }
+
+    /**
+     * 
+     * @type {Integer}
+     */
+    YellowInMagentaDye {
         get => NumGet(this, 108, "int")
         set => NumPut("int", value, this, 108)
     }
@@ -121,63 +175,9 @@ class COLORINFO extends Win32Struct
      * 
      * @type {Integer}
      */
-    GreenGamma {
+    CyanInYellowDye {
         get => NumGet(this, 112, "int")
         set => NumPut("int", value, this, 112)
-    }
-
-    /**
-     * Are the gamma corrections of display devices that permit the display device to display colors between the primary colors with accuracy. The values of these members should be in the range from 0 through 6.5535, which means that the numbers that are actually stored in these members must be in the range from 0 through 65535. For more information about these members and this data type, see the following Remarks section.
-     * @type {Integer}
-     */
-    BlueGamma {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
-    }
-
-    /**
-     * 
-     * @type {Integer}
-     */
-    MagentaInCyanDye {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
-    }
-
-    /**
-     * 
-     * @type {Integer}
-     */
-    YellowInCyanDye {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
-    }
-
-    /**
-     * 
-     * @type {Integer}
-     */
-    CyanInMagentaDye {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
-    }
-
-    /**
-     * 
-     * @type {Integer}
-     */
-    YellowInMagentaDye {
-        get => NumGet(this, 132, "int")
-        set => NumPut("int", value, this, 132)
-    }
-
-    /**
-     * 
-     * @type {Integer}
-     */
-    CyanInYellowDye {
-        get => NumGet(this, 136, "int")
-        set => NumPut("int", value, this, 136)
     }
 
     /**
@@ -185,7 +185,7 @@ class COLORINFO extends Win32Struct
      * @type {Integer}
      */
     MagentaInYellowDye {
-        get => NumGet(this, 140, "int")
-        set => NumPut("int", value, this, 140)
+        get => NumGet(this, 116, "int")
+        set => NumPut("int", value, this, 116)
     }
 }

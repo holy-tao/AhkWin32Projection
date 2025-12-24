@@ -14,9 +14,9 @@
  */
 class CLUSPROP_LIST extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Number of properties in the property list.
@@ -34,7 +34,7 @@ class CLUSPROP_LIST extends Win32Struct
     PropertyName{
         get {
             if(!this.HasProp("__PropertyName"))
-                this.__PropertyName := CLUSPROP_SZ(8, this)
+                this.__PropertyName := CLUSPROP_SZ(4, this)
             return this.__PropertyName
         }
     }

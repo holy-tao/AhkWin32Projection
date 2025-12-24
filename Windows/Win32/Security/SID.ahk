@@ -10,9 +10,9 @@
  */
 class SID extends Win32Struct
 {
-    static sizeof => 18
+    static sizeof => 12
 
-    static packingSize => 6
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -36,7 +36,7 @@ class SID extends Win32Struct
     IdentifierAuthority{
         get {
             if(!this.HasProp("__IdentifierAuthority"))
-                this.__IdentifierAuthority := SID_IDENTIFIER_AUTHORITY(6, this)
+                this.__IdentifierAuthority := SID_IDENTIFIER_AUTHORITY(2, this)
             return this.__IdentifierAuthority
         }
     }
@@ -47,7 +47,7 @@ class SID extends Win32Struct
     SubAuthority{
         get {
             if(!this.HasProp("__SubAuthorityProxyArray"))
-                this.__SubAuthorityProxyArray := Win32FixedArray(this.ptr + 12, 1, Primitive, "uint")
+                this.__SubAuthorityProxyArray := Win32FixedArray(this.ptr + 8, 1, Primitive, "uint")
             return this.__SubAuthorityProxyArray
         }
     }

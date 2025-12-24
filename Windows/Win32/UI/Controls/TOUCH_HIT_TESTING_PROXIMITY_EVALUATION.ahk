@@ -12,9 +12,9 @@
  */
 class TOUCH_HIT_TESTING_PROXIMITY_EVALUATION extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The score, compared to the other objects that intersect the touch contact area.
@@ -32,7 +32,7 @@ class TOUCH_HIT_TESTING_PROXIMITY_EVALUATION extends Win32Struct
     adjustedPoint{
         get {
             if(!this.HasProp("__adjustedPoint"))
-                this.__adjustedPoint := POINT(8, this)
+                this.__adjustedPoint := POINT(4, this)
             return this.__adjustedPoint
         }
     }

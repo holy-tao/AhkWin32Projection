@@ -156,7 +156,7 @@ class BUTTON_SPLITINFO extends Win32Struct
     size{
         get {
             if(!this.HasProp("__size"))
-                this.__size := SIZE(24, this)
+                this.__size := SIZE(20, this)
             return this.__size
         }
     }

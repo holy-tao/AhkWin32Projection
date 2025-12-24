@@ -11,9 +11,9 @@
  */
 class WRDS_SETTINGS extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 132
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The category of settings contained (machine group policy, user group policy, or user security accounts manager).

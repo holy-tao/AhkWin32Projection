@@ -13,7 +13,7 @@
  */
 class D3D12_RESOURCE_DESC1 extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -87,7 +87,7 @@ class D3D12_RESOURCE_DESC1 extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(40, this)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(36, this)
             return this.__SampleDesc
         }
     }
@@ -97,8 +97,8 @@ class D3D12_RESOURCE_DESC1 extends Win32Struct
      * @type {Integer}
      */
     Layout {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -106,8 +106,8 @@ class D3D12_RESOURCE_DESC1 extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 52, "int")
-        set => NumPut("int", value, this, 52)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -117,7 +117,7 @@ class D3D12_RESOURCE_DESC1 extends Win32Struct
     SamplerFeedbackMipRegion{
         get {
             if(!this.HasProp("__SamplerFeedbackMipRegion"))
-                this.__SamplerFeedbackMipRegion := D3D12_MIP_REGION(56, this)
+                this.__SamplerFeedbackMipRegion := D3D12_MIP_REGION(52, this)
             return this.__SamplerFeedbackMipRegion
         }
     }

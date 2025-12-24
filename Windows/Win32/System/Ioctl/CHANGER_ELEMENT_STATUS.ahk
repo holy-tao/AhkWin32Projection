@@ -10,9 +10,9 @@
  */
 class CHANGER_ELEMENT_STATUS extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 100
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 

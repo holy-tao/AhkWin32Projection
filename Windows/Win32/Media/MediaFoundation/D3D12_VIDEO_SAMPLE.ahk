@@ -14,7 +14,7 @@ class D3D12_VIDEO_SAMPLE extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The width of the sample.

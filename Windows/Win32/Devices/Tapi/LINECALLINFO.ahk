@@ -22,9 +22,9 @@
  */
 class LINECALLINFO extends Win32Struct
 {
-    static sizeof => 328
+    static sizeof => 324
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Total size allocated to this data structure, in bytes.

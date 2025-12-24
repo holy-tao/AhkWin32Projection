@@ -13,9 +13,9 @@
  */
 class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-merge_virtual_disk_version">MERGE_VIRTUAL_DISK_VERSION</a> enumeration 
@@ -71,7 +71,7 @@ class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version1{
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(8, this)
+                this.__Version1 := %this.__Class%._Version1(4, this)
             return this.__Version1
         }
     }
@@ -82,7 +82,7 @@ class MERGE_VIRTUAL_DISK_PARAMETERS extends Win32Struct
     Version2{
         get {
             if(!this.HasProp("__Version2"))
-                this.__Version2 := %this.__Class%._Version2(8, this)
+                this.__Version2 := %this.__Class%._Version2(4, this)
             return this.__Version2
         }
     }

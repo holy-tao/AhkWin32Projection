@@ -16,7 +16,7 @@ class MFCameraIntrinsic_PinholeCameraModel extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The focal length of the camera.

@@ -13,7 +13,7 @@ class EMRELLIPSE extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Base structure for all record types.

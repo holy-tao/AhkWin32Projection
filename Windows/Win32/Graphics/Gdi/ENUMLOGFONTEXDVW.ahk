@@ -24,9 +24,9 @@
  */
 class ENUMLOGFONTEXDVW extends Win32Struct
 {
-    static sizeof => 424
+    static sizeof => 420
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * An <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-enumlogfontexa">ENUMLOGFONTEX</a> structure that contains information about the logical attributes of the font.
@@ -47,7 +47,7 @@ class ENUMLOGFONTEXDVW extends Win32Struct
     elfDesignVector{
         get {
             if(!this.HasProp("__elfDesignVector"))
-                this.__elfDesignVector := DESIGNVECTOR(352, this)
+                this.__elfDesignVector := DESIGNVECTOR(348, this)
             return this.__elfDesignVector
         }
     }

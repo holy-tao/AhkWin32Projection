@@ -9,7 +9,7 @@
  */
 class KS_VBI_FRAME_INFO extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -59,7 +59,7 @@ class KS_VBI_FRAME_INFO extends Win32Struct
     TvTunerChangeInfo{
         get {
             if(!this.HasProp("__TvTunerChangeInfo"))
-                this.__TvTunerChangeInfo := KS_TVTUNER_CHANGE_INFO(32, this)
+                this.__TvTunerChangeInfo := KS_TVTUNER_CHANGE_INFO(28, this)
             return this.__TvTunerChangeInfo
         }
     }
@@ -70,7 +70,7 @@ class KS_VBI_FRAME_INFO extends Win32Struct
     VBIInfoHeader{
         get {
             if(!this.HasProp("__VBIInfoHeader"))
-                this.__VBIInfoHeader := KS_VBIINFOHEADER(48, this)
+                this.__VBIInfoHeader := KS_VBIINFOHEADER(44, this)
             return this.__VBIInfoHeader
         }
     }

@@ -8,13 +8,13 @@
  */
 class IMAGE_AUX_SYMBOL extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 100
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Sym extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         class _Misc_e__Union extends Win32Struct {
             static sizeof => 4
@@ -65,7 +65,7 @@ class IMAGE_AUX_SYMBOL extends Win32Struct
     
         class _FcnAry_e__Union extends Win32Struct {
             static sizeof => 8
-            static packingSize => 8
+            static packingSize => 4
     
             class _Function extends Win32Struct {
                 static sizeof => 8

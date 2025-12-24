@@ -20,7 +20,7 @@
  */
 class ONEX_EAP_ERROR extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -445,7 +445,7 @@ class ONEX_EAP_ERROR extends Win32Struct
     type{
         get {
             if(!this.HasProp("__type"))
-                this.__type := EAP_METHOD_TYPE(8, this)
+                this.__type := EAP_METHOD_TYPE(4, this)
             return this.__type
         }
     }
@@ -515,8 +515,8 @@ class ONEX_EAP_ERROR extends Win32Struct
      * @type {Integer}
      */
     dwReasonCode {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -869,8 +869,8 @@ class ONEX_EAP_ERROR extends Win32Struct
      * @type {Pointer<Guid>}
      */
     rootCauseGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -1134,8 +1134,8 @@ class ONEX_EAP_ERROR extends Win32Struct
      * @type {Pointer<Guid>}
      */
     repairGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -1233,8 +1233,8 @@ class ONEX_EAP_ERROR extends Win32Struct
      * @type {Pointer<Guid>}
      */
     helpLinkGuid {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -1244,8 +1244,8 @@ class ONEX_EAP_ERROR extends Win32Struct
      * @type {Integer}
      */
     _bitfield {
-        get => NumGet(this, 56, "uint")
-        set => NumPut("uint", value, this, 56)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
@@ -1273,7 +1273,7 @@ class ONEX_EAP_ERROR extends Win32Struct
     RootCauseString{
         get {
             if(!this.HasProp("__RootCauseString"))
-                this.__RootCauseString := ONEX_VARIABLE_BLOB(64, this)
+                this.__RootCauseString := ONEX_VARIABLE_BLOB(52, this)
             return this.__RootCauseString
         }
     }
@@ -1286,7 +1286,7 @@ class ONEX_EAP_ERROR extends Win32Struct
     RepairString{
         get {
             if(!this.HasProp("__RepairString"))
-                this.__RepairString := ONEX_VARIABLE_BLOB(72, this)
+                this.__RepairString := ONEX_VARIABLE_BLOB(60, this)
             return this.__RepairString
         }
     }

@@ -18,7 +18,7 @@ class D2D1_ROUNDED_RECT extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: **[D2D1_RECT_F](/windows/win32/Direct2D/d2d1-rect-f)**

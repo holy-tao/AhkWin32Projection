@@ -11,7 +11,7 @@ class DOT11_WFD_GROUP_JOIN_PARAMETERS extends Win32Struct
 {
     static sizeof => 20
 
-    static packingSize => 5
+    static packingSize => 4
 
     /**
      * @type {NDIS_OBJECT_HEADER}
@@ -30,7 +30,7 @@ class DOT11_WFD_GROUP_JOIN_PARAMETERS extends Win32Struct
     GOOperatingChannel{
         get {
             if(!this.HasProp("__GOOperatingChannel"))
-                this.__GOOperatingChannel := DOT11_WFD_CHANNEL(5, this)
+                this.__GOOperatingChannel := DOT11_WFD_CHANNEL(4, this)
             return this.__GOOperatingChannel
         }
     }

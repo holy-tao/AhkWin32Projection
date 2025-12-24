@@ -74,7 +74,7 @@ class D3D12_VIDEO_DECODER_HEAP_DESC extends Win32Struct
     FrameRate{
         get {
             if(!this.HasProp("__FrameRate"))
-                this.__FrameRate := DXGI_RATIONAL(40, this)
+                this.__FrameRate := DXGI_RATIONAL(36, this)
             return this.__FrameRate
         }
     }
@@ -84,8 +84,8 @@ class D3D12_VIDEO_DECODER_HEAP_DESC extends Win32Struct
      * @type {Integer}
      */
     BitRate {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -93,7 +93,7 @@ class D3D12_VIDEO_DECODER_HEAP_DESC extends Win32Struct
      * @type {Integer}
      */
     MaxDecodePictureBufferCount {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

@@ -10,7 +10,7 @@
  */
 class IPSEC_GETSPI1 extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 96
 
     static packingSize => 8
 
@@ -31,16 +31,16 @@ class IPSEC_GETSPI1 extends Win32Struct
      * @type {Integer}
      */
     ipVersion {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**
      * @type {Pointer<IPSEC_V4_UDP_ENCAPSULATION0>}
      */
     inboundUdpEncapsulation {
-        get => NumGet(this, 88, "ptr")
-        set => NumPut("ptr", value, this, 88)
+        get => NumGet(this, 80, "ptr")
+        set => NumPut("ptr", value, this, 80)
     }
 
     /**
@@ -48,7 +48,7 @@ class IPSEC_GETSPI1 extends Win32Struct
      * @type {Pointer<Guid>}
      */
     rngCryptoModuleID {
-        get => NumGet(this, 96, "ptr")
-        set => NumPut("ptr", value, this, 96)
+        get => NumGet(this, 88, "ptr")
+        set => NumPut("ptr", value, this, 88)
     }
 }

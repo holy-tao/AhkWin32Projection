@@ -8,9 +8,9 @@
  */
 class DS3DLISTENER extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class DS3DLISTENER extends Win32Struct
     vPosition{
         get {
             if(!this.HasProp("__vPosition"))
-                this.__vPosition := D3DVECTOR(8, this)
+                this.__vPosition := D3DVECTOR(4, this)
             return this.__vPosition
         }
     }
@@ -37,7 +37,7 @@ class DS3DLISTENER extends Win32Struct
     vVelocity{
         get {
             if(!this.HasProp("__vVelocity"))
-                this.__vVelocity := D3DVECTOR(24, this)
+                this.__vVelocity := D3DVECTOR(16, this)
             return this.__vVelocity
         }
     }
@@ -48,7 +48,7 @@ class DS3DLISTENER extends Win32Struct
     vOrientFront{
         get {
             if(!this.HasProp("__vOrientFront"))
-                this.__vOrientFront := D3DVECTOR(40, this)
+                this.__vOrientFront := D3DVECTOR(28, this)
             return this.__vOrientFront
         }
     }
@@ -59,7 +59,7 @@ class DS3DLISTENER extends Win32Struct
     vOrientTop{
         get {
             if(!this.HasProp("__vOrientTop"))
-                this.__vOrientTop := D3DVECTOR(56, this)
+                this.__vOrientTop := D3DVECTOR(40, this)
             return this.__vOrientTop
         }
     }
@@ -68,23 +68,23 @@ class DS3DLISTENER extends Win32Struct
      * @type {Float}
      */
     flDistanceFactor {
-        get => NumGet(this, 68, "float")
-        set => NumPut("float", value, this, 68)
+        get => NumGet(this, 52, "float")
+        set => NumPut("float", value, this, 52)
     }
 
     /**
      * @type {Float}
      */
     flRolloffFactor {
-        get => NumGet(this, 72, "float")
-        set => NumPut("float", value, this, 72)
+        get => NumGet(this, 56, "float")
+        set => NumPut("float", value, this, 56)
     }
 
     /**
      * @type {Float}
      */
     flDopplerFactor {
-        get => NumGet(this, 76, "float")
-        set => NumPut("float", value, this, 76)
+        get => NumGet(this, 60, "float")
+        set => NumPut("float", value, this, 60)
     }
 }

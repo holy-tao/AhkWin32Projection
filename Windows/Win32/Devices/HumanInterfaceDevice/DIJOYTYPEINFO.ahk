@@ -80,7 +80,7 @@ class DIJOYTYPEINFO extends Win32Struct
     hws{
         get {
             if(!this.HasProp("__hws"))
-                this.__hws := JOYREGHWSETTINGS(8, this)
+                this.__hws := JOYREGHWSETTINGS(4, this)
             return this.__hws
         }
     }

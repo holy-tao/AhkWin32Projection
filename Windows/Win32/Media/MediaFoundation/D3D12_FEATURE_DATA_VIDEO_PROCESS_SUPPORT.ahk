@@ -17,7 +17,7 @@
  */
 class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
 {
-    static sizeof => 368
+    static sizeof => 352
 
     static packingSize => 8
 
@@ -37,7 +37,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     InputSample{
         get {
             if(!this.HasProp("__InputSample"))
-                this.__InputSample := D3D12_VIDEO_SAMPLE(8, this)
+                this.__InputSample := D3D12_VIDEO_SAMPLE(4, this)
             return this.__InputSample
         }
     }
@@ -47,8 +47,8 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     InputFieldType {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -56,8 +56,8 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     InputStereoFormat {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -67,7 +67,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     InputFrameRate{
         get {
             if(!this.HasProp("__InputFrameRate"))
-                this.__InputFrameRate := DXGI_RATIONAL(32, this)
+                this.__InputFrameRate := DXGI_RATIONAL(28, this)
             return this.__InputFrameRate
         }
     }
@@ -79,7 +79,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     OutputFormat{
         get {
             if(!this.HasProp("__OutputFormat"))
-                this.__OutputFormat := D3D12_VIDEO_FORMAT(40, this)
+                this.__OutputFormat := D3D12_VIDEO_FORMAT(36, this)
             return this.__OutputFormat
         }
     }
@@ -89,8 +89,8 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     OutputStereoFormat {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 
     /**
@@ -100,7 +100,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     OutputFrameRate{
         get {
             if(!this.HasProp("__OutputFrameRate"))
-                this.__OutputFrameRate := DXGI_RATIONAL(56, this)
+                this.__OutputFrameRate := DXGI_RATIONAL(48, this)
             return this.__OutputFrameRate
         }
     }
@@ -110,8 +110,8 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     SupportFlags {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -121,7 +121,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     ScaleSupport{
         get {
             if(!this.HasProp("__ScaleSupport"))
-                this.__ScaleSupport := D3D12_VIDEO_SCALE_SUPPORT(72, this)
+                this.__ScaleSupport := D3D12_VIDEO_SCALE_SUPPORT(60, this)
             return this.__ScaleSupport
         }
     }
@@ -131,8 +131,8 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     FeatureSupport {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     /**
@@ -140,8 +140,8 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     DeinterlaceSupport {
-        get => NumGet(this, 100, "uint")
-        set => NumPut("uint", value, this, 100)
+        get => NumGet(this, 84, "uint")
+        set => NumPut("uint", value, this, 84)
     }
 
     /**
@@ -149,8 +149,8 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     AutoProcessingSupport {
-        get => NumGet(this, 104, "uint")
-        set => NumPut("uint", value, this, 104)
+        get => NumGet(this, 88, "uint")
+        set => NumPut("uint", value, this, 88)
     }
 
     /**
@@ -158,8 +158,8 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
      * @type {Integer}
      */
     FilterSupport {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
     }
 
     /**
@@ -169,7 +169,7 @@ class D3D12_FEATURE_DATA_VIDEO_PROCESS_SUPPORT extends Win32Struct
     FilterRangeSupport{
         get {
             if(!this.HasProp("__FilterRangeSupportProxyArray"))
-                this.__FilterRangeSupportProxyArray := Win32FixedArray(this.ptr + 112, 32, D3D12_VIDEO_PROCESS_FILTER_RANGE, "")
+                this.__FilterRangeSupportProxyArray := Win32FixedArray(this.ptr + 96, 32, D3D12_VIDEO_PROCESS_FILTER_RANGE, "")
             return this.__FilterRangeSupportProxyArray
         }
     }

@@ -8,9 +8,9 @@
  */
 class DXVA_ProcAmpControlBlt extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class DXVA_ProcAmpControlBlt extends Win32Struct
     DstRect{
         get {
             if(!this.HasProp("__DstRect"))
-                this.__DstRect := RECT(8, this)
+                this.__DstRect := RECT(4, this)
             return this.__DstRect
         }
     }
@@ -37,7 +37,7 @@ class DXVA_ProcAmpControlBlt extends Win32Struct
     SrcRect{
         get {
             if(!this.HasProp("__SrcRect"))
-                this.__SrcRect := RECT(24, this)
+                this.__SrcRect := RECT(20, this)
             return this.__SrcRect
         }
     }
@@ -46,6 +46,14 @@ class DXVA_ProcAmpControlBlt extends Win32Struct
      * @type {Float}
      */
     Alpha {
+        get => NumGet(this, 36, "float")
+        set => NumPut("float", value, this, 36)
+    }
+
+    /**
+     * @type {Float}
+     */
+    Brightness {
         get => NumGet(this, 40, "float")
         set => NumPut("float", value, this, 40)
     }
@@ -53,7 +61,7 @@ class DXVA_ProcAmpControlBlt extends Win32Struct
     /**
      * @type {Float}
      */
-    Brightness {
+    Contrast {
         get => NumGet(this, 44, "float")
         set => NumPut("float", value, this, 44)
     }
@@ -61,7 +69,7 @@ class DXVA_ProcAmpControlBlt extends Win32Struct
     /**
      * @type {Float}
      */
-    Contrast {
+    Hue {
         get => NumGet(this, 48, "float")
         set => NumPut("float", value, this, 48)
     }
@@ -69,16 +77,8 @@ class DXVA_ProcAmpControlBlt extends Win32Struct
     /**
      * @type {Float}
      */
-    Hue {
+    Saturation {
         get => NumGet(this, 52, "float")
         set => NumPut("float", value, this, 52)
-    }
-
-    /**
-     * @type {Float}
-     */
-    Saturation {
-        get => NumGet(this, 56, "float")
-        set => NumPut("float", value, this, 56)
     }
 }

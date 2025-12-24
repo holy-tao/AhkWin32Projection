@@ -10,9 +10,9 @@
  */
 class D2D1_INK_STYLE_PROPERTIES extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The pre-transform shape of the nib (pen tip) used to draw a given ink object.
@@ -30,7 +30,7 @@ class D2D1_INK_STYLE_PROPERTIES extends Win32Struct
     nibTransform{
         get {
             if(!this.HasProp("__nibTransform"))
-                this.__nibTransform := D2D_MATRIX_3X2_F(8, this)
+                this.__nibTransform := D2D_MATRIX_3X2_F(4, this)
             return this.__nibTransform
         }
     }

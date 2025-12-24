@@ -14,7 +14,7 @@ class EMRARC extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Base structure for all record types.

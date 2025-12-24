@@ -8,9 +8,9 @@
  */
 class DOT11_WFD_DEVICE_LISTEN_CHANNEL extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 6
 
-    static packingSize => 4
+    static packingSize => 2
 
     /**
      * @type {NDIS_OBJECT_HEADER}

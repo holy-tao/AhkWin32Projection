@@ -12,9 +12,9 @@
  */
 class CLIPOBJ extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies a value that uniquely identifies the clip region. If <b>iUniq</b> is nonzero, the driver uses it as a cache identifier. This allows the driver to recognize a region after downloading and caching it. If the value is zero, the driver should not cache the region because the region will not be used again.
@@ -32,7 +32,7 @@ class CLIPOBJ extends Win32Struct
     rclBounds{
         get {
             if(!this.HasProp("__rclBounds"))
-                this.__rclBounds := RECTL(8, this)
+                this.__rclBounds := RECTL(4, this)
             return this.__rclBounds
         }
     }
@@ -42,8 +42,8 @@ class CLIPOBJ extends Win32Struct
      * @type {Integer}
      */
     iDComplexity {
-        get => NumGet(this, 24, "char")
-        set => NumPut("char", value, this, 24)
+        get => NumGet(this, 20, "char")
+        set => NumPut("char", value, this, 20)
     }
 
     /**
@@ -51,8 +51,8 @@ class CLIPOBJ extends Win32Struct
      * @type {Integer}
      */
     iFComplexity {
-        get => NumGet(this, 25, "char")
-        set => NumPut("char", value, this, 25)
+        get => NumGet(this, 21, "char")
+        set => NumPut("char", value, this, 21)
     }
 
     /**
@@ -60,8 +60,8 @@ class CLIPOBJ extends Win32Struct
      * @type {Integer}
      */
     iMode {
-        get => NumGet(this, 26, "char")
-        set => NumPut("char", value, this, 26)
+        get => NumGet(this, 22, "char")
+        set => NumPut("char", value, this, 22)
     }
 
     /**
@@ -86,7 +86,7 @@ class CLIPOBJ extends Win32Struct
      * @type {Integer}
      */
     fjOptions {
-        get => NumGet(this, 27, "char")
-        set => NumPut("char", value, this, 27)
+        get => NumGet(this, 23, "char")
+        set => NumPut("char", value, this, 23)
     }
 }

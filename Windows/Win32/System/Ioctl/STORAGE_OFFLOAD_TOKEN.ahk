@@ -11,7 +11,7 @@ class STORAGE_OFFLOAD_TOKEN extends Win32Struct
 {
     static sizeof => 512
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * A 32-bit unsigned integer which defines the type of <b>Token</b>.

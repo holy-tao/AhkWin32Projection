@@ -10,9 +10,9 @@
  */
 class WMDMRIGHTS extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Size of the structure, in bytes.
@@ -101,6 +101,6 @@ class WMDMRIGHTS extends Win32Struct
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 40
+        this.cbSize := 36
     }
 }

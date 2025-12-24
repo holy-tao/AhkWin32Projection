@@ -8,9 +8,9 @@
  */
 class KSDS3D_LISTENER_ORIENTATION extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DS3DVECTOR}
@@ -29,7 +29,7 @@ class KSDS3D_LISTENER_ORIENTATION extends Win32Struct
     Top{
         get {
             if(!this.HasProp("__Top"))
-                this.__Top := DS3DVECTOR(16, this)
+                this.__Top := DS3DVECTOR(12, this)
             return this.__Top
         }
     }

@@ -14,7 +14,7 @@ class NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * A [NVME_DIRECTIVE_IDENTIFY_RETURN_PARAMETERS_DESCRIPTOR](ns-nvme-nvme_directive_identify_return_parameters_descriptor.md) structure containing values that indicate which directives are supported.

@@ -8,9 +8,9 @@
  */
 class NDR64_BIND_AND_NOTIFY_EXTENSION extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 8
 
-    static packingSize => 6
+    static packingSize => 2
 
     /**
      * @type {NDR64_BIND_CONTEXT}

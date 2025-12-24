@@ -29,7 +29,7 @@
  */
 class NVME_CONTROLLER_REGISTERS extends Win32Struct
 {
-    static sizeof => 4160
+    static sizeof => 4152
 
     static packingSize => 8
 
@@ -131,7 +131,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     CSTS{
         get {
             if(!this.HasProp("__CSTS"))
-                this.__CSTS := NVME_CONTROLLER_STATUS(48, this)
+                this.__CSTS := NVME_CONTROLLER_STATUS(44, this)
             return this.__CSTS
         }
     }
@@ -147,7 +147,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     NSSR{
         get {
             if(!this.HasProp("__NSSR"))
-                this.__NSSR := NVME_NVM_SUBSYSTEM_RESET(56, this)
+                this.__NSSR := NVME_NVM_SUBSYSTEM_RESET(52, this)
             return this.__NSSR
         }
     }
@@ -161,7 +161,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     AQA{
         get {
             if(!this.HasProp("__AQA"))
-                this.__AQA := NVME_ADMIN_QUEUE_ATTRIBUTES(64, this)
+                this.__AQA := NVME_ADMIN_QUEUE_ATTRIBUTES(56, this)
             return this.__AQA
         }
     }
@@ -175,7 +175,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     ASQ{
         get {
             if(!this.HasProp("__ASQ"))
-                this.__ASQ := NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS(72, this)
+                this.__ASQ := NVME_ADMIN_SUBMISSION_QUEUE_BASE_ADDRESS(64, this)
             return this.__ASQ
         }
     }
@@ -189,7 +189,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     ACQ{
         get {
             if(!this.HasProp("__ACQ"))
-                this.__ACQ := NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS(88, this)
+                this.__ACQ := NVME_ADMIN_COMPLETION_QUEUE_BASE_ADDRESS(80, this)
             return this.__ACQ
         }
     }
@@ -205,7 +205,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     CMBLOC{
         get {
             if(!this.HasProp("__CMBLOC"))
-                this.__CMBLOC := NVME_CONTROLLER_MEMORY_BUFFER_LOCATION(104, this)
+                this.__CMBLOC := NVME_CONTROLLER_MEMORY_BUFFER_LOCATION(96, this)
             return this.__CMBLOC
         }
     }
@@ -221,7 +221,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     CMBSZ{
         get {
             if(!this.HasProp("__CMBSZ"))
-                this.__CMBSZ := NVME_CONTROLLER_MEMORY_BUFFER_SIZE(112, this)
+                this.__CMBSZ := NVME_CONTROLLER_MEMORY_BUFFER_SIZE(104, this)
             return this.__CMBSZ
         }
     }
@@ -232,7 +232,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     Reserved1{
         get {
             if(!this.HasProp("__Reserved1ProxyArray"))
-                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 120, 9, Primitive, "uint")
+                this.__Reserved1ProxyArray := Win32FixedArray(this.ptr + 112, 9, Primitive, "uint")
             return this.__Reserved1ProxyArray
         }
     }
@@ -243,7 +243,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     NSSD{
         get {
             if(!this.HasProp("__NSSD"))
-                this.__NSSD := NVME_NVM_SUBSYSTEM_SHUTDOWN(156, this)
+                this.__NSSD := NVME_NVM_SUBSYSTEM_SHUTDOWN(148, this)
             return this.__NSSD
         }
     }
@@ -254,7 +254,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     CRTO{
         get {
             if(!this.HasProp("__CRTO"))
-                this.__CRTO := NVME_CONTROLLER_READY_TIMEOUTS(160, this)
+                this.__CRTO := NVME_CONTROLLER_READY_TIMEOUTS(152, this)
             return this.__CRTO
         }
     }
@@ -268,7 +268,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     Reserved2{
         get {
             if(!this.HasProp("__Reserved2ProxyArray"))
-                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 168, 933, Primitive, "uint")
+                this.__Reserved2ProxyArray := Win32FixedArray(this.ptr + 160, 933, Primitive, "uint")
             return this.__Reserved2ProxyArray
         }
     }
@@ -282,7 +282,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     Reserved3{
         get {
             if(!this.HasProp("__Reserved3ProxyArray"))
-                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3900, 64, Primitive, "uint")
+                this.__Reserved3ProxyArray := Win32FixedArray(this.ptr + 3892, 64, Primitive, "uint")
             return this.__Reserved3ProxyArray
         }
     }
@@ -294,7 +294,7 @@ class NVME_CONTROLLER_REGISTERS extends Win32Struct
     Doorbells{
         get {
             if(!this.HasProp("__DoorbellsProxyArray"))
-                this.__DoorbellsProxyArray := Win32FixedArray(this.ptr + 4156, 1, Primitive, "uint")
+                this.__DoorbellsProxyArray := Win32FixedArray(this.ptr + 4148, 1, Primitive, "uint")
             return this.__DoorbellsProxyArray
         }
     }

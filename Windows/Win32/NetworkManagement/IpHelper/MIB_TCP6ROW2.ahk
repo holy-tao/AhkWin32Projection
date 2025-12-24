@@ -30,9 +30,9 @@
  */
 class MIB_TCP6ROW2 extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>IN6_ADDR</b>

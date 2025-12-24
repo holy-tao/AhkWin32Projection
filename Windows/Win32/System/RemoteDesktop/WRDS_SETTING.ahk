@@ -10,9 +10,9 @@
  */
 class WRDS_SETTING extends Win32Struct
 {
-    static sizeof => 128
+    static sizeof => 124
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_settings_1">WRDS_SETTINGS_1</a> structure.

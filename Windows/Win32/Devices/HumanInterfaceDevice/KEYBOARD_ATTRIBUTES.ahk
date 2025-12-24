@@ -17,9 +17,9 @@
  */
 class KEYBOARD_ATTRIBUTES extends Win32Struct
 {
-    static sizeof => 30
+    static sizeof => 28
 
-    static packingSize => 6
+    static packingSize => 4
 
     /**
      * Specifies the keyboard type and subtype in a KEYBOARD_ID structure:
@@ -92,7 +92,7 @@ class KEYBOARD_ATTRIBUTES extends Win32Struct
     KeyRepeatMinimum{
         get {
             if(!this.HasProp("__KeyRepeatMinimum"))
-                this.__KeyRepeatMinimum := KEYBOARD_TYPEMATIC_PARAMETERS(18, this)
+                this.__KeyRepeatMinimum := KEYBOARD_TYPEMATIC_PARAMETERS(16, this)
             return this.__KeyRepeatMinimum
         }
     }
@@ -104,7 +104,7 @@ class KEYBOARD_ATTRIBUTES extends Win32Struct
     KeyRepeatMaximum{
         get {
             if(!this.HasProp("__KeyRepeatMaximum"))
-                this.__KeyRepeatMaximum := KEYBOARD_TYPEMATIC_PARAMETERS(24, this)
+                this.__KeyRepeatMaximum := KEYBOARD_TYPEMATIC_PARAMETERS(22, this)
             return this.__KeyRepeatMaximum
         }
     }

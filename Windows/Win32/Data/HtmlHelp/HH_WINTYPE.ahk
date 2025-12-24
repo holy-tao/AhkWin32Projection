@@ -210,7 +210,7 @@ class HH_WINTYPE extends Win32Struct
     rcHTML{
         get {
             if(!this.HasProp("__rcHTML"))
-                this.__rcHTML := RECT(120, this)
+                this.__rcHTML := RECT(116, this)
             return this.__rcHTML
         }
     }

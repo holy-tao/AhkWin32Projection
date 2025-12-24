@@ -14,7 +14,7 @@ class STORAGE_ZONED_DEVICE_DESCRIPTOR extends Win32Struct
 
     class _ZoneAttributes_e__Union extends Win32Struct {
         static sizeof => 8
-        static packingSize => 8
+        static packingSize => 4
 
         class _SequentialRequiredZone extends Win32Struct {
             static sizeof => 8

@@ -10,7 +10,7 @@ class FMTOWNS_SND_WAVEFORMAT extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {WAVEFORMATEX}

@@ -19,7 +19,7 @@
  */
 class WNDOBJ extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -40,8 +40,8 @@ class WNDOBJ extends Win32Struct
      * @type {Pointer<Void>}
      */
     pvConsumer {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -51,7 +51,7 @@ class WNDOBJ extends Win32Struct
     rclClient{
         get {
             if(!this.HasProp("__rclClient"))
-                this.__rclClient := RECTL(40, this)
+                this.__rclClient := RECTL(32, this)
             return this.__rclClient
         }
     }
@@ -61,7 +61,7 @@ class WNDOBJ extends Win32Struct
      * @type {Pointer<SURFOBJ>}
      */
     psoOwner {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

@@ -25,9 +25,9 @@
  */
 class D3D12_CLEAR_VALUE extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies one member of the <a href="https://docs.microsoft.com/windows/desktop/api/dxgiformat/ne-dxgiformat-dxgi_format">DXGI_FORMAT</a> enum.
@@ -48,7 +48,7 @@ class D3D12_CLEAR_VALUE extends Win32Struct
     Color{
         get {
             if(!this.HasProp("__ColorProxyArray"))
-                this.__ColorProxyArray := Win32FixedArray(this.ptr + 8, 4, Primitive, "float")
+                this.__ColorProxyArray := Win32FixedArray(this.ptr + 4, 4, Primitive, "float")
             return this.__ColorProxyArray
         }
     }
@@ -59,7 +59,7 @@ class D3D12_CLEAR_VALUE extends Win32Struct
     DepthStencil{
         get {
             if(!this.HasProp("__DepthStencil"))
-                this.__DepthStencil := D3D12_DEPTH_STENCIL_VALUE(8, this)
+                this.__DepthStencil := D3D12_DEPTH_STENCIL_VALUE(4, this)
             return this.__DepthStencil
         }
     }

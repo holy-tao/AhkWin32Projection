@@ -13,7 +13,7 @@
  */
 class INTERNET_COOKIE2 extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -80,7 +80,7 @@ class INTERNET_COOKIE2 extends Win32Struct
     ftExpires{
         get {
             if(!this.HasProp("__ftExpires"))
-                this.__ftExpires := FILETIME(40, this)
+                this.__ftExpires := FILETIME(36, this)
             return this.__ftExpires
         }
     }
@@ -90,7 +90,7 @@ class INTERNET_COOKIE2 extends Win32Struct
      * @type {BOOL}
      */
     fExpiresSet {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 }

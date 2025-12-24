@@ -12,9 +12,9 @@
  */
 class DWRITE_PANOSE extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 51
 
-    static packingSize => 8
+    static packingSize => 1
 
     class _text extends Win32Struct {
         static sizeof => 10

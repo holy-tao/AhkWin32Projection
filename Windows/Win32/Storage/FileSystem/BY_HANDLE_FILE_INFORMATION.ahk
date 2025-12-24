@@ -31,9 +31,9 @@
  */
 class BY_HANDLE_FILE_INFORMATION extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The file attributes. For possible values and their descriptions, see 
@@ -54,7 +54,7 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
     ftCreationTime{
         get {
             if(!this.HasProp("__ftCreationTime"))
-                this.__ftCreationTime := FILETIME(8, this)
+                this.__ftCreationTime := FILETIME(4, this)
             return this.__ftCreationTime
         }
     }
@@ -70,7 +70,7 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
     ftLastAccessTime{
         get {
             if(!this.HasProp("__ftLastAccessTime"))
-                this.__ftLastAccessTime := FILETIME(16, this)
+                this.__ftLastAccessTime := FILETIME(12, this)
             return this.__ftLastAccessTime
         }
     }
@@ -84,7 +84,7 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
     ftLastWriteTime{
         get {
             if(!this.HasProp("__ftLastWriteTime"))
-                this.__ftLastWriteTime := FILETIME(24, this)
+                this.__ftLastWriteTime := FILETIME(20, this)
             return this.__ftLastWriteTime
         }
     }
@@ -94,8 +94,8 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     dwVolumeSerialNumber {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -103,8 +103,8 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     nFileSizeHigh {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -112,8 +112,8 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     nFileSizeLow {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -122,8 +122,8 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     nNumberOfLinks {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -132,8 +132,8 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     nFileIndexHigh {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -152,7 +152,7 @@ class BY_HANDLE_FILE_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     nFileIndexLow {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

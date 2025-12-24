@@ -84,7 +84,7 @@ class MSG extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(40, this)
+                this.__pt := POINT(36, this)
             return this.__pt
         }
     }

@@ -9,9 +9,9 @@
  */
 class NFC_SNEP_SERVER_INFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -54,7 +54,7 @@ class NFC_SNEP_SERVER_INFO extends Win32Struct
     sService{
         get {
             if(!this.HasProp("__sService"))
-                this.__sService := NFC_LLCP_SERVICE_NAME_ENTRY(16, this)
+                this.__sService := NFC_LLCP_SERVICE_NAME_ENTRY(12, this)
             return this.__sService
         }
     }

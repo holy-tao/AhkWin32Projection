@@ -74,7 +74,7 @@ class DHCP_MIB_INFO_VQ extends Win32Struct
     ServerStartTime{
         get {
             if(!this.HasProp("__ServerStartTime"))
-                this.__ServerStartTime := DATE_TIME(32, this)
+                this.__ServerStartTime := DATE_TIME(28, this)
             return this.__ServerStartTime
         }
     }
@@ -83,6 +83,14 @@ class DHCP_MIB_INFO_VQ extends Win32Struct
      * @type {Integer}
      */
     QtnNumLeases {
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    QtnPctQtnLeases {
         get => NumGet(this, 40, "uint")
         set => NumPut("uint", value, this, 40)
     }
@@ -90,7 +98,7 @@ class DHCP_MIB_INFO_VQ extends Win32Struct
     /**
      * @type {Integer}
      */
-    QtnPctQtnLeases {
+    QtnProbationLeases {
         get => NumGet(this, 44, "uint")
         set => NumPut("uint", value, this, 44)
     }
@@ -98,7 +106,7 @@ class DHCP_MIB_INFO_VQ extends Win32Struct
     /**
      * @type {Integer}
      */
-    QtnProbationLeases {
+    QtnNonQtnLeases {
         get => NumGet(this, 48, "uint")
         set => NumPut("uint", value, this, 48)
     }
@@ -106,7 +114,7 @@ class DHCP_MIB_INFO_VQ extends Win32Struct
     /**
      * @type {Integer}
      */
-    QtnNonQtnLeases {
+    QtnExemptLeases {
         get => NumGet(this, 52, "uint")
         set => NumPut("uint", value, this, 52)
     }
@@ -114,7 +122,7 @@ class DHCP_MIB_INFO_VQ extends Win32Struct
     /**
      * @type {Integer}
      */
-    QtnExemptLeases {
+    QtnCapableClients {
         get => NumGet(this, 56, "uint")
         set => NumPut("uint", value, this, 56)
     }
@@ -122,7 +130,7 @@ class DHCP_MIB_INFO_VQ extends Win32Struct
     /**
      * @type {Integer}
      */
-    QtnCapableClients {
+    QtnIASErrors {
         get => NumGet(this, 60, "uint")
         set => NumPut("uint", value, this, 60)
     }
@@ -130,17 +138,9 @@ class DHCP_MIB_INFO_VQ extends Win32Struct
     /**
      * @type {Integer}
      */
-    QtnIASErrors {
+    Scopes {
         get => NumGet(this, 64, "uint")
         set => NumPut("uint", value, this, 64)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    Scopes {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
     }
 
     /**

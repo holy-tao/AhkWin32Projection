@@ -8,9 +8,9 @@
  */
 class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
 {
-    static sizeof => 208
+    static sizeof => 204
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -74,7 +74,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     FloatSave{
         get {
             if(!this.HasProp("__FloatSave"))
-                this.__FloatSave := FLOATING_SAVE_AREA(32, this)
+                this.__FloatSave := FLOATING_SAVE_AREA(28, this)
             return this.__FloatSave
         }
     }
@@ -83,6 +83,14 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
      * @type {Integer}
      */
     SegGs {
+        get => NumGet(this, 140, "uint")
+        set => NumPut("uint", value, this, 140)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SegFs {
         get => NumGet(this, 144, "uint")
         set => NumPut("uint", value, this, 144)
     }
@@ -90,7 +98,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    SegFs {
+    SegEs {
         get => NumGet(this, 148, "uint")
         set => NumPut("uint", value, this, 148)
     }
@@ -98,7 +106,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    SegEs {
+    SegDs {
         get => NumGet(this, 152, "uint")
         set => NumPut("uint", value, this, 152)
     }
@@ -106,7 +114,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    SegDs {
+    Edi {
         get => NumGet(this, 156, "uint")
         set => NumPut("uint", value, this, 156)
     }
@@ -114,7 +122,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Edi {
+    Esi {
         get => NumGet(this, 160, "uint")
         set => NumPut("uint", value, this, 160)
     }
@@ -122,7 +130,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Esi {
+    Ebx {
         get => NumGet(this, 164, "uint")
         set => NumPut("uint", value, this, 164)
     }
@@ -130,7 +138,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Ebx {
+    Edx {
         get => NumGet(this, 168, "uint")
         set => NumPut("uint", value, this, 168)
     }
@@ -138,7 +146,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Edx {
+    Ecx {
         get => NumGet(this, 172, "uint")
         set => NumPut("uint", value, this, 172)
     }
@@ -146,7 +154,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Ecx {
+    Eax {
         get => NumGet(this, 176, "uint")
         set => NumPut("uint", value, this, 176)
     }
@@ -154,7 +162,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Eax {
+    Ebp {
         get => NumGet(this, 180, "uint")
         set => NumPut("uint", value, this, 180)
     }
@@ -162,7 +170,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Ebp {
+    Eip {
         get => NumGet(this, 184, "uint")
         set => NumPut("uint", value, this, 184)
     }
@@ -170,7 +178,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Eip {
+    SegCs {
         get => NumGet(this, 188, "uint")
         set => NumPut("uint", value, this, 188)
     }
@@ -178,7 +186,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    SegCs {
+    EFlags {
         get => NumGet(this, 192, "uint")
         set => NumPut("uint", value, this, 192)
     }
@@ -186,7 +194,7 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    EFlags {
+    Esp {
         get => NumGet(this, 196, "uint")
         set => NumPut("uint", value, this, 196)
     }
@@ -194,16 +202,8 @@ class VDMCONTEXT_WITHOUT_XSAVE extends Win32Struct
     /**
      * @type {Integer}
      */
-    Esp {
+    SegSs {
         get => NumGet(this, 200, "uint")
         set => NumPut("uint", value, this, 200)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SegSs {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
     }
 }

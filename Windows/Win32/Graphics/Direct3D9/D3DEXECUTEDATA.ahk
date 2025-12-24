@@ -11,7 +11,7 @@ class D3DEXECUTEDATA extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

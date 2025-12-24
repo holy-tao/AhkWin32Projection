@@ -88,9 +88,9 @@
  */
 class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
 {
-    static sizeof => 440
+    static sizeof => 432
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The current bias for local time translation on this computer, in minutes. The bias is the difference, in 
@@ -148,7 +148,7 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
     StandardDate{
         get {
             if(!this.HasProp("__StandardDate"))
-                this.__StandardDate := SYSTEMTIME(72, this)
+                this.__StandardDate := SYSTEMTIME(68, this)
             return this.__StandardDate
         }
     }
@@ -162,8 +162,8 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     StandardBias {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 84, "int")
+        set => NumPut("int", value, this, 84)
     }
 
     /**
@@ -174,8 +174,8 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
      * @type {String}
      */
     DaylightName {
-        get => StrGet(this.ptr + 92, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 92, 31, "UTF-16")
+        get => StrGet(this.ptr + 88, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 88, 31, "UTF-16")
     }
 
     /**
@@ -200,7 +200,7 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
     DaylightDate{
         get {
             if(!this.HasProp("__DaylightDate"))
-                this.__DaylightDate := SYSTEMTIME(160, this)
+                this.__DaylightDate := SYSTEMTIME(152, this)
             return this.__DaylightDate
         }
     }
@@ -214,8 +214,8 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     DaylightBias {
-        get => NumGet(this, 176, "int")
-        set => NumPut("int", value, this, 176)
+        get => NumGet(this, 168, "int")
+        set => NumPut("int", value, this, 168)
     }
 
     /**
@@ -223,8 +223,8 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
      * @type {String}
      */
     TimeZoneKeyName {
-        get => StrGet(this.ptr + 180, 127, "UTF-16")
-        set => StrPut(value, this.ptr + 180, 127, "UTF-16")
+        get => StrGet(this.ptr + 172, 127, "UTF-16")
+        set => StrPut(value, this.ptr + 172, 127, "UTF-16")
     }
 
     /**
@@ -254,7 +254,7 @@ class DYNAMIC_TIME_ZONE_INFORMATION extends Win32Struct
      * @type {BOOLEAN}
      */
     DynamicDaylightTimeDisabled {
-        get => NumGet(this, 436, "char")
-        set => NumPut("char", value, this, 436)
+        get => NumGet(this, 428, "char")
+        set => NumPut("char", value, this, 428)
     }
 }

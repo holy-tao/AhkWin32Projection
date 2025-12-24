@@ -10,11 +10,11 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct
 {
     static sizeof => 32768
 
-    static packingSize => 8
+    static packingSize => 1
 
     class _WriteProtectActions_e__Union extends Win32Struct {
         static sizeof => 4
-        static packingSize => 4
+        static packingSize => 1
 
         /**
          * @type {Array<Byte>}

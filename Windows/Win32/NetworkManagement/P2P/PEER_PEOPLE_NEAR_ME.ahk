@@ -14,7 +14,7 @@
  */
 class PEER_PEOPLE_NEAR_ME extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
     static packingSize => 8
 
@@ -45,7 +45,7 @@ class PEER_PEOPLE_NEAR_ME extends Win32Struct
      * @type {Pointer<Guid>}
      */
     id {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 }

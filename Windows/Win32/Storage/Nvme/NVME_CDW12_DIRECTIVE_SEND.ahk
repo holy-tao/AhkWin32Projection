@@ -12,9 +12,9 @@
  */
 class NVME_CDW12_DIRECTIVE_SEND extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [NVME_CDW12_DIRECTIVE_SEND_IDENTIFY_ENABLE_DIRECTIVE](ns-nvme-nvme_cdw12_directive_send_identify_enable_directive.md) structure that specifies the directive type and whether it is enabled.

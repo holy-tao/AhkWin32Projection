@@ -15,7 +15,7 @@ class QOS_FRIENDLY_NAME extends Win32Struct
 {
     static sizeof => 520
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The QOS object 

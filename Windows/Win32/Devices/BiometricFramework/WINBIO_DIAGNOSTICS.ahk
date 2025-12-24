@@ -8,9 +8,9 @@
  */
 class WINBIO_DIAGNOSTICS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -42,7 +42,7 @@ class WINBIO_DIAGNOSTICS extends Win32Struct
     VendorDiagnostics{
         get {
             if(!this.HasProp("__VendorDiagnostics"))
-                this.__VendorDiagnostics := WINBIO_DATA(16, this)
+                this.__VendorDiagnostics := WINBIO_DATA(12, this)
             return this.__VendorDiagnostics
         }
     }

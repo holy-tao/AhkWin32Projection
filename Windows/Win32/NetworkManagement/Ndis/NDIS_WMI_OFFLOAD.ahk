@@ -12,9 +12,9 @@
  */
 class NDIS_WMI_OFFLOAD extends Win32Struct
 {
-    static sizeof => 256
+    static sizeof => 224
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NDIS_OBJECT_HEADER}
@@ -33,7 +33,7 @@ class NDIS_WMI_OFFLOAD extends Win32Struct
     Checksum{
         get {
             if(!this.HasProp("__Checksum"))
-                this.__Checksum := NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD(8, this)
+                this.__Checksum := NDIS_WMI_TCP_IP_CHECKSUM_OFFLOAD(4, this)
             return this.__Checksum
         }
     }
@@ -44,7 +44,7 @@ class NDIS_WMI_OFFLOAD extends Win32Struct
     LsoV1{
         get {
             if(!this.HasProp("__LsoV1"))
-                this.__LsoV1 := NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V1(104, this)
+                this.__LsoV1 := NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V1(92, this)
             return this.__LsoV1
         }
     }
@@ -55,7 +55,7 @@ class NDIS_WMI_OFFLOAD extends Win32Struct
     IPsecV1{
         get {
             if(!this.HasProp("__IPsecV1"))
-                this.__IPsecV1 := NDIS_WMI_IPSEC_OFFLOAD_V1(128, this)
+                this.__IPsecV1 := NDIS_WMI_IPSEC_OFFLOAD_V1(112, this)
             return this.__IPsecV1
         }
     }
@@ -66,7 +66,7 @@ class NDIS_WMI_OFFLOAD extends Win32Struct
     LsoV2{
         get {
             if(!this.HasProp("__LsoV2"))
-                this.__LsoV2 := NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V2(208, this)
+                this.__LsoV2 := NDIS_WMI_TCP_LARGE_SEND_OFFLOAD_V2(188, this)
             return this.__LsoV2
         }
     }
@@ -75,7 +75,7 @@ class NDIS_WMI_OFFLOAD extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
+        get => NumGet(this, 220, "uint")
+        set => NumPut("uint", value, this, 220)
     }
 }

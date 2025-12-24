@@ -14,7 +14,7 @@ class WINDOW_BUFFER_SIZE_RECORD extends Win32Struct
 {
     static sizeof => 4
 
-    static packingSize => 4
+    static packingSize => 2
 
     /**
      * A [**COORD**](coord-str.md) structure that contains the size of the console screen buffer, in character cell columns and rows.

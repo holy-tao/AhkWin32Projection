@@ -9,7 +9,7 @@
  */
 class SPVSTATE extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 72
 
     static packingSize => 8
 
@@ -67,7 +67,7 @@ class SPVSTATE extends Win32Struct
     PitchAdj{
         get {
             if(!this.HasProp("__PitchAdj"))
-                this.__PitchAdj := SPVPITCH(24, this)
+                this.__PitchAdj := SPVPITCH(20, this)
             return this.__PitchAdj
         }
     }
@@ -76,24 +76,24 @@ class SPVSTATE extends Win32Struct
      * @type {Integer}
      */
     SilenceMSecs {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
      * @type {Pointer<Integer>}
      */
     pPhoneIds {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     ePartOfSpeech {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 40, "int")
+        set => NumPut("int", value, this, 40)
     }
 
     /**
@@ -102,7 +102,7 @@ class SPVSTATE extends Win32Struct
     Context{
         get {
             if(!this.HasProp("__Context"))
-                this.__Context := SPVCONTEXT(56, this)
+                this.__Context := SPVCONTEXT(48, this)
             return this.__Context
         }
     }

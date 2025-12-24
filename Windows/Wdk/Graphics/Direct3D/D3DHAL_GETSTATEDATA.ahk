@@ -8,7 +8,7 @@
  */
 class D3DHAL_GETSTATEDATA extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -34,7 +34,7 @@ class D3DHAL_GETSTATEDATA extends Win32Struct
     ddState{
         get {
             if(!this.HasProp("__ddState"))
-                this.__ddState := D3DSTATE(16, this)
+                this.__ddState := D3DSTATE(12, this)
             return this.__ddState
         }
     }
@@ -43,7 +43,7 @@ class D3DHAL_GETSTATEDATA extends Win32Struct
      * @type {HRESULT}
      */
     ddrval {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

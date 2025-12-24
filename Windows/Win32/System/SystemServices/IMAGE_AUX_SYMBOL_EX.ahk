@@ -8,9 +8,9 @@
  */
 class IMAGE_AUX_SYMBOL_EX extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 104
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Sym extends Win32Struct {
         static sizeof => 20

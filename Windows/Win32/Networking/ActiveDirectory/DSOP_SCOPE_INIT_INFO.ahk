@@ -51,7 +51,7 @@ class DSOP_SCOPE_INIT_INFO extends Win32Struct
     FilterFlags{
         get {
             if(!this.HasProp("__FilterFlags"))
-                this.__FilterFlags := DSOP_FILTER_FLAGS(16, this)
+                this.__FilterFlags := DSOP_FILTER_FLAGS(12, this)
             return this.__FilterFlags
         }
     }

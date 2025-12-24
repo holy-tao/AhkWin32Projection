@@ -36,8 +36,8 @@ class DISPLAYCONFIG_TARGET_PREFERRED_MODE extends Win32Struct
      * @type {Integer}
      */
     width {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -45,8 +45,8 @@ class DISPLAYCONFIG_TARGET_PREFERRED_MODE extends Win32Struct
      * @type {Integer}
      */
     height {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**

@@ -39,7 +39,7 @@
  */
 class GDIINFO extends Win32Struct
 {
-    static sizeof => 352
+    static sizeof => 320
 
     static packingSize => 8
 
@@ -354,7 +354,7 @@ class GDIINFO extends Win32Struct
     ciDevice{
         get {
             if(!this.HasProp("__ciDevice"))
-                this.__ciDevice := COLORINFO(112, this)
+                this.__ciDevice := COLORINFO(108, this)
             return this.__ciDevice
         }
     }
@@ -368,8 +368,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     ulDevicePelsDPI {
-        get => NumGet(this, 256, "uint")
-        set => NumPut("uint", value, this, 256)
+        get => NumGet(this, 228, "uint")
+        set => NumPut("uint", value, this, 228)
     }
 
     /**
@@ -444,8 +444,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     ulPrimaryOrder {
-        get => NumGet(this, 260, "uint")
-        set => NumPut("uint", value, this, 260)
+        get => NumGet(this, 232, "uint")
+        set => NumPut("uint", value, this, 232)
     }
 
     /**
@@ -453,8 +453,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     ulHTPatternSize {
-        get => NumGet(this, 264, "uint")
-        set => NumPut("uint", value, this, 264)
+        get => NumGet(this, 236, "uint")
+        set => NumPut("uint", value, this, 236)
     }
 
     /**
@@ -462,8 +462,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     ulHTOutputFormat {
-        get => NumGet(this, 268, "uint")
-        set => NumPut("uint", value, this, 268)
+        get => NumGet(this, 240, "uint")
+        set => NumPut("uint", value, this, 240)
     }
 
     /**
@@ -471,8 +471,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     flHTFlags {
-        get => NumGet(this, 272, "uint")
-        set => NumPut("uint", value, this, 272)
+        get => NumGet(this, 244, "uint")
+        set => NumPut("uint", value, this, 244)
     }
 
     /**
@@ -482,8 +482,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     ulVRefresh {
-        get => NumGet(this, 276, "uint")
-        set => NumPut("uint", value, this, 276)
+        get => NumGet(this, 248, "uint")
+        set => NumPut("uint", value, this, 248)
     }
 
     /**
@@ -493,8 +493,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     ulBltAlignment {
-        get => NumGet(this, 280, "uint")
-        set => NumPut("uint", value, this, 280)
+        get => NumGet(this, 252, "uint")
+        set => NumPut("uint", value, this, 252)
     }
 
     /**
@@ -502,8 +502,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     ulPanningHorzRes {
-        get => NumGet(this, 284, "uint")
-        set => NumPut("uint", value, this, 284)
+        get => NumGet(this, 256, "uint")
+        set => NumPut("uint", value, this, 256)
     }
 
     /**
@@ -511,8 +511,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     ulPanningVertRes {
-        get => NumGet(this, 288, "uint")
-        set => NumPut("uint", value, this, 288)
+        get => NumGet(this, 260, "uint")
+        set => NumPut("uint", value, this, 260)
     }
 
     /**
@@ -520,8 +520,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     xPanningAlignment {
-        get => NumGet(this, 292, "uint")
-        set => NumPut("uint", value, this, 292)
+        get => NumGet(this, 264, "uint")
+        set => NumPut("uint", value, this, 264)
     }
 
     /**
@@ -529,8 +529,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     yPanningAlignment {
-        get => NumGet(this, 296, "uint")
-        set => NumPut("uint", value, this, 296)
+        get => NumGet(this, 268, "uint")
+        set => NumPut("uint", value, this, 268)
     }
 
     /**
@@ -538,8 +538,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     cxHTPat {
-        get => NumGet(this, 300, "uint")
-        set => NumPut("uint", value, this, 300)
+        get => NumGet(this, 272, "uint")
+        set => NumPut("uint", value, this, 272)
     }
 
     /**
@@ -547,8 +547,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     cyHTPat {
-        get => NumGet(this, 304, "uint")
-        set => NumPut("uint", value, this, 304)
+        get => NumGet(this, 276, "uint")
+        set => NumPut("uint", value, this, 276)
     }
 
     /**
@@ -556,8 +556,8 @@ class GDIINFO extends Win32Struct
      * @type {Pointer<Integer>}
      */
     pHTPatA {
-        get => NumGet(this, 312, "ptr")
-        set => NumPut("ptr", value, this, 312)
+        get => NumGet(this, 280, "ptr")
+        set => NumPut("ptr", value, this, 280)
     }
 
     /**
@@ -565,8 +565,8 @@ class GDIINFO extends Win32Struct
      * @type {Pointer<Integer>}
      */
     pHTPatB {
-        get => NumGet(this, 320, "ptr")
-        set => NumPut("ptr", value, this, 320)
+        get => NumGet(this, 288, "ptr")
+        set => NumPut("ptr", value, this, 288)
     }
 
     /**
@@ -574,8 +574,8 @@ class GDIINFO extends Win32Struct
      * @type {Pointer<Integer>}
      */
     pHTPatC {
-        get => NumGet(this, 328, "ptr")
-        set => NumPut("ptr", value, this, 328)
+        get => NumGet(this, 296, "ptr")
+        set => NumPut("ptr", value, this, 296)
     }
 
     /**
@@ -583,8 +583,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     flShadeBlend {
-        get => NumGet(this, 336, "uint")
-        set => NumPut("uint", value, this, 336)
+        get => NumGet(this, 304, "uint")
+        set => NumPut("uint", value, this, 304)
     }
 
     /**
@@ -671,8 +671,8 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     ulPhysicalPixelCharacteristics {
-        get => NumGet(this, 340, "uint")
-        set => NumPut("uint", value, this, 340)
+        get => NumGet(this, 308, "uint")
+        set => NumPut("uint", value, this, 308)
     }
 
     /**
@@ -680,7 +680,7 @@ class GDIINFO extends Win32Struct
      * @type {Integer}
      */
     ulPhysicalPixelGamma {
-        get => NumGet(this, 344, "uint")
-        set => NumPut("uint", value, this, 344)
+        get => NumGet(this, 312, "uint")
+        set => NumPut("uint", value, this, 312)
     }
 }

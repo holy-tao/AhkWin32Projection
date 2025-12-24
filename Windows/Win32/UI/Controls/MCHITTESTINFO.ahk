@@ -14,9 +14,9 @@
  */
 class MCHITTESTINFO extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -38,7 +38,7 @@ class MCHITTESTINFO extends Win32Struct
     pt{
         get {
             if(!this.HasProp("__pt"))
-                this.__pt := POINT(8, this)
+                this.__pt := POINT(4, this)
             return this.__pt
         }
     }
@@ -209,8 +209,8 @@ class MCHITTESTINFO extends Win32Struct
      * @type {Integer}
      */
     uHit {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -222,7 +222,7 @@ class MCHITTESTINFO extends Win32Struct
     st{
         get {
             if(!this.HasProp("__st"))
-                this.__st := SYSTEMTIME(24, this)
+                this.__st := SYSTEMTIME(16, this)
             return this.__st
         }
     }
@@ -236,7 +236,7 @@ class MCHITTESTINFO extends Win32Struct
     rc{
         get {
             if(!this.HasProp("__rc"))
-                this.__rc := RECT(40, this)
+                this.__rc := RECT(32, this)
             return this.__rc
         }
     }
@@ -248,8 +248,8 @@ class MCHITTESTINFO extends Win32Struct
      * @type {Integer}
      */
     iOffset {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 48, "int")
+        set => NumPut("int", value, this, 48)
     }
 
     /**
@@ -259,8 +259,8 @@ class MCHITTESTINFO extends Win32Struct
      * @type {Integer}
      */
     iRow {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
@@ -270,12 +270,12 @@ class MCHITTESTINFO extends Win32Struct
      * @type {Integer}
      */
     iCol {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 72
+        this.cbSize := 60
     }
 }

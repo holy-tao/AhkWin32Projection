@@ -10,7 +10,7 @@
  */
 class IPSEC_SA_BUNDLE0 extends Win32Struct
 {
-    static sizeof => 96
+    static sizeof => 88
 
     static packingSize => 8
 
@@ -30,7 +30,7 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
     lifetime{
         get {
             if(!this.HasProp("__lifetime"))
-                this.__lifetime := IPSEC_SA_LIFETIME0(8, this)
+                this.__lifetime := IPSEC_SA_LIFETIME0(4, this)
             return this.__lifetime
         }
     }
@@ -40,8 +40,8 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
      * @type {Integer}
      */
     idleTimeoutSeconds {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -52,8 +52,8 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
      * @type {Integer}
      */
     ndAllowClearTimeoutSeconds {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -61,8 +61,8 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
      * @type {Pointer<IPSEC_ID0>}
      */
     ipsecId {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -70,8 +70,8 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
      * @type {Integer}
      */
     napContext {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -79,8 +79,8 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
      * @type {Integer}
      */
     qmSaId {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -88,8 +88,8 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
      * @type {Integer}
      */
     numSAs {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -101,8 +101,8 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
      * @type {Pointer<IPSEC_SA0>}
      */
     saList {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -110,8 +110,8 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
      * @type {Pointer<IPSEC_KEYMODULE_STATE0>}
      */
     keyModuleState {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 
     /**
@@ -119,16 +119,16 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
      * @type {Integer}
      */
     ipVersion {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+        get => NumGet(this, 64, "int")
+        set => NumPut("int", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     peerV4PrivateAddress {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -136,8 +136,8 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
      * @type {Integer}
      */
     mmSaId {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -149,7 +149,7 @@ class IPSEC_SA_BUNDLE0 extends Win32Struct
      * @type {Integer}
      */
     pfsGroup {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 }

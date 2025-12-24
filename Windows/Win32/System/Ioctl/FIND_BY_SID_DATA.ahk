@@ -11,9 +11,9 @@
  */
 class FIND_BY_SID_DATA extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Indicates whether to restart the search. This member should be 1 on first call, so the search will start 
@@ -34,7 +34,7 @@ class FIND_BY_SID_DATA extends Win32Struct
     Sid{
         get {
             if(!this.HasProp("__Sid"))
-                this.__Sid := SID(8, this)
+                this.__Sid := SID(4, this)
             return this.__Sid
         }
     }

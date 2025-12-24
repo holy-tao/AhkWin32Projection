@@ -16,9 +16,9 @@
  */
 class PIN_INFO extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -66,7 +66,7 @@ class PIN_INFO extends Win32Struct
     PinCachePolicy{
         get {
             if(!this.HasProp("__PinCachePolicy"))
-                this.__PinCachePolicy := PIN_CACHE_POLICY(24, this)
+                this.__PinCachePolicy := PIN_CACHE_POLICY(20, this)
             return this.__PinCachePolicy
         }
     }
@@ -75,7 +75,7 @@ class PIN_INFO extends Win32Struct
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 }

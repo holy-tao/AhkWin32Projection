@@ -17,7 +17,7 @@ class DXVA2_VideoDesc extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Width of the video frame, in pixels.

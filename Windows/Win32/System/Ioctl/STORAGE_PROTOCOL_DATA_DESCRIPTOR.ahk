@@ -66,7 +66,7 @@ class STORAGE_PROTOCOL_DATA_DESCRIPTOR extends Win32Struct
 {
     static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The version of this structure.

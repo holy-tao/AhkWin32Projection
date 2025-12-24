@@ -18,9 +18,9 @@
  */
 class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
 {
-    static sizeof => 584
+    static sizeof => 580
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wlanapi/ne-wlanapi-wlan_connection_mode">WLAN_CONNECTION_MODE</a> value that specifies the mode of the connection.
@@ -47,7 +47,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
     dot11Ssid{
         get {
             if(!this.HasProp("__dot11Ssid"))
-                this.__dot11Ssid := DOT11_SSID(520, this)
+                this.__dot11Ssid := DOT11_SSID(516, this)
             return this.__dot11Ssid
         }
     }
@@ -57,8 +57,8 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * @type {Integer}
      */
     dot11BssType {
-        get => NumGet(this, 556, "int")
-        set => NumPut("int", value, this, 556)
+        get => NumGet(this, 552, "int")
+        set => NumPut("int", value, this, 552)
     }
 
     /**
@@ -68,7 +68,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
     dot11MacAddr{
         get {
             if(!this.HasProp("__dot11MacAddrProxyArray"))
-                this.__dot11MacAddrProxyArray := Win32FixedArray(this.ptr + 560, 6, Primitive, "char")
+                this.__dot11MacAddrProxyArray := Win32FixedArray(this.ptr + 556, 6, Primitive, "char")
             return this.__dot11MacAddrProxyArray
         }
     }
@@ -78,8 +78,8 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * @type {BOOL}
      */
     bSecurityEnabled {
-        get => NumGet(this, 568, "int")
-        set => NumPut("int", value, this, 568)
+        get => NumGet(this, 564, "int")
+        set => NumPut("int", value, this, 564)
     }
 
     /**
@@ -89,8 +89,8 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * @type {BOOL}
      */
     bFirstPeer {
-        get => NumGet(this, 572, "int")
-        set => NumPut("int", value, this, 572)
+        get => NumGet(this, 568, "int")
+        set => NumPut("int", value, this, 568)
     }
 
     /**
@@ -98,8 +98,8 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * @type {BOOL}
      */
     bLastPeer {
-        get => NumGet(this, 576, "int")
-        set => NumPut("int", value, this, 576)
+        get => NumGet(this, 572, "int")
+        set => NumPut("int", value, this, 572)
     }
 
     /**
@@ -107,7 +107,7 @@ class WLAN_MSM_NOTIFICATION_DATA extends Win32Struct
      * @type {Integer}
      */
     wlanReasonCode {
-        get => NumGet(this, 580, "uint")
-        set => NumPut("uint", value, this, 580)
+        get => NumGet(this, 576, "uint")
+        set => NumPut("uint", value, this, 576)
     }
 }

@@ -10,9 +10,9 @@
  */
 class CHANGER_MOVE_MEDIUM extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A 

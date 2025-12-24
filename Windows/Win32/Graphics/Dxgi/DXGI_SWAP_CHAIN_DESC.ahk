@@ -50,7 +50,7 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(32, this)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(28, this)
             return this.__SampleDesc
         }
     }
@@ -63,8 +63,8 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * @type {Integer}
      */
     BufferUsage {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -74,8 +74,8 @@ class DXGI_SWAP_CHAIN_DESC extends Win32Struct
      * @type {Integer}
      */
     BufferCount {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**

@@ -11,9 +11,9 @@
  */
 class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
 {
-    static sizeof => 104
+    static sizeof => 96
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size of this structure, in bytes.
@@ -64,7 +64,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     srWindow{
         get {
             if(!this.HasProp("__srWindow"))
-                this.__srWindow := SMALL_RECT(16, this)
+                this.__srWindow := SMALL_RECT(14, this)
             return this.__srWindow
         }
     }
@@ -76,7 +76,7 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     dwMaximumWindowSize{
         get {
             if(!this.HasProp("__dwMaximumWindowSize"))
-                this.__dwMaximumWindowSize := COORD(24, this)
+                this.__dwMaximumWindowSize := COORD(22, this)
             return this.__dwMaximumWindowSize
         }
     }
@@ -86,8 +86,8 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
      * @type {Integer}
      */
     wPopupAttributes {
-        get => NumGet(this, 28, "ushort")
-        set => NumPut("ushort", value, this, 28)
+        get => NumGet(this, 26, "ushort")
+        set => NumPut("ushort", value, this, 26)
     }
 
     /**
@@ -95,8 +95,8 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
      * @type {BOOL}
      */
     bFullscreenSupported {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -106,13 +106,13 @@ class CONSOLE_SCREEN_BUFFER_INFOEX extends Win32Struct
     ColorTable{
         get {
             if(!this.HasProp("__ColorTableProxyArray"))
-                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 36, 16, Primitive, "uint")
+                this.__ColorTableProxyArray := Win32FixedArray(this.ptr + 32, 16, Primitive, "uint")
             return this.__ColorTableProxyArray
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 104
+        this.cbSize := 96
     }
 }

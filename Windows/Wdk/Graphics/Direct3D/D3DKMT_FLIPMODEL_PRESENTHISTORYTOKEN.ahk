@@ -128,7 +128,7 @@ class D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN extends Win32Struct
     ScrollRect{
         get {
             if(!this.HasProp("__ScrollRect"))
-                this.__ScrollRect := RECT(96, this)
+                this.__ScrollRect := RECT(92, this)
             return this.__ScrollRect
         }
     }
@@ -139,7 +139,7 @@ class D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN extends Win32Struct
     ScrollOffset{
         get {
             if(!this.HasProp("__ScrollOffset"))
-                this.__ScrollOffset := POINT(112, this)
+                this.__ScrollOffset := POINT(108, this)
             return this.__ScrollOffset
         }
     }
@@ -148,8 +148,8 @@ class D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN extends Win32Struct
      * @type {Integer}
      */
     PresentCount {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
     }
 
     /**
@@ -158,7 +158,7 @@ class D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN extends Win32Struct
     RevealColor{
         get {
             if(!this.HasProp("__RevealColorProxyArray"))
-                this.__RevealColorProxyArray := Win32FixedArray(this.ptr + 124, 4, Primitive, "float")
+                this.__RevealColorProxyArray := Win32FixedArray(this.ptr + 120, 4, Primitive, "float")
             return this.__RevealColorProxyArray
         }
     }
@@ -167,8 +167,8 @@ class D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN extends Win32Struct
      * @type {Integer}
      */
     Rotation {
-        get => NumGet(this, 140, "int")
-        set => NumPut("int", value, this, 140)
+        get => NumGet(this, 136, "int")
+        set => NumPut("int", value, this, 136)
     }
 
     /**
@@ -228,7 +228,7 @@ class D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN extends Win32Struct
     SourceRect{
         get {
             if(!this.HasProp("__SourceRect"))
-                this.__SourceRect := RECT(176, this)
+                this.__SourceRect := RECT(172, this)
             return this.__SourceRect
         }
     }
@@ -237,16 +237,16 @@ class D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN extends Win32Struct
      * @type {Integer}
      */
     DestWidth {
-        get => NumGet(this, 192, "uint")
-        set => NumPut("uint", value, this, 192)
+        get => NumGet(this, 188, "uint")
+        set => NumPut("uint", value, this, 188)
     }
 
     /**
      * @type {Integer}
      */
     DestHeight {
-        get => NumGet(this, 196, "uint")
-        set => NumPut("uint", value, this, 196)
+        get => NumGet(this, 192, "uint")
+        set => NumPut("uint", value, this, 192)
     }
 
     /**
@@ -255,7 +255,7 @@ class D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN extends Win32Struct
     TargetRect{
         get {
             if(!this.HasProp("__TargetRect"))
-                this.__TargetRect := RECT(200, this)
+                this.__TargetRect := RECT(196, this)
             return this.__TargetRect
         }
     }
@@ -266,7 +266,7 @@ class D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN extends Win32Struct
     Transform{
         get {
             if(!this.HasProp("__TransformProxyArray"))
-                this.__TransformProxyArray := Win32FixedArray(this.ptr + 216, 6, Primitive, "float")
+                this.__TransformProxyArray := Win32FixedArray(this.ptr + 212, 6, Primitive, "float")
             return this.__TransformProxyArray
         }
     }
@@ -275,32 +275,32 @@ class D3DKMT_FLIPMODEL_PRESENTHISTORYTOKEN extends Win32Struct
      * @type {Integer}
      */
     CustomDuration {
-        get => NumGet(this, 240, "uint")
-        set => NumPut("uint", value, this, 240)
+        get => NumGet(this, 236, "uint")
+        set => NumPut("uint", value, this, 236)
     }
 
     /**
      * @type {Integer}
      */
     CustomDurationFlipInterval {
-        get => NumGet(this, 244, "int")
-        set => NumPut("int", value, this, 244)
+        get => NumGet(this, 240, "int")
+        set => NumPut("int", value, this, 240)
     }
 
     /**
      * @type {Integer}
      */
     PlaneIndex {
-        get => NumGet(this, 248, "uint")
-        set => NumPut("uint", value, this, 248)
+        get => NumGet(this, 244, "uint")
+        set => NumPut("uint", value, this, 244)
     }
 
     /**
      * @type {Integer}
      */
     ColorSpace {
-        get => NumGet(this, 252, "int")
-        set => NumPut("int", value, this, 252)
+        get => NumGet(this, 248, "int")
+        set => NumPut("int", value, this, 248)
     }
 
     /**

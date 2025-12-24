@@ -8,9 +8,9 @@
  */
 class DOT11_INCOMING_ASSOC_STARTED_PARAMETERS extends Win32Struct
 {
-    static sizeof => 12
+    static sizeof => 10
 
-    static packingSize => 4
+    static packingSize => 2
 
     /**
      * @type {NDIS_OBJECT_HEADER}

@@ -97,7 +97,7 @@ class NMITEMACTIVATE extends Win32Struct
     ptAction{
         get {
             if(!this.HasProp("__ptAction"))
-                this.__ptAction := POINT(48, this)
+                this.__ptAction := POINT(44, this)
             return this.__ptAction
         }
     }

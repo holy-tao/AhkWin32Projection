@@ -31,9 +31,9 @@
  */
 class WOW64_CONTEXT extends Win32Struct
 {
-    static sizeof => 720
+    static sizeof => 716
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -97,7 +97,7 @@ class WOW64_CONTEXT extends Win32Struct
     FloatSave{
         get {
             if(!this.HasProp("__FloatSave"))
-                this.__FloatSave := WOW64_FLOATING_SAVE_AREA(32, this)
+                this.__FloatSave := WOW64_FLOATING_SAVE_AREA(28, this)
             return this.__FloatSave
         }
     }
@@ -106,6 +106,14 @@ class WOW64_CONTEXT extends Win32Struct
      * @type {Integer}
      */
     SegGs {
+        get => NumGet(this, 140, "uint")
+        set => NumPut("uint", value, this, 140)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    SegFs {
         get => NumGet(this, 144, "uint")
         set => NumPut("uint", value, this, 144)
     }
@@ -113,7 +121,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    SegFs {
+    SegEs {
         get => NumGet(this, 148, "uint")
         set => NumPut("uint", value, this, 148)
     }
@@ -121,7 +129,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    SegEs {
+    SegDs {
         get => NumGet(this, 152, "uint")
         set => NumPut("uint", value, this, 152)
     }
@@ -129,7 +137,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    SegDs {
+    Edi {
         get => NumGet(this, 156, "uint")
         set => NumPut("uint", value, this, 156)
     }
@@ -137,7 +145,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Edi {
+    Esi {
         get => NumGet(this, 160, "uint")
         set => NumPut("uint", value, this, 160)
     }
@@ -145,7 +153,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Esi {
+    Ebx {
         get => NumGet(this, 164, "uint")
         set => NumPut("uint", value, this, 164)
     }
@@ -153,7 +161,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Ebx {
+    Edx {
         get => NumGet(this, 168, "uint")
         set => NumPut("uint", value, this, 168)
     }
@@ -161,7 +169,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Edx {
+    Ecx {
         get => NumGet(this, 172, "uint")
         set => NumPut("uint", value, this, 172)
     }
@@ -169,7 +177,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Ecx {
+    Eax {
         get => NumGet(this, 176, "uint")
         set => NumPut("uint", value, this, 176)
     }
@@ -177,7 +185,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Eax {
+    Ebp {
         get => NumGet(this, 180, "uint")
         set => NumPut("uint", value, this, 180)
     }
@@ -185,7 +193,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Ebp {
+    Eip {
         get => NumGet(this, 184, "uint")
         set => NumPut("uint", value, this, 184)
     }
@@ -193,7 +201,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Eip {
+    SegCs {
         get => NumGet(this, 188, "uint")
         set => NumPut("uint", value, this, 188)
     }
@@ -201,7 +209,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    SegCs {
+    EFlags {
         get => NumGet(this, 192, "uint")
         set => NumPut("uint", value, this, 192)
     }
@@ -209,7 +217,7 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    EFlags {
+    Esp {
         get => NumGet(this, 196, "uint")
         set => NumPut("uint", value, this, 196)
     }
@@ -217,17 +225,9 @@ class WOW64_CONTEXT extends Win32Struct
     /**
      * @type {Integer}
      */
-    Esp {
+    SegSs {
         get => NumGet(this, 200, "uint")
         set => NumPut("uint", value, this, 200)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    SegSs {
-        get => NumGet(this, 204, "uint")
-        set => NumPut("uint", value, this, 204)
     }
 
     /**
@@ -236,7 +236,7 @@ class WOW64_CONTEXT extends Win32Struct
     ExtendedRegisters{
         get {
             if(!this.HasProp("__ExtendedRegistersProxyArray"))
-                this.__ExtendedRegistersProxyArray := Win32FixedArray(this.ptr + 208, 512, Primitive, "char")
+                this.__ExtendedRegistersProxyArray := Win32FixedArray(this.ptr + 204, 512, Primitive, "char")
             return this.__ExtendedRegistersProxyArray
         }
     }

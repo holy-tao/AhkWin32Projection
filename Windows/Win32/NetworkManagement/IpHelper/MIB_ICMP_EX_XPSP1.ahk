@@ -20,7 +20,7 @@ class MIB_ICMP_EX_XPSP1 extends Win32Struct
 {
     static sizeof => 2064
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies an <a href="https://docs.microsoft.com/windows/desktop/api/ipmib/ns-ipmib-mibicmpstats_ex_xpsp1">MIBICMPSTATS_EX</a> structure that contains the extended statistics for incoming ICMP messages.

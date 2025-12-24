@@ -10,7 +10,7 @@ class D3DKMT_OUTDUPL_POINTER_SHAPE_INFO extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

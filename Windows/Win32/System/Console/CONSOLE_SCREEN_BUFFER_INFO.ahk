@@ -11,9 +11,9 @@
  */
 class CONSOLE_SCREEN_BUFFER_INFO extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 22
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * A [**COORD**](coord-str.md) structure that contains the size of the console screen buffer, in character columns and rows.
@@ -55,7 +55,7 @@ class CONSOLE_SCREEN_BUFFER_INFO extends Win32Struct
     srWindow{
         get {
             if(!this.HasProp("__srWindow"))
-                this.__srWindow := SMALL_RECT(16, this)
+                this.__srWindow := SMALL_RECT(10, this)
             return this.__srWindow
         }
     }
@@ -67,7 +67,7 @@ class CONSOLE_SCREEN_BUFFER_INFO extends Win32Struct
     dwMaximumWindowSize{
         get {
             if(!this.HasProp("__dwMaximumWindowSize"))
-                this.__dwMaximumWindowSize := COORD(24, this)
+                this.__dwMaximumWindowSize := COORD(18, this)
             return this.__dwMaximumWindowSize
         }
     }

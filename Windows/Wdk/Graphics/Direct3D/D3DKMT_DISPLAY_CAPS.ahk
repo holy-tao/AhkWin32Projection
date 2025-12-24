@@ -9,7 +9,7 @@ class D3DKMT_DISPLAY_CAPS extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * This bitfield backs the following members:

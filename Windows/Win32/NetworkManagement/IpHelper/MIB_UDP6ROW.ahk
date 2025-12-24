@@ -25,7 +25,7 @@ class MIB_UDP6ROW extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The IPv6 address of the UDP endpoint on the local computer. This member is stored in  a character array in network byte order. 

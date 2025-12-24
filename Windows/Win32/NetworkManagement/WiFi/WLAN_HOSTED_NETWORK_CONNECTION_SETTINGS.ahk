@@ -14,7 +14,7 @@ class WLAN_HOSTED_NETWORK_CONNECTION_SETTINGS extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The SSID associated with the wireless Hosted Network.

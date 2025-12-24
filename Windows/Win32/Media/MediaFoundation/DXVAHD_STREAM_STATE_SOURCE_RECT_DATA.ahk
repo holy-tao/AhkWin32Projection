@@ -10,9 +10,9 @@
  */
 class DXVAHD_STREAM_STATE_SOURCE_RECT_DATA extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * <b></b>Specifies whether to blit the entire input surface or just the source rectangle. The default state value is <b>FALSE</b>.
@@ -59,7 +59,7 @@ class DXVAHD_STREAM_STATE_SOURCE_RECT_DATA extends Win32Struct
     SourceRect{
         get {
             if(!this.HasProp("__SourceRect"))
-                this.__SourceRect := RECT(8, this)
+                this.__SourceRect := RECT(4, this)
             return this.__SourceRect
         }
     }

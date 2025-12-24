@@ -12,9 +12,9 @@
  */
 class DRAWPATRECT extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The upper-left corner of the rectangle, in logical units.

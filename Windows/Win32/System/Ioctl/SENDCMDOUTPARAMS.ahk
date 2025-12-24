@@ -8,9 +8,9 @@
  */
 class SENDCMDOUTPARAMS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class SENDCMDOUTPARAMS extends Win32Struct
     DriverStatus{
         get {
             if(!this.HasProp("__DriverStatus"))
-                this.__DriverStatus := DRIVERSTATUS(8, this)
+                this.__DriverStatus := DRIVERSTATUS(4, this)
             return this.__DriverStatus
         }
     }
@@ -37,7 +37,7 @@ class SENDCMDOUTPARAMS extends Win32Struct
     bBuffer{
         get {
             if(!this.HasProp("__bBufferProxyArray"))
-                this.__bBufferProxyArray := Win32FixedArray(this.ptr + 20, 1, Primitive, "char")
+                this.__bBufferProxyArray := Win32FixedArray(this.ptr + 16, 1, Primitive, "char")
             return this.__bBufferProxyArray
         }
     }

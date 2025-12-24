@@ -240,7 +240,7 @@ class CRYPT_PROVIDER_DATA extends Win32Struct
     sftSystemTime{
         get {
             if(!this.HasProp("__sftSystemTime"))
-                this.__sftSystemTime := FILETIME(184, this)
+                this.__sftSystemTime := FILETIME(180, this)
             return this.__sftSystemTime
         }
     }

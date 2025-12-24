@@ -220,7 +220,7 @@ class MFVideoInfo extends Win32Struct
     GeometricAperture{
         get {
             if(!this.HasProp("__GeometricAperture"))
-                this.__GeometricAperture := MFVideoArea(56, this)
+                this.__GeometricAperture := MFVideoArea(52, this)
             return this.__GeometricAperture
         }
     }
@@ -232,7 +232,7 @@ class MFVideoInfo extends Win32Struct
     MinimumDisplayAperture{
         get {
             if(!this.HasProp("__MinimumDisplayAperture"))
-                this.__MinimumDisplayAperture := MFVideoArea(72, this)
+                this.__MinimumDisplayAperture := MFVideoArea(68, this)
             return this.__MinimumDisplayAperture
         }
     }
@@ -244,7 +244,7 @@ class MFVideoInfo extends Win32Struct
     PanScanAperture{
         get {
             if(!this.HasProp("__PanScanAperture"))
-                this.__PanScanAperture := MFVideoArea(88, this)
+                this.__PanScanAperture := MFVideoArea(84, this)
             return this.__PanScanAperture
         }
     }

@@ -20,9 +20,9 @@
  */
 class CHARFORMAT2W extends Win32Struct
 {
-    static sizeof => 120
+    static sizeof => 116
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {CHARFORMATW}

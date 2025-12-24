@@ -9,9 +9,9 @@
  */
 class DL_EUI48 extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 13
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * @type {Array<Byte>}
@@ -41,7 +41,7 @@ class DL_EUI48 extends Win32Struct
     Ei48{
         get {
             if(!this.HasProp("__Ei48"))
-                this.__Ei48 := DL_EI48(6, this)
+                this.__Ei48 := DL_EI48(4, this)
             return this.__Ei48
         }
     }

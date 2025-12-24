@@ -11,9 +11,9 @@
  */
 class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The change in translation, rotation, and scale since the last <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/interactioncontext/nc-interactioncontext-interaction_context_output_callback">INTERACTION_CONTEXT_OUTPUT_CALLBACK</a>.
@@ -34,7 +34,7 @@ class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
     cumulative{
         get {
             if(!this.HasProp("__cumulative"))
-                this.__cumulative := MANIPULATION_TRANSFORM(24, this)
+                this.__cumulative := MANIPULATION_TRANSFORM(20, this)
             return this.__cumulative
         }
     }
@@ -46,7 +46,7 @@ class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
     velocity{
         get {
             if(!this.HasProp("__velocity"))
-                this.__velocity := MANIPULATION_VELOCITY(48, this)
+                this.__velocity := MANIPULATION_VELOCITY(40, this)
             return this.__velocity
         }
     }
@@ -56,7 +56,7 @@ class INTERACTION_ARGUMENTS_MANIPULATION extends Win32Struct
      * @type {Integer}
      */
     railsState {
-        get => NumGet(this, 64, "int")
-        set => NumPut("int", value, this, 64)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

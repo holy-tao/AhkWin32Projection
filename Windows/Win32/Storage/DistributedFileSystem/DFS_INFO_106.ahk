@@ -10,9 +10,9 @@
  */
 class DFS_INFO_106 extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * 
@@ -30,7 +30,7 @@ class DFS_INFO_106 extends Win32Struct
     TargetPriority{
         get {
             if(!this.HasProp("__TargetPriority"))
-                this.__TargetPriority := DFS_TARGET_PRIORITY(8, this)
+                this.__TargetPriority := DFS_TARGET_PRIORITY(4, this)
             return this.__TargetPriority
         }
     }

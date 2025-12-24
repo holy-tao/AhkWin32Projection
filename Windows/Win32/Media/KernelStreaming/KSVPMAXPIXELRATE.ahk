@@ -10,7 +10,7 @@ class KSVPMAXPIXELRATE extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {KS_AMVPSIZE}

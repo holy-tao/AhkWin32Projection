@@ -14,7 +14,7 @@ class POINTFX extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 4
+    static packingSize => 2
 
     /**
      * The x-component of a point on the outline of a TrueType character.

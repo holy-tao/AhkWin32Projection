@@ -12,9 +12,9 @@
  */
 class IPSEC_DOSP_STATE_ENUM_TEMPLATE0 extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 34
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * An [FWP_V6_ADDR_AND_MASK](/windows/desktop/api/fwptypes/ns-fwptypes-fwp_v6_addr_and_mask) structure that specifies the public IPv6 address.
@@ -35,7 +35,7 @@ class IPSEC_DOSP_STATE_ENUM_TEMPLATE0 extends Win32Struct
     internalV6AddrMask{
         get {
             if(!this.HasProp("__internalV6AddrMask"))
-                this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(24, this)
+                this.__internalV6AddrMask := FWP_V6_ADDR_AND_MASK(17, this)
             return this.__internalV6AddrMask
         }
     }

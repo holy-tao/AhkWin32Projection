@@ -11,9 +11,9 @@
  */
 class EMREXTCREATEPEN extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
@@ -79,7 +79,7 @@ class EMREXTCREATEPEN extends Win32Struct
     elp{
         get {
             if(!this.HasProp("__elp"))
-                this.__elp := EXTLOGPEN32(32, this)
+                this.__elp := EXTLOGPEN32(28, this)
             return this.__elp
         }
     }

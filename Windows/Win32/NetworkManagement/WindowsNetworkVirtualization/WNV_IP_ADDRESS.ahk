@@ -15,11 +15,11 @@ class WNV_IP_ADDRESS extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _IP_e__Union extends Win32Struct {
         static sizeof => 16
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {IN_ADDR}

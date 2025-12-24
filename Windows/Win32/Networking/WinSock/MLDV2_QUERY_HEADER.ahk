@@ -9,9 +9,9 @@
  */
 class MLDV2_QUERY_HEADER extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * @type {ICMP_HEADER}

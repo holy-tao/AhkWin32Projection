@@ -14,7 +14,7 @@
  */
 class IPSEC_STATISTICS1 extends Win32Struct
 {
-    static sizeof => 224
+    static sizeof => 216
 
     static packingSize => 8
 
@@ -37,7 +37,7 @@ class IPSEC_STATISTICS1 extends Win32Struct
     espDropPacketStatistics{
         get {
             if(!this.HasProp("__espDropPacketStatistics"))
-                this.__espDropPacketStatistics := IPSEC_ESP_DROP_PACKET_STATISTICS0(32, this)
+                this.__espDropPacketStatistics := IPSEC_ESP_DROP_PACKET_STATISTICS0(28, this)
             return this.__espDropPacketStatistics
         }
     }
@@ -49,7 +49,7 @@ class IPSEC_STATISTICS1 extends Win32Struct
     ahDropPacketStatistics{
         get {
             if(!this.HasProp("__ahDropPacketStatistics"))
-                this.__ahDropPacketStatistics := IPSEC_AH_DROP_PACKET_STATISTICS0(56, this)
+                this.__ahDropPacketStatistics := IPSEC_AH_DROP_PACKET_STATISTICS0(48, this)
             return this.__ahDropPacketStatistics
         }
     }
@@ -61,7 +61,7 @@ class IPSEC_STATISTICS1 extends Win32Struct
     aggregateDropPacketStatistics{
         get {
             if(!this.HasProp("__aggregateDropPacketStatistics"))
-                this.__aggregateDropPacketStatistics := IPSEC_AGGREGATE_DROP_PACKET_STATISTICS1(72, this)
+                this.__aggregateDropPacketStatistics := IPSEC_AGGREGATE_DROP_PACKET_STATISTICS1(64, this)
             return this.__aggregateDropPacketStatistics
         }
     }
@@ -73,7 +73,7 @@ class IPSEC_STATISTICS1 extends Win32Struct
     inboundTrafficStatistics{
         get {
             if(!this.HasProp("__inboundTrafficStatistics"))
-                this.__inboundTrafficStatistics := IPSEC_TRAFFIC_STATISTICS1(112, this)
+                this.__inboundTrafficStatistics := IPSEC_TRAFFIC_STATISTICS1(104, this)
             return this.__inboundTrafficStatistics
         }
     }
@@ -85,7 +85,7 @@ class IPSEC_STATISTICS1 extends Win32Struct
     outboundTrafficStatistics{
         get {
             if(!this.HasProp("__outboundTrafficStatistics"))
-                this.__outboundTrafficStatistics := IPSEC_TRAFFIC_STATISTICS1(168, this)
+                this.__outboundTrafficStatistics := IPSEC_TRAFFIC_STATISTICS1(160, this)
             return this.__outboundTrafficStatistics
         }
     }

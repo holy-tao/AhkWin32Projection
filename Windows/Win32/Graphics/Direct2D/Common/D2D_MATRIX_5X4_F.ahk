@@ -17,7 +17,7 @@ class D2D_MATRIX_5X4_F extends Win32Struct
 {
     static sizeof => 80
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Float}

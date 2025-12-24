@@ -20,9 +20,9 @@
  */
 class GOPHER_FIND_DATAW extends Win32Struct
 {
-    static sizeof => 1592
+    static sizeof => 1588
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Friendly name of an object. An application can display this string to allow the user to select the object.

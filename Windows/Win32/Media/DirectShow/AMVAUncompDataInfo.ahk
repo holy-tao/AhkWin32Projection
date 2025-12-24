@@ -12,7 +12,7 @@ class AMVAUncompDataInfo extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Width of the decoded, uncompressed data, in pixels.

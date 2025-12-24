@@ -11,9 +11,9 @@
  */
 class GNSS_FIXSESSION_PARAM extends Win32Struct
 {
-    static sizeof => 592
+    static sizeof => 588
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -143,7 +143,7 @@ class GNSS_FIXSESSION_PARAM extends Win32Struct
     Unused{
         get {
             if(!this.HasProp("__UnusedProxyArray"))
-                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 336, 256, Primitive, "char")
+                this.__UnusedProxyArray := Win32FixedArray(this.ptr + 332, 256, Primitive, "char")
             return this.__UnusedProxyArray
         }
     }

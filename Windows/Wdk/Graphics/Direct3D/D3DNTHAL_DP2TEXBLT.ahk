@@ -9,9 +9,9 @@
  */
 class D3DNTHAL_DP2TEXBLT extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

@@ -7,9 +7,9 @@
  */
 class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 18
 
-    static packingSize => 8
+    static packingSize => 2
 
     /**
      * @type {Integer}
@@ -96,7 +96,7 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct
     Text{
         get {
             if(!this.HasProp("__TextProxyArray"))
-                this.__TextProxyArray := Win32FixedArray(this.ptr + 8, 12, Primitive, "char")
+                this.__TextProxyArray := Win32FixedArray(this.ptr + 4, 12, Primitive, "char")
             return this.__TextProxyArray
         }
     }
@@ -105,8 +105,8 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct
      * @type {String}
      */
     WText {
-        get => StrGet(this.ptr + 8, 5, "UTF-16")
-        set => StrPut(value, this.ptr + 8, 5, "UTF-16")
+        get => StrGet(this.ptr + 4, 5, "UTF-16")
+        set => StrPut(value, this.ptr + 4, 5, "UTF-16")
     }
 
     /**
@@ -115,7 +115,7 @@ class CDROM_TOC_CD_TEXT_DATA_BLOCK extends Win32Struct
     CRC{
         get {
             if(!this.HasProp("__CRCProxyArray"))
-                this.__CRCProxyArray := Win32FixedArray(this.ptr + 20, 2, Primitive, "char")
+                this.__CRCProxyArray := Win32FixedArray(this.ptr + 16, 2, Primitive, "char")
             return this.__CRCProxyArray
         }
     }

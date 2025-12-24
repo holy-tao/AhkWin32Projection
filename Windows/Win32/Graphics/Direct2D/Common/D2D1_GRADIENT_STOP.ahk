@@ -18,9 +18,9 @@
  */
 class D2D1_GRADIENT_STOP extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>FLOAT</b>
@@ -42,7 +42,7 @@ class D2D1_GRADIENT_STOP extends Win32Struct
     color{
         get {
             if(!this.HasProp("__color"))
-                this.__color := D2D1_COLOR_F(8, this)
+                this.__color := D2D1_COLOR_F(4, this)
             return this.__color
         }
     }

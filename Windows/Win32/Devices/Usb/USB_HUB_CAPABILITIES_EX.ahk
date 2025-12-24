@@ -10,7 +10,7 @@ class USB_HUB_CAPABILITIES_EX extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 8
+    static packingSize => 1
 
     /**
      * @type {USB_HUB_CAP_FLAGS}

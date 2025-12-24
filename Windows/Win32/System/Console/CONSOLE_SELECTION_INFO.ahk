@@ -13,7 +13,7 @@ class CONSOLE_SELECTION_INFO extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The selection indicator. This member can be one or more of the following values.

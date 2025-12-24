@@ -10,9 +10,9 @@
  */
 class WTSSBX_SESSION_INFO extends Win32Struct
 {
-    static sizeof => 1272
+    static sizeof => 1264
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The user name that is associated with the session. The name cannot exceed 104 characters.
@@ -57,7 +57,7 @@ class WTSSBX_SESSION_INFO extends Win32Struct
     CreateTime{
         get {
             if(!this.HasProp("__CreateTime"))
-                this.__CreateTime := FILETIME(1248, this)
+                this.__CreateTime := FILETIME(1244, this)
             return this.__CreateTime
         }
     }
@@ -69,7 +69,7 @@ class WTSSBX_SESSION_INFO extends Win32Struct
     DisconnectTime{
         get {
             if(!this.HasProp("__DisconnectTime"))
-                this.__DisconnectTime := FILETIME(1256, this)
+                this.__DisconnectTime := FILETIME(1252, this)
             return this.__DisconnectTime
         }
     }
@@ -79,7 +79,7 @@ class WTSSBX_SESSION_INFO extends Win32Struct
      * @type {Integer}
      */
     SessionState {
-        get => NumGet(this, 1264, "int")
-        set => NumPut("int", value, this, 1264)
+        get => NumGet(this, 1260, "int")
+        set => NumPut("int", value, this, 1260)
     }
 }

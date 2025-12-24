@@ -13,7 +13,7 @@ class AMVACompBufferInfo extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Number of buffers requested for compressed data.

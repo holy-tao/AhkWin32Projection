@@ -19,9 +19,9 @@
  */
 class IP_ADDRESS_PREFIX extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The prefix or network part of IP the address represented as an IP address.
@@ -43,7 +43,7 @@ class IP_ADDRESS_PREFIX extends Win32Struct
      * @type {Integer}
      */
     PrefixLength {
-        get => NumGet(this, 64, "char")
-        set => NumPut("char", value, this, 64)
+        get => NumGet(this, 56, "char")
+        set => NumPut("char", value, this, 56)
     }
 }

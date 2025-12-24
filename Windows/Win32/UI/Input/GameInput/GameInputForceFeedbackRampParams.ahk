@@ -9,7 +9,7 @@
  */
 class GameInputForceFeedbackRampParams extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -41,7 +41,7 @@ class GameInputForceFeedbackRampParams extends Win32Struct
     endMagnitude{
         get {
             if(!this.HasProp("__endMagnitude"))
-                this.__endMagnitude := GameInputForceFeedbackMagnitude(80, this)
+                this.__endMagnitude := GameInputForceFeedbackMagnitude(76, this)
             return this.__endMagnitude
         }
     }

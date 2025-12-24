@@ -78,7 +78,7 @@ class NMDATETIMECHANGE extends Win32Struct
     st{
         get {
             if(!this.HasProp("__st"))
-                this.__st := SYSTEMTIME(32, this)
+                this.__st := SYSTEMTIME(28, this)
             return this.__st
         }
     }

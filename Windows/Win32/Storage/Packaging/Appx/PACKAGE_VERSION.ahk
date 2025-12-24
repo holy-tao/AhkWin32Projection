@@ -11,7 +11,7 @@ class PACKAGE_VERSION extends Win32Struct
 {
     static sizeof => 8
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

@@ -29,7 +29,7 @@
  */
 class MI_Value extends Win32Struct
 {
-    static sizeof => 392
+    static sizeof => 384
 
     static packingSize => 8
 

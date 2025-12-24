@@ -8,9 +8,9 @@
  */
 class KSPROPERTY_NETWORKCAMERACONTROL_EVENT_INFO extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {KSCAMERA_METADATA_ITEMHEADER}

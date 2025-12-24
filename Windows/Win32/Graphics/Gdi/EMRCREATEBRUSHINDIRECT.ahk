@@ -11,9 +11,9 @@
  */
 class EMRCREATEBRUSHINDIRECT extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.
@@ -45,7 +45,7 @@ class EMRCREATEBRUSHINDIRECT extends Win32Struct
     lb{
         get {
             if(!this.HasProp("__lb"))
-                this.__lb := LOGBRUSH32(16, this)
+                this.__lb := LOGBRUSH32(12, this)
             return this.__lb
         }
     }

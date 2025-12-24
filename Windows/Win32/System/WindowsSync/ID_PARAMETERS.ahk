@@ -12,9 +12,9 @@
  */
 class ID_PARAMETERS extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The number of bytes in the <b>ID_PARAMETERS</b> structure.
@@ -32,7 +32,7 @@ class ID_PARAMETERS extends Win32Struct
     replicaId{
         get {
             if(!this.HasProp("__replicaId"))
-                this.__replicaId := ID_PARAMETER_PAIR(8, this)
+                this.__replicaId := ID_PARAMETER_PAIR(4, this)
             return this.__replicaId
         }
     }
@@ -44,7 +44,7 @@ class ID_PARAMETERS extends Win32Struct
     itemId{
         get {
             if(!this.HasProp("__itemId"))
-                this.__itemId := ID_PARAMETER_PAIR(16, this)
+                this.__itemId := ID_PARAMETER_PAIR(12, this)
             return this.__itemId
         }
     }
@@ -56,7 +56,7 @@ class ID_PARAMETERS extends Win32Struct
     changeUnitId{
         get {
             if(!this.HasProp("__changeUnitId"))
-                this.__changeUnitId := ID_PARAMETER_PAIR(24, this)
+                this.__changeUnitId := ID_PARAMETER_PAIR(20, this)
             return this.__changeUnitId
         }
     }

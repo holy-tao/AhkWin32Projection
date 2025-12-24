@@ -10,9 +10,9 @@
  */
 class NDIS_WLAN_BSSID extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 104
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -50,7 +50,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     Ssid{
         get {
             if(!this.HasProp("__Ssid"))
-                this.__Ssid := NDIS_802_11_SSID(16, this)
+                this.__Ssid := NDIS_802_11_SSID(12, this)
             return this.__Ssid
         }
     }
@@ -59,24 +59,24 @@ class NDIS_WLAN_BSSID extends Win32Struct
      * @type {Integer}
      */
     Privacy {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 
     /**
      * @type {Integer}
      */
     Rssi {
-        get => NumGet(this, 56, "int")
-        set => NumPut("int", value, this, 56)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**
      * @type {Integer}
      */
     NetworkTypeInUse {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 
     /**
@@ -85,7 +85,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     Configuration{
         get {
             if(!this.HasProp("__Configuration"))
-                this.__Configuration := NDIS_802_11_CONFIGURATION(64, this)
+                this.__Configuration := NDIS_802_11_CONFIGURATION(60, this)
             return this.__Configuration
         }
     }
@@ -94,8 +94,8 @@ class NDIS_WLAN_BSSID extends Win32Struct
      * @type {Integer}
      */
     InfrastructureMode {
-        get => NumGet(this, 96, "int")
-        set => NumPut("int", value, this, 96)
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
     }
 
     /**
@@ -104,7 +104,7 @@ class NDIS_WLAN_BSSID extends Win32Struct
     SupportedRates{
         get {
             if(!this.HasProp("__SupportedRatesProxyArray"))
-                this.__SupportedRatesProxyArray := Win32FixedArray(this.ptr + 100, 8, Primitive, "char")
+                this.__SupportedRatesProxyArray := Win32FixedArray(this.ptr + 96, 8, Primitive, "char")
             return this.__SupportedRatesProxyArray
         }
     }

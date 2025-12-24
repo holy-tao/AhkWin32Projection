@@ -12,7 +12,7 @@ class DWRITE_LINE_METRICS1 extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DWRITE_LINE_METRICS}

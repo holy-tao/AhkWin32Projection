@@ -17,9 +17,9 @@
  */
 class INTERFACE_INFO extends Win32Struct
 {
-    static sizeof => 248
+    static sizeof => 244
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A bitmask describing the status of the interface. The following flags are possible.
@@ -94,7 +94,7 @@ class INTERFACE_INFO extends Win32Struct
     iiAddress{
         get {
             if(!this.HasProp("__iiAddress"))
-                this.__iiAddress := sockaddr_gen(8, this)
+                this.__iiAddress := sockaddr_gen(4, this)
             return this.__iiAddress
         }
     }
@@ -106,7 +106,7 @@ class INTERFACE_INFO extends Win32Struct
     iiBroadcastAddress{
         get {
             if(!this.HasProp("__iiBroadcastAddress"))
-                this.__iiBroadcastAddress := sockaddr_gen(88, this)
+                this.__iiBroadcastAddress := sockaddr_gen(84, this)
             return this.__iiBroadcastAddress
         }
     }
@@ -118,7 +118,7 @@ class INTERFACE_INFO extends Win32Struct
     iiNetmask{
         get {
             if(!this.HasProp("__iiNetmask"))
-                this.__iiNetmask := sockaddr_gen(168, this)
+                this.__iiNetmask := sockaddr_gen(164, this)
             return this.__iiNetmask
         }
     }

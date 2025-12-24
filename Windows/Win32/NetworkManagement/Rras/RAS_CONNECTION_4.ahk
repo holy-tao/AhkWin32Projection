@@ -106,7 +106,7 @@ class RAS_CONNECTION_4 extends Win32Struct
     probationTime{
         get {
             if(!this.HasProp("__probationTime"))
-                this.__probationTime := FILETIME(1128, this)
+                this.__probationTime := FILETIME(1124, this)
             return this.__probationTime
         }
     }
@@ -118,7 +118,7 @@ class RAS_CONNECTION_4 extends Win32Struct
     connectionStartTime{
         get {
             if(!this.HasProp("__connectionStartTime"))
-                this.__connectionStartTime := FILETIME(1136, this)
+                this.__connectionStartTime := FILETIME(1132, this)
             return this.__connectionStartTime
         }
     }

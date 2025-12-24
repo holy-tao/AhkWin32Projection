@@ -11,9 +11,9 @@
  */
 class DISPLAYCONFIG_SOURCE_DEVICE_NAME extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 84
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_device_info_header">DISPLAYCONFIG_DEVICE_INFO_HEADER</a> structure that contains information about the request for the source device name. The caller should set the <b>type</b> member of DISPLAYCONFIG_DEVICE_INFO_HEADER to DISPLAYCONFIG_DEVICE_INFO_GET_SOURCE_NAME and the <b>adapterId</b> and <b>id</b> members of DISPLAYCONFIG_DEVICE_INFO_HEADER to the source for which the caller wants the source device name. The caller should set the <b>size</b> member of DISPLAYCONFIG_DEVICE_INFO_HEADER to at least the size of the DISPLAYCONFIG_SOURCE_DEVICE_NAME structure.
@@ -32,7 +32,7 @@ class DISPLAYCONFIG_SOURCE_DEVICE_NAME extends Win32Struct
      * @type {String}
      */
     viewGdiDeviceName {
-        get => StrGet(this.ptr + 24, 31, "UTF-16")
-        set => StrPut(value, this.ptr + 24, 31, "UTF-16")
+        get => StrGet(this.ptr + 20, 31, "UTF-16")
+        set => StrPut(value, this.ptr + 20, 31, "UTF-16")
     }
 }

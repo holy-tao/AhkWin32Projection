@@ -9,7 +9,7 @@ class ACTIVE_LATENCY_CONFIGURATION extends Win32Struct
 {
     static sizeof => 2
 
-    static packingSize => 2
+    static packingSize => 1
 
     /**
      * This bitfield backs the following members:

@@ -13,9 +13,9 @@
  */
 class EMRTEXT extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The logical coordinates of the reference point used to position the string.
@@ -63,7 +63,7 @@ class EMRTEXT extends Win32Struct
     rcl{
         get {
             if(!this.HasProp("__rcl"))
-                this.__rcl := RECTL(24, this)
+                this.__rcl := RECTL(20, this)
             return this.__rcl
         }
     }
@@ -73,7 +73,7 @@ class EMRTEXT extends Win32Struct
      * @type {Integer}
      */
     offDx {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 }

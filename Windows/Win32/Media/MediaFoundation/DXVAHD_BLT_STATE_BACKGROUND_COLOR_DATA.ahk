@@ -20,9 +20,9 @@
  */
 class DXVAHD_BLT_STATE_BACKGROUND_COLOR_DATA extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * If <b>TRUE</b>, the <b>BackgroundColor</b> member specifies a YCbCr color. Otherwise, it specifies an RGB color.  The default device state is <b>FALSE</b> (RGB color).
@@ -40,7 +40,7 @@ class DXVAHD_BLT_STATE_BACKGROUND_COLOR_DATA extends Win32Struct
     BackgroundColor{
         get {
             if(!this.HasProp("__BackgroundColor"))
-                this.__BackgroundColor := DXVAHD_COLOR(8, this)
+                this.__BackgroundColor := DXVAHD_COLOR(4, this)
             return this.__BackgroundColor
         }
     }

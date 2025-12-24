@@ -12,9 +12,9 @@
  */
 class FD_DEVICEMETRICS extends Win32Struct
 {
-    static sizeof => 136
+    static sizeof => 124
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * 
@@ -32,7 +32,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     pteBase{
         get {
             if(!this.HasProp("__pteBase"))
-                this.__pteBase := POINTE(8, this)
+                this.__pteBase := POINTE(4, this)
             return this.__pteBase
         }
     }
@@ -44,7 +44,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     pteSide{
         get {
             if(!this.HasProp("__pteSide"))
-                this.__pteSide := POINTE(16, this)
+                this.__pteSide := POINTE(12, this)
             return this.__pteSide
         }
     }
@@ -54,8 +54,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     lD {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -63,8 +63,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     fxMaxAscender {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 
     /**
@@ -72,8 +72,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     fxMaxDescender {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -83,7 +83,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     ptlUnderline1{
         get {
             if(!this.HasProp("__ptlUnderline1"))
-                this.__ptlUnderline1 := POINTL(40, this)
+                this.__ptlUnderline1 := POINTL(32, this)
             return this.__ptlUnderline1
         }
     }
@@ -95,7 +95,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     ptlStrikeOut{
         get {
             if(!this.HasProp("__ptlStrikeOut"))
-                this.__ptlStrikeOut := POINTL(48, this)
+                this.__ptlStrikeOut := POINTL(40, this)
             return this.__ptlStrikeOut
         }
     }
@@ -107,7 +107,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     ptlULThickness{
         get {
             if(!this.HasProp("__ptlULThickness"))
-                this.__ptlULThickness := POINTL(56, this)
+                this.__ptlULThickness := POINTL(48, this)
             return this.__ptlULThickness
         }
     }
@@ -119,7 +119,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     ptlSOThickness{
         get {
             if(!this.HasProp("__ptlSOThickness"))
-                this.__ptlSOThickness := POINTL(64, this)
+                this.__ptlSOThickness := POINTL(56, this)
             return this.__ptlSOThickness
         }
     }
@@ -129,8 +129,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     cxMax {
-        get => NumGet(this, 72, "uint")
-        set => NumPut("uint", value, this, 72)
+        get => NumGet(this, 64, "uint")
+        set => NumPut("uint", value, this, 64)
     }
 
     /**
@@ -138,8 +138,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     cyMax {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 
     /**
@@ -147,8 +147,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     cjGlyphMax {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**
@@ -158,7 +158,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     fdxQuantized{
         get {
             if(!this.HasProp("__fdxQuantized"))
-                this.__fdxQuantized := FD_XFORM(88, this)
+                this.__fdxQuantized := FD_XFORM(76, this)
             return this.__fdxQuantized
         }
     }
@@ -168,8 +168,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     lNonLinearExtLeading {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
     }
 
     /**
@@ -177,8 +177,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     lNonLinearIntLeading {
-        get => NumGet(this, 108, "int")
-        set => NumPut("int", value, this, 108)
+        get => NumGet(this, 96, "int")
+        set => NumPut("int", value, this, 96)
     }
 
     /**
@@ -186,8 +186,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     lNonLinearMaxCharWidth {
-        get => NumGet(this, 112, "int")
-        set => NumPut("int", value, this, 112)
+        get => NumGet(this, 100, "int")
+        set => NumPut("int", value, this, 100)
     }
 
     /**
@@ -195,8 +195,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     lNonLinearAvgCharWidth {
-        get => NumGet(this, 116, "int")
-        set => NumPut("int", value, this, 116)
+        get => NumGet(this, 104, "int")
+        set => NumPut("int", value, this, 104)
     }
 
     /**
@@ -204,8 +204,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     lMinA {
-        get => NumGet(this, 120, "int")
-        set => NumPut("int", value, this, 120)
+        get => NumGet(this, 108, "int")
+        set => NumPut("int", value, this, 108)
     }
 
     /**
@@ -213,8 +213,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     lMinC {
-        get => NumGet(this, 124, "int")
-        set => NumPut("int", value, this, 124)
+        get => NumGet(this, 112, "int")
+        set => NumPut("int", value, this, 112)
     }
 
     /**
@@ -222,8 +222,8 @@ class FD_DEVICEMETRICS extends Win32Struct
      * @type {Integer}
      */
     lMinD {
-        get => NumGet(this, 128, "int")
-        set => NumPut("int", value, this, 128)
+        get => NumGet(this, 116, "int")
+        set => NumPut("int", value, this, 116)
     }
 
     /**
@@ -233,7 +233,7 @@ class FD_DEVICEMETRICS extends Win32Struct
     alReserved{
         get {
             if(!this.HasProp("__alReservedProxyArray"))
-                this.__alReservedProxyArray := Win32FixedArray(this.ptr + 132, 1, Primitive, "int")
+                this.__alReservedProxyArray := Win32FixedArray(this.ptr + 120, 1, Primitive, "int")
             return this.__alReservedProxyArray
         }
     }

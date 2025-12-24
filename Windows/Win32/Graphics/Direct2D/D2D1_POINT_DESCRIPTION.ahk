@@ -10,9 +10,9 @@
  */
 class D2D1_POINT_DESCRIPTION extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The end point after walking the path.

@@ -8,9 +8,9 @@
  */
 class INFORMATIONCARD_HASH_CRYPTO_PARAMETERS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class INFORMATIONCARD_HASH_CRYPTO_PARAMETERS extends Win32Struct
     transform{
         get {
             if(!this.HasProp("__transform"))
-                this.__transform := INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS(8, this)
+                this.__transform := INFORMATIONCARD_TRANSFORM_CRYPTO_PARAMETERS(4, this)
             return this.__transform
         }
     }

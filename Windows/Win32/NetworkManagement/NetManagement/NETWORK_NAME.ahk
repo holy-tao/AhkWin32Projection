@@ -10,7 +10,7 @@ class NETWORK_NAME extends Win32Struct
 {
     static sizeof => 6
 
-    static packingSize => 6
+    static packingSize => 2
 
     /**
      * @type {FLAT_STRING}

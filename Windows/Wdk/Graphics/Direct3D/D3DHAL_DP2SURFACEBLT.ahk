@@ -8,9 +8,9 @@
  */
 class D3DHAL_DP2SURFACEBLT extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class D3DHAL_DP2SURFACEBLT extends Win32Struct
     rSource{
         get {
             if(!this.HasProp("__rSource"))
-                this.__rSource := RECTL(8, this)
+                this.__rSource := RECTL(4, this)
             return this.__rSource
         }
     }
@@ -35,16 +35,16 @@ class D3DHAL_DP2SURFACEBLT extends Win32Struct
      * @type {Integer}
      */
     dwSourceMipLevel {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {Integer}
      */
     dwDest {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -53,7 +53,7 @@ class D3DHAL_DP2SURFACEBLT extends Win32Struct
     rDest{
         get {
             if(!this.HasProp("__rDest"))
-                this.__rDest := RECTL(32, this)
+                this.__rDest := RECTL(28, this)
             return this.__rDest
         }
     }
@@ -62,15 +62,15 @@ class D3DHAL_DP2SURFACEBLT extends Win32Struct
      * @type {Integer}
      */
     dwDestMipLevel {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

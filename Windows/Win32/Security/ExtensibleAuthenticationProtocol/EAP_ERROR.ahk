@@ -11,7 +11,7 @@
  */
 class EAP_ERROR extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 64
 
     static packingSize => 8
 
@@ -31,7 +31,7 @@ class EAP_ERROR extends Win32Struct
     type{
         get {
             if(!this.HasProp("__type"))
-                this.__type := EAP_METHOD_TYPE(8, this)
+                this.__type := EAP_METHOD_TYPE(4, this)
             return this.__type
         }
     }
@@ -41,8 +41,8 @@ class EAP_ERROR extends Win32Struct
      * @type {Integer}
      */
     dwReasonCode {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -365,8 +365,8 @@ class EAP_ERROR extends Win32Struct
      * @type {Pointer<Guid>}
      */
     rootCauseGuid {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
     }
 
     /**
@@ -448,8 +448,8 @@ class EAP_ERROR extends Win32Struct
      * @type {Pointer<Guid>}
      */
     repairGuid {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+        get => NumGet(this, 32, "ptr")
+        set => NumPut("ptr", value, this, 32)
     }
 
     /**
@@ -526,8 +526,8 @@ class EAP_ERROR extends Win32Struct
      * @type {Pointer<Guid>}
      */
     helpLinkGuid {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+        get => NumGet(this, 40, "ptr")
+        set => NumPut("ptr", value, this, 40)
     }
 
     /**
@@ -535,8 +535,8 @@ class EAP_ERROR extends Win32Struct
      * @type {PWSTR}
      */
     pRootCauseString {
-        get => NumGet(this, 56, "ptr")
-        set => NumPut("ptr", value, this, 56)
+        get => NumGet(this, 48, "ptr")
+        set => NumPut("ptr", value, this, 48)
     }
 
     /**
@@ -544,7 +544,7 @@ class EAP_ERROR extends Win32Struct
      * @type {PWSTR}
      */
     pRepairString {
-        get => NumGet(this, 64, "ptr")
-        set => NumPut("ptr", value, this, 64)
+        get => NumGet(this, 56, "ptr")
+        set => NumPut("ptr", value, this, 56)
     }
 }

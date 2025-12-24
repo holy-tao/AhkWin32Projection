@@ -517,7 +517,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     RESCAP{
         get {
             if(!this.HasProp("__RESCAP"))
-                this.__RESCAP := NVM_RESERVATION_CAPABILITIES(32, this)
+                this.__RESCAP := NVM_RESERVATION_CAPABILITIES(31, this)
             return this.__RESCAP
         }
     }
@@ -529,7 +529,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     FPI{
         get {
             if(!this.HasProp("__FPI"))
-                this.__FPI := %this.__Class%._FPI(34, this)
+                this.__FPI := %this.__Class%._FPI(33, this)
             return this.__FPI
         }
     }
@@ -540,7 +540,7 @@ class NVME_IDENTIFY_NAMESPACE_DATA extends Win32Struct
     DLFEAT{
         get {
             if(!this.HasProp("__DLFEAT"))
-                this.__DLFEAT := %this.__Class%._DLFEAT(35, this)
+                this.__DLFEAT := %this.__Class%._DLFEAT(34, this)
             return this.__DLFEAT
         }
     }

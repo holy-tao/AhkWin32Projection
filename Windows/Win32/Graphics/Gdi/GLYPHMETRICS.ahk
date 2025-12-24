@@ -12,9 +12,9 @@
  */
 class GLYPHMETRICS extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The width of the smallest rectangle that completely encloses the glyph (its black box).

@@ -9,9 +9,9 @@
  */
 class TCP_REQUEST_SET_INFORMATION_EX extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {TDIObjectID}
@@ -28,8 +28,8 @@ class TCP_REQUEST_SET_INFORMATION_EX extends Win32Struct
      * @type {Integer}
      */
     BufferSize {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -38,7 +38,7 @@ class TCP_REQUEST_SET_INFORMATION_EX extends Win32Struct
     Buffer{
         get {
             if(!this.HasProp("__BufferProxyArray"))
-                this.__BufferProxyArray := Win32FixedArray(this.ptr + 28, 1, Primitive, "char")
+                this.__BufferProxyArray := Win32FixedArray(this.ptr + 24, 1, Primitive, "char")
             return this.__BufferProxyArray
         }
     }

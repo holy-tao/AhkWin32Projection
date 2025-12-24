@@ -12,9 +12,9 @@
  */
 class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The previous network state for a data peer on the wireless Hosted Network.
@@ -35,7 +35,7 @@ class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE extends Win32Struct
     NewState{
         get {
             if(!this.HasProp("__NewState"))
-                this.__NewState := WLAN_HOSTED_NETWORK_PEER_STATE(16, this)
+                this.__NewState := WLAN_HOSTED_NETWORK_PEER_STATE(12, this)
             return this.__NewState
         }
     }
@@ -45,7 +45,7 @@ class WLAN_HOSTED_NETWORK_DATA_PEER_STATE_CHANGE extends Win32Struct
      * @type {Integer}
      */
     PeerStateChangeReason {
-        get => NumGet(this, 28, "int")
-        set => NumPut("int", value, this, 28)
+        get => NumGet(this, 24, "int")
+        set => NumPut("int", value, this, 24)
     }
 }

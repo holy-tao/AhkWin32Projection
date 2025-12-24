@@ -8,9 +8,9 @@
  */
 class MFExtendedCameraIntrinsic_IntrinsicModel extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -42,7 +42,7 @@ class MFExtendedCameraIntrinsic_IntrinsicModel extends Win32Struct
     CameraModel{
         get {
             if(!this.HasProp("__CameraModel"))
-                this.__CameraModel := MFCameraIntrinsic_CameraModel(16, this)
+                this.__CameraModel := MFCameraIntrinsic_CameraModel(12, this)
             return this.__CameraModel
         }
     }

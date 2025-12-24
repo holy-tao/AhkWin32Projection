@@ -18,8 +18,8 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     static packingSize => 8
 
     class _PhySpecificAttributes_e__Union extends Win32Struct {
-        static sizeof => 16
-        static packingSize => 8
+        static sizeof => 12
+        static packingSize => 4
 
         /**
          * @type {DOT11_HRDSSS_PHY_ATTRIBUTES}
@@ -138,8 +138,8 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
      * @type {Integer}
      */
     uNumberSupportedPowerLevels {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -148,7 +148,7 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
     TxPowerLevels{
         get {
             if(!this.HasProp("__TxPowerLevelsProxyArray"))
-                this.__TxPowerLevelsProxyArray := Win32FixedArray(this.ptr + 44, 8, Primitive, "uint")
+                this.__TxPowerLevelsProxyArray := Win32FixedArray(this.ptr + 40, 8, Primitive, "uint")
             return this.__TxPowerLevelsProxyArray
         }
     }
@@ -157,8 +157,8 @@ class DOT11_PHY_ATTRIBUTES extends Win32Struct
      * @type {Integer}
      */
     uNumDataRateMappingEntries {
-        get => NumGet(this, 76, "uint")
-        set => NumPut("uint", value, this, 76)
+        get => NumGet(this, 72, "uint")
+        set => NumPut("uint", value, this, 72)
     }
 
     /**

@@ -70,7 +70,7 @@ class POLYTEXTW extends Win32Struct
     rcl{
         get {
             if(!this.HasProp("__rcl"))
-                this.__rcl := RECT(32, this)
+                this.__rcl := RECT(28, this)
             return this.__rcl
         }
     }

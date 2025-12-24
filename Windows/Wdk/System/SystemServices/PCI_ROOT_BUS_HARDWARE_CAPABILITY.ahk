@@ -7,7 +7,7 @@
  */
 class PCI_ROOT_BUS_HARDWARE_CAPABILITY extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -23,46 +23,54 @@ class PCI_ROOT_BUS_HARDWARE_CAPABILITY extends Win32Struct
      * @type {BOOLEAN}
      */
     BusCapabilitiesFound {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     CurrentSpeedAndMode {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
      * @type {Integer}
      */
     SupportedSpeedsAndModes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
      * @type {BOOLEAN}
      */
     DeviceIDMessagingCapable {
-        get => NumGet(this, 20, "char")
-        set => NumPut("char", value, this, 20)
+        get => NumGet(this, 16, "char")
+        set => NumPut("char", value, this, 16)
     }
 
     /**
      * @type {Integer}
      */
     SecondaryBusWidth {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
      * @type {Pointer<PCI_ROOT_BUS_OSC_SUPPORT_FIELD>}
      */
     OscFeatureSupport {
+        get => NumGet(this, 24, "ptr")
+        set => NumPut("ptr", value, this, 24)
+    }
+
+    /**
+     * @type {Pointer<PCI_ROOT_BUS_OSC_CONTROL_FIELD>}
+     */
+    OscControlRequest {
         get => NumGet(this, 32, "ptr")
         set => NumPut("ptr", value, this, 32)
     }
@@ -70,16 +78,8 @@ class PCI_ROOT_BUS_HARDWARE_CAPABILITY extends Win32Struct
     /**
      * @type {Pointer<PCI_ROOT_BUS_OSC_CONTROL_FIELD>}
      */
-    OscControlRequest {
+    OscControlGranted {
         get => NumGet(this, 40, "ptr")
         set => NumPut("ptr", value, this, 40)
-    }
-
-    /**
-     * @type {Pointer<PCI_ROOT_BUS_OSC_CONTROL_FIELD>}
-     */
-    OscControlGranted {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
     }
 }

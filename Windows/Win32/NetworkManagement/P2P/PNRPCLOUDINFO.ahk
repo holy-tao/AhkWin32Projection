@@ -10,9 +10,9 @@
  */
 class PNRPCLOUDINFO extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Specifies the size of this structure.
@@ -30,7 +30,7 @@ class PNRPCLOUDINFO extends Win32Struct
     Cloud{
         get {
             if(!this.HasProp("__Cloud"))
-                this.__Cloud := PNRP_CLOUD_ID(8, this)
+                this.__Cloud := PNRP_CLOUD_ID(4, this)
             return this.__Cloud
         }
     }
@@ -40,8 +40,8 @@ class PNRPCLOUDINFO extends Win32Struct
      * @type {Integer}
      */
     enCloudState {
-        get => NumGet(this, 20, "int")
-        set => NumPut("int", value, this, 20)
+        get => NumGet(this, 16, "int")
+        set => NumPut("int", value, this, 16)
     }
 
     /**
@@ -49,7 +49,7 @@ class PNRPCLOUDINFO extends Win32Struct
      * @type {Integer}
      */
     enCloudFlags {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 }

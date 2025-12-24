@@ -10,7 +10,7 @@
  */
 class AUTHZ_AUDIT_EVENT_TYPE_OLD extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
     static packingSize => 8
 
@@ -63,7 +63,7 @@ class AUTHZ_AUDIT_EVENT_TYPE_OLD extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := AUTHZ_AUDIT_EVENT_TYPE_UNION(36, this)
+                this.__u := AUTHZ_AUDIT_EVENT_TYPE_UNION(32, this)
             return this.__u
         }
     }

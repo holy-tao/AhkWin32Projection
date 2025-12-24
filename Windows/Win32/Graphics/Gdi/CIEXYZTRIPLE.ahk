@@ -10,9 +10,9 @@
  */
 class CIEXYZTRIPLE extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 36
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The xyz coordinates of red endpoint.
@@ -33,7 +33,7 @@ class CIEXYZTRIPLE extends Win32Struct
     ciexyzGreen{
         get {
             if(!this.HasProp("__ciexyzGreen"))
-                this.__ciexyzGreen := CIEXYZ(16, this)
+                this.__ciexyzGreen := CIEXYZ(12, this)
             return this.__ciexyzGreen
         }
     }
@@ -45,7 +45,7 @@ class CIEXYZTRIPLE extends Win32Struct
     ciexyzBlue{
         get {
             if(!this.HasProp("__ciexyzBlue"))
-                this.__ciexyzBlue := CIEXYZ(32, this)
+                this.__ciexyzBlue := CIEXYZ(24, this)
             return this.__ciexyzBlue
         }
     }

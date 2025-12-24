@@ -12,7 +12,7 @@ class BLENDOBJ extends Win32Struct
 {
     static sizeof => 4
 
-    static packingSize => 4
+    static packingSize => 1
 
     /**
      * Is a BLENDFUNCTION structure (described in the Microsoft Window SDK documentation) that specifies the blending operation to use, the alpha transparency for the source bitmap, and the way the source and destination bitmaps are interpreted.

@@ -12,7 +12,7 @@ class CRYPTNET_URL_CACHE_PRE_FETCH_INFO extends Win32Struct
 {
     static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The size, in bytes, of this structure.

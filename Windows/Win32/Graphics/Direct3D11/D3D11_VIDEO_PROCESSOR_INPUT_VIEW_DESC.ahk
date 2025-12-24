@@ -12,7 +12,7 @@ class D3D11_VIDEO_PROCESSOR_INPUT_VIEW_DESC extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The surface format. If zero, the driver uses the DXGI format that was used to create the resource. If you are using feature level 9, the value must be zero.

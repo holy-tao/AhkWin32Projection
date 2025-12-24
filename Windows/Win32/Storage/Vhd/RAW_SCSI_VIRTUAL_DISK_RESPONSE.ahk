@@ -9,9 +9,9 @@
  */
 class RAW_SCSI_VIRTUAL_DISK_RESPONSE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [RAW_SCSI_VIRTUAL_DISK_PARAMETERS](./ns-virtdisk-raw_scsi_virtual_disk_parameters.md) structure being passed to or from the VHD functions.
@@ -58,7 +58,7 @@ class RAW_SCSI_VIRTUAL_DISK_RESPONSE extends Win32Struct
     Version1{
         get {
             if(!this.HasProp("__Version1"))
-                this.__Version1 := %this.__Class%._Version1(8, this)
+                this.__Version1 := %this.__Class%._Version1(4, this)
             return this.__Version1
         }
     }

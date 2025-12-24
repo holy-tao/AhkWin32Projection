@@ -9,9 +9,9 @@
  */
 class D3DKMT_SHAREDPRIMARYLOCKNOTIFICATION extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {LUID}
@@ -38,7 +38,7 @@ class D3DKMT_SHAREDPRIMARYLOCKNOTIFICATION extends Win32Struct
     LockRect{
         get {
             if(!this.HasProp("__LockRect"))
-                this.__LockRect := RECTL(16, this)
+                this.__LockRect := RECTL(12, this)
             return this.__LockRect
         }
     }

@@ -32,7 +32,7 @@ class DWM_TIMING_INFO extends Win32Struct
     rateRefresh{
         get {
             if(!this.HasProp("__rateRefresh"))
-                this.__rateRefresh := UNSIGNED_RATIO(8, this)
+                this.__rateRefresh := UNSIGNED_RATIO(4, this)
             return this.__rateRefresh
         }
     }

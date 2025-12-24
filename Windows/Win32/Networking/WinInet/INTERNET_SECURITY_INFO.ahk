@@ -55,7 +55,7 @@ class INTERNET_SECURITY_INFO extends Win32Struct
     cipherInfo{
         get {
             if(!this.HasProp("__cipherInfo"))
-                this.__cipherInfo := SecPkgContext_CipherInfo(56, this)
+                this.__cipherInfo := SecPkgContext_CipherInfo(52, this)
             return this.__cipherInfo
         }
     }

@@ -30,7 +30,7 @@ class DCIENUMINPUT extends Win32Struct
     rSrc{
         get {
             if(!this.HasProp("__rSrc"))
-                this.__rSrc := RECT(24, this)
+                this.__rSrc := RECT(20, this)
             return this.__rSrc
         }
     }
@@ -41,7 +41,7 @@ class DCIENUMINPUT extends Win32Struct
     rDst{
         get {
             if(!this.HasProp("__rDst"))
-                this.__rDst := RECT(40, this)
+                this.__rDst := RECT(36, this)
             return this.__rDst
         }
     }

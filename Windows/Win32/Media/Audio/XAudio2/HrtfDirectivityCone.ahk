@@ -14,7 +14,7 @@ class HrtfDirectivityCone extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Descriptor for the cone pattern. The type parameter must be set to HrtfDirectivityType.Cone.

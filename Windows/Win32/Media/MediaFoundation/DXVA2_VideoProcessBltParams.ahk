@@ -16,7 +16,7 @@
  */
 class DXVA2_VideoProcessBltParams extends Win32Struct
 {
-    static sizeof => 144
+    static sizeof => 120
 
     static packingSize => 8
 
@@ -79,7 +79,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
     BackgroundColor{
         get {
             if(!this.HasProp("__BackgroundColor"))
-                this.__BackgroundColor := DXVA2_AYUVSample16(40, this)
+                this.__BackgroundColor := DXVA2_AYUVSample16(36, this)
             return this.__BackgroundColor
         }
     }
@@ -91,7 +91,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
     DestFormat{
         get {
             if(!this.HasProp("__DestFormat"))
-                this.__DestFormat := DXVA2_ExtendedFormat(48, this)
+                this.__DestFormat := DXVA2_ExtendedFormat(44, this)
             return this.__DestFormat
         }
     }
@@ -103,7 +103,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
     ProcAmpValues{
         get {
             if(!this.HasProp("__ProcAmpValues"))
-                this.__ProcAmpValues := DXVA2_ProcAmpValues(56, this)
+                this.__ProcAmpValues := DXVA2_ProcAmpValues(48, this)
             return this.__ProcAmpValues
         }
     }
@@ -115,7 +115,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
     Alpha{
         get {
             if(!this.HasProp("__Alpha"))
-                this.__Alpha := DXVA2_Fixed32(72, this)
+                this.__Alpha := DXVA2_Fixed32(64, this)
             return this.__Alpha
         }
     }
@@ -127,7 +127,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
     NoiseFilterLuma{
         get {
             if(!this.HasProp("__NoiseFilterLuma"))
-                this.__NoiseFilterLuma := DXVA2_FilterValues(80, this)
+                this.__NoiseFilterLuma := DXVA2_FilterValues(68, this)
             return this.__NoiseFilterLuma
         }
     }
@@ -139,7 +139,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
     NoiseFilterChroma{
         get {
             if(!this.HasProp("__NoiseFilterChroma"))
-                this.__NoiseFilterChroma := DXVA2_FilterValues(96, this)
+                this.__NoiseFilterChroma := DXVA2_FilterValues(80, this)
             return this.__NoiseFilterChroma
         }
     }
@@ -151,7 +151,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
     DetailFilterLuma{
         get {
             if(!this.HasProp("__DetailFilterLuma"))
-                this.__DetailFilterLuma := DXVA2_FilterValues(112, this)
+                this.__DetailFilterLuma := DXVA2_FilterValues(92, this)
             return this.__DetailFilterLuma
         }
     }
@@ -163,7 +163,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
     DetailFilterChroma{
         get {
             if(!this.HasProp("__DetailFilterChroma"))
-                this.__DetailFilterChroma := DXVA2_FilterValues(128, this)
+                this.__DetailFilterChroma := DXVA2_FilterValues(104, this)
             return this.__DetailFilterChroma
         }
     }
@@ -216,7 +216,7 @@ class DXVA2_VideoProcessBltParams extends Win32Struct
      * @type {Integer}
      */
     DestData {
-        get => NumGet(this, 140, "uint")
-        set => NumPut("uint", value, this, 140)
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
     }
 }

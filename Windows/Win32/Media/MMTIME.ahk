@@ -7,9 +7,9 @@
  */
 class MMTIME extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _u_e__Union extends Win32Struct {
         static sizeof => 8
@@ -164,7 +164,7 @@ class MMTIME extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(8, this)
+                this.__u := %this.__Class%._u_e__Union(4, this)
             return this.__u
         }
     }

@@ -12,9 +12,9 @@
  */
 class IORING_INFO extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A [IORING_VERSION](../ntioring_x/ne-ntioring_x-ioring_version.md) structure representing the API version of the associated I/O ring.
@@ -32,7 +32,7 @@ class IORING_INFO extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := IORING_CREATE_FLAGS(8, this)
+                this.__Flags := IORING_CREATE_FLAGS(4, this)
             return this.__Flags
         }
     }
@@ -42,8 +42,8 @@ class IORING_INFO extends Win32Struct
      * @type {Integer}
      */
     SubmissionQueueSize {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -51,7 +51,7 @@ class IORING_INFO extends Win32Struct
      * @type {Integer}
      */
     CompletionQueueSize {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 }

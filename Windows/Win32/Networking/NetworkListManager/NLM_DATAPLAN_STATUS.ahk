@@ -11,7 +11,7 @@
  */
 class NLM_DATAPLAN_STATUS extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -43,8 +43,8 @@ class NLM_DATAPLAN_STATUS extends Win32Struct
      * @type {Integer}
      */
     DataLimitInMegabytes {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -52,8 +52,8 @@ class NLM_DATAPLAN_STATUS extends Win32Struct
      * @type {Integer}
      */
     InboundBandwidthInKbps {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -61,8 +61,8 @@ class NLM_DATAPLAN_STATUS extends Win32Struct
      * @type {Integer}
      */
     OutboundBandwidthInKbps {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 28, "uint")
+        set => NumPut("uint", value, this, 28)
     }
 
     /**
@@ -72,7 +72,7 @@ class NLM_DATAPLAN_STATUS extends Win32Struct
     NextBillingCycle{
         get {
             if(!this.HasProp("__NextBillingCycle"))
-                this.__NextBillingCycle := FILETIME(40, this)
+                this.__NextBillingCycle := FILETIME(32, this)
             return this.__NextBillingCycle
         }
     }
@@ -82,8 +82,8 @@ class NLM_DATAPLAN_STATUS extends Win32Struct
      * @type {Integer}
      */
     MaxTransferSizeInMegabytes {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -91,7 +91,7 @@ class NLM_DATAPLAN_STATUS extends Win32Struct
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

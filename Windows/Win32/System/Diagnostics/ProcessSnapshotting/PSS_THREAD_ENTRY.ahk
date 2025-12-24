@@ -104,7 +104,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
     CreateTime{
         get {
             if(!this.HasProp("__CreateTime"))
-                this.__CreateTime := FILETIME(56, this)
+                this.__CreateTime := FILETIME(52, this)
             return this.__CreateTime
         }
     }
@@ -116,7 +116,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
     ExitTime{
         get {
             if(!this.HasProp("__ExitTime"))
-                this.__ExitTime := FILETIME(64, this)
+                this.__ExitTime := FILETIME(60, this)
             return this.__ExitTime
         }
     }
@@ -128,7 +128,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
     KernelTime{
         get {
             if(!this.HasProp("__KernelTime"))
-                this.__KernelTime := FILETIME(72, this)
+                this.__KernelTime := FILETIME(68, this)
             return this.__KernelTime
         }
     }
@@ -140,7 +140,7 @@ class PSS_THREAD_ENTRY extends Win32Struct
     UserTime{
         get {
             if(!this.HasProp("__UserTime"))
-                this.__UserTime := FILETIME(80, this)
+                this.__UserTime := FILETIME(76, this)
             return this.__UserTime
         }
     }

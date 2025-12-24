@@ -10,7 +10,7 @@ class WINBIO_CAPTURE_DATA extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}

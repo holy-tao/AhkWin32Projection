@@ -15,7 +15,7 @@
  */
 class MONCBSTRUCT extends Win32Struct
 {
-    static sizeof => 160
+    static sizeof => 152
 
     static packingSize => 8
 
@@ -187,8 +187,8 @@ class MONCBSTRUCT extends Win32Struct
      * @type {Integer}
      */
     cbData {
-        get => NumGet(this, 120, "uint")
-        set => NumPut("uint", value, this, 120)
+        get => NumGet(this, 116, "uint")
+        set => NumPut("uint", value, this, 116)
     }
 
     /**
@@ -200,7 +200,7 @@ class MONCBSTRUCT extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__DataProxyArray"))
-                this.__DataProxyArray := Win32FixedArray(this.ptr + 124, 8, Primitive, "uint")
+                this.__DataProxyArray := Win32FixedArray(this.ptr + 120, 8, Primitive, "uint")
             return this.__DataProxyArray
         }
     }

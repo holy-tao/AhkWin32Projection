@@ -7,9 +7,9 @@
  */
 class IMAGE_SYMBOL extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _N_e__Union extends Win32Struct {
         static sizeof => 8

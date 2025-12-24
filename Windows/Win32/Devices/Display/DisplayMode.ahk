@@ -11,9 +11,9 @@
  */
 class DisplayMode extends Win32Struct
 {
-    static sizeof => 288
+    static sizeof => 284
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A single wide-character string that contains the name of the display device.

@@ -9,9 +9,9 @@
  */
 class IPX_PATTERN extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Src extends Win32Struct {
         static sizeof => 12
@@ -65,7 +65,7 @@ class IPX_PATTERN extends Win32Struct
     Dest{
         get {
             if(!this.HasProp("__Dest"))
-                this.__Dest := %this.__Class%._Src(16, this)
+                this.__Dest := %this.__Class%._Src(12, this)
             return this.__Dest
         }
     }

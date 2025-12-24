@@ -10,7 +10,7 @@ class NVMEOF_CONNECT_COMMAND extends Win32Struct
 {
     static sizeof => 64
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _CATTR_e__Union extends Win32Struct {
         static sizeof => 1

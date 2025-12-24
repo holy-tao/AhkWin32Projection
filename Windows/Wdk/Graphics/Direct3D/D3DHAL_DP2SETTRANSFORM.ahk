@@ -8,9 +8,9 @@
  */
 class D3DHAL_DP2SETTRANSFORM extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 68
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class D3DHAL_DP2SETTRANSFORM extends Win32Struct
     matrix{
         get {
             if(!this.HasProp("__matrix"))
-                this.__matrix := D3DMATRIX(8, this)
+                this.__matrix := D3DMATRIX(4, this)
             return this.__matrix
         }
     }

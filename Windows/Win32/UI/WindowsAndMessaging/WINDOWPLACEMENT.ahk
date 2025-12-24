@@ -17,9 +17,9 @@
  */
 class WINDOWPLACEMENT extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>UINT</b>
@@ -65,7 +65,7 @@ class WINDOWPLACEMENT extends Win32Struct
     ptMinPosition{
         get {
             if(!this.HasProp("__ptMinPosition"))
-                this.__ptMinPosition := POINT(16, this)
+                this.__ptMinPosition := POINT(12, this)
             return this.__ptMinPosition
         }
     }
@@ -79,7 +79,7 @@ class WINDOWPLACEMENT extends Win32Struct
     ptMaxPosition{
         get {
             if(!this.HasProp("__ptMaxPosition"))
-                this.__ptMaxPosition := POINT(24, this)
+                this.__ptMaxPosition := POINT(20, this)
             return this.__ptMaxPosition
         }
     }
@@ -93,7 +93,7 @@ class WINDOWPLACEMENT extends Win32Struct
     rcNormalPosition{
         get {
             if(!this.HasProp("__rcNormalPosition"))
-                this.__rcNormalPosition := RECT(32, this)
+                this.__rcNormalPosition := RECT(28, this)
             return this.__rcNormalPosition
         }
     }

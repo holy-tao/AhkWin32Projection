@@ -10,7 +10,7 @@ class DOT11_DISASSOCIATE_PEER_REQUEST extends Win32Struct
 {
     static sizeof => 12
 
-    static packingSize => 4
+    static packingSize => 2
 
     /**
      * @type {NDIS_OBJECT_HEADER}

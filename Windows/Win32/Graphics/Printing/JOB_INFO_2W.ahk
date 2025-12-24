@@ -244,7 +244,7 @@ class JOB_INFO_2W extends Win32Struct
     Submitted{
         get {
             if(!this.HasProp("__Submitted"))
-                this.__Submitted := SYSTEMTIME(136, this)
+                this.__Submitted := SYSTEMTIME(132, this)
             return this.__Submitted
         }
     }
@@ -254,8 +254,8 @@ class JOB_INFO_2W extends Win32Struct
      * @type {Integer}
      */
     Time {
-        get => NumGet(this, 152, "uint")
-        set => NumPut("uint", value, this, 152)
+        get => NumGet(this, 148, "uint")
+        set => NumPut("uint", value, this, 148)
     }
 
     /**
@@ -263,7 +263,7 @@ class JOB_INFO_2W extends Win32Struct
      * @type {Integer}
      */
     PagesPrinted {
-        get => NumGet(this, 156, "uint")
-        set => NumPut("uint", value, this, 156)
+        get => NumGet(this, 152, "uint")
+        set => NumPut("uint", value, this, 152)
     }
 }

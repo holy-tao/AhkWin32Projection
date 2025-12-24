@@ -57,7 +57,7 @@
  */
 class EVENT_TRACE_LOGFILEA extends Win32Struct
 {
-    static sizeof => 440
+    static sizeof => 432
 
     static packingSize => 8
 
@@ -190,8 +190,8 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * @type {Pointer<PEVENT_TRACE_BUFFER_CALLBACKA>}
      */
     BufferCallback {
-        get => NumGet(this, 392, "ptr")
-        set => NumPut("ptr", value, this, 392)
+        get => NumGet(this, 384, "ptr")
+        set => NumPut("ptr", value, this, 384)
     }
 
     /**
@@ -199,8 +199,8 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * @type {Integer}
      */
     BufferSize {
-        get => NumGet(this, 400, "uint")
-        set => NumPut("uint", value, this, 400)
+        get => NumGet(this, 392, "uint")
+        set => NumPut("uint", value, this, 392)
     }
 
     /**
@@ -209,8 +209,8 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * @type {Integer}
      */
     Filled {
-        get => NumGet(this, 404, "uint")
-        set => NumPut("uint", value, this, 404)
+        get => NumGet(this, 396, "uint")
+        set => NumPut("uint", value, this, 396)
     }
 
     /**
@@ -218,24 +218,24 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * @type {Integer}
      */
     EventsLost {
-        get => NumGet(this, 408, "uint")
-        set => NumPut("uint", value, this, 408)
+        get => NumGet(this, 400, "uint")
+        set => NumPut("uint", value, this, 400)
     }
 
     /**
      * @type {Pointer<PEVENT_CALLBACK>}
      */
     EventCallback {
-        get => NumGet(this, 416, "ptr")
-        set => NumPut("ptr", value, this, 416)
+        get => NumGet(this, 408, "ptr")
+        set => NumPut("ptr", value, this, 408)
     }
 
     /**
      * @type {Pointer<PEVENT_RECORD_CALLBACK>}
      */
     EventRecordCallback {
-        get => NumGet(this, 416, "ptr")
-        set => NumPut("ptr", value, this, 416)
+        get => NumGet(this, 408, "ptr")
+        set => NumPut("ptr", value, this, 408)
     }
 
     /**
@@ -244,8 +244,8 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * @type {Integer}
      */
     IsKernelTrace {
-        get => NumGet(this, 424, "uint")
-        set => NumPut("uint", value, this, 424)
+        get => NumGet(this, 416, "uint")
+        set => NumPut("uint", value, this, 416)
     }
 
     /**
@@ -261,7 +261,7 @@ class EVENT_TRACE_LOGFILEA extends Win32Struct
      * @type {Pointer<Void>}
      */
     Context {
-        get => NumGet(this, 432, "ptr")
-        set => NumPut("ptr", value, this, 432)
+        get => NumGet(this, 424, "ptr")
+        set => NumPut("ptr", value, this, 424)
     }
 }

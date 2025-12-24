@@ -10,9 +10,9 @@
  */
 class DOT11_WFD_DEVICE_INFO extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 56
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {NDIS_OBJECT_HEADER}
@@ -50,7 +50,7 @@ class DOT11_WFD_DEVICE_INFO extends Win32Struct
     PrimaryDeviceType{
         get {
             if(!this.HasProp("__PrimaryDeviceType"))
-                this.__PrimaryDeviceType := DOT11_WFD_DEVICE_TYPE(16, this)
+                this.__PrimaryDeviceType := DOT11_WFD_DEVICE_TYPE(12, this)
             return this.__PrimaryDeviceType
         }
     }
@@ -61,7 +61,7 @@ class DOT11_WFD_DEVICE_INFO extends Win32Struct
     DeviceName{
         get {
             if(!this.HasProp("__DeviceName"))
-                this.__DeviceName := DOT11_WPS_DEVICE_NAME(24, this)
+                this.__DeviceName := DOT11_WPS_DEVICE_NAME(20, this)
             return this.__DeviceName
         }
     }

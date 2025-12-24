@@ -30,9 +30,9 @@
  */
 class MIB_TCP6ROW extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 52
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b>MIB_TCP_STATE</b>
@@ -210,7 +210,7 @@ class MIB_TCP6ROW extends Win32Struct
     LocalAddr{
         get {
             if(!this.HasProp("__LocalAddr"))
-                this.__LocalAddr := IN6_ADDR(8, this)
+                this.__LocalAddr := IN6_ADDR(4, this)
             return this.__LocalAddr
         }
     }
@@ -222,8 +222,8 @@ class MIB_TCP6ROW extends Win32Struct
      * @type {Integer}
      */
     dwLocalScopeId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -235,8 +235,8 @@ class MIB_TCP6ROW extends Win32Struct
      * @type {Integer}
      */
     dwLocalPort {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 24, "uint")
+        set => NumPut("uint", value, this, 24)
     }
 
     /**
@@ -248,7 +248,7 @@ class MIB_TCP6ROW extends Win32Struct
     RemoteAddr{
         get {
             if(!this.HasProp("__RemoteAddr"))
-                this.__RemoteAddr := IN6_ADDR(32, this)
+                this.__RemoteAddr := IN6_ADDR(28, this)
             return this.__RemoteAddr
         }
     }
@@ -260,8 +260,8 @@ class MIB_TCP6ROW extends Win32Struct
      * @type {Integer}
      */
     dwRemoteScopeId {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -273,7 +273,7 @@ class MIB_TCP6ROW extends Win32Struct
      * @type {Integer}
      */
     dwRemotePort {
-        get => NumGet(this, 52, "uint")
-        set => NumPut("uint", value, this, 52)
+        get => NumGet(this, 48, "uint")
+        set => NumPut("uint", value, this, 48)
     }
 }

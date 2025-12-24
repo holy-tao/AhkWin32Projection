@@ -13,9 +13,9 @@
  */
 class WCM_DATAPLAN_STATUS extends Win32Struct
 {
-    static sizeof => 72
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wcmapi/ns-wcmapi-wcm_usage_data">WCM_USAGE_DATA</a></b>
@@ -38,8 +38,8 @@ class WCM_DATAPLAN_STATUS extends Win32Struct
      * @type {Integer}
      */
     DataLimitInMegabytes {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -49,8 +49,8 @@ class WCM_DATAPLAN_STATUS extends Win32Struct
      * @type {Integer}
      */
     InboundBandwidthInKbps {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**
@@ -60,8 +60,8 @@ class WCM_DATAPLAN_STATUS extends Win32Struct
      * @type {Integer}
      */
     OutboundBandwidthInKbps {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
@@ -73,7 +73,7 @@ class WCM_DATAPLAN_STATUS extends Win32Struct
     BillingCycle{
         get {
             if(!this.HasProp("__BillingCycle"))
-                this.__BillingCycle := WCM_BILLING_CYCLE_INFO(32, this)
+                this.__BillingCycle := WCM_BILLING_CYCLE_INFO(24, this)
             return this.__BillingCycle
         }
     }
@@ -85,8 +85,8 @@ class WCM_DATAPLAN_STATUS extends Win32Struct
      * @type {Integer}
      */
     MaxTransferSizeInMegabytes {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 52, "uint")
+        set => NumPut("uint", value, this, 52)
     }
 
     /**
@@ -96,7 +96,7 @@ class WCM_DATAPLAN_STATUS extends Win32Struct
      * @type {Integer}
      */
     Reserved {
-        get => NumGet(this, 68, "uint")
-        set => NumPut("uint", value, this, 68)
+        get => NumGet(this, 56, "uint")
+        set => NumPut("uint", value, this, 56)
     }
 }

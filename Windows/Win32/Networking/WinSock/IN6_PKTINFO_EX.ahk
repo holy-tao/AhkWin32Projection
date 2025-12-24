@@ -10,9 +10,9 @@
  */
 class IN6_PKTINFO_EX extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {IN6_PKTINFO}
@@ -31,7 +31,7 @@ class IN6_PKTINFO_EX extends Win32Struct
     scope_id{
         get {
             if(!this.HasProp("__scope_id"))
-                this.__scope_id := SCOPE_ID(24, this)
+                this.__scope_id := SCOPE_ID(20, this)
             return this.__scope_id
         }
     }

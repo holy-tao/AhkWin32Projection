@@ -9,9 +9,9 @@
  */
 class SERIAL_BASIC_SETTINGS extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 44
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {SERIAL_TIMEOUTS}
@@ -30,7 +30,7 @@ class SERIAL_BASIC_SETTINGS extends Win32Struct
     HandFlow{
         get {
             if(!this.HasProp("__HandFlow"))
-                this.__HandFlow := SERIAL_HANDFLOW(24, this)
+                this.__HandFlow := SERIAL_HANDFLOW(20, this)
             return this.__HandFlow
         }
     }
@@ -39,15 +39,15 @@ class SERIAL_BASIC_SETTINGS extends Win32Struct
      * @type {Integer}
      */
     RxFifo {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
      * @type {Integer}
      */
     TxFifo {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 }

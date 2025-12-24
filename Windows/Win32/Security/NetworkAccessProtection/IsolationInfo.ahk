@@ -31,7 +31,7 @@ class IsolationInfo extends Win32Struct
     probEndTime{
         get {
             if(!this.HasProp("__probEndTime"))
-                this.__probEndTime := FILETIME(8, this)
+                this.__probEndTime := FILETIME(4, this)
             return this.__probEndTime
         }
     }

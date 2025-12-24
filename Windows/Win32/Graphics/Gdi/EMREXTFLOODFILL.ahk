@@ -13,7 +13,7 @@ class EMREXTFLOODFILL extends Win32Struct
 {
     static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * The base structure for all record types.

@@ -12,9 +12,9 @@
  */
 class DXGI_SURFACE_DESC extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -58,7 +58,7 @@ class DXGI_SURFACE_DESC extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(16, this)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(12, this)
             return this.__SampleDesc
         }
     }

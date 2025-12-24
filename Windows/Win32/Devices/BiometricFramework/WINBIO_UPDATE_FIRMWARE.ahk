@@ -8,9 +8,9 @@
  */
 class WINBIO_UPDATE_FIRMWARE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class WINBIO_UPDATE_FIRMWARE extends Win32Struct
     FirmwareData{
         get {
             if(!this.HasProp("__FirmwareData"))
-                this.__FirmwareData := WINBIO_DATA(8, this)
+                this.__FirmwareData := WINBIO_DATA(4, this)
             return this.__FirmwareData
         }
     }

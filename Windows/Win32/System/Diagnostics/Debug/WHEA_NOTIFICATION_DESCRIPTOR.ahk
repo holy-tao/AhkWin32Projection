@@ -10,11 +10,11 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
 {
     static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _u_e__Union extends Win32Struct {
         static sizeof => 24
-        static packingSize => 8
+        static packingSize => 4
 
         class _Polled extends Win32Struct {
             static sizeof => 4
@@ -520,7 +520,7 @@ class WHEA_NOTIFICATION_DESCRIPTOR extends Win32Struct
     Flags{
         get {
             if(!this.HasProp("__Flags"))
-                this.__Flags := WHEA_NOTIFICATION_FLAGS(4, this)
+                this.__Flags := WHEA_NOTIFICATION_FLAGS(2, this)
             return this.__Flags
         }
     }

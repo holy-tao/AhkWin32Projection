@@ -13,9 +13,9 @@
  */
 class LVTILEVIEWINFO extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 40
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
@@ -55,7 +55,7 @@ class LVTILEVIEWINFO extends Win32Struct
     sizeTile{
         get {
             if(!this.HasProp("__sizeTile"))
-                this.__sizeTile := SIZE(16, this)
+                this.__sizeTile := SIZE(12, this)
             return this.__sizeTile
         }
     }
@@ -67,8 +67,8 @@ class LVTILEVIEWINFO extends Win32Struct
      * @type {Integer}
      */
     cLines {
-        get => NumGet(this, 24, "int")
-        set => NumPut("int", value, this, 24)
+        get => NumGet(this, 20, "int")
+        set => NumPut("int", value, this, 20)
     }
 
     /**
@@ -81,13 +81,13 @@ class LVTILEVIEWINFO extends Win32Struct
     rcLabelMargin{
         get {
             if(!this.HasProp("__rcLabelMargin"))
-                this.__rcLabelMargin := RECT(32, this)
+                this.__rcLabelMargin := RECT(24, this)
             return this.__rcLabelMargin
         }
     }
 
     __New(ptrOrObj := 0, parent := ""){
         super.__New(ptrOrObj, parent)
-        this.cbSize := 48
+        this.cbSize := 40
     }
 }

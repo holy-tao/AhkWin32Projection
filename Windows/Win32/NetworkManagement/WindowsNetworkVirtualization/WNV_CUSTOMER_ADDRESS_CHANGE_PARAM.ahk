@@ -13,9 +13,9 @@
  */
 class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
 {
-    static sizeof => 80
+    static sizeof => 60
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {DL_EUI48}
@@ -32,8 +32,8 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
      * @type {Integer}
      */
     CAFamily {
-        get => NumGet(this, 24, "ushort")
-        set => NumPut("ushort", value, this, 24)
+        get => NumGet(this, 14, "ushort")
+        set => NumPut("ushort", value, this, 14)
     }
 
     /**
@@ -42,7 +42,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     CA{
         get {
             if(!this.HasProp("__CA"))
-                this.__CA := WNV_IP_ADDRESS(32, this)
+                this.__CA := WNV_IP_ADDRESS(16, this)
             return this.__CA
         }
     }
@@ -51,16 +51,16 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
      * @type {Integer}
      */
     VirtualSubnetId {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     PAFamily {
-        get => NumGet(this, 52, "ushort")
-        set => NumPut("ushort", value, this, 52)
+        get => NumGet(this, 36, "ushort")
+        set => NumPut("ushort", value, this, 36)
     }
 
     /**
@@ -69,7 +69,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
     PA{
         get {
             if(!this.HasProp("__PA"))
-                this.__PA := WNV_IP_ADDRESS(56, this)
+                this.__PA := WNV_IP_ADDRESS(40, this)
             return this.__PA
         }
     }
@@ -78,7 +78,7 @@ class WNV_CUSTOMER_ADDRESS_CHANGE_PARAM extends Win32Struct
      * @type {Integer}
      */
     NotificationReason {
-        get => NumGet(this, 72, "int")
-        set => NumPut("int", value, this, 72)
+        get => NumGet(this, 56, "int")
+        set => NumPut("int", value, this, 56)
     }
 }

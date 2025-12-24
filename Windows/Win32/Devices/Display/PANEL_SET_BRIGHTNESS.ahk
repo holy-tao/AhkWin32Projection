@@ -9,9 +9,9 @@
  */
 class PANEL_SET_BRIGHTNESS extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -25,24 +25,24 @@ class PANEL_SET_BRIGHTNESS extends Win32Struct
      * @type {Integer}
      */
     Level {
-        get => NumGet(this, 8, "char")
-        set => NumPut("char", value, this, 8)
+        get => NumGet(this, 4, "char")
+        set => NumPut("char", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     Millinits {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     TransitionTimeInMs {
-        get => NumGet(this, 12, "uint")
-        set => NumPut("uint", value, this, 12)
+        get => NumGet(this, 8, "uint")
+        set => NumPut("uint", value, this, 8)
     }
 
     /**
@@ -51,7 +51,7 @@ class PANEL_SET_BRIGHTNESS extends Win32Struct
     SensorData{
         get {
             if(!this.HasProp("__SensorData"))
-                this.__SensorData := PANEL_BRIGHTNESS_SENSOR_DATA(16, this)
+                this.__SensorData := PANEL_BRIGHTNESS_SENSOR_DATA(12, this)
             return this.__SensorData
         }
     }

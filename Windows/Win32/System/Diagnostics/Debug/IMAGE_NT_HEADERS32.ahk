@@ -23,7 +23,7 @@
  */
 class IMAGE_NT_HEADERS32 extends Win32Struct
 {
-    static sizeof => 256
+    static sizeof => 248
 
     static packingSize => 8
 
@@ -44,7 +44,7 @@ class IMAGE_NT_HEADERS32 extends Win32Struct
     FileHeader{
         get {
             if(!this.HasProp("__FileHeader"))
-                this.__FileHeader := IMAGE_FILE_HEADER(8, this)
+                this.__FileHeader := IMAGE_FILE_HEADER(4, this)
             return this.__FileHeader
         }
     }
@@ -57,7 +57,7 @@ class IMAGE_NT_HEADERS32 extends Win32Struct
     OptionalHeader{
         get {
             if(!this.HasProp("__OptionalHeader"))
-                this.__OptionalHeader := IMAGE_OPTIONAL_HEADER32(32, this)
+                this.__OptionalHeader := IMAGE_OPTIONAL_HEADER32(24, this)
             return this.__OptionalHeader
         }
     }

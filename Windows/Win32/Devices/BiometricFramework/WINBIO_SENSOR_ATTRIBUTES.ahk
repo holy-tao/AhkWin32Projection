@@ -9,7 +9,7 @@
  */
 class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
 {
-    static sizeof => 1592
+    static sizeof => 1584
 
     static packingSize => 8
 
@@ -103,7 +103,7 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     FirmwareVersion{
         get {
             if(!this.HasProp("__FirmwareVersion"))
-                this.__FirmwareVersion := WINBIO_VERSION(1568, this)
+                this.__FirmwareVersion := WINBIO_VERSION(1564, this)
             return this.__FirmwareVersion
         }
     }
@@ -112,8 +112,8 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
      * @type {Integer}
      */
     SupportedFormatEntries {
-        get => NumGet(this, 1576, "uint")
-        set => NumPut("uint", value, this, 1576)
+        get => NumGet(this, 1572, "uint")
+        set => NumPut("uint", value, this, 1572)
     }
 
     /**
@@ -122,7 +122,7 @@ class WINBIO_SENSOR_ATTRIBUTES extends Win32Struct
     SupportedFormat{
         get {
             if(!this.HasProp("__SupportedFormatProxyArray"))
-                this.__SupportedFormatProxyArray := Win32FixedArray(this.ptr + 1584, 1, WINBIO_REGISTERED_FORMAT, "")
+                this.__SupportedFormatProxyArray := Win32FixedArray(this.ptr + 1576, 1, WINBIO_REGISTERED_FORMAT, "")
             return this.__SupportedFormatProxyArray
         }
     }

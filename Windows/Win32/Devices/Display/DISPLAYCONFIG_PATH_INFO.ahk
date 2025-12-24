@@ -13,9 +13,9 @@
  */
 class DISPLAYCONFIG_PATH_INFO extends Win32Struct
 {
-    static sizeof => 88
+    static sizeof => 72
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-displayconfig_path_source_info">DISPLAYCONFIG_PATH_SOURCE_INFO</a> structure that contains the source information for the path.
@@ -36,7 +36,7 @@ class DISPLAYCONFIG_PATH_INFO extends Win32Struct
     targetInfo{
         get {
             if(!this.HasProp("__targetInfo"))
-                this.__targetInfo := DISPLAYCONFIG_PATH_TARGET_INFO(24, this)
+                this.__targetInfo := DISPLAYCONFIG_PATH_TARGET_INFO(20, this)
             return this.__targetInfo
         }
     }
@@ -84,7 +84,7 @@ class DISPLAYCONFIG_PATH_INFO extends Win32Struct
      * @type {Integer}
      */
     flags {
-        get => NumGet(this, 80, "uint")
-        set => NumPut("uint", value, this, 80)
+        get => NumGet(this, 68, "uint")
+        set => NumPut("uint", value, this, 68)
     }
 }

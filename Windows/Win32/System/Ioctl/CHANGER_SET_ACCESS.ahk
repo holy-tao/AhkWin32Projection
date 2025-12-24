@@ -10,9 +10,9 @@
  */
 class CHANGER_SET_ACCESS extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * A
