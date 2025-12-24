@@ -10,13 +10,13 @@
  */
 class RFCOMM_COMMAND extends Win32Struct
 {
-    static sizeof => 14
+    static sizeof => 12
 
-    static packingSize => 7
+    static packingSize => 4
 
     class _Data_e__Union extends Win32Struct {
         static sizeof => 7
-        static packingSize => 7
+        static packingSize => 1
 
         /**
          * @type {RFCOMM_MSC_DATA}
@@ -67,7 +67,7 @@ class RFCOMM_COMMAND extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._Data_e__Union(7, this)
+                this.__Data := %this.__Class%._Data_e__Union(4, this)
             return this.__Data
         }
     }

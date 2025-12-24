@@ -8,9 +8,9 @@
  */
 class D3DHAL_DP2VOLUMEBLT extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -58,7 +58,7 @@ class D3DHAL_DP2VOLUMEBLT extends Win32Struct
     srcBox{
         get {
             if(!this.HasProp("__srcBox"))
-                this.__srcBox := D3DBOX(24, this)
+                this.__srcBox := D3DBOX(20, this)
             return this.__srcBox
         }
     }
@@ -67,7 +67,7 @@ class D3DHAL_DP2VOLUMEBLT extends Win32Struct
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 48, "uint")
-        set => NumPut("uint", value, this, 48)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 }

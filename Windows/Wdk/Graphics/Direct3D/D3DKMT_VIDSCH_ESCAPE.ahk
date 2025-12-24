@@ -7,7 +7,7 @@
  */
 class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -67,16 +67,16 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
      * @type {BOOL}
      */
     PreemptionControl {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
      * @type {BOOL}
      */
     EnableContextDelay {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
@@ -85,7 +85,7 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
     TdrControl2{
         get {
             if(!this.HasProp("__TdrControl2"))
-                this.__TdrControl2 := %this.__Class%._TdrControl2(8, this)
+                this.__TdrControl2 := %this.__Class%._TdrControl2(4, this)
             return this.__TdrControl2
         }
     }
@@ -94,24 +94,24 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
      * @type {BOOL}
      */
     SuspendScheduler {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     TdrControl {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
      * @type {Integer}
      */
     SuspendTime {
-        get => NumGet(this, 8, "uint")
-        set => NumPut("uint", value, this, 8)
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
     }
 
     /**
@@ -120,7 +120,7 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
     TdrLimit{
         get {
             if(!this.HasProp("__TdrLimit"))
-                this.__TdrLimit := %this.__Class%._TdrLimit(8, this)
+                this.__TdrLimit := %this.__Class%._TdrLimit(4, this)
             return this.__TdrLimit
         }
     }
@@ -129,15 +129,15 @@ class D3DKMT_VIDSCH_ESCAPE extends Win32Struct
      * @type {Integer}
      */
     PfnControl {
-        get => NumGet(this, 8, "int")
-        set => NumPut("int", value, this, 8)
+        get => NumGet(this, 4, "int")
+        set => NumPut("int", value, this, 4)
     }
 
     /**
      * @type {Pointer<D3DKMT_ESCAPE_VIRTUAL_REFRESH_RATE>}
      */
     VirtualRefreshRateControl {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+        get => NumGet(this, 16, "ptr")
+        set => NumPut("ptr", value, this, 16)
     }
 }

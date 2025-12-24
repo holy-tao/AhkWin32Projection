@@ -34,7 +34,7 @@ class CREATE_REDIRECTION_ECP_CONTEXT extends Win32Struct
     FileId{
         get {
             if(!this.HasProp("__FileId"))
-                this.__FileId := FILE_ID_128(8, this)
+                this.__FileId := FILE_ID_128(4, this)
             return this.__FileId
         }
     }

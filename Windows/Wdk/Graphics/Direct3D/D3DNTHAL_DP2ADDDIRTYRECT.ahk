@@ -8,9 +8,9 @@
  */
 class D3DNTHAL_DP2ADDDIRTYRECT extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 20
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class D3DNTHAL_DP2ADDDIRTYRECT extends Win32Struct
     rDirtyArea{
         get {
             if(!this.HasProp("__rDirtyArea"))
-                this.__rDirtyArea := RECTL(8, this)
+                this.__rDirtyArea := RECTL(4, this)
             return this.__rDirtyArea
         }
     }

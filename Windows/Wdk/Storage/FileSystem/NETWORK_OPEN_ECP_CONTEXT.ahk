@@ -7,9 +7,9 @@
  */
 class NETWORK_OPEN_ECP_CONTEXT extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -93,7 +93,7 @@ class NETWORK_OPEN_ECP_CONTEXT extends Win32Struct
     in{
         get {
             if(!this.HasProp("__in"))
-                this.__in := %this.__Class%._in(8, this)
+                this.__in := %this.__Class%._in(4, this)
             return this.__in
         }
     }
@@ -104,7 +104,7 @@ class NETWORK_OPEN_ECP_CONTEXT extends Win32Struct
     out{
         get {
             if(!this.HasProp("__out"))
-                this.__out := %this.__Class%._out(24, this)
+                this.__out := %this.__Class%._out(16, this)
             return this.__out
         }
     }

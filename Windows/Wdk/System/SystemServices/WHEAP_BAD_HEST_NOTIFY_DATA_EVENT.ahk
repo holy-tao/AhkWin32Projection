@@ -43,7 +43,7 @@ class WHEAP_BAD_HEST_NOTIFY_DATA_EVENT extends Win32Struct
     NotifyDesc{
         get {
             if(!this.HasProp("__NotifyDesc"))
-                this.__NotifyDesc := WHEA_NOTIFICATION_DESCRIPTOR(16, this)
+                this.__NotifyDesc := WHEA_NOTIFICATION_DESCRIPTOR(12, this)
             return this.__NotifyDesc
         }
     }

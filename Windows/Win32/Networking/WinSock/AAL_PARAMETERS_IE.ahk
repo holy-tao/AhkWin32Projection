@@ -9,13 +9,13 @@
  */
 class AAL_PARAMETERS_IE extends Win32Struct
 {
-    static sizeof => 24
+    static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _AALSpecificParameters_e__Union extends Win32Struct {
         static sizeof => 12
-        static packingSize => 8
+        static packingSize => 4
 
         /**
          * @type {AAL5_PARAMETERS}
@@ -55,7 +55,7 @@ class AAL_PARAMETERS_IE extends Win32Struct
     AALSpecificParameters{
         get {
             if(!this.HasProp("__AALSpecificParameters"))
-                this.__AALSpecificParameters := %this.__Class%._AALSpecificParameters_e__Union(8, this)
+                this.__AALSpecificParameters := %this.__Class%._AALSpecificParameters_e__Union(4, this)
             return this.__AALSpecificParameters
         }
     }

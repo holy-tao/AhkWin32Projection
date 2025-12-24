@@ -8,9 +8,9 @@
  */
 class D3DHAL_DP2COLORFILL extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class D3DHAL_DP2COLORFILL extends Win32Struct
     rRect{
         get {
             if(!this.HasProp("__rRect"))
-                this.__rRect := RECTL(8, this)
+                this.__rRect := RECTL(4, this)
             return this.__rRect
         }
     }
@@ -35,7 +35,7 @@ class D3DHAL_DP2COLORFILL extends Win32Struct
      * @type {Integer}
      */
     Color {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

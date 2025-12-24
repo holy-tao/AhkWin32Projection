@@ -8,9 +8,9 @@
  */
 class FILE_LINK_ENTRY_FULL_ID_INFORMATION extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 28
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -26,7 +26,7 @@ class FILE_LINK_ENTRY_FULL_ID_INFORMATION extends Win32Struct
     ParentFileId{
         get {
             if(!this.HasProp("__ParentFileId"))
-                this.__ParentFileId := FILE_ID_128(8, this)
+                this.__ParentFileId := FILE_ID_128(4, this)
             return this.__ParentFileId
         }
     }
@@ -35,15 +35,15 @@ class FILE_LINK_ENTRY_FULL_ID_INFORMATION extends Win32Struct
      * @type {Integer}
      */
     FileNameLength {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 
     /**
      * @type {String}
      */
     FileName {
-        get => StrGet(this.ptr + 28, 0, "UTF-16")
-        set => StrPut(value, this.ptr + 28, 0, "UTF-16")
+        get => StrGet(this.ptr + 24, 0, "UTF-16")
+        set => StrPut(value, this.ptr + 24, 0, "UTF-16")
     }
 }

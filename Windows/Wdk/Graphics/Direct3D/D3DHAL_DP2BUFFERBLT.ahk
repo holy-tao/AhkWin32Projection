@@ -8,9 +8,9 @@
  */
 class D3DHAL_DP2BUFFERBLT extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -42,7 +42,7 @@ class D3DHAL_DP2BUFFERBLT extends Win32Struct
     rSrc{
         get {
             if(!this.HasProp("__rSrc"))
-                this.__rSrc := D3DRANGE(16, this)
+                this.__rSrc := D3DRANGE(12, this)
             return this.__rSrc
         }
     }
@@ -51,7 +51,7 @@ class D3DHAL_DP2BUFFERBLT extends Win32Struct
      * @type {Integer}
      */
     dwFlags {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

@@ -15,13 +15,13 @@
  */
 class INPUT_RECORD extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
-    static packingSize => 8
+    static packingSize => 4
 
     class _Event_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
+        static sizeof => 20
+        static packingSize => 4
 
         /**
          * @type {KEY_EVENT_RECORD}
@@ -106,7 +106,7 @@ class INPUT_RECORD extends Win32Struct
     Event{
         get {
             if(!this.HasProp("__Event"))
-                this.__Event := %this.__Class%._Event_e__Union(8, this)
+                this.__Event := %this.__Class%._Event_e__Union(4, this)
             return this.__Event
         }
     }

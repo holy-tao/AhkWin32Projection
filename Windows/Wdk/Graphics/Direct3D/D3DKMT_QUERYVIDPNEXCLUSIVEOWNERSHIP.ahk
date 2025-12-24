@@ -10,7 +10,7 @@
  */
 class D3DKMT_QUERYVIDPNEXCLUSIVEOWNERSHIP extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 32
 
     static packingSize => 8
 
@@ -50,7 +50,7 @@ class D3DKMT_QUERYVIDPNEXCLUSIVEOWNERSHIP extends Win32Struct
     AdapterLuid{
         get {
             if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(24, this)
+                this.__AdapterLuid := LUID(20, this)
             return this.__AdapterLuid
         }
     }
@@ -59,7 +59,7 @@ class D3DKMT_QUERYVIDPNEXCLUSIVEOWNERSHIP extends Win32Struct
      * @type {Integer}
      */
     OwnerType {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 }

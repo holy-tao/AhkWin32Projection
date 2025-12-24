@@ -8,7 +8,7 @@
  */
 class D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES2 extends Win32Struct
 {
-    static sizeof => 112
+    static sizeof => 104
 
     static packingSize => 8
 
@@ -26,7 +26,7 @@ class D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES2 extends Win32Struct
     SrcRect{
         get {
             if(!this.HasProp("__SrcRect"))
-                this.__SrcRect := RECT(8, this)
+                this.__SrcRect := RECT(4, this)
             return this.__SrcRect
         }
     }
@@ -37,7 +37,7 @@ class D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES2 extends Win32Struct
     DstRect{
         get {
             if(!this.HasProp("__DstRect"))
-                this.__DstRect := RECT(24, this)
+                this.__DstRect := RECT(20, this)
             return this.__DstRect
         }
     }
@@ -48,7 +48,7 @@ class D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES2 extends Win32Struct
     ClipRect{
         get {
             if(!this.HasProp("__ClipRect"))
-                this.__ClipRect := RECT(40, this)
+                this.__ClipRect := RECT(36, this)
             return this.__ClipRect
         }
     }
@@ -57,6 +57,14 @@ class D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES2 extends Win32Struct
      * @type {Integer}
      */
     Rotation {
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    Blend {
         get => NumGet(this, 56, "int")
         set => NumPut("int", value, this, 56)
     }
@@ -64,63 +72,71 @@ class D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES2 extends Win32Struct
     /**
      * @type {Integer}
      */
-    Blend {
-        get => NumGet(this, 60, "int")
-        set => NumPut("int", value, this, 60)
-    }
-
-    /**
-     * @type {Integer}
-     */
     DirtyRectCount {
-        get => NumGet(this, 64, "uint")
-        set => NumPut("uint", value, this, 64)
+        get => NumGet(this, 60, "uint")
+        set => NumPut("uint", value, this, 60)
     }
 
     /**
      * @type {Pointer<RECT>}
      */
     pDirtyRects {
-        get => NumGet(this, 72, "ptr")
-        set => NumPut("ptr", value, this, 72)
+        get => NumGet(this, 64, "ptr")
+        set => NumPut("ptr", value, this, 64)
     }
 
     /**
      * @type {Integer}
      */
     VideoFrameFormat {
-        get => NumGet(this, 80, "int")
-        set => NumPut("int", value, this, 80)
+        get => NumGet(this, 72, "int")
+        set => NumPut("int", value, this, 72)
     }
 
     /**
      * @type {Integer}
      */
     ColorSpace {
-        get => NumGet(this, 84, "int")
-        set => NumPut("int", value, this, 84)
+        get => NumGet(this, 76, "int")
+        set => NumPut("int", value, this, 76)
     }
 
     /**
      * @type {Integer}
      */
     StereoFormat {
-        get => NumGet(this, 88, "int")
-        set => NumPut("int", value, this, 88)
+        get => NumGet(this, 80, "int")
+        set => NumPut("int", value, this, 80)
     }
 
     /**
      * @type {BOOL}
      */
     StereoLeftViewFrame0 {
-        get => NumGet(this, 92, "int")
-        set => NumPut("int", value, this, 92)
+        get => NumGet(this, 84, "int")
+        set => NumPut("int", value, this, 84)
     }
 
     /**
      * @type {BOOL}
      */
     StereoBaseViewFrame0 {
+        get => NumGet(this, 88, "int")
+        set => NumPut("int", value, this, 88)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    StereoFlipMode {
+        get => NumGet(this, 92, "int")
+        set => NumPut("int", value, this, 92)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    StretchQuality {
         get => NumGet(this, 96, "int")
         set => NumPut("int", value, this, 96)
     }
@@ -128,24 +144,8 @@ class D3DKMT_MULTIPLANE_OVERLAY_ATTRIBUTES2 extends Win32Struct
     /**
      * @type {Integer}
      */
-    StereoFlipMode {
-        get => NumGet(this, 100, "int")
-        set => NumPut("int", value, this, 100)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    StretchQuality {
-        get => NumGet(this, 104, "int")
-        set => NumPut("int", value, this, 104)
-    }
-
-    /**
-     * @type {Integer}
-     */
     Reserved1 {
-        get => NumGet(this, 108, "uint")
-        set => NumPut("uint", value, this, 108)
+        get => NumGet(this, 100, "uint")
+        set => NumPut("uint", value, this, 100)
     }
 }

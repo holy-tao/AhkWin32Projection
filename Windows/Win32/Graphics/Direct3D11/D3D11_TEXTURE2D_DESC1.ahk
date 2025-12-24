@@ -18,9 +18,9 @@
  */
 class D3D11_TEXTURE2D_DESC1 extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 48
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * Texture width (in texels). The  range is from 1 to D3D11_REQ_TEXTURE2D_U_OR_V_DIMENSION (16384). For a texture cube-map, the  range is from 1 to D3D11_REQ_TEXTURECUBE_DIMENSION (16384). However, the range is actually constrained by the <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-devices-downlevel-intro">feature level</a> at which you create the rendering device. For more information about restrictions, see Remarks.
@@ -74,7 +74,7 @@ class D3D11_TEXTURE2D_DESC1 extends Win32Struct
     SampleDesc{
         get {
             if(!this.HasProp("__SampleDesc"))
-                this.__SampleDesc := DXGI_SAMPLE_DESC(24, this)
+                this.__SampleDesc := DXGI_SAMPLE_DESC(20, this)
             return this.__SampleDesc
         }
     }
@@ -84,8 +84,8 @@ class D3D11_TEXTURE2D_DESC1 extends Win32Struct
      * @type {Integer}
      */
     Usage {
-        get => NumGet(this, 32, "int")
-        set => NumPut("int", value, this, 32)
+        get => NumGet(this, 28, "int")
+        set => NumPut("int", value, this, 28)
     }
 
     /**
@@ -93,8 +93,8 @@ class D3D11_TEXTURE2D_DESC1 extends Win32Struct
      * @type {Integer}
      */
     BindFlags {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
@@ -102,8 +102,8 @@ class D3D11_TEXTURE2D_DESC1 extends Win32Struct
      * @type {Integer}
      */
     CPUAccessFlags {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -111,8 +111,8 @@ class D3D11_TEXTURE2D_DESC1 extends Win32Struct
      * @type {Integer}
      */
     MiscFlags {
-        get => NumGet(this, 44, "uint")
-        set => NumPut("uint", value, this, 44)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -129,7 +129,7 @@ class D3D11_TEXTURE2D_DESC1 extends Win32Struct
      * @type {Integer}
      */
     TextureLayout {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 44, "int")
+        set => NumPut("int", value, this, 44)
     }
 }

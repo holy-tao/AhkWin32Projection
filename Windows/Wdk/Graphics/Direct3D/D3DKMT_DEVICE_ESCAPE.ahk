@@ -7,9 +7,9 @@
  */
 class D3DKMT_DEVICE_ESCAPE extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -47,7 +47,7 @@ class D3DKMT_DEVICE_ESCAPE extends Win32Struct
     VidPnFromAllocation{
         get {
             if(!this.HasProp("__VidPnFromAllocation"))
-                this.__VidPnFromAllocation := %this.__Class%._VidPnFromAllocation(8, this)
+                this.__VidPnFromAllocation := %this.__Class%._VidPnFromAllocation(4, this)
             return this.__VidPnFromAllocation
         }
     }

@@ -27,7 +27,7 @@ class D3DKMT_QUERYSTATISTICS extends Win32Struct
     AdapterLuid{
         get {
             if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(8, this)
+                this.__AdapterLuid := LUID(4, this)
             return this.__AdapterLuid
         }
     }

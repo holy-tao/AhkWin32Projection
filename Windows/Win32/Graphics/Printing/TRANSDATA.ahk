@@ -9,7 +9,7 @@ class TRANSDATA extends Win32Struct
 {
     static sizeof => 6
 
-    static packingSize => 3
+    static packingSize => 2
 
     class _uCode_e__Union extends Win32Struct {
         static sizeof => 3
@@ -66,7 +66,7 @@ class TRANSDATA extends Win32Struct
     uCode{
         get {
             if(!this.HasProp("__uCode"))
-                this.__uCode := %this.__Class%._uCode_e__Union(3, this)
+                this.__uCode := %this.__Class%._uCode_e__Union(2, this)
             return this.__uCode
         }
     }

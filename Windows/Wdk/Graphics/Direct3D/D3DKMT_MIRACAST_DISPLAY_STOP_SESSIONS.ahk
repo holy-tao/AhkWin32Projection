@@ -10,7 +10,7 @@ class D3DKMT_MIRACAST_DISPLAY_STOP_SESSIONS extends Win32Struct
 {
     static sizeof => 16
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {LUID}

@@ -41,34 +41,6 @@ class SQL_INTERVAL_STRUCT extends Win32Struct
     
     }
 
-    class _intval_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 8
-
-        /**
-         * @type {SQL_YEAR_MONTH_STRUCT}
-         */
-        year_month{
-            get {
-                if(!this.HasProp("__year_month"))
-                    this.__year_month := SQL_YEAR_MONTH_STRUCT(0, this)
-                return this.__year_month
-            }
-        }
-    
-        /**
-         * @type {SQL_DAY_SECOND_STRUCT}
-         */
-        day_second{
-            get {
-                if(!this.HasProp("__day_second"))
-                    this.__day_second := SQL_DAY_SECOND_STRUCT(0, this)
-                return this.__day_second
-            }
-        }
-    
-    }
-
     /**
      * @type {Integer}
      */

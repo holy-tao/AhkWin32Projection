@@ -9,7 +9,7 @@
  */
 class D3DKMT_OPENADAPTERFROMHDC extends Win32Struct
 {
-    static sizeof => 32
+    static sizeof => 24
 
     static packingSize => 8
 
@@ -38,7 +38,7 @@ class D3DKMT_OPENADAPTERFROMHDC extends Win32Struct
     AdapterLuid{
         get {
             if(!this.HasProp("__AdapterLuid"))
-                this.__AdapterLuid := LUID(16, this)
+                this.__AdapterLuid := LUID(12, this)
             return this.__AdapterLuid
         }
     }
@@ -47,7 +47,7 @@ class D3DKMT_OPENADAPTERFROMHDC extends Win32Struct
      * @type {Integer}
      */
     VidPnSourceId {
-        get => NumGet(this, 24, "uint")
-        set => NumPut("uint", value, this, 24)
+        get => NumGet(this, 20, "uint")
+        set => NumPut("uint", value, this, 20)
     }
 }

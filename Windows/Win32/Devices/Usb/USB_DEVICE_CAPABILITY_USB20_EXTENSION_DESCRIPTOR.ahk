@@ -7,9 +7,9 @@
  */
 class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
 {
-    static sizeof => 8
+    static sizeof => 7
 
-    static packingSize => 4
+    static packingSize => 1
 
     class _bmAttributes_e__Union extends Win32Struct {
         static sizeof => 4
@@ -137,7 +137,7 @@ class USB_DEVICE_CAPABILITY_USB20_EXTENSION_DESCRIPTOR extends Win32Struct
     bmAttributes{
         get {
             if(!this.HasProp("__bmAttributes"))
-                this.__bmAttributes := %this.__Class%._bmAttributes_e__Union(4, this)
+                this.__bmAttributes := %this.__Class%._bmAttributes_e__Union(3, this)
             return this.__bmAttributes
         }
     }

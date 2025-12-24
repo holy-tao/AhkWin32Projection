@@ -10,9 +10,9 @@
  */
 class D3DNTHALDEVICEDESC_V1 extends Win32Struct
 {
-    static sizeof => 176
+    static sizeof => 172
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {Integer}
@@ -71,7 +71,7 @@ class D3DNTHALDEVICEDESC_V1 extends Win32Struct
     dlcLightingCaps{
         get {
             if(!this.HasProp("__dlcLightingCaps"))
-                this.__dlcLightingCaps := D3DLIGHTINGCAPS(32, this)
+                this.__dlcLightingCaps := D3DLIGHTINGCAPS(28, this)
             return this.__dlcLightingCaps
         }
     }
@@ -82,7 +82,7 @@ class D3DNTHALDEVICEDESC_V1 extends Win32Struct
     dpcLineCaps{
         get {
             if(!this.HasProp("__dpcLineCaps"))
-                this.__dpcLineCaps := D3DPRIMCAPS(48, this)
+                this.__dpcLineCaps := D3DPRIMCAPS(44, this)
             return this.__dpcLineCaps
         }
     }
@@ -93,7 +93,7 @@ class D3DNTHALDEVICEDESC_V1 extends Win32Struct
     dpcTriCaps{
         get {
             if(!this.HasProp("__dpcTriCaps"))
-                this.__dpcTriCaps := D3DPRIMCAPS(104, this)
+                this.__dpcTriCaps := D3DPRIMCAPS(100, this)
             return this.__dpcTriCaps
         }
     }
@@ -102,6 +102,14 @@ class D3DNTHALDEVICEDESC_V1 extends Win32Struct
      * @type {Integer}
      */
     dwDeviceRenderBitDepth {
+        get => NumGet(this, 156, "uint")
+        set => NumPut("uint", value, this, 156)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    dwDeviceZBufferBitDepth {
         get => NumGet(this, 160, "uint")
         set => NumPut("uint", value, this, 160)
     }
@@ -109,7 +117,7 @@ class D3DNTHALDEVICEDESC_V1 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwDeviceZBufferBitDepth {
+    dwMaxBufferSize {
         get => NumGet(this, 164, "uint")
         set => NumPut("uint", value, this, 164)
     }
@@ -117,16 +125,8 @@ class D3DNTHALDEVICEDESC_V1 extends Win32Struct
     /**
      * @type {Integer}
      */
-    dwMaxBufferSize {
+    dwMaxVertexCount {
         get => NumGet(this, 168, "uint")
         set => NumPut("uint", value, this, 168)
-    }
-
-    /**
-     * @type {Integer}
-     */
-    dwMaxVertexCount {
-        get => NumGet(this, 172, "uint")
-        set => NumPut("uint", value, this, 172)
     }
 }

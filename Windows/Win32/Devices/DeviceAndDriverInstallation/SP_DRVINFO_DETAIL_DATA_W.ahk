@@ -91,7 +91,7 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
     InfDate{
         get {
             if(!this.HasProp("__InfDate"))
-                this.__InfDate := FILETIME(8, this)
+                this.__InfDate := FILETIME(4, this)
             return this.__InfDate
         }
     }
@@ -103,8 +103,8 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
      * @type {Integer}
      */
     CompatIDsOffset {
-        get => NumGet(this, 16, "uint")
-        set => NumPut("uint", value, this, 16)
+        get => NumGet(this, 12, "uint")
+        set => NumPut("uint", value, this, 12)
     }
 
     /**
@@ -116,8 +116,8 @@ class SP_DRVINFO_DETAIL_DATA_W extends Win32Struct
      * @type {Integer}
      */
     CompatIDsLength {
-        get => NumGet(this, 20, "uint")
-        set => NumPut("uint", value, this, 20)
+        get => NumGet(this, 16, "uint")
+        set => NumPut("uint", value, this, 16)
     }
 
     /**

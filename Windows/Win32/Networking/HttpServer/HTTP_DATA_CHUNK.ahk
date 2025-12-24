@@ -146,7 +146,7 @@ class HTTP_DATA_CHUNK extends Win32Struct
 
     class _FromWinHttpFastForwarding extends Win32Struct {
         static sizeof => 16
-        static packingSize => 8
+        static packingSize => 1
 
         /**
          * @type {HTTP_WINHTTP_FAST_FORWARDING_DATA}

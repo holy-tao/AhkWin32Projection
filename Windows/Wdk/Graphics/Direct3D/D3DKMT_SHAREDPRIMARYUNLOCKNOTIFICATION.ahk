@@ -8,9 +8,9 @@
  */
 class D3DKMT_SHAREDPRIMARYUNLOCKNOTIFICATION extends Win32Struct
 {
-    static sizeof => 16
+    static sizeof => 12
 
-    static packingSize => 8
+    static packingSize => 4
 
     /**
      * @type {LUID}

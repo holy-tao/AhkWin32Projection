@@ -45,34 +45,6 @@ class PHONEINITIALIZEEXPARAMS extends Win32Struct
     
     }
 
-    class _Handles_e__Union extends Win32Struct {
-        static sizeof => 8
-        static packingSize => 1
-
-        /**
-         * @type {HANDLE}
-         */
-        hEvent{
-            get {
-                if(!this.HasProp("__hEvent"))
-                    this.__hEvent := HANDLE(0, this)
-                return this.__hEvent
-            }
-        }
-    
-        /**
-         * @type {HANDLE}
-         */
-        hCompletionPort{
-            get {
-                if(!this.HasProp("__hCompletionPort"))
-                    this.__hCompletionPort := HANDLE(0, this)
-                return this.__hCompletionPort
-            }
-        }
-    
-    }
-
     /**
      * Total size allocated to this data structure, in bytes.
      * @type {Integer}
