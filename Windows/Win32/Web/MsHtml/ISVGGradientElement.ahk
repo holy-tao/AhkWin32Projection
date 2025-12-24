@@ -37,6 +37,27 @@ class ISVGGradientElement extends IDispatch{
     static VTableNames => ["putref_gradientUnits", "get_gradientUnits", "putref_gradientTransform", "get_gradientTransform", "putref_spreadMethod", "get_spreadMethod"]
 
     /**
+     * @type {ISVGAnimatedEnumeration} 
+     */
+    gradientUnits {
+        get => this.get_gradientUnits()
+    }
+
+    /**
+     * @type {ISVGAnimatedTransformList} 
+     */
+    gradientTransform {
+        get => this.get_gradientTransform()
+    }
+
+    /**
+     * @type {ISVGAnimatedEnumeration} 
+     */
+    spreadMethod {
+        get => this.get_spreadMethod()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedEnumeration} v 
      * @returns {HRESULT} 

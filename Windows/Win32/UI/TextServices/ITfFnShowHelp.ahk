@@ -38,10 +38,28 @@ class ITfFnShowHelp extends ITfFunction{
     static VTableNames => ["Show"]
 
     /**
+     * ITfFnShowHelp::Show method
+     * @param {HWND} hwndParent Handle of the parent window. This value can be <b>NULL</b>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {HWND} hwndParent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnshowhelp-show
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnshowhelp-show
      */
     Show(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

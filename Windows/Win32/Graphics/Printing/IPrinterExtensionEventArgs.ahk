@@ -32,6 +32,55 @@ class IPrinterExtensionEventArgs extends IPrinterExtensionContext{
     static VTableNames => ["get_BidiNotification", "get_ReasonId", "get_Request", "get_SourceApplication", "get_DetailedReasonId", "get_WindowModal", "get_WindowParent"]
 
     /**
+     * @type {BSTR} 
+     */
+    BidiNotification {
+        get => this.get_BidiNotification()
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    ReasonId {
+        get => this.get_ReasonId()
+    }
+
+    /**
+     * @type {IPrinterExtensionRequest} 
+     */
+    Request {
+        get => this.get_Request()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SourceApplication {
+        get => this.get_SourceApplication()
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    DetailedReasonId {
+        get => this.get_DetailedReasonId()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    WindowModal {
+        get => this.get_WindowModal()
+    }
+
+    /**
+     * @type {HANDLE} 
+     */
+    WindowParent {
+        get => this.get_WindowParent()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

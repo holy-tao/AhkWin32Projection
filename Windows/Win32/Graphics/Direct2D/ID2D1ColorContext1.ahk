@@ -32,9 +32,11 @@ class ID2D1ColorContext1 extends ID2D1ColorContext{
     static VTableNames => ["GetColorContextType", "GetDXGIColorSpace", "GetSimpleColorProfile"]
 
     /**
+     * Retrieves the color context type.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_color_context_type">D2D1_COLOR_CONTEXT_TYPE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1colorcontext1-getcolorcontexttype
+     * This method returns color context type.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1colorcontext1-getcolorcontexttype
      */
     GetColorContextType() {
         result := ComCall(7, this, "int")
@@ -42,9 +44,11 @@ class ID2D1ColorContext1 extends ID2D1ColorContext{
     }
 
     /**
+     * Retrieves the DXGI color space of this context. Returns DXGI_COLOR_SPACE_CUSTOM when color context type is ICC.
+     * @returns {Integer} Type: <b>DXGI_COLOR_SPACE_TYPE</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1colorcontext1-getdxgicolorspace
+     * This method returns the DXGI color space of this context.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1colorcontext1-getdxgicolorspace
      */
     GetDXGIColorSpace() {
         result := ComCall(8, this, "int")
@@ -52,9 +56,11 @@ class ID2D1ColorContext1 extends ID2D1ColorContext{
     }
 
     /**
+     * Retrieves a set simple color profile.
+     * @returns {D2D1_SIMPLE_COLOR_PROFILE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_simple_color_profile">D2D1_SIMPLE_COLOR_PROFILE</a>*</b>
      * 
-     * @returns {D2D1_SIMPLE_COLOR_PROFILE} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1colorcontext1-getsimplecolorprofile
+     * Pointer to a D2D1_SIMPLE_COLOR_PROFILE that will contain the simple color profile when the method returns.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1colorcontext1-getsimplecolorprofile
      */
     GetSimpleColorProfile() {
         simpleProfile := D2D1_SIMPLE_COLOR_PROFILE()

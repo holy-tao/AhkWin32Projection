@@ -38,12 +38,35 @@ class IAMMediaContent2 extends IDispatch{
     static VTableNames => ["get_MediaParameter", "get_MediaParameterName", "get_PlaylistCount"]
 
     /**
+     */
+    PlaylistCount {
+        get => this.get_PlaylistCount()
+    }
+
+    /**
+     * The get_MediaParameter method retrieves the value of a custom parameter in the ASX file.
+     * @param {Integer} EntryNum Specifies the location of the parameter in the ASX file.
      * 
-     * @param {Integer} EntryNum 
-     * @param {BSTR} bstrName 
-     * @param {Pointer<BSTR>} pbstrValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iammediacontent2-get_mediaparameter
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>0</td>
+     * <td>The parameter is a direct child of the ASX node.</td>
+     * </tr>
+     * <tr>
+     * <td>&gt; 0</td>
+     * <td>The parameter is located inside an ENTRY tag; <i>EntryNum</i> specifies the entry, indexed from 1.</td>
+     * </tr>
+     * </table>
+     * @param {BSTR} bstrName Specifies the name of the parameter.
+     * @param {Pointer<BSTR>} pbstrValue Pointer to a variable that receives the value of the parameter.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iammediacontent2-get_mediaparameter
      */
     get_MediaParameter(EntryNum, bstrName, pbstrValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -53,12 +76,29 @@ class IAMMediaContent2 extends IDispatch{
     }
 
     /**
+     * The get_MediaParameterName method retrieves the name of a custom parameter in an ASX file.
+     * @param {Integer} EntryNum Specifies the location of the parameter in the ASX file.
      * 
-     * @param {Integer} EntryNum 
-     * @param {Integer} Index 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iammediacontent2-get_mediaparametername
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>0</td>
+     * <td>The parameter is a direct child of the ASX node.</td>
+     * </tr>
+     * <tr>
+     * <td>&gt; 0</td>
+     * <td>The parameter is located inside an ENTRY tag; <i>EntryNum</i> specifies the entry, indexed from 1.</td>
+     * </tr>
+     * </table>
+     * @param {Integer} Index Specifies the index of the parameter to retrieve, indexed from 1.
+     * @param {Pointer<BSTR>} pbstrName Pointer to a variable that receives the parameter name.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iammediacontent2-get_mediaparametername
      */
     get_MediaParameterName(EntryNum, Index, pbstrName) {
         result := ComCall(8, this, "int", EntryNum, "int", Index, "ptr", pbstrName, "HRESULT")
@@ -66,10 +106,10 @@ class IAMMediaContent2 extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pNumberEntries 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iammediacontent2-get_playlistcount
+     * The get_PlaylistCount method retrieves the number of entries in an ASX file.
+     * @param {Pointer<Integer>} pNumberEntries Pointer to a variable that receives the number of entries.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iammediacontent2-get_playlistcount
      */
     get_PlaylistCount(pNumberEntries) {
         pNumberEntriesMarshal := pNumberEntries is VarRef ? "int*" : "ptr"

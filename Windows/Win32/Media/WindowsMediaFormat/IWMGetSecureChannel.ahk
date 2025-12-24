@@ -32,9 +32,9 @@ class IWMGetSecureChannel extends IUnknown{
     static VTableNames => ["GetPeerSecureChannelInterface"]
 
     /**
-     * 
-     * @returns {IWMSecureChannel} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmgetsecurechannel-getpeersecurechannelinterface
+     * The GetPeerSecureChannelInterface method gets the IWMSecureChannel interface from the other communication party.
+     * @returns {IWMSecureChannel} An address of a pointer to the other communication party's <a href="https://docs.microsoft.com/windows/desktop/api/wmsecure/nn-wmsecure-iwmsecurechannel">IWMSecureChannel</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmgetsecurechannel-getpeersecurechannelinterface
      */
     GetPeerSecureChannelInterface() {
         result := ComCall(3, this, "ptr*", &ppPeer := 0, "HRESULT")

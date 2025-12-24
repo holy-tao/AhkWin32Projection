@@ -39,10 +39,10 @@ class IWdsTransportManager extends IDispatch{
     static VTableNames => ["GetWdsTransportServer"]
 
     /**
-     * 
-     * @param {BSTR} bszServerName 
-     * @returns {IWdsTransportServer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportmanager-getwdstransportserver
+     * Creates an object of the IWdsTransportServer interface that can be used to manage a WDS transport server. The method confirms that the system can reach a WDS transport server with the specified name.
+     * @param {BSTR} bszServerName The name of the WDS transport server to be represented by this object. This can be a NetBIOS name or a fully qualified DNS name. If the value is an empty string, the object represents the local computer.
+     * @returns {IWdsTransportServer} A pointer to the object of the  <a href="https://docs.microsoft.com/windows/desktop/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportserver">IWdsTransportServer</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportmanager-getwdstransportserver
      */
     GetWdsTransportServer(bszServerName) {
         bszServerName := bszServerName is String ? BSTR.Alloc(bszServerName).Value : bszServerName

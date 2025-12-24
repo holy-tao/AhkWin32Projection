@@ -29,6 +29,27 @@ class IRTCMediaEvent extends IDispatch{
     static VTableNames => ["get_MediaType", "get_EventType", "get_EventReason"]
 
     /**
+     * @type {Integer} 
+     */
+    MediaType {
+        get => this.get_MediaType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EventType {
+        get => this.get_EventType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EventReason {
+        get => this.get_EventReason()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

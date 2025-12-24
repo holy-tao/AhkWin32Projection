@@ -31,10 +31,10 @@ class IComTrackingInfoEvents extends IUnknown{
     static VTableNames => ["OnNewTrackingInfo"]
 
     /**
-     * 
-     * @param {IUnknown} pToplevelCollection 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtrackinginfoevents-onnewtrackinginfo
+     * Generated when the tracking information for a collection changes.
+     * @param {IUnknown} pToplevelCollection A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the collection for which the tracking information has changed.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfoevents-onnewtrackinginfo
      */
     OnNewTrackingInfo(pToplevelCollection) {
         result := ComCall(3, this, "ptr", pToplevelCollection, "HRESULT")

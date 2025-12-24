@@ -31,11 +31,17 @@ class IDCompositionVirtualSurface extends IDCompositionSurface{
     static VTableNames => ["Resize", "Trim"]
 
     /**
+     * Changes the logical size of this virtual surface object.
+     * @param {Integer} width Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} width 
-     * @param {Integer} height 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvirtualsurface-resize
+     * The new width of the virtual surface, in pixels. The maximum width is 16,777,216 pixels.
+     * @param {Integer} height Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The new height of the virtual surface, in pixels. The maximum height is 16,777,216 pixels.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvirtualsurface-resize
      */
     Resize(width, height) {
         result := ComCall(8, this, "uint", width, "uint", height, "HRESULT")
@@ -43,11 +49,17 @@ class IDCompositionVirtualSurface extends IDCompositionSurface{
     }
 
     /**
+     * Discards pixels that fall outside of the specified trim rectangles.
+     * @param {Pointer<RECT>} rectangles Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
-     * @param {Pointer<RECT>} rectangles 
-     * @param {Integer} count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvirtualsurface-trim
+     * An array of rectangles to keep.
+     * @param {Integer} count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of rectangles in the <i>rectangles</i> array.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvirtualsurface-trim
      */
     Trim(rectangles, count) {
         result := ComCall(9, this, "ptr", rectangles, "uint", count, "HRESULT")

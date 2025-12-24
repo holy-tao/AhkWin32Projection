@@ -31,9 +31,11 @@ class IHandlerInfo extends IUnknown{
     static VTableNames => ["GetApplicationDisplayName", "GetApplicationPublisher", "GetApplicationIconReference"]
 
     /**
+     * Retrieves the display name of the application that implemented the handler.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationdisplayname
+     * A pointer to a string that, when this method returns successfully, receives the display name. If no display name could be found, the name of the application's .exe file is used.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationdisplayname
      */
     GetApplicationDisplayName() {
         result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
@@ -41,9 +43,11 @@ class IHandlerInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the name of the publisher of the application that implemented the handler.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationpublisher
+     * A pointer to a string that, when this method returns successfully, receives the publisher's name.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationpublisher
      */
     GetApplicationPublisher() {
         result := ComCall(4, this, "ptr*", &value := 0, "HRESULT")
@@ -51,9 +55,11 @@ class IHandlerInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the icon of the application that implemented the handler.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationiconreference
+     * A pointer to a string that, when this method returns successfully, receives the path of the icon.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ihandlerinfo-getapplicationiconreference
      */
     GetApplicationIconReference() {
         result := ComCall(5, this, "ptr*", &value := 0, "HRESULT")

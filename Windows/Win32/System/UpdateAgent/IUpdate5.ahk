@@ -31,9 +31,28 @@ class IUpdate5 extends IUpdate4{
     static VTableNames => ["get_AutoSelection", "get_AutoDownload"]
 
     /**
+     * @type {Integer} 
+     */
+    AutoSelection {
+        get => this.get_AutoSelection()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutoDownload {
+        get => this.get_AutoDownload()
+    }
+
+    /**
+     * Gets a value indicating the automatic selection mode of update in the Control Panel of Windows Update.
+     * @remarks
+     * 
+     * The AutoSelection property indicates whether the update will be automatically selected when the user views the available updates in the Windows Update user interface.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate5-get_autoselection
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdate5-get_autoselection
      */
     get_AutoSelection() {
         result := ComCall(58, this, "int*", &retval := 0, "HRESULT")
@@ -41,9 +60,14 @@ class IUpdate5 extends IUpdate4{
     }
 
     /**
+     * Gets a value indicating the automatic download mode of update.
+     * @remarks
+     * 
+     * The AutoDownload property indicates whether the update will be automatically downloaded by Automatic Updates.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate5-get_autodownload
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdate5-get_autodownload
      */
     get_AutoDownload() {
         result := ComCall(59, this, "int*", &retval := 0, "HRESULT")

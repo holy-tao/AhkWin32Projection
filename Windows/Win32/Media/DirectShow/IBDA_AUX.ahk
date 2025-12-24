@@ -35,9 +35,9 @@ class IBDA_AUX extends IUnknown{
     static VTableNames => ["QueryCapabilities", "EnumCapability"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_aux-querycapabilities
+     * Gets the number of auxiliary connectors on the device.
+     * @returns {Integer} Receives the number of auxiliary connectors.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_aux-querycapabilities
      */
     QueryCapabilities() {
         result := ComCall(3, this, "uint*", &pdwNumAuxInputsBSTR := 0, "HRESULT")
@@ -45,15 +45,42 @@ class IBDA_AUX extends IUnknown{
     }
 
     /**
+     * Gets the capabilities of an auxiliary connector, specified by index.
+     * @param {Integer} dwIndex The zero-based index of the auxiliary connector. To get the number of connectors on the device, call <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_aux-querycapabilities">IBDA_AUX::QueryCapabilities</a>.
+     * @param {Pointer<Integer>} dwInputID Receives a unique identifier for the auxiliary connector.
+     * @param {Pointer<Guid>} pConnectorType Receives a GUID that specifies the type of connector.
      * 
-     * @param {Integer} dwIndex 
-     * @param {Pointer<Integer>} dwInputID 
-     * @param {Pointer<Guid>} pConnectorType 
-     * @param {Pointer<Integer>} ConnTypeNum 
-     * @param {Pointer<Integer>} NumVideoStds 
-     * @param {Pointer<Integer>} AnalogStds 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_aux-enumcapability
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="PBDA_AUX_CONNECTOR_TYPE_Composite"></a><a id="pbda_aux_connector_type_composite"></a><a id="PBDA_AUX_CONNECTOR_TYPE_COMPOSITE"></a><dl>
+     * <dt><b>PBDA_AUX_CONNECTOR_TYPE_Composite</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Composite video connector.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="PBDA_AUX_CONNECTOR_TYPE_SVideo"></a><a id="pbda_aux_connector_type_svideo"></a><a id="PBDA_AUX_CONNECTOR_TYPE_SVIDEO"></a><dl>
+     * <dt><b>PBDA_AUX_CONNECTOR_TYPE_SVideo</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * S-Video connector.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Pointer<Integer>} ConnTypeNum Receives a numeric identifier for the auxiliary input.
+     * @param {Pointer<Integer>} NumVideoStds Receives the number of analog video standards that the connector supports.
+     * @param {Pointer<Integer>} AnalogStds Receives a bitwise <b>OR</b> of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard</a> enumeration, specifying which analog video standards the connector supports.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_aux-enumcapability
      */
     EnumCapability(dwIndex, dwInputID, pConnectorType, ConnTypeNum, NumVideoStds, AnalogStds) {
         dwInputIDMarshal := dwInputID is VarRef ? "uint*" : "ptr"

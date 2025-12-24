@@ -37,9 +37,23 @@ class IMbnDeviceServicesContext extends IUnknown{
     static VTableNames => ["EnumerateDeviceServices", "GetDeviceService", "get_MaxCommandSize", "get_MaxDataSize"]
 
     /**
-     * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-enumeratedeviceservices
+     * @type {Integer} 
+     */
+    MaxCommandSize {
+        get => this.get_MaxCommandSize()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxDataSize {
+        get => this.get_MaxDataSize()
+    }
+
+    /**
+     * Gets the list of supported device services by the Mobile Broadband device.
+     * @returns {Pointer<SAFEARRAY>} Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ns-mbnapi-mbn_device_service">MBN_DEVICE_SERVICE</a> structures that contains the list of device service supported by the device. If <b>EnumerateDeviceServices</b> returns any value other than <b>S_OK</b>, <i>deviceServices</i> is <b>NULL</b>. Otherwise, upon completion, the calling program must free the allocated memory. Before freeing the array by calling <a href="https://docs.microsoft.com/windows/desktop/api/oleauto/nf-oleauto-safearraydestroy">SafeArrayDestroy</a>, the calling program must also free all the <b>BSTRs</b> in the<b>MBN_DEVICE_SERVICE</b> structure by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicescontext-enumeratedeviceservices
      */
     EnumerateDeviceServices() {
         result := ComCall(3, this, "ptr*", &deviceServices := 0, "HRESULT")
@@ -47,10 +61,10 @@ class IMbnDeviceServicesContext extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} deviceServiceID 
-     * @returns {IMbnDeviceService} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-getdeviceservice
+     * Gets the IMbnDeviceService object that can be used for communicating with a device service on the Mobile Broadband device.
+     * @param {BSTR} deviceServiceID The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbndeviceservice-get_deviceserviceid">deviceServiceID</a> of the Mobile Broadband device.
+     * @returns {IMbnDeviceService} The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicescontext-getdeviceservice
      */
     GetDeviceService(deviceServiceID) {
         deviceServiceID := deviceServiceID is String ? BSTR.Alloc(deviceServiceID).Value : deviceServiceID
@@ -60,9 +74,9 @@ class IMbnDeviceServicesContext extends IUnknown{
     }
 
     /**
-     * 
+     * The maximum length, in bytes, of data that can be associated with a device service SET or QUERY command.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-get_maxcommandsize
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicescontext-get_maxcommandsize
      */
     get_MaxCommandSize() {
         result := ComCall(5, this, "uint*", &maxCommandSize := 0, "HRESULT")
@@ -70,9 +84,9 @@ class IMbnDeviceServicesContext extends IUnknown{
     }
 
     /**
-     * 
+     * The maximum length, in bytes, of data that can be written to or read from a device service session.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicescontext-get_maxdatasize
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicescontext-get_maxdatasize
      */
     get_MaxDataSize() {
         result := ComCall(6, this, "uint*", &maxDataSize := 0, "HRESULT")

@@ -37,6 +37,31 @@ class DVD_COPY_PROTECT_KEY extends Win32Struct
     
     }
 
+    class _Parameters_e__Union extends Win32Struct {
+        static sizeof => 8
+        static packingSize => 1
+
+        /**
+         * @type {HANDLE}
+         */
+        FileHandle{
+            get {
+                if(!this.HasProp("__FileHandle"))
+                    this.__FileHandle := HANDLE(0, this)
+                return this.__FileHandle
+            }
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        TitleOffset {
+            get => NumGet(this, 0, "int64")
+            set => NumPut("int64", value, this, 0)
+        }
+    
+    }
+
     /**
      * @type {Integer}
      */

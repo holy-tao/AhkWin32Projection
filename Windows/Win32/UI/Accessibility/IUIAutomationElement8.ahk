@@ -31,9 +31,23 @@ class IUIAutomationElement8 extends IUIAutomationElement7{
     static VTableNames => ["get_CurrentHeadingLevel", "get_CachedHeadingLevel"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    CurrentHeadingLevel {
+        get => this.get_CurrentHeadingLevel()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedHeadingLevel {
+        get => this.get_CachedHeadingLevel()
+    }
+
+    /**
+     * Gets the current heading level of the automation element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_currentheadinglevel
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_currentheadinglevel
      */
     get_CurrentHeadingLevel() {
         result := ComCall(115, this, "int*", &retVal := 0, "HRESULT")
@@ -41,9 +55,9 @@ class IUIAutomationElement8 extends IUIAutomationElement7{
     }
 
     /**
-     * 
+     * Gets the cached heading level of the automation element.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_cachedheadinglevel
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_cachedheadinglevel
      */
     get_CachedHeadingLevel() {
         result := ComCall(116, this, "int*", &retVal := 0, "HRESULT")

@@ -31,13 +31,13 @@ class IPSITables extends IUnknown{
     static VTableNames => ["GetTable"]
 
     /**
-     * 
-     * @param {Integer} dwTSID 
-     * @param {Integer} dwTID_PID 
-     * @param {Integer} dwHashedVer 
-     * @param {Integer} dwPara4 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipsitables-gettable
+     * Gets an MPEG-2 Program Specific Information (PSI) table from an MPEG-2 transport stream. The table that is returned and its contents depend on the values of the three input parameters to this method.
+     * @param {Integer} dwTSID Transport stream identifier (TSID) for the table that is retrieved (bytes 0 - 15) and the original network ID (ONID) for an Event Information Table (EIT) that is retrieved (bytes 16 - 31).
+     * @param {Integer} dwTID_PID Table identifier (TID) or the program ID (PID) that identifies the transport stream packet.
+     * @param {Integer} dwHashedVer Hash value that identifies the table contents.
+     * @param {Integer} dwPara4 PID for a Program Mapping Table or the service ID (SID) for an EIT. Otherwise, not used.
+     * @returns {IUnknown} Pointer to  the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the table object that is retrieved. The caller is responsible for freeing the memory.
+     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipsitables-gettable
      */
     GetTable(dwTSID, dwTID_PID, dwHashedVer, dwPara4) {
         result := ComCall(3, this, "uint", dwTSID, "uint", dwTID_PID, "uint", dwHashedVer, "uint", dwPara4, "ptr*", &ppIUnknown := 0, "HRESULT")

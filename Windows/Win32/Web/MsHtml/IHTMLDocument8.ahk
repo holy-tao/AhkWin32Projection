@@ -31,6 +31,142 @@ class IHTMLDocument8 extends IDispatch{
     static VTableNames => ["put_onmscontentzoom", "get_onmscontentzoom", "put_onmspointerdown", "get_onmspointerdown", "put_onmspointermove", "get_onmspointermove", "put_onmspointerup", "get_onmspointerup", "put_onmspointerover", "get_onmspointerover", "put_onmspointerout", "get_onmspointerout", "put_onmspointercancel", "get_onmspointercancel", "put_onmspointerhover", "get_onmspointerhover", "put_onmsgesturestart", "get_onmsgesturestart", "put_onmsgesturechange", "get_onmsgesturechange", "put_onmsgestureend", "get_onmsgestureend", "put_onmsgesturehold", "get_onmsgesturehold", "put_onmsgesturetap", "get_onmsgesturetap", "put_onmsgesturedoubletap", "get_onmsgesturedoubletap", "put_onmsinertiastart", "get_onmsinertiastart", "elementsFromPoint", "elementsFromRect", "put_onmsmanipulationstatechanged", "get_onmsmanipulationstatechanged", "put_msCapsLockWarningOff", "get_msCapsLockWarningOff"]
 
     /**
+     * @type {VARIANT} 
+     */
+    onmscontentzoom {
+        get => this.get_onmscontentzoom()
+        set => this.put_onmscontentzoom(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointerdown {
+        get => this.get_onmspointerdown()
+        set => this.put_onmspointerdown(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointermove {
+        get => this.get_onmspointermove()
+        set => this.put_onmspointermove(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointerup {
+        get => this.get_onmspointerup()
+        set => this.put_onmspointerup(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointerover {
+        get => this.get_onmspointerover()
+        set => this.put_onmspointerover(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointerout {
+        get => this.get_onmspointerout()
+        set => this.put_onmspointerout(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointercancel {
+        get => this.get_onmspointercancel()
+        set => this.put_onmspointercancel(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmspointerhover {
+        get => this.get_onmspointerhover()
+        set => this.put_onmspointerhover(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgesturestart {
+        get => this.get_onmsgesturestart()
+        set => this.put_onmsgesturestart(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgesturechange {
+        get => this.get_onmsgesturechange()
+        set => this.put_onmsgesturechange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgestureend {
+        get => this.get_onmsgestureend()
+        set => this.put_onmsgestureend(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgesturehold {
+        get => this.get_onmsgesturehold()
+        set => this.put_onmsgesturehold(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgesturetap {
+        get => this.get_onmsgesturetap()
+        set => this.put_onmsgesturetap(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsgesturedoubletap {
+        get => this.get_onmsgesturedoubletap()
+        set => this.put_onmsgesturedoubletap(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsinertiastart {
+        get => this.get_onmsinertiastart()
+        set => this.put_onmsinertiastart(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmsmanipulationstatechanged {
+        get => this.get_onmsmanipulationstatechanged()
+        set => this.put_onmsmanipulationstatechanged(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    msCapsLockWarningOff {
+        get => this.get_msCapsLockWarningOff()
+        set => this.put_msCapsLockWarningOff(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

@@ -39,10 +39,10 @@ class ITsSbBaseNotifySink extends IUnknown{
     static VTableNames => ["OnError", "OnReportStatus"]
 
     /**
-     * 
-     * @param {HRESULT} hrError 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbbasenotifysink-onerror
+     * Reports an error condition to Remote Desktop Connection Broker (RD Connection Broker).
+     * @param {HRESULT} hrError The error condition.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbbasenotifysink-onerror
      */
     OnError(hrError) {
         result := ComCall(3, this, "int", hrError, "HRESULT")
@@ -50,11 +50,11 @@ class ITsSbBaseNotifySink extends IUnknown{
     }
 
     /**
-     * 
+     * Sends status messages to the Remote Desktop Connection (RDC) client regarding the processing of a client connection.
      * @param {Integer} messageType 
      * @param {Integer} messageID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbbasenotifysink-onreportstatus
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbbasenotifysink-onreportstatus
      */
     OnReportStatus(messageType, messageID) {
         result := ComCall(4, this, "int", messageType, "uint", messageID, "HRESULT")

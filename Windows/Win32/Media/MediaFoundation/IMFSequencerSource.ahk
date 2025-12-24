@@ -31,11 +31,11 @@ class IMFSequencerSource extends IUnknown{
     static VTableNames => ["AppendTopology", "DeleteTopology", "GetPresentationContext", "UpdateTopology", "UpdateTopologyFlags"]
 
     /**
-     * 
-     * @param {IMFTopology} pTopology 
-     * @param {Integer} dwFlags 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-appendtopology
+     * Adds a topology to the end of the queue.
+     * @param {IMFTopology} pTopology Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the topology. This pointer cannot be <b>NULL</b>. If an application passes <b>NULL</b>, the call fails with an E_INVALIDARG error code.
+     * @param {Integer} dwFlags A combination of flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfsequencertopologyflags">MFSequencerTopologyFlags</a> enumeration.
+     * @returns {Integer} Receives the sequencer element identifier for this topology.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsequencersource-appendtopology
      */
     AppendTopology(pTopology, dwFlags) {
         result := ComCall(3, this, "ptr", pTopology, "uint", dwFlags, "uint*", &pdwId := 0, "HRESULT")
@@ -43,10 +43,28 @@ class IMFSequencerSource extends IUnknown{
     }
 
     /**
+     * Deletes a topology from the queue.
+     * @param {Integer} dwId The sequencer element identifier of the topology to delete.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-deletetopology
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsequencersource-deletetopology
      */
     DeleteTopology(dwId) {
         result := ComCall(4, this, "uint", dwId, "HRESULT")
@@ -54,12 +72,52 @@ class IMFSequencerSource extends IUnknown{
     }
 
     /**
+     * Maps a presentation descriptor to its associated sequencer element identifier and the topology it represents.
+     * @param {IMFPresentationDescriptor} pPD Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationdescriptor">IMFPresentationDescriptor</a> interface of the presentation descriptor.
+     * @param {Pointer<Integer>} pId Receives the sequencer element identifier. This value is assigned by the sequencer source when the application calls <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsequencersource-appendtopology">IMFSequencerSource::AppendTopology</a>. This parameter is optional and can be <b>NULL</b>.
+     * @param {Pointer<IMFTopology>} ppTopology Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the original topology that the application added to the sequencer source. The caller must release the interface. This parameter can receive the value <b>NULL</b> if the sequencer source has switched to the next presentation. This parameter is optional and can be <b>NULL</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFPresentationDescriptor} pPD 
-     * @param {Pointer<Integer>} pId 
-     * @param {Pointer<IMFTopology>} ppTopology 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-getpresentationcontext
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The presentation descriptor is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_S_SEQUENCER_CONTEXT_CANCELED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This segment was canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsequencersource-getpresentationcontext
      */
     GetPresentationContext(pPD, pId, ppTopology) {
         pIdMarshal := pId is VarRef ? "uint*" : "ptr"
@@ -69,11 +127,40 @@ class IMFSequencerSource extends IUnknown{
     }
 
     /**
+     * Updates a topology in the queue.
+     * @param {Integer} dwId Sequencer element identifier of the topology to update.
+     * @param {IMFTopology} pTopology Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the updated topology object.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwId 
-     * @param {IMFTopology} pTopology 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-updatetopology
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_SHUTDOWN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The sequencer source has been shut down.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsequencersource-updatetopology
      */
     UpdateTopology(dwId, pTopology) {
         result := ComCall(6, this, "uint", dwId, "ptr", pTopology, "HRESULT")
@@ -81,11 +168,29 @@ class IMFSequencerSource extends IUnknown{
     }
 
     /**
+     * Updates the flags for a topology in the queue.
+     * @param {Integer} dwId Sequencer element identifier of the topology to update.
+     * @param {Integer} dwFlags Bitwise <b>OR</b> of flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfsequencertopologyflags">MFSequencerTopologyFlags</a> enumeration.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwId 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsequencersource-updatetopologyflags
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsequencersource-updatetopologyflags
      */
     UpdateTopologyFlags(dwId, dwFlags) {
         result := ComCall(7, this, "uint", dwId, "uint", dwFlags, "HRESULT")

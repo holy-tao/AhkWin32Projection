@@ -147,7 +147,7 @@ class DEVICE_MEDIA_INFO extends Win32Struct
     
             class _BusSpecificData_e__Union extends Win32Struct {
                 static sizeof => 2
-                static packingSize => 1
+                static packingSize => 2
         
                 class _ScsiInformation extends Win32Struct {
                     static sizeof => 2

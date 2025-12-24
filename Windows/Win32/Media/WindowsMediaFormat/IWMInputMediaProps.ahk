@@ -31,11 +31,51 @@ class IWMInputMediaProps extends IWMMediaProps{
     static VTableNames => ["GetConnectionName", "GetGroupName"]
 
     /**
+     * The GetConnectionName method retrieves the connection name specified in the profile.
+     * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string containing the connection name. Pass <b>NULL</b> to retrieve the length required for the name.
+     * @param {Pointer<Integer>} pcchName On input, a pointer to a variable containing the length of the <i>pwszName</i> array in wide characters (2 bytes). On output, if the method succeeds, the variable contains the length of the name, including the terminating <b>null</b> character.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pwszName 
-     * @param {Pointer<Integer>} pcchName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwminputmediaprops-getconnectionname
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pcchName</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ASF_E_BUFFERTOOSMALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pwszName</i> parameter is not large enough.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwminputmediaprops-getconnectionname
      */
     GetConnectionName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -47,11 +87,51 @@ class IWMInputMediaProps extends IWMMediaProps{
     }
 
     /**
+     * The GetGroupName method is not implemented, and returns an empty string.
+     * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string containing the name. Pass <b>NULL</b> to retrieve the length required for the name.
+     * @param {Pointer<Integer>} pcchName On input, a pointer to a variable containing the length of the <i>pwszName</i> array in wide characters (2 bytes). On output, if the method succeeds, the variable contains the length of the name, including the terminating <b>null</b> character.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pwszName 
-     * @param {Pointer<Integer>} pcchName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwminputmediaprops-getgroupname
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pcchName</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ASF_E_BUFFERTOOSMALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pwszName</i> parameter is not large enough.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwminputmediaprops-getgroupname
      */
     GetGroupName(pwszName, pcchName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName

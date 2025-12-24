@@ -105,6 +105,100 @@ class WINDOWS_IAS_QUERY extends Win32Struct
     
     }
 
+    class _irdaAttribute_e__Union extends Win32Struct {
+        static sizeof => 1028
+        static packingSize => 8
+
+        class _irdaAttribOctetSeq extends Win32Struct {
+            static sizeof => 1028
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            Len {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Array<Byte>}
+             */
+            OctetSeq{
+                get {
+                    if(!this.HasProp("__OctetSeqProxyArray"))
+                        this.__OctetSeqProxyArray := Win32FixedArray(this.ptr + 4, 1024, Primitive, "char")
+                    return this.__OctetSeqProxyArray
+                }
+            }
+        
+        }
+    
+        class _irdaAttribUsrStr extends Win32Struct {
+            static sizeof => 264
+            static packingSize => 4
+    
+            /**
+             * @type {Integer}
+             */
+            Len {
+                get => NumGet(this, 0, "uint")
+                set => NumPut("uint", value, this, 0)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            CharSet {
+                get => NumGet(this, 4, "uint")
+                set => NumPut("uint", value, this, 4)
+            }
+        
+            /**
+             * @type {Array<Byte>}
+             */
+            UsrStr{
+                get {
+                    if(!this.HasProp("__UsrStrProxyArray"))
+                        this.__UsrStrProxyArray := Win32FixedArray(this.ptr + 8, 256, Primitive, "char")
+                    return this.__UsrStrProxyArray
+                }
+            }
+        
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        irdaAttribInt {
+            get => NumGet(this, 0, "int")
+            set => NumPut("int", value, this, 0)
+        }
+    
+        /**
+         * @type {_irdaAttribOctetSeq}
+         */
+        irdaAttribOctetSeq{
+            get {
+                if(!this.HasProp("__irdaAttribOctetSeq"))
+                    this.__irdaAttribOctetSeq := %this.__Class%._irdaAttribOctetSeq(0, this)
+                return this.__irdaAttribOctetSeq
+            }
+        }
+    
+        /**
+         * @type {_irdaAttribUsrStr}
+         */
+        irdaAttribUsrStr{
+            get {
+                if(!this.HasProp("__irdaAttribUsrStr"))
+                    this.__irdaAttribUsrStr := %this.__Class%._irdaAttribUsrStr(0, this)
+                return this.__irdaAttribUsrStr
+            }
+        }
+    
+    }
+
     /**
      * @type {Array<Byte>}
      */

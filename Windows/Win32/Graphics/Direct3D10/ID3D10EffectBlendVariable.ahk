@@ -40,10 +40,14 @@ class ID3D10EffectBlendVariable extends ID3D10EffectVariable{
     static VTableNames => ["GetBlendState", "GetBackingStore"]
 
     /**
+     * Get a pointer to a blend-state interface.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10BlendState} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectblendvariable-getblendstate
+     * Index into an array of blend-state interfaces. If there is only one blend-state interface, use 0.
+     * @returns {ID3D10BlendState} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10blendstate">ID3D10BlendState</a>**</b>
+     * 
+     * The address of a pointer to a blend-state interface (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10blendstate">ID3D10BlendState Interface</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectblendvariable-getblendstate
      */
     GetBlendState(Index) {
         result := ComCall(25, this, "uint", Index, "ptr*", &ppBlendState := 0, "HRESULT")
@@ -51,11 +55,17 @@ class ID3D10EffectBlendVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get a pointer to a blend-state variable.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @param {Pointer<D3D10_BLEND_DESC>} pBlendDesc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectblendvariable-getbackingstore
+     * Index into an array of blend-state descriptions. If there is only one blend-state variable in the effect, use 0.
+     * @param {Pointer<D3D10_BLEND_DESC>} pBlendDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_blend_desc">D3D10_BLEND_DESC</a>*</b>
+     * 
+     * A pointer to a blend-state description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_blend_desc">D3D10_BLEND_DESC</a>).
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectblendvariable-getbackingstore
      */
     GetBackingStore(Index, pBlendDesc) {
         result := ComCall(26, this, "uint", Index, "ptr", pBlendDesc, "HRESULT")

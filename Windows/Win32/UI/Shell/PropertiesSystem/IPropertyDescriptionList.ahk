@@ -42,9 +42,11 @@ class IPropertyDescriptionList extends IUnknown{
     static VTableNames => ["GetCount", "GetAt"]
 
     /**
+     * Gets the number of properties included in the property list.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionlist-getcount
+     * When this method returns, contains a pointer to the count of properties.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertydescriptionlist-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pcElem := 0, "HRESULT")
@@ -52,11 +54,17 @@ class IPropertyDescriptionList extends IUnknown{
     }
 
     /**
+     * Gets the property description at the specified index in a property description list.
+     * @param {Integer} iElem Type: <b>UINT</b>
      * 
-     * @param {Integer} iElem 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescriptionlist-getat
+     * The number of the property in the list string.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the IID of the requested property description interface, typically IID_IPropertyDescription.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns, contains the interface pointer requested in <i>riid</i>. Typically, this is <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertydescription">IPropertyDescription</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertydescriptionlist-getat
      */
     GetAt(iElem, riid) {
         result := ComCall(4, this, "uint", iElem, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

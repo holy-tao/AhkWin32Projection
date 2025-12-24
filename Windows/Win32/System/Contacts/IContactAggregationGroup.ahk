@@ -30,6 +30,36 @@ class IContactAggregationGroup extends IUnknown{
     static VTableNames => ["Delete", "Save", "Add", "Remove", "get_Members", "get_GlobalObjectId", "put_GlobalObjectId", "get_Id", "get_Name", "put_Name"]
 
     /**
+     * @type {IContactAggregationAggregateCollection} 
+     */
+    Members {
+        get => this.get_Members()
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    GlobalObjectId {
+        get => this.get_GlobalObjectId()
+        set => this.put_GlobalObjectId(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

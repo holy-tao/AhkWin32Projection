@@ -36,12 +36,13 @@ class IUPnPDeviceFinderAddCallbackWithInterface extends IUnknown{
     static VTableNames => ["DeviceAddedWithInterface"]
 
     /**
-     * 
-     * @param {Integer} lFindData 
-     * @param {IUPnPDevice} pDevice 
-     * @param {Pointer<Guid>} pguidInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicefinderaddcallbackwithinterface-deviceaddedwithinterface
+     * The DeviceAddedWithInterface method is invoked by the UPnP framework to notify the application that a device has been added to the network.
+     * @param {Integer} lFindData Specifies the search for which the UPnP framework is returning results. The value of <i>lFindData</i> is the value returned to the caller by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevicefinder-createasyncfind">IUPnPDeviceFinder::CreateAsyncFind</a>.
+     * @param {IUPnPDevice} pDevice Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevice">IUPnPDevice</a> object that contains the new device.
+     * @param {Pointer<Guid>} pguidInterface GUID of the network adapter through which the device advertisement came.
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevicefinderaddcallbackwithinterface-deviceaddedwithinterface
      */
     DeviceAddedWithInterface(lFindData, pDevice, pguidInterface) {
         result := ComCall(3, this, "int", lFindData, "ptr", pDevice, "ptr", pguidInterface, "HRESULT")

@@ -36,11 +36,33 @@ class ID2D1RenderInfo extends IUnknown{
     static VTableNames => ["SetInputDescription", "SetOutputBuffer", "SetCached", "SetInstructionCountHint"]
 
     /**
+     * Sets how a specific input to the transform should be handled by the renderer in terms of sampling.
+     * @param {Integer} inputIndex Type: <b>UINT32</b>
      * 
-     * @param {Integer} inputIndex 
-     * @param {D2D1_INPUT_DESCRIPTION} inputDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setinputdescription
+     * The index of the input that will have the input description applied.
+     * @param {D2D1_INPUT_DESCRIPTION} inputDescription Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_input_description">D2D1_INPUT_DESCRIPTION</a></b>
+     * 
+     * The description of the input to be applied to the transform.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>An invalid parameter was passed to the returning function.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setinputdescription
      */
     SetInputDescription(inputIndex, inputDescription) {
         result := ComCall(3, this, "uint", inputIndex, "ptr", inputDescription, "HRESULT")
@@ -48,11 +70,17 @@ class ID2D1RenderInfo extends IUnknown{
     }
 
     /**
+     * Allows a caller to control the output precision and channel-depth of the transform in which the render information is encapsulated.
+     * @param {Integer} bufferPrecision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
      * 
-     * @param {Integer} bufferPrecision 
-     * @param {Integer} channelDepth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setoutputbuffer
+     * The type of buffer that should be used as an output from this transform.
+     * @param {Integer} channelDepth Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_channel_depth">D2D1_CHANNEL_DEPTH</a></b>
+     * 
+     * The number of channels that will be used on the output buffer.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setoutputbuffer
      */
     SetOutputBuffer(bufferPrecision, channelDepth) {
         result := ComCall(4, this, "int", bufferPrecision, "int", channelDepth, "HRESULT")
@@ -60,20 +88,34 @@ class ID2D1RenderInfo extends IUnknown{
     }
 
     /**
+     * Specifies that the output of the transform in which the render information is encapsulated is or is not cached.
+     * @param {BOOL} isCached Type: <b>BOOL</b>
      * 
-     * @param {BOOL} isCached 
+     * <b>TRUE</b> if the output of the transform is cached; otherwise, <b>FALSE</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setcached
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setcached
      */
     SetCached(isCached) {
         ComCall(5, this, "int", isCached)
     }
 
     /**
+     * Provides an estimated hint of shader execution cost to D2D.
+     * @remarks
      * 
-     * @param {Integer} instructionCount 
+     * The instruction count may be set according to the number of instructions in the shader.  This information is used as a hint when rendering extremely large images.  Calling this API is optional, but it may  improve performance if you provide an accurate number.
+     * 
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  Instructions that occur in a loop should be counted according to the number of loop iterations.</div>
+     * <div> </div>
+     * 
+     * 
+     * @param {Integer} instructionCount Type: <b>UINT32</b>
+     * 
+     * An approximate instruction count of the associated shader.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setinstructioncounthint
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1renderinfo-setinstructioncounthint
      */
     SetInstructionCountHint(instructionCount) {
         ComCall(6, this, "uint", instructionCount)

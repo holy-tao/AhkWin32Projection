@@ -33,11 +33,11 @@ class IAzOperation2 extends IAzOperation{
     static VTableNames => ["RoleAssignments"]
 
     /**
-     * 
-     * @param {BSTR} bstrScopeName 
-     * @param {VARIANT_BOOL} bRecursive 
-     * @returns {IAzRoleAssignments} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation2-roleassignments
+     * Returns a collection of the role assignments associated with this operation.
+     * @param {BSTR} bstrScopeName The name of the scope in which to check for role assignments. If the value of this parameter is an empty string, the method checks for role assignments at the application level.
+     * @param {VARIANT_BOOL} bRecursive <b>TRUE</b> if the method checks all scopes within the application; otherwise, <b>FALSE</b>. This parameter is ignored if the value of the <i>bstrScopeName</i> parameter is not <b>NULL</b>.
+     * @returns {IAzRoleAssignments} The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignments">IAzRoleAssignments</a> interface that represents the collection of <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> objects associated with this operation.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation2-roleassignments
      */
     RoleAssignments(bstrScopeName, bRecursive) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName

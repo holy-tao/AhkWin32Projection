@@ -31,10 +31,10 @@ class IServiceSxsConfig extends IUnknown{
     static VTableNames => ["SxsConfig", "SxsName", "SxsDirectory"]
 
     /**
-     * 
-     * @param {Integer} scsConfig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicesxsconfig-sxsconfig
+     * Configures the side-by-side assembly for the enclosed work.
+     * @param {Integer} scsConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_sxsconfig">CSC_SxsConfig</a> enumeration.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicesxsconfig-sxsconfig
      */
     SxsConfig(scsConfig) {
         result := ComCall(3, this, "int", scsConfig, "HRESULT")
@@ -42,10 +42,10 @@ class IServiceSxsConfig extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} szSxsName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicesxsconfig-sxsname
+     * Sets the file name of the side-by-side assembly for the enclosed work.
+     * @param {PWSTR} szSxsName The file name for the side-by-side assembly.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicesxsconfig-sxsname
      */
     SxsName(szSxsName) {
         szSxsName := szSxsName is String ? StrPtr(szSxsName) : szSxsName
@@ -55,10 +55,10 @@ class IServiceSxsConfig extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} szSxsDirectory 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicesxsconfig-sxsdirectory
+     * Sets the directory for the side-by-side assembly for the enclosed work.
+     * @param {PWSTR} szSxsDirectory The name of the directory for the side-by-side assembly that is to be used for the enclosed work.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicesxsconfig-sxsdirectory
      */
     SxsDirectory(szSxsDirectory) {
         szSxsDirectory := szSxsDirectory is String ? StrPtr(szSxsDirectory) : szSxsDirectory

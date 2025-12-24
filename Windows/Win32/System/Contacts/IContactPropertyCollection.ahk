@@ -37,9 +37,29 @@ class IContactPropertyCollection extends IUnknown{
     static VTableNames => ["Reset", "Next", "GetPropertyName", "GetPropertyType", "GetPropertyVersion", "GetPropertyModificationDate", "GetPropertyArrayElementID"]
 
     /**
+     * Resets enumeration of properties.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-reset
+     * Returns one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Reset is successful. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-reset
      */
     Reset() {
         result := ComCall(3, this, "HRESULT")
@@ -47,9 +67,40 @@ class IContactPropertyCollection extends IUnknown{
     }
 
     /**
+     * Moves to the next property.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-next
+     * Returns one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Move is successful. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Could not move, positioned at the end of the collection. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-next
      */
     Next() {
         result := ComCall(4, this, "HRESULT")
@@ -57,12 +108,51 @@ class IContactPropertyCollection extends IUnknown{
     }
 
     /**
+     * Retrieves the name for the current property in the enumeration.
+     * @param {PWSTR} pszPropertyName Type: <b>LPWSTR</b>
      * 
-     * @param {PWSTR} pszPropertyName 
-     * @param {Integer} cchPropertyName 
-     * @param {Pointer<Integer>} pdwcchPropertyNameRequired 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-getpropertyname
+     * On success, contains the name to use for querying on <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactproperties">IContactProperties</a>. 
+     * 				EX: toplevel -or- toplevel/secondlevel[4]/thirdlevel.
+     * @param {Integer} cchPropertyName Type: <b>DWORD</b>
+     * 
+     * Specifies caller-allocated buffer size in characters.
+     * @param {Pointer<Integer>} pdwcchPropertyNameRequired Type: <b>DWORD*</b>
+     * 
+     * On failure, contains the required size for <i>pszPropertyName</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Query is successful. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pszPropertyName</i> was not large enough to store the value. 
+     * 					The required buffer size is stored in *<i>pdwcchPropertyNameRequired</i>. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-getpropertyname
      */
     GetPropertyName(pszPropertyName, cchPropertyName, pdwcchPropertyNameRequired) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
@@ -74,10 +164,79 @@ class IContactPropertyCollection extends IUnknown{
     }
 
     /**
+     * Retrieves the type for the current property in the enumeration.
+     * @param {Pointer<Integer>} pdwType Type: <b>DWORD*</b>
      * 
-     * @param {Pointer<Integer>} pdwType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-getpropertytype
+     * Specifies the type of property. 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CGD_UNKNOWN_PROPERTY"></a><a id="cgd_unknown_property"></a><dl>
+     * <dt><b>CGD_UNKNOWN_PROPERTY</b></dt>
+     * <dt>0x00000000</dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CGD_STRING_PROPERTY"></a><a id="cgd_string_property"></a><dl>
+     * <dt><b>CGD_STRING_PROPERTY</b></dt>
+     * <dt>0x00000001</dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CGD_DATE_PROPERTY"></a><a id="cgd_date_property"></a><dl>
+     * <dt><b>CGD_DATE_PROPERTY</b></dt>
+     * <dt>0x00000002</dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CGD_BINARY_PROPERTY"></a><a id="cgd_binary_property"></a><dl>
+     * <dt><b>CGD_BINARY_PROPERTY</b></dt>
+     * <dt>0x00000004</dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CGD_ARRAY_NODE"></a><a id="cgd_array_node"></a><dl>
+     * <dt><b>CGD_ARRAY_NODE</b></dt>
+     * <dt>0x00000008</dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Query is successful. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-getpropertytype
      */
     GetPropertyType(pdwType) {
         pdwTypeMarshal := pdwType is VarRef ? "uint*" : "ptr"
@@ -87,10 +246,32 @@ class IContactPropertyCollection extends IUnknown{
     }
 
     /**
+     * Retrieves the version number for the current property in the enumeration.
+     * @param {Pointer<Integer>} pdwVersion Type: <b>DWORD*</b>
      * 
-     * @param {Pointer<Integer>} pdwVersion 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-getpropertyversion
+     * Specifies the version of the property.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Query is successful. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-getpropertyversion
      */
     GetPropertyVersion(pdwVersion) {
         pdwVersionMarshal := pdwVersion is VarRef ? "uint*" : "ptr"
@@ -100,10 +281,32 @@ class IContactPropertyCollection extends IUnknown{
     }
 
     /**
+     * Retrieves the last modification date for the current property in the enumeration. If not modified, contact creation date is returned.
+     * @param {Pointer<FILETIME>} pftModificationDate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>*</b>
      * 
-     * @param {Pointer<FILETIME>} pftModificationDate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-getpropertymodificationdate
+     * Specifies the last modified date as a UTC FILETIME.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Query is successful. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-getpropertymodificationdate
      */
     GetPropertyModificationDate(pftModificationDate) {
         result := ComCall(8, this, "ptr", pftModificationDate, "HRESULT")
@@ -111,12 +314,61 @@ class IContactPropertyCollection extends IUnknown{
     }
 
     /**
+     * Retrieves the unique ID for a given element in a property array.
+     * @param {PWSTR} pszArrayElementID Type: <b>LPWSTR</b>
      * 
-     * @param {PWSTR} pszArrayElementID 
-     * @param {Integer} cchArrayElementID 
-     * @param {Pointer<Integer>} pdwcchArrayElementIDRequired 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactpropertycollection-getpropertyarrayelementid
+     * On success, contains the unique ID for the element.
+     * @param {Integer} cchArrayElementID Type: <b>DWORD</b>
+     * 
+     * Specifies caller-allocated buffer size in characters.
+     * @param {Pointer<Integer>} pdwcchArrayElementIDRequired Type: <b>DWORD*</b>
+     * 
+     * On failure, contains the required size for <i>pszArrayElementID</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Query is successful. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Array node does not have a unique array element ID. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pszArrayElementID</i> was not large enough to store the value. 
+     * 					The required buffer size is stored in *<i>pdwcchArrayElementIDRequired</i>. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactpropertycollection-getpropertyarrayelementid
      */
     GetPropertyArrayElementID(pszArrayElementID, cchArrayElementID, pdwcchArrayElementIDRequired) {
         pszArrayElementID := pszArrayElementID is String ? StrPtr(pszArrayElementID) : pszArrayElementID

@@ -31,10 +31,10 @@ class IAMTVAudioNotification extends IUnknown{
     static VTableNames => ["OnEvent"]
 
     /**
-     * 
-     * @param {Integer} Event 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudionotification-onevent
+     * Note  The IAMTVAudioNotification interface is deprecated. The OnEvent method handles events from a TV tuner card controlled by the IAMTVAudio interface.
+     * @param {Integer} Event Flag identifying the type of event. The only value currently defined is AMTVAUDIO_EVENT_CHANGED.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvaudionotification-onevent
      */
     OnEvent(Event) {
         result := ComCall(3, this, "int", Event, "HRESULT")

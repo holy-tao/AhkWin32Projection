@@ -31,9 +31,11 @@ class ISearchProtocolThreadContext extends IUnknown{
     static VTableNames => ["ThreadInit", "ThreadShutdown", "ThreadIdle"]
 
     /**
+     * Initializes communication between the protocol handler and the protocol host.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchprotocolthreadcontext-threadinit
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchprotocolthreadcontext-threadinit
      */
     ThreadInit() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +43,11 @@ class ISearchProtocolThreadContext extends IUnknown{
     }
 
     /**
+     * Notifies the protocol handler that the thread is being shut down.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchprotocolthreadcontext-threadshutdown
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchprotocolthreadcontext-threadshutdown
      */
     ThreadShutdown() {
         result := ComCall(4, this, "HRESULT")
@@ -51,10 +55,14 @@ class ISearchProtocolThreadContext extends IUnknown{
     }
 
     /**
+     * Notifies the protocol handler that the filtering thread is idle, so that the protocol handler can clean up any cache it might have built up.
+     * @param {Integer} dwTimeElaspedSinceLastCallInMS Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwTimeElaspedSinceLastCallInMS 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchprotocolthreadcontext-threadidle
+     * Passes the idle time, in milliseconds, to the protocol handler.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchprotocolthreadcontext-threadidle
      */
     ThreadIdle(dwTimeElaspedSinceLastCallInMS) {
         result := ComCall(5, this, "uint", dwTimeElaspedSinceLastCallInMS, "HRESULT")

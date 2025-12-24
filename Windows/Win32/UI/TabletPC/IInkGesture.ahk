@@ -38,9 +38,39 @@ class IInkGesture extends IDispatch{
     static VTableNames => ["get_Confidence", "get_Id", "GetHotPoint"]
 
     /**
+     * @type {Integer} 
+     */
+    Confidence {
+        get => this.get_Confidence()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * Gets the level of confidence (strong, intermediate, or poor) that a recognizer has in the recognition of an IInkRecognitionAlternate object or a gesture.
+     * @remarks
+     * 
+     * For a list of confidence values that may be returned, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkrecognitionconfidence">InkRecognitionConfidence</a> enumeration type.
+     * 
+     * <div class="alert"><b>Note</b>  Confidence evaluation is available for all gesture recognizers in the current release of Windows XP Tablet PC Edition.</div>
+     * <div> </div>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognitionalternate">IInkRecognitionAlternate</a> object:
+     * 
+     * If the alternate represents a phrase or sentence, the value represents the lowest confidence level of a recognition segment found in the phrase or sentence. However, if the alternate represents a word, the value represents the confidence level of the word.
+     * 
+     * <div class="alert"><b>Note</b>  This property throws an exception if the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognizer">IInkRecognizer</a> that generates the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognitionalternate">IInkRecognitionAlternate</a> does not support confidence levels.</div>
+     * <div> </div>
+     * Of the Microsoft recognizers, only the Microsoft English (US) Handwriting Recognizer and the Microsoft Gesture Recognizer support confidence levels. Third party recognizers may or may not support confidence levels.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkgesture-get_confidence
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkgesture-get_confidence
      */
     get_Confidence() {
         result := ComCall(7, this, "int*", &Confidence := 0, "HRESULT")
@@ -58,11 +88,51 @@ class IInkGesture extends IDispatch{
     }
 
     /**
+     * Gets the hot point of the gesture, in ink space coordinates.
+     * @param {Pointer<Integer>} X The X-value of the hot point, in ink space coordinates.
+     * @param {Pointer<Integer>} Y The Y-value of the hot point, in ink space coordinates.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Integer>} X 
-     * @param {Pointer<Integer>} Y 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkgesture-gethotpoint
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Error information is provided.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A parameter contained an invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INK_EXCEPTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An exception occurred while processing.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkgesture-gethotpoint
      */
     GetHotPoint(X, Y) {
         XMarshal := X is VarRef ? "int*" : "ptr"

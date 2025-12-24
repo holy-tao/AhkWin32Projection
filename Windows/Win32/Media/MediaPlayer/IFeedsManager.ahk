@@ -36,6 +36,35 @@ class IFeedsManager extends IDispatch{
     static VTableNames => ["get_RootFolder", "IsSubscribed", "ExistsFeed", "GetFeed", "GetFeedByUrl", "ExistsFolder", "GetFolder", "DeleteFeed", "DeleteFolder", "BackgroundSync", "get_BackgroundSyncStatus", "get_DefaultInterval", "put_DefaultInterval", "AsyncSyncAll", "Normalize", "get_ItemCountLimit"]
 
     /**
+     * @type {IDispatch} 
+     */
+    RootFolder {
+        get => this.get_RootFolder()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BackgroundSyncStatus {
+        get => this.get_BackgroundSyncStatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DefaultInterval {
+        get => this.get_DefaultInterval()
+        set => this.put_DefaultInterval(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ItemCountLimit {
+        get => this.get_ItemCountLimit()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

@@ -42,9 +42,9 @@ class IWMLanguageList extends IUnknown{
     static VTableNames => ["GetLanguageCount", "GetLanguageDetails", "AddLanguageByRFC1766String"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlanguagelist-getlanguagecount
+     * The GetLanguageCount method retrieves the total number of supported languages in the language list.
+     * @returns {Integer} Pointer to a <b>WORD</b> containing the total number of languages present in the language list.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlanguagelist-getlanguagecount
      */
     GetLanguageCount() {
         result := ComCall(3, this, "ushort*", &pwCount := 0, "HRESULT")
@@ -52,12 +52,30 @@ class IWMLanguageList extends IUnknown{
     }
 
     /**
+     * The GetLanguageDetails method retrieves the RFC 1766-compliant language tag for an entry in the list of supported languages.
+     * @param {Integer} wIndex <b>WORD</b> containing the index in the language list.
+     * @param {PWSTR} pwszLanguageString Pointer to the RFC 1766-compliant language tag of the language list entry specified by <i>wIndex</i>. Pass <b>NULL</b> to retrieve the length of the string, which will be returned in <i>pcbLanguageStringLength</i>.
+     * @param {Pointer<Integer>} pcchLanguageStringLength Pointer to a <b>WORD</b> containing the length of the language string, in wide characters. This length includes the terminating <b>null</b> character.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} wIndex 
-     * @param {PWSTR} pwszLanguageString 
-     * @param {Pointer<Integer>} pcchLanguageStringLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlanguagelist-getlanguagedetails
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlanguagelist-getlanguagedetails
      */
     GetLanguageDetails(wIndex, pwszLanguageString, pcchLanguageStringLength) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString
@@ -69,10 +87,10 @@ class IWMLanguageList extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwszLanguageString 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlanguagelist-addlanguagebyrfc1766string
+     * The AddLanguageByRFC1766String method adds an entry to the list of supported languages for a file based upon a language tag compliant with RFC 1766.
+     * @param {PWSTR} pwszLanguageString Pointer to a wide-character null-terminated string containing an RFC 1766-compliant language tag.
+     * @returns {Integer} Pointer to a <b>WORD</b>. On output, this will be set to the index assigned to the added language entry.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlanguagelist-addlanguagebyrfc1766string
      */
     AddLanguageByRFC1766String(pwszLanguageString) {
         pwszLanguageString := pwszLanguageString is String ? StrPtr(pwszLanguageString) : pwszLanguageString

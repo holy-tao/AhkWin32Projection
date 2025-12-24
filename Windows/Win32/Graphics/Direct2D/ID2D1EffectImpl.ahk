@@ -37,21 +37,18 @@ class ID2D1EffectImpl extends IUnknown{
     static VTableNames => ["Initialize", "PrepareForRender", "SetGraph"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {ID2D1EffectContext} effectContext 
-     * @param {ID2D1TransformGraph} transformGraph 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The effect can use this method to do one time initialization tasks.
+     * @param {ID2D1EffectContext} effectContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1effectcontext">ID2D1EffectContext</a>*</b>
+     * 
+     * An internal context interface that creates and returns effect author–centric types.
+     * @param {ID2D1TransformGraph} transformGraph Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformgraph">ID2D1TransformGraph</a>*</b>
+     * 
+     * The effect can
+     *     populate the transform graph with a topology and can update it later.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-initialize
      */
     Initialize(effectContext, transformGraph) {
         result := ComCall(3, this, "ptr", effectContext, "ptr", transformGraph, "HRESULT")
@@ -59,10 +56,14 @@ class ID2D1EffectImpl extends IUnknown{
     }
 
     /**
+     * Prepares an effect for the rendering process.
+     * @param {Integer} changeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_change_type">D2D1_CHANGE_TYPE</a></b>
      * 
-     * @param {Integer} changeType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-prepareforrender
+     * Indicates the type of change the effect should expect.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-prepareforrender
      */
     PrepareForRender(changeType) {
         result := ComCall(4, this, "int", changeType, "HRESULT")
@@ -70,10 +71,20 @@ class ID2D1EffectImpl extends IUnknown{
     }
 
     /**
+     * The renderer calls this method to provide the effect implementation with a way to specify its transform graph and transform graph changes.
+     * @param {ID2D1TransformGraph} transformGraph Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1transformgraph">ID2D1TransformGraph</a>*</b>
      * 
-     * @param {ID2D1TransformGraph} transformGraph 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-setgraph
+     * The graph to which the effect describes its transform topology through the SetDescription call.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * An error that prevents the effect from being initialized if called as part of the CreateEffect call. If the effect fails a subsequent SetGraph call:
+     * 
+     * <ul>
+     * <li>The error will be returned from the property method that caused the number of inputs to the effect to change.
+     * </li>
+     * <li>The effect object will be placed into an error state, if subsequently used to render, the context will be placed into a temporary error state, that particular effect will fail to render and the failure will be returned on the next EndDraw or Flush call.</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-setgraph
      */
     SetGraph(transformGraph) {
         result := ComCall(5, this, "ptr", transformGraph, "HRESULT")

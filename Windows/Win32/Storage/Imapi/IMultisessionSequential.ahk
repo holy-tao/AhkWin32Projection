@@ -40,9 +40,44 @@ class IMultisessionSequential extends IMultisession{
     static VTableNames => ["get_IsFirstDataSession", "get_StartAddressOfPreviousSession", "get_LastWrittenAddressOfPreviousSession", "get_NextWritableAddress", "get_FreeSectorsOnMedia"]
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_isfirstdatasession
+     * @type {VARIANT_BOOL} 
+     */
+    IsFirstDataSession {
+        get => this.get_IsFirstDataSession()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StartAddressOfPreviousSession {
+        get => this.get_StartAddressOfPreviousSession()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastWrittenAddressOfPreviousSession {
+        get => this.get_LastWrittenAddressOfPreviousSession()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NextWritableAddress {
+        get => this.get_NextWritableAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FreeSectorsOnMedia {
+        get => this.get_FreeSectorsOnMedia()
+    }
+
+    /**
+     * Determines if this session is the first data session on the media.
+     * @returns {VARIANT_BOOL} Is VARIANT_TRUE if the session is the first data session on the media. Otherwise, the value is VARIANT_FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionsequential-get_isfirstdatasession
      */
     get_IsFirstDataSession() {
         result := ComCall(11, this, "short*", &value := 0, "HRESULT")
@@ -50,9 +85,9 @@ class IMultisessionSequential extends IMultisession{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_startaddressofprevioussession
+     * Retrieves the first sector written in the previous session on the media.
+     * @returns {Integer} Sector number that identifies the starting point of the previous write session.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionsequential-get_startaddressofprevioussession
      */
     get_StartAddressOfPreviousSession() {
         result := ComCall(12, this, "int*", &value := 0, "HRESULT")
@@ -60,9 +95,9 @@ class IMultisessionSequential extends IMultisession{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_lastwrittenaddressofprevioussession
+     * Retrieves the last sector written in the previous session on the media.
+     * @returns {Integer} Sector number that identifies the last sector written in the previous write session.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionsequential-get_lastwrittenaddressofprevioussession
      */
     get_LastWrittenAddressOfPreviousSession() {
         result := ComCall(13, this, "int*", &value := 0, "HRESULT")
@@ -70,9 +105,9 @@ class IMultisessionSequential extends IMultisession{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_nextwritableaddress
+     * Retrieves the next writable address on the media, including used sectors.
+     * @returns {Integer} Sector number that identifies the next available sector that can record data or audio.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionsequential-get_nextwritableaddress
      */
     get_NextWritableAddress() {
         result := ComCall(14, this, "int*", &value := 0, "HRESULT")
@@ -80,9 +115,9 @@ class IMultisessionSequential extends IMultisession{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-imultisessionsequential-get_freesectorsonmedia
+     * Retrieves the number of free sectors available on the media.
+     * @returns {Integer} Number of sectors on the disc that are available for use.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-imultisessionsequential-get_freesectorsonmedia
      */
     get_FreeSectorsOnMedia() {
         result := ComCall(15, this, "int*", &value := 0, "HRESULT")

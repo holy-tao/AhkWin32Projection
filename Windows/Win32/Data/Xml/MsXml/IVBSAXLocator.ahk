@@ -30,6 +30,34 @@ class IVBSAXLocator extends IDispatch{
     static VTableNames => ["get_columnNumber", "get_lineNumber", "get_publicId", "get_systemId"]
 
     /**
+     * @type {Integer} 
+     */
+    columnNumber {
+        get => this.get_columnNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    lineNumber {
+        get => this.get_lineNumber()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    publicId {
+        get => this.get_publicId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    systemId {
+        get => this.get_systemId()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

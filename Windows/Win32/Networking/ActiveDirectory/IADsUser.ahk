@@ -186,6 +186,376 @@ class IADsUser extends IADs{
     static VTableNames => ["get_BadLoginAddress", "get_BadLoginCount", "get_LastLogin", "get_LastLogoff", "get_LastFailedLogin", "get_PasswordLastChanged", "get_Description", "put_Description", "get_Division", "put_Division", "get_Department", "put_Department", "get_EmployeeID", "put_EmployeeID", "get_FullName", "put_FullName", "get_FirstName", "put_FirstName", "get_LastName", "put_LastName", "get_OtherName", "put_OtherName", "get_NamePrefix", "put_NamePrefix", "get_NameSuffix", "put_NameSuffix", "get_Title", "put_Title", "get_Manager", "put_Manager", "get_TelephoneHome", "put_TelephoneHome", "get_TelephoneMobile", "put_TelephoneMobile", "get_TelephoneNumber", "put_TelephoneNumber", "get_TelephonePager", "put_TelephonePager", "get_FaxNumber", "put_FaxNumber", "get_OfficeLocations", "put_OfficeLocations", "get_PostalAddresses", "put_PostalAddresses", "get_PostalCodes", "put_PostalCodes", "get_SeeAlso", "put_SeeAlso", "get_AccountDisabled", "put_AccountDisabled", "get_AccountExpirationDate", "put_AccountExpirationDate", "get_GraceLoginsAllowed", "put_GraceLoginsAllowed", "get_GraceLoginsRemaining", "put_GraceLoginsRemaining", "get_IsAccountLocked", "put_IsAccountLocked", "get_LoginHours", "put_LoginHours", "get_LoginWorkstations", "put_LoginWorkstations", "get_MaxLogins", "put_MaxLogins", "get_MaxStorage", "put_MaxStorage", "get_PasswordExpirationDate", "put_PasswordExpirationDate", "get_PasswordMinimumLength", "put_PasswordMinimumLength", "get_PasswordRequired", "put_PasswordRequired", "get_RequireUniquePassword", "put_RequireUniquePassword", "get_EmailAddress", "put_EmailAddress", "get_HomeDirectory", "put_HomeDirectory", "get_Languages", "put_Languages", "get_Profile", "put_Profile", "get_LoginScript", "put_LoginScript", "get_Picture", "put_Picture", "get_HomePage", "put_HomePage", "Groups", "SetPassword", "ChangePassword"]
 
     /**
+     * @type {BSTR} 
+     */
+    BadLoginAddress {
+        get => this.get_BadLoginAddress()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BadLoginCount {
+        get => this.get_BadLoginCount()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastLogin {
+        get => this.get_LastLogin()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastLogoff {
+        get => this.get_LastLogoff()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastFailedLogin {
+        get => this.get_LastFailedLogin()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    PasswordLastChanged {
+        get => this.get_PasswordLastChanged()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Division {
+        get => this.get_Division()
+        set => this.put_Division(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Department {
+        get => this.get_Department()
+        set => this.put_Department(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    EmployeeID {
+        get => this.get_EmployeeID()
+        set => this.put_EmployeeID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FullName {
+        get => this.get_FullName()
+        set => this.put_FullName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FirstName {
+        get => this.get_FirstName()
+        set => this.put_FirstName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LastName {
+        get => this.get_LastName()
+        set => this.put_LastName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OtherName {
+        get => this.get_OtherName()
+        set => this.put_OtherName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    NamePrefix {
+        get => this.get_NamePrefix()
+        set => this.put_NamePrefix(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    NameSuffix {
+        get => this.get_NameSuffix()
+        set => this.put_NameSuffix(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Title {
+        get => this.get_Title()
+        set => this.put_Title(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Manager {
+        get => this.get_Manager()
+        set => this.put_Manager(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    TelephoneHome {
+        get => this.get_TelephoneHome()
+        set => this.put_TelephoneHome(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    TelephoneMobile {
+        get => this.get_TelephoneMobile()
+        set => this.put_TelephoneMobile(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    TelephoneNumber {
+        get => this.get_TelephoneNumber()
+        set => this.put_TelephoneNumber(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    TelephonePager {
+        get => this.get_TelephonePager()
+        set => this.put_TelephonePager(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    FaxNumber {
+        get => this.get_FaxNumber()
+        set => this.put_FaxNumber(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    OfficeLocations {
+        get => this.get_OfficeLocations()
+        set => this.put_OfficeLocations(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PostalAddresses {
+        get => this.get_PostalAddresses()
+        set => this.put_PostalAddresses(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PostalCodes {
+        get => this.get_PostalCodes()
+        set => this.put_PostalCodes(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SeeAlso {
+        get => this.get_SeeAlso()
+        set => this.put_SeeAlso(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AccountDisabled {
+        get => this.get_AccountDisabled()
+        set => this.put_AccountDisabled(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    AccountExpirationDate {
+        get => this.get_AccountExpirationDate()
+        set => this.put_AccountExpirationDate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    GraceLoginsAllowed {
+        get => this.get_GraceLoginsAllowed()
+        set => this.put_GraceLoginsAllowed(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    GraceLoginsRemaining {
+        get => this.get_GraceLoginsRemaining()
+        set => this.put_GraceLoginsRemaining(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsAccountLocked {
+        get => this.get_IsAccountLocked()
+        set => this.put_IsAccountLocked(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    LoginHours {
+        get => this.get_LoginHours()
+        set => this.put_LoginHours(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    LoginWorkstations {
+        get => this.get_LoginWorkstations()
+        set => this.put_LoginWorkstations(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxLogins {
+        get => this.get_MaxLogins()
+        set => this.put_MaxLogins(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxStorage {
+        get => this.get_MaxStorage()
+        set => this.put_MaxStorage(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    PasswordExpirationDate {
+        get => this.get_PasswordExpirationDate()
+        set => this.put_PasswordExpirationDate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PasswordMinimumLength {
+        get => this.get_PasswordMinimumLength()
+        set => this.put_PasswordMinimumLength(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    PasswordRequired {
+        get => this.get_PasswordRequired()
+        set => this.put_PasswordRequired(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RequireUniquePassword {
+        get => this.get_RequireUniquePassword()
+        set => this.put_RequireUniquePassword(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    EmailAddress {
+        get => this.get_EmailAddress()
+        set => this.put_EmailAddress(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    HomeDirectory {
+        get => this.get_HomeDirectory()
+        set => this.put_HomeDirectory(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Languages {
+        get => this.get_Languages()
+        set => this.put_Languages(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Profile {
+        get => this.get_Profile()
+        set => this.put_Profile(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LoginScript {
+        get => this.get_LoginScript()
+        set => this.put_LoginScript(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Picture {
+        get => this.get_Picture()
+        set => this.put_Picture(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    HomePage {
+        get => this.get_HomePage()
+        set => this.put_HomePage(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */
@@ -1084,9 +1454,9 @@ class IADsUser extends IADs{
     }
 
     /**
-     * 
-     * @returns {IADsMembers} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsuser-groups
+     * Obtains a collection of the ADSI group objects to which this user belongs.
+     * @returns {IADsMembers} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsmembers">IADsMembers</a> interface on a members object that can be enumerated using  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> to determine the groups to which this end-user belongs.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-groups
      */
     Groups() {
         result := ComCall(108, this, "ptr*", &ppGroups := 0, "HRESULT")
@@ -1094,10 +1464,10 @@ class IADsUser extends IADs{
     }
 
     /**
-     * 
-     * @param {BSTR} NewPassword 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsuser-setpassword
+     * Sets the user password to a specified value.
+     * @param {BSTR} NewPassword A <b>BSTR</b> that contains the new password.
+     * @returns {HRESULT} This method supports the standard return values, including <b>S_OK</b>. For other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-setpassword
      */
     SetPassword(NewPassword) {
         NewPassword := NewPassword is String ? BSTR.Alloc(NewPassword).Value : NewPassword
@@ -1107,11 +1477,11 @@ class IADsUser extends IADs{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrOldPassword 
-     * @param {BSTR} bstrNewPassword 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsuser-changepassword
+     * Changes the user password from the specified old value to a new value.
+     * @param {BSTR} bstrOldPassword A <b>BSTR</b> that contains the current password.
+     * @param {BSTR} bstrNewPassword A <b>BSTR</b> that contains the new password.
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsuser-changepassword
      */
     ChangePassword(bstrOldPassword, bstrNewPassword) {
         bstrOldPassword := bstrOldPassword is String ? BSTR.Alloc(bstrOldPassword).Value : bstrOldPassword

@@ -40,10 +40,31 @@ class IShowMessageAction extends IAction{
     static VTableNames => ["get_Title", "put_Title", "get_MessageBody", "put_MessageBody"]
 
     /**
+     */
+    Title {
+        get => this.get_Title()
+        set => this.put_Title(value)
+    }
+
+    /**
+     */
+    MessageBody {
+        get => this.get_MessageBody()
+        set => this.put_MessageBody(value)
+    }
+
+    /**
+     * Gets or sets the title of the message box.
+     * @remarks
+     * 
+     * Parameterized strings  can be used in the title text of the message box.  For more information, see the Examples section in <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-ieventtrigger-get_valuequeries">ValueQueries</a> property of <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-ieventtrigger">IEventTrigger</a>.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {Pointer<BSTR>} pTitle 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-ishowmessageaction-get_title
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ishowmessageaction-get_title
      */
     get_Title(pTitle) {
         result := ComCall(10, this, "ptr", pTitle, "HRESULT")
@@ -51,10 +72,17 @@ class IShowMessageAction extends IAction{
     }
 
     /**
+     * Gets or sets the title of the message box.
+     * @remarks
+     * 
+     * Parameterized strings  can be used in the title text of the message box.  For more information, see the Examples section in <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-ieventtrigger-get_valuequeries">ValueQueries</a> property of <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-ieventtrigger">IEventTrigger</a>.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {BSTR} title 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-ishowmessageaction-put_title
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ishowmessageaction-put_title
      */
     put_Title(title) {
         title := title is String ? BSTR.Alloc(title).Value : title
@@ -64,10 +92,17 @@ class IShowMessageAction extends IAction{
     }
 
     /**
+     * Gets or sets the message text that is displayed in the body of the message box.
+     * @remarks
+     * 
+     * Parameterized strings  can be used in the message text of the message box.  For more information, see the Examples section in <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-ieventtrigger-get_valuequeries">ValueQueries</a> property of <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-ieventtrigger">IEventTrigger</a>.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {Pointer<BSTR>} pMessageBody 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-ishowmessageaction-get_messagebody
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ishowmessageaction-get_messagebody
      */
     get_MessageBody(pMessageBody) {
         result := ComCall(12, this, "ptr", pMessageBody, "HRESULT")
@@ -75,10 +110,17 @@ class IShowMessageAction extends IAction{
     }
 
     /**
+     * Gets or sets the message text that is displayed in the body of the message box.
+     * @remarks
+     * 
+     * Parameterized strings  can be used in the message text of the message box.  For more information, see the Examples section in <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-ieventtrigger-get_valuequeries">ValueQueries</a> property of <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-ieventtrigger">IEventTrigger</a>.
+     * 
+     * When setting this property value, the value can be text that is retrieved from a resource .dll file. A specialized string is used to reference the text from the resource file.  The format of the string is $(@ [Dll], [ResourceID]) where [Dll] is the path to the .dll file that contains the resource and [ResourceID] is the identifier for the resource text. For example, the setting this property value to $(@ %SystemRoot%\System32\ResourceName.dll, -101) will set the property to the value of the resource text  with an identifier equal to -101 in the  %SystemRoot%\System32\ResourceName.dll file.
+     * 
      * 
      * @param {BSTR} messageBody 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-ishowmessageaction-put_messagebody
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-ishowmessageaction-put_messagebody
      */
     put_MessageBody(messageBody) {
         messageBody := messageBody is String ? BSTR.Alloc(messageBody).Value : messageBody

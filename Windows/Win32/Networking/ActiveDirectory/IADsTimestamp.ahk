@@ -31,6 +31,22 @@ class IADsTimestamp extends IDispatch{
     static VTableNames => ["get_WholeSeconds", "put_WholeSeconds", "get_EventID", "put_EventID"]
 
     /**
+     * @type {Integer} 
+     */
+    WholeSeconds {
+        get => this.get_WholeSeconds()
+        set => this.put_WholeSeconds(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EventID {
+        get => this.get_EventID()
+        set => this.put_EventID(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -37,9 +37,9 @@ class IWSDSignatureProperty extends IUnknown{
     static VTableNames => ["IsMessageSigned", "IsMessageSignatureTrusted", "GetKeyInfo", "GetSignature", "GetSignedInfoHash"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-ismessagesigned
+     * Specifies if a message is signed.
+     * @returns {BOOL} A pointer to a boolean that specifies if a message signature is signed.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdsignatureproperty-ismessagesigned
      */
     IsMessageSigned() {
         result := ComCall(3, this, "int*", &pbSigned := 0, "HRESULT")
@@ -47,9 +47,9 @@ class IWSDSignatureProperty extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-ismessagesignaturetrusted
+     * Specifies if a message signature is trusted.
+     * @returns {BOOL} A pointer to a boolean that specifies if a message signature is trusted.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdsignatureproperty-ismessagesignaturetrusted
      */
     IsMessageSignatureTrusted() {
         result := ComCall(4, this, "int*", &pbSignatureTrusted := 0, "HRESULT")
@@ -70,11 +70,51 @@ class IWSDSignatureProperty extends IUnknown{
     }
 
     /**
+     * Gets the signature of a message.
+     * @param {Pointer} pbSignature A pointer to a buffer that will be filled with the signature  of the message.
+     * @param {Pointer<Integer>} pdwSignatureSize On input, the size of <i>pbSignature</i> in bytes. On output, <i>pdwSignatureSize</i> contains the actual size of the buffer that was written.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {Pointer} pbSignature 
-     * @param {Pointer<Integer>} pdwSignatureSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignature
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTAVAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The message is not signed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pbSignature</i> is not large enough to hold the information.  <i>pdwSignatureSize</i> now specifies the required buffer size.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignature
      */
     GetSignature(pbSignature, pdwSignatureSize) {
         pdwSignatureSizeMarshal := pdwSignatureSize is VarRef ? "uint*" : "ptr"
@@ -84,11 +124,51 @@ class IWSDSignatureProperty extends IUnknown{
     }
 
     /**
+     * Gets the hash of a message signature.
+     * @param {Pointer} pbSignedInfoHash A pointer to a buffer that will be filled with the hash of the message signature.
+     * @param {Pointer<Integer>} pdwHashSize On input, the size of <i>pbSignedInfoHash</i> in bytes. On output, <i>pdwHashSize</i> contains the actual size of the buffer that was written.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {Pointer} pbSignedInfoHash 
-     * @param {Pointer<Integer>} pdwHashSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignedinfohash
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTAVAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The message is not signed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pbSignedInfoHash</i> is not large enough to hold the information.  <i>pdwHashSize</i> now specifies the required buffer size.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdsignatureproperty-getsignedinfohash
      */
     GetSignedInfoHash(pbSignedInfoHash, pdwHashSize) {
         pdwHashSizeMarshal := pdwHashSize is VarRef ? "uint*" : "ptr"

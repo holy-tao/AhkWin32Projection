@@ -39,10 +39,28 @@ class IPhotoProgressDialog extends IUnknown{
     static VTableNames => ["Create", "GetWindow", "Destroy", "SetTitle", "ShowCheckbox", "SetCheckboxText", "SetCheckboxCheck", "SetCheckboxTooltip", "IsCheckboxChecked", "SetCaption", "SetImage", "SetPercentComplete", "SetProgressText", "SetActionLinkCallback", "SetActionLinkText", "ShowActionLink", "IsCancelled", "GetUserInput"]
 
     /**
+     * The Create method creates and displays a progress dialog box that can be shown during image enumeration and acquisition.
+     * @param {HWND} hwndParent Handle of the parent window.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {HWND} hwndParent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-create
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-create
      */
     Create(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -52,9 +70,9 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
-     * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
-     * @returns {HWND} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
+     * The GetWindow method retrieves the handle to the progress dialog box.
+     * @returns {HWND} Specifies the handle to the progress dialog box.
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-getwindow
      */
     GetWindow() {
         phwndProgressDialog := HWND()
@@ -63,9 +81,27 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
+     * The Destroy method closes and disposes of the progress dialog box shown during image enumeration and acquisition.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-destroy
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-destroy
      */
     Destroy() {
         result := ComCall(5, this, "HRESULT")
@@ -73,10 +109,28 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
+     * The SetTitle method sets the title of the progress dialog box.
+     * @param {PWSTR} pszTitle Pointer to a null-terminated string containing the title.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pszTitle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-settitle
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-settitle
      */
     SetTitle(pszTitle) {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
@@ -86,11 +140,29 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
+     * The ShowCheckbox method indicates whether to show the check box in the progress dialog box indicating whether to delete images after transfer.
+     * @param {Integer} nCheckboxId Integer containing the check box identifier (ID).
+     * @param {BOOL} fShow Flag that, when set to <b>TRUE</b>, indicates that the check box will appear.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} nCheckboxId 
-     * @param {BOOL} fShow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-showcheckbox
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-showcheckbox
      */
     ShowCheckbox(nCheckboxId, fShow) {
         result := ComCall(7, this, "int", nCheckboxId, "int", fShow, "HRESULT")
@@ -98,11 +170,29 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
+     * The SetCheckboxText method sets the text for the check box in the progress dialog box indicating whether to delete images after transfer.
+     * @param {Integer} nCheckboxId Integer containing the check box identifier (ID).
+     * @param {PWSTR} pszCheckboxText Pointer to a null-terminated string containing the check box text.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} nCheckboxId 
-     * @param {PWSTR} pszCheckboxText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setcheckboxtext
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setcheckboxtext
      */
     SetCheckboxText(nCheckboxId, pszCheckboxText) {
         pszCheckboxText := pszCheckboxText is String ? StrPtr(pszCheckboxText) : pszCheckboxText
@@ -123,11 +213,29 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
+     * The SetCheckboxTooltip method sets the tooltip text for the check box in the progress dialog box.
+     * @param {Integer} nCheckboxId Integer containing the check box identifier (ID).
+     * @param {PWSTR} pszCheckboxTooltipText Pointer to a null-terminated string containing the check box tooltip text.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} nCheckboxId 
-     * @param {PWSTR} pszCheckboxTooltipText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setcheckboxtooltip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setcheckboxtooltip
      */
     SetCheckboxTooltip(nCheckboxId, pszCheckboxTooltipText) {
         pszCheckboxTooltipText := pszCheckboxTooltipText is String ? StrPtr(pszCheckboxTooltipText) : pszCheckboxTooltipText
@@ -137,10 +245,10 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nCheckboxId 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-ischeckboxchecked
+     * The IsCheckboxChecked method indicates whether the check box in the progress dialog box (typically indicating whether to delete files after transfer) is selected.
+     * @param {Integer} nCheckboxId Integer value containing the check box identifier (ID).
+     * @returns {BOOL} Pointer to a flag that, if set to <b>TRUE</b>, indicates that the check box is selected.
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-ischeckboxchecked
      */
     IsCheckboxChecked(nCheckboxId) {
         result := ComCall(11, this, "int", nCheckboxId, "int*", &pfChecked := 0, "HRESULT")
@@ -148,10 +256,28 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
+     * Sets the caption of the progress dialog box.
+     * @param {PWSTR} pszTitle Pointer to a null-terminated string containing the title of the progress dialog box.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pszTitle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setcaption
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setcaption
      */
     SetCaption(pszTitle) {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
@@ -161,12 +287,79 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
+     * Sets either the thumbnail image displayed in the progress dialog box, the icon in the title bar of the progress dialog box, or the icon in ALT+TAB key combination windows.
+     * @param {Integer} nImageType Integer value indicating the image type to set. Only one type of image type may be set at a time. The values passed to this parameter should not be considered a bit field and may not be combined with bitwise OR. 
      * 
-     * @param {Integer} nImageType 
-     * @param {HICON} hIcon 
-     * @param {HBITMAP} hBitmap 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setimage
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="PROGRESS_DIALOG_ICON_SMALL"></a><a id="progress_dialog_icon_small"></a><dl>
+     * <dt><b>PROGRESS_DIALOG_ICON_SMALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The small icon used in the title bar (normally 16 x 16 pixels).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="PROGRESS_DIALOG_ICON_LARGE"></a><a id="progress_dialog_icon_large"></a><dl>
+     * <dt><b>PROGRESS_DIALOG_ICON_LARGE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The icon used to represent the progress dialog box in Alt-Tab windows (normally 32 x 32 pixels).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="PROGRESS_DIALOG_ICON_THUMBNAIL"></a><a id="progress_dialog_icon_thumbnail"></a><dl>
+     * <dt><b>PROGRESS_DIALOG_ICON_THUMBNAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An icon used in place of the thumbnail (up to 128 x 128 pixels).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="PROGRESS_DIALOG_BITMAP_THUMBNAIL"></a><a id="progress_dialog_bitmap_thumbnail"></a><dl>
+     * <dt><b>PROGRESS_DIALOG_BITMAP_THUMBNAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A bitmap thumbnail (up to 128 x 128 pixels, although it will be scaled to fit if it is too large).
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {HICON} hIcon Handle to an icon object.
+     * @param {HBITMAP} hBitmap Handle to a bitmap object representing the thumbnail image.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setimage
      */
     SetImage(nImageType, hIcon, hBitmap) {
         hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
@@ -177,10 +370,28 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
+     * The SetPercentComplete method sets a value indicating the completed portion of the current operation.
+     * @param {Integer} nPercent Integer value indicating the percentage of the operation that has completed. This value may be between 0 and 100 only.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} nPercent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setpercentcomplete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setpercentcomplete
      */
     SetPercentComplete(nPercent) {
         result := ComCall(14, this, "int", nPercent, "HRESULT")
@@ -188,10 +399,28 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
+     * The SetProgressText method sets the text for the progress bar in the progress dialog box.
+     * @param {PWSTR} pszProgressText Pointer to a null-terminated string containing the progress text.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pszProgressText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setprogresstext
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setprogresstext
      */
     SetProgressText(pszProgressText) {
         pszProgressText := pszProgressText is String ? StrPtr(pszProgressText) : pszProgressText
@@ -233,9 +462,9 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-iscancelled
+     * The IsCancelled method indicates whether the operation has been canceled via the progress dialog box.
+     * @returns {BOOL} Pointer to a flag that, if set to <b>TRUE</b>, indicates the action has been canceled.
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-iscancelled
      */
     IsCancelled() {
         result := ComCall(19, this, "int*", &pfCancelled := 0, "HRESULT")
@@ -243,12 +472,12 @@ class IPhotoProgressDialog extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} riidType 
-     * @param {IUnknown} pUnknown 
-     * @param {Pointer<PROPVARIANT>} pPropVarDefault 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-getuserinput
+     * Retrieves descriptive information entered by the user, such as the tag name of the images to store.
+     * @param {Pointer<Guid>} riidType Specifies the interface identifier (ID) of the prompt type. Currently, the only supported value is IID_IUserInputString.
+     * @param {IUnknown} pUnknown Pointer to an object of the prompt class. Currently, the only supported type is <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nn-photoacquire-iuserinputstring">IUserInputString</a>.
+     * @param {Pointer<PROPVARIANT>} pPropVarDefault Pointer to a property variant containing the default value to be used if no input is supplied.
+     * @returns {PROPVARIANT} Pointer to a property variant that stores the user input. Must be freed by the caller using <b>ClearPropVariant</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-getuserinput
      */
     GetUserInput(riidType, pUnknown, pPropVarDefault) {
         pPropVarResult := PROPVARIANT()

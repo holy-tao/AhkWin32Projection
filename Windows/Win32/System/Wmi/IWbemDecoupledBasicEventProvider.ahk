@@ -39,11 +39,12 @@ class IWbemDecoupledBasicEventProvider extends IWbemDecoupledRegistrar{
     static VTableNames => ["GetSink", "GetService"]
 
     /**
-     * 
-     * @param {Integer} a_Flags 
-     * @param {IWbemContext} a_Context 
-     * @returns {IWbemObjectSink} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getsink
+     * The IWbemDecoupledBasicEventProvider::GetSink method retrieves an IWbemObjectSink object for event forwarding to WMI. This method provides for fully concurrent access.
+     * @param {Integer} a_Flags Reserved for future use.
+     * @param {IWbemContext} a_Context Reserved for future use.
+     * @returns {IWbemObjectSink} Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemobjectsink">IWbemObjectSink</a> instance used to forward events to WMI.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getsink
      */
     GetSink(a_Flags, a_Context) {
         result := ComCall(5, this, "int", a_Flags, "ptr", a_Context, "ptr*", &a_Sink := 0, "HRESULT")
@@ -51,11 +52,11 @@ class IWbemDecoupledBasicEventProvider extends IWbemDecoupledRegistrar{
     }
 
     /**
-     * 
-     * @param {Integer} a_Flags 
-     * @param {IWbemContext} a_Context 
-     * @returns {IWbemServices} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getservice
+     * The IWbemDecoupledBasicEventProvider::GetService method retrieves an IWbemService object to be used to call back into WMI. This method provides for fully concurrent access.
+     * @param {Integer} a_Flags Reserved for future use.
+     * @param {IWbemContext} a_Context Reserved for future use.
+     * @returns {IWbemServices} Pointer to an <b>IWbemService</b> object that can be used to retrieve information from WMI.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemdecoupledbasiceventprovider-getservice
      */
     GetService(a_Flags, a_Context) {
         result := ComCall(6, this, "int", a_Flags, "ptr", a_Context, "ptr*", &a_Service := 0, "HRESULT")

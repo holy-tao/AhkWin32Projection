@@ -37,10 +37,14 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
     static VTableNames => ["RegisterHardwareContentProtectionTeardownStatusEvent", "UnregisterHardwareContentProtectionTeardownStatus", "QueryVideoMemoryInfo", "SetVideoMemoryReservation", "RegisterVideoMemoryBudgetChangeNotificationEvent", "UnregisterVideoMemoryBudgetChangeNotification"]
 
     /**
+     * Registers to receive notification of hardware content protection teardown events.
+     * @param {HANDLE} hEvent Type: <b>HANDLE</b>
      * 
-     * @param {HANDLE} hEvent 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent
+     * A handle to the event object that the operating system sets when hardware content protection teardown occurs. The <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-openeventa">OpenEvent</a> function returns this handle.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * A pointer to a key value that an application can pass to the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregisterhardwarecontentprotectionteardownstatus">IDXGIAdapter3::UnregisterHardwareContentProtectionTeardownStatus</a> method to unregister the notification event that <i>hEvent</i> specifies.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent
      */
     RegisterHardwareContentProtectionTeardownStatusEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
@@ -50,21 +54,32 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
     }
 
     /**
+     * Unregisters an event to stop it from receiving notification of hardware content protection teardown events.
+     * @param {Integer} dwCookie Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwCookie 
+     * A key value for the window or event to unregister. The  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent">IDXGIAdapter3::RegisterHardwareContentProtectionTeardownStatusEvent</a> method returns this value.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregisterhardwarecontentprotectionteardownstatus
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregisterhardwarecontentprotectionteardownstatus
      */
     UnregisterHardwareContentProtectionTeardownStatus(dwCookie) {
         ComCall(13, this, "uint", dwCookie)
     }
 
     /**
+     * This method informs the process of the current budget and process usage.
+     * @param {Integer} NodeIndex Type: <b>UINT</b>
      * 
-     * @param {Integer} NodeIndex 
-     * @param {Integer} MemorySegmentGroup 
-     * @returns {DXGI_QUERY_VIDEO_MEMORY_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo
+     * Specifies the device's physical adapter for which the video memory information is queried.
+     *             For single-GPU operation, set this to zero.
+     *             If there are multiple GPU nodes, set this to the index of the node (the device's physical adapter) for which the video memory information is queried.
+     *             See <a href="https://docs.microsoft.com/windows/win32/direct3d12/multi-engine">Multi-adapter systems</a>.
+     * @param {Integer} MemorySegmentGroup Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/ne-dxgi1_4-dxgi_memory_segment_group">DXGI_MEMORY_SEGMENT_GROUP</a></b>
+     * 
+     * Specifies a DXGI_MEMORY_SEGMENT_GROUP that identifies the group as local or non-local.
+     * @returns {DXGI_QUERY_VIDEO_MEMORY_INFO} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/ns-dxgi1_4-dxgi_query_video_memory_info">DXGI_QUERY_VIDEO_MEMORY_INFO</a>*</b>
+     * 
+     * Fills in a DXGI_QUERY_VIDEO_MEMORY_INFO structure with the current values.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-queryvideomemoryinfo
      */
     QueryVideoMemoryInfo(NodeIndex, MemorySegmentGroup) {
         pVideoMemoryInfo := DXGI_QUERY_VIDEO_MEMORY_INFO()
@@ -73,12 +88,24 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
     }
 
     /**
+     * This method sends the minimum required physical memory for an application, to the OS.
+     * @param {Integer} NodeIndex Type: <b>UINT</b>
      * 
-     * @param {Integer} NodeIndex 
-     * @param {Integer} MemorySegmentGroup 
-     * @param {Integer} Reservation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-setvideomemoryreservation
+     * Specifies the device's physical adapter for which the video memory information is being set.
+     *             For single-GPU operation, set this to zero.
+     *             If there are multiple GPU nodes, set this to the index of the node (the device's physical adapter) for which the video memory information is being set.
+     *             See <a href="https://docs.microsoft.com/windows/win32/direct3d12/multi-engine">Multi-adapter systems</a>.
+     * @param {Integer} MemorySegmentGroup Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dxgi1_4/ne-dxgi1_4-dxgi_memory_segment_group">DXGI_MEMORY_SEGMENT_GROUP</a></b>
+     * 
+     * Specifies a DXGI_MEMORY_SEGMENT_GROUP that identifies the group as local or non-local.
+     * @param {Integer} Reservation Type: <b>UINT64</b>
+     * 
+     * Specifies a UINT64 that sets the minimum required physical memory, in bytes.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns S_OK if successful; an error code otherwise.
+     *             For a list of error codes, see <a href="/windows/win32/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-setvideomemoryreservation
      */
     SetVideoMemoryReservation(NodeIndex, MemorySegmentGroup, Reservation) {
         result := ComCall(15, this, "uint", NodeIndex, "int", MemorySegmentGroup, "uint", Reservation, "HRESULT")
@@ -86,10 +113,14 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
     }
 
     /**
+     * This method establishes a correlation between a CPU synchronization object and the budget change event.
+     * @param {HANDLE} hEvent Type: <b>HANDLE</b>
      * 
-     * @param {HANDLE} hEvent 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registervideomemorybudgetchangenotificationevent
+     * Specifies a HANDLE for the event.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * A key value for the window or event to unregister. The  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent">IDXGIAdapter3::RegisterHardwareContentProtectionTeardownStatusEvent</a> method returns this value.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-registervideomemorybudgetchangenotificationevent
      */
     RegisterVideoMemoryBudgetChangeNotificationEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
@@ -99,10 +130,17 @@ class IDXGIAdapter3 extends IDXGIAdapter2{
     }
 
     /**
+     * This method stops notifying a CPU synchronization object whenever a budget change occurs. An application may switch back to polling the information regularly.
+     * @remarks
      * 
-     * @param {Integer} dwCookie 
+     * An application may switch back to polling for the information regularly.
+     * 
+     * 
+     * @param {Integer} dwCookie Type: <b>DWORD</b>
+     * 
+     * A key value for the window or event to unregister. The  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-registerhardwarecontentprotectionteardownstatusevent">IDXGIAdapter3::RegisterHardwareContentProtectionTeardownStatusEvent</a> method returns this value.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregistervideomemorybudgetchangenotification
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_4/nf-dxgi1_4-idxgiadapter3-unregistervideomemorybudgetchangenotification
      */
     UnregisterVideoMemoryBudgetChangeNotification(dwCookie) {
         ComCall(17, this, "uint", dwCookie)

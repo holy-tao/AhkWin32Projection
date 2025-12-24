@@ -31,11 +31,15 @@ class IFileSyncMergeHandler extends IUnknown{
     static VTableNames => ["Merge", "ShowResolveConflictUIAsync"]
 
     /**
+     * IFileSyncMergeHandler::Merge method
+     * @param {PWSTR} localFilePath Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} localFilePath 
-     * @param {PWSTR} serverFilePath 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesyncmergehandler-merge
+     * A pointer to a string containing the path to the local copy of the file.
+     * @param {PWSTR} serverFilePath Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a string containing the network path to the server copy of the file.
+     * @returns {Integer} Type: <b>MERGE_UPDATE_STATUS*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesyncmergehandler-merge
      */
     Merge(localFilePath, serverFilePath) {
         localFilePath := localFilePath is String ? StrPtr(localFilePath) : localFilePath
@@ -46,11 +50,17 @@ class IFileSyncMergeHandler extends IUnknown{
     }
 
     /**
+     * IFileSyncMergeHandler::ShowResolveConflictUIAsync method
+     * @param {PWSTR} localFilePath Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} localFilePath 
-     * @param {HMONITOR} monitorToDisplayOn 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesyncmergehandler-showresolveconflictuiasync
+     * The path of the file with the merge conflict.
+     * @param {HMONITOR} monitorToDisplayOn Type: <b>HMONITOR</b>
+     * 
+     * Indicates the monitor on which to display the UI.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesyncmergehandler-showresolveconflictuiasync
      */
     ShowResolveConflictUIAsync(localFilePath, monitorToDisplayOn) {
         localFilePath := localFilePath is String ? StrPtr(localFilePath) : localFilePath

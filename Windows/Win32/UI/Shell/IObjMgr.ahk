@@ -37,10 +37,14 @@ class IObjMgr extends IUnknown{
     static VTableNames => ["Append", "Remove"]
 
     /**
+     * Appends an object to the collection of managed objects.
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iobjmgr-append
+     * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the object to be added to the list.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iobjmgr-append
      */
     Append(punk) {
         result := ComCall(3, this, "ptr", punk, "HRESULT")
@@ -48,10 +52,14 @@ class IObjMgr extends IUnknown{
     }
 
     /**
+     * Removes an object from the collection of managed objects.
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iobjmgr-remove
+     * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the object to be removed from the list.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iobjmgr-remove
      */
     Remove(punk) {
         result := ComCall(4, this, "ptr", punk, "HRESULT")

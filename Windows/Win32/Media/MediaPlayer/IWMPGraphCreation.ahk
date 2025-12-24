@@ -31,11 +31,11 @@ class IWMPGraphCreation extends IUnknown{
     static VTableNames => ["GraphCreationPreRender", "GraphCreationPostRender", "GetGraphCreationFlags"]
 
     /**
-     * 
-     * @param {IUnknown} pFilterGraph 
-     * @param {IUnknown} pReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpgraphcreation-graphcreationprerender
+     * The GraphCreationPreRender method is called by Windows Media Player before a file is rendered.
+     * @param {IUnknown} pFilterGraph Pointer to the <b>IUnknown</b> interface of the Windows Media Player control's DirectShow filter graph.
+     * @param {IUnknown} pReserved Reserved for future use.
+     * @returns {HRESULT} Return a success <b>HRESULT</b> to allow playback to continue or a failure code to terminate playback.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpgraphcreation-graphcreationprerender
      */
     GraphCreationPreRender(pFilterGraph, pReserved) {
         result := ComCall(3, this, "ptr", pFilterGraph, "ptr", pReserved, "HRESULT")
@@ -43,10 +43,10 @@ class IWMPGraphCreation extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUnknown} pFilterGraph 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpgraphcreation-graphcreationpostrender
+     * The GraphCreationPostRender method is called by Windows Media Player after a file has been rendered.
+     * @param {IUnknown} pFilterGraph Pointer to the <b>IUnknown</b> interface of the Windows Media Player control's DirectShow filter graph.
+     * @returns {HRESULT} Return a success <b>HRESULT</b> code to allow playback to continue or a failure code to terminate playback.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpgraphcreation-graphcreationpostrender
      */
     GraphCreationPostRender(pFilterGraph) {
         result := ComCall(4, this, "ptr", pFilterGraph, "HRESULT")
@@ -54,10 +54,23 @@ class IWMPGraphCreation extends IUnknown{
     }
 
     /**
+     * One of the flags documented on this page is available in Windows Media Player 10 and Windows Media Player 11 running on Microsoft Windows XP. It might not be available in subsequent versions.
+     * @param {Pointer<Integer>} pdwFlags Address of a <b>DWORD</b> variable that receives a value that represents one or more graph creation flags combined by using bitwise OR operations.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpgraphcreation-getgraphcreationflags
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method succeeded.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpgraphcreation-getgraphcreationflags
      */
     GetGraphCreationFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"

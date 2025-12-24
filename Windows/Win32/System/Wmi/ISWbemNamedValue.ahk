@@ -37,6 +37,21 @@ class ISWbemNamedValue extends IDispatch{
     static VTableNames => ["get_Value", "put_Value", "get_Name"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

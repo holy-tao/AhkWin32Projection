@@ -33,9 +33,31 @@ class ITCallHubEvent extends IDispatch{
     static VTableNames => ["get_Event", "get_CallHub", "get_Call"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhubevent-get_event
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
+     * @type {ITCallHub} 
+     */
+    CallHub {
+        get => this.get_CallHub()
+    }
+
+    /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * The get_Event method returns a pointer to a CALLHUB_EVENT enum description of the event that occurred.
+     * @returns {Integer} Pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-callhub_event">CALLHUB_EVENT</a> enum description of the event.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallhubevent-get_event
      */
     get_Event() {
         result := ComCall(7, this, "int*", &pEvent := 0, "HRESULT")
@@ -43,9 +65,10 @@ class ITCallHubEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITCallHub} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhubevent-get_callhub
+     * The get_CallHub method returns a pointer to the ITCallHub interface on which the event occurred.
+     * @returns {ITCallHub} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallhub">ITCallHub</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallhubevent-get_callhub
      */
     get_CallHub() {
         result := ComCall(8, this, "ptr*", &ppCallHub := 0, "HRESULT")
@@ -53,9 +76,9 @@ class ITCallHubEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITCallInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallhubevent-get_call
+     * The get_Call method returns a pointer to the ITCallInfo interface of the call on which the event occurred.
+     * @returns {ITCallInfo} <b>ITCallInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallhubevent-get_call
      */
     get_Call() {
         result := ComCall(9, this, "ptr*", &ppCall := 0, "HRESULT")

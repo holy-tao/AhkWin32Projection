@@ -101,12 +101,12 @@
  */
 class NVME_COMMAND extends Win32Struct
 {
-    static sizeof => 264
+    static sizeof => 288
 
     static packingSize => 8
 
     class _u_e__Union extends Win32Struct {
-        static sizeof => 216
+        static sizeof => 240
         static packingSize => 8
 
         class _GENERAL extends Win32Struct {
@@ -164,8 +164,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _IDENTIFY extends Win32Struct {
-            static sizeof => 40
-            static packingSize => 4
+            static sizeof => 48
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_IDENTIFY}
@@ -209,8 +209,8 @@ class NVME_COMMAND extends Win32Struct
              * @type {Integer}
              */
             CDW14 {
-                get => NumGet(this, 28, "uint")
-                set => NumPut("uint", value, this, 28)
+                get => NumGet(this, 32, "uint")
+                set => NumPut("uint", value, this, 32)
             }
         
             /**
@@ -219,7 +219,7 @@ class NVME_COMMAND extends Win32Struct
             CDW14_V20{
                 get {
                     if(!this.HasProp("__CDW14_V20"))
-                        this.__CDW14_V20 := NVME_CDW14_IDENTIFY(28, this)
+                        this.__CDW14_V20 := NVME_CDW14_IDENTIFY(32, this)
                     return this.__CDW14_V20
                 }
             }
@@ -228,15 +228,15 @@ class NVME_COMMAND extends Win32Struct
              * @type {Integer}
              */
             CDW15 {
-                get => NumGet(this, 36, "uint")
-                set => NumPut("uint", value, this, 36)
+                get => NumGet(this, 40, "uint")
+                set => NumPut("uint", value, this, 40)
             }
         
         }
     
         class _ABORT extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+            static sizeof => 32
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_ABORT}
@@ -292,8 +292,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _GETFEATURES extends Win32Struct {
-            static sizeof => 184
-            static packingSize => 4
+            static sizeof => 192
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_GET_FEATURES}
@@ -321,22 +321,6 @@ class NVME_COMMAND extends Win32Struct
              * @type {Integer}
              */
             CDW12 {
-                get => NumGet(this, 168, "uint")
-                set => NumPut("uint", value, this, 168)
-            }
-        
-            /**
-             * @type {Integer}
-             */
-            CDW13 {
-                get => NumGet(this, 172, "uint")
-                set => NumPut("uint", value, this, 172)
-            }
-        
-            /**
-             * @type {Integer}
-             */
-            CDW14 {
                 get => NumGet(this, 176, "uint")
                 set => NumPut("uint", value, this, 176)
             }
@@ -344,16 +328,32 @@ class NVME_COMMAND extends Win32Struct
             /**
              * @type {Integer}
              */
-            CDW15 {
+            CDW13 {
                 get => NumGet(this, 180, "uint")
                 set => NumPut("uint", value, this, 180)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            CDW14 {
+                get => NumGet(this, 184, "uint")
+                set => NumPut("uint", value, this, 184)
+            }
+        
+            /**
+             * @type {Integer}
+             */
+            CDW15 {
+                get => NumGet(this, 188, "uint")
+                set => NumPut("uint", value, this, 188)
             }
         
         }
     
         class _SETFEATURES extends Win32Struct {
-            static sizeof => 216
-            static packingSize => 4
+            static sizeof => 240
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_SET_FEATURES}
@@ -383,7 +383,7 @@ class NVME_COMMAND extends Win32Struct
             CDW12{
                 get {
                     if(!this.HasProp("__CDW12"))
-                        this.__CDW12 := NVME_CDW12_FEATURES(168, this)
+                        this.__CDW12 := NVME_CDW12_FEATURES(176, this)
                     return this.__CDW12
                 }
             }
@@ -394,7 +394,7 @@ class NVME_COMMAND extends Win32Struct
             CDW13{
                 get {
                     if(!this.HasProp("__CDW13"))
-                        this.__CDW13 := NVME_CDW13_FEATURES(180, this)
+                        this.__CDW13 := NVME_CDW13_FEATURES(192, this)
                     return this.__CDW13
                 }
             }
@@ -405,7 +405,7 @@ class NVME_COMMAND extends Win32Struct
             CDW14{
                 get {
                     if(!this.HasProp("__CDW14"))
-                        this.__CDW14 := NVME_CDW14_FEATURES(192, this)
+                        this.__CDW14 := NVME_CDW14_FEATURES(208, this)
                     return this.__CDW14
                 }
             }
@@ -416,7 +416,7 @@ class NVME_COMMAND extends Win32Struct
             CDW15{
                 get {
                     if(!this.HasProp("__CDW15"))
-                        this.__CDW15 := NVME_CDW15_FEATURES(204, this)
+                        this.__CDW15 := NVME_CDW15_FEATURES(224, this)
                     return this.__CDW15
                 }
             }
@@ -424,8 +424,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _GETLOGPAGE extends Win32Struct {
-            static sizeof => 44
-            static packingSize => 4
+            static sizeof => 48
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_GET_LOG_PAGE}
@@ -538,7 +538,7 @@ class NVME_COMMAND extends Win32Struct
     
         class _CREATEIOCQ extends Win32Struct {
             static sizeof => 32
-            static packingSize => 4
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_CREATE_IO_QUEUE}
@@ -598,7 +598,7 @@ class NVME_COMMAND extends Win32Struct
     
         class _CREATEIOSQ extends Win32Struct {
             static sizeof => 32
-            static packingSize => 4
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_CREATE_IO_QUEUE}
@@ -658,7 +658,7 @@ class NVME_COMMAND extends Win32Struct
     
         class _DELETEIOQUEUE extends Win32Struct {
             static sizeof => 8
-            static packingSize => 4
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_DELETE_IO_QUEUE}
@@ -675,7 +675,7 @@ class NVME_COMMAND extends Win32Struct
     
         class _DATASETMANAGEMENT extends Win32Struct {
             static sizeof => 32
-            static packingSize => 4
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_DATASET_MANAGEMENT}
@@ -734,8 +734,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _SECURITYSEND extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+            static sizeof => 32
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_SECURITY_SEND_RECEIVE}
@@ -794,8 +794,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _SECURITYRECEIVE extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+            static sizeof => 32
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_SECURITY_SEND_RECEIVE}
@@ -914,8 +914,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _FIRMWAREACTIVATE extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+            static sizeof => 32
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_FIRMWARE_ACTIVATE}
@@ -971,8 +971,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _FORMATNVM extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+            static sizeof => 32
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_FORMAT_NVM}
@@ -1028,8 +1028,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _DIRECTIVERECEIVE extends Win32Struct {
-            static sizeof => 36
-            static packingSize => 4
+            static sizeof => 48
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_DIRECTIVE_RECEIVE}
@@ -1048,7 +1048,7 @@ class NVME_COMMAND extends Win32Struct
             CDW11{
                 get {
                     if(!this.HasProp("__CDW11"))
-                        this.__CDW11 := NVME_CDW11_DIRECTIVE_RECEIVE(4, this)
+                        this.__CDW11 := NVME_CDW11_DIRECTIVE_RECEIVE(8, this)
                     return this.__CDW11
                 }
             }
@@ -1059,7 +1059,7 @@ class NVME_COMMAND extends Win32Struct
             CDW12{
                 get {
                     if(!this.HasProp("__CDW12"))
-                        this.__CDW12 := NVME_CDW12_DIRECTIVE_RECEIVE(12, this)
+                        this.__CDW12 := NVME_CDW12_DIRECTIVE_RECEIVE(16, this)
                     return this.__CDW12
                 }
             }
@@ -1068,31 +1068,31 @@ class NVME_COMMAND extends Win32Struct
              * @type {Integer}
              */
             CDW13 {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
+                get => NumGet(this, 32, "uint")
+                set => NumPut("uint", value, this, 32)
             }
         
             /**
              * @type {Integer}
              */
             CDW14 {
-                get => NumGet(this, 28, "uint")
-                set => NumPut("uint", value, this, 28)
+                get => NumGet(this, 36, "uint")
+                set => NumPut("uint", value, this, 36)
             }
         
             /**
              * @type {Integer}
              */
             CDW15 {
-                get => NumGet(this, 32, "uint")
-                set => NumPut("uint", value, this, 32)
+                get => NumGet(this, 40, "uint")
+                set => NumPut("uint", value, this, 40)
             }
         
         }
     
         class _DIRECTIVESEND extends Win32Struct {
-            static sizeof => 36
-            static packingSize => 4
+            static sizeof => 48
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_DIRECTIVE_SEND}
@@ -1111,7 +1111,7 @@ class NVME_COMMAND extends Win32Struct
             CDW11{
                 get {
                     if(!this.HasProp("__CDW11"))
-                        this.__CDW11 := NVME_CDW11_DIRECTIVE_SEND(4, this)
+                        this.__CDW11 := NVME_CDW11_DIRECTIVE_SEND(8, this)
                     return this.__CDW11
                 }
             }
@@ -1122,7 +1122,7 @@ class NVME_COMMAND extends Win32Struct
             CDW12{
                 get {
                     if(!this.HasProp("__CDW12"))
-                        this.__CDW12 := NVME_CDW12_DIRECTIVE_SEND(12, this)
+                        this.__CDW12 := NVME_CDW12_DIRECTIVE_SEND(16, this)
                     return this.__CDW12
                 }
             }
@@ -1131,31 +1131,31 @@ class NVME_COMMAND extends Win32Struct
              * @type {Integer}
              */
             CDW13 {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
+                get => NumGet(this, 32, "uint")
+                set => NumPut("uint", value, this, 32)
             }
         
             /**
              * @type {Integer}
              */
             CDW14 {
-                get => NumGet(this, 28, "uint")
-                set => NumPut("uint", value, this, 28)
+                get => NumGet(this, 36, "uint")
+                set => NumPut("uint", value, this, 36)
             }
         
             /**
              * @type {Integer}
              */
             CDW15 {
-                get => NumGet(this, 32, "uint")
-                set => NumPut("uint", value, this, 32)
+                get => NumGet(this, 40, "uint")
+                set => NumPut("uint", value, this, 40)
             }
         
         }
     
         class _SANITIZE extends Win32Struct {
             static sizeof => 32
-            static packingSize => 4
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_SANITIZE}
@@ -1214,8 +1214,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _READWRITE extends Win32Struct {
-            static sizeof => 36
-            static packingSize => 4
+            static sizeof => 40
+            static packingSize => 8
     
             /**
              * @type {Integer}
@@ -1269,7 +1269,7 @@ class NVME_COMMAND extends Win32Struct
             CDW15{
                 get {
                     if(!this.HasProp("__CDW15"))
-                        this.__CDW15 := NVME_CDW15_READ_WRITE(28, this)
+                        this.__CDW15 := NVME_CDW15_READ_WRITE(32, this)
                     return this.__CDW15
                 }
             }
@@ -1277,8 +1277,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _RESERVATIONACQUIRE extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+            static sizeof => 32
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_RESERVATION_ACQUIRE}
@@ -1334,8 +1334,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _RESERVATIONREGISTER extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+            static sizeof => 32
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_RESERVATION_REGISTER}
@@ -1391,8 +1391,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _RESERVATIONRELEASE extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+            static sizeof => 32
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_RESERVATION_RELEASE}
@@ -1449,7 +1449,7 @@ class NVME_COMMAND extends Win32Struct
     
         class _RESERVATIONREPORT extends Win32Struct {
             static sizeof => 32
-            static packingSize => 4
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_RESERVATION_REPORT}
@@ -1536,7 +1536,7 @@ class NVME_COMMAND extends Win32Struct
             CDW13{
                 get {
                     if(!this.HasProp("__CDW13"))
-                        this.__CDW13 := NVME_CDW13_ZONE_MANAGEMENT_SEND(12, this)
+                        this.__CDW13 := NVME_CDW13_ZONE_MANAGEMENT_SEND(16, this)
                     return this.__CDW13
                 }
             }
@@ -1545,16 +1545,16 @@ class NVME_COMMAND extends Win32Struct
              * @type {Integer}
              */
             CDW14 {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
+                get => NumGet(this, 24, "uint")
+                set => NumPut("uint", value, this, 24)
             }
         
             /**
              * @type {Integer}
              */
             CDW15 {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
+                get => NumGet(this, 28, "uint")
+                set => NumPut("uint", value, this, 28)
             }
         
         }
@@ -1588,7 +1588,7 @@ class NVME_COMMAND extends Win32Struct
             CDW13{
                 get {
                     if(!this.HasProp("__CDW13"))
-                        this.__CDW13 := NVME_CDW13_ZONE_MANAGEMENT_RECEIVE(12, this)
+                        this.__CDW13 := NVME_CDW13_ZONE_MANAGEMENT_RECEIVE(16, this)
                     return this.__CDW13
                 }
             }
@@ -1597,16 +1597,16 @@ class NVME_COMMAND extends Win32Struct
              * @type {Integer}
              */
             CDW14 {
-                get => NumGet(this, 20, "uint")
-                set => NumPut("uint", value, this, 20)
+                get => NumGet(this, 24, "uint")
+                set => NumPut("uint", value, this, 24)
             }
         
             /**
              * @type {Integer}
              */
             CDW15 {
-                get => NumGet(this, 24, "uint")
-                set => NumPut("uint", value, this, 24)
+                get => NumGet(this, 28, "uint")
+                set => NumPut("uint", value, this, 28)
             }
         
         }
@@ -1667,8 +1667,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _DEVICESELFTEST extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+            static sizeof => 32
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_DEVICE_SELF_TEST}
@@ -1724,8 +1724,8 @@ class NVME_COMMAND extends Win32Struct
         }
     
         class _DISCOVERYINFOMGMT extends Win32Struct {
-            static sizeof => 28
-            static packingSize => 4
+            static sizeof => 32
+            static packingSize => 8
     
             /**
              * @type {NVME_CDW10_DISCOVERY_INFO_MGMT}
@@ -1836,7 +1836,7 @@ class NVME_COMMAND extends Win32Struct
     
         class _VERIFYCOMMAND extends Win32Struct {
             static sizeof => 32
-            static packingSize => 4
+            static packingSize => 8
     
             /**
              * @type {Integer}

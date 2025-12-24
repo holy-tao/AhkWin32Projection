@@ -34,6 +34,44 @@ class IHTMLDocument4 extends IDispatch{
     static VTableNames => ["focus", "hasFocus", "put_onselectionchange", "get_onselectionchange", "get_namespaces", "createDocumentFromUrl", "put_media", "get_media", "createEventObject", "fireEvent", "createRenderStyle", "put_oncontrolselect", "get_oncontrolselect", "get_URLUnencoded"]
 
     /**
+     * @type {VARIANT} 
+     */
+    onselectionchange {
+        get => this.get_onselectionchange()
+        set => this.put_onselectionchange(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    namespaces {
+        get => this.get_namespaces()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    media {
+        get => this.get_media()
+        set => this.put_media(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncontrolselect {
+        get => this.get_oncontrolselect()
+        set => this.put_oncontrolselect(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    URLUnencoded {
+        get => this.get_URLUnencoded()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

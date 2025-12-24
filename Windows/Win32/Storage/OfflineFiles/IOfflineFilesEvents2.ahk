@@ -31,9 +31,9 @@ class IOfflineFilesEvents2 extends IOfflineFilesEvents{
     static VTableNames => ["ItemReconnectBegin", "ItemReconnectEnd", "CacheEvictBegin", "CacheEvictEnd", "BackgroundSyncBegin", "BackgroundSyncEnd", "PolicyChangeDetected", "PreferenceChangeDetected", "SettingsChangesApplied"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents2-itemreconnectbegin
+     * Reports that the Offline Files service is beginning to attempt to reconnect all offline scopes.
+     * @returns {HRESULT} The return value is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents2-itemreconnectbegin
      */
     ItemReconnectBegin() {
         result := ComCall(28, this, "HRESULT")
@@ -41,9 +41,9 @@ class IOfflineFilesEvents2 extends IOfflineFilesEvents{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents2-itemreconnectend
+     * Reports that the Offline Files service has completed its attempt to reconnect all offline scopes.
+     * @returns {HRESULT} The return value is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents2-itemreconnectend
      */
     ItemReconnectEnd() {
         result := ComCall(29, this, "HRESULT")
@@ -51,9 +51,9 @@ class IOfflineFilesEvents2 extends IOfflineFilesEvents{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents2-cacheevictbegin
+     * This method is reserved for future use.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents2-cacheevictbegin
      */
     CacheEvictBegin() {
         result := ComCall(30, this, "HRESULT")
@@ -61,9 +61,9 @@ class IOfflineFilesEvents2 extends IOfflineFilesEvents{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents2-cacheevictend
+     * This method is reserved for future use.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents2-cacheevictend
      */
     CacheEvictEnd() {
         result := ComCall(31, this, "HRESULT")
@@ -71,10 +71,10 @@ class IOfflineFilesEvents2 extends IOfflineFilesEvents{
     }
 
     /**
-     * 
-     * @param {Integer} dwSyncControlFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents2-backgroundsyncbegin
+     * Reports that the Offline Files service is beginning to perform a background synchronization pass.
+     * @param {Integer} dwSyncControlFlags One or more OFFLINEFILES_SYNC_CONTROL_FLAG_XXXXXX flags describing the purpose of the sync operation.  These may be used to determine if the sync is a one-way or two-way sync. These flags are described in the <i>dwSyncControl</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilescache-synchronize">IOfflineFilesCache::Synchronize</a> method.
+     * @returns {HRESULT} The return value is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents2-backgroundsyncbegin
      */
     BackgroundSyncBegin(dwSyncControlFlags) {
         result := ComCall(32, this, "uint", dwSyncControlFlags, "HRESULT")
@@ -82,10 +82,10 @@ class IOfflineFilesEvents2 extends IOfflineFilesEvents{
     }
 
     /**
-     * 
-     * @param {Integer} dwSyncControlFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents2-backgroundsyncend
+     * Reports that the Offline Files service completed a background synchronization pass.
+     * @param {Integer} dwSyncControlFlags One or more OFFLINEFILES_SYNC_CONTROL_FLAG_XXXXXX flags describing the purpose of the sync operation.  These may be used to determine if the sync is a one-way or two-way sync. These flags are described in the <i>dwSyncControl</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilescache-synchronize">IOfflineFilesCache::Synchronize</a> method.
+     * @returns {HRESULT} The return value is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents2-backgroundsyncend
      */
     BackgroundSyncEnd(dwSyncControlFlags) {
         result := ComCall(33, this, "uint", dwSyncControlFlags, "HRESULT")
@@ -93,9 +93,9 @@ class IOfflineFilesEvents2 extends IOfflineFilesEvents{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents2-policychangedetected
+     * Reports that the Offline Files service detected a change in one or more of its setting values that are controlled by Group Policy.
+     * @returns {HRESULT} The return value is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents2-policychangedetected
      */
     PolicyChangeDetected() {
         result := ComCall(34, this, "HRESULT")
@@ -103,9 +103,9 @@ class IOfflineFilesEvents2 extends IOfflineFilesEvents{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents2-preferencechangedetected
+     * Reports that the Offline Files service detected a change in one or more of its setting values that are not controlled by Group Policy.
+     * @returns {HRESULT} The return value is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents2-preferencechangedetected
      */
     PreferenceChangeDetected() {
         result := ComCall(35, this, "HRESULT")
@@ -113,9 +113,9 @@ class IOfflineFilesEvents2 extends IOfflineFilesEvents{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents2-settingschangesapplied
+     * Reports that the Offline Files service has applied the changes that were detected in Group Policy or preference values.
+     * @returns {HRESULT} The return value is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents2-settingschangesapplied
      */
     SettingsChangesApplied() {
         result := ComCall(36, this, "HRESULT")

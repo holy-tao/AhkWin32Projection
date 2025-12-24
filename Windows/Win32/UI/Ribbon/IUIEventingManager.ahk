@@ -31,10 +31,12 @@ class IUIEventingManager extends IUnknown{
     static VTableNames => ["SetEventLogger"]
 
     /**
+     * Sets the event logger for ribbon events.
+     * @param {IUIEventLogger} eventLogger The event logger.
      * 
-     * @param {IUIEventLogger} eventLogger 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuieventingmanager-seteventlogger
+     * If NULL, disables event logging.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuieventingmanager-seteventlogger
      */
     SetEventLogger(eventLogger) {
         result := ComCall(3, this, "ptr", eventLogger, "HRESULT")

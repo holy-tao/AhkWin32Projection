@@ -38,6 +38,121 @@ class IMSMQQueueInfo extends IDispatch{
     static VTableNames => ["get_QueueGuid", "get_ServiceTypeGuid", "put_ServiceTypeGuid", "get_Label", "put_Label", "get_PathName", "put_PathName", "get_FormatName", "put_FormatName", "get_IsTransactional", "get_PrivLevel", "put_PrivLevel", "get_Journal", "put_Journal", "get_Quota", "put_Quota", "get_BasePriority", "put_BasePriority", "get_CreateTime", "get_ModifyTime", "get_Authenticate", "put_Authenticate", "get_JournalQuota", "put_JournalQuota", "get_IsWorldReadable", "Create", "Delete", "Open", "Refresh", "Update"]
 
     /**
+     * @type {BSTR} 
+     */
+    QueueGuid {
+        get => this.get_QueueGuid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServiceTypeGuid {
+        get => this.get_ServiceTypeGuid()
+        set => this.put_ServiceTypeGuid(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Label {
+        get => this.get_Label()
+        set => this.put_Label(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PathName {
+        get => this.get_PathName()
+        set => this.put_PathName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FormatName {
+        get => this.get_FormatName()
+        set => this.put_FormatName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IsTransactional {
+        get => this.get_IsTransactional()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PrivLevel {
+        get => this.get_PrivLevel()
+        set => this.put_PrivLevel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Journal {
+        get => this.get_Journal()
+        set => this.put_Journal(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Quota {
+        get => this.get_Quota()
+        set => this.put_Quota(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BasePriority {
+        get => this.get_BasePriority()
+        set => this.put_BasePriority(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CreateTime {
+        get => this.get_CreateTime()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ModifyTime {
+        get => this.get_ModifyTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Authenticate {
+        get => this.get_Authenticate()
+        set => this.put_Authenticate(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    JournalQuota {
+        get => this.get_JournalQuota()
+        set => this.put_JournalQuota(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IsWorldReadable {
+        get => this.get_IsWorldReadable()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -32,9 +32,11 @@ class ID2D1DeviceContext3 extends ID2D1DeviceContext2{
     static VTableNames => ["CreateSpriteBatch", "DrawSpriteBatch"]
 
     /**
+     * Creates a new, empty sprite batch. After creating a sprite batch, use ID2D1SpriteBatch::AddSprites to add sprites to it, then use ID2D1DeviceContext3::DrawSpriteBatch to draw it.
+     * @returns {ID2D1SpriteBatch} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1spritebatch">ID2D1SpriteBatch</a>**</b>
      * 
-     * @returns {ID2D1SpriteBatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext3-createspritebatch
+     * When this method returns, contains a pointer to a new, empty sprite batch to be populated by the app.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext3-createspritebatch
      */
     CreateSpriteBatch() {
         result := ComCall(106, this, "ptr*", &spriteBatch := 0, "HRESULT")

@@ -43,11 +43,15 @@ class ICredentialProvider extends IUnknown{
     static VTableNames => ["SetUsageScenario", "SetSerialization", "Advise", "UnAdvise", "GetFieldDescriptorCount", "GetFieldDescriptorAt", "GetCredentialCount", "GetCredentialAt"]
 
     /**
+     * Defines the scenarios for which the credential provider is valid. Called whenever the credential provider is initialized.
+     * @param {Integer} cpus Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ne-credentialprovider-credential_provider_usage_scenario">CREDENTIAL_PROVIDER_USAGE_SCENARIO</a></b>
      * 
-     * @param {Integer} cpus 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-setusagescenario
+     * The scenario the credential provider has been created in. This is the usage scenario that needs to be supported. See the Remarks for more information.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovider-setusagescenario
      */
     SetUsageScenario(cpus, dwFlags) {
         result := ComCall(3, this, "int", cpus, "uint", dwFlags, "HRESULT")
@@ -55,10 +59,14 @@ class ICredentialProvider extends IUnknown{
     }
 
     /**
+     * Sets the serialization characteristics of the credential provider.
+     * @param {Pointer<CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION>} pcpcs Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_credential_serialization">CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION</a>*</b>
      * 
-     * @param {Pointer<CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION>} pcpcs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-setserialization
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_credential_serialization">CREDENTIAL_PROVIDER_CREDENTIAL_SERIALIZATION</a> structure that stores the serialization characteristics of the credential provider.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovider-setserialization
      */
     SetSerialization(pcpcs) {
         result := ComCall(4, this, "ptr", pcpcs, "HRESULT")
@@ -66,11 +74,17 @@ class ICredentialProvider extends IUnknown{
     }
 
     /**
+     * Allows a credential provider to initiate events in the Logon UI or Credential UI through a callback interface.
+     * @param {ICredentialProviderEvents} pcpe Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nn-credentialprovider-icredentialproviderevents">ICredentialProviderEvents</a>*</b>
      * 
-     * @param {ICredentialProviderEvents} pcpe 
-     * @param {Pointer} upAdviseContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-advise
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nn-credentialprovider-icredentialproviderevents">ICredentialProviderEvents</a> callback interface to be used as the notification mechanism.
+     * @param {Pointer} upAdviseContext Type: <b>UINT_PTR</b>
+     * 
+     * A pointer to an integer that uniquely identifies which credential provider has requested re-enumeration.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovider-advise
      */
     Advise(pcpe, upAdviseContext) {
         result := ComCall(5, this, "ptr", pcpe, "ptr", upAdviseContext, "HRESULT")
@@ -78,9 +92,11 @@ class ICredentialProvider extends IUnknown{
     }
 
     /**
+     * Used by the Logon UI or Credential UI to advise the credential provider that event callbacks are no longer accepted.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-unadvise
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovider-unadvise
      */
     UnAdvise() {
         result := ComCall(6, this, "HRESULT")
@@ -88,9 +104,11 @@ class ICredentialProvider extends IUnknown{
     }
 
     /**
+     * Retrieves the count of fields in the needed to display this provider's credentials.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getfielddescriptorcount
+     * Pointer to the field count.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovider-getfielddescriptorcount
      */
     GetFieldDescriptorCount() {
         result := ComCall(7, this, "uint*", &pdwCount := 0, "HRESULT")
@@ -98,10 +116,14 @@ class ICredentialProvider extends IUnknown{
     }
 
     /**
+     * Gets metadata that describes a specified field.
+     * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIndex 
-     * @returns {Pointer<CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR>} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getfielddescriptorat
+     * The zero-based index of the field for which the information should be retrieved.
+     * @returns {Pointer<CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_field_descriptor">CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR</a>**</b>
+     * 
+     * The address of a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/credentialprovider/ns-credentialprovider-credential_provider_field_descriptor">CREDENTIAL_PROVIDER_FIELD_DESCRIPTOR</a> structure which receives the information about the field.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovider-getfielddescriptorat
      */
     GetFieldDescriptorAt(dwIndex) {
         result := ComCall(8, this, "uint", dwIndex, "ptr*", &ppcpfd := 0, "HRESULT")
@@ -109,12 +131,20 @@ class ICredentialProvider extends IUnknown{
     }
 
     /**
+     * Gets the number of available credentials under this credential provider.
+     * @param {Pointer<Integer>} pdwCount Type: <b>DWORD*</b>
      * 
-     * @param {Pointer<Integer>} pdwCount 
-     * @param {Pointer<Integer>} pdwDefault 
-     * @param {Pointer<BOOL>} pbAutoLogonWithDefault 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getcredentialcount
+     * A pointer to a <b>DWORD</b> value that receives the count of credentials.
+     * @param {Pointer<Integer>} pdwDefault Type: <b>DWORD*</b>
+     * 
+     * A pointer to a <b>DWORD</b> value that receives the index of the credential to be used as the default. If no default value has been set, this value should be set to <b>CREDENTIAL_PROVIDER_NO_DEFAULT</b>.
+     * @param {Pointer<BOOL>} pbAutoLogonWithDefault Type: <b>BOOL*</b>
+     * 
+     * A pointer to a <b>BOOL</b> value indicating if the default credential identified by <i>pdwDefault</i> should be used for an auto logon attempt. An auto logon attempt means the Logon UI or Credential UI will immediately call <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovidercredential-getserialization">GetSerialization</a> on the provider's default tile.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovider-getcredentialcount
      */
     GetCredentialCount(pdwCount, pdwDefault, pbAutoLogonWithDefault) {
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
@@ -126,10 +156,14 @@ class ICredentialProvider extends IUnknown{
     }
 
     /**
+     * Gets a specific credential.
+     * @param {Integer} dwIndex Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIndex 
-     * @returns {ICredentialProviderCredential} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialprovider-getcredentialat
+     * The zero-based index of the credential within the set of credentials enumerated for this credential provider.
+     * @returns {ICredentialProviderCredential} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nn-credentialprovider-icredentialprovidercredential">ICredentialProviderCredential</a>**</b>
+     * 
+     * The address of a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nn-credentialprovider-icredentialprovidercredential">ICredentialProviderCredential</a> instance representing the credential.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialprovider-getcredentialat
      */
     GetCredentialAt(dwIndex) {
         result := ComCall(10, this, "uint", dwIndex, "ptr*", &ppcpc := 0, "HRESULT")

@@ -31,13 +31,25 @@ class ISceSvcAttachmentData extends IUnknown{
     static VTableNames => ["GetData", "Initialize", "FreeBuffer", "CloseHandle"]
 
     /**
+     * The GetData method retrieves configuration information from the Security Configuration snap-in.
+     * @param {Pointer<Void>} scesvcHandle Type: <b>SCESVC_HANDLE</b>
      * 
-     * @param {Pointer<Void>} scesvcHandle 
-     * @param {Integer} sceType 
-     * @param {Pointer<Pointer<Void>>} ppvData 
-     * @param {Pointer<Integer>} psceEnumHandle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-getdata
+     * A 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/scesvc-handle">SCESVC_HANDLE</a> returned during a previous call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nf-scesvc-iscesvcattachmentdata-initialize">ISceSvcAttachmentData::Initialize</a>.
+     * @param {Integer} sceType Type: <b>SCESVC_INFO_TYPE</b>
+     * 
+     * A
+     * @param {Pointer<Pointer<Void>>} ppvData Type: <b>PVOID*</b>
+     * 
+     * Pointer to a buffer which receives the data.
+     * @param {Pointer<Integer>} psceEnumHandle Type: <b>PSCE_ENUMERATION_CONTEXT</b>
+     * 
+     * An opaque handle used to navigate through the security database.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * The return value is an <b>HRESULT</b>. A value of S_OK indicates the method was successful.
+     * @see https://docs.microsoft.com/windows/win32/api//scesvc/nf-scesvc-iscesvcattachmentdata-getdata
      */
     GetData(scesvcHandle, sceType, ppvData, psceEnumHandle) {
         scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr" : "ptr"
@@ -49,23 +61,16 @@ class ISceSvcAttachmentData extends IUnknown{
     }
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Pointer<Integer>} lpServiceName 
-     * @param {Pointer<Integer>} lpTemplateName 
-     * @param {ISceSvcAttachmentPersistInfo} lpSceSvcPersistInfo 
-     * @param {Pointer<Pointer<Void>>} pscesvcHandle 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The Initialize method informs the Security Configuration snap-in that the snap-in extension is loaded, and it establishes a context for communications.
+     * @param {Pointer<Integer>} lpServiceName String that specifies the name of the security service to retrieve information about.
+     * @param {Pointer<Integer>} lpTemplateName String that specifies the name of the template.
+     * @param {ISceSvcAttachmentPersistInfo} lpSceSvcPersistInfo Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nn-scesvc-iscesvcattachmentpersistinfo">ISceSvcAttachmentPersistInfo</a> interface of the attachment snap-in extension.
+     * @param {Pointer<Pointer<Void>>} pscesvcHandle Pointer that receives an 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/scesvc-handle">SCESVC_HANDLE</a> that represents the communication context between the Security Configuration snap-in and the snap-in extension. This handle is passed in as a parameter to the other <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nn-scesvc-iscesvcattachmentdata">ISceSvcAttachmentData</a> methods. When the attachment snap-in extension no longer needs this handle, free it by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/scesvc/nf-scesvc-iscesvcattachmentdata-closehandle">ISceSvcAttachmentData::CloseHandle</a>.
+     * @returns {HRESULT} The return value is an HRESULT. A value of S_OK indicates the method was successful.
+     * @see https://docs.microsoft.com/windows/win32/api//scesvc/nf-scesvc-iscesvcattachmentdata-initialize
      */
     Initialize(lpServiceName, lpTemplateName, lpSceSvcPersistInfo, pscesvcHandle) {
         lpServiceNameMarshal := lpServiceName is VarRef ? "char*" : "ptr"
@@ -77,10 +82,10 @@ class ISceSvcAttachmentData extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} pvData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/scesvc/nf-scesvc-iscesvcattachmentdata-freebuffer
+     * The FreeBuffer method frees memory allocated by the Security Configuration snap-in.
+     * @param {Pointer<Void>} pvData Void pointer to the buffer to be freed.
+     * @returns {HRESULT} The return value is an HRESULT. A value of S_OK indicates the method was successful.
+     * @see https://docs.microsoft.com/windows/win32/api//scesvc/nf-scesvc-iscesvcattachmentdata-freebuffer
      */
     FreeBuffer(pvData) {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
@@ -90,17 +95,11 @@ class ISceSvcAttachmentData extends IUnknown{
     }
 
     /**
-     * Closes an open object handle.
-     * @param {Pointer<Void>} scesvcHandle 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * 
-     * If the application is running under a debugger,  the function will throw an exception if it receives either a  handle value that is not valid  or a pseudo-handle value. This can happen if you close a handle twice, or if you  call 
-     * <b>CloseHandle</b> on a handle returned by the 
-     * <a href="/windows/desktop/api/fileapi/nf-fileapi-findfirstfilea">FindFirstFile</a> function instead of calling the <a href="/windows/desktop/api/fileapi/nf-fileapi-findclose">FindClose</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//handleapi/nf-handleapi-closehandle
+     * The CloseHandle method closes a handle opened during a previous call to ISceSvcAttachmentData::Initialize.
+     * @param {Pointer<Void>} scesvcHandle The 
+     * <a href="https://docs.microsoft.com/windows/desktop/SecMgmt/scesvc-handle">SCESVC_HANDLE</a> to close.
+     * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of <b>S_OK</b> indicates the method was successful.
+     * @see https://docs.microsoft.com/windows/win32/api//scesvc/nf-scesvc-iscesvcattachmentdata-closehandle
      */
     CloseHandle(scesvcHandle) {
         scesvcHandleMarshal := scesvcHandle is VarRef ? "ptr" : "ptr"

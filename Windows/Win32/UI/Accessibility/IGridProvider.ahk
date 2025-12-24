@@ -45,11 +45,32 @@ class IGridProvider extends IUnknown{
     static VTableNames => ["GetItem", "get_RowCount", "get_ColumnCount"]
 
     /**
+     * @type {Integer} 
+     */
+    RowCount {
+        get => this.get_RowCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ColumnCount {
+        get => this.get_ColumnCount()
+    }
+
+    /**
+     * Retrieves the Microsoft UI Automation provider for the specified cell.
+     * @param {Integer} row Type: <b>int</b>
      * 
-     * @param {Integer} row 
-     * @param {Integer} column 
-     * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-getitem
+     * The ordinal number of the row of interest.
+     * @param {Integer} column Type: <b>int</b>
+     * 
+     * The ordinal number of the column of interest.
+     * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
+     * 
+     * Receives a pointer to a UI Automation provider for the specified cell or a null reference 
+     *                 (Nothing in Microsoft Visual Basic .NET) if the cell is empty.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-igridprovider-getitem
      */
     GetItem(row, column) {
         result := ComCall(3, this, "int", row, "int", column, "ptr*", &pRetVal := 0, "HRESULT")
@@ -57,9 +78,18 @@ class IGridProvider extends IUnknown{
     }
 
     /**
+     * Specifies the total number of rows in the grid.
+     * @remarks
+     * 
+     * Hidden rows and columns, depending on the provider implementation, may be loaded 
+     *             in the logical tree and will therefore be reflected in the 
+     *             <b>IGridProvider::RowCount</b> and 
+     *             <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_columncount">IGridProvider::ColumnCount</a> properties. 
+     *             If the hidden rows and columns have not yet been loaded they will not be counted.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_rowcount
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-igridprovider-get_rowcount
      */
     get_RowCount() {
         result := ComCall(4, this, "int*", &pRetVal := 0, "HRESULT")
@@ -67,9 +97,18 @@ class IGridProvider extends IUnknown{
     }
 
     /**
+     * Specifies the total number of columns in the grid.
+     * @remarks
+     * 
+     * Hidden rows and columns, depending on the provider implementation, may be loaded 
+     *             in the logical tree and will therefore be reflected in the 
+     *             <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_rowcount">IGridProvider::RowCount</a> and 
+     *             <b>IGridProvider::ColumnCount</b> properties. 
+     *             If the hidden rows and columns have not yet been loaded they will not be counted.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_columncount
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-igridprovider-get_columncount
      */
     get_ColumnCount() {
         result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")

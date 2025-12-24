@@ -45,14 +45,27 @@ class IUICommandHandler extends IUnknown{
     static VTableNames => ["Execute", "UpdateProperty"]
 
     /**
+     * Responds to execute events on Commands bound to the Command handler.
+     * @param {Integer} commandId Type: <b>UINT32</b>
      * 
-     * @param {Integer} commandId 
-     * @param {Integer} verb 
-     * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} currentValue 
-     * @param {IUISimplePropertySet} commandExecutionProperties 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicommandhandler-execute
+     * The ID for the Command, which is specified in the Markup resource file.
+     * @param {Integer} verb Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_executionverb">UI_EXECUTIONVERB</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/ne-uiribbon-ui_executionverb">UI_EXECUTIONVERB</a> or action that is initiated by the user.
+     * @param {Pointer<PROPERTYKEY>} key Type: <b>const PROPERTYKEY*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-reference-properties">Property Key</a> that has changed value. This parameter can be <b>NULL</b>.
+     * @param {Pointer<PROPVARIANT>} currentValue Type: <b>const PROPVARIANT*</b>
+     * 
+     * A pointer to the current value for <i>key</i>. This parameter can be <b>NULL</b>.
+     * @param {IUISimplePropertySet} commandExecutionProperties Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuisimplepropertyset">IUISimplePropertySet</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/uiribbon/nn-uiribbon-iuisimplepropertyset">IUISimplePropertySet</a> object that contains 
+     * 					Command state properties and property values, such as screen coordinates and list item indices. This parameter can be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicommandhandler-execute
      */
     Execute(commandId, verb, key, currentValue, commandExecutionProperties) {
         result := ComCall(3, this, "uint", commandId, "int", verb, "ptr", key, "ptr", currentValue, "ptr", commandExecutionProperties, "HRESULT")
@@ -60,12 +73,21 @@ class IUICommandHandler extends IUnknown{
     }
 
     /**
+     * Responds to property update requests from the Windows Ribbon framework.
+     * @param {Integer} commandId Type: <b>UINT32</b>
      * 
-     * @param {Integer} commandId 
-     * @param {Pointer<PROPERTYKEY>} key 
-     * @param {Pointer<PROPVARIANT>} currentValue 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicommandhandler-updateproperty
+     * The ID for the Command, which is specified in the Markup resource file.
+     * @param {Pointer<PROPERTYKEY>} key Type: <b>REFPROPERTYKEY</b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-reference-properties">Property Key</a> to update.
+     * @param {Pointer<PROPVARIANT>} currentValue Type: <b>const PROPVARIANT*</b>
+     * 
+     * A pointer to the current value for <i>key</i>. This parameter can be <b>NULL</b>.
+     * @returns {PROPVARIANT} Type: <b>PROPVARIANT*</b>
+     * 
+     * When this method returns, contains a pointer to the new value for 
+     * 					<i>key</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicommandhandler-updateproperty
      */
     UpdateProperty(commandId, key, currentValue) {
         newValue := PROPVARIANT()

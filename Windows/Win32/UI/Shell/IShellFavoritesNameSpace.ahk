@@ -30,6 +30,13 @@ class IShellFavoritesNameSpace extends IDispatch{
     static VTableNames => ["MoveSelectionUp", "MoveSelectionDown", "ResetSort", "NewFolder", "Synchronize", "Import", "Export", "InvokeContextMenuCommand", "MoveSelectionTo", "get_SubscriptionsEnabled", "CreateSubscriptionForSelection", "DeleteSubscriptionForSelection", "SetRoot"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    SubscriptionsEnabled {
+        get => this.get_SubscriptionsEnabled()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

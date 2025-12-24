@@ -31,10 +31,14 @@ class IRichEditUiaInformation extends IUnknown{
     static VTableNames => ["GetBoundaryRectangle", "IsVisible"]
 
     /**
+     * Retrieves the bounding rectangle of a windowless rich edit control.
+     * @param {Pointer<UiaRect>} pUiaRect Type: <b>UiaRect*</b>
      * 
-     * @param {Pointer<UiaRect>} pUiaRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-irichedituiainformation-getboundaryrectangle
+     * The bounding rectangle, in screen coordinates.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-irichedituiainformation-getboundaryrectangle
      */
     GetBoundaryRectangle(pUiaRect) {
         result := ComCall(3, this, "ptr", pUiaRect, "HRESULT")
@@ -42,9 +46,11 @@ class IRichEditUiaInformation extends IUnknown{
     }
 
     /**
+     * Indicates whether a windowless rich edit control is currently visible.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-irichedituiainformation-isvisible
+     * Returns S_OK if the windowless rich edit control is visible, or S_FALSE otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-irichedituiainformation-isvisible
      */
     IsVisible() {
         result := ComCall(4, this, "HRESULT")

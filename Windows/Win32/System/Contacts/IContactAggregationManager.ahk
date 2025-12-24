@@ -39,6 +39,13 @@ class IContactAggregationManager extends IUnknown{
     static VTableNames => ["GetVersionInfo", "CreateOrOpenGroup", "CreateExternalContact", "CreateServerPerson", "CreateServerContactLink", "Flush", "OpenAggregateContact", "OpenContact", "OpenServerContactLink", "OpenServerPerson", "get_Contacts", "get_AggregateContacts", "get_Groups", "get_ServerPersons", "get_ServerContactLinks"]
 
     /**
+     * @type {IContactAggregationServerPersonCollection} 
+     */
+    ServerPersons {
+        get => this.get_ServerPersons()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} plMajorVersion 
      * @param {Pointer<Integer>} plMinorVersion 

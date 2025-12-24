@@ -30,6 +30,28 @@ class IX509SCEPEnrollment2 extends IX509SCEPEnrollment{
     static VTableNames => ["CreateChallengeAnswerMessage", "ProcessResponseMessage2", "get_ResultMessageText", "get_DelayRetry", "get_ActivityId", "put_ActivityId"]
 
     /**
+     * @type {BSTR} 
+     */
+    ResultMessageText {
+        get => this.get_ResultMessageText()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DelayRetry {
+        get => this.get_DelayRetry()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ActivityId {
+        get => this.get_ActivityId()
+        set => this.put_ActivityId(value)
+    }
+
+    /**
      * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 

@@ -85,10 +85,50 @@ class IXpsSignatureManager extends IUnknown{
     static VTableNames => ["LoadPackageFile", "LoadPackageStream", "Sign", "GetSignatureOriginPartName", "SetSignatureOriginPartName", "GetSignatures", "AddSignatureBlock", "GetSignatureBlocks", "CreateSigningOptions", "SavePackageToFile", "SavePackageToStream"]
 
     /**
+     * Loads an existing XPS package from a file into the digital signature manager.
+     * @param {PWSTR} fileName The file name of the XPS package to be loaded.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {PWSTR} fileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-loadpackagefile
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>fileName</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_PACKAGE_ALREADY_OPENED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An XPS package has already  been opened in the signature manager.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-loadpackagefile
      */
     LoadPackageFile(fileName) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
@@ -98,10 +138,50 @@ class IXpsSignatureManager extends IUnknown{
     }
 
     /**
+     * Loads an XPS package from a stream into the digital signature manager.
+     * @param {IStream} stream The stream that contains the XPS package to be loaded.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {IStream} stream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-loadpackagestream
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>stream</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_PACKAGE_ALREADY_OPENED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An XPS package has already  been opened in the signature manager.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-loadpackagestream
      */
     LoadPackageStream(stream) {
         result := ComCall(4, this, "ptr", stream, "HRESULT")
@@ -109,11 +189,18 @@ class IXpsSignatureManager extends IUnknown{
     }
 
     /**
+     * Signs the contents of an XPS package as specified by the signing options and returns the resulting digital signature.
+     * @param {IXpsSigningOptions} signOptions A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssigningoptions">IXpsSigningOptions</a> interface that contains the  signing options.
      * 
-     * @param {IXpsSigningOptions} signOptions 
-     * @param {Pointer<CERT_CONTEXT>} x509Certificate 
-     * @returns {IXpsSignature} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-sign
+     * <div class="alert"><b>Note</b>  <p class="note">The SignatureMethod and the DigestMethod properties of the <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssigningoptions">IXpsSigningOptions</a> interface must be initialized before the pointer to that interface can be used in the <i>signOptions</i> parameter.
+     * 
+     * </div>
+     * <div> </div>
+     * @param {Pointer<CERT_CONTEXT>} x509Certificate A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the X.509 certificate to be used for signing.
+     * @returns {IXpsSignature} A pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignature">IXpsSignature</a> interface that contains the new digital signature.
+     * 
+     * If successful, this method creates the signature part, adds it to the package, and in <i>signature</i> returns a pointer to the interface of that signature part.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-sign
      */
     Sign(signOptions, x509Certificate) {
         result := ComCall(5, this, "ptr", signOptions, "ptr", x509Certificate, "ptr*", &signature := 0, "HRESULT")
@@ -121,9 +208,9 @@ class IXpsSignatureManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcPartUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-getsignatureoriginpartname
+     * Gets the part name of the signature origin part.
+     * @returns {IOpcPartUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name of the signature origin part. If the document does not have any signatures, a <b>NULL</b> pointer is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-getsignatureoriginpartname
      */
     GetSignatureOriginPartName() {
         result := ComCall(6, this, "ptr*", &signatureOriginPartName := 0, "HRESULT")
@@ -131,10 +218,39 @@ class IXpsSignatureManager extends IUnknown{
     }
 
     /**
+     * Sets the part name of the signature origin part.
+     * @param {IOpcPartUri} signatureOriginPartName A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the part name of the signature origin part.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code shown in the table that follows or an <b>HRESULT</b> error code that is returned by <a href="/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-setsignatureoriginpartname">IOpcDigitalSignatureManager::SetSignatureOriginPartName</a>.
      * 
-     * @param {IOpcPartUri} signatureOriginPartName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-setsignatureoriginpartname
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_PACKAGE_NOT_OPENED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An XPS package was not loaded into the digital signature manager before calling this method.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-setsignatureoriginpartname
      */
     SetSignatureOriginPartName(signatureOriginPartName) {
         result := ComCall(7, this, "ptr", signatureOriginPartName, "HRESULT")
@@ -142,9 +258,9 @@ class IXpsSignatureManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IXpsSignatureCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-getsignatures
+     * Gets a pointer to an IXpsSignatureCollection interface that contains a collection of XPS digital signatures.
+     * @returns {IXpsSignatureCollection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignaturecollection">IXpsSignatureCollection</a> interface that contains a collection of XPS digital signatures.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-getsignatures
      */
     GetSignatures() {
         result := ComCall(8, this, "ptr*", &signatures := 0, "HRESULT")
@@ -152,11 +268,11 @@ class IXpsSignatureManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IOpcPartUri} partName 
-     * @param {Integer} fixedDocumentIndex 
-     * @returns {IXpsSignatureBlock} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-addsignatureblock
+     * Creates a new IXpsSignatureBlock interface and adds it to the signature block collection.
+     * @param {IOpcPartUri} partName A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the URI of the new part. For the method to generate a part name, this parameter can be set to <b>NULL</b>.
+     * @param {Integer} fixedDocumentIndex The index value of the FixedDocument part with which the new signature block is to be associated.
+     * @returns {IXpsSignatureBlock} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignatureblock">IXpsSignatureBlock</a> interface. If access to the new interface is not required, this parameter can be set to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-addsignatureblock
      */
     AddSignatureBlock(partName, fixedDocumentIndex) {
         result := ComCall(9, this, "ptr", partName, "uint", fixedDocumentIndex, "ptr*", &signatureBlock := 0, "HRESULT")
@@ -164,9 +280,9 @@ class IXpsSignatureManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IXpsSignatureBlockCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-getsignatureblocks
+     * Gets a pointer to an IXpsSignatureBlockCollection interface that contains a collection of signature blocks.
+     * @returns {IXpsSignatureBlockCollection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssignatureblockcollection">IXpsSignatureBlockCollection</a> interface that contains a collection of signature blocks.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-getsignatureblocks
      */
     GetSignatureBlocks() {
         result := ComCall(10, this, "ptr*", &signatureBlocks := 0, "HRESULT")
@@ -174,9 +290,9 @@ class IXpsSignatureManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IXpsSigningOptions} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-createsigningoptions
+     * Creates a new IXpsSigningOptions interface.
+     * @returns {IXpsSigningOptions} A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsdigitalsignature/nn-xpsdigitalsignature-ixpssigningoptions">IXpsSigningOptions</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-createsigningoptions
      */
     CreateSigningOptions() {
         result := ComCall(11, this, "ptr*", &signingOptions := 0, "HRESULT")
@@ -184,12 +300,60 @@ class IXpsSignatureManager extends IUnknown{
     }
 
     /**
+     * Saves the XPS package to a file.
+     * @param {PWSTR} fileName The name of the file where the XPS package is to be created and saved.
+     * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure,  which contains two separate but related data members:
      * 
-     * @param {PWSTR} fileName 
-     * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes 
-     * @param {Integer} flagsAndAttributes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-savepackagetofile
+     * <ul>
+     * <li><b>lpSecurityDescriptor</b>, an optional security descriptor.</li>
+     * <li><b>bInheritHandle</b>,  a Boolean value that determines whether the returned handle can be inherited by child processes.</li>
+     * </ul>
+     * If the <b>lpSecurityDescriptor</b> member of the structure is <b>NULL</b>, the file or device that is associated with the returned handle is assigned a default security descriptor.
+     * 
+     * For more information about this parameter, see <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.
+     * @param {Integer} flagsAndAttributes The file or device attributes and flags that will be used in file creation. For more information about this parameter, see the description of the <i>dwFlagsAndAttributes</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>fileName</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_PACKAGE_NOT_OPENED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An XPS package has not yet been opened in the signature manager.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-savepackagetofile
      */
     SavePackageToFile(fileName, securityAttributes, flagsAndAttributes) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
@@ -199,10 +363,50 @@ class IXpsSignatureManager extends IUnknown{
     }
 
     /**
+     * Saves the XPS package by writing it to a stream.
+     * @param {IStream} stream The stream to which the XPS package is written.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372949(v=vs.85)">XPS Digital Signature API Errors</a> and  <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {IStream} stream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-savepackagetostream
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>stream</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>XPS_E_PACKAGE_NOT_OPENED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An XPS package has not yet been opened in the signature manager.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsdigitalsignature/nf-xpsdigitalsignature-ixpssignaturemanager-savepackagetostream
      */
     SavePackageToStream(stream) {
         result := ComCall(13, this, "ptr", stream, "HRESULT")

@@ -37,9 +37,9 @@ class IMFClock extends IUnknown{
     static VTableNames => ["GetClockCharacteristics", "GetCorrelatedTime", "GetContinuityKey", "GetState", "GetProperties"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getclockcharacteristics
+     * Retrieves the characteristics of the clock.
+     * @returns {Integer} Receives a bitwise OR of values from the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfclock_characteristics_flags">MFCLOCK_CHARACTERISTICS_FLAGS</a> enumeration indicating the characteristics of the clock.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclock-getclockcharacteristics
      */
     GetClockCharacteristics() {
         result := ComCall(3, this, "uint*", &pdwCharacteristics := 0, "HRESULT")
@@ -47,12 +47,43 @@ class IMFClock extends IUnknown{
     }
 
     /**
+     * Retrieves the last clock time that was correlated with system time.
+     * @param {Integer} dwReserved Reserved, must be zero.
+     * @param {Pointer<Integer>} pllClockTime Receives the last known clock time, in units of the clock's frequency.
+     * @param {Pointer<Integer>} phnsSystemTime Receives the system time that corresponds to the clock time returned in <i>pllClockTime</i>, in 100-nanosecond units.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwReserved 
-     * @param {Pointer<Integer>} pllClockTime 
-     * @param {Pointer<Integer>} phnsSystemTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getcorrelatedtime
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_CLOCK_NO_TIME_SOURCE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The clock does not have a time source.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclock-getcorrelatedtime
      */
     GetCorrelatedTime(dwReserved, pllClockTime, phnsSystemTime) {
         pllClockTimeMarshal := pllClockTime is VarRef ? "int64*" : "ptr"
@@ -63,9 +94,9 @@ class IMFClock extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getcontinuitykey
+     * Retrieves the clock's continuity key. (Not supported.).
+     * @returns {Integer} Receives the continuity key.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclock-getcontinuitykey
      */
     GetContinuityKey() {
         result := ComCall(5, this, "uint*", &pdwContinuityKey := 0, "HRESULT")
@@ -73,10 +104,10 @@ class IMFClock extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwReserved 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getstate
+     * Retrieves the current state of the clock.
+     * @param {Integer} dwReserved Reserved, must be zero.
+     * @returns {Integer} Receives the clock state, as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfclock_state">MFCLOCK_STATE</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclock-getstate
      */
     GetState(dwReserved) {
         result := ComCall(6, this, "uint", dwReserved, "int*", &peClockState := 0, "HRESULT")
@@ -84,9 +115,9 @@ class IMFClock extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {MFCLOCK_PROPERTIES} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclock-getproperties
+     * Retrieves the properties of the clock.
+     * @returns {MFCLOCK_PROPERTIES} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ns-mfidl-mfclock_properties">MFCLOCK_PROPERTIES</a> structure that receives the properties.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclock-getproperties
      */
     GetProperties() {
         pClockProperties := MFCLOCK_PROPERTIES()

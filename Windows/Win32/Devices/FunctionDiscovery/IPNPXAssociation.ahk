@@ -47,10 +47,39 @@ class IPNPXAssociation extends IUnknown{
     static VTableNames => ["Associate", "Unassociate", "Delete"]
 
     /**
+     * Marks an association database entry as associated.
+     * @param {PWSTR} pszSubcategory The subcategory of the association database in which the entry is stored.   This parameter can be <b>NULL</b>.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {PWSTR} pszSubcategory 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nf-pnpxassoc-ipnpxassociation-associate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//pnpxassoc/nf-pnpxassoc-ipnpxassociation-associate
      */
     Associate(pszSubcategory) {
         pszSubcategory := pszSubcategory is String ? StrPtr(pszSubcategory) : pszSubcategory
@@ -60,10 +89,39 @@ class IPNPXAssociation extends IUnknown{
     }
 
     /**
+     * Marks an association database entry as unassociated.
+     * @param {PWSTR} pszSubcategory The subcategory of the association database in which the entry is stored.  This parameter can be <b>NULL</b>.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {PWSTR} pszSubcategory 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nf-pnpxassoc-ipnpxassociation-unassociate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//pnpxassoc/nf-pnpxassoc-ipnpxassociation-unassociate
      */
     Unassociate(pszSubcategory) {
         pszSubcategory := pszSubcategory is String ? StrPtr(pszSubcategory) : pszSubcategory
@@ -73,10 +131,39 @@ class IPNPXAssociation extends IUnknown{
     }
 
     /**
+     * Removes an entry from the association database.
+     * @param {PWSTR} pszSubcategory The subcategory of the association database in which the entry is stored.  This parameter can be <b>NULL</b>.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
-     * @param {PWSTR} pszSubcategory 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nf-pnpxassoc-ipnpxassociation-delete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//pnpxassoc/nf-pnpxassoc-ipnpxassociation-delete
      */
     Delete(pszSubcategory) {
         pszSubcategory := pszSubcategory is String ? StrPtr(pszSubcategory) : pszSubcategory

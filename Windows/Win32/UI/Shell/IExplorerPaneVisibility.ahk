@@ -31,10 +31,14 @@ class IExplorerPaneVisibility extends IUnknown{
     static VTableNames => ["GetPaneState"]
 
     /**
+     * Gets the visibility state of the given Windows Explorer pane.
+     * @param {Pointer<Guid>} ep Type: <b>REFEXPLORERPANE</b>
      * 
-     * @param {Pointer<Guid>} ep 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerpanevisibility-getpanestate
+     * A reference to a GUID that uniquely identifies a Windows Explorer pane. One of the following constants as defined in Shlguid.h.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_explorerpanestate">EXPLORERPANESTATE</a>*</b>
+     * 
+     * When this method returns, contains the visibility state of the given Windows Explorer pane as one of the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_explorerpanestate">EXPLORERPANESTATE</a> constants.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerpanevisibility-getpanestate
      */
     GetPaneState(ep) {
         result := ComCall(3, this, "ptr", ep, "uint*", &peps := 0, "HRESULT")

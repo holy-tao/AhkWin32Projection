@@ -31,21 +31,40 @@ class IPhotoAcquirePlugin extends IUnknown{
     static VTableNames => ["Initialize", "ProcessItem", "TransferComplete", "DisplayConfigureDialog"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IPhotoAcquireSource} pPhotoAcquireSource 
-     * @param {IPhotoAcquireProgressCB} pPhotoAcquireProgressCB 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The Initialize method provides extended functionality when the plug-in is initialized. The application provides the implementation of the Initialize method.
+     * @param {IPhotoAcquireSource} pPhotoAcquireSource Specifies the source from which photos are being acquired.
+     * @param {IPhotoAcquireProgressCB} pPhotoAcquireProgressCB Specifies the callback that will provide additional processing during acquisition.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Your implementation is not limited to the following return values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is not implemented
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireplugin-initialize
      */
     Initialize(pPhotoAcquireSource, pPhotoAcquireProgressCB) {
         result := ComCall(3, this, "ptr", pPhotoAcquireSource, "ptr", pPhotoAcquireProgressCB, "HRESULT")
@@ -53,14 +72,64 @@ class IPhotoAcquirePlugin extends IUnknown{
     }
 
     /**
+     * The ProcessItem method provides additional functionality each time an item is processed. The application provides the implementation of the ProcessItem method.
+     * @param {Integer} dwAcquireStage Specifies a double word value indicating whether this method is being called before or after processing an item. Must be one of: PAPS_PRESAVE, PAPS_POSTSAVE, or PAPS_CLEANUP.
      * 
-     * @param {Integer} dwAcquireStage 
-     * @param {IPhotoAcquireItem} pPhotoAcquireItem 
-     * @param {IStream} pOriginalItemStream 
-     * @param {PWSTR} pszFinalFilename 
-     * @param {IPropertyStore} pPropertyStore 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireplugin-processitem
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>PAPS_PRESAVE</td>
+     * <td>Indicates that the method is being called before saving the acquired file. During PAPS_PRESAVE, <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireitem-getproperty">pPhotoAcquireItem::GetProperty</a> should be used to retrieve metadata from the original file, while new metadata to be written to the file should be added to <i>pPropertyStore</i>.</td>
+     * </tr>
+     * <tr>
+     * <td>PAPS_POSTSAVE</td>
+     * <td>Indicates that the method is being called after saving the acquired file.</td>
+     * </tr>
+     * <tr>
+     * <td>PAPS_CLEANUP</td>
+     * <td>Indicates that the user has canceled the acquire operation and any work done by the plug-in should be cleaned up.</td>
+     * </tr>
+     * </table>
+     * @param {IPhotoAcquireItem} pPhotoAcquireItem Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nn-photoacquire-iphotoacquireitem">IPhotoAcquireItem</a> object for the item being processed.
+     * @param {IStream} pOriginalItemStream Pointer to an <b>IStream</b> object for the original item. <b>NULL</b> if <i>dwAcquireStage</i> is PAPS_POSTSAVE.
+     * @param {PWSTR} pszFinalFilename The file name of the destination of the item. <b>NULL</b> if <i>dwAcquireStage</i> is PAPS_PRESAVE.
+     * @param {IPropertyStore} pPropertyStore The item's property store. <b>NULL</b> if <i>dwAcquireStage</i> is PAPS_POSTSAVE.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Your implementation is not limited to the following return values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireplugin-processitem
      */
     ProcessItem(dwAcquireStage, pPhotoAcquireItem, pOriginalItemStream, pszFinalFilename, pPropertyStore) {
         pszFinalFilename := pszFinalFilename is String ? StrPtr(pszFinalFilename) : pszFinalFilename
@@ -70,10 +139,39 @@ class IPhotoAcquirePlugin extends IUnknown{
     }
 
     /**
+     * Provides extended functionality when a transfer session is completed. The application provides the implementation of the TransferComplete method.
+     * @param {HRESULT} hr Specifies the result of the transfer operation.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Your implementation is not limited to the following return values.
      * 
-     * @param {HRESULT} hr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireplugin-transfercomplete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is not implemented
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireplugin-transfercomplete
      */
     TransferComplete(hr) {
         result := ComCall(5, this, "int", hr, "HRESULT")
@@ -81,10 +179,39 @@ class IPhotoAcquirePlugin extends IUnknown{
     }
 
     /**
+     * The DisplayConfigureDialog method provides extended functionality when the configuration dialog is displayed. The application provides the implementation of the DisplayConfigureDialog method.
+     * @param {HWND} hWndParent Specifies the handle to the configuration dialog window.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Your implementation is not limited to the following return values.
      * 
-     * @param {HWND} hWndParent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquireplugin-displayconfiguredialog
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is not implemented
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquireplugin-displayconfiguredialog
      */
     DisplayConfigureDialog(hWndParent) {
         hWndParent := hWndParent is Win32Handle ? NumGet(hWndParent, "ptr") : hWndParent

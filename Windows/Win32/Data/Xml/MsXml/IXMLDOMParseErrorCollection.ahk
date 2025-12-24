@@ -31,6 +31,27 @@ class IXMLDOMParseErrorCollection extends IDispatch{
     static VTableNames => ["get_item", "get_length", "get_next", "reset", "get__newEnum"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
+     * @type {IXMLDOMParseError2} 
+     */
+    next {
+        get => this.get_next()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _newEnum {
+        get => this.get__newEnum()
+    }
+
+    /**
      * 
      * @param {Integer} index 
      * @returns {IXMLDOMParseError2} 

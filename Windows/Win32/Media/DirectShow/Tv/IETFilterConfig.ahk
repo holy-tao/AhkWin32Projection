@@ -36,10 +36,10 @@ class IETFilterConfig extends IUnknown{
     static VTableNames => ["InitLicense", "GetSecureChannelObject"]
 
     /**
-     * 
-     * @param {Integer} LicenseId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilterconfig-initlicense
+     * The InitLicense method initializes an encryption license.
+     * @param {Integer} LicenseId Identifies the license.
+     * @returns {HRESULT} Returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ietfilterconfig-initlicense
      */
     InitLicense(LicenseId) {
         result := ComCall(3, this, "int", LicenseId, "HRESULT")
@@ -47,9 +47,9 @@ class IETFilterConfig extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilterconfig-getsecurechannelobject
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {IUnknown} Receives a pointer to the secure channel object's <b>IUnknown</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ietfilterconfig-getsecurechannelobject
      */
     GetSecureChannelObject() {
         result := ComCall(4, this, "ptr*", &ppUnkDRMSecureChannel := 0, "HRESULT")

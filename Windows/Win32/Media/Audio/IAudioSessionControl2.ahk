@@ -44,9 +44,9 @@ class IAudioSessionControl2 extends IAudioSessionControl{
     static VTableNames => ["GetSessionIdentifier", "GetSessionInstanceIdentifier", "GetProcessId", "IsSystemSoundsSession", "SetDuckingPreference"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getsessionidentifier
+     * The GetSessionIdentifier method retrieves the audio session identifier.
+     * @returns {PWSTR} Pointer to the address of a null-terminated, wide-character string that  receives the audio session identifier. The string is allocated by this method and must be released by the caller by calling <b>CoTaskMemFree</b>. For information about <b>CoTaskMemFree</b>, see the Windows SDK documentation.
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getsessionidentifier
      */
     GetSessionIdentifier() {
         result := ComCall(12, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -54,9 +54,9 @@ class IAudioSessionControl2 extends IAudioSessionControl{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getsessioninstanceidentifier
+     * The GetSessionInstanceIdentifier method retrieves the identifier of the audio session instance.
+     * @returns {PWSTR} Pointer to the address of a null-terminated, wide-character string that receives the identifier of a particular instance of the audio session. The string is allocated by this method and must be released by the caller by calling <b>CoTaskMemFree</b>. For information about <b>CoTaskMemFree</b>, see the Windows SDK documentation.
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getsessioninstanceidentifier
      */
     GetSessionInstanceIdentifier() {
         result := ComCall(13, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -64,9 +64,9 @@ class IAudioSessionControl2 extends IAudioSessionControl{
     }
 
     /**
-     * Retrieves the process identifier of the specified process.
-     * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-getprocessid
+     * The GetProcessId method retrieves the process identifier of the audio session.
+     * @returns {Integer} Pointer to a <b>DWORD</b> variable that receives the process identifier of the audio session.
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-getprocessid
      */
     GetProcessId() {
         result := ComCall(14, this, "uint*", &pRetVal := 0, "HRESULT")
@@ -74,9 +74,38 @@ class IAudioSessionControl2 extends IAudioSessionControl{
     }
 
     /**
+     * The IsSystemSoundsSession method indicates whether the session is a system sounds session.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-issystemsoundssession
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The session is a system sounds session.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The session is not a system sounds session.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-issystemsoundssession
      */
     IsSystemSoundsSession() {
         result := ComCall(15, this, "int")
@@ -84,10 +113,29 @@ class IAudioSessionControl2 extends IAudioSessionControl{
     }
 
     /**
+     * The SetDuckingPreference method enables or disables the default stream attenuation experience (auto-ducking) provided by the system.
+     * @param {BOOL} optOut A <b>BOOL</b> variable that enables or disables system auto-ducking.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
+     *           If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {BOOL} optOut 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-setduckingpreference
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>AUDCLNT_E_DEVICE_INVALIDATED</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The audio session is disconnected on the default audio device.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessioncontrol2-setduckingpreference
      */
     SetDuckingPreference(optOut) {
         result := ComCall(16, this, "int", optOut, "HRESULT")

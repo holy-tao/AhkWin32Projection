@@ -51,9 +51,9 @@ class IConnectionPoint extends IUnknown{
     static VTableNames => ["GetConnectionInterface", "GetConnectionPointContainer", "Advise", "Unadvise", "EnumConnections"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-getconnectioninterface
+     * Retrieves the IID of the outgoing interface managed by this connection point.
+     * @returns {Guid} A pointer to the identifier of the outgoing interface managed by this connection point.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iconnectionpoint-getconnectioninterface
      */
     GetConnectionInterface() {
         pIID := Guid()
@@ -62,9 +62,9 @@ class IConnectionPoint extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IConnectionPointContainer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-getconnectionpointcontainer
+     * Retrieves the IConnectionPointContainer interface pointer for the parent connectable object.
+     * @returns {IConnectionPointContainer} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-iconnectionpointcontainer">IConnectionPointContainer</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iconnectionpoint-getconnectionpointcontainer
      */
     GetConnectionPointContainer() {
         result := ComCall(4, this, "ptr*", &ppCPC := 0, "HRESULT")
@@ -72,10 +72,10 @@ class IConnectionPoint extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUnknown} pUnkSink 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-advise
+     * Establishes a connection between a connection point object and the client's sink.
+     * @param {IUnknown} pUnkSink A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the client's advise sink. The client's sink receives outgoing calls from the connection point.
+     * @returns {Integer} A pointer to a returned token that uniquely identifies this connection. The caller uses this token later to delete the connection by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iconnectionpoint-unadvise">IConnectionPoint::Unadvise</a> method. If the connection was not successfully established, this value is zero.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iconnectionpoint-advise
      */
     Advise(pUnkSink) {
         result := ComCall(5, this, "ptr", pUnkSink, "uint*", &pdwCookie := 0, "HRESULT")
@@ -83,10 +83,39 @@ class IConnectionPoint extends IUnknown{
     }
 
     /**
+     * Terminates an advisory connection previously established between a connection point object and a client's sink.
+     * @param {Integer} dwCookie A connection token previously returned from <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iconnectionpoint-advise">IConnectionPoint::Advise</a>.
+     * @returns {HRESULT} This method can return the standard return values E_UNEXPECTED, as well as the following values.
      * 
-     * @param {Integer} dwCookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-unadvise
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection was terminated successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value in <i>dwCookie</i> does not represent a valid connection.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iconnectionpoint-unadvise
      */
     Unadvise(dwCookie) {
         result := ComCall(6, this, "uint", dwCookie, "HRESULT")
@@ -94,9 +123,9 @@ class IConnectionPoint extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumConnections} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-enumconnections
+     * Creates an enumerator object to iterate through the current connections for this connection point.
+     * @returns {IEnumConnections} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ienumconnections">IEnumConnections</a> interface pointer that receives the newly created enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iconnectionpoint-enumconnections
      */
     EnumConnections() {
         result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")

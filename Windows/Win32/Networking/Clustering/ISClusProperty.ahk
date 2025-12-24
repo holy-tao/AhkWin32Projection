@@ -32,6 +32,86 @@ class ISClusProperty extends IDispatch{
     static VTableNames => ["get_Name", "get_Length", "get_ValueCount", "get_Values", "get_Value", "put_Value", "get_Type", "put_Type", "get_Format", "put_Format", "get_ReadOnly", "get_Private", "get_Common", "get_Modified", "UseDefaultValue"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Length {
+        get => this.get_Length()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ValueCount {
+        get => this.get_ValueCount()
+    }
+
+    /**
+     * @type {ISClusPropertyValues} 
+     */
+    Values {
+        get => this.get_Values()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+        set => this.put_Type(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Format {
+        get => this.get_Format()
+        set => this.put_Format(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ReadOnly {
+        get => this.get_ReadOnly()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Private {
+        get => this.get_Private()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Common {
+        get => this.get_Common()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Modified {
+        get => this.get_Modified()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

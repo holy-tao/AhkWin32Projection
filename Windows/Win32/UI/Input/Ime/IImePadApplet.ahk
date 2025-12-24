@@ -31,20 +31,10 @@ class IImePadApplet extends IUnknown{
     static VTableNames => ["Initialize", "Terminate", "GetAppletConfig", "CreateUI", "Notify"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IUnknown} lpIImePad 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Called from IImePad interface to initialize IImePadApplet.
+     * @param {IUnknown} lpIImePad Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/imepad/nn-imepad-iimepad">IImePad</a> (<b>IUnknown</b> *)
+     * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//imepad/nf-imepad-iimepadapplet-initialize
      */
     Initialize(lpIImePad) {
         result := ComCall(3, this, "ptr", lpIImePad, "HRESULT")
@@ -52,9 +42,9 @@ class IImePadApplet extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepadapplet-terminate
+     * Called from IImePad to terminate IImePadApplet when the IMEPad instance exits.
+     * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//imepad/nf-imepad-iimepadapplet-terminate
      */
     Terminate() {
         result := ComCall(4, this, "HRESULT")
@@ -72,11 +62,11 @@ class IImePadApplet extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} hwndParent 
-     * @param {Pointer<IMEAPPLETUI>} lpImeAppletUI 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepadapplet-createui
+     * Called from IImePad to get the applet's window handle, style, and size.
+     * @param {HWND} hwndParent Window handle of the <a href="https://docs.microsoft.com/windows/desktop/api/imepad/nn-imepad-iimepad">IImePad</a> GUI. The applet can create the window as its child window.
+     * @param {Pointer<IMEAPPLETUI>} lpImeAppletUI Pointer to <a href="https://docs.microsoft.com/windows/desktop/api/imepad/ns-imepad-imeappletui">IMEAPPLETUI</a> structure. The applet can set its window style.
+     * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//imepad/nf-imepad-iimepadapplet-createui
      */
     CreateUI(hwndParent, lpImeAppletUI) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -86,13 +76,13 @@ class IImePadApplet extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUnknown} lpImePad 
-     * @param {Integer} notify 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepadapplet-notify
+     * Called from IImePad to pass information with a notify code.
+     * @param {IUnknown} lpImePad Pointer of IUnknown interface. To get the <a href="https://docs.microsoft.com/windows/desktop/api/imepad/nn-imepad-iimepad">IImePad</a> interface pointer, use <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a>.
+     * @param {Integer} notify The <a href="https://docs.microsoft.com/windows/desktop/api/imepad/nn-imepad-iimepadapplet">IImePadApplet</a> notify code. See Remarks for the possible codes.
+     * @param {WPARAM} wParam Additional information specific to <i>notify</i>.
+     * @param {LPARAM} lParam Additional information specific to <i>notify</i>.
+     * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//imepad/nf-imepad-iimepadapplet-notify
      */
     Notify(lpImePad, notify, wParam, lParam) {
         result := ComCall(7, this, "ptr", lpImePad, "int", notify, "ptr", wParam, "ptr", lParam, "HRESULT")

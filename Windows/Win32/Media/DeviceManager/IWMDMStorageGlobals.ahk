@@ -32,9 +32,9 @@ class IWMDMStorageGlobals extends IUnknown{
     static VTableNames => ["GetCapabilities", "GetSerialNumber", "GetTotalSize", "GetTotalFree", "GetTotalBad", "GetStatus", "Initialize"]
 
     /**
-     * 
+     * The GetCapabilities method retrieves the capabilities of the root storage medium.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-getcapabilities
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorageglobals-getcapabilities
      */
     GetCapabilities() {
         result := ComCall(3, this, "uint*", &pdwCapabilities := 0, "HRESULT")
@@ -42,10 +42,10 @@ class IWMDMStorageGlobals extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} abMac 
-     * @returns {WMDMID} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-getserialnumber
+     * The GetSerialNumber method retrieves a serial number that uniquely identifies the storage medium.
+     * @param {Pointer<Integer>} abMac Array of bytes specifying the message authentication code for the parameter data of this method. This memory is allocated and freed by the caller.
+     * @returns {WMDMID} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdmid">WMDMID</a> structure specifying the serial number information.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorageglobals-getserialnumber
      */
     GetSerialNumber(abMac) {
         abMacMarshal := abMac is VarRef ? "char*" : "ptr"
@@ -56,11 +56,18 @@ class IWMDMStorageGlobals extends IUnknown{
     }
 
     /**
+     * The GetTotalSize method retrieves the total size in bytes of the storage medium associated with the IWMDMStorageGlobals interface.
+     * @param {Pointer<Integer>} pdwTotalSizeLow Pointer to a <b>DWORD</b> that receives the low-order value of the total size of the medium.
+     * @param {Pointer<Integer>} pdwTotalSizeHigh Pointer to a <b>DWORD</b> that receives the high-order value of the total size of the medium.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Pointer<Integer>} pdwTotalSizeLow 
-     * @param {Pointer<Integer>} pdwTotalSizeHigh 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-gettotalsize
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorageglobals-gettotalsize
      */
     GetTotalSize(pdwTotalSizeLow, pdwTotalSizeHigh) {
         pdwTotalSizeLowMarshal := pdwTotalSizeLow is VarRef ? "uint*" : "ptr"
@@ -71,11 +78,18 @@ class IWMDMStorageGlobals extends IUnknown{
     }
 
     /**
+     * The GetTotalFree method retrieves the total amount of free space on the storage medium, in bytes.
+     * @param {Pointer<Integer>} pdwFreeLow Pointer to a <b>DWORD</b> that receives the low-order part of the free space value.
+     * @param {Pointer<Integer>} pdwFreeHigh Pointer to a <b>DWORD</b> that receives the high-order part of the free space value.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Pointer<Integer>} pdwFreeLow 
-     * @param {Pointer<Integer>} pdwFreeHigh 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-gettotalfree
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorageglobals-gettotalfree
      */
     GetTotalFree(pdwFreeLow, pdwFreeHigh) {
         pdwFreeLowMarshal := pdwFreeLow is VarRef ? "uint*" : "ptr"
@@ -86,11 +100,18 @@ class IWMDMStorageGlobals extends IUnknown{
     }
 
     /**
+     * The GetTotalBad method retrieves the total amount of unusable space on the storage medium, in bytes.
+     * @param {Pointer<Integer>} pdwBadLow Pointer to a <b>DWORD</b> that receives the low-order bytes of unusable space.
+     * @param {Pointer<Integer>} pdwBadHigh Pointer to a <b>DWORD</b> that receives the high-order bytes of unusable space.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Pointer<Integer>} pdwBadLow 
-     * @param {Pointer<Integer>} pdwBadHigh 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-gettotalbad
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorageglobals-gettotalbad
      */
     GetTotalBad(pdwBadLow, pdwBadHigh) {
         pdwBadLowMarshal := pdwBadLow is VarRef ? "uint*" : "ptr"
@@ -101,9 +122,46 @@ class IWMDMStorageGlobals extends IUnknown{
     }
 
     /**
+     * The GetStatus method retrieves the current status of a storage medium.
+     * @returns {Integer} Pointer to a <b>DWORD</b> to receive the status information when the method returns. The following values can be returned in the <i>pdwStatus</i> parameter.
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorageglobals-getstatus
+     * <table>
+     * <tr>
+     * <th>Status
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>WMDM_STATUS_READY</td>
+     * <td>The medium is in an idle or ready state.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_STATUS_BUSY</td>
+     * <td>An operation is ongoing. Evaluate status values to determine the ongoing operation.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_STATUS_STORAGE_NOTPRESENT</td>
+     * <td>The storage medium is not present. For devices with more than one medium supported, this value is only reported from the <b>IWMDMStorageGlobals</b> interface.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_STATUS_STORAGE_INITIALIZING</td>
+     * <td>The device is currently busy formatting a storage medium on a device.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_STATUS_STORAGE_BROKEN</td>
+     * <td>The storage medium is broken. For devices with more than one medium supported, this value is only reported from the <b>IWMDMStorageGlobals</b> interface.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_STATUS_STORAGE_NOTSUPPORTED</td>
+     * <td>The storage medium is not supported by the device. For devices with more than one medium supported, this value is only returned from the <b>IWMDMStorageGlobals</b> interface.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_STATUS_STORAGE_UNFORMATTED</td>
+     * <td>The storage medium is not formatted. For devices with more than one medium supported, this value is only reported from the <b>IWMDMStorageGlobals</b> interface.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorageglobals-getstatus
      */
     GetStatus() {
         result := ComCall(8, this, "uint*", &pdwStatus := 0, "HRESULT")
@@ -111,21 +169,35 @@ class IWMDMStorageGlobals extends IUnknown{
     }
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Integer} fuMode 
-     * @param {IWMDMProgress} pProgress 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
+     * The Initialize method formats the storage medium.
+     * @param {Integer} fuMode Mode used to initialize the medium. Specify exactly one of the following two modes. If both modes are specified, block mode is used.
+     * 
+     * <table>
+     * <tr>
+     * <th>Mode
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>WMDM_MODE_BLOCK</td>
+     * <td>The operation is performed using block mode processing. The call will not return until the operation is finished.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_MODE_THREAD</td>
+     * <td>The operation is performed using thread mode processing. The call returns immediately, and the operation is performed in a background thread.</td>
+     * </tr>
+     * </table>
+     * @param {IWMDMProgress} pProgress Pointer to an <b>IWMDMProgress</b> interface implemented by an application to track the progress of the formatting operation.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
+     * 
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorageglobals-initialize
      */
     Initialize(fuMode, pProgress) {
         result := ComCall(9, this, "uint", fuMode, "ptr", pProgress, "HRESULT")

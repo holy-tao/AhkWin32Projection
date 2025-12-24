@@ -31,11 +31,11 @@ class IOverlayNotify extends IUnknown{
     static VTableNames => ["OnPaletteChange", "OnClipChange", "OnColorKeyChange", "OnPositionChange"]
 
     /**
-     * 
-     * @param {Integer} dwColors 
-     * @param {Pointer<PALETTEENTRY>} pPalette 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlaynotify-onpalettechange
+     * The OnPaletteChange method provides notification that the palette of the window has changed.
+     * @param {Integer} dwColors Number of colors present.
+     * @param {Pointer<PALETTEENTRY>} pPalette Pointer to the array of palette colors.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ioverlaynotify-onpalettechange
      */
     OnPaletteChange(dwColors, pPalette) {
         result := ComCall(3, this, "uint", dwColors, "ptr", pPalette, "HRESULT")
@@ -43,12 +43,12 @@ class IOverlayNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<RECT>} pSourceRect 
-     * @param {Pointer<RECT>} pDestinationRect 
-     * @param {Pointer<RGNDATA>} pRgnData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlaynotify-onclipchange
+     * The OnClipChange method provides notification that the window's visible region has changed. It is essential that any overlay hardware be updated to reflect the change to the visible region before returning from this method.
+     * @param {Pointer<RECT>} pSourceRect Pointer to the region of the video to use.
+     * @param {Pointer<RECT>} pDestinationRect Pointer to the video destination.
+     * @param {Pointer<RGNDATA>} pRgnData Pointer to the clipping information.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ioverlaynotify-onclipchange
      */
     OnClipChange(pSourceRect, pDestinationRect, pRgnData) {
         result := ComCall(4, this, "ptr", pSourceRect, "ptr", pDestinationRect, "ptr", pRgnData, "HRESULT")
@@ -56,10 +56,10 @@ class IOverlayNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COLORKEY>} pColorKey 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlaynotify-oncolorkeychange
+     * The OnColorKeyChange method provides notification that the window's color key has changed.
+     * @param {Pointer<COLORKEY>} pColorKey Pointer to the new chroma key.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ioverlaynotify-oncolorkeychange
      */
     OnColorKeyChange(pColorKey) {
         result := ComCall(5, this, "ptr", pColorKey, "HRESULT")
@@ -67,11 +67,11 @@ class IOverlayNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<RECT>} pSourceRect 
-     * @param {Pointer<RECT>} pDestinationRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ioverlaynotify-onpositionchange
+     * The OnPositionChange method provides notification that the position has changed.
+     * @param {Pointer<RECT>} pSourceRect Pointer to the source video rectangle.
+     * @param {Pointer<RECT>} pDestinationRect Pointer to the destination video rectangle. Note that this is not clipped to the visible display area.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ioverlaynotify-onpositionchange
      */
     OnPositionChange(pSourceRect, pDestinationRect) {
         result := ComCall(6, this, "ptr", pSourceRect, "ptr", pDestinationRect, "HRESULT")

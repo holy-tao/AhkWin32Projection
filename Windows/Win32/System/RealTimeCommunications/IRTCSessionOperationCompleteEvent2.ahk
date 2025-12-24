@@ -30,6 +30,13 @@ class IRTCSessionOperationCompleteEvent2 extends IRTCSessionOperationCompleteEve
     static VTableNames => ["get_Participant", "GetRemoteSessionDescription"]
 
     /**
+     * @type {IRTCParticipant} 
+     */
+    Participant {
+        get => this.get_Participant()
+    }
+
+    /**
      * 
      * @returns {IRTCParticipant} 
      */

@@ -39,9 +39,25 @@ class IFsrmActionReport extends IFsrmAction{
     static VTableNames => ["get_ReportTypes", "put_ReportTypes", "get_MailTo", "put_MailTo"]
 
     /**
-     * 
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ReportTypes {
+        get => this.get_ReportTypes()
+        set => this.put_ReportTypes(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MailTo {
+        get => this.get_MailTo()
+        set => this.put_MailTo(value)
+    }
+
+    /**
+     * Retrieves or sets the types of reports to generate.
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionreport-get_reporttypes
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionreport-get_reporttypes
      */
     get_ReportTypes() {
         result := ComCall(12, this, "ptr*", &reportTypes := 0, "HRESULT")
@@ -49,10 +65,10 @@ class IFsrmActionReport extends IFsrmAction{
     }
 
     /**
-     * 
+     * Retrieves or sets the types of reports to generate.
      * @param {Pointer<SAFEARRAY>} reportTypes 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionreport-put_reporttypes
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionreport-put_reporttypes
      */
     put_ReportTypes(reportTypes) {
         result := ComCall(13, this, "ptr", reportTypes, "HRESULT")
@@ -60,9 +76,23 @@ class IFsrmActionReport extends IFsrmAction{
     }
 
     /**
+     * Retrieves or sets the email address to which the reports are sent.
+     * @remarks
+     * 
+     * The email message contains the reports as attachments. It is possible that the mail server may reject the 
+     *     message if the server limits attachment sizes. The 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-get_mailfrom">IFsrmSetting::MailFrom</a> property specifies the 
+     *     sender of the email. The subject and message body contain predefined text that identifies the quota that caused 
+     *     the notification. The email addresses are not checked for format until the action is run.
+     * 
+     * You can also call the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setoutputdirectory">IFsrmReportManager::SetOutputDirectory</a> 
+     *     method to specify the storage location for these incident reports.
+     * 
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionreport-get_mailto
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionreport-get_mailto
      */
     get_MailTo() {
         mailTo := BSTR()
@@ -71,10 +101,24 @@ class IFsrmActionReport extends IFsrmAction{
     }
 
     /**
+     * Retrieves or sets the email address to which the reports are sent.
+     * @remarks
+     * 
+     * The email message contains the reports as attachments. It is possible that the mail server may reject the 
+     *     message if the server limits attachment sizes. The 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-get_mailfrom">IFsrmSetting::MailFrom</a> property specifies the 
+     *     sender of the email. The subject and message body contain predefined text that identifies the quota that caused 
+     *     the notification. The email addresses are not checked for format until the action is run.
+     * 
+     * You can also call the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-setoutputdirectory">IFsrmReportManager::SetOutputDirectory</a> 
+     *     method to specify the storage location for these incident reports.
+     * 
+     * 
      * 
      * @param {BSTR} mailTo 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionreport-put_mailto
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionreport-put_mailto
      */
     put_MailTo(mailTo) {
         mailTo := mailTo is String ? BSTR.Alloc(mailTo).Value : mailTo

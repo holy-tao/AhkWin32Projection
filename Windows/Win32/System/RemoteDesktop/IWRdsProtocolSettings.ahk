@@ -36,11 +36,11 @@ class IWRdsProtocolSettings extends IUnknown{
     static VTableNames => ["GetSettings", "MergeSettings"]
 
     /**
-     * 
-     * @param {Integer} WRdsSettingType 
-     * @param {Integer} WRdsSettingLevel 
-     * @returns {WRDS_SETTINGS} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolsettings-getsettings
+     * Retrieves the settings for a particular policy.
+     * @param {Integer} WRdsSettingType A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ne-wtsdefs-wrds_setting_type">WRDS_SETTING_TYPE</a> enumeration that specifies the area in which to retrieve the settings (machine group policy, user group policy, or user security accounts manager).
+     * @param {Integer} WRdsSettingLevel A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ne-wtsdefs-wrds_setting_level">WRDS_SETTING_LEVEL</a> enumeration that specifies the type of structure contained in the <b>WRdsSetting</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_settings">WRDS_SETTINGS</a> structure.
+     * @returns {WRDS_SETTINGS} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_settings">WRDS_SETTINGS</a> structure that contains the returned settings.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolsettings-getsettings
      */
     GetSettings(WRdsSettingType, WRdsSettingLevel) {
         pWRdsSettings := WRDS_SETTINGS()
@@ -49,12 +49,12 @@ class IWRdsProtocolSettings extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<WRDS_SETTINGS>} pWRdsSettings 
-     * @param {Integer} WRdsConnectionSettingLevel 
-     * @param {Pointer<WRDS_CONNECTION_SETTINGS>} pWRdsConnectionSettings 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolsettings-mergesettings
+     * Adds (merges) the specified policy-related settings into the larger group of connection settings.
+     * @param {Pointer<WRDS_SETTINGS>} pWRdsSettings A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_settings">WRDS_SETTINGS</a> structure that contains the policy-related settings to add.
+     * @param {Integer} WRdsConnectionSettingLevel A value of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ne-wtsdefs-wrds_connection_setting_level">WRDS_CONNECTION_SETTING_LEVEL</a> enumeration that specifies the type of structure contained in the <b>WRdsConnectionSetting</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_connection_settings">WRDS_CONNECTION_SETTINGS</a> structure.
+     * @param {Pointer<WRDS_CONNECTION_SETTINGS>} pWRdsConnectionSettings A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_connection_settings">WRDS_CONNECTION_SETTINGS</a> structure that contains the existing connection settings. When the method returns, this structure is updated to include the merged settings.
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolsettings-mergesettings
      */
     MergeSettings(pWRdsSettings, WRdsConnectionSettingLevel, pWRdsConnectionSettings) {
         result := ComCall(4, this, "ptr", pWRdsSettings, "int", WRdsConnectionSettingLevel, "ptr", pWRdsConnectionSettings, "HRESULT")

@@ -59,6 +59,29 @@ class IADsAccessControlList extends IDispatch{
     static VTableNames => ["get_AclRevision", "put_AclRevision", "get_AceCount", "put_AceCount", "AddAce", "RemoveAce", "CopyAccessList", "get__NewEnum"]
 
     /**
+     * @type {Integer} 
+     */
+    AclRevision {
+        get => this.get_AclRevision()
+        set => this.put_AclRevision(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AceCount {
+        get => this.get_AceCount()
+        set => this.put_AceCount(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */
@@ -97,53 +120,10 @@ class IADsAccessControlList extends IDispatch{
     }
 
     /**
-     * Adds one or more access control entries (ACEs) to a specified access control list (ACL).
-     * @param {IDispatch} pAccessControlEntry 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. The following are possible error values.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The new ACE does not fit into the ACL. A larger ACL buffer is required.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The specified ACL is not properly formed.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_SUCCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The ACE was successfully added.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//securitybaseapi/nf-securitybaseapi-addace
+     * The IADsAccessControlList::AddAce method adds an IADsAccessControlEntry object to the IADsAccessControlList object.
+     * @param {IDispatch} pAccessControlEntry Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface of the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsaccesscontrolentry">IADsAccessControlEntry</a> object to be added. This parameter cannot be <b>NULL</b>.
+     * @returns {HRESULT} Returns a standard <b>HRESULT</b> value including the following.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsaccesscontrollist-addace
      */
     AddAce(pAccessControlEntry) {
         result := ComCall(11, this, "ptr", pAccessControlEntry, "HRESULT")
@@ -151,10 +131,12 @@ class IADsAccessControlList extends IDispatch{
     }
 
     /**
+     * Removes an access-control entry (ACE) from the access-control list (ACL).
+     * @param {IDispatch} pAccessControlEntry Pointer to the <b>IDispatch</b> interface of the ACE to be removed from the ACL.
+     * @returns {HRESULT} This method returns standard return values.
      * 
-     * @param {IDispatch} pAccessControlEntry 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsaccesscontrollist-removeace
+     * For more information, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsaccesscontrollist-removeace
      */
     RemoveAce(pAccessControlEntry) {
         result := ComCall(12, this, "ptr", pAccessControlEntry, "HRESULT")
@@ -162,9 +144,9 @@ class IADsAccessControlList extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsaccesscontrollist-copyaccesslist
+     * The IADsAccessControlList::CopyAccessList method copies every access control entry (ACE) in the access-control list (ACL) to the caller's process space.
+     * @returns {IDispatch} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface pointer to an ACL as the copy of the original access list. If this parameter is <b>NULL</b> on return, no copies of the ACL could be made.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsaccesscontrollist-copyaccesslist
      */
     CopyAccessList() {
         result := ComCall(13, this, "ptr*", &ppAccessControlList := 0, "HRESULT")
@@ -172,9 +154,10 @@ class IADsAccessControlList extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsaccesscontrollist-get__newenum
+     * The IADsAccessControlList::get__NewEnum method is used to obtain an enumerator object for the ACL to enumerate ACEs.
+     * @returns {IUnknown} Pointer to pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface used to retrieve
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface on an enumerator object for the ACL.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsaccesscontrollist-get__newenum
      */
     get__NewEnum() {
         result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")

@@ -37,6 +37,21 @@ class IHTMLMSCSSKeyframeRule extends IDispatch{
     static VTableNames => ["put_keyText", "get_keyText", "get_style"]
 
     /**
+     * @type {BSTR} 
+     */
+    keyText {
+        get => this.get_keyText()
+        set => this.put_keyText(value)
+    }
+
+    /**
+     * @type {IHTMLRuleStyle} 
+     */
+    style {
+        get => this.get_style()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

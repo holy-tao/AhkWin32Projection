@@ -31,10 +31,10 @@ class IServiceTransactionConfig extends IServiceTransactionConfigBase{
     static VTableNames => ["ConfigureBYOT"]
 
     /**
-     * 
-     * @param {ITransaction} pITxByot 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicetransactionconfig-configurebyot
+     * Enables you to configure the transaction that you use when you bring your own transaction.
+     * @param {ITransaction} pITxByot A pointer to the <b>ITransaction</b> interface of the existing transaction in which you want to run the enclosed code.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicetransactionconfig-configurebyot
      */
     ConfigureBYOT(pITxByot) {
         result := ComCall(8, this, "ptr", pITxByot, "HRESULT")

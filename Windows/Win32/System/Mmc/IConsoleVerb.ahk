@@ -35,11 +35,13 @@ class IConsoleVerb extends IUnknown{
     static VTableNames => ["GetVerbState", "SetVerbState", "SetDefaultVerb", "GetDefaultVerb"]
 
     /**
-     * 
-     * @param {Integer} eCmdID 
-     * @param {Integer} nState 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsoleverb-getverbstate
+     * The GetVerbState method enables a snap-in to obtain a given verb's current state.
+     * @param {Integer} eCmdID A value that specifies the command identifier of the verb. Taken from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_console_verb">MMC_CONSOLE_VERB</a> enumeration. This value cannot be MMC_VERB_NONE.
+     * @param {Integer} nState A value that identifies the possible states of the button. Taken from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_button_state">MMC_BUTTON_STATE</a> enumeration.
+     * @returns {BOOL} A pointer to the state information returned. <b>TRUE</b> if the state is enabled or hidden and <b>FALSE</b> if the state is disabled or visible.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsoleverb-getverbstate
      */
     GetVerbState(eCmdID, nState) {
         result := ComCall(3, this, "int", eCmdID, "int", nState, "int*", &pState := 0, "HRESULT")
@@ -47,12 +49,14 @@ class IConsoleVerb extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} eCmdID 
-     * @param {Integer} nState 
-     * @param {BOOL} bState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsoleverb-setverbstate
+     * The SetVerbState method enables a snap-in to set a given verb's button state.
+     * @param {Integer} eCmdID A value that specifies the command identifier of the verb. Values are taken from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_console_verb">MMC_CONSOLE_VERB</a> enumeration. This value cannot be MMC_VERB_NONE.
+     * @param {Integer} nState Identifies the possible states of the button. Taken from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ne-mmc-mmc_button_state">MMC_BUTTON_STATE</a> enumeration.
+     * @param {BOOL} bState This value is <b>TRUE</b> to enable or hide the verb, <b>FALSE</b> to disable or show the selected verb.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsoleverb-setverbstate
      */
     SetVerbState(eCmdID, nState, bState) {
         result := ComCall(4, this, "int", eCmdID, "int", nState, "int", bState, "HRESULT")
@@ -60,10 +64,10 @@ class IConsoleVerb extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} eCmdID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsoleverb-setdefaultverb
+     * The SetDefaultVerb method sets the default action on an object.
+     * @param {Integer} eCmdID The default verb.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsoleverb-setdefaultverb
      */
     SetDefaultVerb(eCmdID) {
         result := ComCall(5, this, "int", eCmdID, "HRESULT")
@@ -71,9 +75,9 @@ class IConsoleVerb extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iconsoleverb-getdefaultverb
+     * The GetDefaultVerb method gets the snap-in's default verb.
+     * @returns {Integer} A pointer to where the snap-in's default verb is returned.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iconsoleverb-getdefaultverb
      */
     GetDefaultVerb() {
         result := ComCall(6, this, "int*", &peCmdID := 0, "HRESULT")

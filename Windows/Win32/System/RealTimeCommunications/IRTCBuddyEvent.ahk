@@ -30,6 +30,13 @@ class IRTCBuddyEvent extends IDispatch{
     static VTableNames => ["get_Buddy"]
 
     /**
+     * @type {IRTCBuddy} 
+     */
+    Buddy {
+        get => this.get_Buddy()
+    }
+
+    /**
      * 
      * @returns {IRTCBuddy} 
      */

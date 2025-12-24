@@ -37,6 +37,13 @@ class IMSMQCollection extends IDispatch{
     static VTableNames => ["Item", "get_Count", "_NewEnum"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT>} Index 
      * @returns {VARIANT} 

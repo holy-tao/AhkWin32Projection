@@ -34,9 +34,17 @@ class ITSubStreamControl extends IDispatch{
     static VTableNames => ["CreateSubStream", "RemoveSubStream", "EnumerateSubStreams", "get_SubStreams"]
 
     /**
-     * 
-     * @returns {ITSubStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-createsubstream
+     * @type {VARIANT} 
+     */
+    SubStreams {
+        get => this.get_SubStreams()
+    }
+
+    /**
+     * The CreateSubStream method creates a substream.
+     * @returns {ITSubStream} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itsubstream">ITSubStream</a> interface created.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstreamcontrol-createsubstream
      */
     CreateSubStream() {
         result := ComCall(7, this, "ptr*", &ppSubStream := 0, "HRESULT")
@@ -44,10 +52,62 @@ class ITSubStreamControl extends IDispatch{
     }
 
     /**
+     * The RemoveSubStream method removes a substream.
+     * @param {ITSubStream} pSubStream Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itsubstream">ITSubStream</a> to be removed.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {ITSubStream} pSubStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-removesubstream
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pSubStream</i> parameter does not point to a valid interface.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TAPI_E_INVALIDSTREAM</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pSubStream</i> parameter does not point to a valid substream.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstreamcontrol-removesubstream
      */
     RemoveSubStream(pSubStream) {
         result := ComCall(8, this, "ptr", pSubStream, "HRESULT")
@@ -55,9 +115,10 @@ class ITSubStreamControl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumSubStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-enumeratesubstreams
+     * The EnumerateSubStreams method enumerates currently available media substreams. Provided for C and C++ applications. Automation client applications such as Visual Basic must use the get_SubStreams method.
+     * @returns {IEnumSubStream} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumsubstream">IEnumSubStream</a> enumeration of substreams.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstreamcontrol-enumeratesubstreams
      */
     EnumerateSubStreams() {
         result := ComCall(9, this, "ptr*", &ppEnumSubStream := 0, "HRESULT")
@@ -65,9 +126,11 @@ class ITSubStreamControl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstreamcontrol-get_substreams
+     * The get_SubStreams method creates a collection of substreams currently available. Provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateSubStreams method.
+     * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itsubstream">ITSubStream</a> interface pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstreamcontrol-get_substreams
      */
     get_SubStreams() {
         pVariant := VARIANT()

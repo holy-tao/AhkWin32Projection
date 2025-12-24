@@ -37,9 +37,9 @@ class IXpsOMPageReferenceCollection extends IUnknown{
     static VTableNames => ["GetCount", "GetAt", "InsertAt", "RemoveAt", "SetAt", "Append"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-getcount
+     * Gets the number of IXpsOMPageReference interface pointers in the collection.
+     * @returns {Integer} The number of <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference">IXpsOMPageReference</a> interface pointers in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
@@ -47,10 +47,10 @@ class IXpsOMPageReferenceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {IXpsOMPageReference} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-getat
+     * Gets an IXpsOMPageReference interface pointer from a specified location in the collection.
+     * @param {Integer} index The zero-based index of the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference">IXpsOMPageReference</a> interface pointer to be obtained.
+     * @returns {IXpsOMPageReference} The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference">IXpsOMPageReference</a> interface pointer at the location specified by <i>index</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-getat
      */
     GetAt(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &pageReference := 0, "HRESULT")
@@ -58,11 +58,11 @@ class IXpsOMPageReferenceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @param {IXpsOMPageReference} pageReference 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-insertat
+     * Inserts an IXpsOMPageReference interface pointer at a specified location in the collection.
+     * @param {Integer} index The zero-based index in the collection where the interface pointer that is passed in <i>pageReference</i> is to be inserted.
+     * @param {IXpsOMPageReference} pageReference The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference">IXpsOMPageReference</a> interface pointer that is to be inserted at the location specified by <i>index</i>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-insertat
      */
     InsertAt(index, pageReference) {
         result := ComCall(5, this, "uint", index, "ptr", pageReference, "HRESULT")
@@ -70,10 +70,10 @@ class IXpsOMPageReferenceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-removeat
+     * Removes and releases an IXpsOMPageReference interface pointer from a specified location in the collection.
+     * @param {Integer} index The zero-based index in the collection from which  an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference">IXpsOMPageReference</a> interface pointer is to be removed and released.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-removeat
      */
     RemoveAt(index) {
         result := ComCall(6, this, "uint", index, "HRESULT")
@@ -81,11 +81,11 @@ class IXpsOMPageReferenceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @param {IXpsOMPageReference} pageReference 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-setat
+     * Replaces an IXpsOMPageReference interface pointer at a specified location in the collection.
+     * @param {Integer} index The zero-based index in the collection where an <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference">IXpsOMPageReference</a> interface pointer is to be replaced.
+     * @param {IXpsOMPageReference} pageReference The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference">IXpsOMPageReference</a> interface pointer that will replace current contents at the location specified by <i>index</i>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-setat
      */
     SetAt(index, pageReference) {
         result := ComCall(7, this, "uint", index, "ptr", pageReference, "HRESULT")
@@ -93,10 +93,10 @@ class IXpsOMPageReferenceCollection extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IXpsOMPageReference} pageReference 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-append
+     * Appends an IXpsOMPageReference interface to the end of the collection.
+     * @param {IXpsOMPageReference} pageReference A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompagereference">IXpsOMPageReference</a> interface that is to be appended to the collection.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompagereferencecollection-append
      */
     Append(pageReference) {
         result := ComCall(8, this, "ptr", pageReference, "HRESULT")

@@ -32,10 +32,14 @@ class ID2D1Factory7 extends ID2D1Factory6{
     static VTableNames => ["CreateDevice"]
 
     /**
+     * Creates a new Direct2D device from the given IDXGIDevice.
+     * @param {IDXGIDevice} dxgiDevice Type: <b>IDXGIDevice*</b>
      * 
-     * @param {IDXGIDevice} dxgiDevice 
-     * @returns {ID2D1Device6} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1factory7-createdevice
+     * The IDXGIDevice from which to create the Direct2D device.
+     * @returns {ID2D1Device6} Type: <b>ID2D1Device6**</b>
+     * 
+     * The created device.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1factory7-createdevice
      */
     CreateDevice(dxgiDevice) {
         result := ComCall(32, this, "ptr", dxgiDevice, "ptr*", &d2dDevice6 := 0, "HRESULT")

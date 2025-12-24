@@ -32,12 +32,14 @@ class IEnumTASK extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @param {Pointer<MMC_TASK>} rgelt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-ienumtask-next
+     * The IEnumTASK::Next method enables MMC to retrieve the next task in the snap-in's list of tasks.
+     * @param {Integer} celt A value that specifies the number of tasks to provide. MMC always enumerates tasks one at a time; therefore, celt is always 1.
+     * @param {Pointer<MMC_TASK>} rgelt A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-mmc_task">MMC_TASK</a> structure that the snap-in fills in to represent the task to add to the taskpad. Be aware that the caller (MMC) allocates the memory for the structure.
+     * @param {Pointer<Integer>} pceltFetched A pointer to a value that specifies the number of tasks returned. If the snap-in successfully returned one or more tasks, set the value to the number of tasks that were successfully returned. Because MMC always requests one task at a time (celt is always 1), pceltFetched should be set to 1 if the task was successfully returned. If the snap-in has no more tasks in its list, or if the snap-in fails to fill in the 
+     * MMC_TASK structure, set the value to 0.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-ienumtask-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +49,10 @@ class IEnumTASK extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-ienumtask-skip
+     * The IEnumTASK::Skip method skips the specified number of tasks in the snap-in's list of tasks. MMC does not use this method. It must be included for completeness.
+     * @param {Integer} celt A value that specifies the number of tasks to skip relative to the current task in the list.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-ienumtask-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -58,9 +60,9 @@ class IEnumTASK extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-ienumtask-reset
+     * The IEnumTASK::Reset method enables MMC to reset the enumeration to the beginning of the snap-in's task list.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-ienumtask-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +70,11 @@ class IEnumTASK extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumTASK} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-ienumtask-clone
+     * The IEnumTASK::Clone method creates a new IEnumTASK object that has the same state as this IEnumTASK object. MMC does not use this method. It must be included for completeness.
+     * @returns {IEnumTASK} A pointer to address of 
+     * IEnumTASK interface pointer for the cloned 
+     * IEnumTASK object.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-ienumtask-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

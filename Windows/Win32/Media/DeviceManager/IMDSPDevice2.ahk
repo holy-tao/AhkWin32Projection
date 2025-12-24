@@ -32,10 +32,10 @@ class IMDSPDevice2 extends IMDSPDevice{
     static VTableNames => ["GetStorage", "GetFormatSupport2", "GetSpecifyPropertyPages", "GetCanonicalName"]
 
     /**
-     * 
-     * @param {PWSTR} pszStorageName 
-     * @returns {IMDSPStorage} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice2-getstorage
+     * The GetStorage method makes it possible to go directly to a storage based on its name instead of enumerating through all storages to find it.
+     * @param {PWSTR} pszStorageName Pointer to a null-terminated string containing the name of the storage to find.
+     * @returns {IMDSPStorage} Pointer to the storage object specified by the <i>pszStorageName</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice2-getstorage
      */
     GetStorage(pszStorageName) {
         pszStorageName := pszStorageName is String ? StrPtr(pszStorageName) : pszStorageName
@@ -45,16 +45,44 @@ class IMDSPDevice2 extends IMDSPDevice{
     }
 
     /**
+     * The GetFormatSupport2 method gets the formats supported by a device, including audio and video codecs, and MIME file formats.
+     * @param {Integer} dwFlags <b>DWORD</b> containing audio formats, video formats, and MIME types. This flag specifies what the application is requesting the service provider to fill in. The caller can set one or more of the following three values.
      * 
-     * @param {Integer} dwFlags 
-     * @param {Pointer<Pointer<WAVEFORMATEX>>} ppAudioFormatEx 
-     * @param {Pointer<Integer>} pnAudioFormatCount 
-     * @param {Pointer<Pointer<VIDEOINFOHEADER>>} ppVideoFormatEx 
-     * @param {Pointer<Integer>} pnVideoFormatCount 
-     * @param {Pointer<Pointer<WMFILECAPABILITIES>>} ppFileType 
-     * @param {Pointer<Integer>} pnFileTypeCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice2-getformatsupport2
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>WMDM_GET_FORMAT_SUPPORT_AUDIO</td>
+     * <td>Service provider should fill in audio parameters.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_GET_FORMAT_SUPPORT_VIDEO</td>
+     * <td>Service provider should fill in video parameters.</td>
+     * </tr>
+     * <tr>
+     * <td>WMDM_GET_FORMAT_SUPPORT_FILE</td>
+     * <td>Service provider should fill in file parameters.</td>
+     * </tr>
+     * </table>
+     * @param {Pointer<Pointer<WAVEFORMATEX>>} ppAudioFormatEx Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/WMDM/-waveformatex">_WAVEFORMATEX</a> structures containing information about audio codecs and bit rates supported by the device.
+     * @param {Pointer<Integer>} pnAudioFormatCount Pointer to an integer containing the audio format count.
+     * @param {Pointer<Pointer<VIDEOINFOHEADER>>} ppVideoFormatEx Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/WMDM/-videoinfoheader">_VIDEOINFOHEADER</a> structures containing information about video codecs and formats supported by the device.
+     * @param {Pointer<Integer>} pnVideoFormatCount Pointer to an integer containing the video format count.
+     * @param {Pointer<Pointer<WMFILECAPABILITIES>>} ppFileType Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmfilecapabilities">WMFILECAPABILITIES</a> structures containing information about file types supported by the device.
+     * @param {Pointer<Integer>} pnFileTypeCount Pointer to an integer containing the file format count.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
+     * 
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice2-getformatsupport2
      */
     GetFormatSupport2(dwFlags, ppAudioFormatEx, pnAudioFormatCount, ppVideoFormatEx, pnVideoFormatCount, ppFileType, pnFileTypeCount) {
         ppAudioFormatExMarshal := ppAudioFormatEx is VarRef ? "ptr*" : "ptr"
@@ -69,12 +97,19 @@ class IMDSPDevice2 extends IMDSPDevice{
     }
 
     /**
+     * The GetSpecifyPropertyPages method gets property pages describing non-standard capabilities of portable devices.
+     * @param {Pointer<ISpecifyPropertyPages>} ppSpecifyPropPages Pointer to a Win32 <b>ISpecifyPropertyPages</b> interface pointer.
+     * @param {Pointer<Pointer<IUnknown>>} pppUnknowns Array of <b>IUnknown</b> interface pointers. These interfaces will be passed to the property page and can be used to pass information between the property page and the service provider.
+     * @param {Pointer<Integer>} pcUnks Size of the <i>pppUnknowns</i> array.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Pointer<ISpecifyPropertyPages>} ppSpecifyPropPages 
-     * @param {Pointer<Pointer<IUnknown>>} pppUnknowns 
-     * @param {Pointer<Integer>} pcUnks 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice2-getspecifypropertypages
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice2-getspecifypropertypages
      */
     GetSpecifyPropertyPages(ppSpecifyPropPages, pppUnknowns, pcUnks) {
         pppUnknownsMarshal := pppUnknowns is VarRef ? "ptr*" : "ptr"
@@ -85,11 +120,11 @@ class IMDSPDevice2 extends IMDSPDevice{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwszPnPName 
-     * @param {Integer} nMaxChars 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice2-getcanonicalname
+     * The GetCanonicalPName method gets the canonical name of a device.
+     * @param {PWSTR} pwszPnPName A wide character, null-terminated buffer holding the canonical name. The caller allocates and releases this buffer.
+     * @param {Integer} nMaxChars Integer containing the maximum number of characters that can be placed in <i>pwszCanonicalName</i>, including the termination character.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice2-getcanonicalname
      */
     GetCanonicalName(pwszPnPName, nMaxChars) {
         pwszPnPName := pwszPnPName is String ? StrPtr(pwszPnPName) : pwszPnPName

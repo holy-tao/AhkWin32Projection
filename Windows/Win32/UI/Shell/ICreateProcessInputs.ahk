@@ -37,9 +37,9 @@ class ICreateProcessInputs extends IUnknown{
     static VTableNames => ["GetCreateFlags", "SetCreateFlags", "AddCreateFlags", "SetHotKey", "AddStartupFlags", "SetTitle", "SetEnvironmentVariable"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreateprocessinputs-getcreateflags
+     * Gets the additional flags that will be passed to CreateProcess.
+     * @returns {Integer} A pointer to a <b>DWORD</b> which receives the flags that will be passed as the <i>dwCreationFlags</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icreateprocessinputs-getcreateflags
      */
     GetCreateFlags() {
         result := ComCall(3, this, "uint*", &pdwCreationFlags := 0, "HRESULT")
@@ -47,10 +47,10 @@ class ICreateProcessInputs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwCreationFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreateprocessinputs-setcreateflags
+     * Set the flags that will be included in the call to CreateProcess.
+     * @param {Integer} dwCreationFlags The flags that will be passed to the <i>dwCreationFlags</i> parameter to <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>.
+     * @returns {HRESULT} <b> S_OK</b> if the method succeeds. Otherwise, an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icreateprocessinputs-setcreateflags
      */
     SetCreateFlags(dwCreationFlags) {
         result := ComCall(4, this, "uint", dwCreationFlags, "HRESULT")
@@ -58,10 +58,10 @@ class ICreateProcessInputs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwCreationFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreateprocessinputs-addcreateflags
+     * Set additional flags that will be included in the call to CreateProcess.
+     * @param {Integer} dwCreationFlags The flags that will be included in the <i>dwCreationFlags</i> parameter passed to <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>.
+     * @returns {HRESULT} <b> S_OK</b> if the method succeeds. Otherwise, an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icreateprocessinputs-addcreateflags
      */
     AddCreateFlags(dwCreationFlags) {
         result := ComCall(5, this, "uint", dwCreationFlags, "HRESULT")
@@ -69,10 +69,10 @@ class ICreateProcessInputs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} wHotKey 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreateprocessinputs-sethotkey
+     * Sets the hot key for the application.
+     * @param {Integer} wHotKey The hotkey to assign to the application. See the documentation of the <b>hStdIn</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-startupinfoa">STARTUPINFO</a> structure for more information.
+     * @returns {HRESULT} <b> S_OK</b> if the method succeeds. Otherwise, an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icreateprocessinputs-sethotkey
      */
     SetHotKey(wHotKey) {
         result := ComCall(6, this, "ushort", wHotKey, "HRESULT")
@@ -80,10 +80,10 @@ class ICreateProcessInputs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwStartupInfoFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreateprocessinputs-addstartupflags
+     * Additional flags that will be included in the STARTUPINFO structure passed to CreateProcess.
+     * @param {Integer} dwStartupInfoFlags The flags that will be included in the <i>dwFlags</i> member of the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-startupinfoa">STARTUPINFO</a> structure passed to <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>.
+     * @returns {HRESULT} <b> S_OK</b> if the method succeeds. Otherwise, an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icreateprocessinputs-addstartupflags
      */
     AddStartupFlags(dwStartupInfoFlags) {
         result := ComCall(7, this, "uint", dwStartupInfoFlags, "HRESULT")
@@ -91,10 +91,10 @@ class ICreateProcessInputs extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszTitle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-icreateprocessinputs-settitle
+     * Sets the title that will be passed CreateProcess.
+     * @param {PWSTR} pszTitle A null-terminated string specifying the title that will be passed in the <b>lpTitle</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-startupinfoa">STARTUPINFO</a> structure passed to <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-createprocessa">CreateProcess</a>. This parameter may not be <b>NULL</b>.
+     * @returns {HRESULT} <b> S_OK</b> if the method succeeds. Otherwise, an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icreateprocessinputs-settitle
      */
     SetTitle(pszTitle) {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
@@ -104,14 +104,11 @@ class ICreateProcessInputs extends IUnknown{
     }
 
     /**
-     * Sets the contents of the specified environment variable for the current process.
-     * @param {PWSTR} pszName 
-     * @param {PWSTR} pszValue 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-setenvironmentvariable
+     * Sets a variable in the environment of the created process.
+     * @param {PWSTR} pszName A null-terminated string specifying the name of a variable to be set in the environment of the process to be created. This parameter may not be <b>NULL</b>.
+     * @param {PWSTR} pszValue A null-terminated string specifying the value of the variable to be set in the environment of the process to be created. his parameter may not be <b>NULL</b>.
+     * @returns {HRESULT} <b> S_OK</b> if the method succeeds. Otherwise, an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-icreateprocessinputs-setenvironmentvariable
      */
     SetEnvironmentVariable(pszName, pszValue) {
         pszName := pszName is String ? StrPtr(pszName) : pszName

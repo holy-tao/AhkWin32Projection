@@ -30,6 +30,13 @@ class IMSMQEvent2 extends IMSMQEvent{
     static VTableNames => ["get_Properties"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

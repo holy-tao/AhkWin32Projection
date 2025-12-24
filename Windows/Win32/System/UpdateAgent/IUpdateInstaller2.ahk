@@ -36,9 +36,22 @@ class IUpdateInstaller2 extends IUpdateInstaller{
     static VTableNames => ["get_ForceQuiet", "put_ForceQuiet"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    ForceQuiet {
+        get => this.get_ForceQuiet()
+        set => this.put_ForceQuiet(value)
+    }
+
+    /**
+     * Gets and sets a Boolean value that indicates whether Windows Installer is forced to install the updates without user interaction.
+     * @remarks
+     * 
+     * You cannot forcibly silence some updates. If an update does not support this action, and you try to install the update, the update returns the following: WU_E_UH_DOESNOTSUPPORTACTION.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller2-get_forcequiet
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstaller2-get_forcequiet
      */
     get_ForceQuiet() {
         result := ComCall(28, this, "short*", &retval := 0, "HRESULT")
@@ -46,10 +59,15 @@ class IUpdateInstaller2 extends IUpdateInstaller{
     }
 
     /**
+     * Gets and sets a Boolean value that indicates whether Windows Installer is forced to install the updates without user interaction.
+     * @remarks
+     * 
+     * You cannot forcibly silence some updates. If an update does not support this action, and you try to install the update, the update returns the following: WU_E_UH_DOESNOTSUPPORTACTION.
+     * 
      * 
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller2-put_forcequiet
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstaller2-put_forcequiet
      */
     put_ForceQuiet(value) {
         result := ComCall(29, this, "short", value, "HRESULT")

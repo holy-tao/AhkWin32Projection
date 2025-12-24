@@ -38,6 +38,27 @@ class FolderItemVerb extends IDispatch{
     static VTableNames => ["get_Application", "get_Parent", "get_Name", "DoIt"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Application {
+        get => this.get_Application()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

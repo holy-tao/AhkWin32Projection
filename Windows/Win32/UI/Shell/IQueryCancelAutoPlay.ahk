@@ -44,13 +44,23 @@ class IQueryCancelAutoPlay extends IUnknown{
     static VTableNames => ["AllowAutoPlay"]
 
     /**
+     * Determines whether to play media inserted by a user and if so using what restrictions.
+     * @param {PWSTR} pszPath Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszPath 
-     * @param {Integer} dwContentType 
-     * @param {PWSTR} pszLabel 
-     * @param {Integer} dwSerialNumber 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iquerycancelautoplay-allowautoplay
+     * The drive letter in the form <b>D:\\</b>
+     * @param {Integer} dwContentType Type: <b>DWORD</b>
+     * 
+     * The type of content as specified by the following flags.
+     * @param {PWSTR} pszLabel Type: <b>LPCWSTR</b>
+     * 
+     * The media label.
+     * @param {Integer} dwSerialNumber Type: <b>DWORD</b>
+     * 
+     * The media serial number.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK to allow AutoRun or S_FALSE to cancel AutoRun.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iquerycancelautoplay-allowautoplay
      */
     AllowAutoPlay(pszPath, dwContentType, pszLabel, dwSerialNumber) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath

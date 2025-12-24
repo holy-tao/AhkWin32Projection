@@ -30,6 +30,13 @@ class ISVGExternalResourcesRequired extends IDispatch{
     static VTableNames => ["get_externalResourcesRequired"]
 
     /**
+     * @type {ISVGAnimatedBoolean} 
+     */
+    externalResourcesRequired {
+        get => this.get_externalResourcesRequired()
+    }
+
+    /**
      * 
      * @returns {ISVGAnimatedBoolean} 
      */

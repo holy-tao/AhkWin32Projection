@@ -31,6 +31,13 @@ class IHTMLAttributeCollection3 extends IDispatch{
     static VTableNames => ["getNamedItem", "setNamedItem", "removeNamedItem", "item", "get_length"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrName 
      * @returns {IHTMLDOMAttribute} 

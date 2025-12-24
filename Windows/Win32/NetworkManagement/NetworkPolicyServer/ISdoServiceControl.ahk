@@ -38,9 +38,11 @@ class ISdoServiceControl extends IDispatch{
     static VTableNames => ["StartService", "StopService", "GetServiceStatus", "ResetService"]
 
     /**
+     * The StartService method starts the service administered through SDO.
+     * @returns {HRESULT} If the method succeeds the return value is <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdoservicecontrol-startservice
+     * If the method fails, the return value is one of the following error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdoservicecontrol-startservice
      */
     StartService() {
         result := ComCall(7, this, "HRESULT")
@@ -48,9 +50,11 @@ class ISdoServiceControl extends IDispatch{
     }
 
     /**
+     * The StopService method shuts down the service administered through SDO.
+     * @returns {HRESULT} If the method succeeds the return value is <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdoservicecontrol-stopservice
+     * If the method fails, the return value is one of the following error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdoservicecontrol-stopservice
      */
     StopService() {
         result := ComCall(8, this, "HRESULT")
@@ -58,9 +62,9 @@ class ISdoServiceControl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdoservicecontrol-getservicestatus
+     * The GetServiceStatus method retrieves the status of the service being administered through SDO.
+     * @returns {Integer} Pointer to a <b>LONG</b> variable that contains the status of the service. The status
+     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdoservicecontrol-getservicestatus
      */
     GetServiceStatus() {
         result := ComCall(9, this, "int*", &status := 0, "HRESULT")
@@ -68,9 +72,11 @@ class ISdoServiceControl extends IDispatch{
     }
 
     /**
+     * The ResetService method resets the service administered by the SDO API. Resetting the service causes the service to refresh its data.
+     * @returns {HRESULT} If the method succeeds the return value is <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdoservicecontrol-resetservice
+     * If the method fails, the return value is one of the following error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdoservicecontrol-resetservice
      */
     ResetService() {
         result := ComCall(10, this, "HRESULT")

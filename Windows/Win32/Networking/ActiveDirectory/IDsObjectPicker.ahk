@@ -38,20 +38,11 @@ class IDsObjectPicker extends IUnknown{
     static VTableNames => ["Initialize", "InvokeDialog"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Pointer<DSOP_INIT_INFO>} pInitInfo 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The IDsObjectPicker::Initialize method initializes the object picker dialog box with data about the scopes, filters, and options used by the object picker dialog box.
+     * @param {Pointer<DSOP_INIT_INFO>} pInitInfo Pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objsel/ns-objsel-dsop_init_info">DSOP_INIT_INFO</a> structure that contains the initialization data.
+     * @returns {HRESULT} Returns a standard error code or one of the following values.
+     * @see https://docs.microsoft.com/windows/win32/api//objsel/nf-objsel-idsobjectpicker-initialize
      */
     Initialize(pInitInfo) {
         result := ComCall(3, this, "ptr", pInitInfo, "HRESULT")
@@ -59,10 +50,10 @@ class IDsObjectPicker extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} hwndParent 
-     * @returns {IDataObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/objsel/nf-objsel-idsobjectpicker-invokedialog
+     * Displays a modal object picker dialog box and returns the user selections.
+     * @param {HWND} hwndParent Handle to the owner window of the dialog box. This parameter cannot be <b>NULL</b> or the result of the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getdesktopwindow">GetDesktopWindow</a> function.
+     * @returns {IDataObject} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface pointer that receives a data object that contains data about the user selections. This data is supplied in the <a href="https://docs.microsoft.com/windows/desktop/AD/cfstr-dsop-ds-selection-list">CFSTR_DSOP_DS_SELECTION_LIST</a> data format. This parameter receives <b>NULL</b> if the user cancels the dialog box.
+     * @see https://docs.microsoft.com/windows/win32/api//objsel/nf-objsel-idsobjectpicker-invokedialog
      */
     InvokeDialog(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

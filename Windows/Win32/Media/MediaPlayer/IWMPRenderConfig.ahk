@@ -31,10 +31,35 @@ class IWMPRenderConfig extends IUnknown{
     static VTableNames => ["put_inProcOnly", "get_inProcOnly"]
 
     /**
+     */
+    inProcOnly {
+        get => this.get_inProcOnly()
+        set => this.put_inProcOnly(value)
+    }
+
+    /**
+     * The put_inProcOnly method specifies a value indicating whether playback is restricted to the current process.
+     * @param {BOOL} fInProc <b>BOOL</b>, <b>TRUE</b> specifying that playback is restricted to the current process.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BOOL} fInProc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nf-wmprealestate-iwmprenderconfig-put_inproconly
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmprealestate/nf-wmprealestate-iwmprenderconfig-put_inproconly
      */
     put_inProcOnly(fInProc) {
         result := ComCall(3, this, "int", fInProc, "HRESULT")
@@ -42,10 +67,28 @@ class IWMPRenderConfig extends IUnknown{
     }
 
     /**
+     * The get_inProcOnly method retrieves a value indicating whether playback is restricted to the current process.
+     * @param {Pointer<BOOL>} pfInProc Pointer to a <b>BOOL</b> that receives the result. <b>TRUE</b> specifies that playback is restricted to the current process.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BOOL>} pfInProc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nf-wmprealestate-iwmprenderconfig-get_inproconly
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmprealestate/nf-wmprealestate-iwmprenderconfig-get_inproconly
      */
     get_inProcOnly(pfInProc) {
         pfInProcMarshal := pfInProc is VarRef ? "int*" : "ptr"

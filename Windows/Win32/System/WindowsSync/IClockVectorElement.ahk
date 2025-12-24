@@ -36,10 +36,39 @@ class IClockVectorElement extends IUnknown{
     static VTableNames => ["GetReplicaKey", "GetTickCount"]
 
     /**
+     * Gets the replica key for the replica that is associated with this clock vector element.
+     * @param {Pointer<Integer>} pdwReplicaKey Returns the replica key for the replica that is associated with this clock vector element.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pdwReplicaKey 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iclockvectorelement-getreplicakey
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iclockvectorelement-getreplicakey
      */
     GetReplicaKey(pdwReplicaKey) {
         pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : "ptr"
@@ -49,10 +78,39 @@ class IClockVectorElement extends IUnknown{
     }
 
     /**
-     * Retrieves the number of milliseconds that have elapsed since the system was started, up to 49.7 days.
-     * @param {Pointer<Integer>} pullTickCount 
-     * @returns {HRESULT} The return value is the number of milliseconds that have elapsed since the system was started.
-     * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-gettickcount
+     * Gets the tick count that defines the upper bound on the range of tick counts that are contained in this clock vector element.
+     * @param {Pointer<Integer>} pullTickCount Returns the tick count that defines the upper bound on the range of tick counts that are contained in this clock vector element.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iclockvectorelement-gettickcount
      */
     GetTickCount(pullTickCount) {
         pullTickCountMarshal := pullTickCount is VarRef ? "uint*" : "ptr"

@@ -35,6 +35,22 @@ class ISVGPreserveAspectRatio extends IDispatch{
     static VTableNames => ["put_align", "get_align", "put_meetOrSlice", "get_meetOrSlice"]
 
     /**
+     * @type {Integer} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    meetOrSlice {
+        get => this.get_meetOrSlice()
+        set => this.put_meetOrSlice(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

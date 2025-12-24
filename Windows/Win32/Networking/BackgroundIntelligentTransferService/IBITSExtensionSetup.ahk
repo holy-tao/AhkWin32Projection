@@ -41,9 +41,9 @@ class IBITSExtensionSetup extends IDispatch{
     static VTableNames => ["EnableBITSUploads", "DisableBITSUploads", "GetCleanupTaskName", "GetCleanupTask"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bitscfg/nf-bitscfg-ibitsextensionsetup-enablebitsuploads
+     * Use the EnableBITSUploads method to enable BITS upload on the virtual directory to which the ADSI object points. This method sets the BITSUploadEnabled IIS extension property.
+     * @returns {HRESULT} This method returns <b>S_OK</b> for success. Otherwise, the method failed.
+     * @see https://docs.microsoft.com/windows/win32/api//bitscfg/nf-bitscfg-ibitsextensionsetup-enablebitsuploads
      */
     EnableBITSUploads() {
         result := ComCall(7, this, "HRESULT")
@@ -51,9 +51,9 @@ class IBITSExtensionSetup extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bitscfg/nf-bitscfg-ibitsextensionsetup-disablebitsuploads
+     * Use the DisableBITSUploads method to disable BITS upload on the virtual directory to which the ADSI object points. This method sets the BITSUploadEnabled IIS extension property.
+     * @returns {HRESULT} This method returns <b>S_OK</b> for success. Otherwise, the method failed.
+     * @see https://docs.microsoft.com/windows/win32/api//bitscfg/nf-bitscfg-ibitsextensionsetup-disablebitsuploads
      */
     DisableBITSUploads() {
         result := ComCall(8, this, "HRESULT")
@@ -61,9 +61,9 @@ class IBITSExtensionSetup extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/bitscfg/nf-bitscfg-ibitsextensionsetup-getcleanuptaskname
+     * Use the GetCleanupTaskName method to retrieve the name of the cleanup task associated with the virtual directory.
+     * @returns {BSTR} Null-terminated string containing the name of the cleanup task associated with the virtual directory. If <b>NULL</b>, BITS has not created a cleanup task for the virtual directory. When done, call the <b>SysFreeString</b> function to free <i>pTaskName</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//bitscfg/nf-bitscfg-ibitsextensionsetup-getcleanuptaskname
      */
     GetCleanupTaskName() {
         pTaskName := BSTR()
@@ -72,10 +72,11 @@ class IBITSExtensionSetup extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/bitscfg/nf-bitscfg-ibitsextensionsetup-getcleanuptask
+     * Use the GetCleanupTask method to retrieve an interface pointer to the cleanup task associated with the virtual directory.
+     * @param {Pointer<Guid>} riid Identifies the task scheduler interface to return in <i>ppTask</i>. For a list of identifiers, see the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-activate">ITaskScheduler::Activate</a> method.
+     * @returns {IUnknown} A pointer to the interface specified by <i>riid</i>. Use the interface to modify the properties of the task. Release <i>ppTask</i> when done.
+     * @see https://docs.microsoft.com/windows/win32/api//bitscfg/nf-bitscfg-ibitsextensionsetup-getcleanuptask
      */
     GetCleanupTask(riid) {
         result := ComCall(10, this, "ptr", riid, "ptr*", &ppUnk := 0, "HRESULT")

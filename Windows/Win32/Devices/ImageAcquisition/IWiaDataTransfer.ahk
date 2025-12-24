@@ -62,11 +62,55 @@ class IWiaDataTransfer extends IUnknown{
     static VTableNames => ["idtGetData", "idtGetBandedData", "idtQueryGetData", "idtEnumWIA_FORMAT_INFO", "idtGetExtendedTransferInfo"]
 
     /**
+     * The IWiaDataTransfer::idtGetData method retrieves complete files from a Windows Image Acquisition (WIA) device.
+     * @param {Pointer<STGMEDIUM>} pMedium Type: <b>LPSTGMEDIUM</b>
      * 
-     * @param {Pointer<STGMEDIUM>} pMedium 
-     * @param {IWiaDataCallback} pIWiaDataCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatatransfer-idtgetdata
+     * Pointer to the <a href="https://docs.microsoft.com/windows/win32/api/objidl/ns-objidl-ustgmedium-r1">STGMEDIUM</a> structure.
+     * @param {IWiaDataCallback} pIWiaDataCallback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiadatacallback">IWiaDataCallback</a>*</b>
+     * 
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiadatacallback">IWiaDataCallback</a> interface.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return any one of the following values:
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Return Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>One or more parameters to this method contain invalid data.</td>
+     * </tr>
+     * <tr>
+     * <td>E_OUTOFMEMORY</td>
+     * <td>This method cannot allocate enough memory to complete its operation.</td>
+     * </tr>
+     * <tr>
+     * <td>E_UNEXPECTED</td>
+     * <td>An unknown error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>S_FALSE</td>
+     * <td>The application canceled the operation.</td>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The image was successfully acquired.</td>
+     * </tr>
+     * <tr>
+     * <td>STG_E_MEDIUMFULL</td>
+     * <td>The storage medium the application is using to acquire the image is full.</td>
+     * </tr>
+     * <tr>
+     * <td>WIA_S_NO_DEVICE_AVAILABLE</td>
+     * <td>There are no WIA hardware devices attached to the user's computer.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This method will return a value specified in <a href="/windows/desktop/wia/-wia-error-codes">Error Codes</a>, or a standard COM error if it fails for any reason other than those specified in the preceding table.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiadatatransfer-idtgetdata
      */
     idtGetData(pMedium, pIWiaDataCallback) {
         result := ComCall(3, this, "ptr", pMedium, "ptr", pIWiaDataCallback, "HRESULT")
@@ -74,11 +118,55 @@ class IWiaDataTransfer extends IUnknown{
     }
 
     /**
+     * The IWiaDataTransfer::idtGetBandedData method transfers a band of data from a hardware device to an application. For efficiency, applications retrieve data from Windows Image Acquisition (WIA) hardware devices in successive bands.
+     * @param {Pointer<WIA_DATA_TRANSFER_INFO>} pWiaDataTransInfo Type: <b>PWIA_DATA_TRANSFER_INFO</b>
      * 
-     * @param {Pointer<WIA_DATA_TRANSFER_INFO>} pWiaDataTransInfo 
-     * @param {IWiaDataCallback} pIWiaDataCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatatransfer-idtgetbandeddata
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/ns-wia_xp-wia_data_transfer_info">WIA_DATA_TRANSFER_INFO</a> structure.
+     * @param {IWiaDataCallback} pIWiaDataCallback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiadatacallback">IWiaDataCallback</a>*</b>
+     * 
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-iwiadatacallback">IWiaDataCallback</a> interface. Periodically, this method will call the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nf-wia_xp-iwiadatacallback-bandeddatacallback">BandedDataCallback</a> method to provide the application with data transfer status notification.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return any one of the following values:
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Return Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>E_INVALIDARG</td>
+     * <td>One or more parameters to this method contain invalid data.</td>
+     * </tr>
+     * <tr>
+     * <td>E_OUTOFMEMORY</td>
+     * <td>This method cannot allocate enough memory to complete its operation.</td>
+     * </tr>
+     * <tr>
+     * <td>E_UNEXPECTED</td>
+     * <td>An unknown error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>S_FALSE</td>
+     * <td>The application canceled the operation.</td>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The image was successfully acquired.</td>
+     * </tr>
+     * <tr>
+     * <td>STG_E_MEDIUMFULL</td>
+     * <td>The storage medium the application is using to acquire the image is full.</td>
+     * </tr>
+     * <tr>
+     * <td>WIA_S_NO_DEVICE_AVAILABLE</td>
+     * <td>There are no WIA hardware devices attached to the user's computer.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This method will return a value specified in <a href="/windows/desktop/wia/-wia-error-codes">Error Codes</a>, or a standard COM error if it fails for any reason other than those specified in the preceding table.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiadatatransfer-idtgetbandeddata
      */
     idtGetBandedData(pWiaDataTransInfo, pIWiaDataCallback) {
         result := ComCall(4, this, "ptr", pWiaDataTransInfo, "ptr", pIWiaDataCallback, "HRESULT")
@@ -86,10 +174,14 @@ class IWiaDataTransfer extends IUnknown{
     }
 
     /**
+     * The IWiaDataTransfer::idtQueryGetData method is used by applications to query a Windows Image Acquisition (WIA) device to determine what types of data formats it supports.
+     * @param {Pointer<WIA_FORMAT_INFO>} pfe Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/ns-wia_xp-wia_format_info">WIA_FORMAT_INFO</a>*</b>
      * 
-     * @param {Pointer<WIA_FORMAT_INFO>} pfe 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatatransfer-idtquerygetdata
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/ns-wia_xp-wia_format_info">WIA_FORMAT_INFO</a> structure.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns S_OK. Otherwise it returns a value specified in <a href="/windows/desktop/wia/-wia-error-codes">Error Codes</a>, or a standard COM error.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiadatatransfer-idtquerygetdata
      */
     idtQueryGetData(pfe) {
         result := ComCall(5, this, "ptr", pfe, "HRESULT")
@@ -97,9 +189,11 @@ class IWiaDataTransfer extends IUnknown{
     }
 
     /**
+     * The IWiaDataTransfer::idtEnumWIA_FORMAT_INFO method creates a banded transfer implementation of the IEnumWIA_FORMAT_INFO interface.
+     * @returns {IEnumWIA_FORMAT_INFO} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_format_info">IEnumWIA_FORMAT_INFO</a>**</b>
      * 
-     * @returns {IEnumWIA_FORMAT_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatatransfer-idtenumwia_format_info
+     * Receives the address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/nn-wia_xp-ienumwia_format_info">IEnumWIA_FORMAT_INFO</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiadatatransfer-idtenumwia_format_info
      */
     idtEnumWIA_FORMAT_INFO() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -107,9 +201,11 @@ class IWiaDataTransfer extends IUnknown{
     }
 
     /**
+     * The IWiaDataTransfer::idtGetExtendedTransferInfo retrieves extended information relating to data transfer buffers in the case of banded data transfers.
+     * @returns {WIA_EXTENDED_TRANSFER_INFO} Type: <b>PWIA_EXTENDED_TRANSFER_INFO</b>
      * 
-     * @returns {WIA_EXTENDED_TRANSFER_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiadatatransfer-idtgetextendedtransferinfo
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wia_xp/ns-wia_xp-wia_extended_transfer_info">WIA_EXTENDED_TRANSFER_INFO</a> structure containing the extended information.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiadatatransfer-idtgetextendedtransferinfo
      */
     idtGetExtendedTransferInfo() {
         pExtendedTransferInfo := WIA_EXTENDED_TRANSFER_INFO()

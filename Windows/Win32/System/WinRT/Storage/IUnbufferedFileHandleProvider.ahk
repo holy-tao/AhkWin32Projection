@@ -31,10 +31,10 @@ class IUnbufferedFileHandleProvider extends IUnknown{
     static VTableNames => ["OpenUnbufferedFileHandle", "CloseUnbufferedFileHandle"]
 
     /**
-     * 
-     * @param {IUnbufferedFileHandleOplockCallback} oplockBreakCallback 
-     * @returns {Pointer} 
-     * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-iunbufferedfilehandleprovider-openunbufferedfilehandle
+     * Gets a handle from a random-access byte stream that the StorageFile.OpenAsync method created and registers a callback method that you want to run when the opportunistic lock for the handle is broken.
+     * @param {IUnbufferedFileHandleOplockCallback} oplockBreakCallback An interface that contains the implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/windowsstoragecom/nf-windowsstoragecom-iunbufferedfilehandleoplockcallback-onbrokencallback">IUnbufferedFileHandleOplockCallback::OnBrokenCallback</a> method that you want to run when the opportunistic lock for the handle is broken.
+     * @returns {Pointer} The handle from the random-access byte stream.
+     * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/nf-windowsstoragecom-iunbufferedfilehandleprovider-openunbufferedfilehandle
      */
     OpenUnbufferedFileHandle(oplockBreakCallback) {
         result := ComCall(3, this, "ptr", oplockBreakCallback, "ptr*", &fileHandle := 0, "HRESULT")
@@ -42,9 +42,9 @@ class IUnbufferedFileHandleProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-iunbufferedfilehandleprovider-closeunbufferedfilehandle
+     * Closes the handle from a random-access byte stream that you created by calling IUnbufferedFileHandleProvider::OpenUnbufferedFileHandle.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/nf-windowsstoragecom-iunbufferedfilehandleprovider-closeunbufferedfilehandle
      */
     CloseUnbufferedFileHandle() {
         result := ComCall(4, this, "HRESULT")

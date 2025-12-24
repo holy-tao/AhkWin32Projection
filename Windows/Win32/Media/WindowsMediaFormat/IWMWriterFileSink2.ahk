@@ -31,10 +31,50 @@ class IWMWriterFileSink2 extends IWMWriterFileSink{
     static VTableNames => ["Start", "Stop", "IsStopped", "GetFileDuration", "GetFileSize", "Close", "IsClosed"]
 
     /**
+     * The Start method starts recording at the specified time.
+     * @param {Integer} cnsStartTime Start time in 100-nanosecond units.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} cnsStartTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-start
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_INVALID_REQUEST</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The requested start time precedes the last stop time.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not enough memory to complete the task.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-start
      */
     Start(cnsStartTime) {
         result := ComCall(9, this, "uint", cnsStartTime, "HRESULT")
@@ -42,10 +82,10 @@ class IWMWriterFileSink2 extends IWMWriterFileSink{
     }
 
     /**
-     * 
-     * @param {Integer} cnsStopTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-stop
+     * The Stop method stops recording at the specified time.
+     * @param {Integer} cnsStopTime Stop time in 100-nanosecond units.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-stop
      */
     Stop(cnsStopTime) {
         result := ComCall(10, this, "uint", cnsStopTime, "HRESULT")
@@ -53,9 +93,9 @@ class IWMWriterFileSink2 extends IWMWriterFileSink{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-isstopped
+     * The IsStopped method ascertains whether the file sink has stopped writing.
+     * @returns {BOOL} Pointer to a Boolean value that is set to True if writing has stopped.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-isstopped
      */
     IsStopped() {
         result := ComCall(11, this, "int*", &pfStopped := 0, "HRESULT")
@@ -63,9 +103,9 @@ class IWMWriterFileSink2 extends IWMWriterFileSink{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-getfileduration
+     * The GetFileDuration method retrieves the duration of the portion of the file that has been written.
+     * @returns {Integer} Pointer to variable specifying the duration, in 100-nanosecond units.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-getfileduration
      */
     GetFileDuration() {
         result := ComCall(12, this, "uint*", &pcnsDuration := 0, "HRESULT")
@@ -73,9 +113,9 @@ class IWMWriterFileSink2 extends IWMWriterFileSink{
     }
 
     /**
-     * Retrieves the size of the specified file, in bytes.
-     * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
+     * The GetFileSize method retrieves the size of the file.
+     * @returns {Integer} Pointer to a count of the bytes in the file.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-getfilesize
      */
     GetFileSize() {
         result := ComCall(13, this, "uint*", &pcbFile := 0, "HRESULT")
@@ -83,9 +123,9 @@ class IWMWriterFileSink2 extends IWMWriterFileSink{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-close
+     * The Close method closes the sink.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-close
      */
     Close() {
         result := ComCall(14, this, "HRESULT")
@@ -93,9 +133,9 @@ class IWMWriterFileSink2 extends IWMWriterFileSink{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-isclosed
+     * The IsClosed method ascertains whether the file sink has been closed.
+     * @returns {BOOL} Pointer to a Boolean value that is set to True if the file sink has been closed.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmwriterfilesink2-isclosed
      */
     IsClosed() {
         result := ComCall(15, this, "int*", &pfClosed := 0, "HRESULT")

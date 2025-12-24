@@ -37,11 +37,57 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
     static VTableNames => ["put_RateEx", "get_AudioCounter", "get_VideoCounter", "get_CCCounter", "get_WSTCounter"]
 
     /**
+     * @type {IUnknown} 
+     */
+    AudioCounter {
+        get => this.get_AudioCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    VideoCounter {
+        get => this.get_VideoCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    CCCounter {
+        get => this.get_CCCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    WSTCounter {
+        get => this.get_WSTCounter()
+    }
+
+    /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {Float} dwRate Playback rate. The valid range is (<i>dRate</i> &gt;= 0.1 || <i>dRate</i> &lt;= –0.1).
+     * @param {Integer} dwFramesPerSecond Frames per second for fast-forward play. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nf-sbe-istreambuffermediaseeking2-setrateex">IStreamBufferMediaSeeking2::SetRateEx</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Float} dwRate 
-     * @param {Integer} dwFramesPerSecond 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-put_rateex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource2-put_rateex
      */
     put_RateEx(dwRate, dwFramesPerSecond) {
         result := ComCall(41, this, "double", dwRate, "uint", dwFramesPerSecond, "HRESULT")
@@ -49,9 +95,9 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_audiocounter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource2-get_audiocounter
      */
     get_AudioCounter() {
         result := ComCall(42, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -59,9 +105,9 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_videocounter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource2-get_videocounter
      */
     get_VideoCounter() {
         result := ComCall(43, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -69,9 +115,9 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_cccounter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource2-get_cccounter
      */
     get_CCCounter() {
         result := ComCall(44, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -79,9 +125,9 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_wstcounter
+     * The get_WSTCounter method enables the caller to get performance statistics from the Stream Buffer Source for the World Standard Teletext (WST) stream.
+     * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource2-get_wstcounter
      */
     get_WSTCounter() {
         result := ComCall(45, this, "ptr*", &ppUnk := 0, "HRESULT")

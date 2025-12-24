@@ -42,12 +42,23 @@ class IApplicationAssociationRegistration extends IUnknown{
     static VTableNames => ["QueryCurrentDefault", "QueryAppIsDefault", "QueryAppIsDefaultAll", "SetAppAsDefault", "SetAppAsDefaultAll", "ClearUserAssociations"]
 
     /**
+     * Determines the default application for a given association type. This is the default application launched by ShellExecute for that type. Not intended for use in Windows 8.
+     * @param {PWSTR} pszQuery Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszQuery 
-     * @param {Integer} atQueryType 
-     * @param {Integer} alQueryLevel 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-querycurrentdefault
+     * A pointer to a null-terminated, Unicode string that contains the file name extension or protocol, such as .mp3 or http.
+     * @param {Integer} atQueryType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a></b>
+     * 
+     * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a> enumeration values that specifies the type of association, such as extension or MIME type.
+     * @param {Integer} alQueryLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a></b>
+     * 
+     * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a> enumeration values that specifies the level of association, such as per-user or machine. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">AL_EFFECTIVE</a>.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
+     * 
+     * When this method returns, contains the address of a pointer to the ProgID that identifies the current default association.
+     * 
+     * <div class="alert"><b>Note</b>  It is the responsibility of the calling application to release the string through <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.</div>
+     * <div> </div>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-querycurrentdefault
      */
     QueryCurrentDefault(pszQuery, atQueryType, alQueryLevel) {
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
@@ -57,13 +68,23 @@ class IApplicationAssociationRegistration extends IUnknown{
     }
 
     /**
+     * Determines whether an application owns the registered default association for a given application level and type. Not intended for use in Windows 8.
+     * @param {PWSTR} pszQuery Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszQuery 
-     * @param {Integer} atQueryType 
-     * @param {Integer} alQueryLevel 
-     * @param {PWSTR} pszAppRegistryName 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-queryappisdefault
+     * A pointer to a <b>null</b>-terminated Unicode string that contains the file name extension or protocol of the application, such as .mp3 or http.
+     * @param {Integer} atQueryType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a></b>
+     * 
+     * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a> enumeration values that specifies the type of the application named in <i>pszQuery</i>, such as file name extension or MIME type.
+     * @param {Integer} alQueryLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a></b>
+     * 
+     * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a> enumeration values that specifies the level of association, such as per-user or machine. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">AL_EFFECTIVE</a>.
+     * @param {PWSTR} pszAppRegistryName Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a <b>null</b>-terminated Unicode string that specifies the registered name of the application.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     *  When this method returns, contains <b>TRUE</b> if the application is the default; or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-queryappisdefault
      */
     QueryAppIsDefault(pszQuery, atQueryType, alQueryLevel, pszAppRegistryName) {
         pszQuery := pszQuery is String ? StrPtr(pszQuery) : pszQuery
@@ -74,11 +95,18 @@ class IApplicationAssociationRegistration extends IUnknown{
     }
 
     /**
+     * Determines whether an application owns all of the registered default associations for a given application level. Not intended for use in Windows 8.
+     * @param {Integer} alQueryLevel Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a></b>
      * 
-     * @param {Integer} alQueryLevel 
-     * @param {PWSTR} pszAppRegistryName 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-queryappisdefaultall
+     * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a> enumeration values that specifies the level of association, such as per-user or machine. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">AL_EFFECTIVE</a>.
+     * @param {PWSTR} pszAppRegistryName Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a <b>null</b>-terminated Unicode string that specifies the registered name of the application.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * When this method returns, contains <b>TRUE</b> if the application is the default for all <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype"> association types</a> at the specified <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationlevel">ASSOCIATIONLEVEL</a>; 
+     * or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-queryappisdefaultall
      */
     QueryAppIsDefaultAll(alQueryLevel, pszAppRegistryName) {
         pszAppRegistryName := pszAppRegistryName is String ? StrPtr(pszAppRegistryName) : pszAppRegistryName
@@ -88,12 +116,16 @@ class IApplicationAssociationRegistration extends IUnknown{
     }
 
     /**
-     * 
+     * Sets an application as the default for a given extension or protocol, provided that the application's publisher matches the current default's. For more information, see Default Programs. Not intended for use in Windows 8.
      * @param {PWSTR} pszAppRegistryName 
      * @param {PWSTR} pszSet 
-     * @param {Integer} atSetType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-setappasdefault
+     * @param {Integer} atSetType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a></b>
+     * 
+     * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-associationtype">ASSOCIATIONTYPE</a> enumeration values that specifies the type of the application named in <i>extOrUriScheme</i>, such as file name extension or MIME type.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code. In particular, if the application's publisher doesn't match the default's, this method returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">E_ACCESSDENIED</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-setappasdefault
      */
     SetAppAsDefault(pszAppRegistryName, pszSet, atSetType) {
         pszAppRegistryName := pszAppRegistryName is String ? StrPtr(pszAppRegistryName) : pszAppRegistryName
@@ -104,10 +136,14 @@ class IApplicationAssociationRegistration extends IUnknown{
     }
 
     /**
+     * Sets an application as the default for all of the registered associations of any type for that application. Not intended for use in Windows 8.
+     * @param {PWSTR} pszAppRegistryName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszAppRegistryName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-setappasdefaultall
+     * A pointer to a null-terminated Unicode string that specifies the registered name of the application.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-setappasdefaultall
      */
     SetAppAsDefaultAll(pszAppRegistryName) {
         pszAppRegistryName := pszAppRegistryName is String ? StrPtr(pszAppRegistryName) : pszAppRegistryName
@@ -117,9 +153,11 @@ class IApplicationAssociationRegistration extends IUnknown{
     }
 
     /**
+     * Removes all per-user associations for the current user. This results in a reversion to machine defaults, if they exist. Not intended for use in Windows 8.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-clearuserassociations
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationassociationregistration-clearuserassociations
      */
     ClearUserAssociations() {
         result := ComCall(8, this, "HRESULT")

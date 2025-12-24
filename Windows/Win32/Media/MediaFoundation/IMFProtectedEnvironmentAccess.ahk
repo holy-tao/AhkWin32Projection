@@ -36,13 +36,31 @@ class IMFProtectedEnvironmentAccess extends IUnknown{
     static VTableNames => ["Call", "ReadGRL"]
 
     /**
+     * Allows content protection systems to access the protected environment.
+     * @param {Integer} inputLength The length in bytes of the input data.
+     * @param {Pointer} input A pointer to the input data.
+     * @param {Integer} outputLength The length in bytes of the output data.
+     * @param {Pointer} output A pointer to the output data.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} inputLength 
-     * @param {Pointer} input 
-     * @param {Integer} outputLength 
-     * @param {Pointer} output 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfprotectedenvironmentaccess-call
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfprotectedenvironmentaccess-call
      */
     Call(inputLength, input, outputLength, output) {
         result := ComCall(3, this, "uint", inputLength, "ptr", input, "uint", outputLength, "ptr", output, "HRESULT")
@@ -50,11 +68,11 @@ class IMFProtectedEnvironmentAccess extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} outputLength 
-     * @param {Pointer<Pointer<Integer>>} output 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfprotectedenvironmentaccess-readgrl
+     * Gets the Global Revocation List (GLR).
+     * @param {Pointer<Integer>} outputLength The length of the data returned in <b>output</b>.
+     * @param {Pointer<Pointer<Integer>>} output Receives the contents of the global revocation list file.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfprotectedenvironmentaccess-readgrl
      */
     ReadGRL(outputLength, output) {
         outputLengthMarshal := outputLength is VarRef ? "uint*" : "ptr"

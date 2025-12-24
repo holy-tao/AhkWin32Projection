@@ -46,10 +46,48 @@ class IDesktopGadget extends IUnknown{
     static VTableNames => ["RunGadget"]
 
     /**
+     * Adds an installed gadget to the desktop.
+     * @param {PWSTR} gadgetPath Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} gadgetPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-idesktopgadget-rungadget
+     * Pointer to the full (absolute) path of a .gadget folder. A gadget that is not packaged with Windows can only be run from one of the two following locations. Installation of the gadget in any other location will cause this method to fail with an access denied error.
+     * 
+     *                     
+     * 
+     * <div class="alert"><b>Note</b>  This path should not contain environment variables; the fully expanded path must be provided. <a href="https://docs.microsoft.com/windows/desktop/api/rrascfg/nn-rrascfg-ieapproviderconfig">ExpandEnvironmentStrings</a> can be used to expand the path to the form required in this parameter.</div>
+     * <div> </div>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise, including the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SCHED_E_ALREADY_RUNNING</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The gadget is already running.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An error occurred involving the path of the gadget folder pointed to by <i>gadgetPath</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-idesktopgadget-rungadget
      */
     RunGadget(gadgetPath) {
         gadgetPath := gadgetPath is String ? StrPtr(gadgetPath) : gadgetPath

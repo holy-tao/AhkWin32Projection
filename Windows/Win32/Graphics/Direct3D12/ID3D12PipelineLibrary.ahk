@@ -36,11 +36,17 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild{
     static VTableNames => ["StorePipeline", "LoadGraphicsPipeline", "LoadComputePipeline", "GetSerializedSize", "Serialize"]
 
     /**
+     * Adds the input PSO to an internal database with the corresponding name.
+     * @param {PWSTR} pName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pName 
-     * @param {ID3D12PipelineState} pPipeline 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary-storepipeline
+     * Specifies a unique name for the library. Overwriting is not supported.
+     * @param {ID3D12PipelineState} pPipeline Type: <b>ID3D12PipelineState*</b>
+     * 
+     * Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate">ID3D12PipelineState</a> to add.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns an HRESULT success or error code, including E_INVALIDARG if the name already exists, E_OUTOFMEMORY if unable to allocate storage in the library.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12pipelinelibrary-storepipeline
      */
     StorePipeline(pName, pPipeline) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -50,12 +56,20 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild{
     }
 
     /**
+     * Retrieves the requested PSO from the library.
+     * @param {PWSTR} pName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pName 
-     * @param {Pointer<D3D12_GRAPHICS_PIPELINE_STATE_DESC>} pDesc 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary-loadgraphicspipeline
+     * The unique name of the PSO.
+     * @param {Pointer<D3D12_GRAPHICS_PIPELINE_STATE_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc">D3D12_GRAPHICS_PIPELINE_STATE_DESC</a>*</b>
+     * 
+     * Specifies a description of the required PSO in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_graphics_pipeline_state_desc">D3D12_GRAPHICS_PIPELINE_STATE_DESC</a> structure. This input description is matched against the data in the current library database, and stored in order to prevent duplication of PSO contents.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * Specifies a REFIID for the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate">ID3D12PipelineState</a> object. Typically set this, and the following parameter, with the macro <c>IID_PPV_ARGS(&amp;PSO1)</c>, where <i>PSO1</i> is the name of the object.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * Specifies a pointer that will reference the returned PSO.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12pipelinelibrary-loadgraphicspipeline
      */
     LoadGraphicsPipeline(pName, pDesc, riid) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -65,12 +79,20 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild{
     }
 
     /**
+     * Retrieves the requested PSO from the library. The input desc is matched against the data in the current library database, and remembered in order to prevent duplication of PSO contents.
+     * @param {PWSTR} pName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pName 
-     * @param {Pointer<D3D12_COMPUTE_PIPELINE_STATE_DESC>} pDesc 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary-loadcomputepipeline
+     * The unique name of the PSO.
+     * @param {Pointer<D3D12_COMPUTE_PIPELINE_STATE_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_compute_pipeline_state_desc">D3D12_COMPUTE_PIPELINE_STATE_DESC</a>*</b>
+     * 
+     * Specifies a description of the required PSO in a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_compute_pipeline_state_desc">D3D12_COMPUTE_PIPELINE_STATE_DESC</a> structure. This input description is matched against the data in the current library database, and stored in order to prevent duplication of PSO contents.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * Specifies a REFIID for the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pipelinestate">ID3D12PipelineState</a> object. Typically set this, and the following parameter, with the macro <c>IID_PPV_ARGS(&amp;PSO1)</c>, where <i>PSO1</i> is the name of the object.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * Specifies a pointer that will reference the returned PSO.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12pipelinelibrary-loadcomputepipeline
      */
     LoadComputePipeline(pName, pDesc, riid) {
         pName := pName is String ? StrPtr(pName) : pName
@@ -80,9 +102,11 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild{
     }
 
     /**
+     * Returns the amount of memory required to serialize the current contents of the database.
+     * @returns {Pointer} Type: <b>SIZE_T</b>
      * 
-     * @returns {Pointer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary-getserializedsize
+     * This method returns a SIZE_T object, containing the size required in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12pipelinelibrary-getserializedsize
      */
     GetSerializedSize() {
         result := ComCall(11, this, "ptr")
@@ -90,10 +114,14 @@ class ID3D12PipelineLibrary extends ID3D12DeviceChild{
     }
 
     /**
+     * Writes the contents of the library to the provided memory, to be provided back to the runtime at a later time.
+     * @param {Pointer} DataSizeInBytes Type: <b>SIZE_T</b>
      * 
-     * @param {Pointer} DataSizeInBytes 
-     * @returns {Void} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary-serialize
+     * The size provided must be at least the size returned from <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12pipelinelibrary-getserializedsize">GetSerializedSize</a>.
+     * @returns {Void} Type: <b>void*</b>
+     * 
+     * Specifies a pointer to the data. This memory must be readable and writeable up to the input size. This data can be saved and provided to <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12device1-createpipelinelibrary">CreatePipelineLibrary</a> at a later time, including future instances of this or other processes. The data becomes invalidated if the runtime or driver is updated, and is not portable to other hardware or devices.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12pipelinelibrary-serialize
      */
     Serialize(DataSizeInBytes) {
         result := ComCall(12, this, "ptr", &pData := 0, "ptr", DataSizeInBytes, "HRESULT")

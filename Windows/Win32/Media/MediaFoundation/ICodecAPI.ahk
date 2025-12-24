@@ -80,10 +80,50 @@ class ICodecAPI extends IUnknown{
     static VTableNames => ["IsSupported", "IsModifiable", "GetParameterRange", "GetParameterValues", "GetDefaultValue", "GetValue", "SetValue", "RegisterForEvent", "UnregisterForEvent", "SetAllDefaults", "SetValueWithNotify", "SetAllDefaultsWithNotify", "GetAllSettings", "SetAllSettings", "SetAllSettingsWithNotify"]
 
     /**
+     * The IsSupported method queries whether a codec supports a given property.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the property to query. For a list of standard codec properties, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/codec-api-properties">Codec API Properties</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} Api 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-issupported
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The codec does not support the property.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The codec supports the property.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The codec does not support the property.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-issupported
      */
     IsSupported(Api) {
         result := ComCall(3, this, "ptr", Api, "HRESULT")
@@ -91,10 +131,39 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
+     * The IsModifiable method queries whether a codec property can be changed, given the codec's current configuration.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the property. For a list of standard codec properties, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/codec-api-properties">Codec API Properties</a>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} Api 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-ismodifiable
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value of this property cannot be changed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value of this property can be changed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-ismodifiable
      */
     IsModifiable(Api) {
         result := ComCall(4, this, "ptr", Api, "int")
@@ -102,13 +171,55 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
+     * The GetParameterRange method gets the range of values for a codec property.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the property to query. For a list of standard codec properties, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/codec-api-properties">Codec API Properties</a>.
+     * @param {Pointer<VARIANT>} ValueMin Pointer to a <b>VARIANT</b>  that receives the minimum value of the property. The caller must free the <b>VARIANT</b> by calling <b>VariantClear</b>.
+     * @param {Pointer<VARIANT>} ValueMax Pointer to a <b>VARIANT</b>  that receives the maximum value of the property. The caller must free the <b>VARIANT</b> by calling <b>VariantClear</b>.
+     * @param {Pointer<VARIANT>} SteppingDelta Pointer to a <b>VARIANT</b>  that receives the stepping delta, which defines the valid increments from <i>ValueMin</i> to <i>ValueMax</i>. The caller must free the <b>VARIANT</b> by calling <b>VariantClear</b>.
      * 
-     * @param {Pointer<Guid>} Api 
-     * @param {Pointer<VARIANT>} ValueMin 
-     * @param {Pointer<VARIANT>} ValueMax 
-     * @param {Pointer<VARIANT>} SteppingDelta 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-getparameterrange
+     * If the <b>VARIANT</b> type is VT_EMPTY, any increment is valid.
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_CODECAPI_ENUMERATED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property supports a list of possible values, not a linear range.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-getparameterrange
      */
     GetParameterRange(Api, ValueMin, ValueMax, SteppingDelta) {
         result := ComCall(5, this, "ptr", Api, "ptr", ValueMin, "ptr", ValueMax, "ptr", SteppingDelta, "HRESULT")
@@ -116,12 +227,52 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
+     * The GetParameterValues method gets the list of possible values for a codec property.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the property to query. For a list of standard codec properties, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/codec-api-properties">Codec API Properties</a>.
+     * @param {Pointer<Pointer<VARIANT>>} Values Receives a pointer to an array of <b>VARIANT</b> types. The array contains the list of values that the encoder supports for this property. The caller must free each <b>VARIANT</b> by calling <b>VariantClear</b>. The caller must also free the array by calling  <b>CoTaskMemFree</b>.
+     * @param {Pointer<Integer>} ValuesCount Receives the number of elements in the <i>Values</i> array.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} Api 
-     * @param {Pointer<Pointer<VARIANT>>} Values 
-     * @param {Pointer<Integer>} ValuesCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-getparametervalues
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_CODECAPI_LINEAR_RANGE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property supports a range of values, not a list.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-getparametervalues
      */
     GetParameterValues(Api, Values, ValuesCount) {
         ValuesMarshal := Values is VarRef ? "ptr*" : "ptr"
@@ -132,10 +283,10 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Api 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-getdefaultvalue
+     * The GetDefaultValue method gets the default value of a codec property.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the property. For a list of standard codec properties, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/codec-api-properties">Codec API Properties</a>.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> that receives the default value. The caller must free the <b>VARIANT</b> by calling <b>VariantClear</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-getdefaultvalue
      */
     GetDefaultValue(Api) {
         Value := VARIANT()
@@ -144,10 +295,10 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Api 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-getvalue
+     * The GetValue method gets the current value of a codec property.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the property. For a list of standard codec properties, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/codec-api-properties">Codec API Properties</a>.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> that receives the value of the property. The caller must free the <b>VARIANT</b> by calling <b>VariantClear</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-getvalue
      */
     GetValue(Api) {
         Value := VARIANT()
@@ -156,11 +307,52 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
+     * The SetValue method sets the value of a codec property.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the property to set.
+     *           For a list of standard codec properties, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/codec-api-properties">Codec API Properties</a>.
+     * @param {Pointer<VARIANT>} Value Pointer to a <b>VARIANT</b> that contains the new value for the property.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} Api 
-     * @param {Pointer<VARIANT>} Value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setvalue
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The property is read-only.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid property GUID or value.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-setvalue
      */
     SetValue(Api, Value) {
         result := ComCall(9, this, "ptr", Api, "ptr", Value, "HRESULT")
@@ -168,11 +360,78 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
+     * The RegisterForEvent method registers the application to receive events from the codec.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the event.
+     *           There are three categories of events:
      * 
-     * @param {Pointer<Guid>} Api 
-     * @param {Pointer} userData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-registerforevent
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="CODECAPI_CHANGELISTS"></a><a id="codecapi_changelists"></a><dl>
+     * <dt><b>CODECAPI_CHANGELISTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The codec notifies the application when the properties of the codec change.  The event data is a list of GUIDs for the properties that changed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="One_of_the_property_GUIDs_defined_in_codecapi.h.__See_Codec_API_Properties._"></a><a id="one_of_the_property_guids_defined_in_codecapi.h.__see_codec_api_properties._"></a><a id="ONE_OF_THE_PROPERTY_GUIDS_DEFINED_IN_CODECAPI.H.__SEE_CODEC_API_PROPERTIES._"></a><dl>
+     * <dt><b>One of the property GUIDs defined in codecapi.h. (See <a href="https://docs.microsoft.com/windows/desktop/DirectShow/codec-api-properties">Codec API Properties</a>.)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The codec notifies the application when the specified  property changes.  Typically, a codec will support this type of notification for a limited set of properties, if any.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="A_proprietary_event_GUID_defined_by_the_codec."></a><a id="a_proprietary_event_guid_defined_by_the_codec."></a><a id="A_PROPRIETARY_EVENT_GUID_DEFINED_BY_THE_CODEC."></a><dl>
+     * <dt><b>A proprietary event GUID defined by the codec.</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Implementation dependent.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {Pointer} userData Pointer to caller-defined data. The application receives this pointer in the <i>lParam1</i> event parameter.
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented. The codec does not support event notification, or does not support the event GUID specified in the <i>Api</i> parameter.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-registerforevent
      */
     RegisterForEvent(Api, userData) {
         result := ComCall(10, this, "ptr", Api, "ptr", userData, "HRESULT")
@@ -180,10 +439,10 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} Api 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-unregisterforevent
+     * The UnregisterForEvent method unregisters the application for a specified encoder event.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the event.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-unregisterforevent
      */
     UnregisterForEvent(Api) {
         result := ComCall(11, this, "ptr", Api, "HRESULT")
@@ -191,9 +450,9 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setalldefaults
+     * The SetAllDefaults method resets all codec properties to their default values.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-setalldefaults
      */
     SetAllDefaults() {
         result := ComCall(12, this, "HRESULT")
@@ -201,13 +460,43 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
+     * The SetValueWithNotify method sets a property on a codec and returns a list of other properties that changed as a result.
+     * @param {Pointer<Guid>} Api Pointer to a GUID that specifies the property to set.
+     *           For a list of standard codec properties, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/codec-api-properties">Codec API Properties</a>.
+     * @param {Pointer<VARIANT>} Value Pointer to a <b>VARIANT</b>  that contains the new value for the property.
+     * @param {Pointer<Pointer<Guid>>} ChangedParam Receives a pointer to an array of GUIDs. The array contains the GUIDs of any properties that changed as a result of this method call. The caller must free the array by calling <b>CoTaskMemFree</b>.
+     * @param {Pointer<Integer>} ChangedParamCount Receives the number of elements in the <i>ChangedParam</i> array.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} Api 
-     * @param {Pointer<VARIANT>} Value 
-     * @param {Pointer<Pointer<Guid>>} ChangedParam 
-     * @param {Pointer<Integer>} ChangedParamCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setvaluewithnotify
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-setvaluewithnotify
      */
     SetValueWithNotify(Api, Value, ChangedParam, ChangedParamCount) {
         ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : "ptr"
@@ -218,11 +507,40 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
+     * The SetAllDefaultsWithNotify method resets all codec properties to their default values, and returns a list of the properties that changed.
+     * @param {Pointer<Pointer<Guid>>} ChangedParam Receives a pointer to an array of GUIDs. The array contains the GUIDs of any properties that changed as a result of this method call. The caller must free the array by calling <b>CoTaskMemFree</b>.
+     * @param {Pointer<Integer>} ChangedParamCount Receives the number of elements in the <i>ChangedParam</i> array.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Pointer<Guid>>} ChangedParam 
-     * @param {Pointer<Integer>} ChangedParamCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setalldefaultswithnotify
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-setalldefaultswithnotify
      */
     SetAllDefaultsWithNotify(ChangedParam, ChangedParamCount) {
         ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : "ptr"
@@ -233,10 +551,39 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
+     * The GetAllSettings method gets the codec's current properties and writes them to a stream.
+     * @param {IStream} __MIDL__ICodecAPI0000 Pointer to the <b>IStream</b> interface of the stream.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {IStream} __MIDL__ICodecAPI0000 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-getallsettings
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-getallsettings
      */
     GetAllSettings(__MIDL__ICodecAPI0000) {
         result := ComCall(15, this, "ptr", __MIDL__ICodecAPI0000, "HRESULT")
@@ -244,10 +591,39 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
+     * The SetAllSettings method reads codec properties from a stream and sets them on the codec.
+     * @param {IStream} __MIDL__ICodecAPI0001 Pointer to the <b>IStream</b> interface of the stream.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {IStream} __MIDL__ICodecAPI0001 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setallsettings
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-setallsettings
      */
     SetAllSettings(__MIDL__ICodecAPI0001) {
         result := ComCall(16, this, "ptr", __MIDL__ICodecAPI0001, "HRESULT")
@@ -255,12 +631,41 @@ class ICodecAPI extends IUnknown{
     }
 
     /**
+     * The SetAllSettingsWithNotify method reads codec properties from a stream, sets them on the codec, and returns a list of the properties that changed.
+     * @param {IStream} __MIDL__ICodecAPI0002 Pointer to the <b>IStream</b> interface of the stream.
+     * @param {Pointer<Pointer<Guid>>} ChangedParam Receives a pointer to an array of GUIDs. The array contains the GUIDs of any properties that changed as a result of this method call. The caller must free the array by calling <b>CoTaskMemFree</b>.
+     * @param {Pointer<Integer>} ChangedParamCount Receives the number of elements in the <i>ChangedParam</i> array.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {IStream} __MIDL__ICodecAPI0002 
-     * @param {Pointer<Pointer<Guid>>} ChangedParam 
-     * @param {Pointer<Integer>} ChangedParamCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-icodecapi-setallsettingswithnotify
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-icodecapi-setallsettingswithnotify
      */
     SetAllSettingsWithNotify(__MIDL__ICodecAPI0002, ChangedParam, ChangedParamCount) {
         ChangedParamMarshal := ChangedParam is VarRef ? "ptr*" : "ptr"

@@ -31,20 +31,24 @@ class ID2D1DrawingStateBlock1 extends ID2D1DrawingStateBlock{
     static VTableNames => ["GetDescription", "SetDescription"]
 
     /**
+     * Gets the antialiasing mode, transform, tags, primitive blend, and unit mode portion of the drawing state.
+     * @param {Pointer<D2D1_DRAWING_STATE_DESCRIPTION1>} stateDescription Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ns-d2d1_1-d2d1_drawing_state_description1">D2D1_DRAWING_STATE_DESCRIPTION1</a>*</b>
      * 
-     * @param {Pointer<D2D1_DRAWING_STATE_DESCRIPTION1>} stateDescription 
+     * When this method returns, contains the antialiasing mode, transform, tags, primitive blend, and unit mode portion of the drawing state. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1drawingstateblock1-getdescription
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1drawingstateblock1-getdescription
      */
     GetDescription(stateDescription) {
         ComCall(8, this, "ptr", stateDescription)
     }
 
     /**
+     * Sets the D2D1_DRAWING_STATE_DESCRIPTION1 associated with this drawing state block.
+     * @param {Pointer<D2D1_DRAWING_STATE_DESCRIPTION1>} stateDescription Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ns-d2d1_1-d2d1_drawing_state_description1">D2D1_DRAWING_STATE_DESCRIPTION1</a></b>
      * 
-     * @param {Pointer<D2D1_DRAWING_STATE_DESCRIPTION1>} stateDescription 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ns-d2d1_1-d2d1_drawing_state_description1">D2D1_DRAWING_STATE_DESCRIPTION1</a> to be set associated with  this drawing state block.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1drawingstateblock1-setdescription
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1drawingstateblock1-setdescription
      */
     SetDescription(stateDescription) {
         ComCall(9, this, "ptr", stateDescription)

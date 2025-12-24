@@ -44,6 +44,48 @@ class ISWbemObject extends IDispatch{
     static VTableNames => ["Put_", "PutAsync_", "Delete_", "DeleteAsync_", "Instances_", "InstancesAsync_", "Subclasses_", "SubclassesAsync_", "Associators_", "AssociatorsAsync_", "References_", "ReferencesAsync_", "ExecMethod_", "ExecMethodAsync_", "Clone_", "GetObjectText_", "SpawnDerivedClass_", "SpawnInstance_", "CompareTo_", "get_Qualifiers_", "get_Properties_", "get_Methods_", "get_Derivation_", "get_Path_", "get_Security_"]
 
     /**
+     * @type {ISWbemQualifierSet} 
+     */
+    Qualifiers_ {
+        get => this.get_Qualifiers_()
+    }
+
+    /**
+     * @type {ISWbemPropertySet} 
+     */
+    Properties_ {
+        get => this.get_Properties_()
+    }
+
+    /**
+     * @type {ISWbemMethodSet} 
+     */
+    Methods_ {
+        get => this.get_Methods_()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Derivation_ {
+        get => this.get_Derivation_()
+    }
+
+    /**
+     * @type {ISWbemObjectPath} 
+     */
+    Path_ {
+        get => this.get_Path_()
+    }
+
+    /**
+     * @type {ISWbemSecurity} 
+     */
+    Security_ {
+        get => this.get_Security_()
+    }
+
+    /**
      * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 

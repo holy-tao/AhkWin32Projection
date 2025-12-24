@@ -78,9 +78,9 @@ class IXpsOMMatrixTransform extends IXpsOMShareable{
     static VTableNames => ["GetMatrix", "SetMatrix", "Clone"]
 
     /**
-     * 
-     * @returns {XPS_MATRIX} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsommatrixtransform-getmatrix
+     * Gets the XPS_MATRIX structure, which specifies the transform matrix.
+     * @returns {XPS_MATRIX} The address of a variable that receives the <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_matrix">XPS_MATRIX</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsommatrixtransform-getmatrix
      */
     GetMatrix() {
         matrix := XPS_MATRIX()
@@ -89,10 +89,50 @@ class IXpsOMMatrixTransform extends IXpsOMShareable{
     }
 
     /**
+     * Sets the XPS_MATRIX structure, which specifies the transform matrix.
+     * @param {Pointer<XPS_MATRIX>} matrix The address of the <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_matrix">XPS_MATRIX</a> structure.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {Pointer<XPS_MATRIX>} matrix 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsommatrixtransform-setmatrix
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>matrix</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The matrix referenced by <i>matrix</i> is not valid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsommatrixtransform-setmatrix
      */
     SetMatrix(matrix) {
         result := ComCall(6, this, "ptr", matrix, "HRESULT")
@@ -100,9 +140,9 @@ class IXpsOMMatrixTransform extends IXpsOMShareable{
     }
 
     /**
-     * 
-     * @returns {IXpsOMMatrixTransform} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsommatrixtransform-clone
+     * Makes a deep copy of the interface.
+     * @returns {IXpsOMMatrixTransform} A pointer to the copy of the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsommatrixtransform-clone
      */
     Clone() {
         result := ComCall(7, this, "ptr*", &matrixTransform := 0, "HRESULT")

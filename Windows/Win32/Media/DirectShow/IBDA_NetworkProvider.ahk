@@ -36,10 +36,10 @@ class IBDA_NetworkProvider extends IUnknown{
     static VTableNames => ["PutSignalSource", "GetSignalSource", "GetNetworkType", "PutTuningSpace", "GetTuningSpace", "RegisterDeviceFilter", "UnRegisterDeviceFilter"]
 
     /**
-     * 
-     * @param {Integer} ulSignalSource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-putsignalsource
+     * The PutSignalSource method specifies the signal source.
+     * @param {Integer} ulSignalSource Specifies the signal source.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_networkprovider-putsignalsource
      */
     PutSignalSource(ulSignalSource) {
         result := ComCall(3, this, "uint", ulSignalSource, "HRESULT")
@@ -47,10 +47,10 @@ class IBDA_NetworkProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulSignalSource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-getsignalsource
+     * The GetSignalSource method retrieves the signal source.
+     * @param {Pointer<Integer>} pulSignalSource Receives a value specifying the signal source.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_networkprovider-getsignalsource
      */
     GetSignalSource(pulSignalSource) {
         pulSignalSourceMarshal := pulSignalSource is VarRef ? "uint*" : "ptr"
@@ -60,10 +60,10 @@ class IBDA_NetworkProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} pguidNetworkType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-getnetworktype
+     * The GetNetworkType method retrieves the network type.
+     * @param {Pointer<Guid>} pguidNetworkType Receives a GUID specifying the network type.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_networkprovider-getnetworktype
      */
     GetNetworkType(pguidNetworkType) {
         result := ComCall(5, this, "ptr", pguidNetworkType, "HRESULT")
@@ -71,10 +71,10 @@ class IBDA_NetworkProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} guidTuningSpace 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-puttuningspace
+     * The PutTuningSpace method specifies the tuning space.
+     * @param {Pointer<Guid>} guidTuningSpace Specifies the tuning space.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_networkprovider-puttuningspace
      */
     PutTuningSpace(guidTuningSpace) {
         result := ComCall(6, this, "ptr", guidTuningSpace, "HRESULT")
@@ -82,10 +82,10 @@ class IBDA_NetworkProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} pguidTuingSpace 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-gettuningspace
+     * The GetTuningSpace method retrieves the tuning space.
+     * @param {Pointer<Guid>} pguidTuingSpace Receives a GUID specifying the tuning space.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_networkprovider-gettuningspace
      */
     GetTuningSpace(pguidTuingSpace) {
         result := ComCall(7, this, "ptr", pguidTuingSpace, "HRESULT")
@@ -93,11 +93,11 @@ class IBDA_NetworkProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUnknown} pUnkFilterControl 
-     * @param {Pointer<Integer>} ppvRegisitrationContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-registerdevicefilter
+     * The RegisterDeviceFilter method is called by a BDA device filter to register itself in the filter graph.
+     * @param {IUnknown} pUnkFilterControl Pointer to the filter's <b>IUnknown</b> interface.
+     * @param {Pointer<Integer>} ppvRegisitrationContext Pointer that receives the registration context. The filter should store this value and return it in the call to <b>UnRegisterDeviceFilter</b>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_networkprovider-registerdevicefilter
      */
     RegisterDeviceFilter(pUnkFilterControl, ppvRegisitrationContext) {
         ppvRegisitrationContextMarshal := ppvRegisitrationContext is VarRef ? "uint*" : "ptr"
@@ -107,10 +107,10 @@ class IBDA_NetworkProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} pvRegistrationContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_networkprovider-unregisterdevicefilter
+     * The UnRegisterDeviceFilter method is called by BDA device filters when they are removed from the filter graph.
+     * @param {Integer} pvRegistrationContext The registration context that the filter received in the call to <b>RegisterDeviceFilter</b>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_networkprovider-unregisterdevicefilter
      */
     UnRegisterDeviceFilter(pvRegistrationContext) {
         result := ComCall(9, this, "uint", pvRegistrationContext, "HRESULT")

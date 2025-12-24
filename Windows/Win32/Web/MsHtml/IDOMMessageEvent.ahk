@@ -37,6 +37,27 @@ class IDOMMessageEvent extends IDispatch{
     static VTableNames => ["get_data", "get_origin", "get_source", "initMessageEvent"]
 
     /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    origin {
+        get => this.get_origin()
+    }
+
+    /**
+     * @type {IHTMLWindow2} 
+     */
+    source {
+        get => this.get_source()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

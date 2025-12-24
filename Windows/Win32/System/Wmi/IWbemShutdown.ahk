@@ -31,12 +31,12 @@ class IWbemShutdown extends IUnknown{
     static VTableNames => ["Shutdown"]
 
     /**
-     * 
-     * @param {Integer} uReason 
-     * @param {Integer} uMaxMilliseconds 
-     * @param {IWbemContext} pCtx 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemshutdown-shutdown
+     * The IWbemShutdown::Shutdown method indicates to the provider that the provider services are not required.
+     * @param {Integer} uReason Reserved. This value must be zero (0).
+     * @param {Integer} uMaxMilliseconds Reserved. This value must be zero (0).
+     * @param {IWbemContext} pCtx Reserved. This value must be <b>NULL</b>.
+     * @returns {HRESULT} This method returns an <b>HRESULT</b>, which identifies the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemshutdown-shutdown
      */
     Shutdown(uReason, uMaxMilliseconds, pCtx) {
         result := ComCall(3, this, "int", uReason, "uint", uMaxMilliseconds, "ptr", pCtx, "HRESULT")

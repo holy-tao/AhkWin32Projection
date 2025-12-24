@@ -38,10 +38,10 @@ class IMFMediaSinkPreroll extends IUnknown{
     static VTableNames => ["NotifyPreroll"]
 
     /**
-     * 
-     * @param {Integer} hnsUpcomingStartTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasinkpreroll-notifypreroll
+     * Notifies the media sink that the presentation clock is about to start.
+     * @param {Integer} hnsUpcomingStartTime The upcoming start time for the presentation clock, in 100-nanosecond units. This time is the same value that will be given to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfpresentationclock-start">IMFPresentationClock::Start</a> method when the presentation clock is started.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasinkpreroll-notifypreroll
      */
     NotifyPreroll(hnsUpcomingStartTime) {
         result := ComCall(3, this, "int64", hnsUpcomingStartTime, "HRESULT")

@@ -33,10 +33,10 @@ class IX509MachineEnrollmentFactory extends IDispatch{
     static VTableNames => ["CreateObject"]
 
     /**
-     * 
-     * @param {BSTR} strProgID 
-     * @returns {IX509EnrollmentHelper} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509machineenrollmentfactory-createobject
+     * Creates an IX509EnrollmentHelper object on a webpage.
+     * @param {BSTR} strProgID A <b>BSTR</b> variable that contains the ProgID value. This must be "X509Enrollment.CX509EnrollmentHelper".
+     * @returns {IX509EnrollmentHelper} Address of a pointer to a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmenthelper">IX509EnrollmentHelper</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509machineenrollmentfactory-createobject
      */
     CreateObject(strProgID) {
         strProgID := strProgID is String ? BSTR.Alloc(strProgID).Value : strProgID

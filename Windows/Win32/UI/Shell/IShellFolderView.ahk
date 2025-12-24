@@ -44,10 +44,22 @@ class IShellFolderView extends IUnknown{
     static VTableNames => ["Rearrange", "GetArrangeParam", "ArrangeGrid", "AutoArrange", "GetAutoArrange", "AddObject", "GetObject", "RemoveObject", "GetObjectCount", "SetObjectCount", "UpdateObject", "RefreshObject", "SetRedraw", "GetSelectedCount", "GetSelectedObjects", "IsDropOnSource", "GetDragPoint", "GetDropPoint", "MoveIcons", "SetItemPos", "IsBkDropTarget", "SetClipboard", "SetPoints", "GetItemSpacing", "SetCallback", "Select", "QuerySupport", "SetAutomationObject"]
 
     /**
+     * Rearrange may be altered or unavailable.
+     * @param {LPARAM} lParamSort Type: <b>LPARAM</b>
      * 
-     * @param {LPARAM} lParamSort 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-rearrange
+     * Specifies how the rearrangement should be performed. 
+     * 
+     * 					
+     * 
+     * The lower sixteen bits of <i>lParamSort</i> define the sorting rule. Most applications set the sorting rule to the default value of zero, indicating that the items should be sorted by name. The system does not define any other sorting rules. Some folder objects might allow calling applications to use the lower sixteen bits of <i>lParamSort</i> to specify folder-specific sorting rules. The rules and their associated <i>lParamSort</i> values are defined by the folder.
+     * 
+     * When the system folder view object calls <b>IShellFolderView::Rearrange</b>, the lower sixteen bits of <i>lParamSort</i> are used to specify the column to be used for the arranging.
+     * 
+     * The upper sixteen bits of <i>lParamSort</i> are used for flags that modify the sorting rule. The system currently defines the following modifier flags.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-rearrange
      */
     Rearrange(lParamSort) {
         result := ComCall(3, this, "ptr", lParamSort, "HRESULT")
@@ -55,9 +67,17 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Gets the arrangement parameter of the view, which is how the view has been sorted.
+     * @returns {LPARAM} Type: <b>LPARAM*</b>
      * 
-     * @returns {LPARAM} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getarrangeparam
+     * The lower sixteen bits of <i>plParamSort</i> define the sorting rule. Most applications set the sorting rule to the default value of zero, indicating that the items should be sorted by name. The system does not define any other sorting rules. Some folder objects might allow calling applications to use the lower sixteen bits of <i>plParamSort</i> to specify folder-specific sorting rules. The rules and their associated <i>plParamSort</i> values are defined by the folder.
+     *     
+     *     					
+     * 
+     * When the system folder view object calls <b>IShellFolderView::GetArrangeParam</b>, the lower sixteen bits of <i>plParamSort</i> are used to specify the column to be used for the arranging.
+     * 
+     * The upper sixteen bits of <i>plParamSort</i> are used for flags that modify the sorting rule. The system currently defines the following modifier flags.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-getarrangeparam
      */
     GetArrangeParam() {
         result := ComCall(4, this, "ptr*", &plParamSort := 0, "HRESULT")
@@ -65,9 +85,11 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Arranges moved icons so that they align to an invisible grid.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-arrangegrid
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-arrangegrid
      */
     ArrangeGrid() {
         result := ComCall(5, this, "HRESULT")
@@ -75,9 +97,11 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * AutoArrange may be altered or unavailable.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-autoarrange
+     * Returns S_OK if successful, S_FALSE if the view is not in Auto Arrange mode, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-autoarrange
      */
     AutoArrange() {
         result := ComCall(6, this, "HRESULT")
@@ -85,9 +109,11 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * GetAutoArrange may be altered or unavailable.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getautoarrange
+     * Returns S_OK if the folder is in Auto Arrange mode.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-getautoarrange
      */
     GetAutoArrange() {
         result := ComCall(7, this, "HRESULT")
@@ -95,10 +121,14 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * AddObject may be altered or unavailable.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PUITEMID_CHILD</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-addobject
+     * A pointer to an ItemID that specifies the item to add to the view.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * A pointer to a value that, when this method returns successfully, receives the index position of the added item.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-addobject
      */
     AddObject(pidl) {
         result := ComCall(8, this, "ptr", pidl, "uint*", &puItem := 0, "HRESULT")
@@ -106,10 +136,14 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
-     * The GetObject function retrieves information for the specified graphics object.
-     * @param {Integer} uItem 
-     * @returns {Pointer<ITEMIDLIST>} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
+     * Gets an item from the view.
+     * @param {Integer} uItem Type: <b>UINT</b>
+     * 
+     * The index of the item in the view to get.
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PITEMID_CHILD*</b>
+     * 
+     * When this method returns, contains the address of a pointer to the item at the given index.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-getobject
      */
     GetObject(uItem) {
         result := ComCall(9, this, "ptr*", &ppidl := 0, "uint", uItem, "HRESULT")
@@ -117,10 +151,14 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * RemoveObject may be altered or unavailable.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PUITEMID_CHILD</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-removeobject
+     * A pointer to the item to remove from the view. This value can be <b>NULL</b>. When using the system folder view object (DefView) under Windows XP and Windows Vista, a <b>NULL</b> value results in the removal of all objects from the view.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * When this method returns, contains a pointer to the index position of the removed item.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-removeobject
      */
     RemoveObject(pidl) {
         result := ComCall(10, this, "ptr", pidl, "uint*", &puItem := 0, "HRESULT")
@@ -128,9 +166,11 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Gets the number of items in the folder view.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getobjectcount
+     * When this method returns, contains a pointer to the number of items displayed in the folder view.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-getobjectcount
      */
     GetObjectCount() {
         result := ComCall(11, this, "uint*", &puCount := 0, "HRESULT")
@@ -138,11 +178,17 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * SetObjectCount is no longer available.
+     * @param {Integer} uCount Type: <b>UINT</b>
      * 
-     * @param {Integer} uCount 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setobjectcount
+     * The number of items to set the ListView control to.
+     * @param {Integer} dwFlags Type: <b>UINT</b>
+     * 
+     * Flags that control the behavior of the ListView control when the number of items is set. Includes the following:
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise. Starting with Windows Vista, calls to <b>SetObjectCount</b> always return E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-setobjectcount
      */
     SetObjectCount(uCount, dwFlags) {
         result := ComCall(12, this, "uint", uCount, "uint", dwFlags, "HRESULT")
@@ -150,11 +196,17 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * UpdateObject may be altered or unavailable.
+     * @param {Pointer<ITEMIDLIST>} pidlOld Type: <b>PUITEMID_CHILD</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidlOld 
-     * @param {Pointer<ITEMIDLIST>} pidlNew 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-updateobject
+     * The original item.
+     * @param {Pointer<ITEMIDLIST>} pidlNew Type: <b>PUITEMID_CHILD</b>
+     * 
+     * The new item.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * When this method returns, contains a pointer to the index of the item that was replaced. You can use this value to call <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-ishellfolderview-getobject">IShellFolderView::GetObject</a> on later to get back the PITEMID_CHILD that you just added.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-updateobject
      */
     UpdateObject(pidlOld, pidlNew) {
         result := ComCall(13, this, "ptr", pidlOld, "ptr", pidlNew, "uint*", &puItem := 0, "HRESULT")
@@ -162,10 +214,14 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * RefreshObject may be altered or unavailable.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PUITEMID_CHILD</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-refreshobject
+     * The item to be redrawn.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * A pointer to a value that, when this method returns successfully, receives the index of the item that was redrawn. You can use this value to call <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-ishellfolderview-getobject">IShellFolderView::GetObject</a> to retrieve the PITEMID_CHILD that you just redrew.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-refreshobject
      */
     RefreshObject(pidl) {
         result := ComCall(14, this, "ptr", pidl, "uint*", &puItem := 0, "HRESULT")
@@ -173,10 +229,14 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Allows a view to be redrawn or prevents it from being redrawn.
+     * @param {BOOL} bRedraw Type: <b>BOOL</b>
      * 
-     * @param {BOOL} bRedraw 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setredraw
+     * <b>TRUE</b> if the content can be redrawn after a change; <b>FALSE</b> if the content cannot be redrawn after a change.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-setredraw
      */
     SetRedraw(bRedraw) {
         result := ComCall(15, this, "int", bRedraw, "HRESULT")
@@ -184,9 +244,11 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Gets the number of items in the view that are selected.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getselectedcount
+     * A pointer to a value that, when this method returns successfully, receives the number of selected items in the view.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-getselectedcount
      */
     GetSelectedCount() {
         result := ComCall(16, this, "uint*", &puSelected := 0, "HRESULT")
@@ -194,11 +256,17 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Gets an array of the objects in the view that are selected and the number of those objects.
+     * @param {Pointer<Pointer<Pointer<ITEMIDLIST>>>} pppidl Type: <b>PCUITEMID_CHILD**</b>
      * 
-     * @param {Pointer<Pointer<Pointer<ITEMIDLIST>>>} pppidl 
-     * @param {Pointer<Integer>} puItems 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getselectedobjects
+     * The address of a pointer that, when this method returns successfully, points to an array of the currently selected items in the view. The calling application is expected to free the array at <i>pppidl</i> using <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>. The calling application must not free the individual items contained in the array.
+     * @param {Pointer<Integer>} puItems Type: <b>UINT*</b>
+     * 
+     * A pointer to a value that, when this method returns successfully, receives the number of items in the <i>pppidl</i> array.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-getselectedobjects
      */
     GetSelectedObjects(pppidl, puItems) {
         pppidlMarshal := pppidl is VarRef ? "ptr*" : "ptr"
@@ -209,10 +277,14 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Checks whether the destination of the current drag-and-drop or cut-and-paste operation is the same as the source.
+     * @param {IDropTarget} pDropTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a>*</b>
      * 
-     * @param {IDropTarget} pDropTarget 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-isdroponsource
+     * A pointer to a destination drop target object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns <b>S_OK</b> if the destination is the same as the source.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-isdroponsource
      */
     IsDropOnSource(pDropTarget) {
         result := ComCall(18, this, "ptr", pDropTarget, "HRESULT")
@@ -220,9 +292,11 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Gets the point at which the current drag-and-drop operation was initiated.
+     * @returns {POINT} Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
      * 
-     * @returns {POINT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getdragpoint
+     * A pointer to a structure that, when this method returns successfully, receives the coordinates from which the current drag-and-drop operation was initiated.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-getdragpoint
      */
     GetDragPoint() {
         ppt := POINT()
@@ -231,9 +305,11 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Gets the point at which the current drag-and-drop operation was terminated.
+     * @returns {POINT} Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
      * 
-     * @returns {POINT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getdroppoint
+     * A pointer to a structure that, when this method returns successfully, receives the coordinates at which the current drag-and-drop operation was terminated.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-getdroppoint
      */
     GetDropPoint() {
         ppt := POINT()
@@ -242,10 +318,12 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * This method is not implemented.
+     * @param {IDataObject} pDataObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {IDataObject} pDataObject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-moveicons
+     * This method is not implemented.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-moveicons
      */
     MoveIcons(pDataObject) {
         result := ComCall(21, this, "ptr", pDataObject, "HRESULT")
@@ -253,11 +331,17 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Sets the position of the given item.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Pointer<POINT>} ppt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setitempos
+     * A PIDL that corresponds to the item for which the position is being set.
+     * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
+     * 
+     * A pointer to a structure that contains the new coordinates of the item relative to the ListView contained in the view.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-setitempos
      */
     SetItemPos(pidl, ppt) {
         result := ComCall(22, this, "ptr", pidl, "ptr", ppt, "HRESULT")
@@ -265,10 +349,14 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * IsBkDropTarget may be altered or unavailable.
+     * @param {IDropTarget} pDropTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-idroptarget">IDropTarget</a>*</b>
      * 
-     * @param {IDropTarget} pDropTarget 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-isbkdroptarget
+     * A pointer to the target of the drag-and-drop operation.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if the target of the drag-and-drop operation is to the background of the view, S_FALSE otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-isbkdroptarget
      */
     IsBkDropTarget(pDropTarget) {
         result := ComCall(23, this, "ptr", pDropTarget, "HRESULT")
@@ -276,10 +364,14 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * SetClipboard may be altered or unavailable.
+     * @param {BOOL} bMove Type: <b>BOOL</b>
      * 
-     * @param {BOOL} bMove 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setclipboard
+     * Must be <b>TRUE</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-setclipboard
      */
     SetClipboard(bMove) {
         result := ComCall(24, this, "int", bMove, "HRESULT")
@@ -287,10 +379,14 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * SetPoints may be altered or unavailable.
+     * @param {IDataObject} pDataObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
-     * @param {IDataObject} pDataObject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setpoints
+     * A pointer to the data object. This data object contains the points of location of the current selection. These points are given in coordinates relative to the ListView control that the view contains. These points can be used for positioning the object at the end of a drag-and-drop operation.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-setpoints
      */
     SetPoints(pDataObject) {
         result := ComCall(25, this, "ptr", pDataObject, "HRESULT")
@@ -298,9 +394,11 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Gets the spacing for small and large view modes only.
+     * @returns {ITEMSPACING} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ns-shlobj_core-itemspacing">ITEMSPACING</a>*</b>
      * 
-     * @returns {ITEMSPACING} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-getitemspacing
+     * A pointer to a structure that, when this method returns successfully, receives the information that describes the view mode spacing.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-getitemspacing
      */
     GetItemSpacing() {
         pSpacing := ITEMSPACING()
@@ -309,10 +407,14 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * IShellFolderView::SetCallback may be altered or unavailable.
+     * @param {IShellFolderViewCB} pNewCB Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-ishellfolderviewcb">IShellFolderViewCB</a>*</b>
      * 
-     * @param {IShellFolderViewCB} pNewCB 
-     * @returns {IShellFolderViewCB} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setcallback
+     * A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-ishellfolderviewcb">IShellFolderViewCB</a> callback object.
+     * @returns {IShellFolderViewCB} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-ishellfolderviewcb">IShellFolderViewCB</a>**</b>
+     * 
+     * The address of an interface pointer that, when this method returns successfully, points to the original <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-ishellfolderviewcb">IShellFolderViewCB</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-setcallback
      */
     SetCallback(pNewCB) {
         result := ComCall(27, this, "ptr", pNewCB, "ptr*", &ppOldCB := 0, "HRESULT")
@@ -320,10 +422,12 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * IShellFolderView::Select may be altered or unavailable.
+     * @param {Integer} dwFlags Type: <b>UINT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-select
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-select
      */
     Select(dwFlags) {
         result := ComCall(28, this, "uint", dwFlags, "HRESULT")
@@ -331,10 +435,16 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * QuerySupport may be altered or unavailable.
+     * @param {Pointer<Integer>} pdwSupport Type: <b>UINT*</b>
      * 
-     * @param {Pointer<Integer>} pdwSupport 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-querysupport
+     * Reserved. Must be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method is not implemented.
+     * 
+     * Always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-querysupport
      */
     QuerySupport(pdwSupport) {
         pdwSupportMarshal := pdwSupport is VarRef ? "uint*" : "ptr"
@@ -344,10 +454,14 @@ class IShellFolderView extends IUnknown{
     }
 
     /**
+     * Replaces the internal automation object of the IShellView.
+     * @param {IDispatch} pdisp Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>*</b>
      * 
-     * @param {IDispatch} pdisp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderview-setautomationobject
+     * A pointer to the new automation object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderview-setautomationobject
      */
     SetAutomationObject(pdisp) {
         result := ComCall(30, this, "ptr", pdisp, "HRESULT")

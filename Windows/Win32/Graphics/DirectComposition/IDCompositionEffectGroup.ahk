@@ -53,10 +53,14 @@ class IDCompositionEffectGroup extends IDCompositionEffect{
     }
 
     /**
+     * Sets the 3D transformation effect object that modifies the rasterization of the visuals that this effect group is applied to.
+     * @param {IDCompositionTransform3D} transform3D Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiontransform3d">IDCompositionTransform3D</a>*</b>
      * 
-     * @param {IDCompositionTransform3D} transform3D 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositioneffectgroup-settransform3d
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/dcomp/nn-dcomp-idcompositiontransform3d">IDCompositionTransform3D</a> interface or one of its derived interfaces. This parameter can be NULL.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositioneffectgroup-settransform3d
      */
     SetTransform3D(transform3D) {
         result := ComCall(5, this, "ptr", transform3D, "HRESULT")

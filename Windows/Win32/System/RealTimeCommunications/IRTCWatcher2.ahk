@@ -30,6 +30,20 @@ class IRTCWatcher2 extends IRTCWatcher{
     static VTableNames => ["get_Profile", "get_Scope"]
 
     /**
+     * @type {IRTCProfile2} 
+     */
+    Profile {
+        get => this.get_Profile()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Scope {
+        get => this.get_Scope()
+    }
+
+    /**
      * 
      * @returns {IRTCProfile2} 
      */

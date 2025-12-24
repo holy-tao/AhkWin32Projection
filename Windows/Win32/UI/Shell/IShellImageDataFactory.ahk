@@ -44,9 +44,11 @@ class IShellImageDataFactory extends IUnknown{
     static VTableNames => ["CreateIShellImageData", "CreateImageFromFile", "CreateImageFromStream", "GetDataFormatFromPath"]
 
     /**
+     * Creates an instance of the IShellImageData interface.
+     * @returns {IShellImageData} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a>**</b>
      * 
-     * @returns {IShellImageData} 
-     * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedatafactory-createishellimagedata
+     * The address of a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedatafactory-createishellimagedata
      */
     CreateIShellImageData() {
         result := ComCall(3, this, "ptr*", &ppshimg := 0, "HRESULT")
@@ -54,10 +56,14 @@ class IShellImageDataFactory extends IUnknown{
     }
 
     /**
+     * Creates an instance of the IShellImageData interface based on a given file.
+     * @param {PWSTR} pszPath Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszPath 
-     * @returns {IShellImageData} 
-     * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedatafactory-createimagefromfile
+     * The path of the file containing the image. If this parameter is <b>NULL</b>, an unhandled exception results.
+     * @returns {IShellImageData} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a>**</b>
+     * 
+     * The address of a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedatafactory-createimagefromfile
      */
     CreateImageFromFile(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -67,10 +73,14 @@ class IShellImageDataFactory extends IUnknown{
     }
 
     /**
+     * Creates an instance of the IShellImageData interface based on a given file stream.
+     * @param {IStream} pStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
-     * @param {IStream} pStream 
-     * @returns {IShellImageData} 
-     * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedatafactory-createimagefromstream
+     * A pointer to the image stream.
+     * @returns {IShellImageData} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a>**</b>
+     * 
+     * The address of a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/shimgdata/nn-shimgdata-ishellimagedata">IShellImageData</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedatafactory-createimagefromstream
      */
     CreateImageFromStream(pStream) {
         result := ComCall(5, this, "ptr", pStream, "ptr*", &ppshimg := 0, "HRESULT")
@@ -78,10 +88,14 @@ class IShellImageDataFactory extends IUnknown{
     }
 
     /**
+     * Determines a file's format based on its extension.
+     * @param {PWSTR} pszPath Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszPath 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/shimgdata/nf-shimgdata-ishellimagedatafactory-getdataformatfrompath
+     * A path to the file.
+     * @returns {Guid} Type: <b>GUID*</b>
+     * 
+     * A pointer to a GUID identifying the image format of the file.
+     * @see https://docs.microsoft.com/windows/win32/api//shimgdata/nf-shimgdata-ishellimagedatafactory-getdataformatfrompath
      */
     GetDataFormatFromPath(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath

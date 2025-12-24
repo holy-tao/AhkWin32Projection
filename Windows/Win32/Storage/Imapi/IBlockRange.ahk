@@ -42,9 +42,23 @@ class IBlockRange extends IDispatch{
     static VTableNames => ["get_StartLba", "get_EndLba"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iblockrange-get_startlba
+     * @type {Integer} 
+     */
+    StartLba {
+        get => this.get_StartLba()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EndLba {
+        get => this.get_EndLba()
+    }
+
+    /**
+     * Retrieves the start sector of the range described by IBlockRange.
+     * @returns {Integer} The start sector of the range.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iblockrange-get_startlba
      */
     get_StartLba() {
         result := ComCall(7, this, "int*", &value := 0, "HRESULT")
@@ -52,9 +66,9 @@ class IBlockRange extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-iblockrange-get_endlba
+     * Retrieves the end sector of the range specified by the IBlockRange interface.
+     * @returns {Integer} The end sector of the range.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-iblockrange-get_endlba
      */
     get_EndLba() {
         result := ComCall(8, this, "int*", &value := 0, "HRESULT")

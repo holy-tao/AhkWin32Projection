@@ -30,6 +30,30 @@ class IHTMLAnchorElement3 extends IDispatch{
     static VTableNames => ["put_shape", "get_shape", "put_coords", "get_coords", "put_href", "get_href"]
 
     /**
+     * @type {BSTR} 
+     */
+    shape {
+        get => this.get_shape()
+        set => this.put_shape(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    coords {
+        get => this.get_coords()
+        set => this.put_coords(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    href {
+        get => this.get_href()
+        set => this.put_href(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

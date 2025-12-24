@@ -33,6 +33,36 @@ class IRTCBuddyGroup extends IUnknown{
     static VTableNames => ["get_Name", "put_Name", "AddBuddy", "RemoveBuddy", "EnumerateBuddies", "get_Buddies", "get_Data", "put_Data", "get_Profile"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {IRTCCollection} 
+     */
+    Buddies {
+        get => this.get_Buddies()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Data {
+        get => this.get_Data()
+        set => this.put_Data(value)
+    }
+
+    /**
+     * @type {IRTCProfile2} 
+     */
+    Profile {
+        get => this.get_Profile()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

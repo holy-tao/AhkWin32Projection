@@ -41,9 +41,65 @@ class IMSVidGraphSegmentContainer extends IUnknown{
     static VTableNames => ["get_Graph", "get_Input", "get_Outputs", "get_VideoRenderer", "get_AudioRenderer", "get_Features", "get_Composites", "get_ParentContainer", "Decompose", "IsWindowless", "GetFocus"]
 
     /**
-     * 
-     * @returns {IGraphBuilder} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgraphsegmentcontainer-get_graph
+     * @type {IGraphBuilder} 
+     */
+    Graph {
+        get => this.get_Graph()
+    }
+
+    /**
+     * @type {IMSVidGraphSegment} 
+     */
+    Input {
+        get => this.get_Input()
+    }
+
+    /**
+     * @type {IEnumMSVidGraphSegment} 
+     */
+    Outputs {
+        get => this.get_Outputs()
+    }
+
+    /**
+     * @type {IMSVidGraphSegment} 
+     */
+    VideoRenderer {
+        get => this.get_VideoRenderer()
+    }
+
+    /**
+     * @type {IMSVidGraphSegment} 
+     */
+    AudioRenderer {
+        get => this.get_AudioRenderer()
+    }
+
+    /**
+     * @type {IEnumMSVidGraphSegment} 
+     */
+    Features {
+        get => this.get_Features()
+    }
+
+    /**
+     * @type {IEnumMSVidGraphSegment} 
+     */
+    Composites {
+        get => this.get_Composites()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    ParentContainer {
+        get => this.get_ParentContainer()
+    }
+
+    /**
+     * The get_Graph method returns a pointer to the Filter Graph Manager.
+     * @returns {IGraphBuilder} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-igraphbuilder">IGraphBuilder</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidgraphsegmentcontainer-get_graph
      */
     get_Graph() {
         result := ComCall(3, this, "ptr*", &ppGraph := 0, "HRESULT")

@@ -68,10 +68,10 @@ class IDMOVideoOutputOptimizations extends IUnknown{
     static VTableNames => ["QueryOperationModePreferences", "SetOperationMode", "GetCurrentOperationMode", "GetCurrentSampleRequirements"]
 
     /**
-     * 
-     * @param {Integer} ulOutputStreamIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmovideooutputoptimizations-queryoperationmodepreferences
+     * The QueryOperationModePreferences method retrieves the DMO's preferred optimization features.
+     * @param {Integer} ulOutputStreamIndex Zero-based index of an output stream on the DMO.
+     * @returns {Integer} Pointer to a variable that receives the DMO's requested features. The returned value is a bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/ne-mediaobj-_dmo_video_output_stream_flags">DMO_VIDEO_OUTPUT_STREAM_FLAGS</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-idmovideooutputoptimizations-queryoperationmodepreferences
      */
     QueryOperationModePreferences(ulOutputStreamIndex) {
         result := ComCall(3, this, "uint", ulOutputStreamIndex, "uint*", &pdwRequestedCapabilities := 0, "HRESULT")
@@ -79,11 +79,51 @@ class IDMOVideoOutputOptimizations extends IUnknown{
     }
 
     /**
+     * The SetOperationMode method notifies the DMO of the optimization features that are in effect.
+     * @param {Integer} ulOutputStreamIndex Zero-based index of an output stream on the DMO.
+     * @param {Integer} dwEnabledFeatures Bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/ne-mediaobj-_dmo_video_output_stream_flags">DMO_VIDEO_OUTPUT_STREAM_FLAGS</a> enumeration.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
      * 
-     * @param {Integer} ulOutputStreamIndex 
-     * @param {Integer} dwEnabledFeatures 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmovideooutputoptimizations-setoperationmode
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DMO_E_INVALIDSTREAMINDEX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid stream index
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-idmovideooutputoptimizations-setoperationmode
      */
     SetOperationMode(ulOutputStreamIndex, dwEnabledFeatures) {
         result := ComCall(4, this, "uint", ulOutputStreamIndex, "uint", dwEnabledFeatures, "HRESULT")
@@ -91,10 +131,10 @@ class IDMOVideoOutputOptimizations extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulOutputStreamIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmovideooutputoptimizations-getcurrentoperationmode
+     * The GetCurrentOperationMode method retrieves the optimization features in effect.
+     * @param {Integer} ulOutputStreamIndex Zero-based index of an output stream on the DMO.
+     * @returns {Integer} Pointer to a variable that receives the current features. The returned value is a bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/ne-mediaobj-_dmo_video_output_stream_flags">DMO_VIDEO_OUTPUT_STREAM_FLAGS</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-idmovideooutputoptimizations-getcurrentoperationmode
      */
     GetCurrentOperationMode(ulOutputStreamIndex) {
         result := ComCall(5, this, "uint", ulOutputStreamIndex, "uint*", &pdwEnabledFeatures := 0, "HRESULT")
@@ -102,10 +142,10 @@ class IDMOVideoOutputOptimizations extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulOutputStreamIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-idmovideooutputoptimizations-getcurrentsamplerequirements
+     * The GetCurrentSampleRequirements method retrieves the optimization features required to process the next sample, given the features already agreed to by the application.
+     * @param {Integer} ulOutputStreamIndex Zero-based index of an output stream on the DMO.
+     * @returns {Integer} Pointer to a variable that receives the required features. The returned value is a bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/ne-mediaobj-_dmo_video_output_stream_flags">DMO_VIDEO_OUTPUT_STREAM_FLAGS</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-idmovideooutputoptimizations-getcurrentsamplerequirements
      */
     GetCurrentSampleRequirements(ulOutputStreamIndex) {
         result := ComCall(6, this, "uint", ulOutputStreamIndex, "uint*", &pdwRequestedFeatures := 0, "HRESULT")

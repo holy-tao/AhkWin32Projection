@@ -11,13 +11,13 @@
  */
 class XPS_COLOR extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 72
 
-    static packingSize => 4
+    static packingSize => 8
 
     class XPS_COLOR_VALUE extends Win32Struct {
-        static sizeof => 60
-        static packingSize => 4
+        static sizeof => 64
+        static packingSize => 8
 
         class _sRGB extends Win32Struct {
             static sizeof => 4
@@ -171,7 +171,7 @@ class XPS_COLOR extends Win32Struct
     value{
         get {
             if(!this.HasProp("__value"))
-                this.__value := %this.__Class%.XPS_COLOR_VALUE(4, this)
+                this.__value := %this.__Class%.XPS_COLOR_VALUE(8, this)
             return this.__value
         }
     }

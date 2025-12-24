@@ -31,9 +31,9 @@ class IMFPMPHostApp extends IUnknown{
     static VTableNames => ["LockProcess", "UnlockProcess", "ActivateClassById"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmphostapp-lockprocess
+     * Blocks the protected media path (PMP) process from ending.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmphostapp-lockprocess
      */
     LockProcess() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +41,9 @@ class IMFPMPHostApp extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmphostapp-unlockprocess
+     * Decrements the lock count on the protected media path (PMP) process. Call this method once for each call to IMFPMPHostApp::LockProcess.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmphostapp-unlockprocess
      */
     UnlockProcess() {
         result := ComCall(4, this, "HRESULT")
@@ -51,12 +51,12 @@ class IMFPMPHostApp extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} id 
-     * @param {IStream} pStream 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmphostapp-activateclassbyid
+     * Creates a Windows Runtime object in the protected media path (PMP) process.
+     * @param {PWSTR} id Id of object to create.
+     * @param {IStream} pStream Data to be passed to the object by way of a <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ipersiststream">IPersistStream</a>.
+     * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface to retrieve.
+     * @returns {Pointer<Void>} Receives a pointer to the created object.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmphostapp-activateclassbyid
      */
     ActivateClassById(id, pStream, riid) {
         id := id is String ? StrPtr(id) : id

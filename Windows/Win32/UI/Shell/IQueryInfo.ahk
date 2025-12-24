@@ -41,10 +41,14 @@ class IQueryInfo extends IUnknown{
     static VTableNames => ["GetInfoTip", "GetInfoFlags"]
 
     /**
+     * Gets the info tip text for an item.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwFlags 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iqueryinfo-getinfotip
+     * Flags that direct the handling of the item from which you're retrieving the info tip text. This value is commonly zero (<b>QITIPF_DEFAULT</b>). The following values are recognized.
+     * @returns {PWSTR} Type: <b>PWSTR*</b>
+     * 
+     * The address of a Unicode string pointer that, when this method returns successfully, receives the tip string pointer. Applications that implement this method must allocate memory for <i>ppwszTip</i> by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>. Calling applications must call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> to free the memory when it is no longer needed.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iqueryinfo-getinfotip
      */
     GetInfoTip(dwFlags) {
         result := ComCall(3, this, "uint", dwFlags, "ptr*", &ppwszTip := 0, "HRESULT")
@@ -52,9 +56,11 @@ class IQueryInfo extends IUnknown{
     }
 
     /**
+     * Gets the information flags for an item. This method is not currently used.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iqueryinfo-getinfoflags
+     * A pointer to a value that receives the flags for the item. If no flags are to be returned, this value should be set to zero.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iqueryinfo-getinfoflags
      */
     GetInfoFlags() {
         result := ComCall(4, this, "uint*", &pdwFlags := 0, "HRESULT")

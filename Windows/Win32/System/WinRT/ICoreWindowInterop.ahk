@@ -37,9 +37,23 @@ class ICoreWindowInterop extends IUnknown{
     static VTableNames => ["get_WindowHandle", "put_MessageHandled"]
 
     /**
-     * 
+     * @type {HWND} 
+     */
+    WindowHandle {
+        get => this.get_WindowHandle()
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    MessageHandled {
+        set => this.put_MessageHandled(value)
+    }
+
+    /**
+     * Obtains the handle (HWND) to the CoreWindow for an app.
      * @returns {HWND} 
-     * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-icorewindowinterop-get_windowhandle
+     * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-icorewindowinterop-get_windowhandle
      */
     get_WindowHandle() {
         hwnd := HWND()
@@ -48,10 +62,10 @@ class ICoreWindowInterop extends IUnknown{
     }
 
     /**
-     * 
+     * Sets whether or not the message to the CoreWindow has been handled.
      * @param {Integer} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/corewindow/nf-corewindow-icorewindowinterop-put_messagehandled
+     * @see https://docs.microsoft.com/windows/win32/api//corewindow/nf-corewindow-icorewindowinterop-put_messagehandled
      */
     put_MessageHandled(value) {
         result := ComCall(4, this, "char", value, "HRESULT")

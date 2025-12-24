@@ -31,12 +31,20 @@ class INamedPropertyBag extends IUnknown{
     static VTableNames => ["ReadPropertyNPB", "WritePropertyNPB", "RemovePropertyNPB"]
 
     /**
+     * Causes a property to be read from the named property bag.
+     * @param {PWSTR} pszBagname Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} pszBagname 
-     * @param {PWSTR} pszPropName 
-     * @param {Pointer<PROPVARIANT>} pVar 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-inamedpropertybag-readpropertynpb
+     * A pointer to a string that contains the name of the property bag.
+     * @param {PWSTR} pszPropName Type: <b>PCWSTR</b>
+     * 
+     * A pointer to a string that contains the name of the property to be read.
+     * @param {Pointer<PROPVARIANT>} pVar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * The address of a <b>VARIANT</b> that, when this method returns successfully, receives the property value.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-inamedpropertybag-readpropertynpb
      */
     ReadPropertyNPB(pszBagname, pszPropName, pVar) {
         pszBagname := pszBagname is String ? StrPtr(pszBagname) : pszBagname
@@ -47,12 +55,20 @@ class INamedPropertyBag extends IUnknown{
     }
 
     /**
+     * Saves a property to the named property bag.
+     * @param {PWSTR} pszBagname Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} pszBagname 
-     * @param {PWSTR} pszPropName 
-     * @param {Pointer<PROPVARIANT>} pVar 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-inamedpropertybag-writepropertynpb
+     * A pointer to a string that contains the name of the property bag.
+     * @param {PWSTR} pszPropName Type: <b>PCWSTR</b>
+     * 
+     * A pointer to a string that contains the name of the property to write.
+     * @param {Pointer<PROPVARIANT>} pVar Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * A pointer to a <b>VARIANT</b> that holds the new property value.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-inamedpropertybag-writepropertynpb
      */
     WritePropertyNPB(pszBagname, pszPropName, pVar) {
         pszBagname := pszBagname is String ? StrPtr(pszBagname) : pszBagname
@@ -63,11 +79,17 @@ class INamedPropertyBag extends IUnknown{
     }
 
     /**
+     * Removes a property from a named property bag.
+     * @param {PWSTR} pszBagname Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} pszBagname 
-     * @param {PWSTR} pszPropName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-inamedpropertybag-removepropertynpb
+     * A pointer to a string that contains the name of the property bag from which a property is to be removed.
+     * @param {PWSTR} pszPropName Type: <b>PCWSTR</b>
+     * 
+     * A pointer to a string that contains the name of the property to remove.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-inamedpropertybag-removepropertynpb
      */
     RemovePropertyNPB(pszBagname, pszPropName) {
         pszBagname := pszBagname is String ? StrPtr(pszBagname) : pszBagname

@@ -38,9 +38,31 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
     static VTableNames => ["get_DeviceID", "get_Authorization", "put_Authorization", "get_Properties"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_deviceid
+     * @type {BSTR} 
+     */
+    DeviceID {
+        get => this.get_DeviceID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Authorization {
+        get => this.get_Authorization()
+        set => this.put_Authorization(value)
+    }
+
+    /**
+     * @type {IWindowsMediaLibrarySharingDeviceProperties} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
+     * The get_DeviceID method retrieves the device ID.
+     * @returns {BSTR} A pointer to a <b>BSTR</b> that receives the device ID.
+     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_deviceid
      */
     get_DeviceID() {
         deviceID := BSTR()
@@ -49,9 +71,9 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_authorization
+     * The get_Authorization method retrieves a value that indicates whether the device is authorized to have access to the current user's media library.
+     * @returns {Integer} A pointer to a variable that receives an element of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/ne-wmlss-windowsmedialibrarysharingdeviceauthorizationstatus">WindowsMediaLibrarySharingDeviceAuthorizationStatus</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_authorization
      */
     get_Authorization() {
         result := ComCall(8, this, "int*", &authorization := 0, "HRESULT")
@@ -59,10 +81,28 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
     }
 
     /**
+     * The put_Authorization method authorizes or unauthorizes the device to have access to the current user's media library.
+     * @param {Integer} authorization An element of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/ne-wmlss-windowsmedialibrarysharingdeviceauthorizationstatus">WindowsMediaLibrarySharingDeviceAuthorizationStatus</a> enumeration that specifies whether the device is authorized (<b>DEVICE_AUTHORIZATION_ALLOWED</b>) or unauthorized (<b>DEVICE_AUTHORIZATION_DENIED</b>) to have access to the current user's media library.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} authorization 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-put_authorization
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-put_authorization
      */
     put_Authorization(authorization) {
         result := ComCall(9, this, "int", authorization, "HRESULT")
@@ -70,9 +110,9 @@ class IWindowsMediaLibrarySharingDevice extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IWindowsMediaLibrarySharingDeviceProperties} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_properties
+     * The get_Properties method retrieves an IWindowsMediaLibrarySharingDeviceProperties interface that represents the collection of all properties for the device.
+     * @returns {IWindowsMediaLibrarySharingDeviceProperties} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmlss/nn-wmlss-iwindowsmedialibrarysharingdeviceproperties">IWindowsMediaLibrarySharingDeviceProperties</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmlss/nf-wmlss-iwindowsmedialibrarysharingdevice-get_properties
      */
     get_Properties() {
         result := ComCall(10, this, "ptr*", &deviceProperties := 0, "HRESULT")

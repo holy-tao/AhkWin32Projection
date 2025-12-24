@@ -40,11 +40,17 @@ class INameSpaceTreeControl2 extends INameSpaceTreeControl{
     static VTableNames => ["SetControlStyle", "GetControlStyle", "SetControlStyle2", "GetControlStyle2"]
 
     /**
+     * Sets the display styles for the namespace object's treeview controls.
+     * @param {Integer} nstcsMask Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcstyle">NSTCSTYLE</a></b>
      * 
-     * @param {Integer} nstcsMask 
-     * @param {Integer} nstcsStyle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrol2-setcontrolstyle
+     * One or more of the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcstyle">NSTCSTYLE</a> constants that specify the styles for which the method should set new values.
+     * @param {Integer} nstcsStyle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcstyle">NSTCSTYLE</a></b>
+     * 
+     * A bitmap that contains the new values for the styles specified in <i>nstcsMask</i>. If the bit that represents the individual <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcstyle">NSTCSTYLE</a> value is 0, that style is not used. If the value is 1, the style is applied to the treeview. Styles in positions not specified in <i>nstcsMask</i> are left at their current setting regardless of their bit's value in this bitmap.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrol2-setcontrolstyle
      */
     SetControlStyle(nstcsMask, nstcsStyle) {
         result := ComCall(22, this, "uint", nstcsMask, "uint", nstcsStyle, "HRESULT")
@@ -52,10 +58,14 @@ class INameSpaceTreeControl2 extends INameSpaceTreeControl{
     }
 
     /**
+     * Gets the display styles set for the namespace object's treeview controls.
+     * @param {Integer} nstcsMask Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcstyle">NSTCSTYLE</a></b>
      * 
-     * @param {Integer} nstcsMask 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrol2-getcontrolstyle
+     * One or more of the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcstyle">NSTCSTYLE</a> constants that specify the values for which the method should retrieve the current settings.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcstyle">NSTCSTYLE</a>*</b>
+     * 
+     * Pointer to a value that, when this method returns successfully, receives the values requested in <i>nstcsMask</i>. If the bit that represents the individual <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcstyle">NSTCSTYLE</a> value is 0, that value is not set. If the value is 1, it is the current setting. Bit values in positions not specifically requested in <i>nstcsMask</i> do not necessarily reflect the current settings and should not be used.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrol2-getcontrolstyle
      */
     GetControlStyle(nstcsMask) {
         result := ComCall(23, this, "uint", nstcsMask, "uint*", &pnstcsStyle := 0, "HRESULT")
@@ -63,11 +73,17 @@ class INameSpaceTreeControl2 extends INameSpaceTreeControl{
     }
 
     /**
+     * Sets the extended display styles for the namespace object's treeview controls.
+     * @param {Integer} nstcsMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-nstcstyle2">NSTCSTYLE2</a></b>
      * 
-     * @param {Integer} nstcsMask 
-     * @param {Integer} nstcsStyle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrol2-setcontrolstyle2
+     * One or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-nstcstyle2">NSTCSTYLE2</a> constants that specify the styles for which the method should set new values.
+     * @param {Integer} nstcsStyle Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-nstcstyle2">NSTCSTYLE2</a></b>
+     * 
+     * A bitmap that contains the new values for the styles specified in <i>nstcsMask</i>. If the bit that represents the individual <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-nstcstyle2">NSTCSTYLE2</a> value is 0, that style is not used. If the value is 1, the style is applied to the treeview. Styles in positions not specified in <i>nstcsMask</i> are left at their current setting regardless of their bit's value in this bitmap.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrol2-setcontrolstyle2
      */
     SetControlStyle2(nstcsMask, nstcsStyle) {
         result := ComCall(24, this, "int", nstcsMask, "int", nstcsStyle, "HRESULT")
@@ -75,10 +91,14 @@ class INameSpaceTreeControl2 extends INameSpaceTreeControl{
     }
 
     /**
+     * Gets the extended display styles set for the namespace object's treeview controls.
+     * @param {Integer} nstcsMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-nstcstyle2">NSTCSTYLE2</a></b>
      * 
-     * @param {Integer} nstcsMask 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrol2-getcontrolstyle2
+     * One or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-nstcstyle2">NSTCSTYLE2</a> constants that specify the values for which the method should retrieve the current settings.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-nstcstyle2">NSTCSTYLE2</a>*</b>
+     * 
+     * Pointer to a value that, when this method returns successfully, receives the values requested in <i>nstcsMask</i>. If the bit that represents the individual <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-nstcstyle2">NSTCSTYLE2</a> value is 0, that value is not set. If the value is 1, it is the current setting. Bit values in positions not specifically requested in <i>nstcsMask</i> do not necessarily reflect the current settings and should not be used.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrol2-getcontrolstyle2
      */
     GetControlStyle2(nstcsMask) {
         result := ComCall(25, this, "int", nstcsMask, "int*", &pnstcsStyle := 0, "HRESULT")

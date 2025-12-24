@@ -78,10 +78,10 @@ class IMbnConnectionManager extends IUnknown{
     static VTableNames => ["GetConnection", "GetConnections"]
 
     /**
-     * 
-     * @param {PWSTR} connectionID 
-     * @returns {IMbnConnection} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionmanager-getconnection
+     * Gets a connection.
+     * @param {PWSTR} connectionID A string containing the connection ID.
+     * @returns {IMbnConnection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the requested connection.  If the method returns anything other than S_OK, then this is <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionmanager-getconnection
      */
     GetConnection(connectionID) {
         connectionID := connectionID is String ? StrPtr(connectionID) : connectionID
@@ -91,9 +91,9 @@ class IMbnConnectionManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionmanager-getconnections
+     * Gets a list of available connections.
+     * @returns {Pointer<SAFEARRAY>} An array of <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interfaces representing connections that are associated with the devices.  If this method returns anything other than <b>S_OK</b>, then this is <b>NULL</b>.  Otherwise the calling application must free the allocated memory by calling <a href="https://docs.microsoft.com/windows/win32/api/oleauto/nf-oleauto-safearraydestroy">SafeArrayDestroy</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionmanager-getconnections
      */
     GetConnections() {
         result := ComCall(4, this, "ptr*", &mbnConnections := 0, "HRESULT")

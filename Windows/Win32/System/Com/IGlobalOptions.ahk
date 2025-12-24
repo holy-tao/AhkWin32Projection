@@ -176,11 +176,12 @@ class IGlobalOptions extends IUnknown{
     static VTableNames => ["Set", "Query"]
 
     /**
-     * 
-     * @param {Integer} dwProperty 
-     * @param {Pointer} dwValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobaloptions-set
+     * Sets the specified global property of the COM runtime.
+     * @param {Integer} dwProperty The global property of the COM runtime. For a list of properties that can be set with this method, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iglobaloptions">IGlobalOptions</a>.
+     * @param {Pointer} dwValue The value of the property.<div class="alert"><b>Important</b>  For the COMGLB_APPID property, this parameter must specify a pointer to the APPID GUID.</div>
+     * <div> </div>
+     * @returns {HRESULT} The return value is S_OK if the property was set successfully.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iglobaloptions-set
      */
     Set(dwProperty, dwValue) {
         result := ComCall(3, this, "int", dwProperty, "ptr", dwValue, "HRESULT")
@@ -188,10 +189,11 @@ class IGlobalOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwProperty 
-     * @returns {Pointer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobaloptions-query
+     * Queries the specified global property of the COM runtime.
+     * @param {Integer} dwProperty The global property of the COM runtime. For a list of properties that can be set with this method, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-iglobaloptions">IGlobalOptions</a>.
+     * @returns {Pointer} The value of the property.<div class="alert"><b>Important</b>  For the COMGLB_APPID property, this parameter receives a pointer to the AppID GUID.</div>
+     * <div> </div>
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iglobaloptions-query
      */
     Query(dwProperty) {
         result := ComCall(4, this, "int", dwProperty, "ptr*", &pdwValue := 0, "HRESULT")

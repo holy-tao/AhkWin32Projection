@@ -36,11 +36,48 @@ class ISyncFilterInfo extends IUnknown{
     static VTableNames => ["Serialize"]
 
     /**
+     * Serializes the filter data to an array of bytes.
+     * @param {Pointer<Integer>} pbBuffer Returns the serialized filter information. Set this value to <b>NULL</b> to request the required size of the buffer.
+     * @param {Pointer<Integer>} pcbBuffer Specifies the number of bytes in <i>pbBuffer</i>. Returns the number of bytes required to serialize the filter when <i>pcbBuffer</i> is too small, or the number of bytes written.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pbBuffer 
-     * @param {Pointer<Integer>} pcbBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfilterinfo-serialize
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>0x800700EA (HRESULT_FROM_WIN32(ERROR_MORE_DATA))</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pbBuffer</i> is <b>NULL</b> or <i>pcbBuffer</i> is too small. In this case, the number of bytes required to serialize the filter is returned in <i>pcbBuffer</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfilterinfo-serialize
      */
     Serialize(pbBuffer, pcbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"

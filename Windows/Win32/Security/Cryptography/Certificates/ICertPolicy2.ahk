@@ -76,9 +76,9 @@ class ICertPolicy2 extends ICertPolicy{
     static VTableNames => ["GetManageModule"]
 
     /**
-     * 
-     * @returns {ICertManageModule} 
-     * @see https://learn.microsoft.com/windows/win32/api/certpol/nf-certpol-icertpolicy2-getmanagemodule
+     * Retrieves the ICertManageModule interface associated with the ICertPolicy2 interface by calling GetManageModule and passing in the address of a pointer to an ICertManageModule.
+     * @returns {ICertManageModule} Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/certmod/nn-certmod-icertmanagemodule">ICertManageModule</a> interface associated with the <a href="https://docs.microsoft.com/windows/desktop/api/certpol/nn-certpol-icertpolicy2">ICertPolicy2</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//certpol/nf-certpol-icertpolicy2-getmanagemodule
      */
     GetManageModule() {
         result := ComCall(11, this, "ptr*", &ppManageModule := 0, "HRESULT")

@@ -52,9 +52,13 @@ class ID3D12CommandList extends ID3D12DeviceChild{
     static VTableNames => ["GetType"]
 
     /**
+     * Gets the type of the command list, such as direct, bundle, compute, or copy.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandlist-gettype
+     * This method returns the type of the command list, 
+     *             as a <a href="/windows/desktop/api/d3d12/ne-d3d12-d3d12_command_list_type">D3D12_COMMAND_LIST_TYPE</a> enumeration constant, 
+     *             such as direct, bundle, compute, or copy.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandlist-gettype
      */
     GetType() {
         result := ComCall(8, this, "int")

@@ -30,6 +30,22 @@ class IHTMLBlockElement2 extends IDispatch{
     static VTableNames => ["put_cite", "get_cite", "put_width", "get_width"]
 
     /**
+     * @type {BSTR} 
+     */
+    cite {
+        get => this.get_cite()
+        set => this.put_cite(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

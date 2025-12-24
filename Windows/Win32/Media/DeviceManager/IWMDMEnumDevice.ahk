@@ -32,12 +32,19 @@ class IWMDMEnumDevice extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * The Next method returns a pointer to the next device, represented by an IWMDMDevice interface.
+     * @param {Integer} celt Number of devices requested.
+     * @param {Pointer<IWMDMDevice>} ppDevice Pointer to caller-allocated array of <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmdevice">IWMDMDevice</a> interface pointers. The size of this array must be <b>IWMDMDevice</b> *[celt]. The caller must release these interfaces when done with them. To avoid allocating a whole array, simply pass in the address of a pointer to an <b>IWMDMDevice</b> interface, as shown in Remarks.
+     * @param {Pointer<Integer>} pceltFetched Pointer to a variable that receives the number of devices (interfaces) returned.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<IWMDMDevice>} ppDevice 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumdevice-next
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumdevice-next
      */
     Next(celt, ppDevice, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +54,10 @@ class IWMDMEnumDevice extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumdevice-skip
+     * The Skip method skips over a specified number of devices in the enumeration sequence.
+     * @param {Integer} celt Number of devices to skip.
+     * @returns {Integer} Number of devices actually skipped.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumdevice-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "uint*", &pceltFetched := 0, "HRESULT")
@@ -58,9 +65,16 @@ class IWMDMEnumDevice extends IUnknown{
     }
 
     /**
+     * The Reset method resets the enumeration so that Next returns a pointer to the first device.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumdevice-reset
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumdevice-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +82,9 @@ class IWMDMEnumDevice extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IWMDMEnumDevice} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmenumdevice-clone
+     * The Clone method returns a copy of the IWMDMEnumDevice interface. The new enumerator specifies the same enumeration state as the current enumerator.
+     * @returns {IWMDMEnumDevice} Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmenumdevice">IWMDMEnumDevice</a> interface. The caller must release this interface when done with it.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmenumdevice-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnumDevice := 0, "HRESULT")

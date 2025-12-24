@@ -32,15 +32,22 @@ class IWorkspace2 extends IWorkspace{
     static VTableNames => ["StartRemoteApplicationEx"]
 
     /**
+     * Not supported.
+     * @param {BSTR} bstrWorkspaceId A string that contains the ID of the connection  in which to the start the application.
+     * @param {BSTR} bstrRequestingAppId A string that contains the ID of an application to launch on the remote desktop.
+     * @param {BSTR} bstrRequestingAppFamilyName A string that contains the family name of the application to launch.
+     * @param {VARIANT_BOOL} bLaunchIntoImmersiveClient <b>VARIANT_TRUE</b> to make the remote application launch as though it were accessed via the web client, using the modern Remote Desktop protocol. <b>VARIANT_FALSE</b> to make the remote application launch using classic Terminal Server methodology.
+     * @param {BSTR} bstrImmersiveClientActivationContext A string containing the context for the specific remote desktop client.
+     * @param {Pointer<SAFEARRAY>} psaParams A pointer to an array of <b>BSTR</b> values that contains  parameters to pass to the workspace runtime.
      * 
-     * @param {BSTR} bstrWorkspaceId 
-     * @param {BSTR} bstrRequestingAppId 
-     * @param {BSTR} bstrRequestingAppFamilyName 
-     * @param {VARIANT_BOOL} bLaunchIntoImmersiveClient 
-     * @param {BSTR} bstrImmersiveClientActivationContext 
-     * @param {Pointer<SAFEARRAY>} psaParams 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspace2-startremoteapplicationex
+     * For RDP connections, this parameter contains two strings:
+     * 
+     * <ul>
+     * <li>Serialized RDP file</li>
+     * <li>Command line parameters for Remote Desktop Connection client</li>
+     * </ul>
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspace2-startremoteapplicationex
      */
     StartRemoteApplicationEx(bstrWorkspaceId, bstrRequestingAppId, bstrRequestingAppFamilyName, bLaunchIntoImmersiveClient, bstrImmersiveClientActivationContext, psaParams) {
         bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId

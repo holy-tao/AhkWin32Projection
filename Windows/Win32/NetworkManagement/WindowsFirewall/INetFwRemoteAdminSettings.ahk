@@ -41,9 +41,49 @@ class INetFwRemoteAdminSettings extends IDispatch{
     static VTableNames => ["get_IpVersion", "put_IpVersion", "get_Scope", "put_Scope", "get_RemoteAddresses", "put_RemoteAddresses", "get_Enabled", "put_Enabled"]
 
     /**
+     * @type {Integer} 
+     */
+    IpVersion {
+        get => this.get_IpVersion()
+        set => this.put_IpVersion(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Scope {
+        get => this.get_Scope()
+        set => this.put_Scope(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteAddresses {
+        get => this.get_RemoteAddresses()
+        set => this.put_RemoteAddresses(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * Specifies the IP version.
+     * @remarks
+     * 
+     * This is the IP version for which remote admin is authorized. 
+     * 
+     * Only
+     *     <b>NET_FW_IP_VERSION_ANY</b> is supported.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_ipversion
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwremoteadminsettings-get_ipversion
      */
     get_IpVersion() {
         result := ComCall(7, this, "int*", &ipVersion := 0, "HRESULT")
@@ -51,10 +91,18 @@ class INetFwRemoteAdminSettings extends IDispatch{
     }
 
     /**
+     * Specifies the IP version.
+     * @remarks
+     * 
+     * This is the IP version for which remote admin is authorized. 
+     * 
+     * Only
+     *     <b>NET_FW_IP_VERSION_ANY</b> is supported.
+     * 
      * 
      * @param {Integer} ipVersion 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-put_ipversion
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwremoteadminsettings-put_ipversion
      */
     put_IpVersion(ipVersion) {
         result := ComCall(8, this, "int", ipVersion, "HRESULT")
@@ -62,9 +110,21 @@ class INetFwRemoteAdminSettings extends IDispatch{
     }
 
     /**
+     * Controls the network scope from which remote administration is allowed.
+     * @remarks
+     * 
+     * When setting the
+     *    <b>Scope</b> property, only <b>NET_FW_SCOPE_ALL</b> and <b>NET_FW_SCOPE_LOCAL_SUBNET</b> are valid.
+     *    
+     * 
+     * The default value is
+     *    <b>NET_FW_SCOPE_ALL</b> for new ports.
+     * 
+     * To create a custom scope, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwremoteadminsettings-get_remoteaddresses">RemoteAddresses</a> property of this interface.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_scope
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwremoteadminsettings-get_scope
      */
     get_Scope() {
         result := ComCall(9, this, "int*", &scope := 0, "HRESULT")
@@ -72,10 +132,22 @@ class INetFwRemoteAdminSettings extends IDispatch{
     }
 
     /**
+     * Controls the network scope from which remote administration is allowed.
+     * @remarks
+     * 
+     * When setting the
+     *    <b>Scope</b> property, only <b>NET_FW_SCOPE_ALL</b> and <b>NET_FW_SCOPE_LOCAL_SUBNET</b> are valid.
+     *    
+     * 
+     * The default value is
+     *    <b>NET_FW_SCOPE_ALL</b> for new ports.
+     * 
+     * To create a custom scope, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwremoteadminsettings-get_remoteaddresses">RemoteAddresses</a> property of this interface.
+     * 
      * 
      * @param {Integer} scope 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-put_scope
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwremoteadminsettings-put_scope
      */
     put_Scope(scope) {
         result := ComCall(10, this, "int", scope, "HRESULT")
@@ -83,9 +155,30 @@ class INetFwRemoteAdminSettings extends IDispatch{
     }
 
     /**
+     * Specifies a set of remote addresses from which remote administration is allowed.
+     * @remarks
+     * 
+     * The <i>remoteAddrs</i> parameter consists of one or more comma-delimited tokens specifying the remote addresses from which the application can listen for traffic. The default value is "*". 
+     * 
+     * Valid tokens:
+     * 
+     * 
+     * <ul>
+     * <li>"*": any remote address; if present, it must be the only token.</li>
+     * <li>"LocalSubnet": not case-sensitive; specifying more than once has no effect.</li>
+     * <li>subnet: may be specified using either subnet mask or network prefix notation. If neither a subnet mask nor a network prefix is specified, the subnet mask defaults to 255.255.255.255. Examples of valid subnets: 
+     * 10.0.0.2/255.0.0.0 
+     * 10.0.0.2/8 
+     * 10.0.0.2</li>
+     * <li>Windows Vista: A valid IPv6 address.</li>
+     * <li>Windows Vista: An IPv4 address range in the format "start address - end address."</li>
+     * <li>Windows Vista: An IPv6 address range in the format "start address - end address."</li>
+     * </ul>
+     * For a predefined address range, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwremoteadminsettings-get_scope">Scope</a> property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_remoteaddresses
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwremoteadminsettings-get_remoteaddresses
      */
     get_RemoteAddresses() {
         remoteAddrs := BSTR()
@@ -94,10 +187,31 @@ class INetFwRemoteAdminSettings extends IDispatch{
     }
 
     /**
+     * Specifies a set of remote addresses from which remote administration is allowed.
+     * @remarks
+     * 
+     * The <i>remoteAddrs</i> parameter consists of one or more comma-delimited tokens specifying the remote addresses from which the application can listen for traffic. The default value is "*". 
+     * 
+     * Valid tokens:
+     * 
+     * 
+     * <ul>
+     * <li>"*": any remote address; if present, it must be the only token.</li>
+     * <li>"LocalSubnet": not case-sensitive; specifying more than once has no effect.</li>
+     * <li>subnet: may be specified using either subnet mask or network prefix notation. If neither a subnet mask nor a network prefix is specified, the subnet mask defaults to 255.255.255.255. Examples of valid subnets: 
+     * 10.0.0.2/255.0.0.0 
+     * 10.0.0.2/8 
+     * 10.0.0.2</li>
+     * <li>Windows Vista: A valid IPv6 address.</li>
+     * <li>Windows Vista: An IPv4 address range in the format "start address - end address."</li>
+     * <li>Windows Vista: An IPv6 address range in the format "start address - end address."</li>
+     * </ul>
+     * For a predefined address range, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwremoteadminsettings-get_scope">Scope</a> property.
+     * 
      * 
      * @param {BSTR} remoteAddrs 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-put_remoteaddresses
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwremoteadminsettings-put_remoteaddresses
      */
     put_RemoteAddresses(remoteAddrs) {
         remoteAddrs := remoteAddrs is String ? BSTR.Alloc(remoteAddrs).Value : remoteAddrs
@@ -107,9 +221,9 @@ class INetFwRemoteAdminSettings extends IDispatch{
     }
 
     /**
-     * 
+     * Indicates whether remote administration is enabled..
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-get_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwremoteadminsettings-get_enabled
      */
     get_Enabled() {
         result := ComCall(13, this, "short*", &enabled := 0, "HRESULT")
@@ -117,10 +231,10 @@ class INetFwRemoteAdminSettings extends IDispatch{
     }
 
     /**
-     * 
+     * Indicates whether remote administration is enabled..
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwremoteadminsettings-put_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwremoteadminsettings-put_enabled
      */
     put_Enabled(enabled) {
         result := ComCall(14, this, "short", enabled, "HRESULT")

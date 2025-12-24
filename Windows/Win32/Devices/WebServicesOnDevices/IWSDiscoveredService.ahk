@@ -31,9 +31,9 @@ class IWSDiscoveredService extends IUnknown{
     static VTableNames => ["GetEndpointReference", "GetTypes", "GetScopes", "GetXAddrs", "GetMetadataVersion", "GetExtendedDiscoXML", "GetProbeResolveTag", "GetRemoteTransportAddress", "GetLocalTransportAddress", "GetLocalInterfaceGUID", "GetInstanceId"]
 
     /**
-     * 
-     * @returns {Pointer<WSD_ENDPOINT_REFERENCE>} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getendpointreference
+     * Retrieves a WS-Addressing address referencing an endpoint of the remote device.
+     * @returns {Pointer<WSD_ENDPOINT_REFERENCE>} A WS-Addressing address referencing an endpoint of the remote device. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_endpoint_reference">WSD_ENDPOINT_REFERENCE</a>. Do not deallocate the output structure.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveredservice-getendpointreference
      */
     GetEndpointReference() {
         result := ComCall(3, this, "ptr*", &ppEndpointReference := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IWSDiscoveredService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<WSD_NAME_LIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-gettypes
+     * Retrieves a list of WS-Discovery Types.
+     * @returns {Pointer<WSD_NAME_LIST>} List of WS-Discovery Types provided in the Hello, ProbeMatch, or ResolveMatch message sent by the remote device. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_name_list">WSD_NAME_LIST</a>. Do not deallocate the output structure.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveredservice-gettypes
      */
     GetTypes() {
         result := ComCall(4, this, "ptr*", &ppTypesList := 0, "HRESULT")
@@ -51,9 +51,9 @@ class IWSDiscoveredService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<WSD_URI_LIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getscopes
+     * Retrieves a list of WS-Discovery Scopes.
+     * @returns {Pointer<WSD_URI_LIST>} List of WS-Discovery Scopes provided in the Hello, ProbeMatch, or ResolveMatch message sent by the remote device. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_uri_list">WSD_URI_LIST</a>. Do not deallocate the output structure.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveredservice-getscopes
      */
     GetScopes() {
         result := ComCall(5, this, "ptr*", &ppScopesList := 0, "HRESULT")
@@ -61,9 +61,9 @@ class IWSDiscoveredService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<WSD_URI_LIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getxaddrs
+     * Retrieves a list of WS-Discovery XAddrs.
+     * @returns {Pointer<WSD_URI_LIST>} List of WS-Discovery XAddrs provided in the Hello, ProbeMatch, or ResolveMatch message sent by the remote device. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_uri_list">WSD_URI_LIST</a>. Do not deallocate the output structure.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveredservice-getxaddrs
      */
     GetXAddrs() {
         result := ComCall(6, this, "ptr*", &ppXAddrsList := 0, "HRESULT")
@@ -71,9 +71,9 @@ class IWSDiscoveredService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getmetadataversion
+     * Retrieves the metadata version of this message.
+     * @returns {Integer} Metadata version of this message.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveredservice-getmetadataversion
      */
     GetMetadataVersion() {
         result := ComCall(7, this, "uint*", &pullMetadataVersion := 0, "HRESULT")
@@ -81,11 +81,34 @@ class IWSDiscoveredService extends IUnknown{
     }
 
     /**
+     * Retrieves custom or extensible data provided in the header or body of the SOAP message.
+     * @param {Pointer<Pointer<WSDXML_ELEMENT>>} ppHeaderAny Custom data added to the header portion of the SOAP message. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a>. Do not deallocate the output structure.
+     * @param {Pointer<Pointer<WSDXML_ELEMENT>>} ppBodyAny Custom data added to the body portion of the SOAP message. For details, see <a href="https://docs.microsoft.com/windows/desktop/api/wsdxmldom/ns-wsdxmldom-wsdxml_element">WSDXML_ELEMENT</a>. Do not deallocate the output structure.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Pointer<WSDXML_ELEMENT>>} ppHeaderAny 
-     * @param {Pointer<Pointer<WSDXML_ELEMENT>>} ppBodyAny 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getextendeddiscoxml
+     * 
+     * Possible return values include, but are not limited to, the following.
+     * 
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveredservice-getextendeddiscoxml
      */
     GetExtendedDiscoXML(ppHeaderAny, ppBodyAny) {
         ppHeaderAnyMarshal := ppHeaderAny is VarRef ? "ptr*" : "ptr"
@@ -96,9 +119,9 @@ class IWSDiscoveredService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getproberesolvetag
+     * Retrieves the search tag corresponding to this discovered service object.
+     * @returns {PWSTR} Search tag passed to the <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoveryprovider">IWSDiscoveryProvider</a> search method that this <a href="https://docs.microsoft.com/windows/desktop/api/wsddisco/nn-wsddisco-iwsdiscoveredservice">IWSDiscoveredService</a> object corresponds to. If the <b>IWSDiscoveredService</b> is the result of a Hello message, the tag is <b>NULL</b>. Do not deallocate the output string.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveredservice-getproberesolvetag
      */
     GetProbeResolveTag() {
         result := ComCall(9, this, "ptr*", &ppszTag := 0, "HRESULT")
@@ -106,9 +129,10 @@ class IWSDiscoveredService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getremotetransportaddress
+     * Retrieves the string representation of the remote transport (IP) address.
+     * @returns {PWSTR} String representation of the remote transport (IP) address. Is <b>NULL</b> if not available.
+     * Do not deallocate the output string.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveredservice-getremotetransportaddress
      */
     GetRemoteTransportAddress() {
         result := ComCall(10, this, "ptr*", &ppszRemoteTransportAddress := 0, "HRESULT")
@@ -116,9 +140,10 @@ class IWSDiscoveredService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getlocaltransportaddress
+     * Retrieves the string representation of the local transport (IP) address.
+     * @returns {PWSTR} String representation of the local transport (IP) address. Is <b>NULL</b> if not available.
+     * Do not deallocate the output string.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveredservice-getlocaltransportaddress
      */
     GetLocalTransportAddress() {
         result := ComCall(11, this, "ptr*", &ppszLocalTransportAddress := 0, "HRESULT")
@@ -126,9 +151,9 @@ class IWSDiscoveredService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getlocalinterfaceguid
+     * Retrieves the GUID of the local network interface over which the message was received.
+     * @returns {Guid} GUID of the local network interface over which the message was received. Structure will be cleared if the local interface GUID is not available.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveredservice-getlocalinterfaceguid
      */
     GetLocalInterfaceGUID() {
         pGuid := Guid()
@@ -137,9 +162,9 @@ class IWSDiscoveredService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsddisco/nf-wsddisco-iwsdiscoveredservice-getinstanceid
+     * Retrieves the instance identifier of this message.
+     * @returns {Integer} A pointer to the instance identifier of this message.
+     * @see https://docs.microsoft.com/windows/win32/api//wsddisco/nf-wsddisco-iwsdiscoveredservice-getinstanceid
      */
     GetInstanceId() {
         result := ComCall(13, this, "uint*", &pullInstanceId := 0, "HRESULT")

@@ -31,9 +31,9 @@ class IWSDMetadataExchange extends IUnknown{
     static VTableNames => ["GetMetadata"]
 
     /**
-     * 
-     * @returns {Pointer<WSD_METADATA_SECTION_LIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdmetadataexchange-getmetadata
+     * Retrieves metadata for an object.
+     * @returns {Pointer<WSD_METADATA_SECTION_LIST>} Pointer to a linked list of structures containing the requested metadata.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdmetadataexchange-getmetadata
      */
     GetMetadata() {
         result := ComCall(3, this, "ptr*", &MetadataOut := 0, "HRESULT")

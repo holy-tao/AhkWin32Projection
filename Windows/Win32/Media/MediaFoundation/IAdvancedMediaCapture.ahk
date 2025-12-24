@@ -32,9 +32,9 @@ class IAdvancedMediaCapture extends IUnknown{
     static VTableNames => ["GetAdvancedMediaCaptureSettings"]
 
     /**
-     * 
+     * Gets the advanced media capture settings.
      * @returns {IAdvancedMediaCaptureSettings} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediacapture/nf-mfmediacapture-iadvancedmediacapture-getadvancedmediacapturesettings
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediacapture/nf-mfmediacapture-iadvancedmediacapture-getadvancedmediacapturesettings
      */
     GetAdvancedMediaCaptureSettings() {
         result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")

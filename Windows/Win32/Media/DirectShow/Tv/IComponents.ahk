@@ -47,9 +47,23 @@ class IComponents extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "EnumComponents", "get_Item", "Add", "Remove", "Clone", "put_Item"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-get_count
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IEnumVARIANT} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * The get_Count method gets the number of Component objects in the collection.
+     * @returns {Integer} Pointer to a variable of type <b>long</b> that receives the number of components.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponents-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
@@ -57,9 +71,9 @@ class IComponents extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-get__newenum
+     * The get__NewEnum enumeration method supports For...Each loops in Automation clients.
+     * @returns {IEnumVARIANT} Address of an <b>IEnumVARIANT</b> interface pointer that will receive the enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponents-get__newenum
      */
     get__NewEnum() {
         result := ComCall(8, this, "ptr*", &ppNewEnum := 0, "HRESULT")
@@ -67,9 +81,9 @@ class IComponents extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumComponents} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-enumcomponents
+     * The EnumComponents method returns an enumerator for the components in the collection.
+     * @returns {IEnumComponents} Address of a variable that receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ienumcomponents">IEnumComponents</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponents-enumcomponents
      */
     EnumComponents() {
         result := ComCall(9, this, "ptr*", &ppNewEnum := 0, "HRESULT")
@@ -77,10 +91,10 @@ class IComponents extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} Index 
-     * @returns {IComponent} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-get_item
+     * The get_Item method enables the caller to access a component by index.
+     * @param {VARIANT} Index Variable of type <b>VARIANT</b> specifying the zero-based index in the collection.
+     * @returns {IComponent} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponent">IComponent</a> interface pointer that will receive the <b>Component</b> object at the specified index.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponents-get_item
      */
     get_Item(Index) {
         result := ComCall(10, this, "ptr", Index, "ptr*", &ppComponent := 0, "HRESULT")
@@ -88,10 +102,10 @@ class IComponents extends IDispatch{
     }
 
     /**
-     * 
-     * @param {IComponent} Component 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-add
+     * The Add method adds a Component object to the collection.
+     * @param {IComponent} Component Pointer to the <b>Component</b> object to be added.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> that will receive the index of the <b>Component</b> object after it has been added.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponents-add
      */
     Add(Component) {
         NewIndex := VARIANT()
@@ -100,10 +114,10 @@ class IComponents extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} Index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-remove
+     * The Remove method removes a Component object from the collection.
+     * @param {VARIANT} Index Variable of type <b>VARIANT</b> that specifies the index number of the <b>Component</b> object to be removed.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponents-remove
      */
     Remove(Index) {
         result := ComCall(12, this, "ptr", Index, "HRESULT")
@@ -111,9 +125,9 @@ class IComponents extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IComponents} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-clone
+     * The Clone method creates a new copy of the collection.
+     * @returns {IComponents} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponents">IComponents</a> interface pointer that will be set to the new <b>Components</b> object.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponents-clone
      */
     Clone() {
         result := ComCall(13, this, "ptr*", &NewList := 0, "HRESULT")
@@ -121,11 +135,11 @@ class IComponents extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} Index 
-     * @param {IComponent} ppComponent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponents-put_item
+     * The put_Item method inserts a component into the collection, replacing the item that is identified by the specified index.
+     * @param {VARIANT} Index Specifies the index to assign to the component. This parameter is a value of type <b>VARIANT</b>.
+     * @param {IComponent} ppComponent Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponent">IComponent</a> interface of the component object. The method creates a clone of the component and inserts the clone into the collection.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponents-put_item
      */
     put_Item(Index, ppComponent) {
         result := ComCall(14, this, "ptr", Index, "ptr", ppComponent, "HRESULT")

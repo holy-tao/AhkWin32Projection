@@ -35,11 +35,17 @@ class IBrowserService3 extends IBrowserService2{
     static VTableNames => ["_PositionViewWindow", "IEParseDisplayNameEx"]
 
     /**
+     * Deprecated. Used in view size negotiations. This method is called by _UpdateViewRectSize after determining the available dimensions.
+     * @param {HWND} hwnd Type: <b>HWND</b>
      * 
-     * @param {HWND} hwnd 
-     * @param {Pointer<RECT>} prc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice3-_positionviewwindow
+     * The handle of the view window.
+     * @param {Pointer<RECT>} prc Type: <b>LPRECT</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the available dimensions.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice3-_positionviewwindow
      */
     _PositionViewWindow(hwnd, prc) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -49,12 +55,20 @@ class IBrowserService3 extends IBrowserService2{
     }
 
     /**
+     * Deprecated. Parses a URL into a pointer to an item identifier list (PIDL).
+     * @param {Integer} uiCP Type: <b>UINT</b>
      * 
-     * @param {Integer} uiCP 
-     * @param {PWSTR} pwszPath 
-     * @param {Integer} dwFlags 
-     * @returns {Pointer<ITEMIDLIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice3-ieparsedisplaynameex
+     * The code page (for example, CP_ACP, the system default code page).
+     * @param {PWSTR} pwszPath Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer containing the URL to parse, as a Unicode string.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * 
+     * The following value, if desired.
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>LPITEMIDLIST*</b>
+     * 
+     * The PIDL created from the parsed URL.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice3-ieparsedisplaynameex
      */
     IEParseDisplayNameEx(uiCP, pwszPath, dwFlags) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath

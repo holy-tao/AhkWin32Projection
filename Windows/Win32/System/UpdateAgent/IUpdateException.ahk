@@ -37,9 +37,30 @@ class IUpdateException extends IDispatch{
     static VTableNames => ["get_Message", "get_HResult", "get_Context"]
 
     /**
-     * 
+     * @type {BSTR} 
+     */
+    Message {
+        get => this.get_Message()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HResult {
+        get => this.get_HResult()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Context {
+        get => this.get_Context()
+    }
+
+    /**
+     * Gets a message that describes the search results.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateexception-get_message
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateexception-get_message
      */
     get_Message() {
         retval := BSTR()
@@ -48,9 +69,9 @@ class IUpdateException extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the Windows-based HRESULT code for the search results.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateexception-get_hresult
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateexception-get_hresult
      */
     get_HResult() {
         result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
@@ -58,9 +79,9 @@ class IUpdateException extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the context of search results.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateexception-get_context
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateexception-get_context
      */
     get_Context() {
         result := ComCall(9, this, "int*", &retval := 0, "HRESULT")

@@ -39,9 +39,45 @@ class IRDPSRAPIApplication extends IDispatch{
     static VTableNames => ["get_Windows", "get_Id", "get_Shared", "put_Shared", "get_Name", "get_Flags"]
 
     /**
-     * 
+     * @type {IRDPSRAPIWindowList} 
+     */
+    Windows {
+        get => this.get_Windows()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Shared {
+        get => this.get_Shared()
+        set => this.put_Shared(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+    }
+
+    /**
+     * The list of windows.
      * @returns {IRDPSRAPIWindowList} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_windows
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_windows
      */
     get_Windows() {
         result := ComCall(7, this, "ptr*", &pWindowList := 0, "HRESULT")
@@ -49,9 +85,9 @@ class IRDPSRAPIApplication extends IDispatch{
     }
 
     /**
-     * 
+     * The application identifier.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_id
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_id
      */
     get_Id() {
         result := ComCall(8, this, "int*", &pRetVal := 0, "HRESULT")
@@ -59,9 +95,9 @@ class IRDPSRAPIApplication extends IDispatch{
     }
 
     /**
-     * 
+     * The sharing state.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_shared
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_shared
      */
     get_Shared() {
         result := ComCall(9, this, "short*", &pRetVal := 0, "HRESULT")
@@ -69,10 +105,10 @@ class IRDPSRAPIApplication extends IDispatch{
     }
 
     /**
-     * 
+     * The sharing state.
      * @param {VARIANT_BOOL} NewVal 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-put_shared
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-put_shared
      */
     put_Shared(NewVal) {
         result := ComCall(10, this, "short", NewVal, "HRESULT")
@@ -80,9 +116,9 @@ class IRDPSRAPIApplication extends IDispatch{
     }
 
     /**
-     * 
+     * The name of the application.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_name
      */
     get_Name() {
         pRetVal := BSTR()
@@ -91,9 +127,9 @@ class IRDPSRAPIApplication extends IDispatch{
     }
 
     /**
-     * 
+     * The sharing flags.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_flags
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_flags
      */
     get_Flags() {
         result := ComCall(12, this, "uint*", &pdwFlags := 0, "HRESULT")

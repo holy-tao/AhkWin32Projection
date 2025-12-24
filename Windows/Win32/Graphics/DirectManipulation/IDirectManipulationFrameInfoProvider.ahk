@@ -31,12 +31,12 @@ class IDirectManipulationFrameInfoProvider extends IUnknown{
     static VTableNames => ["GetNextFrameInfo"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} time 
-     * @param {Pointer<Integer>} processTime 
-     * @param {Pointer<Integer>} compositionTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationframeinfoprovider-getnextframeinfo
+     * Retrieves the composition timing information from the compositor.
+     * @param {Pointer<Integer>} time The current time, in milliseconds.
+     * @param {Pointer<Integer>} processTime The time, in milliseconds, when the compositor begins constructing the next frame.
+     * @param {Pointer<Integer>} compositionTime The time, in milliseconds, when the compositor finishes composing and drawing the next frame on the screen.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationframeinfoprovider-getnextframeinfo
      */
     GetNextFrameInfo(time, processTime, compositionTime) {
         timeMarshal := time is VarRef ? "uint*" : "ptr"

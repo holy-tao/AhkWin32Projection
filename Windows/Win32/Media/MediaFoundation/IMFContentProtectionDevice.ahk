@@ -31,14 +31,14 @@ class IMFContentProtectionDevice extends IUnknown{
     static VTableNames => ["InvokeFunction", "GetPrivateDataByteCount"]
 
     /**
-     * 
-     * @param {Integer} FunctionId 
-     * @param {Integer} InputBufferByteCount 
-     * @param {Pointer} InputBuffer 
-     * @param {Pointer<Integer>} OutputBufferByteCount 
-     * @param {Pointer} OutputBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentprotectiondevice-invokefunction
+     * Calls into the implementation of the protection system in the security processor.
+     * @param {Integer} FunctionId The identifier of the function that you want to run. This identifier is defined by the implementation of the protection system.
+     * @param {Integer} InputBufferByteCount The number of bytes of in the buffer that <i>InputBuffer</i> specifies, including private data.
+     * @param {Pointer} InputBuffer A pointer to the data that you want to provide as input.
+     * @param {Pointer<Integer>} OutputBufferByteCount Pointer to a value that specifies the length in bytes of the data that the function wrote to the buffer that <i>OutputBuffer</i> specifies, including the private data.
+     * @param {Pointer} OutputBuffer Pointer to the buffer where you want the function to write its output.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentprotectiondevice-invokefunction
      */
     InvokeFunction(FunctionId, InputBufferByteCount, InputBuffer, OutputBufferByteCount, OutputBuffer) {
         OutputBufferByteCountMarshal := OutputBufferByteCount is VarRef ? "uint*" : "ptr"
@@ -48,11 +48,13 @@ class IMFContentProtectionDevice extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} PrivateInputByteCount 
-     * @param {Pointer<Integer>} PrivateOutputByteCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentprotectiondevice-getprivatedatabytecount
+     * Gets the required number of bytes that need to be prepended to the input and output buffers when you call the security processor through the InvokeFunction method.
+     * @param {Pointer<Integer>} PrivateInputByteCount The required number of bytes that need to be prepended to   
+     *       the input buffer that you supply to content protection system.
+     * @param {Pointer<Integer>} PrivateOutputByteCount The required number of bytes that need to be prepended to   
+     *            the output buffer that you supply to content protection system.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentprotectiondevice-getprivatedatabytecount
      */
     GetPrivateDataByteCount(PrivateInputByteCount, PrivateOutputByteCount) {
         PrivateInputByteCountMarshal := PrivateInputByteCount is VarRef ? "uint*" : "ptr"

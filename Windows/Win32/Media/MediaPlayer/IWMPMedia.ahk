@@ -32,11 +32,78 @@ class IWMPMedia extends IDispatch{
     static VTableNames => ["get_isIdentical", "get_sourceURL", "get_name", "put_name", "get_imageSourceWidth", "get_imageSourceHeight", "get_markerCount", "getMarkerTime", "getMarkerName", "get_duration", "get_durationString", "get_attributeCount", "getAttributeName", "getItemInfo", "setItemInfo", "getItemInfoByAtom", "isMemberOf", "isReadOnlyItem"]
 
     /**
+     */
+    sourceURL {
+        get => this.get_sourceURL()
+    }
+
+    /**
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     */
+    imageSourceWidth {
+        get => this.get_imageSourceWidth()
+    }
+
+    /**
+     */
+    imageSourceHeight {
+        get => this.get_imageSourceHeight()
+    }
+
+    /**
+     */
+    markerCount {
+        get => this.get_markerCount()
+    }
+
+    /**
+     */
+    duration {
+        get => this.get_duration()
+    }
+
+    /**
+     */
+    durationString {
+        get => this.get_durationString()
+    }
+
+    /**
+     */
+    attributeCount {
+        get => this.get_attributeCount()
+    }
+
+    /**
+     * The get_isIdentical method retrieves a value indicating whether the specified object is the same as the current one.
+     * @param {IWMPMedia} pIWMPMedia Pointer to an <b>IWMPMedia</b> object that this method will compare to the current object.
+     * @param {Pointer<VARIANT_BOOL>} pvbool Pointer to a <b>VARIANT_BOOL</b> that indicates whether the objects were identical.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMPMedia} pIWMPMedia 
-     * @param {Pointer<VARIANT_BOOL>} pvbool 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_isidentical
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-get_isidentical
      */
     get_isIdentical(pIWMPMedia, pvbool) {
         pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"
@@ -46,10 +113,28 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The get_sourceURL method retrieves the URL of the media item.
+     * @param {Pointer<BSTR>} pbstrSourceURL Pointer to a <b>BSTR</b> containing the source URL.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrSourceURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_sourceurl
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-get_sourceurl
      */
     get_sourceURL(pbstrSourceURL) {
         result := ComCall(8, this, "ptr", pbstrSourceURL, "HRESULT")
@@ -57,10 +142,28 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The get_name method retrieves the name of the media item.
+     * @param {Pointer<BSTR>} pbstrName Pointer to a <b>BSTR</b> containing the name.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_name
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-get_name
      */
     get_name(pbstrName) {
         result := ComCall(9, this, "ptr", pbstrName, "HRESULT")
@@ -68,10 +171,28 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The put_name method specifies sets the name of the media item.
+     * @param {BSTR} bstrName <b>BSTR</b> containing the name.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-put_name
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-put_name
      */
     put_name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -81,10 +202,28 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The get_imageSourceWidth method retrieves the width of the current media item in pixels.
+     * @param {Pointer<Integer>} pWidth Pointer to a <b>long</b> that specifies the width.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pWidth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_imagesourcewidth
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-get_imagesourcewidth
      */
     get_imageSourceWidth(pWidth) {
         pWidthMarshal := pWidth is VarRef ? "int*" : "ptr"
@@ -94,10 +233,28 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The get_imageSourceHeight method retrieves the height of the current media item in pixels.
+     * @param {Pointer<Integer>} pHeight Pointer to a <b>long</b> that specifies the height.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pHeight 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_imagesourceheight
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-get_imagesourceheight
      */
     get_imageSourceHeight(pHeight) {
         pHeightMarshal := pHeight is VarRef ? "int*" : "ptr"
@@ -107,10 +264,28 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The get_markerCount method retrieves the number of markers in the media item.
+     * @param {Pointer<Integer>} pMarkerCount Pointer to a <b>long</b> that contains the marker count.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pMarkerCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_markercount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-get_markercount
      */
     get_markerCount(pMarkerCount) {
         pMarkerCountMarshal := pMarkerCount is VarRef ? "int*" : "ptr"
@@ -120,11 +295,29 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The getMarkerTime method retrieves the time of the marker at the specified index.
+     * @param {Integer} MarkerNum <b>long</b> specifying the marker index.
+     * @param {Pointer<Float>} pMarkerTime Pointer to a <b>double</b> that specifies the marker time.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} MarkerNum 
-     * @param {Pointer<Float>} pMarkerTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getmarkertime
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-getmarkertime
      */
     getMarkerTime(MarkerNum, pMarkerTime) {
         pMarkerTimeMarshal := pMarkerTime is VarRef ? "double*" : "ptr"
@@ -134,11 +327,29 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The getMarkerName method retrieves the name of the marker at the specified index.
+     * @param {Integer} MarkerNum <b>long</b> specifying the marker index.
+     * @param {Pointer<BSTR>} pbstrMarkerName Pointer to a <b>BSTR</b> containing the marker name.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} MarkerNum 
-     * @param {Pointer<BSTR>} pbstrMarkerName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getmarkername
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-getmarkername
      */
     getMarkerName(MarkerNum, pbstrMarkerName) {
         result := ComCall(15, this, "int", MarkerNum, "ptr", pbstrMarkerName, "HRESULT")
@@ -146,10 +357,28 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The get_duration method retrieves the duration in seconds of the current media item..
+     * @param {Pointer<Float>} pDuration Pointer to a <b>double</b> containing the duration.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Float>} pDuration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_duration
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-get_duration
      */
     get_duration(pDuration) {
         pDurationMarshal := pDuration is VarRef ? "double*" : "ptr"
@@ -159,10 +388,28 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The get_durationString method retrieves a string indicating the duration of the current media item in HH:MM:SS format.
+     * @param {Pointer<BSTR>} pbstrDuration Pointer to a <b>BSTR</b> containing the duration.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrDuration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_durationstring
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-get_durationstring
      */
     get_durationString(pbstrDuration) {
         result := ComCall(17, this, "ptr", pbstrDuration, "HRESULT")
@@ -170,10 +417,28 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The get_attributeCount method retrieves the number of attributes that can be queried and/or set for the media item.
+     * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> containing the count.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-get_attributecount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-get_attributecount
      */
     get_attributeCount(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
@@ -183,11 +448,29 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The getAttributeName method retrieves the name of the attribute corresponding to the specified index.
+     * @param {Integer} lIndex <b>long</b> containing the index.
+     * @param {Pointer<BSTR>} pbstrItemName Pointer to a <b>BSTR</b> containing the attribute name.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lIndex 
-     * @param {Pointer<BSTR>} pbstrItemName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getattributename
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-getattributename
      */
     getAttributeName(lIndex, pbstrItemName) {
         result := ComCall(19, this, "int", lIndex, "ptr", pbstrItemName, "HRESULT")
@@ -195,11 +478,29 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The getItemInfo method retrieves the value of the specified attribute for the media item.
+     * @param {BSTR} bstrItemName <b>BSTR</b> containing the item name.
+     * @param {Pointer<BSTR>} pbstrVal Pointer to a <b>BSTR</b> containing the returned value.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrItemName 
-     * @param {Pointer<BSTR>} pbstrVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getiteminfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-getiteminfo
      */
     getItemInfo(bstrItemName, pbstrVal) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
@@ -209,11 +510,29 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The setItemInfo method sets the value of the specified attribute for the media item.
+     * @param {BSTR} bstrItemName <b>BSTR</b> containing the attribute name.
+     * @param {BSTR} bstrVal <b>BSTR</b> containing the new value.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrItemName 
-     * @param {BSTR} bstrVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-setiteminfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-setiteminfo
      */
     setItemInfo(bstrItemName, bstrVal) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
@@ -224,11 +543,29 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The getItemInfoByAtom method retrieves the value of the attribute with the specified index number.
+     * @param {Integer} lAtom <b>long</b> specifying the index at which a given attribute resides within the set of available attributes.
+     * @param {Pointer<BSTR>} pbstrVal Pointer to a <b>BSTR</b> containing the returned value.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lAtom 
-     * @param {Pointer<BSTR>} pbstrVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-getiteminfobyatom
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-getiteminfobyatom
      */
     getItemInfoByAtom(lAtom, pbstrVal) {
         result := ComCall(22, this, "int", lAtom, "ptr", pbstrVal, "HRESULT")
@@ -236,11 +573,29 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The isMemberOf method retrieves a value indicating whether the specified media item is a member of the specified playlist.
+     * @param {IWMPPlaylist} pPlaylist Pointer to an <b>IWMPPlaylist</b> interface.
+     * @param {Pointer<VARIANT_BOOL>} pvarfIsMemberOf Pointer to a <b>VARIANT_BOOL</b> that indicates whether the item is a member of the playlist.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMPPlaylist} pPlaylist 
-     * @param {Pointer<VARIANT_BOOL>} pvarfIsMemberOf 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-ismemberof
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-ismemberof
      */
     isMemberOf(pPlaylist, pvarfIsMemberOf) {
         pvarfIsMemberOfMarshal := pvarfIsMemberOf is VarRef ? "short*" : "ptr"
@@ -250,11 +605,29 @@ class IWMPMedia extends IDispatch{
     }
 
     /**
+     * The isReadOnlyItem method retrieves a value indicating whether the attributes of the specified media item can be edited.
+     * @param {BSTR} bstrItemName <b>BSTR</b> containing the item name.
+     * @param {Pointer<VARIANT_BOOL>} pvarfIsReadOnly Pointer to a <b>VARIANT_BOOL</b> that specifies whether the attributes are read-only.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrItemName 
-     * @param {Pointer<VARIANT_BOOL>} pvarfIsReadOnly 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia-isreadonlyitem
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia-isreadonlyitem
      */
     isReadOnlyItem(bstrItemName, pvarfIsReadOnly) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName

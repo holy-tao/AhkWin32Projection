@@ -205,12 +205,63 @@ class IDirectInputJoyConfig extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectInputJoyConfig8::OpenConfigKey method opens IDirectInputJoyConfigthe registry key associated with a joystick configuration.
      * @param {Integer} param0 
      * @param {Integer} param1 
      * @param {Pointer<HKEY>} param2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dinputd/nf-dinputd-idirectinputjoyconfig-openconfigkey
+     * @returns {HRESULT} Returns DI_OK if successful; otherwise, returns one of the following COM error values: 
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DIERR_NOTACQUIRED </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Joystick configuration has not been acquired. You must call <a href="/windows/desktop/api/dinputd/nf-dinputd-idirectinputjoyconfig8-acquire">IDirectInputJoyConfig8::Acquire</a> before you can open a joystick type configuration key for writing. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DIERR_INVALIDPARAM </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters was invalid. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>DIERR_NOTFOUND </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The application attempted to open the configuration key for reading, but no configuration key for the joystick had been created. Applications should proceed as if the key were empty. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MAKE_HRESULT(SEVERITY_ERROR, FACILITY_WIN32, ErrorCode) </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A Win32 error code if access to the key is denied because of inappropriate registry permissions or some other external factor. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//dinputd/nf-dinputd-idirectinputjoyconfig-openconfigkey
      */
     OpenConfigKey(param0, param1, param2) {
         result := ComCall(18, this, "uint", param0, "uint", param1, "ptr", param2, "HRESULT")

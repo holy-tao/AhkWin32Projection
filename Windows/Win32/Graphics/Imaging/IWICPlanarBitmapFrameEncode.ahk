@@ -36,12 +36,22 @@ class IWICPlanarBitmapFrameEncode extends IUnknown{
     static VTableNames => ["WritePixels", "WriteSource"]
 
     /**
+     * Writes lines from the source planes to the encoded format.
+     * @param {Integer} lineCount Type: <b>UINT</b>
      * 
-     * @param {Integer} lineCount 
-     * @param {Pointer<WICBitmapPlane>} pPlanes 
-     * @param {Integer} cPlanes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarbitmapframeencode-writepixels
+     * The number of lines to encode.  See the Remarks section for WIC Jpeg specific line count restrictions.
+     * @param {Pointer<WICBitmapPlane>} pPlanes Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicbitmapplane">WICBitmapPlane</a>*</b>
+     * 
+     * Specifies the source buffers for each component plane encoded.
+     * @param {Integer} cPlanes Type: <b>UINT</b>
+     * 
+     * The number of component planes specified by the <i>pPlanes</i> parameter.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the planes and source rectangle do not meet the requirements, this method fails with <b>WINCODEC_ERR_IMAGESIZEOUTOFRANGE</b>.
+     * 
+     * If the <a href="/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> format does not meet the encoder requirements, this method fails with <b>WINCODEC_ERR_UNSUPPORTEDPIXELFORMAT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicplanarbitmapframeencode-writepixels
      */
     WritePixels(lineCount, pPlanes, cPlanes) {
         result := ComCall(3, this, "uint", lineCount, "ptr", pPlanes, "uint", cPlanes, "HRESULT")
@@ -49,12 +59,24 @@ class IWICPlanarBitmapFrameEncode extends IUnknown{
     }
 
     /**
+     * Writes lines from the source planes to the encoded format.
+     * @param {Pointer<IWICBitmapSource>} ppPlanes Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>**</b>
      * 
-     * @param {Pointer<IWICBitmapSource>} ppPlanes 
-     * @param {Integer} cPlanes 
-     * @param {Pointer<WICRect>} prcSource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarbitmapframeencode-writesource
+     * Specifies an array of <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> that represent image planes.
+     * @param {Integer} cPlanes Type: <b>UINT</b>
+     * 
+     * The number of component planes specified by the planes parameter.
+     * @param {Pointer<WICRect>} prcSource Type: <b>WICRect*</b>
+     * 
+     * The source rectangle of pixels to encode from the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> planes.  Null indicates the entire source.  The source rect width must match the width set through <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapframeencode-setsize">SetSize</a>. Repeated <b>WriteSource</b> calls can be made as long as the total accumulated source rect height is the same as set through <b>SetSize</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the planes and source rectangle do not meet the requirements, this method fails with <b>WINCODEC_ERR_IMAGESIZEOUTOFRANGE</b>.
+     * 
+     * 
+     * 
+     * If the <a href="/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> format does not meet the encoder requirements, this method fails with <b>WINCODEC_ERR_UNSUPPORTEDPIXELFORMAT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicplanarbitmapframeencode-writesource
      */
     WriteSource(ppPlanes, cPlanes, prcSource) {
         result := ComCall(4, this, "ptr*", ppPlanes, "uint", cPlanes, "ptr", prcSource, "HRESULT")

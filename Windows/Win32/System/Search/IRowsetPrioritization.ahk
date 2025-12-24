@@ -44,11 +44,17 @@ class IRowsetPrioritization extends IUnknown{
     static VTableNames => ["SetScopePriority", "GetScopePriority", "GetScopeStatistics"]
 
     /**
+     * Sets the current indexer prioritization level for the scope specified by this query.
+     * @param {Integer} priority Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a></b>
      * 
-     * @param {Integer} priority 
-     * @param {Integer} scopeStatisticsEventFrequency 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetprioritization-setscopepriority
+     * Specifies the new indexer prioritization level to be set as the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a> enumeration.
+     * @param {Integer} scopeStatisticsEventFrequency Type: <b>DWORD</b>
+     * 
+     * Specifies the occurrence interval of the scope statistics event when there are outstanding documents to be indexed within the query scopes.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-irowsetprioritization-setscopepriority
      */
     SetScopePriority(priority, scopeStatisticsEventFrequency) {
         result := ComCall(3, this, "int", priority, "uint", scopeStatisticsEventFrequency, "HRESULT")
@@ -56,11 +62,17 @@ class IRowsetPrioritization extends IUnknown{
     }
 
     /**
+     * Retrieves the current indexer prioritization level for the scope specified by this query.
+     * @param {Pointer<Integer>} priority Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a>*</b>
      * 
-     * @param {Pointer<Integer>} priority 
-     * @param {Pointer<Integer>} scopeStatisticsEventFrequency 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetprioritization-getscopepriority
+     * The current indexer prioritization level as the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a> enumeration.
+     * @param {Pointer<Integer>} scopeStatisticsEventFrequency Type: <b>DWORD*</b>
+     * 
+     * The occurrence interval of the scope statistics event when there are outstanding documents to be indexed within the query scopes.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-irowsetprioritization-getscopepriority
      */
     GetScopePriority(priority, scopeStatisticsEventFrequency) {
         priorityMarshal := priority is VarRef ? "int*" : "ptr"
@@ -71,12 +83,20 @@ class IRowsetPrioritization extends IUnknown{
     }
 
     /**
+     * Gets information describing the scope specified by this query.
+     * @param {Pointer<Integer>} indexedDocumentCount Type: <b>DWORD*</b>
      * 
-     * @param {Pointer<Integer>} indexedDocumentCount 
-     * @param {Pointer<Integer>} oustandingAddCount 
-     * @param {Pointer<Integer>} oustandingModifyCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-irowsetprioritization-getscopestatistics
+     * The total number of documents currently indexed in the scope.
+     * @param {Pointer<Integer>} oustandingAddCount Type: <b>DWORD*</b>
+     * 
+     * The total number of documents yet to be indexed in the scope. These documents are not yet included in <i>indexedDocumentCount</i>.
+     * @param {Pointer<Integer>} oustandingModifyCount Type: <b>DWORD*</b>
+     * 
+     * The total number of documents indexed in the scope that need to be re-indexed. These documents are included in <i>indexedDocumentCount</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-irowsetprioritization-getscopestatistics
      */
     GetScopeStatistics(indexedDocumentCount, oustandingAddCount, oustandingModifyCount) {
         indexedDocumentCountMarshal := indexedDocumentCount is VarRef ? "uint*" : "ptr"

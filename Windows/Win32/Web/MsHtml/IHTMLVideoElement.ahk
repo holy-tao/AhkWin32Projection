@@ -36,6 +36,44 @@ class IHTMLVideoElement extends IDispatch{
     static VTableNames => ["put_width", "get_width", "put_height", "get_height", "get_videoWidth", "get_videoHeight", "put_poster", "get_poster"]
 
     /**
+     * @type {Integer} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    videoWidth {
+        get => this.get_videoWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    videoHeight {
+        get => this.get_videoHeight()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    poster {
+        get => this.get_poster()
+        set => this.put_poster(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

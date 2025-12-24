@@ -38,9 +38,16 @@ class IAutomaticUpdates2 extends IAutomaticUpdates{
     static VTableNames => ["get_Results"]
 
     /**
-     * 
-     * @returns {IAutomaticUpdatesResults} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdates2-get_results
+     * @type {IAutomaticUpdatesResults} 
+     */
+    Results {
+        get => this.get_Results()
+    }
+
+    /**
+     * Returns a pointer to an IAutomaticUpdatesResults interface.
+     * @returns {IAutomaticUpdatesResults} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iautomaticupdatesresults">IAutomaticUpdatesResults</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdates2-get_results
      */
     get_Results() {
         result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")

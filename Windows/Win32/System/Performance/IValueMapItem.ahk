@@ -33,9 +33,49 @@ class IValueMapItem extends IDispatch{
     static VTableNames => ["get_Description", "put_Description", "get_Enabled", "put_Enabled", "get_Key", "put_Key", "get_Value", "put_Value", "get_ValueMapType", "put_ValueMapType"]
 
     /**
-     * 
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Key {
+        get => this.get_Key()
+        set => this.put_Key(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ValueMapType {
+        get => this.get_ValueMapType()
+        set => this.put_ValueMapType(value)
+    }
+
+    /**
+     * Retrieves or sets a description of the item.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-get_description
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ivaluemapitem-get_description
      */
     get_Description() {
         description := BSTR()
@@ -44,10 +84,10 @@ class IValueMapItem extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets a description of the item.
      * @param {BSTR} description 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-put_description
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ivaluemapitem-put_description
      */
     put_Description(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
@@ -57,9 +97,14 @@ class IValueMapItem extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a value that indicates whether the item is enabled.
+     * @remarks
+     * 
+     * The type of the item determines whether more than one item in the value map collection can be enabled. For example, one of the possible settings is to enable one or more keywords while enabling only one level.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-get_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ivaluemapitem-get_enabled
      */
     get_Enabled() {
         result := ComCall(9, this, "short*", &enabled := 0, "HRESULT")
@@ -67,10 +112,15 @@ class IValueMapItem extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a value that indicates whether the item is enabled.
+     * @remarks
+     * 
+     * The type of the item determines whether more than one item in the value map collection can be enabled. For example, one of the possible settings is to enable one or more keywords while enabling only one level.
+     * 
      * 
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-put_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ivaluemapitem-put_enabled
      */
     put_Enabled(enabled) {
         result := ComCall(10, this, "short", enabled, "HRESULT")
@@ -78,9 +128,14 @@ class IValueMapItem extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name of the item.
+     * @remarks
+     * 
+     * Note that if you set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemap-get_value">IValueMap::Value</a> property and PLA generates the items, the items are not named.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-get_key
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ivaluemapitem-get_key
      */
     get_Key() {
         key := BSTR()
@@ -89,10 +144,15 @@ class IValueMapItem extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name of the item.
+     * @remarks
+     * 
+     * Note that if you set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemap-get_value">IValueMap::Value</a> property and PLA generates the items, the items are not named.
+     * 
      * 
      * @param {BSTR} key 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-put_key
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ivaluemapitem-put_key
      */
     put_Key(key) {
         key := key is String ? BSTR.Alloc(key).Value : key
@@ -102,9 +162,16 @@ class IValueMapItem extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the value of the item.
+     * @remarks
+     * 
+     * The variant type is VT_UI8 if the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-valuemaptype">ValueMapType</a> enumeration is plaIndex, plaFlag or plaFlagArray.
+     * 
+     * The variant type is VT_UI4 if <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-valuemaptype">ValueMapType</a> is plaValidation.
+     * 
      * 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-get_value
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ivaluemapitem-get_value
      */
     get_Value() {
         Value := VARIANT()
@@ -113,10 +180,17 @@ class IValueMapItem extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the value of the item.
+     * @remarks
+     * 
+     * The variant type is VT_UI8 if the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-valuemaptype">ValueMapType</a> enumeration is plaIndex, plaFlag or plaFlagArray.
+     * 
+     * The variant type is VT_UI4 if <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-valuemaptype">ValueMapType</a> is plaValidation.
+     * 
      * 
      * @param {VARIANT} Value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-put_value
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ivaluemapitem-put_value
      */
     put_Value(Value) {
         result := ComCall(14, this, "ptr", Value, "HRESULT")
@@ -124,9 +198,9 @@ class IValueMapItem extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the type of the item.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-get_valuemaptype
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ivaluemapitem-get_valuemaptype
      */
     get_ValueMapType() {
         result := ComCall(15, this, "int*", &type := 0, "HRESULT")
@@ -134,10 +208,10 @@ class IValueMapItem extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the type of the item.
      * @param {Integer} type 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ivaluemapitem-put_valuemaptype
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ivaluemapitem-put_valuemaptype
      */
     put_ValueMapType(type) {
         result := ComCall(16, this, "int", type, "HRESULT")

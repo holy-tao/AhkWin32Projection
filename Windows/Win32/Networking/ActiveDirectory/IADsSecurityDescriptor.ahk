@@ -40,6 +40,86 @@ class IADsSecurityDescriptor extends IDispatch{
     static VTableNames => ["get_Revision", "put_Revision", "get_Control", "put_Control", "get_Owner", "put_Owner", "get_OwnerDefaulted", "put_OwnerDefaulted", "get_Group", "put_Group", "get_GroupDefaulted", "put_GroupDefaulted", "get_DiscretionaryAcl", "put_DiscretionaryAcl", "get_DaclDefaulted", "put_DaclDefaulted", "get_SystemAcl", "put_SystemAcl", "get_SaclDefaulted", "put_SaclDefaulted", "CopySecurityDescriptor"]
 
     /**
+     * @type {Integer} 
+     */
+    Revision {
+        get => this.get_Revision()
+        set => this.put_Revision(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Control {
+        get => this.get_Control()
+        set => this.put_Control(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Owner {
+        get => this.get_Owner()
+        set => this.put_Owner(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    OwnerDefaulted {
+        get => this.get_OwnerDefaulted()
+        set => this.put_OwnerDefaulted(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Group {
+        get => this.get_Group()
+        set => this.put_Group(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    GroupDefaulted {
+        get => this.get_GroupDefaulted()
+        set => this.put_GroupDefaulted(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    DiscretionaryAcl {
+        get => this.get_DiscretionaryAcl()
+        set => this.put_DiscretionaryAcl(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DaclDefaulted {
+        get => this.get_DaclDefaulted()
+        set => this.put_DaclDefaulted(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    SystemAcl {
+        get => this.get_SystemAcl()
+        set => this.put_SystemAcl(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SaclDefaulted {
+        get => this.get_SaclDefaulted()
+        set => this.put_SaclDefaulted(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */
@@ -236,9 +316,9 @@ class IADsSecurityDescriptor extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecuritydescriptor-copysecuritydescriptor
+     * The IADsSecurityDescriptor::CopySecurityDescriptor method copies an ADSI security descriptor object that holds security data about an object.
+     * @returns {IDispatch} Pointer to a pointer to a security descriptor object.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadssecuritydescriptor-copysecuritydescriptor
      */
     CopySecurityDescriptor() {
         result := ComCall(27, this, "ptr*", &ppSecurityDescriptor := 0, "HRESULT")

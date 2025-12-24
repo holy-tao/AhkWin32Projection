@@ -18,6 +18,7 @@
 #Include ../Windows/Win32/Foundation/Apis.ahk
 #Include ../Windows/Win32/System/Memory/Apis.ahk
 #Include ../Windows/Win32/Storage/FileSystem/BY_HANDLE_FILE_INFORMATION.ahk
+#Include ../Windows/Win32/Storage/Nvme/NVME_OCP_DEVICE_CAPABILITIES_LOG.ahk
 
 /**
  * Tests of generated source code
@@ -254,6 +255,21 @@ class GeneratedStructSmokeTests {
             Yunit.Assert(pshw.nPages == 0xFFFFFFFF, Format("Expected {1} but got {2}", -1, pshw.nPages))
             Yunit.Assert(pshw.pStartPage == 123456789, Format("Expected {1} but got {2}", 123456789, pshw.pStartPage))
             Yunit.Assert(pshw.phpage == 42, Format("Expected {1} but got {2}", 42, pshw.nPages))
+        }
+
+        ; https://github.com/holy-tao/AhkWin32Projection/issues/46
+        NonAnonymousUnions_AreNotFlattened() {
+            test := NVME_OCP_DEVICE_CAPABILITIES_LOG()
+
+            Assert.Equals(type(test.OobMgmtSupport), "NVME_OCP_DEVICE_CAPABILITIES_LOG._OobMgmtSupport_e__Union")
+            Assert.Equals(type(test.WriteZeroesCommand), "NVME_OCP_DEVICE_CAPABILITIES_LOG._WriteZeroesCommand_e__Union")
+        }
+
+        NonAnonymousUnions_AreProjectedCorrectly() {
+            test := NVME_OCP_DEVICE_CAPABILITIES_LOG()
+
+            NumPut("ushort", 0xFFFF, test, 2)
+            Assert.Equals(test.OobMgmtSupport.AsUshort, 0xFFFF)
         }
     }
 }

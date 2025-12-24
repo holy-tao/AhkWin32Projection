@@ -41,29 +41,35 @@ class ID2D1InkStyle extends ID2D1Resource{
     }
 
     /**
+     * Retrieves the transform to be applied to this style's nib shape.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} transform Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
-     * @param {Pointer<D2D_MATRIX_3X2_F>} transform 
+     * When this method returns, contains a pointer to the transform to be applied to this style's nib shape.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-getnibtransform
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1inkstyle-getnibtransform
      */
     GetNibTransform(transform) {
         ComCall(5, this, "ptr", transform)
     }
 
     /**
+     * Sets the pre-transform nib shape for this style.
+     * @param {Integer} nibShape Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_ink_nib_shape">D2D1_INK_NIB_SHAPE</a></b>
      * 
-     * @param {Integer} nibShape 
+     * The pre-transform nib shape to use in this style.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-setnibshape
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1inkstyle-setnibshape
      */
     SetNibShape(nibShape) {
         ComCall(6, this, "int", nibShape)
     }
 
     /**
+     * Retrieves the pre-transform nib shape for this style.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_ink_nib_shape">D2D1_INK_NIB_SHAPE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-getnibshape
+     * Returns the pre-transform nib shape for this style.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1inkstyle-getnibshape
      */
     GetNibShape() {
         result := ComCall(7, this, "int")

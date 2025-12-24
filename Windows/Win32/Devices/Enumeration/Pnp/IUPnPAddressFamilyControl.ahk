@@ -31,10 +31,49 @@ class IUPnPAddressFamilyControl extends IUnknown{
     static VTableNames => ["SetAddressFamily", "GetAddressFamily"]
 
     /**
+     * The SetAddressFamily method sets the address family flag of the Device Finder object, which uses this flag to filter the devices found.
+     * @param {Integer} dwFlags Integer (4-byte value) that specifies the address family to be used by the Device Finder object to filter the devices found.
      * 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpaddressfamilycontrol-setaddressfamily
+     * The following values are valid.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="UPNP_ADDRESSFAMILY_IPv4"></a><a id="upnp_addressfamily_ipv4"></a><a id="UPNP_ADDRESSFAMILY_IPV4"></a><dl>
+     * <dt><b>UPNP_ADDRESSFAMILY_IPv4</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * IPv4 (IP version 4)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="UPNP_ADDRESSFAMILY_IPv6"></a><a id="upnp_addressfamily_ipv6"></a><a id="UPNP_ADDRESSFAMILY_IPV6"></a><dl>
+     * <dt><b>UPNP_ADDRESSFAMILY_IPv6</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * IPv6 (IP version 6)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="UPNP_ADDRESSFAMILY_BOTH"></a><a id="upnp_addressfamily_both"></a><dl>
+     * <dt><b>UPNP_ADDRESSFAMILY_BOTH</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * IPv4 and IPv6
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpaddressfamilycontrol-setaddressfamily
      */
     SetAddressFamily(dwFlags) {
         result := ComCall(3, this, "int", dwFlags, "HRESULT")
@@ -42,9 +81,48 @@ class IUPnPAddressFamilyControl extends IUnknown{
     }
 
     /**
+     * The GetAddressFamily method retrieves the current value of the address family flag of the Device Finder object.
+     * @returns {Integer} Pointer to an integer (4-byte value) that indicates the address family.
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpaddressfamilycontrol-getaddressfamily
+     * The following values are valid.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="UPNP_ADDRESSFAMILY_IPv4"></a><a id="upnp_addressfamily_ipv4"></a><a id="UPNP_ADDRESSFAMILY_IPV4"></a><dl>
+     * <dt><b>UPNP_ADDRESSFAMILY_IPv4</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * IPv4 (IP version 4)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="UPNP_ADDRESSFAMILY_IPv6"></a><a id="upnp_addressfamily_ipv6"></a><a id="UPNP_ADDRESSFAMILY_IPV6"></a><dl>
+     * <dt><b>UPNP_ADDRESSFAMILY_IPv6</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * IPv6 (IP version 6)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="UPNP_ADDRESSFAMILY_BOTH"></a><a id="upnp_addressfamily_both"></a><dl>
+     * <dt><b>UPNP_ADDRESSFAMILY_BOTH</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * IPv4 and IPv6
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpaddressfamilycontrol-getaddressfamily
      */
     GetAddressFamily() {
         result := ComCall(4, this, "int*", &pdwFlags := 0, "HRESULT")

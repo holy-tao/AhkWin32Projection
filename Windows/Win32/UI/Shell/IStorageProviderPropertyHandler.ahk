@@ -49,11 +49,11 @@ class IStorageProviderPropertyHandler extends IUnknown{
     static VTableNames => ["RetrieveProperties", "SaveProperties"]
 
     /**
-     * 
-     * @param {Pointer<PROPERTYKEY>} propertiesToRetrieve 
-     * @param {Integer} propertiesToRetrieveCount 
-     * @returns {IPropertyStore} 
-     * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderpropertyhandler-retrieveproperties
+     * Gets the properties managed by the sync engine.
+     * @param {Pointer<PROPERTYKEY>} propertiesToRetrieve The identifier for the properties to retrieve.
+     * @param {Integer} propertiesToRetrieveCount The number of properties to retrieve.
+     * @returns {IPropertyStore} A collection of properties.
+     * @see https://docs.microsoft.com/windows/win32/api//storageprovider/nf-storageprovider-istorageproviderpropertyhandler-retrieveproperties
      */
     RetrieveProperties(propertiesToRetrieve, propertiesToRetrieveCount) {
         result := ComCall(3, this, "ptr", propertiesToRetrieve, "uint", propertiesToRetrieveCount, "ptr*", &retrievedProperties := 0, "HRESULT")
@@ -61,10 +61,10 @@ class IStorageProviderPropertyHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IPropertyStore} propertiesToSave 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/storageprovider/nf-storageprovider-istorageproviderpropertyhandler-saveproperties
+     * Saves properties associated with a file or folder.
+     * @param {IPropertyStore} propertiesToSave The properties to save.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//storageprovider/nf-storageprovider-istorageproviderpropertyhandler-saveproperties
      */
     SaveProperties(propertiesToSave) {
         result := ComCall(4, this, "ptr", propertiesToSave, "HRESULT")

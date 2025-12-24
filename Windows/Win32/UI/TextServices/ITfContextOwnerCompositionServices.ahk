@@ -39,10 +39,72 @@ class ITfContextOwnerCompositionServices extends ITfContextComposition{
     static VTableNames => ["TerminateComposition"]
 
     /**
+     * ITfContextOwnerCompositionServices::TerminateComposition method
+     * @param {ITfCompositionView} pComposition Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcompositionview">ITfCompositionView</a> interface that represents the composition to terminate. If this value is <b>NULL</b>, all compositions in the context are terminated.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {ITfCompositionView} pComposition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextownercompositionservices-terminatecomposition
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TF_E_DISCONNECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The context is not on a document stack.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TF_E_NOLOCK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A text service currently holds a lock on the document.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This method was called during another composition operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextownercompositionservices-terminatecomposition
      */
     TerminateComposition(pComposition) {
         result := ComCall(7, this, "ptr", pComposition, "HRESULT")

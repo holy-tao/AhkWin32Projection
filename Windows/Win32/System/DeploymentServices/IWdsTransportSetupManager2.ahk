@@ -32,9 +32,23 @@ class IWdsTransportSetupManager2 extends IWdsTransportSetupManager{
     static VTableNames => ["get_TftpCapabilities", "get_ContentProviders"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    TftpCapabilities {
+        get => this.get_TftpCapabilities()
+    }
+
+    /**
+     * @type {IWdsTransportCollection} 
+     */
+    ContentProviders {
+        get => this.get_ContentProviders()
+    }
+
+    /**
+     * Receives a mask of WDSTRANSPORT_TFTP_CAPABILITY values that indicates which WDS TFTP features are supported by the WDS TFTP server.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager2-get_tftpcapabilities
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager2-get_tftpcapabilities
      */
     get_TftpCapabilities() {
         result := ComCall(12, this, "uint*", &pulTftpCapabilities := 0, "HRESULT")
@@ -42,9 +56,9 @@ class IWdsTransportSetupManager2 extends IWdsTransportSetupManager{
     }
 
     /**
-     * 
+     * Receives a pointer to an instance of the IWdsTransportCollection interface. The collection contains objects of the IWdsTransportContentProvider interface for the content providers registered on the server.
      * @returns {IWdsTransportCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager2-get_contentproviders
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager2-get_contentproviders
      */
     get_ContentProviders() {
         result := ComCall(13, this, "ptr*", &ppProviderCollection := 0, "HRESULT")

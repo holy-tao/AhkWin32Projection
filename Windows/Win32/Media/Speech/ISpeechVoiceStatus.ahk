@@ -30,6 +30,90 @@ class ISpeechVoiceStatus extends IDispatch{
     static VTableNames => ["get_CurrentStreamNumber", "get_LastStreamNumberQueued", "get_LastHResult", "get_RunningState", "get_InputWordPosition", "get_InputWordLength", "get_InputSentencePosition", "get_InputSentenceLength", "get_LastBookmark", "get_LastBookmarkId", "get_PhonemeId", "get_VisemeId"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentStreamNumber {
+        get => this.get_CurrentStreamNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastStreamNumberQueued {
+        get => this.get_LastStreamNumberQueued()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastHResult {
+        get => this.get_LastHResult()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RunningState {
+        get => this.get_RunningState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InputWordPosition {
+        get => this.get_InputWordPosition()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InputWordLength {
+        get => this.get_InputWordLength()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InputSentencePosition {
+        get => this.get_InputSentencePosition()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    InputSentenceLength {
+        get => this.get_InputSentenceLength()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LastBookmark {
+        get => this.get_LastBookmark()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LastBookmarkId {
+        get => this.get_LastBookmarkId()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PhonemeId {
+        get => this.get_PhonemeId()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VisemeId {
+        get => this.get_VisemeId()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -36,21 +36,11 @@ class IWRdsProtocolManager extends IUnknown{
     static VTableNames => ["Initialize", "CreateListener", "NotifyServiceStateChange", "NotifySessionOfServiceStart", "NotifySessionOfServiceStop", "NotifySessionStateChange", "NotifySettingsChange", "Uninitialize"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IWRdsProtocolSettings} pIWRdsSettings 
-     * @param {Pointer<WRDS_SETTINGS>} pWRdsSettings 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the protocol manager.
+     * @param {IWRdsProtocolSettings} pIWRdsSettings A pointer to an object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocolsettings">IWRdsProtocolSettings</a> interface.
+     * @param {Pointer<WRDS_SETTINGS>} pWRdsSettings A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_settings">WRDS_SETTINGS</a> structure that contains the settings to use.
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-initialize
      */
     Initialize(pIWRdsSettings, pWRdsSettings) {
         result := ComCall(3, this, "ptr", pIWRdsSettings, "ptr", pWRdsSettings, "HRESULT")
@@ -58,10 +48,10 @@ class IWRdsProtocolManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} wszListenerName 
-     * @returns {IWRdsProtocolListener} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-createlistener
+     * Requests the creation of an IWRdsProtocolListener object that listens for incoming client connection requests.
+     * @param {PWSTR} wszListenerName A pointer to a string that contains the registry GUID that specifies the listener to create.
+     * @returns {IWRdsProtocolListener} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocollistener">IWRdsProtocolListener</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-createlistener
      */
     CreateListener(wszListenerName) {
         wszListenerName := wszListenerName is String ? StrPtr(wszListenerName) : wszListenerName
@@ -71,10 +61,11 @@ class IWRdsProtocolManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<WTS_SERVICE_STATE>} pTSServiceStateChange 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-notifyservicestatechange
+     * Notifies the protocol provider that the state of the Remote Desktop Services service is changing.
+     * @param {Pointer<WTS_SERVICE_STATE>} pTSServiceStateChange A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_service_state">WRDS_SERVICE_STATE</a> structure that specifies 
+     * whether the service is starting, stopping, or changing its drain state.
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-notifyservicestatechange
      */
     NotifyServiceStateChange(pTSServiceStateChange) {
         result := ComCall(5, this, "ptr", pTSServiceStateChange, "HRESULT")
@@ -82,10 +73,10 @@ class IWRdsProtocolManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<WTS_SESSION_ID>} SessionId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-notifysessionofservicestart
+     * Notifies the protocol provider that the Remote Desktop Services service has started for a given session.
+     * @param {Pointer<WTS_SESSION_ID>} SessionId A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_session_id">WRDS_SESSION_ID</a> structure that uniquely identifies the session.
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-notifysessionofservicestart
      */
     NotifySessionOfServiceStart(SessionId) {
         result := ComCall(6, this, "ptr", SessionId, "HRESULT")
@@ -93,10 +84,10 @@ class IWRdsProtocolManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<WTS_SESSION_ID>} SessionId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-notifysessionofservicestop
+     * Notifies the protocol provider that the Remote Desktop Services service has stopped for a given session.
+     * @param {Pointer<WTS_SESSION_ID>} SessionId A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_session_id">WRDS_SESSION_ID</a> structure that uniquely identifies the session.
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-notifysessionofservicestop
      */
     NotifySessionOfServiceStop(SessionId) {
         result := ComCall(7, this, "ptr", SessionId, "HRESULT")
@@ -104,11 +95,11 @@ class IWRdsProtocolManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<WTS_SESSION_ID>} SessionId 
-     * @param {Integer} EventId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-notifysessionstatechange
+     * Notifies the protocol provider of changes in the state of a session.
+     * @param {Pointer<WTS_SESSION_ID>} SessionId A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wts_session_id">WRDS_SESSION_ID</a> structure that uniquely identifies the session.
+     * @param {Integer} EventId An integer that contains the event ID. The following IDs can be found in Winuser.h.
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-notifysessionstatechange
      */
     NotifySessionStateChange(SessionId, EventId) {
         result := ComCall(8, this, "ptr", SessionId, "uint", EventId, "HRESULT")
@@ -116,10 +107,10 @@ class IWRdsProtocolManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<WRDS_SETTINGS>} pWRdsSettings 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-notifysettingschange
+     * Notifies the protocol provider of changes in the settings within the Remote Desktop Services service.
+     * @param {Pointer<WRDS_SETTINGS>} pWRdsSettings A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_settings">WRDS_SETTINGS</a> structure that contains the setting changes.
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-notifysettingschange
      */
     NotifySettingsChange(pWRdsSettings) {
         result := ComCall(9, this, "ptr", pWRdsSettings, "HRESULT")
@@ -127,9 +118,9 @@ class IWRdsProtocolManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-uninitialize
+     * Uninitializes the protocol manager.
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolmanager-uninitialize
      */
     Uninitialize() {
         result := ComCall(10, this, "HRESULT")

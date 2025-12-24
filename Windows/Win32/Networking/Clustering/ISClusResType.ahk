@@ -35,6 +35,69 @@ class ISClusResType extends IDispatch{
     static VTableNames => ["get_CommonProperties", "get_PrivateProperties", "get_CommonROProperties", "get_PrivateROProperties", "get_Name", "Delete", "get_Cluster", "get_Resources", "get_PossibleOwnerNodes", "get_AvailableDisks"]
 
     /**
+     * @type {ISClusProperties} 
+     */
+    CommonProperties {
+        get => this.get_CommonProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    PrivateProperties {
+        get => this.get_PrivateProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    CommonROProperties {
+        get => this.get_CommonROProperties()
+    }
+
+    /**
+     * @type {ISClusProperties} 
+     */
+    PrivateROProperties {
+        get => this.get_PrivateROProperties()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {ISCluster} 
+     */
+    Cluster {
+        get => this.get_Cluster()
+    }
+
+    /**
+     * @type {ISClusResTypeResources} 
+     */
+    Resources {
+        get => this.get_Resources()
+    }
+
+    /**
+     * @type {ISClusResTypePossibleOwnerNodes} 
+     */
+    PossibleOwnerNodes {
+        get => this.get_PossibleOwnerNodes()
+    }
+
+    /**
+     * @type {ISClusDisks} 
+     */
+    AvailableDisks {
+        get => this.get_AvailableDisks()
+    }
+
+    /**
      * 
      * @returns {ISClusProperties} 
      */

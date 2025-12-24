@@ -42,9 +42,25 @@ class IATSCLocator extends IDigitalLocator{
     static VTableNames => ["get_PhysicalChannel", "put_PhysicalChannel", "get_TSID", "put_TSID"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator-get_physicalchannel
+     * @type {Integer} 
+     */
+    PhysicalChannel {
+        get => this.get_PhysicalChannel()
+        set => this.put_PhysicalChannel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TSID {
+        get => this.get_TSID()
+        set => this.put_TSID(value)
+    }
+
+    /**
+     * The get_PhysicalChannel method retrieves the physical channel.
+     * @returns {Integer} Receives the physical channel.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsclocator-get_physicalchannel
      */
     get_PhysicalChannel() {
         result := ComCall(22, this, "int*", &PhysicalChannel := 0, "HRESULT")
@@ -52,10 +68,10 @@ class IATSCLocator extends IDigitalLocator{
     }
 
     /**
-     * 
-     * @param {Integer} PhysicalChannel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator-put_physicalchannel
+     * The put_PhysicalChannel method sets the physical channel.
+     * @param {Integer} PhysicalChannel The physical channel.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsclocator-put_physicalchannel
      */
     put_PhysicalChannel(PhysicalChannel) {
         result := ComCall(23, this, "int", PhysicalChannel, "HRESULT")
@@ -63,9 +79,9 @@ class IATSCLocator extends IDigitalLocator{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator-get_tsid
+     * The get_TSID method retrieves the transport stream ID.
+     * @returns {Integer} Receives the transport stream ID.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsclocator-get_tsid
      */
     get_TSID() {
         result := ComCall(24, this, "int*", &TSID := 0, "HRESULT")
@@ -73,10 +89,10 @@ class IATSCLocator extends IDigitalLocator{
     }
 
     /**
-     * 
-     * @param {Integer} TSID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator-put_tsid
+     * The put_TSID method sets the transport stream ID.
+     * @param {Integer} TSID The transport stream ID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsclocator-put_tsid
      */
     put_TSID(TSID) {
         result := ComCall(25, this, "int", TSID, "HRESULT")

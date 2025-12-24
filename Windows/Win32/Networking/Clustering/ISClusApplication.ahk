@@ -33,6 +33,13 @@ class ISClusApplication extends IDispatch{
     static VTableNames => ["get_DomainNames", "get_ClusterNames", "OpenCluster"]
 
     /**
+     * @type {ISDomainNames} 
+     */
+    DomainNames {
+        get => this.get_DomainNames()
+    }
+
+    /**
      * 
      * @returns {ISDomainNames} 
      */

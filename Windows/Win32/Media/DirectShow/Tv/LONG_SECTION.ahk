@@ -97,7 +97,7 @@ class LONG_SECTION extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := %this.__Class%._Header_e__Union(1, this)
+                this.__Header := %this.__Class%._Header_e__Union(2, this)
             return this.__Header
         }
     }

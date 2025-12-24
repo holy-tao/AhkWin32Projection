@@ -36,11 +36,21 @@ class IFrequencyMap extends IUnknown{
     static VTableNames => ["get_FrequencyMapping", "put_FrequencyMapping", "get_CountryCode", "put_CountryCode", "get_DefaultFrequencyMapping", "get_CountryCodeList"]
 
     /**
+     * @type {Integer} 
+     */
+    CountryCode {
+        get => this.get_CountryCode()
+        set => this.put_CountryCode(value)
+    }
+
+    /**
+     * The get_FrequencyMapping method returns the Network Provider filter's current frequency table.
+     * @param {Pointer<Integer>} ulCount Pointer to a variable that receives the size of the frequency table.
+     * @param {Pointer<Pointer<Integer>>} ppulList Pointer to a variable that receives the address of the frequency table. The frequency table is an array of size <i>pulCount</i>, allocated by the method. The caller must free the array by calling <b>CoTaskMemFree</b>.
+     * @returns {HRESULT} Each entry in the frequency table is a tuning frequency, in kilohertz (kHz).
      * 
-     * @param {Pointer<Integer>} ulCount 
-     * @param {Pointer<Pointer<Integer>>} ppulList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_frequencymapping
+     * If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ifrequencymap-get_frequencymapping
      */
     get_FrequencyMapping(ulCount, ppulList) {
         ulCountMarshal := ulCount is VarRef ? "uint*" : "ptr"
@@ -51,11 +61,11 @@ class IFrequencyMap extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulCount 
-     * @param {Pointer<Integer>} pList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-put_frequencymapping
+     * The put_FrequencyMapping method sets the frequency table.
+     * @param {Integer} ulCount Specifies the size of the array given in <i>pList</i>.
+     * @param {Pointer<Integer>} pList Address of an array of size <i>ulCount</i>, allocated by the caller. The array should contain a list of all the frequencies (in kHz) that are valid in the current country/region.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ifrequencymap-put_frequencymapping
      */
     put_FrequencyMapping(ulCount, pList) {
         pListMarshal := pList is VarRef ? "uint*" : "ptr"
@@ -65,9 +75,9 @@ class IFrequencyMap extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_countrycode
+     * The get_CountryCode method returns the country/region code the Network Provider is currently using. The country/region code determines which frequency table the Network Provider loads.
+     * @returns {Integer} Pointer to a variable that receives the country/region code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ifrequencymap-get_countrycode
      */
     get_CountryCode() {
         result := ComCall(5, this, "uint*", &pulCountryCode := 0, "HRESULT")
@@ -75,10 +85,10 @@ class IFrequencyMap extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulCountryCode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-put_countrycode
+     * The put_CountryCode method sets the country/region code on the Network Provider filter.
+     * @param {Integer} ulCountryCode Specifies the country/region code.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ifrequencymap-put_countrycode
      */
     put_CountryCode(ulCountryCode) {
         result := ComCall(6, this, "uint", ulCountryCode, "HRESULT")
@@ -86,12 +96,12 @@ class IFrequencyMap extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulCountryCode 
-     * @param {Pointer<Integer>} pulCount 
-     * @param {Pointer<Pointer<Integer>>} ppulList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_defaultfrequencymapping
+     * The get_DefaultFrequencyMapping method returns the default frequency table for a given country/region code.
+     * @param {Integer} ulCountryCode Specifies the country/region code.
+     * @param {Pointer<Integer>} pulCount Pointer to a variable that receives the size of the frequency table.
+     * @param {Pointer<Pointer<Integer>>} ppulList Pointer to a variable that receives the address of the frequency table. The frequency table is an array of size <i>pulCount</i>, allocated by the method. The caller must free the array by calling <b>CoTaskMemFree</b>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ifrequencymap-get_defaultfrequencymapping
      */
     get_DefaultFrequencyMapping(ulCountryCode, pulCount, ppulList) {
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
@@ -102,11 +112,11 @@ class IFrequencyMap extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulCount 
-     * @param {Pointer<Pointer<Integer>>} ppulList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ifrequencymap-get_countrycodelist
+     * The get_CountryCodeList method returns a list of all the country/region codes for which the Network Provider has a frequency table.
+     * @param {Pointer<Integer>} pulCount Pointer to a variable that receives the number of country/region codes.
+     * @param {Pointer<Pointer<Integer>>} ppulList Pointer to a variable that receives the address of an array of size <i>pulCount</i>, allocated by the method. The array contains a list of the country/region codes. The caller must free the array by calling <b>CoTaskMemFree</b>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ifrequencymap-get_countrycodelist
      */
     get_CountryCodeList(pulCount, ppulList) {
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"

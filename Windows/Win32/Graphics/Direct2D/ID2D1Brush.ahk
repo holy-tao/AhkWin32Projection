@@ -40,10 +40,12 @@ class ID2D1Brush extends ID2D1Resource{
     static VTableNames => ["SetOpacity", "SetTransform", "GetOpacity", "GetTransform"]
 
     /**
+     * Sets the degree of opacity of this brush.
+     * @param {Float} opacity Type: <b>FLOAT</b>
      * 
-     * @param {Float} opacity 
+     * A value between zero and 1 that indicates the opacity of the brush. This value is a constant multiplier that linearly scales the alpha value of all pixels filled by the brush. The opacity values are clamped in the range 0–1 before they are multipled together.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1brush-setopacity
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1brush-setopacity
      */
     SetOpacity(opacity) {
         ComCall(4, this, "float", opacity)
@@ -60,9 +62,11 @@ class ID2D1Brush extends ID2D1Resource{
     }
 
     /**
+     * Gets the degree of opacity of this brush.
+     * @returns {Float} Type: <b>FLOAT</b>
      * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1brush-getopacity
+     * A value between zero and 1 that indicates the opacity of the brush. This value is a constant multiplier that linearly scales the alpha value of all pixels filled by the brush. The opacity values are clamped in the range 0–1 before they are multipled together.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1brush-getopacity
      */
     GetOpacity() {
         result := ComCall(6, this, "float")
@@ -70,10 +74,17 @@ class ID2D1Brush extends ID2D1Resource{
     }
 
     /**
+     * Gets the transform applied to this brush.
+     * @remarks
      * 
-     * @param {Pointer<D2D_MATRIX_3X2_F>} transform 
+     * When the brush transform is the identity matrix, the brush appears in the same coordinate space as the render target in which it is drawn.
+     * 
+     * 
+     * @param {Pointer<D2D_MATRIX_3X2_F>} transform Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * 
+     * The transform applied to this brush.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1brush-gettransform
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1brush-gettransform
      */
     GetTransform(transform) {
         ComCall(7, this, "ptr", transform)

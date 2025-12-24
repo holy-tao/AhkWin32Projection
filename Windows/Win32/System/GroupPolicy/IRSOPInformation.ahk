@@ -46,10 +46,10 @@ class IRSOPInformation extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-irsopinformation-getflags
+     * The GetFlags method retrieves information about the RSoP user interface session.
+     * @param {Pointer<Integer>} pdwFlags Receives a pointer to a value that contains information about the RSoP session. This parameter can be the following value.
+     * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the method returns one of the COM error codes defined in the Platform SDK header file WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-irsopinformation-getflags
      */
     GetFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
@@ -59,13 +59,15 @@ class IRSOPInformation extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszEventSource 
-     * @param {PWSTR} pszEventLogName 
-     * @param {PWSTR} pszEventTime 
-     * @param {Integer} dwEventID 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpedit/nf-gpedit-irsopinformation-geteventlogentrytext
+     * The GetEventLogEntryText method returns the text for a specific entry in the event log.
+     * @param {PWSTR} pszEventSource Specifies the name of the source (application, service, driver, subsystem) that generated the log entry.
+     * @param {PWSTR} pszEventLogName Specifies the name of the event log.
+     * @param {PWSTR} pszEventTime Specifies the time the event was logged, in Windows Management Instrumentation (WMI) format. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/date-and-time-format">Date and Time Format</a> in the WMI documentation.
+     * @param {Integer} dwEventID Specifies the event ID.
+     * @returns {PWSTR} Receives the pointer to a buffer containing the text of the event log entry. The calling application must free the memory allocated for this buffer with a call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-irsopinformation-geteventlogentrytext
      */
     GetEventLogEntryText(pszEventSource, pszEventLogName, pszEventTime, dwEventID) {
         pszEventSource := pszEventSource is String ? StrPtr(pszEventSource) : pszEventSource

@@ -29,6 +29,13 @@ class IWindowsDevicesAllJoynBusObjectInterop extends IInspectable{
     static VTableNames => ["AddPropertyGetHandler", "AddPropertySetHandler", "get_Win32Handle"]
 
     /**
+     * @type {Integer} 
+     */
+    Win32Handle {
+        get => this.get_Win32Handle()
+    }
+
+    /**
      * 
      * @param {Pointer<Void>} context 
      * @param {HSTRING} interfaceName 

@@ -39,12 +39,12 @@ class ISharedPropertyGroup extends IDispatch{
     static VTableNames => ["CreatePropertyByPosition", "get_PropertyByPosition", "CreateProperty", "get_Property"]
 
     /**
-     * 
-     * @param {Integer} Index 
-     * @param {Pointer<VARIANT_BOOL>} fExists 
-     * @param {Pointer<ISharedProperty>} ppProp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroup-createpropertybyposition
+     * Creates a new shared property with the specified index.
+     * @param {Integer} Index The numeric index within the <a href="https://docs.microsoft.com/windows/desktop/cossdk/sharedpropertygroup">SharedPropertyGroup</a> object by which the new property is referenced. You can use this index later to retrieve the shared property with the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isharedpropertygroup-get_propertybyposition">get_PropertyByPosition</a> method.
+     * @param {Pointer<VARIANT_BOOL>} fExists A reference to a Boolean value. If <i>fExists</i> is set to VARIANT_TRUE on return from this method, the shared property specified by <i>Index</i> existed prior to this call. If it is set to VARIANT_FALSE, the property was created by this call.
+     * @param {Pointer<ISharedProperty>} ppProp A reference to a shared property object identified by the numeric index passed in the <i>Index</i> parameter, or <b>NULL</b> if an error is encountered.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isharedpropertygroup-createpropertybyposition
      */
     CreatePropertyByPosition(Index, fExists, ppProp) {
         fExistsMarshal := fExists is VarRef ? "short*" : "ptr"
@@ -54,10 +54,10 @@ class ISharedPropertyGroup extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Index 
-     * @returns {ISharedProperty} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroup-get_propertybyposition
+     * Retrieves a reference to an existing shared property with the specified index.
+     * @param {Integer} Index The numeric index that was used to create the shared property that is retrieved.
+     * @returns {ISharedProperty} A reference to the shared property specified in the <i>Index</i> parameter, or <b>NULL</b> if the property does not exist.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isharedpropertygroup-get_propertybyposition
      */
     get_PropertyByPosition(Index) {
         result := ComCall(8, this, "int", Index, "ptr*", &ppProperty := 0, "HRESULT")
@@ -65,12 +65,12 @@ class ISharedPropertyGroup extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} Name 
-     * @param {Pointer<VARIANT_BOOL>} fExists 
-     * @param {Pointer<ISharedProperty>} ppProp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroup-createproperty
+     * Creates a new shared property with the specified name.
+     * @param {BSTR} Name The name of the property to create. You can use this name later to obtain a reference to this property by using the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-isharedpropertygroup-get_property">get_Property</a> method.
+     * @param {Pointer<VARIANT_BOOL>} fExists A reference to a Boolean value that is set to VARIANT_TRUE on return from this method if the shared property specified in the <i>Name</i> parameter existed prior to this call, and VARIANT_FALSE if the property was created by this call.
+     * @param {Pointer<ISharedProperty>} ppProp A reference to a <a href="https://docs.microsoft.com/windows/desktop/cossdk/sharedproperty">SharedProperty</a> object with the name specified in the <i>Name</i> parameter, or <b>NULL</b> if an error is encountered.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isharedpropertygroup-createproperty
      */
     CreateProperty(Name, fExists, ppProp) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name
@@ -82,10 +82,10 @@ class ISharedPropertyGroup extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} Name 
-     * @returns {ISharedProperty} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isharedpropertygroup-get_property
+     * Retrieves a reference to an existing shared property with the specified name.
+     * @param {BSTR} Name The name that was used to create the shared property that is retrieved.
+     * @returns {ISharedProperty} A reference to the shared property specified in the <i>Name</i> parameter, or <b>NULL</b> if the property does not exist.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isharedpropertygroup-get_property
      */
     get_Property(Name) {
         Name := Name is String ? BSTR.Alloc(Name).Value : Name

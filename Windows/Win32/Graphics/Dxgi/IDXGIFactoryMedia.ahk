@@ -56,13 +56,17 @@ class IDXGIFactoryMedia extends IUnknown{
     static VTableNames => ["CreateSwapChainForCompositionSurfaceHandle", "CreateDecodeSwapChainForCompositionSurfaceHandle"]
 
     /**
+     * Creates a YUV swap chain for an existing DirectComposition surface handle.
+     * @param {IUnknown} pDevice A pointer to the Direct3D device for the swap chain. This parameter cannot be <b>NULL</b>. Software drivers, like <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE_REFERENCE</a>, are not supported for composition swap chains.
+     * @param {HANDLE} hSurface A handle to an existing <a href="https://docs.microsoft.com/windows/desktop/directcomp/reference">DirectComposition</a> surface. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<DXGI_SWAP_CHAIN_DESC1>} pDesc A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ns-dxgi1_2-dxgi_swap_chain_desc1">DXGI_SWAP_CHAIN_DESC1</a> structure for the swap-chain description. This parameter cannot be <b>NULL</b>.
+     * @param {IDXGIOutput} pRestrictToOutput A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgioutput">IDXGIOutput</a> interface for the swap chain to restrict content to. If the swap chain is moved to a different output, the content is black. You can optionally set this parameter to an output target that uses <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-present">DXGI_PRESENT_RESTRICT_TO_OUTPUT</a> to restrict the content on this output. If the swap chain is moved to a different output, the content is black.
      * 
-     * @param {IUnknown} pDevice 
-     * @param {HANDLE} hSurface 
-     * @param {Pointer<DXGI_SWAP_CHAIN_DESC1>} pDesc 
-     * @param {IDXGIOutput} pRestrictToOutput 
-     * @returns {IDXGISwapChain1} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createswapchainforcompositionsurfacehandle
+     * You must also pass the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-present">DXGI_PRESENT_RESTRICT_TO_OUTPUT</a> flag in a present call to force the content to appear blacked out on any other output. If you want to restrict the content to a different output, you must create a new swap chain. However, you can conditionally restrict content based on the <b>DXGI_PRESENT_RESTRICT_TO_OUTPUT</b> flag.
+     * 
+     * Set this parameter to <b>NULL</b> if you don't want to restrict content to an output target.
+     * @returns {IDXGISwapChain1} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/nn-dxgi1_2-idxgiswapchain1">IDXGISwapChain1</a> interface for the swap chain that this method creates.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createswapchainforcompositionsurfacehandle
      */
     CreateSwapChainForCompositionSurfaceHandle(pDevice, hSurface, pDesc, pRestrictToOutput) {
         hSurface := hSurface is Win32Handle ? NumGet(hSurface, "ptr") : hSurface
@@ -72,14 +76,30 @@ class IDXGIFactoryMedia extends IUnknown{
     }
 
     /**
+     * Creates a YUV swap chain for an existing DirectComposition surface handle.
+     * @param {IUnknown} pDevice A pointer to the Direct3D device for the swap chain. This parameter cannot be <b>NULL</b>. 
+     *             Software drivers, like <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/ne-d3dcommon-d3d_driver_type">D3D_DRIVER_TYPE_REFERENCE</a>, are not supported for composition swap chains.
+     * @param {HANDLE} hSurface A handle to an existing <a href="https://docs.microsoft.com/windows/desktop/directcomp/reference">DirectComposition</a> surface. This parameter cannot be <b>NULL</b>.
+     * @param {Pointer<DXGI_DECODE_SWAP_CHAIN_DESC>} pDesc A pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/ns-dxgi1_3-dxgi_decode_swap_chain_desc">DXGI_DECODE_SWAP_CHAIN_DESC</a> structure for the swap-chain description. 
+     *             This parameter cannot be <b>NULL</b>.
+     * @param {IDXGIResource} pYuvDecodeBuffers A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interface that represents the resource that contains the info 
+     *             that <b>CreateDecodeSwapChainForCompositionSurfaceHandle</b> decodes.
+     * @param {IDXGIOutput} pRestrictToOutput A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgioutput">IDXGIOutput</a> interface for the swap chain to restrict content to. If the swap chain 
+     *               is moved to a different output, the content is black. You can optionally set this parameter to an output target that 
+     *               uses <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-present">DXGI_PRESENT_RESTRICT_TO_OUTPUT</a> to restrict 
+     *               the content on this output. If the swap chain is moved to a different output, the content is black.
+     *             
      * 
-     * @param {IUnknown} pDevice 
-     * @param {HANDLE} hSurface 
-     * @param {Pointer<DXGI_DECODE_SWAP_CHAIN_DESC>} pDesc 
-     * @param {IDXGIResource} pYuvDecodeBuffers 
-     * @param {IDXGIOutput} pRestrictToOutput 
-     * @returns {IDXGIDecodeSwapChain} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createdecodeswapchainforcompositionsurfacehandle
+     * You must also pass the <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-present">DXGI_PRESENT_RESTRICT_TO_OUTPUT</a> flag in a 
+     *               present call to force the content to appear blacked out on any other output. If you want to restrict the content to a different output, you must create a new swap chain. 
+     *               However, you can conditionally restrict content 
+     *               based on the <b>DXGI_PRESENT_RESTRICT_TO_OUTPUT</b> flag.
+     *             
+     * 
+     * Set this parameter to <b>NULL</b> if you don't want to restrict content to an output target.
+     * @returns {IDXGIDecodeSwapChain} A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_3/nn-dxgi1_3-idxgidecodeswapchain">IDXGIDecodeSwapChain</a> interface for the 
+     *             swap chain that this method creates.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-idxgifactorymedia-createdecodeswapchainforcompositionsurfacehandle
      */
     CreateDecodeSwapChainForCompositionSurfaceHandle(pDevice, hSurface, pDesc, pYuvDecodeBuffers, pRestrictToOutput) {
         hSurface := hSurface is Win32Handle ? NumGet(hSurface, "ptr") : hSurface

@@ -32,12 +32,64 @@ class IEnumAgentHandler extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
+     * The Next method gets the next specified number of elements in the enumeration sequence.
+     * @param {Integer} celt Number of elements requested.
+     * @param {Pointer<ITAgentHandler>} ppElements Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagenthandler">ITAgentHandler</a> interfaces.
+     * @param {Pointer<Integer>} pceltFetched Pointer to number of elements actually supplied. May be <b>NULL</b> if <i>celt</i> is one.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<ITAgentHandler>} ppElements 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumagenthandler-next
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method returned <i>celt</i> number of elements.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Number of elements remaining was less than <i>celt</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>ppElements</i> parameter is not a valid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagenthandler-next
      */
     Next(celt, ppElements, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -47,9 +99,38 @@ class IEnumAgentHandler extends IUnknown{
     }
 
     /**
+     * The Reset method resets the enumeration sequence to the beginning.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumagenthandler-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagenthandler-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -57,10 +138,50 @@ class IEnumAgentHandler extends IUnknown{
     }
 
     /**
+     * The Skip method skips over the next specified number of elements in the enumeration sequence.
+     * @param {Integer} celt Number of elements to skip.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumagenthandler-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Number of elements skipped was <i>celt</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Number of elements skipped was not <i>celt</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagenthandler-skip
      */
     Skip(celt) {
         result := ComCall(5, this, "uint", celt, "HRESULT")
@@ -68,9 +189,10 @@ class IEnumAgentHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumAgentHandler} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumagenthandler-clone
+     * The Clone method creates another enumerator that contains the same enumeration state as the current one.
+     * @returns {IEnumAgentHandler} Pointer to new 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumagenthandler">IEnumAgentHandler</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumagenthandler-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

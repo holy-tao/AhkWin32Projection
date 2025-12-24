@@ -37,6 +37,20 @@ class IBlockFormats extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Count", "Item"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      */

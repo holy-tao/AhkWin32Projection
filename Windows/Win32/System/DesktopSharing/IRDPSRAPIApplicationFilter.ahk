@@ -39,9 +39,31 @@ class IRDPSRAPIApplicationFilter extends IDispatch{
     static VTableNames => ["get_Applications", "get_Windows", "get_Enabled", "put_Enabled"]
 
     /**
-     * 
+     * @type {IRDPSRAPIApplicationList} 
+     */
+    Applications {
+        get => this.get_Applications()
+    }
+
+    /**
+     * @type {IRDPSRAPIWindowList} 
+     */
+    Windows {
+        get => this.get_Windows()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * The list of sharable applications.
      * @returns {IRDPSRAPIApplicationList} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_applications
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_applications
      */
     get_Applications() {
         result := ComCall(7, this, "ptr*", &pApplications := 0, "HRESULT")
@@ -49,9 +71,14 @@ class IRDPSRAPIApplicationFilter extends IDispatch{
     }
 
     /**
+     * The list of sharable windows.
+     * @remarks
+     * 
+     * The window objects are also available through the list returned by <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_windows">IRDPSRAPIApplication::Windows</a>. The windows are also exposed by the application filter because it provides easy access to all windows in the session, especially for applications that share only at the window level.
+     * 
      * 
      * @returns {IRDPSRAPIWindowList} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_windows
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_windows
      */
     get_Windows() {
         result := ComCall(8, this, "ptr*", &pWindows := 0, "HRESULT")
@@ -59,9 +86,9 @@ class IRDPSRAPIApplicationFilter extends IDispatch{
     }
 
     /**
-     * 
+     * The enabled state of the application filter.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-get_enabled
      */
     get_Enabled() {
         result := ComCall(9, this, "short*", &pRetVal := 0, "HRESULT")
@@ -69,10 +96,10 @@ class IRDPSRAPIApplicationFilter extends IDispatch{
     }
 
     /**
-     * 
+     * The enabled state of the application filter.
      * @param {VARIANT_BOOL} NewVal 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-put_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplicationfilter-put_enabled
      */
     put_Enabled(NewVal) {
         result := ComCall(10, this, "short", NewVal, "HRESULT")

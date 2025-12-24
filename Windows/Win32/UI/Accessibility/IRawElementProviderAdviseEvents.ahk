@@ -39,11 +39,18 @@ class IRawElementProviderAdviseEvents extends IUnknown{
     static VTableNames => ["AdviseEventAdded", "AdviseEventRemoved"]
 
     /**
+     * Notifies the Microsoft UI Automation provider when a UI Automation client begins listening for a specific event, including a property-changed event.
+     * @param {Integer} eventId Type: <b>EVENTID</b>
      * 
-     * @param {Integer} eventId 
-     * @param {Pointer<SAFEARRAY>} propertyIDs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovideradviseevents-adviseeventadded
+     * The identifier of the event being added. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
+     * @param {Pointer<SAFEARRAY>} propertyIDs Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
+     * 
+     * A pointer to the identifiers of properties being added, or <b>NULL</b> if the event listener 
+     * 				being added is not listening for property events.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementprovideradviseevents-adviseeventadded
      */
     AdviseEventAdded(eventId, propertyIDs) {
         result := ComCall(3, this, "int", eventId, "ptr", propertyIDs, "HRESULT")
@@ -51,11 +58,17 @@ class IRawElementProviderAdviseEvents extends IUnknown{
     }
 
     /**
+     * Notifies the Microsoft UI Automation provider when a UI Automation client stops listening for a specific event, including a property-changed event.
+     * @param {Integer} eventId Type: <b>EVENTID</b>
      * 
-     * @param {Integer} eventId 
-     * @param {Pointer<SAFEARRAY>} propertyIDs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovideradviseevents-adviseeventremoved
+     * The identifier of the event being removed. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
+     * @param {Pointer<SAFEARRAY>} propertyIDs Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>*</b>
+     * 
+     * A pointer to the identifiers of the properties being removed, or <b>NULL</b>if the event listener being removed is not listening for property events.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementprovideradviseevents-adviseeventremoved
      */
     AdviseEventRemoved(eventId, propertyIDs) {
         result := ComCall(4, this, "int", eventId, "ptr", propertyIDs, "HRESULT")

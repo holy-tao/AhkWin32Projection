@@ -37,10 +37,31 @@ class ISessionStateChangeTrigger extends ITrigger{
     static VTableNames => ["get_Delay", "put_Delay", "get_UserId", "put_UserId", "get_StateChange", "put_StateChange"]
 
     /**
-     * 
+     */
+    Delay {
+        get => this.get_Delay()
+        set => this.put_Delay(value)
+    }
+
+    /**
+     */
+    UserId {
+        get => this.get_UserId()
+        set => this.put_UserId(value)
+    }
+
+    /**
+     */
+    StateChange {
+        get => this.get_StateChange()
+        set => this.put_StateChange(value)
+    }
+
+    /**
+     * Gets or sets a value that indicates how long of a delay takes place before a task is started after a Terminal Server session state change is detected.
      * @param {Pointer<BSTR>} pDelay 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-get_delay
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-get_delay
      */
     get_Delay(pDelay) {
         result := ComCall(20, this, "ptr", pDelay, "HRESULT")
@@ -48,10 +69,10 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
-     * 
+     * Gets or sets a value that indicates how long of a delay takes place before a task is started after a Terminal Server session state change is detected.
      * @param {BSTR} delay 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-put_delay
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-put_delay
      */
     put_Delay(delay) {
         delay := delay is String ? BSTR.Alloc(delay).Value : delay
@@ -61,10 +82,10 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
-     * 
+     * Gets or sets the user for the Terminal Server session. When a session state change is detected for this user, a task is started.
      * @param {Pointer<BSTR>} pUser 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-get_userid
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-get_userid
      */
     get_UserId(pUser) {
         result := ComCall(22, this, "ptr", pUser, "HRESULT")
@@ -72,10 +93,10 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
-     * 
+     * Gets or sets the user for the Terminal Server session. When a session state change is detected for this user, a task is started.
      * @param {BSTR} user 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-put_userid
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-put_userid
      */
     put_UserId(user) {
         user := user is String ? BSTR.Alloc(user).Value : user
@@ -85,10 +106,10 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
-     * 
+     * Gets or sets the kind of Terminal Server session change that would trigger a task launch.
      * @param {Pointer<Integer>} pType 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-get_statechange
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-get_statechange
      */
     get_StateChange(pType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
@@ -98,10 +119,10 @@ class ISessionStateChangeTrigger extends ITrigger{
     }
 
     /**
-     * 
+     * Gets or sets the kind of Terminal Server session change that would trigger a task launch.
      * @param {Integer} type 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-isessionstatechangetrigger-put_statechange
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-isessionstatechangetrigger-put_statechange
      */
     put_StateChange(type) {
         result := ComCall(25, this, "int", type, "HRESULT")

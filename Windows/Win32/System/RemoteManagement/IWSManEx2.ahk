@@ -31,9 +31,9 @@ class IWSManEx2 extends IWSManEx{
     static VTableNames => ["SessionFlagUseClientCertificate"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex2-sessionflaguseclientcertificate
+     * Returns the value of the authentication flag WSManFlagUseClientCertificate for use in the flags parameter of IWSMan::CreateSession.
+     * @returns {Integer} The session flags to use.
+     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanex2-sessionflaguseclientcertificate
      */
     SessionFlagUseClientCertificate() {
         result := ComCall(31, this, "int*", &flags := 0, "HRESULT")

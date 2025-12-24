@@ -36,11 +36,11 @@ class IBDA_EasMessage extends IUnknown{
     static VTableNames => ["get_EasMessage"]
 
     /**
-     * 
-     * @param {Integer} ulEventID 
-     * @param {Pointer<IUnknown>} ppEASObject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_easmessage-get_easmessage
+     * The get_EasMessage method retrieves an EAS message.
+     * @param {Integer} ulEventID Specifies the event ID of the EAS message.
+     * @param {Pointer<IUnknown>} ppEASObject Pointer to a pointer variable that receives a pointer to the <b>IUnknown</b> interface of the EAS object. The caller can query this object for its <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nn-atscpsipparser-iscte_eas">ISCTE_EAS</a> interface.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_easmessage-get_easmessage
      */
     get_EasMessage(ulEventID, ppEASObject) {
         result := ComCall(3, this, "uint", ulEventID, "ptr*", ppEASObject, "HRESULT")

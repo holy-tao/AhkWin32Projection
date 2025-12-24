@@ -37,9 +37,9 @@ class IRdcGeneratorParameters extends IUnknown{
     static VTableNames => ["GetGeneratorParametersType", "GetParametersVersion", "GetSerializeSize", "Serialize"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getgeneratorparameterstype
+     * Returns the specific type of the parameters.
+     * @returns {Integer} The address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-generatorparameterstype">GeneratorParametersType</a> that will receive the type of the parameters.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorparameters-getgeneratorparameterstype
      */
     GetGeneratorParametersType() {
         result := ComCall(3, this, "int*", &parametersType := 0, "HRESULT")
@@ -47,11 +47,14 @@ class IRdcGeneratorParameters extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} currentVersion 
-     * @param {Pointer<Integer>} minimumCompatibleAppVersion 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getparametersversion
+     * Returns information about the version of RDC used to serialize the parameters.
+     * @param {Pointer<Integer>} currentVersion Address of a <b>ULONG</b> that will receive the version of RDC used to serialize the 
+     *       parameters for this object. This corresponds to the <b>MSRDC_VERSION</b> constant.
+     * @param {Pointer<Integer>} minimumCompatibleAppVersion Address of a <b>ULONG</b> that will receive the version of RDC that is compatible 
+     *       with the serialized parameters. This corresponds to the 
+     *       <b>MSRDC_MINIMUM_COMPATIBLE_APP_VERSION</b> constant.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorparameters-getparametersversion
      */
     GetParametersVersion(currentVersion, minimumCompatibleAppVersion) {
         currentVersionMarshal := currentVersion is VarRef ? "uint*" : "ptr"
@@ -62,9 +65,10 @@ class IRdcGeneratorParameters extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getserializesize
+     * Returns the size, in bytes, of the serialized parameter data.
+     * @returns {Integer} Address of a <b>ULONG</b> that on successful completion is filled with the size, in 
+     *       bytes, of the serialized parameter data.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorparameters-getserializesize
      */
     GetSerializeSize() {
         result := ComCall(5, this, "uint*", &size := 0, "HRESULT")
@@ -72,12 +76,14 @@ class IRdcGeneratorParameters extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} size 
-     * @param {Pointer<Integer>} parametersBlob 
-     * @param {Pointer<Integer>} bytesWritten 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-serialize
+     * Serializes the parameter data into a block of memory.
+     * @param {Integer} size The size of the buffer pointed to by the <i>parametersBlob</i> parameter.
+     * @param {Pointer<Integer>} parametersBlob The address of a buffer to receive the serialized parameter data.
+     * @param {Pointer<Integer>} bytesWritten Address of a <b>ULONG</b> that on successful completion is filled with the size, in 
+     *       bytes, of the serialized parameter data written to the buffer pointed to by the 
+     *       <i>parametersBlob</i> parameter.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorparameters-serialize
      */
     Serialize(size, parametersBlob, bytesWritten) {
         parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"

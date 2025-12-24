@@ -31,10 +31,62 @@ class IDiskQuotaUserBatch extends IUnknown{
     static VTableNames => ["Add", "Remove", "RemoveAll", "FlushToDisk"]
 
     /**
+     * Adds an IDiskQuotaUser pointer to the batch list.
+     * @param {IDiskQuotaUser} pUser A pointer to the quota user object's 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface.
+     * @returns {HRESULT} This method returns one of the following values.
      * 
-     * @param {IDiskQuotaUser} pUser 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauserbatch-add
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pUser</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected exception occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauserbatch-add
      */
     Add(pUser) {
         result := ComCall(3, this, "ptr", pUser, "HRESULT")
@@ -42,10 +94,62 @@ class IDiskQuotaUserBatch extends IUnknown{
     }
 
     /**
+     * Removes an IDiskQuotaUser pointer from the batch list.
+     * @param {IDiskQuotaUser} pUser A pointer to the quota user object's 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface.
+     * @returns {HRESULT} This method returns one of the following values.
      * 
-     * @param {IDiskQuotaUser} pUser 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauserbatch-remove
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Quota user object not found in batch.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pUser</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected exception occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauserbatch-remove
      */
     Remove(pUser) {
         result := ComCall(4, this, "ptr", pUser, "HRESULT")
@@ -53,9 +157,38 @@ class IDiskQuotaUserBatch extends IUnknown{
     }
 
     /**
+     * Removes all IDiskQuotaUser pointers from the batch list.
+     * @returns {HRESULT} This method returns one of the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauserbatch-removeall
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected exception occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauserbatch-removeall
      */
     RemoveAll() {
         result := ComCall(5, this, "HRESULT")
@@ -63,9 +196,71 @@ class IDiskQuotaUserBatch extends IUnknown{
     }
 
     /**
+     * Writes user object changes to disk in a single call to the underlying file system.
+     * @returns {HRESULT} This method returns a file system error or one of the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauserbatch-flushtodisk
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_ACCESS_DENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller has insufficient access rights.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected file system error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected exception occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauserbatch-flushtodisk
      */
     FlushToDisk() {
         result := ComCall(6, this, "HRESULT")

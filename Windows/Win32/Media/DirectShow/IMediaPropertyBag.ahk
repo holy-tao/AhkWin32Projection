@@ -31,12 +31,74 @@ class IMediaPropertyBag extends IPropertyBag{
     static VTableNames => ["EnumProperty"]
 
     /**
+     * The EnumProperty method retrieves a property/value pair.
+     * @param {Integer} iProperty Index value of the pair.
+     * @param {Pointer<VARIANT>} pvarPropertyName Pointer to a <b>VARIANT</b> that receives the property's name.
+     * @param {Pointer<VARIANT>} pvarPropertyValue Pointer to a <b>VARIANT</b> that receives the property's value.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
-     * @param {Integer} iProperty 
-     * @param {Pointer<VARIANT>} pvarPropertyName 
-     * @param {Pointer<VARIANT>} pvarPropertyValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediapropertybag-enumproperty
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_NO_MORE_ITEMS)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Index out of range.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-imediapropertybag-enumproperty
      */
     EnumProperty(iProperty, pvarPropertyName, pvarPropertyValue) {
         result := ComCall(5, this, "uint", iProperty, "ptr", pvarPropertyName, "ptr", pvarPropertyValue, "HRESULT")

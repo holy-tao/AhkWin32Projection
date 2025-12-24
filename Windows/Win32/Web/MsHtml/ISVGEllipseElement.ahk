@@ -36,6 +36,34 @@ class ISVGEllipseElement extends IDispatch{
     static VTableNames => ["putref_cx", "get_cx", "putref_cy", "get_cy", "putref_rx", "get_rx", "putref_ry", "get_ry"]
 
     /**
+     * @type {ISVGAnimatedLength} 
+     */
+    cx {
+        get => this.get_cx()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    cy {
+        get => this.get_cy()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    rx {
+        get => this.get_rx()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    ry {
+        get => this.get_ry()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 

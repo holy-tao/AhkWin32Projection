@@ -31,15 +31,15 @@ class IOfflineFilesEvents3 extends IOfflineFilesEvents2{
     static VTableNames => ["TransparentCacheItemNotify", "PrefetchFileBegin", "PrefetchFileEnd"]
 
     /**
-     * 
-     * @param {PWSTR} pszPath 
-     * @param {Integer} EventType 
-     * @param {Integer} ItemType 
-     * @param {BOOL} bModifiedData 
-     * @param {BOOL} bModifiedAttributes 
-     * @param {PWSTR} pzsOldPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents3-transparentcacheitemnotify
+     * Reports that an action has been performed on a transparently cached item.
+     * @param {PWSTR} pszPath The item's UNC path string.
+     * @param {Integer} EventType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_events">OFFLINEFILES_EVENTS</a> enumeration value that indicates the type of the item.
+     * @param {Integer} ItemType An <a href="https://docs.microsoft.com/windows/desktop/api/cscobj/ne-cscobj-offlinefiles_item_type">OFFLINEFILES_ITEM_TYPE</a> enumeration value that indicates the type of the item.
+     * @param {BOOL} bModifiedData <b>TRUE</b> if the item's data was modified, <b>FALSE</b> otherwise.
+     * @param {BOOL} bModifiedAttributes <b>TRUE</b> if one or more of the item's attributes were modified, <b>FALSE</b> otherwise.
+     * @param {PWSTR} pzsOldPath The original UNC path string for the item.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents3-transparentcacheitemnotify
      */
     TransparentCacheItemNotify(pszPath, EventType, ItemType, bModifiedData, bModifiedAttributes, pzsOldPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -50,10 +50,10 @@ class IOfflineFilesEvents3 extends IOfflineFilesEvents2{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents3-prefetchfilebegin
+     * Reports that a file prefetch operation has begun.
+     * @param {PWSTR} pszPath The UNC path of the file.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents3-prefetchfilebegin
      */
     PrefetchFileBegin(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -63,11 +63,11 @@ class IOfflineFilesEvents3 extends IOfflineFilesEvents2{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszPath 
-     * @param {HRESULT} hrResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesevents3-prefetchfileend
+     * Reports that a file prefetch operation has ended.
+     * @param {PWSTR} pszPath The UNC path of the file.
+     * @param {HRESULT} hrResult Receives the result of the operation. Contains <b>S_OK</b> if the operation completed successfully or an error value otherwise.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesevents3-prefetchfileend
      */
     PrefetchFileEnd(pszPath, hrResult) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath

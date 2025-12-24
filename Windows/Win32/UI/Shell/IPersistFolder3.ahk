@@ -44,12 +44,26 @@ class IPersistFolder3 extends IPersistFolder2{
     static VTableNames => ["InitializeEx", "GetFolderTargetInfo"]
 
     /**
+     * Initializes a folder and specifies its location in the namespace. If the folder is a shortcut, this method also specifies the location of the target folder.
+     * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
-     * @param {IBindCtx} pbc 
-     * @param {Pointer<ITEMIDLIST>} pidlRoot 
-     * @param {Pointer<PERSIST_FOLDER_TARGET_INFO>} ppfti 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipersistfolder3-initializeex
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> object that provides the bind context. This parameter can be <b>NULL</b>.
+     * @param {Pointer<ITEMIDLIST>} pidlRoot Type: <b>LPCITEMIDLIST</b>
+     * 
+     * A pointer to a fully qualified PIDL that specifies the absolute location of a folder or folder shortcut. The calling application is responsible for allocating and freeing this PIDL.
+     * @param {Pointer<PERSIST_FOLDER_TARGET_INFO>} ppfti Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-persist_folder_target_info">PERSIST_FOLDER_TARGET_INFO</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-persist_folder_target_info">PERSIST_FOLDER_TARGET_INFO</a> structure that specifies the location of the target folder and its attributes. 
+     * 
+     *                     
+     * 
+     * If <i>ppfti</i> points to a valid structure, <i>pidlRoot</i> represents a folder shortcut.
+     * 
+     * If <i>ppfti</i> is set to <b>NULL</b>, <i>pidlRoot</i> represents a normal folder. In that case, <b>InitializeEx</b> should behave as if <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipersistfolder-initialize">Initialize</a> had been called.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipersistfolder3-initializeex
      */
     InitializeEx(pbc, pidlRoot, ppfti) {
         result := ComCall(6, this, "ptr", pbc, "ptr", pidlRoot, "ptr", ppfti, "HRESULT")
@@ -57,9 +71,11 @@ class IPersistFolder3 extends IPersistFolder2{
     }
 
     /**
+     * Provides the location and attributes of a folder shortcut's target folder.
+     * @returns {PERSIST_FOLDER_TARGET_INFO} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-persist_folder_target_info">PERSIST_FOLDER_TARGET_INFO</a>*</b>
      * 
-     * @returns {PERSIST_FOLDER_TARGET_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipersistfolder3-getfoldertargetinfo
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ns-shobjidl_core-persist_folder_target_info">PERSIST_FOLDER_TARGET_INFO</a> structure used to return the target folder's location and attributes.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipersistfolder3-getfoldertargetinfo
      */
     GetFolderTargetInfo() {
         ppfti := PERSIST_FOLDER_TARGET_INFO()

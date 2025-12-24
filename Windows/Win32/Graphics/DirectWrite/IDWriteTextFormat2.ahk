@@ -32,10 +32,14 @@ class IDWriteTextFormat2 extends IDWriteTextFormat1{
     static VTableNames => ["SetLineSpacing", "GetLineSpacing"]
 
     /**
+     * Set line spacing.
+     * @param {Pointer<DWRITE_LINE_SPACING>} lineSpacingOptions Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_line_spacing">DWRITE_LINE_SPACING</a>*</b>
      * 
-     * @param {Pointer<DWRITE_LINE_SPACING>} lineSpacingOptions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextformat2-setlinespacing
+     * How to manage space between lines.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritetextformat2-setlinespacing
      */
     SetLineSpacing(lineSpacingOptions) {
         result := ComCall(36, this, "ptr", lineSpacingOptions, "HRESULT")
@@ -43,9 +47,11 @@ class IDWriteTextFormat2 extends IDWriteTextFormat1{
     }
 
     /**
+     * Gets the line spacing adjustment set for a multiline text paragraph.
+     * @returns {DWRITE_LINE_SPACING} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_line_spacing">DWRITE_LINE_SPACING</a>*</b>
      * 
-     * @returns {DWRITE_LINE_SPACING} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritetextformat2-getlinespacing
+     * A structure describing how the space between lines is managed for the paragraph.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritetextformat2-getlinespacing
      */
     GetLineSpacing() {
         lineSpacingOptions := DWRITE_LINE_SPACING()

@@ -31,6 +31,38 @@ class IHTMLBodyElement3 extends IDispatch{
     static VTableNames => ["put_background", "get_background", "put_ononline", "get_ononline", "put_onoffline", "get_onoffline", "put_onhashchange", "get_onhashchange"]
 
     /**
+     * @type {BSTR} 
+     */
+    background {
+        get => this.get_background()
+        set => this.put_background(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ononline {
+        get => this.get_ononline()
+        set => this.put_ononline(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onoffline {
+        get => this.get_onoffline()
+        set => this.put_onoffline(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onhashchange {
+        get => this.get_onhashchange()
+        set => this.put_onhashchange(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

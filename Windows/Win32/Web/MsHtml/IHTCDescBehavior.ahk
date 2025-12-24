@@ -36,6 +36,20 @@ class IHTCDescBehavior extends IDispatch{
     static VTableNames => ["get_urn", "get_name"]
 
     /**
+     * @type {BSTR} 
+     */
+    urn {
+        get => this.get_urn()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

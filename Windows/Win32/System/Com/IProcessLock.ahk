@@ -31,9 +31,9 @@ class IProcessLock extends IUnknown{
     static VTableNames => ["AddRefOnProcess", "ReleaseRefOnProcess"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iprocesslock-addrefonprocess
+     * Increments the reference count of the process.
+     * @returns {Integer} This method returns the new reference count.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iprocesslock-addrefonprocess
      */
     AddRefOnProcess() {
         result := ComCall(3, this, "uint")
@@ -41,9 +41,9 @@ class IProcessLock extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iprocesslock-releaserefonprocess
+     * Decrements the reference count of the process.
+     * @returns {Integer} This method returns the new reference count.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iprocesslock-releaserefonprocess
      */
     ReleaseRefOnProcess() {
         result := ComCall(4, this, "uint")

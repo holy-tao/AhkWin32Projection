@@ -33,6 +33,140 @@ class IADsComputer extends IADs{
     static VTableNames => ["get_ComputerID", "get_Site", "get_Description", "put_Description", "get_Location", "put_Location", "get_PrimaryUser", "put_PrimaryUser", "get_Owner", "put_Owner", "get_Division", "put_Division", "get_Department", "put_Department", "get_Role", "put_Role", "get_OperatingSystem", "put_OperatingSystem", "get_OperatingSystemVersion", "put_OperatingSystemVersion", "get_Model", "put_Model", "get_Processor", "put_Processor", "get_ProcessorCount", "put_ProcessorCount", "get_MemorySize", "put_MemorySize", "get_StorageCapacity", "put_StorageCapacity", "get_NetAddresses", "put_NetAddresses"]
 
     /**
+     * @type {BSTR} 
+     */
+    ComputerID {
+        get => this.get_ComputerID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Site {
+        get => this.get_Site()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Location {
+        get => this.get_Location()
+        set => this.put_Location(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PrimaryUser {
+        get => this.get_PrimaryUser()
+        set => this.put_PrimaryUser(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Owner {
+        get => this.get_Owner()
+        set => this.put_Owner(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Division {
+        get => this.get_Division()
+        set => this.put_Division(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Department {
+        get => this.get_Department()
+        set => this.put_Department(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Role {
+        get => this.get_Role()
+        set => this.put_Role(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OperatingSystem {
+        get => this.get_OperatingSystem()
+        set => this.put_OperatingSystem(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OperatingSystemVersion {
+        get => this.get_OperatingSystemVersion()
+        set => this.put_OperatingSystemVersion(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Model {
+        get => this.get_Model()
+        set => this.put_Model(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Processor {
+        get => this.get_Processor()
+        set => this.put_Processor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProcessorCount {
+        get => this.get_ProcessorCount()
+        set => this.put_ProcessorCount(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MemorySize {
+        get => this.get_MemorySize()
+        set => this.put_MemorySize(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StorageCapacity {
+        get => this.get_StorageCapacity()
+        set => this.put_StorageCapacity(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    NetAddresses {
+        get => this.get_NetAddresses()
+        set => this.put_NetAddresses(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

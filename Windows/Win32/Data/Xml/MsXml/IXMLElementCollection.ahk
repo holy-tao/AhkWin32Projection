@@ -32,6 +32,21 @@ class IXMLElementCollection extends IDispatch{
     static VTableNames => ["put_length", "get_length", "get__newEnum", "item"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+        set => this.put_length(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _newEnum {
+        get => this.get__newEnum()
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 
@@ -42,9 +57,9 @@ class IXMLElementCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msxml/nf-msxml-ixmlelementcollection-get_length
+     * Retrieves the number of elements in the collection.
+     * @returns {Integer} The number of elements in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//msxml/nf-msxml-ixmlelementcollection-get_length
      */
     get_length() {
         result := ComCall(8, this, "int*", &p := 0, "HRESULT")
@@ -61,11 +76,11 @@ class IXMLElementCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} var1 
-     * @param {VARIANT} var2 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/msxml/nf-msxml-ixmlelementcollection-item
+     * Retrieves the child elements from a collection using their index, name, or both.
+     * @param {VARIANT} var1 A valid index numeric value (within the length of <a href="https://docs.microsoft.com/windows/desktop/api/msxml/nn-msxml-ixmlelementcollection">IXMLElementCollection</a>) or the name of an element in the XML hierarchy.
+     * @param {VARIANT} var2 A valid index numeric value (within the length of <a href="https://docs.microsoft.com/windows/desktop/api/msxml/nn-msxml-ixmlelementcollection">IXMLElementCollection</a>) or the name of an element in the XML hierarchy.
+     * @returns {IDispatch} TBD
+     * @see https://docs.microsoft.com/windows/win32/api//msxml/nf-msxml-ixmlelementcollection-item
      */
     item(var1, var2) {
         result := ComCall(10, this, "ptr", var1, "ptr", var2, "ptr*", &ppDisp := 0, "HRESULT")

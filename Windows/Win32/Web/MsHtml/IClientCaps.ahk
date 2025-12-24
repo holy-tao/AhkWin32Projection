@@ -30,6 +30,111 @@ class IClientCaps extends IDispatch{
     static VTableNames => ["get_javaEnabled", "get_cookieEnabled", "get_cpuClass", "get_systemLanguage", "get_userLanguage", "get_platform", "get_connectionSpeed", "get_onLine", "get_colorDepth", "get_bufferDepth", "get_width", "get_height", "get_availHeight", "get_availWidth", "get_connectionType", "isComponentInstalled", "getComponentVersion", "compareVersions", "addComponentRequest", "doComponentRequest", "clearComponentRequest"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    javaEnabled {
+        get => this.get_javaEnabled()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    cookieEnabled {
+        get => this.get_cookieEnabled()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    cpuClass {
+        get => this.get_cpuClass()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    systemLanguage {
+        get => this.get_systemLanguage()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    userLanguage {
+        get => this.get_userLanguage()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    platform {
+        get => this.get_platform()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    connectionSpeed {
+        get => this.get_connectionSpeed()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    onLine {
+        get => this.get_onLine()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    colorDepth {
+        get => this.get_colorDepth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    bufferDepth {
+        get => this.get_bufferDepth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    width {
+        get => this.get_width()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    height {
+        get => this.get_height()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    availHeight {
+        get => this.get_availHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    availWidth {
+        get => this.get_availWidth()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    connectionType {
+        get => this.get_connectionType()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

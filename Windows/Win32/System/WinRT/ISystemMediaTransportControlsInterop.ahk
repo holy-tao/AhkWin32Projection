@@ -31,11 +31,11 @@ class ISystemMediaTransportControlsInterop extends IInspectable{
     static VTableNames => ["GetForWindow"]
 
     /**
-     * 
-     * @param {HWND} appWindow 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/systemmediatransportcontrolsinterop/nf-systemmediatransportcontrolsinterop-isystemmediatransportcontrolsinterop-getforwindow
+     * Gets an instance of the ISystemMediaTransportControls interface for the specified window.
+     * @param {HWND} appWindow The top-level app window for which the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mediatransport/isystemmediatransportcontrols">ISystemMediaTransportControls</a> interface is retrieved.
+     * @param {Pointer<Guid>} riid A reference to the IID of the interface to retrieve.
+     * @returns {Pointer<Void>} The top-level app window for which the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mediatransport/isystemmediatransportcontrols">ISystemMediaTransportControls</a> interface is retrieved.
+     * @see https://docs.microsoft.com/windows/win32/api//systemmediatransportcontrolsinterop/nf-systemmediatransportcontrolsinterop-isystemmediatransportcontrolsinterop-getforwindow
      */
     GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow

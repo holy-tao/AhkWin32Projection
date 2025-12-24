@@ -38,10 +38,22 @@ class IMultipleViewProvider extends IUnknown{
     static VTableNames => ["GetViewName", "SetCurrentView", "get_CurrentView", "GetSupportedViews"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentView {
+        get => this.get_CurrentView()
+    }
+
+    /**
+     * Retrieves the name of a control-specific view.
+     * @param {Integer} viewId Type: <b>int</b>
      * 
-     * @param {Integer} viewId 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getviewname
+     * A view identifier.
+     * @returns {BSTR} Type: <b>BSTR*</b>
+     * 
+     * Receives a localized name for the view. 
+     *                 This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getviewname
      */
     GetViewName(viewId) {
         pRetVal := BSTR()
@@ -50,10 +62,14 @@ class IMultipleViewProvider extends IUnknown{
     }
 
     /**
+     * Sets the current control-specific view.
+     * @param {Integer} viewId Type: <b>int</b>
      * 
-     * @param {Integer} viewId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-setcurrentview
+     * A view identifier.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-imultipleviewprovider-setcurrentview
      */
     SetCurrentView(viewId) {
         result := ComCall(4, this, "int", viewId, "HRESULT")
@@ -61,9 +77,14 @@ class IMultipleViewProvider extends IUnknown{
     }
 
     /**
+     * Identifies the current view that the control is using to display information or child controls.
+     * @remarks
+     * 
+     * The collection of view identifiers must be identical for all instances of a control.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-get_currentview
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-imultipleviewprovider-get_currentview
      */
     get_CurrentView() {
         result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")
@@ -71,9 +92,12 @@ class IMultipleViewProvider extends IUnknown{
     }
 
     /**
+     * Retrieves a collection of control-specific view identifiers.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getsupportedviews
+     * Receives a collection of control-specific integer values that identify the views available for a UI Automation element.
+     * 				This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-imultipleviewprovider-getsupportedviews
      */
     GetSupportedViews() {
         result := ComCall(6, this, "ptr*", &pRetVal := 0, "HRESULT")

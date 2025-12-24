@@ -36,16 +36,83 @@ class IEmptyVolumeCache2 extends IEmptyVolumeCache{
     static VTableNames => ["InitializeEx"]
 
     /**
+     * Initializes the disk cleanup handler. It provides better support for localization than Initialize.
+     * @param {HKEY} hkRegKey Type: <b>HKEY</b>
      * 
-     * @param {HKEY} hkRegKey 
-     * @param {PWSTR} pcwszVolume 
-     * @param {PWSTR} pcwszKeyName 
-     * @param {Pointer<PWSTR>} ppwszDisplayName 
-     * @param {Pointer<PWSTR>} ppwszDescription 
-     * @param {Pointer<PWSTR>} ppwszBtnText 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecache2-initializeex
+     * A handle to the registry key that holds the information about the handler object.
+     * @param {PWSTR} pcwszVolume Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a null-terminated Unicode string with the volume root—for example, "C:\".
+     * @param {PWSTR} pcwszKeyName Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a null-terminated Unicode string with the name of the handler's registry key.
+     * @param {Pointer<PWSTR>} ppwszDisplayName Type: <b>LPWSTR*</b>
+     * 
+     * A pointer to a null-terminated Unicode string with the name that will be displayed in the disk cleanup manager's list of handlers. You must assign a value to this parameter.
+     * @param {Pointer<PWSTR>} ppwszDescription Type: <b>LPWSTR*</b>
+     * 
+     * A pointer to a null-terminated Unicode string that will be displayed when this object is selected from the disk cleanup manager's list of available disk cleaners. You must assign a value to this parameter.
+     * @param {Pointer<PWSTR>} ppwszBtnText Type: <b>LPWSTR*</b>
+     * 
+     * A pointer to a null-terminated Unicode string with the text that will be displayed on the disk cleanup manager's <b>Settings</b> button. If the <b>EVCF_HASSETTINGS</b> flag is set, you must assign a value to <i>ppwszBtnText</i>. Otherwise, you can set it to <b>NULL</b>.
+     * @param {Pointer<Integer>} pdwFlags Type: <b>DWORD*</b>
+     * 
+     * Flags that are used to pass information to the handler, and back to the disk cleanup manager.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There are no files to delete.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The cleanup operation was ended prematurely.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The cleanup operation failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nf-emptyvc-iemptyvolumecache2-initializeex
      */
     InitializeEx(hkRegKey, pcwszVolume, pcwszKeyName, ppwszDisplayName, ppwszDescription, ppwszBtnText, pdwFlags) {
         hkRegKey := hkRegKey is Win32Handle ? NumGet(hkRegKey, "ptr") : hkRegKey

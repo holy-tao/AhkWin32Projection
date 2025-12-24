@@ -38,20 +38,19 @@ class IWSCProductList extends IDispatch{
     static VTableNames => ["Initialize", "get_Count", "get_Item"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * Gathers information on all of the providers of the specified type on the computer.
      * @param {Integer} provider 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @returns {HRESULT} If the method  succeeds, returns S_OK.
+     * 
+     * If the method  fails, returns a Win32 error code.
+     * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nf-iwscapi-iwscproductlist-initialize
      */
     Initialize(provider) {
         result := ComCall(7, this, "uint", provider, "HRESULT")
@@ -59,9 +58,9 @@ class IWSCProductList extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproductlist-get_count
+     * Gathers the total number of all security product providers of the specified type on the computer.
+     * @returns {Integer} A pointer to the number of providers in the list of security products on the computer.
+     * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nf-iwscapi-iwscproductlist-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -69,10 +68,10 @@ class IWSCProductList extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {IWscProduct} 
-     * @see https://learn.microsoft.com/windows/win32/api/iwscapi/nf-iwscapi-iwscproductlist-get_item
+     * Returns one of the types of providers on the computer.
+     * @param {Integer} index The list of the providers.
+     * @returns {IWscProduct} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/iwscapi/nn-iwscapi-iwscproduct">IWscProduct</a> product information.
+     * @see https://docs.microsoft.com/windows/win32/api//iwscapi/nf-iwscapi-iwscproductlist-get_item
      */
     get_Item(index) {
         result := ComCall(9, this, "uint", index, "ptr*", &pVal := 0, "HRESULT")

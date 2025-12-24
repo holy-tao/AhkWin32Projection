@@ -47,6 +47,29 @@ class IGPMWMIFilter extends IDispatch{
     static VTableNames => ["get_Path", "put_Name", "get_Name", "put_Description", "get_Description", "GetQueryList", "GetSecurityInfo", "SetSecurityInfo"]
 
     /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */
@@ -101,9 +124,9 @@ class IGPMWMIFilter extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmwmifilter-getquerylist
+     * Retrieves the query list stored in the WMI filter.
+     * @returns {VARIANT} Pointer to a <b>SAFEARRAY</b> of <b>VARIANT</b> members that contain the <b>BSTR </b>strings representing the queries. Each  <b>BSTR</b> string contains the query string along with the namespace information for that query.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmwmifilter-getquerylist
      */
     GetQueryList() {
         pQryList := VARIANT()
@@ -112,9 +135,10 @@ class IGPMWMIFilter extends IDispatch{
     }
 
     /**
-     * Retrieves a copy of the security descriptor for an object specified by a handle.
-     * @returns {IGPMSecurityInfo} 
-     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getsecurityinfo
+     * Returns an interface or object that represents the list of permissions for the current WMI filter.
+     * @returns {IGPMSecurityInfo} Address of a pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsecurityinfo">IGPMSecurityInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmwmifilter-getsecurityinfo
      */
     GetSecurityInfo() {
         result := ComCall(13, this, "ptr*", &ppSecurityInfo := 0, "HRESULT")
@@ -122,12 +146,15 @@ class IGPMWMIFilter extends IDispatch{
     }
 
     /**
-     * Sets specified security information in the security descriptor of a specified object. The caller identifies the object by a handle.
-     * @param {IGPMSecurityInfo} pSecurityInfo 
-     * @returns {HRESULT} If the function succeeds, the function returns ERROR_SUCCESS.
+     * Sets the list of permissions for the current WMI filter to that specified by the object.
+     * @param {IGPMSecurityInfo} pSecurityInfo Pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsecurityinfo">IGPMSecurityInfo</a> interface.  This parameter is required.
+     * @returns {HRESULT} <h3>JScript</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
-     * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-setsecurityinfo
+     * <h3>VB</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmwmifilter-setsecurityinfo
      */
     SetSecurityInfo(pSecurityInfo) {
         result := ComCall(14, this, "ptr", pSecurityInfo, "HRESULT")

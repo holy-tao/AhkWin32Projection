@@ -31,6 +31,82 @@ class IWebBrowserApp extends IWebBrowser{
     static VTableNames => ["Quit", "ClientToWindow", "PutProperty", "GetProperty", "get_Name", "get_HWND", "get_FullName", "get_Path", "get_Visible", "put_Visible", "get_StatusBar", "put_StatusBar", "get_StatusText", "put_StatusText", "get_ToolBar", "put_ToolBar", "get_MenuBar", "put_MenuBar", "get_FullScreen", "put_FullScreen"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {SHANDLE_PTR} 
+     */
+    HWND {
+        get => this.get_HWND()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FullName {
+        get => this.get_FullName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Visible {
+        get => this.get_Visible()
+        set => this.put_Visible(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    StatusBar {
+        get => this.get_StatusBar()
+        set => this.put_StatusBar(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StatusText {
+        get => this.get_StatusText()
+        set => this.put_StatusText(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ToolBar {
+        get => this.get_ToolBar()
+        set => this.put_ToolBar(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MenuBar {
+        get => this.get_MenuBar()
+        set => this.put_MenuBar(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    FullScreen {
+        get => this.get_FullScreen()
+        set => this.put_FullScreen(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */
@@ -90,9 +166,14 @@ class IWebBrowserApp extends IWebBrowser{
     }
 
     /**
+     * Gets the handle of the Windows Internet Explorer main window.
+     * @remarks
+     * 
+     * Internet Explorer 7. With the introduction of tabbed browsing, the return value of this method can be ambiguous. To alleviate confusion and maintain the highest level of compatibility with existing applications, this method returns a handle to the top-level window frame, not the currently selected tab.
+     * 
      * 
      * @returns {SHANDLE_PTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowserapp-get_hwnd
      */
     get_HWND() {
         result := ComCall(37, this, "ptr*", &pHWND := 0, "HRESULT")
@@ -180,9 +261,16 @@ class IWebBrowserApp extends IWebBrowser{
     }
 
     /**
+     * Sets or gets whether toolbars for the object are visible.
+     * @remarks
+     * 
+     * When the IWebBrowser2::ToolBar property is set to FALSE, it is not equivalent to the "toolbar=no" feature of window.open. Instead, it turns off all user interface elements that can be considered toolbars, leaving Windows Internet Explorer in a blank state. 
+     * 
+     * The WebBrowser object saves the value of this property, but otherwise ignores it.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-get_toolbar
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowserapp-get_toolbar
      */
     get_ToolBar() {
         result := ComCall(46, this, "int*", &Value := 0, "HRESULT")
@@ -190,10 +278,17 @@ class IWebBrowserApp extends IWebBrowser{
     }
 
     /**
+     * Sets or gets whether toolbars for the object are visible.
+     * @remarks
+     * 
+     * When the IWebBrowser2::ToolBar property is set to FALSE, it is not equivalent to the "toolbar=no" feature of window.open. Instead, it turns off all user interface elements that can be considered toolbars, leaving Windows Internet Explorer in a blank state. 
+     * 
+     * The WebBrowser object saves the value of this property, but otherwise ignores it.
+     * 
      * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowserapp-put_toolbar
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowserapp-put_toolbar
      */
     put_ToolBar(Value) {
         result := ComCall(47, this, "int", Value, "HRESULT")

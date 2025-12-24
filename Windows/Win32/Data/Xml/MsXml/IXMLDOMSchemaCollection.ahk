@@ -32,6 +32,20 @@ class IXMLDOMSchemaCollection extends IDispatch{
     static VTableNames => ["add", "get", "remove", "get_length", "get_namespaceURI", "addCollection", "get__newEnum"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _newEnum {
+        get => this.get__newEnum()
+    }
+
+    /**
      * 
      * @param {BSTR} namespaceURI 
      * @param {VARIANT} var 

@@ -40,10 +40,38 @@ class IUIAutomationCacheRequest extends IUnknown{
     static VTableNames => ["AddProperty", "AddPattern", "Clone", "get_TreeScope", "put_TreeScope", "get_TreeFilter", "put_TreeFilter", "get_AutomationElementMode", "put_AutomationElementMode"]
 
     /**
+     * @type {Integer} 
+     */
+    TreeScope {
+        get => this.get_TreeScope()
+        set => this.put_TreeScope(value)
+    }
+
+    /**
+     * @type {IUIAutomationCondition} 
+     */
+    TreeFilter {
+        get => this.get_TreeFilter()
+        set => this.put_TreeFilter(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AutomationElementMode {
+        get => this.get_AutomationElementMode()
+        set => this.put_AutomationElementMode(value)
+    }
+
+    /**
+     * Adds a property to the cache request.
+     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
      * 
-     * @param {Integer} propertyId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-addproperty
+     * A property identifier.  For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-addproperty
      */
     AddProperty(propertyId) {
         result := ComCall(3, this, "int", propertyId, "HRESULT")
@@ -51,10 +79,14 @@ class IUIAutomationCacheRequest extends IUnknown{
     }
 
     /**
+     * Adds a control pattern to the cache request.
+     * @param {Integer} patternId Type: <b>PATTERNID</b>
      * 
-     * @param {Integer} patternId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-addpattern
+     * The identifier of the control pattern to add to the cache request. For a list of control pattern IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-controlpattern-ids">Control Pattern Identifiers</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-addpattern
      */
     AddPattern(patternId) {
         result := ComCall(4, this, "int", patternId, "HRESULT")
@@ -62,9 +94,11 @@ class IUIAutomationCacheRequest extends IUnknown{
     }
 
     /**
+     * Creates a copy of the cache request.
+     * @returns {IUIAutomationCacheRequest} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>**</b>
      * 
-     * @returns {IUIAutomationCacheRequest} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-clone
+     * Receives a pointer to the copy of the cache request.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-clone
      */
     Clone() {
         result := ComCall(5, this, "ptr*", &clonedRequest := 0, "HRESULT")
@@ -72,9 +106,14 @@ class IUIAutomationCacheRequest extends IUnknown{
     }
 
     /**
+     * Specifies the scope of caching.
+     * @remarks
+     * 
+     * When an element is retrieved, caching can be performed  for only the element itself (the default behavior), or for the element and its children or descendants. This property describes the scope of the request.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_treescope
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_treescope
      */
     get_TreeScope() {
         result := ComCall(6, this, "int*", &scope := 0, "HRESULT")
@@ -82,10 +121,15 @@ class IUIAutomationCacheRequest extends IUnknown{
     }
 
     /**
+     * Specifies the scope of caching.
+     * @remarks
+     * 
+     * When an element is retrieved, caching can be performed  for only the element itself (the default behavior), or for the element and its children or descendants. This property describes the scope of the request.
+     * 
      * 
      * @param {Integer} scope 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-put_treescope
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-put_treescope
      */
     put_TreeScope(scope) {
         result := ComCall(7, this, "int", scope, "HRESULT")
@@ -93,9 +137,9 @@ class IUIAutomationCacheRequest extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the view of the UI Automation element tree that is used when caching.
      * @returns {IUIAutomationCondition} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_treefilter
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_treefilter
      */
     get_TreeFilter() {
         result := ComCall(8, this, "ptr*", &filter := 0, "HRESULT")
@@ -103,10 +147,10 @@ class IUIAutomationCacheRequest extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the view of the UI Automation element tree that is used when caching.
      * @param {IUIAutomationCondition} filter 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-put_treefilter
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-put_treefilter
      */
     put_TreeFilter(filter) {
         result := ComCall(9, this, "ptr", filter, "HRESULT")
@@ -114,9 +158,17 @@ class IUIAutomationCacheRequest extends IUnknown{
     }
 
     /**
+     * Indicates whether returned elements contain full references to the underlying UI, or only cached information.
+     * @remarks
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-automationelementmode">AutomationElementMode_Full</a> is the default value, and specifies that returned elements contain a full reference to the underlying UI. <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-automationelementmode">AutomationElementMode_None</a> specifies that the returned elements have no reference to the underlying UI, and contain only cached information.
+     * 
+     * Certain operations on elements, including <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue">GetCurrentPropertyValue</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-setfocus">SetFocus</a>, require a full reference; attempting to perform these on an element that has none results in an error.
+     * 
+     * Using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-automationelementmode">AutomationElementMode_None</a> can be more efficient when only properties are needed, as it avoids the overhead involved in setting up full references.
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_automationelementmode
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-get_automationelementmode
      */
     get_AutomationElementMode() {
         result := ComCall(10, this, "int*", &mode := 0, "HRESULT")
@@ -124,10 +176,18 @@ class IUIAutomationCacheRequest extends IUnknown{
     }
 
     /**
+     * Indicates whether returned elements contain full references to the underlying UI, or only cached information.
+     * @remarks
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-automationelementmode">AutomationElementMode_Full</a> is the default value, and specifies that returned elements contain a full reference to the underlying UI. <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-automationelementmode">AutomationElementMode_None</a> specifies that the returned elements have no reference to the underlying UI, and contain only cached information.
+     * 
+     * Certain operations on elements, including <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue">GetCurrentPropertyValue</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-setfocus">SetFocus</a>, require a full reference; attempting to perform these on an element that has none results in an error.
+     * 
+     * Using <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/ne-uiautomationclient-automationelementmode">AutomationElementMode_None</a> can be more efficient when only properties are needed, as it avoids the overhead involved in setting up full references.
      * 
      * @param {Integer} mode 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-put_automationelementmode
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationcacherequest-put_automationelementmode
      */
     put_AutomationElementMode(mode) {
         result := ComCall(11, this, "int", mode, "HRESULT")

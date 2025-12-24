@@ -42,9 +42,33 @@ class IAnalogRadioTuningSpace extends ITuningSpace{
     static VTableNames => ["get_MinFrequency", "put_MinFrequency", "get_MaxFrequency", "put_MaxFrequency", "get_Step", "put_Step"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-get_minfrequency
+     * @type {Integer} 
+     */
+    MinFrequency {
+        get => this.get_MinFrequency()
+        set => this.put_MinFrequency(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxFrequency {
+        get => this.get_MaxFrequency()
+        set => this.put_MaxFrequency(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Step {
+        get => this.get_Step()
+        set => this.put_Step(value)
+    }
+
+    /**
+     * The get_MinFrequency method retrieves the minimum frequency for this tuning space.
+     * @returns {Integer} Pointer to a variable that receives the minimum frequency, in kilohertz (kHz).
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogradiotuningspace-get_minfrequency
      */
     get_MinFrequency() {
         result := ComCall(26, this, "int*", &MinFrequencyVal := 0, "HRESULT")
@@ -52,10 +76,10 @@ class IAnalogRadioTuningSpace extends ITuningSpace{
     }
 
     /**
-     * 
-     * @param {Integer} NewMinFrequencyVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-put_minfrequency
+     * The put_MinFrequency method sets the minimum frequency for this tuning space.
+     * @param {Integer} NewMinFrequencyVal Specifies the minimum frequency, in kilohertz (kHz).
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogradiotuningspace-put_minfrequency
      */
     put_MinFrequency(NewMinFrequencyVal) {
         result := ComCall(27, this, "int", NewMinFrequencyVal, "HRESULT")
@@ -63,9 +87,9 @@ class IAnalogRadioTuningSpace extends ITuningSpace{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-get_maxfrequency
+     * The get_MaxFrequency method retrieves the maximum frequency for this tuning space.
+     * @returns {Integer} Pointer to a variable that receives the maximum frequency, in kilohertz (kHz).
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogradiotuningspace-get_maxfrequency
      */
     get_MaxFrequency() {
         result := ComCall(28, this, "int*", &MaxFrequencyVal := 0, "HRESULT")
@@ -73,10 +97,10 @@ class IAnalogRadioTuningSpace extends ITuningSpace{
     }
 
     /**
-     * 
-     * @param {Integer} NewMaxFrequencyVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-put_maxfrequency
+     * The put_MaxFrequency method sets the maximum frequency for this tuning space.
+     * @param {Integer} NewMaxFrequencyVal Specifies the maximum frequency, in kilohertz (kHz).
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogradiotuningspace-put_maxfrequency
      */
     put_MaxFrequency(NewMaxFrequencyVal) {
         result := ComCall(29, this, "int", NewMaxFrequencyVal, "HRESULT")
@@ -84,9 +108,9 @@ class IAnalogRadioTuningSpace extends ITuningSpace{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-get_step
+     * The get_Step method retrieves the step value to the next frequency.
+     * @returns {Integer} Pointer to a variable receives the step value to the next frequency, in kilohertz (kHz).
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogradiotuningspace-get_step
      */
     get_Step() {
         result := ComCall(30, this, "int*", &StepVal := 0, "HRESULT")
@@ -94,10 +118,10 @@ class IAnalogRadioTuningSpace extends ITuningSpace{
     }
 
     /**
-     * 
-     * @param {Integer} NewStepVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogradiotuningspace-put_step
+     * The put_Step method sets the step value to the next frequency.
+     * @param {Integer} NewStepVal Specifies the step value to the next frequency, in kilohertz (kHz).
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogradiotuningspace-put_step
      */
     put_Step(NewStepVal) {
         result := ComCall(31, this, "int", NewStepVal, "HRESULT")

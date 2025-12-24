@@ -36,9 +36,11 @@ class ID3D10ShaderReflectionVariable extends Win32ComInterface{
     static VTableNames => ["GetDesc", "GetType"]
 
     /**
+     * Get a shader-variable description.
+     * @returns {D3D10_SHADER_VARIABLE_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10shader/ns-d3d10shader-d3d10_shader_variable_desc">D3D10_SHADER_VARIABLE_DESC</a>*</b>
      * 
-     * @returns {D3D10_SHADER_VARIABLE_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflectionvariable-getdesc
+     * A pointer to a shader-variable description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10shader/ns-d3d10shader-d3d10_shader_variable_desc">D3D10_SHADER_VARIABLE_DESC</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-id3d10shaderreflectionvariable-getdesc
      */
     GetDesc() {
         pDesc := D3D10_SHADER_VARIABLE_DESC()
@@ -47,9 +49,11 @@ class ID3D10ShaderReflectionVariable extends Win32ComInterface{
     }
 
     /**
+     * Get a shader-variable type.
+     * @returns {ID3D10ShaderReflectionType} Type: <b><a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectiontype">ID3D10ShaderReflectionType</a>*</b>
      * 
-     * @returns {ID3D10ShaderReflectionType} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10shader/nf-d3d10shader-id3d10shaderreflectionvariable-gettype
+     * A pointer to a <a href="/windows/desktop/api/d3d10shader/nn-d3d10shader-id3d10shaderreflectiontype">ID3D10ShaderReflectionType Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10shader/nf-d3d10shader-id3d10shaderreflectionvariable-gettype
      */
     GetType() {
         result := ComCall(1, this, "ptr")

@@ -37,6 +37,13 @@ class IDOMFocusEvent extends IDispatch{
     static VTableNames => ["get_relatedTarget", "initFocusEvent"]
 
     /**
+     * @type {IEventTarget} 
+     */
+    relatedTarget {
+        get => this.get_relatedTarget()
+    }
+
+    /**
      * 
      * @returns {IEventTarget} 
      */

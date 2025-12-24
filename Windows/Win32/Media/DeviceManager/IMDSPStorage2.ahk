@@ -31,10 +31,10 @@ class IMDSPStorage2 extends IMDSPStorage{
     static VTableNames => ["GetStorage", "CreateStorage2", "SetAttributes2", "GetAttributes2"]
 
     /**
-     * 
-     * @param {PWSTR} pszStorageName 
-     * @returns {IMDSPStorage} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage2-getstorage
+     * The GetStorage method makes it possible to go directly to a storage object from a storage name instead of enumerating through all storages to find it.
+     * @param {PWSTR} pszStorageName Pointer to a <b>null</b>-terminated string containing the storage name.
+     * @returns {IMDSPStorage} Pointer to the storage object specified by <i>pszStorageName</i>, or <b>NULL</b> if no such storage was found.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspstorage2-getstorage
      */
     GetStorage(pszStorageName) {
         pszStorageName := pszStorageName is String ? StrPtr(pszStorageName) : pszStorageName
@@ -44,15 +44,15 @@ class IMDSPStorage2 extends IMDSPStorage{
     }
 
     /**
-     * 
-     * @param {Integer} dwAttributes 
-     * @param {Integer} dwAttributesEx 
-     * @param {Pointer<WAVEFORMATEX>} pAudioFormat 
-     * @param {Pointer<VIDEOINFOHEADER>} pVideoFormat 
-     * @param {PWSTR} pwszName 
-     * @param {Integer} qwFileSize 
-     * @returns {IMDSPStorage} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage2-createstorage2
+     * The CreateStorage2 method creates a new storage with the specified name and returns a pointer to the IMDSPStorage interface on the newly created storage.
+     * @param {Integer} dwAttributes <b>DWORD</b> containing the attributes as described in the <b>IMDSPStorage::CreateStorage</b> method.
+     * @param {Integer} dwAttributesEx <b>DWORD</b> containing the extended attributes. There are currently no extended attributes defined.
+     * @param {Pointer<WAVEFORMATEX>} pAudioFormat Pointer to a <b>_WAVEFORMATEX</b> structure that contains audio format information about the object. This parameter is optional and is ignored if the file is not audio.
+     * @param {Pointer<VIDEOINFOHEADER>} pVideoFormat Pointer to a <b>_VIDEOINFOHEADER</b> structure that contains video format information about the object. This parameter is optional and is ignored if the file is not video.
+     * @param {PWSTR} pwszName Pointer to a wide-character null-terminated string containing the name for the new storage.
+     * @param {Integer} qwFileSize <b>QWORD</b> containing the size of the file to create. If the total size of the output file is not known at the time of creation, this value will be set to zero.
+     * @returns {IMDSPStorage} Pointer to an <b>IMDSPStorage</b> pointer to receive the <b>IMDSPStorage</b> interface for the newly created storage.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspstorage2-createstorage2
      */
     CreateStorage2(dwAttributes, dwAttributesEx, pAudioFormat, pVideoFormat, pwszName, qwFileSize) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -62,13 +62,20 @@ class IMDSPStorage2 extends IMDSPStorage{
     }
 
     /**
+     * The SetAttributes2 method extends IMDSPStorage::SetAttributes by enabling you to set audio and video formats and extended attributes of a storage object.
+     * @param {Integer} dwAttributes <b>DWORD</b> containing the attributes to be set as defined in the <b>IWMDMStorage::SetAttributes</b> method
+     * @param {Integer} dwAttributesEx <b>DWORD</b> containing the extended attributes. No extended attributes are currently defined.
+     * @param {Pointer<WAVEFORMATEX>} pAudioFormat Pointer to a <b>_WAVEFORMATEX</b> structure that contains audio format information about the object. This parameter is optional and is ignored if the file is not audio.
+     * @param {Pointer<VIDEOINFOHEADER>} pVideoFormat Pointer to a <b>_VIDEOINFOHEADER</b> structure that contains video format information about the object. This parameter is optional and is ignored if the file is not video.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Integer} dwAttributes 
-     * @param {Integer} dwAttributesEx 
-     * @param {Pointer<WAVEFORMATEX>} pAudioFormat 
-     * @param {Pointer<VIDEOINFOHEADER>} pVideoFormat 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage2-setattributes2
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspstorage2-setattributes2
      */
     SetAttributes2(dwAttributes, dwAttributesEx, pAudioFormat, pVideoFormat) {
         result := ComCall(15, this, "uint", dwAttributes, "uint", dwAttributesEx, "ptr", pAudioFormat, "ptr", pVideoFormat, "HRESULT")
@@ -76,13 +83,20 @@ class IMDSPStorage2 extends IMDSPStorage{
     }
 
     /**
+     * The GetAttributes2 method gets attributes of files or storages.
+     * @param {Pointer<Integer>} pdwAttributes Pointer to a <b>DWORD</b> containing the base attributes as defined in the <b>IWMDMStorage::GetAttributes</b> method.
+     * @param {Pointer<Integer>} pdwAttributesEx Pointer to a <b>DWORD</b> containing the extended attributes. Currently no extended attributes are defined.
+     * @param {Pointer<WAVEFORMATEX>} pAudioFormat Pointer to a <b>_WAVEFORMATEX</b> structure that contains audio format information about the object. This parameter is optional and is ignored if the file is not audio.
+     * @param {Pointer<VIDEOINFOHEADER>} pVideoFormat Pointer to a <b>_VIDEOINFOHEADER</b> structure that contains video format information about the object. This parameter is optional and is ignored if the file is not video.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Pointer<Integer>} pdwAttributes 
-     * @param {Pointer<Integer>} pdwAttributesEx 
-     * @param {Pointer<WAVEFORMATEX>} pAudioFormat 
-     * @param {Pointer<VIDEOINFOHEADER>} pVideoFormat 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage2-getattributes2
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspstorage2-getattributes2
      */
     GetAttributes2(pdwAttributes, pdwAttributesEx, pAudioFormat, pVideoFormat) {
         pdwAttributesMarshal := pdwAttributes is VarRef ? "uint*" : "ptr"

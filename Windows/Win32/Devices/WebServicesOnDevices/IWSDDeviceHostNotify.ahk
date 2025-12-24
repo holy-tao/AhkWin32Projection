@@ -31,10 +31,10 @@ class IWSDDeviceHostNotify extends IUnknown{
     static VTableNames => ["GetService"]
 
     /**
-     * 
-     * @param {PWSTR} pszServiceId 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehostnotify-getservice
+     * Retrieves a service object that is not currently registered.
+     * @param {PWSTR} pszServiceId The ID of the service to be produced.
+     * @returns {IUnknown} A reference to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdserviceproxy">IWSDServiceProxy</a> object for the specified service.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehostnotify-getservice
      */
     GetService(pszServiceId) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId

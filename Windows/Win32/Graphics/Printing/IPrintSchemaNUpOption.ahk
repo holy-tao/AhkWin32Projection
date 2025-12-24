@@ -29,6 +29,13 @@ class IPrintSchemaNUpOption extends IPrintSchemaOption{
     static VTableNames => ["get_PagesPerSheet"]
 
     /**
+     * @type {Integer} 
+     */
+    PagesPerSheet {
+        get => this.get_PagesPerSheet()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

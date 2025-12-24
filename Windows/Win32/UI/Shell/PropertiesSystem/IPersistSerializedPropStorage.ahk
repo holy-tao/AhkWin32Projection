@@ -41,84 +41,12 @@ class IPersistSerializedPropStorage extends IUnknown{
     static VTableNames => ["SetFlags", "SetPropertyStorage", "GetPropertyStorage"]
 
     /**
-     * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
-     * @param {Integer} flags 
-     * @returns {HRESULT} This function can return one of these values.
+     * Toggles the property store object between the read-only and read/write state.
+     * @param {Integer} flags Type: <b>PERSIST_SPROPSTORE_FLAGS</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * <table>
-     * <tr>
-     * <th>HRESULT value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The flag is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not support this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unable to allocate memory to complete the operation.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context is invalid or one of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipersistserializedpropstorage-setflags
      */
     SetFlags(flags) {
         result := ComCall(3, this, "int", flags, "HRESULT")
@@ -126,11 +54,17 @@ class IPersistSerializedPropStorage extends IUnknown{
     }
 
     /**
+     * Initializes the property store instance from the specified serialized property storage data.
+     * @param {Pointer} psps Type: <b>PCUSERIALIZEDPROPSTORAGE</b>
      * 
-     * @param {Pointer} psps 
-     * @param {Integer} cb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage-setpropertystorage
+     * A pointer to the serialized property store data that will be used to initialize the property store.
+     * @param {Integer} cb Type: <b>DWORD</b>
+     * 
+     * The count of bytes contained in the serialized property storage data pointed to by <i>psps</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipersistserializedpropstorage-setpropertystorage
      */
     SetPropertyStorage(psps, cb) {
         result := ComCall(4, this, "ptr", psps, "uint", cb, "HRESULT")
@@ -138,11 +72,17 @@ class IPersistSerializedPropStorage extends IUnknown{
     }
 
     /**
+     * Gets the serialized property storage data from the property store instance.
+     * @param {Pointer<Pointer<SERIALIZEDPROPSTORAGE>>} ppsps Type: <b>SERIALIZEDPROPSTORAGE**</b>
      * 
-     * @param {Pointer<Pointer<SERIALIZEDPROPSTORAGE>>} ppsps 
-     * @param {Pointer<Integer>} pcb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage-getpropertystorage
+     * When this method returns, contains the address of a pointer to the serialized property storage data.
+     * @param {Pointer<Integer>} pcb Type: <b>DWORD*</b>
+     * 
+     * When this method returns, contains the count of bytes contained in the serialized property storage data pointed to by <i>ppsps</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipersistserializedpropstorage-getpropertystorage
      */
     GetPropertyStorage(ppsps, pcb) {
         ppspsMarshal := ppsps is VarRef ? "ptr*" : "ptr"

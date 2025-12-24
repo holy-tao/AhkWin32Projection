@@ -11,13 +11,13 @@
  */
 class MI_Datetime extends Win32Struct
 {
-    static sizeof => 36
+    static sizeof => 40
 
-    static packingSize => 4
+    static packingSize => 8
 
     class _u_e__Union extends Win32Struct {
         static sizeof => 32
-        static packingSize => 4
+        static packingSize => 8
 
         /**
          * @type {MI_Timestamp}
@@ -59,7 +59,7 @@ class MI_Datetime extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(4, this)
+                this.__u := %this.__Class%._u_e__Union(8, this)
             return this.__u
         }
     }

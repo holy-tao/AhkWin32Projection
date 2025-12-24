@@ -32,9 +32,9 @@ class IVMRSurface extends IUnknown{
     static VTableNames => ["IsSurfaceLocked", "LockSurface", "UnlockSurface", "GetSurface"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurface-issurfacelocked
+     * The IsSurfaceLocked method indicates whether the DirectDraw surface attached to this media sample is locked.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrsurface-issurfacelocked
      */
     IsSurfaceLocked() {
         result := ComCall(3, this, "HRESULT")
@@ -42,9 +42,9 @@ class IVMRSurface extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurface-locksurface
+     * The LockSurface method locks the attached DirectDraw surface.
+     * @returns {Pointer<Integer>} Address of a variable that receives a pointer to the locked bits.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrsurface-locksurface
      */
     LockSurface() {
         result := ComCall(4, this, "ptr*", &lpSurface := 0, "HRESULT")
@@ -52,9 +52,27 @@ class IVMRSurface extends IUnknown{
     }
 
     /**
+     * The UnlockSurface method unlocks the attached DirectDraw surface.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurface-unlocksurface
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No DirectDraw surface is attached to this sample.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrsurface-unlocksurface
      */
     UnlockSurface() {
         result := ComCall(5, this, "HRESULT")
@@ -62,9 +80,9 @@ class IVMRSurface extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IDirectDrawSurface7} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurface-getsurface
+     * The GetSurface method retrieves the attached DirectDraw surface interface.
+     * @returns {IDirectDrawSurface7} Address of a variable that receives a pointer to the <b>IDirectDrawSurface7</b> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrsurface-getsurface
      */
     GetSurface() {
         result := ComCall(6, this, "ptr*", &lplpSurface := 0, "HRESULT")

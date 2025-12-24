@@ -30,6 +30,13 @@ class IHTMLWindow4 extends IDispatch{
     static VTableNames => ["createPopup", "get_frameElement"]
 
     /**
+     * @type {IHTMLFrameBase} 
+     */
+    frameElement {
+        get => this.get_frameElement()
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT>} varArgIn 
      * @returns {IDispatch} 

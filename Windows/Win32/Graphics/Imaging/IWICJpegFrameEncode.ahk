@@ -48,11 +48,17 @@ class IWICJpegFrameEncode extends IUnknown{
     static VTableNames => ["GetAcHuffmanTable", "GetDcHuffmanTable", "GetQuantizationTable", "WriteScan"]
 
     /**
+     * Retrieves a copy of the AC Huffman table for the specified scan and table.
+     * @param {Integer} scanIndex Type: <b>UINT</b>
      * 
-     * @param {Integer} scanIndex 
-     * @param {Integer} tableIndex 
-     * @returns {DXGI_JPEG_AC_HUFFMAN_TABLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframeencode-getachuffmantable
+     * The zero-based index of the scan for which data is retrieved.
+     * @param {Integer} tableIndex Type: <b>UINT</b>
+     * 
+     * The index of the AC Huffman table to retrieve.
+     * @returns {DXGI_JPEG_AC_HUFFMAN_TABLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-jpeg-ac-huffman-table">DXGI_JPEG_AC_HUFFMAN_TABLE</a>*</b>
+     * 
+     * A pointer that receives the table data. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframeencode-getachuffmantable
      */
     GetAcHuffmanTable(scanIndex, tableIndex) {
         pAcHuffmanTable := DXGI_JPEG_AC_HUFFMAN_TABLE()
@@ -61,11 +67,11 @@ class IWICJpegFrameEncode extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} scanIndex 
-     * @param {Integer} tableIndex 
-     * @returns {DXGI_JPEG_DC_HUFFMAN_TABLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframeencode-getdchuffmantable
+     * Retrieves a copy of the DC Huffman table for the specified scan and table.
+     * @param {Integer} scanIndex The zero-based index of the scan for which data is retrieved.
+     * @param {Integer} tableIndex The index of the DC Huffman table to retrieve.
+     * @returns {DXGI_JPEG_DC_HUFFMAN_TABLE} A pointer that receives the table data. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframeencode-getdchuffmantable
      */
     GetDcHuffmanTable(scanIndex, tableIndex) {
         pDcHuffmanTable := DXGI_JPEG_DC_HUFFMAN_TABLE()
@@ -74,11 +80,17 @@ class IWICJpegFrameEncode extends IUnknown{
     }
 
     /**
+     * Retrieves a copy of the quantization table.
+     * @param {Integer} scanIndex Type: <b>UINT</b>
      * 
-     * @param {Integer} scanIndex 
-     * @param {Integer} tableIndex 
-     * @returns {DXGI_JPEG_QUANTIZATION_TABLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframeencode-getquantizationtable
+     * The zero-based index of the scan for which data is retrieved.
+     * @param {Integer} tableIndex Type: <b>UINT</b>
+     * 
+     * The index of the quantization table to retrieve.
+     * @returns {DXGI_JPEG_QUANTIZATION_TABLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-jpeg-quantization-table">DXGI_JPEG_QUANTIZATION_TABLE</a>*</b>
+     * 
+     * A pointer that receives the table data. This parameter must not be NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframeencode-getquantizationtable
      */
     GetQuantizationTable(scanIndex, tableIndex) {
         pQuantizationTable := DXGI_JPEG_QUANTIZATION_TABLE()
@@ -87,11 +99,17 @@ class IWICJpegFrameEncode extends IUnknown{
     }
 
     /**
+     * Writes scan data to a JPEG frame.
+     * @param {Integer} cbScanData Type: <b>UINT</b>
      * 
-     * @param {Integer} cbScanData 
-     * @param {Pointer<Integer>} pbScanData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicjpegframeencode-writescan
+     * The size of the data in the <i>pbScanData</i> parameter.
+     * @param {Pointer<Integer>} pbScanData Type: <b>BYTE*</b>
+     * 
+     * The scan data to write.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns S_OK on successful completion.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicjpegframeencode-writescan
      */
     WriteScan(cbScanData, pbScanData) {
         pbScanDataMarshal := pbScanData is VarRef ? "char*" : "ptr"

@@ -38,10 +38,34 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     static VTableNames => ["get_IpAddressSource", "put_IpAddressSource", "get_StartIpAddress", "put_StartIpAddress", "get_EndIpAddress", "put_EndIpAddress", "get_StartPort", "put_StartPort", "get_EndPort", "put_EndPort", "get_NetworkProfile", "put_NetworkProfile"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    StartPort {
+        get => this.get_StartPort()
+        set => this.put_StartPort(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EndPort {
+        get => this.get_EndPort()
+        set => this.put_EndPort(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NetworkProfile {
+        get => this.get_NetworkProfile()
+        set => this.put_NetworkProfile(value)
+    }
+
+    /**
+     * Enables a WDS client computer to configure, for a specified type of IP address, the IP address source from which the WDS transport server obtains a multicast address.
      * @param {Integer} AddressType 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_ipaddresssource
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_ipaddresssource
      */
     get_IpAddressSource(AddressType) {
         result := ComCall(11, this, "int", AddressType, "int*", &pSourceType := 0, "HRESULT")
@@ -49,11 +73,11 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * 
+     * Enables a WDS client computer to configure, for a specified type of IP address, the IP address source from which the WDS transport server obtains a multicast address.
      * @param {Integer} AddressType 
      * @param {Integer} SourceType 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_ipaddresssource
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_ipaddresssource
      */
     put_IpAddressSource(AddressType, SourceType) {
         result := ComCall(12, this, "int", AddressType, "int", SourceType, "HRESULT")
@@ -61,10 +85,15 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
+     * Enables a WDS client computer to configure the start of a multicast IP address range for a specified type of IP address.
+     * @remarks
+     * 
+     * When setting the start IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
+     * 
      * 
      * @param {Integer} AddressType 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startipaddress
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startipaddress
      */
     get_StartIpAddress(AddressType) {
         pbszStartIpAddress := BSTR()
@@ -73,11 +102,16 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
+     * Enables a WDS client computer to configure the start of a multicast IP address range for a specified type of IP address.
+     * @remarks
+     * 
+     * When setting the start IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
+     * 
      * 
      * @param {Integer} AddressType 
      * @param {BSTR} bszStartIpAddress 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_startipaddress
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_startipaddress
      */
     put_StartIpAddress(AddressType, bszStartIpAddress) {
         bszStartIpAddress := bszStartIpAddress is String ? BSTR.Alloc(bszStartIpAddress).Value : bszStartIpAddress
@@ -87,10 +121,15 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
+     * Enables a WDS client computer to configure the end of a multicast IP address range for a specified type of IP address.
+     * @remarks
+     * 
+     * When setting the end IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
+     * 
      * 
      * @param {Integer} AddressType 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endipaddress
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endipaddress
      */
     get_EndIpAddress(AddressType) {
         pbszEndIpAddress := BSTR()
@@ -99,11 +138,16 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
+     * Enables a WDS client computer to configure the end of a multicast IP address range for a specified type of IP address.
+     * @remarks
+     * 
+     * When setting the end IP address, this property validates that it is a valid multicast IP address for the specified type of IP address.
+     * 
      * 
      * @param {Integer} AddressType 
      * @param {BSTR} bszEndIpAddress 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_endipaddress
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_endipaddress
      */
     put_EndIpAddress(AddressType, bszEndIpAddress) {
         bszEndIpAddress := bszEndIpAddress is String ? BSTR.Alloc(bszEndIpAddress).Value : bszEndIpAddress
@@ -113,9 +157,14 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
+     * Enables a WDS client computer to configure the start of a UDP port range that is used by WDS transport services.
+     * @remarks
+     * 
+     * When setting the UDP start port, this property validates that it is a valid value.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startport
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_startport
      */
     get_StartPort() {
         result := ComCall(17, this, "uint*", &pulStartPort := 0, "HRESULT")
@@ -123,10 +172,15 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
+     * Enables a WDS client computer to configure the start of a UDP port range that is used by WDS transport services.
+     * @remarks
+     * 
+     * When setting the UDP start port, this property validates that it is a valid value.
+     * 
      * 
      * @param {Integer} ulStartPort 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_startport
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_startport
      */
     put_StartPort(ulStartPort) {
         result := ComCall(18, this, "uint", ulStartPort, "HRESULT")
@@ -134,9 +188,14 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
+     * Enables a WDS client computer to configure the end of a UDP port range that is used by WDS transport services.
+     * @remarks
+     * 
+     * When setting the UDP end port, this property validates that it is a valid value.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endport
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_endport
      */
     get_EndPort() {
         result := ComCall(19, this, "uint*", &pulEndPort := 0, "HRESULT")
@@ -144,10 +203,15 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
+     * Enables a WDS client computer to configure the end of a UDP port range that is used by WDS transport services.
+     * @remarks
+     * 
+     * When setting the UDP end port, this property validates that it is a valid value.
+     * 
      * 
      * @param {Integer} ulEndPort 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_endport
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_endport
      */
     put_EndPort(ulEndPort) {
         result := ComCall(20, this, "uint", ulEndPort, "HRESULT")
@@ -155,9 +219,9 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * 
+     * Enables a client computer to configure the network profile that is used by the WDS Transport Server.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_networkprofile
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-get_networkprofile
      */
     get_NetworkProfile() {
         result := ComCall(21, this, "int*", &pProfileType := 0, "HRESULT")
@@ -165,10 +229,10 @@ class IWdsTransportServicePolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * 
+     * Enables a client computer to configure the network profile that is used by the WDS Transport Server.
      * @param {Integer} ProfileType 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_networkprofile
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportservicepolicy-put_networkprofile
      */
     put_NetworkProfile(ProfileType) {
         result := ComCall(22, this, "int", ProfileType, "HRESULT")

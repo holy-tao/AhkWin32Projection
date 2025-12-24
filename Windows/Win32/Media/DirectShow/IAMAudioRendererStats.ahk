@@ -31,12 +31,74 @@ class IAMAudioRendererStats extends IUnknown{
     static VTableNames => ["GetStatParam"]
 
     /**
+     * The GetStatParam method retrieves performance information from the audio renderer.
+     * @param {Integer} dwParam Specifies a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-_am_audio_renderer_stat_param">_AM_AUDIO_RENDERER_STAT_PARAM</a> enumeration, indicating which information to retrieve.
+     * @param {Pointer<Integer>} pdwParam1 Pointer to a variable that receives performance information. The meaning of the returned value depends on the value of <i>dwParam</i>.
+     * @param {Pointer<Integer>} pdwParam2 Pointer to a variable that receives performance information. The meaning of the returned value depends on the value of <i>dwParam</i>.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} dwParam 
-     * @param {Pointer<Integer>} pdwParam1 
-     * @param {Pointer<Integer>} pdwParam2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamaudiorendererstats-getstatparam
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The renderer does not track the specified information.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamaudiorendererstats-getstatparam
      */
     GetStatParam(dwParam, pdwParam1, pdwParam2) {
         pdwParam1Marshal := pdwParam1 is VarRef ? "uint*" : "ptr"

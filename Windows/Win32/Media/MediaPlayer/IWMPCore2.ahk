@@ -32,9 +32,16 @@ class IWMPCore2 extends IWMPCore{
     static VTableNames => ["get_dvd"]
 
     /**
-     * 
-     * @returns {IWMPDVD} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore2-get_dvd
+     * @type {IWMPDVD} 
+     */
+    dvd {
+        get => this.get_dvd()
+    }
+
+    /**
+     * The get_dvd method retrieves a pointer to an IWMPDVD interface.
+     * @returns {IWMPDVD} Pointer to a pointer to an <b>IWMPDVD</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcore2-get_dvd
      */
     get_dvd() {
         result := ComCall(28, this, "ptr*", &ppDVD := 0, "HRESULT")

@@ -31,10 +31,66 @@ class ITBasicAudioTerminal extends IDispatch{
     static VTableNames => ["put_Volume", "get_Volume", "put_Balance", "get_Balance"]
 
     /**
+     * @type {Integer} 
+     */
+    Volume {
+        get => this.get_Volume()
+        set => this.put_Volume(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Balance {
+        get => this.get_Balance()
+        set => this.put_Balance(value)
+    }
+
+    /**
+     * The put_Volume method sets the volume.
+     * @param {Integer} lVolume The volume property is a value between 0 and FFFF, representing a set of logarithmic steps. Not all devices support as many distinguishable steps.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} lVolume 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasicaudioterminal-put_volume
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TAPI_E_NOTERMINALSELECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A terminal must be selected before the volume can be adjusted.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasicaudioterminal-put_volume
      */
     put_Volume(lVolume) {
         result := ComCall(7, this, "int", lVolume, "HRESULT")
@@ -42,9 +98,9 @@ class ITBasicAudioTerminal extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasicaudioterminal-get_volume
+     * The get_Volume method gets the volume.
+     * @returns {Integer} Pointer to volume. The volume property is a value between 0 and FFFF, representing a set of logarithmic steps. Not all devices support as many distinguishable steps.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasicaudioterminal-get_volume
      */
     get_Volume() {
         result := ComCall(8, this, "int*", &plVolume := 0, "HRESULT")
@@ -52,10 +108,50 @@ class ITBasicAudioTerminal extends IDispatch{
     }
 
     /**
+     * The put_Balance method sets the balance. This method is not implemented for terminals shipped with TAPI 3.0 and higher.
+     * @param {Integer} lBalance Balance.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} lBalance 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasicaudioterminal-put_balance
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Terminal's balance methods are not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasicaudioterminal-put_balance
      */
     put_Balance(lBalance) {
         result := ComCall(9, this, "int", lBalance, "HRESULT")
@@ -63,9 +159,9 @@ class ITBasicAudioTerminal extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itbasicaudioterminal-get_balance
+     * The get_Balance method gets the balance. This method is not implemented for terminals shipped with TAPI 3.0 and higher.
+     * @returns {Integer} Pointer to balance.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itbasicaudioterminal-get_balance
      */
     get_Balance() {
         result := ComCall(10, this, "int*", &plBalance := 0, "HRESULT")

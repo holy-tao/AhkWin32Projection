@@ -31,9 +31,9 @@ class IAppxManifestTargetDeviceFamily extends IUnknown{
     static VTableNames => ["GetName", "GetMinVersion", "GetMaxVersionTested"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifesttargetdevicefamily-getname
+     * Gets the name of the target device family from the AppxManifest.xml..
+     * @returns {PWSTR} The target device family name.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifesttargetdevicefamily-getname
      */
     GetName() {
         result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IAppxManifestTargetDeviceFamily extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifesttargetdevicefamily-getminversion
+     * Gets the minimum version of the target device family from the AppxManifest.xml.
+     * @returns {Integer} The minimum version.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifesttargetdevicefamily-getminversion
      */
     GetMinVersion() {
         result := ComCall(4, this, "uint*", &minVersion := 0, "HRESULT")
@@ -51,9 +51,9 @@ class IAppxManifestTargetDeviceFamily extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifesttargetdevicefamily-getmaxversiontested
+     * Gets the maximum version tested from the AppxManifest.xml.
+     * @returns {Integer} The max version tested attribute.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifesttargetdevicefamily-getmaxversiontested
      */
     GetMaxVersionTested() {
         result := ComCall(5, this, "uint*", &maxVersionTested := 0, "HRESULT")

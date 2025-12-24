@@ -38,13 +38,13 @@ class IUIAnimationVariableIntegerChangeHandler extends IUnknown{
     static VTableNames => ["OnIntegerValueChanged"]
 
     /**
-     * 
-     * @param {IUIAnimationStoryboard} storyboard 
-     * @param {IUIAnimationVariable} variable 
-     * @param {Integer} newValue 
-     * @param {Integer} previousValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariableintegerchangehandler-onintegervaluechanged
+     * Handles events that occur when the value of an animation variable changes.
+     * @param {IUIAnimationStoryboard} storyboard The storyboard that is animating the animation variable  specified by the <i>variable</i> parameter.
+     * @param {IUIAnimationVariable} variable The animation variable that has been updated.
+     * @param {Integer} newValue The new value of the animation variable, rounded according to the variable's rounding mode.
+     * @param {Integer} previousValue The previous value of the animation variable, rounded according to the variable's rounding mode.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariableintegerchangehandler-onintegervaluechanged
      */
     OnIntegerValueChanged(storyboard, variable, newValue, previousValue) {
         result := ComCall(3, this, "ptr", storyboard, "ptr", variable, "int", newValue, "int", previousValue, "HRESULT")

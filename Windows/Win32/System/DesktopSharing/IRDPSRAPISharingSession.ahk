@@ -37,9 +37,52 @@ class IRDPSRAPISharingSession extends IDispatch{
     static VTableNames => ["Open", "Close", "put_ColorDepth", "get_ColorDepth", "get_Properties", "get_Attendees", "get_Invitations", "get_ApplicationFilter", "get_VirtualChannelManager", "Pause", "Resume", "ConnectToClient", "SetDesktopSharedRect", "GetDesktopSharedRect"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-open
+     * @type {Integer} 
+     */
+    ColorDepth {
+        get => this.get_ColorDepth()
+        set => this.put_ColorDepth(value)
+    }
+
+    /**
+     * @type {IRDPSRAPISessionProperties} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
+     * @type {IRDPSRAPIAttendeeManager} 
+     */
+    Attendees {
+        get => this.get_Attendees()
+    }
+
+    /**
+     * @type {IRDPSRAPIInvitationManager} 
+     */
+    Invitations {
+        get => this.get_Invitations()
+    }
+
+    /**
+     * @type {IRDPSRAPIApplicationFilter} 
+     */
+    ApplicationFilter {
+        get => this.get_ApplicationFilter()
+    }
+
+    /**
+     * @type {IRDPSRAPIVirtualChannelManager} 
+     */
+    VirtualChannelManager {
+        get => this.get_VirtualChannelManager()
+    }
+
+    /**
+     * Puts the session in an active state.
+     * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code. The following are possible values.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-open
      */
     Open() {
         result := ComCall(7, this, "HRESULT")
@@ -47,9 +90,9 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-close
+     * Disconnects all attendees from the session and stops listening to incoming connections.
+     * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-close
      */
     Close() {
         result := ComCall(8, this, "HRESULT")
@@ -57,10 +100,10 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the color depth for the shared session.
      * @param {Integer} colorDepth 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-put_colordepth
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-put_colordepth
      */
     put_ColorDepth(colorDepth) {
         result := ComCall(9, this, "int", colorDepth, "HRESULT")
@@ -68,9 +111,9 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the color depth for the shared session.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_colordepth
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_colordepth
      */
     get_ColorDepth() {
         result := ComCall(10, this, "int*", &pColorDepth := 0, "HRESULT")
@@ -78,9 +121,9 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves an object implementing the IRDPSRAPISessionProperties interface.
      * @returns {IRDPSRAPISessionProperties} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_properties
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_properties
      */
     get_Properties() {
         result := ComCall(11, this, "ptr*", &ppVal := 0, "HRESULT")
@@ -88,9 +131,9 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
-     * 
+     * Returns an object implementing the IRDPSRAPIAttendeeManager interface.
      * @returns {IRDPSRAPIAttendeeManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_attendees
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_attendees
      */
     get_Attendees() {
         result := ComCall(12, this, "ptr*", &ppVal := 0, "HRESULT")
@@ -98,9 +141,9 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
-     * 
+     * Returns an object implementing the IRDPSRAPIInvitationManager interface.
      * @returns {IRDPSRAPIInvitationManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_invitations
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_invitations
      */
     get_Invitations() {
         result := ComCall(13, this, "ptr*", &ppVal := 0, "HRESULT")
@@ -108,9 +151,9 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
-     * 
+     * Returns an object implementing the IRDPSRAPIApplicationFilter interface.
      * @returns {IRDPSRAPIApplicationFilter} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_applicationfilter
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_applicationfilter
      */
     get_ApplicationFilter() {
         result := ComCall(14, this, "ptr*", &ppVal := 0, "HRESULT")
@@ -118,9 +161,9 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves an object implementing the IRDPSRAPIVirtualChannelManager interface.
      * @returns {IRDPSRAPIVirtualChannelManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_virtualchannelmanager
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-get_virtualchannelmanager
      */
     get_VirtualChannelManager() {
         result := ComCall(15, this, "ptr*", &ppVal := 0, "HRESULT")
@@ -128,9 +171,9 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-pause
+     * Pauses the graphics stream that is sent to all viewers from the sharer until IRDPSRAPISharingSession::Resume is called.
+     * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-pause
      */
     Pause() {
         result := ComCall(16, this, "HRESULT")
@@ -138,9 +181,9 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-resume
+     * Causes the graphics stream that is sent to all viewers from the sharer to resume until either IRDPSRAPISharingSession::Pause or IRDPSRAPISharingSession::Close is called.
+     * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-resume
      */
     Resume() {
         result := ComCall(17, this, "HRESULT")
@@ -148,10 +191,14 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
+     * Used for reverse connect mode, where the sharer connects to the viewer.
+     * @param {BSTR} bstrConnectionString Type: <b>BSTR</b>
      * 
-     * @param {BSTR} bstrConnectionString 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-connecttoclient
+     * Connection string that the viewer sends to the sharer out-of-band through IM or email.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-connecttoclient
      */
     ConnectToClient(bstrConnectionString) {
         bstrConnectionString := bstrConnectionString is String ? BSTR.Alloc(bstrConnectionString).Value : bstrConnectionString
@@ -161,13 +208,23 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
+     * Sets the desktop region that will be shared.
+     * @param {Integer} left Type: <b>long</b>
      * 
-     * @param {Integer} left 
-     * @param {Integer} top 
-     * @param {Integer} right 
-     * @param {Integer} bottom 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-setdesktopsharedrect
+     * X-coordinate of the upper-left corner of the shared rectangle.
+     * @param {Integer} top Type: <b>long</b>
+     * 
+     * Y-coordinate of the upper-left corner of the shared rectangle.
+     * @param {Integer} right Type: <b>long</b>
+     * 
+     * X-coordinate of the lower-right corner of the shared rectangle.
+     * @param {Integer} bottom Type: <b>long</b>
+     * 
+     * Y-coordinate of the lower-right corner of the shared rectangle.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-setdesktopsharedrect
      */
     SetDesktopSharedRect(left, top, right, bottom) {
         result := ComCall(19, this, "int", left, "int", top, "int", right, "int", bottom, "HRESULT")
@@ -175,13 +232,23 @@ class IRDPSRAPISharingSession extends IDispatch{
     }
 
     /**
+     * Retrieves the current desktop region being shared.
+     * @param {Pointer<Integer>} pleft Type: <b>long*</b>
      * 
-     * @param {Pointer<Integer>} pleft 
-     * @param {Pointer<Integer>} ptop 
-     * @param {Pointer<Integer>} pright 
-     * @param {Pointer<Integer>} pbottom 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-getdesktopsharedrect
+     * X-coordinate of the upper-left corner of the shared rectangle.
+     * @param {Pointer<Integer>} ptop Type: <b>long*</b>
+     * 
+     * Y-coordinate of the upper-left corner of the shared rectangle.
+     * @param {Pointer<Integer>} pright Type: <b>long*</b>
+     * 
+     * X-coordinate of the lower-right corner of the shared rectangle.
+     * @param {Pointer<Integer>} pbottom Type: <b>long*</b>
+     * 
+     * Y-coordinate of the lower-right corner of the shared rectangle.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisharingsession-getdesktopsharedrect
      */
     GetDesktopSharedRect(pleft, ptop, pright, pbottom) {
         pleftMarshal := pleft is VarRef ? "int*" : "ptr"

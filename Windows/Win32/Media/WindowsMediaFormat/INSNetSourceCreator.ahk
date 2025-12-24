@@ -32,19 +32,38 @@ class INSNetSourceCreator extends IUnknown{
     static VTableNames => ["Initialize", "CreateNetSource", "GetNetSourceProperties", "GetNetSourceSharedNamespace", "GetNetSourceAdminInterface", "GetNumProtocolsSupported", "GetProtocolName", "Shutdown"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The Initialize method prepares the network source creator for operations. You must call this method before calling any of the other methods in the INSNetSourceCreator interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method could not allocate memory for an internal resource.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-initialize
      */
     Initialize() {
         result := ComCall(3, this, "HRESULT")
@@ -95,10 +114,10 @@ class INSNetSourceCreator extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pszStreamName 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-getnetsourceadmininterface
+     * The GetNetSourceAdminInterface method retrieves a pointer to the IDispatch interface of the administrative network source object.
+     * @param {PWSTR} pszStreamName Pointer to a wide-character <b>null</b>-terminated string containing the desired network protocol. Typically, this value is either "http\0" or "mms\0".
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> that receives the address of the <b>IDispatch</b> interface on successful return. Use this interface pointer to obtain the interface pointer of the desired network admin interface: <a href="https://docs.microsoft.com/windows/desktop/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource">IWMSInternalAdminNetSource</a>, <a href="https://docs.microsoft.com/windows/desktop/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource2">IWMSInternalAdminNetSource2</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3">IWMSInternalAdminNetSource3</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-getnetsourceadmininterface
      */
     GetNetSourceAdminInterface(pszStreamName) {
         pszStreamName := pszStreamName is String ? StrPtr(pszStreamName) : pszStreamName
@@ -136,9 +155,9 @@ class INSNetSourceCreator extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-shutdown
+     * The Shutdown method properly disposes of all allocated memory used by the network source creator. You must call this method when you are finished using the network source creator, to ensure that all resources are released.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmnetsourcecreator/nf-wmnetsourcecreator-insnetsourcecreator-shutdown
      */
     Shutdown() {
         result := ComCall(10, this, "HRESULT")

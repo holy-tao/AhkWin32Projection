@@ -45,11 +45,17 @@ class IFolderViewOptions extends IUnknown{
     static VTableNames => ["SetFolderViewOptions", "GetFolderViewOptions"]
 
     /**
+     * Sets specified options for the view.
+     * @param {Integer} fvoMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a></b>
      * 
-     * @param {Integer} fvoMask 
-     * @param {Integer} fvoFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderviewoptions-setfolderviewoptions
+     * A bitmask made up of one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a> flags to indicate which options' are being changed. Values in <i>fvoFlags</i> not included in this mask are ignored.
+     * @param {Integer} fvoFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a></b>
+     * 
+     * A bitmask that contains the new values for the options specified in <i>fvoMask</i>. To enable an option, the bitmask should include the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a> flag for that option. To disable an option, the bit used for that <b>FOLDERVIEWOPTIONS</b> flag should be 0.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderviewoptions-setfolderviewoptions
      */
     SetFolderViewOptions(fvoMask, fvoFlags) {
         result := ComCall(3, this, "int", fvoMask, "int", fvoFlags, "HRESULT")
@@ -57,9 +63,11 @@ class IFolderViewOptions extends IUnknown{
     }
 
     /**
+     * Retrieves the current set of options for the view.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifolderviewoptions-getfolderviewoptions
+     * A bitmask that, when this method returns successfully, receives the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a> values that are currently set.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifolderviewoptions-getfolderviewoptions
      */
     GetFolderViewOptions() {
         result := ComCall(4, this, "int*", &pfvoFlags := 0, "HRESULT")

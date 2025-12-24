@@ -33,9 +33,24 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase{
     static VTableNames => ["get_Name", "put_Name", "CopyTemplate", "CommitAndUpdateDerived"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * Retrieves and sets the name of the quota template.
+     * @remarks
+     * 
+     * If you do not specify a name, FSRM generates a unique name that begins with 
+     *     "QuotaTemplate".
+     * 
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplate-get_name
      */
     get_Name() {
         name := BSTR()
@@ -44,10 +59,17 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase{
     }
 
     /**
+     * Retrieves and sets the name of the quota template.
+     * @remarks
+     * 
+     * If you do not specify a name, FSRM generates a unique name that begins with 
+     *     "QuotaTemplate".
+     * 
+     * 
      * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-put_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplate-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -57,10 +79,11 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase{
     }
 
     /**
-     * 
-     * @param {BSTR} quotaTemplateName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-copytemplate
+     * Copies the property values of the specified template to this template.
+     * @param {BSTR} quotaTemplateName The name of the template from which to copy the property values. The string is limited to 4,000 
+     *       characters.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplate-copytemplate
      */
     CopyTemplate(quotaTemplateName) {
         quotaTemplateName := quotaTemplateName is String ? BSTR.Alloc(quotaTemplateName).Value : quotaTemplateName
@@ -70,11 +93,15 @@ class IFsrmQuotaTemplate extends IFsrmQuotaBase{
     }
 
     /**
-     * 
-     * @param {Integer} commitOptions 
-     * @param {Integer} applyOptions 
-     * @returns {IFsrmDerivedObjectsResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplate-commitandupdatederived
+     * Saves the quota template and then applies any changes to the derived quota objects.
+     * @param {Integer} commitOptions The options for saving the template. For possible values, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmcommitoptions">FsrmCommitOptions</a> enumeration.
+     * @param {Integer} applyOptions The options used to choose the derived objects to which the changes are applied. For possible values, see 
+     *       the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmtemplateapplyoptions">FsrmTemplateApplyOptions</a> enumeration.
+     * @returns {IFsrmDerivedObjectsResult} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmderivedobjectsresult">IFsrmDerivedObjectsResult</a> interface 
+     *       that you use to determine the list of derived objects that were updated and whether the update was 
+     *       successful.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplate-commitandupdatederived
      */
     CommitAndUpdateDerived(commitOptions, applyOptions) {
         result := ComCall(25, this, "int", commitOptions, "int", applyOptions, "ptr*", &derivedObjectsResult := 0, "HRESULT")

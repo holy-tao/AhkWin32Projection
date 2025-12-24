@@ -31,9 +31,9 @@ class IMFSourceBufferList extends IUnknown{
     static VTableNames => ["GetLength", "GetSourceBuffer"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebufferlist-getlength
+     * Gets the number of IMFSourceBuffer objects in the list.
+     * @returns {Integer} The number of source buffers in the list.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebufferlist-getlength
      */
     GetLength() {
         result := ComCall(3, this, "uint")
@@ -41,10 +41,10 @@ class IMFSourceBufferList extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {IMFSourceBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebufferlist-getsourcebuffer
+     * Gets the IMFSourceBuffer at the specified index in the list.
+     * @param {Integer} index The index of the source buffer to get.
+     * @returns {IMFSourceBuffer} The source buffer.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebufferlist-getsourcebuffer
      */
     GetSourceBuffer(index) {
         result := ComCall(4, this, "uint", index, "ptr")

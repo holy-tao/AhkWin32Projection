@@ -32,6 +32,36 @@ class IHTMLDOMAttribute3 extends IDispatch{
     static VTableNames => ["put_nodeValue", "get_nodeValue", "put_value", "get_value", "get_specified", "get_ownerElement"]
 
     /**
+     * @type {VARIANT} 
+     */
+    nodeValue {
+        get => this.get_nodeValue()
+        set => this.put_nodeValue(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    specified {
+        get => this.get_specified()
+    }
+
+    /**
+     * @type {IHTMLElement2} 
+     */
+    ownerElement {
+        get => this.get_ownerElement()
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

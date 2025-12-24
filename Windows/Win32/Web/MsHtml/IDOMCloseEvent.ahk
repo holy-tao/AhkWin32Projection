@@ -36,6 +36,13 @@ class IDOMCloseEvent extends IDispatch{
     static VTableNames => ["get_wasClean", "initCloseEvent"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    wasClean {
+        get => this.get_wasClean()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

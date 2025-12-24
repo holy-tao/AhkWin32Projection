@@ -47,13 +47,25 @@ class IDropTargetHelper extends IUnknown{
     static VTableNames => ["DragEnter", "DragLeave", "DragOver", "Drop", "Show"]
 
     /**
+     * Notifies the drag-image manager that the drop target's IDropTarget::DragEnter method has been called.
+     * @param {HWND} hwndTarget Type: <b>HWND</b>
      * 
-     * @param {HWND} hwndTarget 
-     * @param {IDataObject} pDataObject 
-     * @param {Pointer<POINT>} ppt 
-     * @param {Integer} dwEffect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idroptargethelper-dragenter
+     * The target's window handle.
+     * @param {IDataObject} pDataObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
+     * 
+     * A pointer to the data object's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface.
+     * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
+     * 
+     * The <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure pointer that was received in the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragenter">IDropTarget::DragEnter</a> method's 
+     * 					<i>pt</i> parameter.
+     * @param {Integer} dwEffect Type: <b>DWORD</b>
+     * 
+     * The value pointed to by the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragenter">IDropTarget::DragEnter</a> method's 
+     * 					<i>pdwEffect</i> parameter.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idroptargethelper-dragenter
      */
     DragEnter(hwndTarget, pDataObject, ppt, dwEffect) {
         hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
@@ -63,9 +75,11 @@ class IDropTargetHelper extends IUnknown{
     }
 
     /**
+     * Notifies the drag-image manager that the drop target's IDropTarget::DragLeave method has been called.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idroptargethelper-dragleave
+     * Returns S_OK if successful, or a COM error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idroptargethelper-dragleave
      */
     DragLeave() {
         result := ComCall(4, this, "HRESULT")
@@ -73,11 +87,19 @@ class IDropTargetHelper extends IUnknown{
     }
 
     /**
+     * Notifies the drag-image manager that the drop target's IDropTarget::DragOver method has been called.
+     * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
      * 
-     * @param {Pointer<POINT>} ppt 
-     * @param {Integer} dwEffect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idroptargethelper-dragover
+     * The <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure pointer that was received in the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragover">IDropTarget::DragOver</a> method's 
+     * 					<i>pt</i> parameter.
+     * @param {Integer} dwEffect Type: <b>DWORD</b>
+     * 
+     * The value pointed to by the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-dragover">IDropTarget::DragOver</a> method's 
+     * 					<i>pdwEffect</i> parameter.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idroptargethelper-dragover
      */
     DragOver(ppt, dwEffect) {
         result := ComCall(5, this, "ptr", ppt, "uint", dwEffect, "HRESULT")
@@ -85,12 +107,22 @@ class IDropTargetHelper extends IUnknown{
     }
 
     /**
+     * Notifies the drag-image manager that the drop target's IDropTarget::Drop method has been called.
+     * @param {IDataObject} pDataObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>*</b>
      * 
-     * @param {IDataObject} pDataObject 
-     * @param {Pointer<POINT>} ppt 
-     * @param {Integer} dwEffect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idroptargethelper-drop
+     * A pointer to the data object's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface.
+     * @param {Pointer<POINT>} ppt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a>*</b>
+     * 
+     * A <a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a> structure pointer that was received in the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-drop">IDropTarget::Drop</a> method's 
+     * 					<i>pt</i> parameter.
+     * @param {Integer} dwEffect Type: <b>DWORD</b>
+     * 
+     * The value pointed to by the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-idroptarget-drop">IDropTarget::Drop</a> method's 
+     * 					<i>pdwEffect</i> parameter.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idroptargethelper-drop
      */
     Drop(pDataObject, ppt, dwEffect) {
         result := ComCall(6, this, "ptr", pDataObject, "ptr", ppt, "uint", dwEffect, "HRESULT")
@@ -98,10 +130,14 @@ class IDropTargetHelper extends IUnknown{
     }
 
     /**
+     * Notifies the drag-image manager to show or hide the drag image.
+     * @param {BOOL} fShow Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fShow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idroptargethelper-show
+     * A boolean value that is set to <b>TRUE</b> to show the drag image, and <b>FALSE</b> to hide it.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idroptargethelper-show
      */
     Show(fShow) {
         result := ComCall(7, this, "int", fShow, "HRESULT")

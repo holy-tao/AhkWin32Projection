@@ -32,9 +32,9 @@ class IAdvancedMediaCaptureSettings extends IUnknown{
     static VTableNames => ["GetDirectxDeviceManager"]
 
     /**
-     * 
+     * Gets the DirectX device manager.
      * @returns {IMFDXGIDeviceManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediacapture/nf-mfmediacapture-iadvancedmediacapturesettings-getdirectxdevicemanager
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediacapture/nf-mfmediacapture-iadvancedmediacapturesettings-getdirectxdevicemanager
      */
     GetDirectxDeviceManager() {
         result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")

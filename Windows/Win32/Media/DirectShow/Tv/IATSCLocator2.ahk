@@ -36,9 +36,17 @@ class IATSCLocator2 extends IATSCLocator{
     static VTableNames => ["get_ProgramNumber", "put_ProgramNumber"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator2-get_programnumber
+     * @type {Integer} 
+     */
+    ProgramNumber {
+        get => this.get_ProgramNumber()
+        set => this.put_ProgramNumber(value)
+    }
+
+    /**
+     * The get_ProgramNumber method retrieves the program number.
+     * @returns {Integer} Pointer to a variable that receives the program number.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsclocator2-get_programnumber
      */
     get_ProgramNumber() {
         result := ComCall(26, this, "int*", &ProgramNumber := 0, "HRESULT")
@@ -46,10 +54,10 @@ class IATSCLocator2 extends IATSCLocator{
     }
 
     /**
-     * 
-     * @param {Integer} ProgramNumber 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatsclocator2-put_programnumber
+     * The put_ProgramNumber method specifies the program number.
+     * @param {Integer} ProgramNumber Specifies the program number.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatsclocator2-put_programnumber
      */
     put_ProgramNumber(ProgramNumber) {
         result := ComCall(27, this, "int", ProgramNumber, "HRESULT")

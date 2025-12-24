@@ -36,21 +36,18 @@ class ICertificateAttestationChallenge extends IDispatch{
     static VTableNames => ["Initialize", "DecryptChallenge", "get_RequestID"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Integer} Encoding 
-     * @param {BSTR} strPendingFullCmcResponseWithChallenge 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @type {BSTR} 
+     */
+    RequestID {
+        get => this.get_RequestID()
+    }
+
+    /**
+     * Initialize using the full Certificate Management over CMS (CMC) response returned from the CA.
+     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the  response. The default value is XCN_CRYPT_STRING_BASE64.
+     * @param {BSTR} strPendingFullCmcResponseWithChallenge The pending CMC response from the CA.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificateattestationchallenge-initialize
      */
     Initialize(Encoding, strPendingFullCmcResponseWithChallenge) {
         strPendingFullCmcResponseWithChallenge := strPendingFullCmcResponseWithChallenge is String ? BSTR.Alloc(strPendingFullCmcResponseWithChallenge).Value : strPendingFullCmcResponseWithChallenge
@@ -60,10 +57,10 @@ class ICertificateAttestationChallenge extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Encoding 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificateattestationchallenge-decryptchallenge
+     * Decrypts the challenge from the Certificate Management over CMS (CMC) response and creates a re-encrypted response to send to the CA.
+     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode-encoding applied to the  attestation challenge. The default value is XCN_CRYPT_STRING_BASE64.
+     * @returns {BSTR} The decrypted challenge from the CMC response re-encrypted for the CA.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificateattestationchallenge-decryptchallenge
      */
     DecryptChallenge(Encoding) {
         pstrEnvelopedPkcs7ReencryptedToCA := BSTR()
@@ -72,9 +69,9 @@ class ICertificateAttestationChallenge extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the request ID from the Certificate Management over CMS (CMC) response.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificateattestationchallenge-get_requestid
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificateattestationchallenge-get_requestid
      */
     get_RequestID() {
         pstrRequestID := BSTR()

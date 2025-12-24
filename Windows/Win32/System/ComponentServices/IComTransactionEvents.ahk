@@ -31,13 +31,13 @@ class IComTransactionEvents extends IUnknown{
     static VTableNames => ["OnTransactionStart", "OnTransactionPrepare", "OnTransactionAbort", "OnTransactionCommit"]
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidTx 
-     * @param {Pointer<Guid>} tsid 
-     * @param {BOOL} fRoot 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtransactionevents-ontransactionstart
+     * Generated when a Microsoft Distributed Transaction Coordinator (DTC) transaction starts.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidTx The transaction identifier.
+     * @param {Pointer<Guid>} tsid The transaction stream identifier; a unique identifier for correlation to objects.
+     * @param {BOOL} fRoot Indicates whether this is a root transaction.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtransactionevents-ontransactionstart
      */
     OnTransactionStart(pInfo, guidTx, tsid, fRoot) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", guidTx, "ptr", tsid, "int", fRoot, "HRESULT")
@@ -45,12 +45,12 @@ class IComTransactionEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidTx 
-     * @param {BOOL} fVoteYes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtransactionevents-ontransactionprepare
+     * Generated when the prepare phase of the two-phase commit protocol of the transaction is completed.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidTx The transaction identifier.
+     * @param {BOOL} fVoteYes The resource managers result concerning the outcome of the prepare phase.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtransactionevents-ontransactionprepare
      */
     OnTransactionPrepare(pInfo, guidTx, fVoteYes) {
         result := ComCall(4, this, "ptr", pInfo, "ptr", guidTx, "int", fVoteYes, "HRESULT")
@@ -58,11 +58,11 @@ class IComTransactionEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidTx 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtransactionevents-ontransactionabort
+     * Generated when a transaction aborts.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidTx The transaction identifier.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtransactionevents-ontransactionabort
      */
     OnTransactionAbort(pInfo, guidTx) {
         result := ComCall(5, this, "ptr", pInfo, "ptr", guidTx, "HRESULT")
@@ -70,11 +70,11 @@ class IComTransactionEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidTx 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomtransactionevents-ontransactioncommit
+     * Generated when a transaction commits.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidTx The transaction identifier.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtransactionevents-ontransactioncommit
      */
     OnTransactionCommit(pInfo, guidTx) {
         result := ComCall(6, this, "ptr", pInfo, "ptr", guidTx, "HRESULT")

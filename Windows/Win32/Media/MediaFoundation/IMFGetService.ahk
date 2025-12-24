@@ -38,11 +38,11 @@ class IMFGetService extends IUnknown{
     static VTableNames => ["GetService"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} guidService 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfgetservice-getservice
+     * Retrieves a service interface.
+     * @param {Pointer<Guid>} guidService The service identifier (SID) of the service. For a list of service identifiers, see <a href="https://docs.microsoft.com/windows/desktop/medfound/service-interfaces">Service Interfaces</a>.
+     * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface being requested.
+     * @returns {Pointer<Void>} Receives the interface pointer. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfgetservice-getservice
      */
     GetService(guidService, riid) {
         result := ComCall(3, this, "ptr", guidService, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")

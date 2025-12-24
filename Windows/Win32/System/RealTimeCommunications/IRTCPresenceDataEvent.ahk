@@ -30,6 +30,20 @@ class IRTCPresenceDataEvent extends IDispatch{
     static VTableNames => ["get_StatusCode", "get_StatusText", "GetPresenceData"]
 
     /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StatusText {
+        get => this.get_StatusText()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

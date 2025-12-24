@@ -31,13 +31,13 @@ class IComObjectConstructionEvents extends IUnknown{
     static VTableNames => ["OnObjectConstruct"]
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidObject 
-     * @param {PWSTR} sConstructString 
-     * @param {Integer} oid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectconstructionevents-onobjectconstruct
+     * Generated when a constructed object is created.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidObject The CLSID for the objects in the pool.
+     * @param {PWSTR} sConstructString The object construction string.
+     * @param {Integer} oid The unique constructed object identifier.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectconstructionevents-onobjectconstruct
      */
     OnObjectConstruct(pInfo, guidObject, sConstructString, oid) {
         sConstructString := sConstructString is String ? StrPtr(sConstructString) : sConstructString

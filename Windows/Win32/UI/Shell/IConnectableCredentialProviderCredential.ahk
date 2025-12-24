@@ -39,10 +39,14 @@ class IConnectableCredentialProviderCredential extends ICredentialProviderCreden
     static VTableNames => ["Connect", "Disconnect"]
 
     /**
+     * Connects an IConnectableCredentialProviderCredential object. This method is called after the user clicks the Submit button within the Pre-Logon-Access Provider screen and before ICredentialProviderCredential::GetSerialization is called.
+     * @param {IQueryContinueWithStatus} pqcws Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nn-credentialprovider-iquerycontinuewithstatus">IQueryContinueWithStatus</a>*</b>
      * 
-     * @param {IQueryContinueWithStatus} pqcws 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-iconnectablecredentialprovidercredential-connect
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nn-credentialprovider-iquerycontinuewithstatus">IQueryContinueWithStatus</a> object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-iconnectablecredentialprovidercredential-connect
      */
     Connect(pqcws) {
         result := ComCall(20, this, "ptr", pqcws, "HRESULT")
@@ -50,9 +54,11 @@ class IConnectableCredentialProviderCredential extends ICredentialProviderCreden
     }
 
     /**
+     * Disconnects an IConnectableCredentialProviderCredential object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-iconnectablecredentialprovidercredential-disconnect
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-iconnectablecredentialprovidercredential-disconnect
      */
     Disconnect() {
         result := ComCall(21, this, "HRESULT")

@@ -39,10 +39,10 @@ class ISpatialAudioObjectRenderStreamForMetadata extends ISpatialAudioObjectRend
     static VTableNames => ["ActivateSpatialAudioObjectForMetadataCommands", "ActivateSpatialAudioObjectForMetadataItems"]
 
     /**
-     * 
-     * @param {Integer} type 
-     * @returns {ISpatialAudioObjectForMetadataCommands} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectrenderstreamformetadata-activatespatialaudioobjectformetadatacommands
+     * Activate an ISpatialAudioObjectForMetadataCommands for rendering.
+     * @param {Integer} type The type of audio object to activate. For dynamic audio objects, this value must be <b>AudioObjectType_Dynamic</b>. For static audio objects, specify one of the static audio channel values from the enumeration. Specifying <b>AudioObjectType_None</b> will produce an audio object that is not spatialized.
+     * @returns {ISpatialAudioObjectForMetadataCommands} Receives a pointer to the activated interface.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectrenderstreamformetadata-activatespatialaudioobjectformetadatacommands
      */
     ActivateSpatialAudioObjectForMetadataCommands(type) {
         result := ComCall(10, this, "int", type, "ptr*", &audioObject := 0, "HRESULT")
@@ -50,10 +50,10 @@ class ISpatialAudioObjectRenderStreamForMetadata extends ISpatialAudioObjectRend
     }
 
     /**
-     * 
-     * @param {Integer} type 
-     * @returns {ISpatialAudioObjectForMetadataItems} 
-     * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectrenderstreamformetadata-activatespatialaudioobjectformetadataitems
+     * Activate an ISpatialAudioObjectForMetadataItems for rendering.
+     * @param {Integer} type The type of audio object to activate. For dynamic audio objects, this value must be <b>AudioObjectType_Dynamic</b>. For static audio objects, specify one of the static audio channel values from the enumeration. Specifying <b>AudioObjectType_None</b> will produce an audio object that is not spatialized.
+     * @returns {ISpatialAudioObjectForMetadataItems} Receives a pointer to the activated interface.
+     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudioobjectrenderstreamformetadata-activatespatialaudioobjectformetadataitems
      */
     ActivateSpatialAudioObjectForMetadataItems(type) {
         result := ComCall(11, this, "int", type, "ptr*", &audioObject := 0, "HRESULT")

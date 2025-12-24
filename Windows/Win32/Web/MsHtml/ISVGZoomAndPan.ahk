@@ -29,6 +29,13 @@ class ISVGZoomAndPan extends IDispatch{
     static VTableNames => ["get_zoomAndPan"]
 
     /**
+     * @type {Integer} 
+     */
+    zoomAndPan {
+        get => this.get_zoomAndPan()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

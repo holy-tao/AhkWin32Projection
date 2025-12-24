@@ -31,10 +31,39 @@ class ISupportErrorInfo extends IUnknown{
     static VTableNames => ["InterfaceSupportsErrorInfo"]
 
     /**
+     * Indicates whether an interface supports the IErrorInfo interface.
+     * @param {Pointer<Guid>} riid An interface identifier (IID).
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-isupporterrorinfo-interfacesupportserrorinfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The interface supports <a href="/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ierrorinfo">IErrorInfo</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The interface does not support <a href="/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ierrorinfo">IErrorInfo</a>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-isupporterrorinfo-interfacesupportserrorinfo
      */
     InterfaceSupportsErrorInfo(riid) {
         result := ComCall(3, this, "ptr", riid, "HRESULT")

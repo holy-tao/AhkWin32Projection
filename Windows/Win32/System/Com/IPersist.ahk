@@ -31,9 +31,9 @@ class IPersist extends IUnknown{
     static VTableNames => ["GetClassID"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ipersist-getclassid
+     * Retrieves the class identifier (CLSID) of the object.
+     * @returns {Guid} A pointer to the location that receives the CLSID on return. The CLSID is a globally unique identifier (GUID) that uniquely represents an object class that defines the code that can manipulate the object's data.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ipersist-getclassid
      */
     GetClassID() {
         pClassID := Guid()

@@ -34,11 +34,21 @@ class ITStreamControl extends IDispatch{
     static VTableNames => ["CreateStream", "RemoveStream", "EnumerateStreams", "get_Streams"]
 
     /**
-     * 
-     * @param {Integer} lMediaType 
-     * @param {Integer} td 
-     * @returns {ITStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstreamcontrol-createstream
+     * @type {VARIANT} 
+     */
+    Streams {
+        get => this.get_Streams()
+    }
+
+    /**
+     * The CreateStream method creates a new media stream.
+     * @param {Integer} lMediaType Indicates 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a> for stream.
+     * @param {Integer} td Indicates the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a>.
+     * @returns {ITStream} Pointer to pointer for newly created 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itstreamcontrol-createstream
      */
     CreateStream(lMediaType, td) {
         result := ComCall(7, this, "int", lMediaType, "int", td, "ptr*", &ppStream := 0, "HRESULT")
@@ -46,10 +56,51 @@ class ITStreamControl extends IDispatch{
     }
 
     /**
+     * The RemoveStream method removes a media stream.
+     * @param {ITStream} pStream Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {ITStream} pStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstreamcontrol-removestream
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pStream</i> parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TAPI_E_NOTSUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This operation is not supported.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itstreamcontrol-removestream
      */
     RemoveStream(pStream) {
         result := ComCall(8, this, "ptr", pStream, "HRESULT")
@@ -57,9 +108,10 @@ class ITStreamControl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstreamcontrol-enumeratestreams
+     * The EnumerateStreams method enumerates currently available media streams. Provided for C and C++ applications. Automation client applications such as Visual Basic must use the get_Streams method.
+     * @returns {IEnumStream} Pointer to pointer for 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumstream">IEnumStream</a> enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itstreamcontrol-enumeratestreams
      */
     EnumerateStreams() {
         result := ComCall(9, this, "ptr*", &ppEnumStream := 0, "HRESULT")
@@ -67,9 +119,11 @@ class ITStreamControl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstreamcontrol-get_streams
+     * The get_Streams method creates a collection of media streams currently available on the call. Provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateStreams method.
+     * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itstreamcontrol-get_streams
      */
     get_Streams() {
         pVariant := VARIANT()

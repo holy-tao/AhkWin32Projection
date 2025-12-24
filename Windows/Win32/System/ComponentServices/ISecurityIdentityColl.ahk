@@ -34,9 +34,23 @@ class ISecurityIdentityColl extends IDispatch{
     static VTableNames => ["get_Count", "get_Item", "get__NewEnum"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityidentitycoll-get_count
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * Retrieves the number of properties in the security identity collection.
+     * @returns {Integer} The number of properties in the security identity collection.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecurityidentitycoll-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
@@ -44,10 +58,10 @@ class ISecurityIdentityColl extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityidentitycoll-get_item
+     * Retrieves a specified property in the security identity collection.
+     * @param {BSTR} name The name of the property to be retrieved. See Remarks for information about the available properties.
+     * @returns {VARIANT} A reference to the retrieved property.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecurityidentitycoll-get_item
      */
     get_Item(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -58,9 +72,9 @@ class ISecurityIdentityColl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecurityidentitycoll-get__newenum
+     * Retrieves an enumerator for the security identity collection.
+     * @returns {IUnknown} A reference to the returned <a href="https://docs.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecurityidentitycoll-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")

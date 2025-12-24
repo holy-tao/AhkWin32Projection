@@ -38,9 +38,9 @@ class ISimilarityTraitsMappedView extends IUnknown{
     static VTableNames => ["Flush", "Unmap", "Get", "GetView"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmappedview-flush
+     * Writes to the disk any dirty pages within a mapped view of a similarity traits table file.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-isimilaritytraitsmappedview-flush
      */
     Flush() {
         result := ComCall(3, this, "HRESULT")
@@ -48,9 +48,9 @@ class ISimilarityTraitsMappedView extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmappedview-unmap
+     * Unmaps a mapped view of a similarity traits table file.
+     * @returns {HRESULT} This method always returns <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-isimilaritytraitsmappedview-unmap
      */
     Unmap() {
         result := ComCall(4, this, "HRESULT")
@@ -58,12 +58,12 @@ class ISimilarityTraitsMappedView extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @param {BOOL} dirty 
-     * @param {Integer} numElements 
-     * @returns {SimilarityMappedViewInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmappedview-get
+     * Returns information about the mapped view of a similarity traits table file.
+     * @param {Integer} index Beginning file offset, in bytes, of the underlying file data to be mapped in the mapped view.
+     * @param {BOOL} dirty If <b>TRUE</b> is specified, the data in the currently mapped view has been changed; otherwise, the data has not changed. This parameter can be used to determine if data may need to be written to disk.
+     * @param {Integer} numElements Minimum number of bytes of data to be mapped in the mapped view.
+     * @returns {SimilarityMappedViewInfo} Pointer to a location that receives a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritymappedviewinfo">SimilarityMappedViewInfo</a> structure containing information about the mapped view.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-isimilaritytraitsmappedview-get
      */
     Get(index, dirty, numElements) {
         viewInfo := SimilarityMappedViewInfo()
@@ -72,11 +72,16 @@ class ISimilarityTraitsMappedView extends IUnknown{
     }
 
     /**
+     * Returns the beginning and ending addresses for the mapped view of a similarity traits table file.
+     * @remarks
      * 
-     * @param {Pointer<Pointer<Integer>>} mappedPageBegin 
-     * @param {Pointer<Pointer<Integer>>} mappedPageEnd 
+     * If there is no mapped view, then <c>*mappedPageBegin</code> must be set to zero. Otherwise, <code>*mappedPageBegin</code> is set to a valid pointer, and <code>*mappedPageBegin - *mappedPageEnd</c> equals the size, in bytes, of the mapped area.
+     * 
+     * 
+     * @param {Pointer<Pointer<Integer>>} mappedPageBegin Pointer to a location that receives the start of the data that is mapped for this view.
+     * @param {Pointer<Pointer<Integer>>} mappedPageEnd Pointer to a location that receives the end of the data that is mapped for this view, plus one.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytraitsmappedview-getview
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-isimilaritytraitsmappedview-getview
      */
     GetView(mappedPageBegin, mappedPageEnd) {
         mappedPageBeginMarshal := mappedPageBegin is VarRef ? "ptr*" : "ptr"

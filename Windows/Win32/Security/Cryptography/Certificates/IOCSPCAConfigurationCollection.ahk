@@ -35,9 +35,23 @@ class IOCSPCAConfigurationCollection extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_ItemByName", "CreateCAConfiguration", "DeleteCAConfiguration"]
 
     /**
-     * 
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * Gets an enumerator for the configuration set.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &pVal := 0, "HRESULT")
@@ -45,10 +59,10 @@ class IOCSPCAConfigurationCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a certification authority (CA) configuration identified by index in the configuration set.
      * @param {Integer} Index 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-get_item
      */
     get_Item(Index) {
         pVal := VARIANT()
@@ -57,9 +71,9 @@ class IOCSPCAConfigurationCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the number of certification authority (CA) configurations in the configuration set.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -67,10 +81,10 @@ class IOCSPCAConfigurationCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a certification authority (CA) configuration identified by name in the configuration set.
      * @param {BSTR} bstrIdentifier 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-get_itembyname
+     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-get_itembyname
      */
     get_ItemByName(bstrIdentifier) {
         bstrIdentifier := bstrIdentifier is String ? BSTR.Alloc(bstrIdentifier).Value : bstrIdentifier
@@ -81,11 +95,11 @@ class IOCSPCAConfigurationCollection extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrIdentifier 
-     * @param {VARIANT} varCACert 
-     * @returns {IOCSPCAConfiguration} 
-     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-createcaconfiguration
+     * Creates a new certification authority (CA) configuration and adds it to the configuration set.
+     * @param {BSTR} bstrIdentifier A string that contains a name for the new <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocspcaconfiguration">IOCSPCAConfiguration</a> object.
+     * @param {VARIANT} varCACert An X.509 CA certificate.
+     * @returns {IOCSPCAConfiguration} The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocspcaconfiguration">IOCSPCAConfiguration</a> interface for the newly created object.
+     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-createcaconfiguration
      */
     CreateCAConfiguration(bstrIdentifier, varCACert) {
         bstrIdentifier := bstrIdentifier is String ? BSTR.Alloc(bstrIdentifier).Value : bstrIdentifier
@@ -95,10 +109,15 @@ class IOCSPCAConfigurationCollection extends IDispatch{
     }
 
     /**
+     * Removes a named certification authority (CA) configuration from the configuration set.
+     * @remarks
      * 
-     * @param {BSTR} bstrIdentifier 
+     * The <i>bstrIdentifier</i> value must be one previously set by the <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspcaconfigurationcollection-createcaconfiguration">CreateCAConfiguration</a> method.
+     * 
+     * 
+     * @param {BSTR} bstrIdentifier A string that contains the name for the <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocspcaconfiguration">IOCSPCAConfiguration</a> object.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfigurationcollection-deletecaconfiguration
+     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfigurationcollection-deletecaconfiguration
      */
     DeleteCAConfiguration(bstrIdentifier) {
         bstrIdentifier := bstrIdentifier is String ? BSTR.Alloc(bstrIdentifier).Value : bstrIdentifier

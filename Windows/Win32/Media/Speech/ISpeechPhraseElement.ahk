@@ -31,6 +31,97 @@ class ISpeechPhraseElement extends IDispatch{
     static VTableNames => ["get_AudioTimeOffset", "get_AudioSizeTime", "get_AudioStreamOffset", "get_AudioSizeBytes", "get_RetainedStreamOffset", "get_RetainedSizeBytes", "get_DisplayText", "get_LexicalForm", "get_Pronunciation", "get_DisplayAttributes", "get_RequiredConfidence", "get_ActualConfidence", "get_EngineConfidence"]
 
     /**
+     * @type {Integer} 
+     */
+    AudioTimeOffset {
+        get => this.get_AudioTimeOffset()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AudioSizeTime {
+        get => this.get_AudioSizeTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AudioStreamOffset {
+        get => this.get_AudioStreamOffset()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AudioSizeBytes {
+        get => this.get_AudioSizeBytes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RetainedStreamOffset {
+        get => this.get_RetainedStreamOffset()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RetainedSizeBytes {
+        get => this.get_RetainedSizeBytes()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayText {
+        get => this.get_DisplayText()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LexicalForm {
+        get => this.get_LexicalForm()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Pronunciation {
+        get => this.get_Pronunciation()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DisplayAttributes {
+        get => this.get_DisplayAttributes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RequiredConfidence {
+        get => this.get_RequiredConfidence()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ActualConfidence {
+        get => this.get_ActualConfidence()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    EngineConfidence {
+        get => this.get_EngineConfidence()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

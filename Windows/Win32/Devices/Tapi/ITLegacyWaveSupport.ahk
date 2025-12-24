@@ -31,9 +31,10 @@ class ITLegacyWaveSupport extends IDispatch{
     static VTableNames => ["IsFullDuplex"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacywavesupport-isfullduplex
+     * The IsFullDuplex method gets an indicator of whether the address supports wave devices.
+     * @returns {Integer} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-fullduplex_support">FULLDUPLEX_SUPPORT</a> enumerator member, such as FDS_SUPPORTED.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacywavesupport-isfullduplex
      */
     IsFullDuplex() {
         result := ComCall(7, this, "int*", &pSupport := 0, "HRESULT")

@@ -31,11 +31,11 @@ class IDataTransferManagerInterop extends IUnknown{
     static VTableNames => ["GetForWindow", "ShowShareUIForWindow"]
 
     /**
-     * 
-     * @param {HWND} appWindow 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idatatransfermanagerinterop-getforwindow
+     * Gets the DataTransferManager instance for the specified window.
+     * @param {HWND} appWindow The window whose <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.datatransfer.datatransfermanager">DataTransferManager</a> instance is to be retrieved.
+     * @param {Pointer<Guid>} riid The requested interface ID of the <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.datatransfer.datatransfermanager">DataTransferManager</a> instance.
+     * @returns {Pointer<Void>} Receives the <a href="https://docs.microsoft.com/uwp/api/windows.applicationmodel.datatransfer.datatransfermanager">DataTransferManager</a> instance.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idatatransfermanagerinterop-getforwindow
      */
     GetForWindow(appWindow, riid) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow
@@ -45,10 +45,10 @@ class IDataTransferManagerInterop extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} appWindow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idatatransfermanagerinterop-showshareuiforwindow
+     * Displays the UI for sharing content for the specified window.
+     * @param {HWND} appWindow The window to show the share UI for.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idatatransfermanagerinterop-showshareuiforwindow
      */
     ShowShareUIForWindow(appWindow) {
         appWindow := appWindow is Win32Handle ? NumGet(appWindow, "ptr") : appWindow

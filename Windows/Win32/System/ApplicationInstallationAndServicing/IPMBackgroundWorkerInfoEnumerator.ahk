@@ -30,6 +30,13 @@ class IPMBackgroundWorkerInfoEnumerator extends IUnknown{
     static VTableNames => ["get_Next"]
 
     /**
+     * @type {IPMBackgroundWorkerInfo} 
+     */
+    Next {
+        get => this.get_Next()
+    }
+
+    /**
      * 
      * @returns {IPMBackgroundWorkerInfo} 
      */

@@ -33,6 +33,22 @@ class IADsFaxNumber extends IDispatch{
     static VTableNames => ["get_TelephoneNumber", "put_TelephoneNumber", "get_Parameters", "put_Parameters"]
 
     /**
+     * @type {BSTR} 
+     */
+    TelephoneNumber {
+        get => this.get_TelephoneNumber()
+        set => this.put_TelephoneNumber(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Parameters {
+        get => this.get_Parameters()
+        set => this.put_Parameters(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

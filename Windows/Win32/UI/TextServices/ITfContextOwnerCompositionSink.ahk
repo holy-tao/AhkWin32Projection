@@ -31,10 +31,10 @@ class ITfContextOwnerCompositionSink extends IUnknown{
     static VTableNames => ["OnStartComposition", "OnUpdateComposition", "OnEndComposition"]
 
     /**
-     * 
-     * @param {ITfCompositionView} pComposition 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextownercompositionsink-onstartcomposition
+     * ITfContextOwnerCompositionSink::OnStartComposition method
+     * @param {ITfCompositionView} pComposition Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcompositionview">ITfCompositionView</a> object that represents the new composition.
+     * @returns {BOOL} Pointer to a <b>BOOL</b> value that receives a value that allows or denies the new composition. Receives a nonzero value to allow the composition or zero to deny the composition.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextownercompositionsink-onstartcomposition
      */
     OnStartComposition(pComposition) {
         result := ComCall(3, this, "ptr", pComposition, "int*", &pfOk := 0, "HRESULT")
@@ -42,11 +42,11 @@ class ITfContextOwnerCompositionSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ITfCompositionView} pComposition 
-     * @param {ITfRange} pRangeNew 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextownercompositionsink-onupdatecomposition
+     * ITfContextOwnerCompositionSink::OnUpdateComposition method
+     * @param {ITfCompositionView} pComposition Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcompositionview">ITfCompositionView</a> object that represents the composition updated.
+     * @param {ITfRange} pRangeNew Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that contains the range of text the composition will cover after the composition is updated.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextownercompositionsink-onupdatecomposition
      */
     OnUpdateComposition(pComposition, pRangeNew) {
         result := ComCall(4, this, "ptr", pComposition, "ptr", pRangeNew, "HRESULT")
@@ -54,10 +54,10 @@ class ITfContextOwnerCompositionSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ITfCompositionView} pComposition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextownercompositionsink-onendcomposition
+     * ITfContextOwnerCompositionSink::OnEndComposition method
+     * @param {ITfCompositionView} pComposition Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcompositionview">ITfCompositionView</a> object that represents the composition terminated.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextownercompositionsink-onendcomposition
      */
     OnEndComposition(pComposition) {
         result := ComCall(5, this, "ptr", pComposition, "HRESULT")

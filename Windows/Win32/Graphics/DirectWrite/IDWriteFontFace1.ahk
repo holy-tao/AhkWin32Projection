@@ -32,22 +32,33 @@ class IDWriteFontFace1 extends IDWriteFontFace{
     static VTableNames => ["GetMetrics", "GetGdiCompatibleMetrics", "GetCaretMetrics", "GetUnicodeRanges", "IsMonospacedFont", "GetDesignGlyphAdvances", "GetGdiCompatibleGlyphAdvances", "GetKerningPairAdjustments", "HasKerningPairs", "GetRecommendedRenderingMode", "GetVerticalGlyphVariants", "HasVerticalGlyphVariants"]
 
     /**
+     * Obtains design units and common metrics for the font face. These metrics are applicable to all the glyphs within a font face and are used by applications for layout calculations.
+     * @param {Pointer<DWRITE_FONT_METRICS1>} fontMetrics Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_font_metrics1">DWRITE_FONT_METRICS1</a>*</b>
      * 
-     * @param {Pointer<DWRITE_FONT_METRICS1>} fontMetrics 
+     * A filled <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_font_metrics1">DWRITE_FONT_METRICS1</a> structure that holds metrics for the current font face element.
+     *      The metrics returned by this method are in font design units.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getmetrics
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-getmetrics
      */
     GetMetrics(fontMetrics) {
         ComCall(18, this, "ptr", fontMetrics)
     }
 
     /**
+     * Obtains design units and common metrics for the font face. These metrics are applicable to all the glyphs within a fontface and are used by applications for layout calculations.
+     * @param {Float} emSize Type: <b>FLOAT</b>
      * 
-     * @param {Float} emSize 
-     * @param {Float} pixelsPerDip 
-     * @param {Pointer<DWRITE_MATRIX>} transform 
-     * @returns {DWRITE_FONT_METRICS1} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getgdicompatiblemetrics
+     * The logical size of the font in DIP units.
+     * @param {Float} pixelsPerDip Type: <b>FLOAT</b>
+     * 
+     * The number of physical pixels per DIP.
+     * @param {Pointer<DWRITE_MATRIX>} transform Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
+     * 
+     * An optional transform applied to the glyphs and their positions. This transform is applied after the scaling specified by the font size and <i>pixelsPerDip</i>.
+     * @returns {DWRITE_FONT_METRICS1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_font_metrics1">DWRITE_FONT_METRICS1</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_font_metrics1">DWRITE_FONT_METRICS1</a> structure to fill in. The metrics returned by this function are in font design units.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-getgdicompatiblemetrics
      */
     GetGdiCompatibleMetrics(emSize, pixelsPerDip, transform) {
         fontMetrics := DWRITE_FONT_METRICS1()
@@ -56,95 +67,69 @@ class IDWriteFontFace1 extends IDWriteFontFace{
     }
 
     /**
+     * Gets caret metrics for the font in design units.
+     * @remarks
      * 
-     * @param {Pointer<DWRITE_CARET_METRICS>} caretMetrics 
+     * Caret metrics are used by
+     *     text editors for drawing the correct caret placement and slant.
+     * 
+     * 
+     * @param {Pointer<DWRITE_CARET_METRICS>} caretMetrics Type: <b>DWRITE_CARET_METRICS*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_caret_metrics">DWRITE_CARET_METRICS</a> structure that is filled.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getcaretmetrics
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-getcaretmetrics
      */
     GetCaretMetrics(caretMetrics) {
         ComCall(20, this, "ptr", caretMetrics)
     }
 
     /**
-     * Returns the ranges of Unicode points that the recognizer supports.
-     * @param {Integer} maxRangeCount 
-     * @param {Pointer<DWRITE_UNICODE_RANGE>} unicodeRanges 
-     * @param {Pointer<Integer>} actualRangeCount 
-     * @returns {HRESULT} This function can return one of these values.
+     * Retrieves a list of character ranges supported by a font.
+     * @param {Integer} maxRangeCount Type: <b>UINT32</b>
+     * 
+     * Maximum number of character ranges passed
+     *     in from the client.
+     * @param {Pointer<DWRITE_UNICODE_RANGE>} unicodeRanges Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_unicode_range">DWRITE_UNICODE_RANGE</a>*</b>
+     * 
+     * An array of <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ns-dwrite_1-dwrite_unicode_range">DWRITE_UNICODE_RANGE</a> structures that are filled with the character ranges.
+     * @param {Pointer<Integer>} actualRangeCount Type: <b>UINT32*</b>
+     * 
+     * A pointer to the actual number of character ranges,
+     *     regardless of the maximum count.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method can return one of these values.
      * 
      * <table>
      * <tr>
-     * <th>Return code</th>
+     * <th>Return value</th>
      * <th>Description</th>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b>S_OK</b></dt>
+     * <dt>S_OK</dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * Success.
+     * The method executed successfully.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b>E_POINTER</b></dt>
+     * <dt>E_NOT_SUFFICIENT_BUFFER</dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * One of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>TPC_E_INSUFFICIENT_BUFFER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>pcr</i> buffer is too small.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid argument was received.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Insufficient memory.
+     * The buffer is too small.  The <i>actualRangeCount</i> was more than the <i>maxRangeCount</i>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-getunicoderanges
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-getunicoderanges
      */
     GetUnicodeRanges(maxRangeCount, unicodeRanges, actualRangeCount) {
         actualRangeCountMarshal := actualRangeCount is VarRef ? "uint*" : "ptr"
@@ -154,9 +139,11 @@ class IDWriteFontFace1 extends IDWriteFontFace{
     }
 
     /**
+     * Determines whether the font of a text range is monospaced, that is, the font characters are the same fixed-pitch width.
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-ismonospacedfont
+     * Returns TRUE if the font is monospaced, otherwise it returns FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-ismonospacedfont
      */
     IsMonospacedFont() {
         result := ComCall(22, this, "int")
@@ -164,12 +151,22 @@ class IDWriteFontFace1 extends IDWriteFontFace{
     }
 
     /**
+     * Retrieves the advances in design units for a sequences of glyphs.
+     * @param {Integer} glyphCount Type: <b>UINT32</b>
      * 
-     * @param {Integer} glyphCount 
-     * @param {Pointer<Integer>} glyphIndices 
-     * @param {BOOL} isSideways 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getdesignglyphadvances
+     * The number of glyphs to retrieve advances for.
+     * @param {Pointer<Integer>} glyphIndices Type: <b>const UINT16*</b>
+     * 
+     * An array of glyph id's to retrieve advances for.
+     * @param {BOOL} isSideways Type: <b>BOOL</b>
+     * 
+     * Retrieve the glyph's vertical advance height
+     *     rather than horizontal advance widths.
+     * @returns {Integer} Type: <b>INT32*</b>
+     * 
+     * The returned advances in font design units for
+     *     each glyph.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-getdesignglyphadvances
      */
     GetDesignGlyphAdvances(glyphCount, glyphIndices, isSideways) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
@@ -179,16 +176,42 @@ class IDWriteFontFace1 extends IDWriteFontFace{
     }
 
     /**
+     * Returns the pixel-aligned advances for a sequences of glyphs.
+     * @param {Float} emSize Type: <b>FLOAT</b>
      * 
-     * @param {Float} emSize 
-     * @param {Float} pixelsPerDip 
-     * @param {Pointer<DWRITE_MATRIX>} transform 
-     * @param {BOOL} useGdiNatural 
-     * @param {BOOL} isSideways 
-     * @param {Integer} glyphCount 
-     * @param {Pointer<Integer>} glyphIndices 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getgdicompatibleglyphadvances
+     * Logical size of the font in DIP units. A DIP
+     *     ("device-independent pixel") equals 1/96 inch.
+     * @param {Float} pixelsPerDip Type: <b>FLOAT</b>
+     * 
+     * Number of physical pixels per DIP. For
+     *     example, if the DPI of the rendering surface is 96 this value is
+     *     1.0f. If the DPI is 120, this value is 120.0f/96.
+     * @param {Pointer<DWRITE_MATRIX>} transform Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
+     * 
+     * Optional transform applied to the glyphs and
+     *     their positions. This transform is applied after the scaling
+     *     specified by the font size and pixelsPerDip.
+     * @param {BOOL} useGdiNatural Type: <b>BOOL</b>
+     * 
+     * When FALSE, the metrics are the same as
+     *     GDI aliased text (DWRITE_MEASURING_MODE_GDI_CLASSIC). When TRUE,
+     *     the metrics are the same as those measured by GDI using a font
+     *     using CLEARTYPE_NATURAL_QUALITY (DWRITE_MEASURING_MODE_GDI_NATURAL).
+     * @param {BOOL} isSideways Type: <b>BOOL</b>
+     * 
+     * Retrieve the glyph's vertical advances rather
+     *     than horizontal advances.
+     * @param {Integer} glyphCount Type: <b>UINT32</b>
+     * 
+     * Total glyphs to retrieve adjustments for.
+     * @param {Pointer<Integer>} glyphIndices Type: <b>const UINT16*</b>
+     * 
+     * An array of glyph id's to retrieve advances.
+     * @returns {Integer} Type: <b>const INT32*</b>
+     * 
+     * The returned advances in font design units for
+     *     each glyph.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-getgdicompatibleglyphadvances
      */
     GetGdiCompatibleGlyphAdvances(emSize, pixelsPerDip, transform, useGdiNatural, isSideways, glyphCount, glyphIndices) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
@@ -198,11 +221,19 @@ class IDWriteFontFace1 extends IDWriteFontFace{
     }
 
     /**
+     * Retrieves the kerning pair adjustments from the font's kern table.
+     * @param {Integer} glyphCount Type: <b>UINT32</b>
      * 
-     * @param {Integer} glyphCount 
-     * @param {Pointer<Integer>} glyphIndices 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getkerningpairadjustments
+     * Number of glyphs to retrieve adjustments for.
+     * @param {Pointer<Integer>} glyphIndices Type: <b>const UINT16*</b>
+     * 
+     * An array of glyph id's to retrieve adjustments
+     *     for.
+     * @returns {Integer} Type: <b>INT32*</b>
+     * 
+     * The advances, returned in font design units, for
+     *     each glyph. The last glyph adjustment is zero.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-getkerningpairadjustments
      */
     GetKerningPairAdjustments(glyphCount, glyphIndices) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
@@ -212,9 +243,9 @@ class IDWriteFontFace1 extends IDWriteFontFace{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-haskerningpairs
+     * Determines whether the font supports pair-kerning.
+     * @returns {BOOL} Returns TRUE if the font supports kerning pairs, otherwise FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-haskerningpairs
      */
     HasKerningPairs() {
         result := ComCall(26, this, "int")
@@ -222,16 +253,46 @@ class IDWriteFontFace1 extends IDWriteFontFace{
     }
 
     /**
+     * Determines the recommended rendering mode for the font, using the specified size and rendering parameters.
+     * @param {Float} fontEmSize Type: <b>FLOAT</b>
      * 
-     * @param {Float} fontEmSize 
-     * @param {Float} dpiX 
-     * @param {Float} dpiY 
-     * @param {Pointer<DWRITE_MATRIX>} transform 
-     * @param {BOOL} isSideways 
-     * @param {Integer} outlineThreshold 
-     * @param {Integer} measuringMode 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getrecommendedrenderingmode
+     * The logical size of the font in DIP units. A DIP ("device-independent pixel") equals 1/96 inch.
+     * @param {Float} dpiX Type: <b>FLOAT</b>
+     * 
+     * The number of physical pixels per DIP in a horizontal position. For example, if the DPI of the rendering surface is 96, this 
+     *      value is 1.0f. If the DPI is 120, this value is 120.0f/96.
+     * @param {Float} dpiY Type: <b>FLOAT</b>
+     * 
+     * The number of physical pixels per DIP in a vertical position. For example, if the DPI of the rendering surface is 96, this 
+     *      value is 1.0f. If the DPI is 120, this value is 120.0f/96.
+     * @param {Pointer<DWRITE_MATRIX>} transform Type: <b>const DWRITE_MATRIX*</b>
+     * 
+     * Specifies the world transform.
+     * @param {BOOL} isSideways Type: <b>BOOL</b>
+     * 
+     * Whether the glyphs in the run are sideways or not.
+     * @param {Integer} outlineThreshold Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_outline_threshold">DWRITE_OUTLINE_THRESHOLD</a></b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_outline_threshold">DWRITE_OUTLINE_THRESHOLD</a>-typed value that specifies the quality of the graphics system's outline rendering,
+     *     affects the size threshold above which outline rendering is used.
+     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * 
+     * The measuring method that will be used for glyphs in the font.
+     *      Renderer implementations may choose different rendering modes for different measuring methods, for example:
+     *      
+     * 
+     * <ul>
+     * <li>DWRITE_RENDERING_MODE_CLEARTYPE_NATURAL for <a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE_NATURAL</a>
+     * </li>
+     * <li>DWRITE_RENDERING_MODE_CLEARTYPE_GDI_CLASSIC for <a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE_GDI_CLASSIC</a>
+     * </li>
+     * <li>DWRITE_RENDERING_MODE_CLEARTYPE_GDI_NATURAL for <a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE_GDI_NATURAL</a>
+     * </li>
+     * </ul>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a>*</b>
+     * 
+     * When this method returns, contains a value that indicates the recommended rendering mode to use.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(fontEmSize, dpiX, dpiY, transform, isSideways, outlineThreshold, measuringMode) {
         result := ComCall(27, this, "float", fontEmSize, "float", dpiX, "float", dpiY, "ptr", transform, "int", isSideways, "int", outlineThreshold, "int", measuringMode, "int*", &renderingMode := 0, "HRESULT")
@@ -239,11 +300,17 @@ class IDWriteFontFace1 extends IDWriteFontFace{
     }
 
     /**
+     * Retrieves the vertical forms of the nominal glyphs retrieved from GetGlyphIndices.
+     * @param {Integer} glyphCount Type: <b>UINT32</b>
      * 
-     * @param {Integer} glyphCount 
-     * @param {Pointer<Integer>} nominalGlyphIndices 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-getverticalglyphvariants
+     * The number of glyphs to retrieve.
+     * @param {Pointer<Integer>} nominalGlyphIndices Type: <b>const UINT16*</b>
+     * 
+     * Original glyph indices from cmap.
+     * @returns {Integer} Type: <b>UINT16*</b>
+     * 
+     * The vertical form of glyph indices.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-getverticalglyphvariants
      */
     GetVerticalGlyphVariants(glyphCount, nominalGlyphIndices) {
         nominalGlyphIndicesMarshal := nominalGlyphIndices is VarRef ? "ushort*" : "ptr"
@@ -253,9 +320,9 @@ class IDWriteFontFace1 extends IDWriteFontFace{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefontface1-hasverticalglyphvariants
+     * Determines whether the font has any vertical glyph variants.
+     * @returns {BOOL} Returns TRUE if the font contains vertical glyph variants, otherwise FALSE.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefontface1-hasverticalglyphvariants
      */
     HasVerticalGlyphVariants() {
         result := ComCall(29, this, "int")

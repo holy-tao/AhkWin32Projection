@@ -29,6 +29,30 @@ class ISpeechAudioBufferInfo extends IDispatch{
     static VTableNames => ["get_MinNotification", "put_MinNotification", "get_BufferSize", "put_BufferSize", "get_EventBias", "put_EventBias"]
 
     /**
+     * @type {Integer} 
+     */
+    MinNotification {
+        get => this.get_MinNotification()
+        set => this.put_MinNotification(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BufferSize {
+        get => this.get_BufferSize()
+        set => this.put_BufferSize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EventBias {
+        get => this.get_EventBias()
+        set => this.put_EventBias(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

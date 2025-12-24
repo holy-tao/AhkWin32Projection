@@ -37,6 +37,171 @@ class IHTMLAnchorElement extends IDispatch{
     static VTableNames => ["put_href", "get_href", "put_target", "get_target", "put_rel", "get_rel", "put_rev", "get_rev", "put_urn", "get_urn", "put_Methods", "get_Methods", "put_name", "get_name", "put_host", "get_host", "put_hostname", "get_hostname", "put_pathname", "get_pathname", "put_port", "get_port", "put_protocol", "get_protocol", "put_search", "get_search", "put_hash", "get_hash", "put_onblur", "get_onblur", "put_onfocus", "get_onfocus", "put_accessKey", "get_accessKey", "get_protocolLong", "get_mimeType", "get_nameProp", "put_tabIndex", "get_tabIndex", "focus", "blur"]
 
     /**
+     * @type {BSTR} 
+     */
+    href {
+        get => this.get_href()
+        set => this.put_href(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    target {
+        get => this.get_target()
+        set => this.put_target(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    rel {
+        get => this.get_rel()
+        set => this.put_rel(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    rev {
+        get => this.get_rev()
+        set => this.put_rev(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    urn {
+        get => this.get_urn()
+        set => this.put_urn(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Methods {
+        get => this.get_Methods()
+        set => this.put_Methods(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    host {
+        get => this.get_host()
+        set => this.put_host(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    hostname {
+        get => this.get_hostname()
+        set => this.put_hostname(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    pathname {
+        get => this.get_pathname()
+        set => this.put_pathname(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    port {
+        get => this.get_port()
+        set => this.put_port(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    protocol {
+        get => this.get_protocol()
+        set => this.put_protocol(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    search {
+        get => this.get_search()
+        set => this.put_search(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    hash {
+        get => this.get_hash()
+        set => this.put_hash(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onblur {
+        get => this.get_onblur()
+        set => this.put_onblur(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfocus {
+        get => this.get_onfocus()
+        set => this.put_onfocus(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    accessKey {
+        get => this.get_accessKey()
+        set => this.put_accessKey(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    protocolLong {
+        get => this.get_protocolLong()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    mimeType {
+        get => this.get_mimeType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    nameProp {
+        get => this.get_nameProp()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    tabIndex {
+        get => this.get_tabIndex()
+        set => this.put_tabIndex(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

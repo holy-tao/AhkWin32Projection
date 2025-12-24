@@ -31,9 +31,11 @@ class IUIAutomationObjectModelPattern extends IUnknown{
     static VTableNames => ["GetUnderlyingObjectModel"]
 
     /**
+     * Retrieves an interface used to access the underlying object model of the provider.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationobjectmodelpattern-getunderlyingobjectmodel
+     * Receives an interface for accessing the underlying object model.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationobjectmodelpattern-getunderlyingobjectmodel
      */
     GetUnderlyingObjectModel() {
         result := ComCall(3, this, "ptr*", &retVal := 0, "HRESULT")

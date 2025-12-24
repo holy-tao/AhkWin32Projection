@@ -37,9 +37,9 @@ class IMFSourceBuffer extends IUnknown{
     static VTableNames => ["GetUpdating", "GetBuffered", "GetTimeStampOffset", "SetTimeStampOffset", "GetAppendWindowStart", "SetAppendWindowStart", "GetAppendWindowEnd", "SetAppendWindowEnd", "Append", "AppendByteStream", "Abort", "Remove"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getupdating
+     * Gets a value that indicates if Append, AppendByteStream, or Remove is in process.
+     * @returns {BOOL} <b>true</b> if <a href="/windows/desktop/medfound/imfsourcebuffer-append">Append</a>, <a href="/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-appendbytestream">AppendByteStream</a>, or <a href="/windows/desktop/medfound/imfsourcebuffer-remove">Remove</a>; otherwise, <b>false</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getupdating
      */
     GetUpdating() {
         result := ComCall(3, this, "int")
@@ -47,9 +47,9 @@ class IMFSourceBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IMFMediaTimeRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getbuffered
+     * Gets the buffered time range.
+     * @returns {IMFMediaTimeRange} The buffered time range.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getbuffered
      */
     GetBuffered() {
         result := ComCall(4, this, "ptr*", &ppBuffered := 0, "HRESULT")
@@ -57,9 +57,9 @@ class IMFSourceBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-gettimestampoffset
+     * Gets the timestamp offset for media segments appended to the IMFSourceBuffer.
+     * @returns {Float} The timestamp offset.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-gettimestampoffset
      */
     GetTimeStampOffset() {
         result := ComCall(5, this, "double")
@@ -67,10 +67,10 @@ class IMFSourceBuffer extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the timestamp offset for media segments appended to the IMFSourceBuffer.
      * @param {Float} offset 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-settimestampoffset
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-settimestampoffset
      */
     SetTimeStampOffset(offset) {
         result := ComCall(6, this, "double", offset, "HRESULT")
@@ -78,9 +78,9 @@ class IMFSourceBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getappendwindowstart
+     * Gets the timestamp for the start of the append window.
+     * @returns {Float} The timestamp for the start of the append window.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getappendwindowstart
      */
     GetAppendWindowStart() {
         result := ComCall(7, this, "double")
@@ -88,10 +88,10 @@ class IMFSourceBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Float} time 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-setappendwindowstart
+     * Sets the timestamp for the start of the append window.
+     * @param {Float} time The timestamp for the start of the append window.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-setappendwindowstart
      */
     SetAppendWindowStart(time) {
         result := ComCall(8, this, "double", time, "HRESULT")
@@ -99,9 +99,9 @@ class IMFSourceBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getappendwindowend
+     * Gets the timestamp for the end of the append window.
+     * @returns {Float} The timestamp for the end of the append window.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-getappendwindowend
      */
     GetAppendWindowEnd() {
         result := ComCall(9, this, "double")
@@ -109,10 +109,10 @@ class IMFSourceBuffer extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the timestamp for the end of the append window.
      * @param {Float} time 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-setappendwindowend
+     * @returns {HRESULT} The timestamp for the end of the append window.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-setappendwindowend
      */
     SetAppendWindowEnd(time) {
         result := ComCall(10, this, "double", time, "HRESULT")
@@ -120,11 +120,11 @@ class IMFSourceBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} pData 
-     * @param {Integer} len 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-append
+     * Appends the specified media segment to the IMFSourceBuffer.
+     * @param {Pointer} pData The media data to append.
+     * @param {Integer} len The length of the media data stored in <i>pData</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-append
      */
     Append(pData, len) {
         result := ComCall(11, this, "ptr", pData, "uint", len, "HRESULT")
@@ -132,11 +132,11 @@ class IMFSourceBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFByteStream} pStream 
-     * @param {Pointer<Integer>} pMaxLen 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-appendbytestream
+     * Appends the media segment from the specified byte stream to the IMFSourceBuffer.
+     * @param {IMFByteStream} pStream The media segment data.
+     * @param {Pointer<Integer>} pMaxLen The maximum length of the media segment data.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-appendbytestream
      */
     AppendByteStream(pStream, pMaxLen) {
         pMaxLenMarshal := pMaxLen is VarRef ? "uint*" : "ptr"
@@ -146,9 +146,9 @@ class IMFSourceBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-abort
+     * Aborts the processing of the current media segment.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-abort
      */
     Abort() {
         result := ComCall(13, this, "HRESULT")
@@ -156,11 +156,11 @@ class IMFSourceBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Float} start 
-     * @param {Float} end 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfsourcebuffer-remove
+     * Removes the media segments defined by the specified time range from the IMFSourceBuffer.
+     * @param {Float} start The start of the time range.
+     * @param {Float} end The end of the time range.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfsourcebuffer-remove
      */
     Remove(start, end) {
         result := ComCall(14, this, "double", start, "double", end, "HRESULT")

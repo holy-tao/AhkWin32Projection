@@ -36,9 +36,21 @@ class IUpdateDownloadContent2 extends IUpdateDownloadContent{
     static VTableNames => ["get_IsDeltaCompressedContent"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsDeltaCompressedContent {
+        get => this.get_IsDeltaCompressedContent()
+    }
+
+    /**
+     * Gets a Boolean value that indicates whether an update is a binary update or a full-file update.
+     * @remarks
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatedownloadcontent2">IUpdateDownloadContent2</a> interface  may require you to update the Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloadcontent2-get_isdeltacompressedcontent
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloadcontent2-get_isdeltacompressedcontent
      */
     get_IsDeltaCompressedContent() {
         result := ComCall(8, this, "short*", &retval := 0, "HRESULT")

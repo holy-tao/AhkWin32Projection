@@ -29,6 +29,41 @@ class IDOMTreeWalker extends IDispatch{
     static VTableNames => ["get_root", "get_whatToShow", "get_filter", "get_expandEntityReferences", "putref_currentNode", "get_currentNode", "parentNode", "firstChild", "lastChild", "previousSibling", "nextSibling", "previousNode", "nextNode"]
 
     /**
+     * @type {IDispatch} 
+     */
+    root {
+        get => this.get_root()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    whatToShow {
+        get => this.get_whatToShow()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    filter {
+        get => this.get_filter()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    expandEntityReferences {
+        get => this.get_expandEntityReferences()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    currentNode {
+        get => this.get_currentNode()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

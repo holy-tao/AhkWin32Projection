@@ -31,9 +31,9 @@ class IDvbSubtitlingDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetCountOfRecords", "GetRecordLangId", "GetRecordSubtitlingType", "GetRecordCompositionPageID", "GetRecordAncillaryPageID"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-gettag
+     * Gets the tag for a Digital Video Broadcast (DVB) subtitling descriptor.
+     * @returns {Integer} Receives the subtitling descriptor tag. For subtitling descriptors, this tag value is "0x59".
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IDvbSubtitlingDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getlength
+     * Gets the body length of a Digital Video Broadcast (DVB) subtitling descriptor.
+     * @returns {Integer} Receives the number of bytes in the descriptor.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -51,9 +51,9 @@ class IDvbSubtitlingDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getcountofrecords
+     * Gets the number of subtitling records in a Digital Video Broadcast (DVB) subtitling descriptor.
+     * @returns {Integer} Returns the number of subtitling records.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -61,10 +61,10 @@ class IDvbSubtitlingDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordlangid
+     * Gets the three-character ISO 639 language code from a Digital Video Broadcast (DVB) subtitling descriptor. This code identifies the language used for subtitles.
+     * @param {Integer} bRecordIndex Zero-based index of the descriptor to return. To get the number of descriptors, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getcountofrecords">IDvbSubtitlingDescriptor::GetCountOfRecords</a>
+     * @returns {Integer} Pointer to a buffer that receives the language code. For a list of language codes, refer to <a href="http://www.sil.org/ISO639-3/codes.asp">this document</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordlangid
      */
     GetRecordLangId(bRecordIndex) {
         result := ComCall(6, this, "char", bRecordIndex, "uint*", &pulVal := 0, "HRESULT")
@@ -72,10 +72,10 @@ class IDvbSubtitlingDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
+     * Gets the subtitling component type from a DVB subtitling descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the descriptor to return. To get the number of descriptors, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getcountofrecords">IDvbSubtitlingDescriptor::GetCountOfRecords</a>
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordsubtitlingtype
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordsubtitlingtype
      */
     GetRecordSubtitlingType(bRecordIndex) {
         result := ComCall(7, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
@@ -83,10 +83,10 @@ class IDvbSubtitlingDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordcompositionpageid
+     * Gets the composition page identifier for a Digital Video Broadcast (DVB) subtitling descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the descriptor to return. To get the number of descriptors, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getcountofrecords">IDvbSubtitlingDescriptor::GetCountOfRecords</a>
+     * @returns {Integer} Receives the composition page identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordcompositionpageid
      */
     GetRecordCompositionPageID(bRecordIndex) {
         result := ComCall(8, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
@@ -94,10 +94,10 @@ class IDvbSubtitlingDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordancillarypageid
+     * Gets the ancillary page identifier for a Digital Video Broadcast (DVB) subtitling descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the descriptor to return. To get the number of descriptors, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getcountofrecords">IDvbSubtitlingDescriptor::GetCountOfRecords</a>
+     * @returns {Integer} Receives the ancillary page identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsubtitlingdescriptor-getrecordancillarypageid
      */
     GetRecordAncillaryPageID(bRecordIndex) {
         result := ComCall(9, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")

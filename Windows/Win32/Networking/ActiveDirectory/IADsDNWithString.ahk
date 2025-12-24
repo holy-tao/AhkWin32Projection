@@ -32,6 +32,22 @@ class IADsDNWithString extends IDispatch{
     static VTableNames => ["get_StringValue", "put_StringValue", "get_DNString", "put_DNString"]
 
     /**
+     * @type {BSTR} 
+     */
+    StringValue {
+        get => this.get_StringValue()
+        set => this.put_StringValue(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DNString {
+        get => this.get_DNString()
+        set => this.put_DNString(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

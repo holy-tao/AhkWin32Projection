@@ -42,9 +42,25 @@ class IFaxDeviceIds extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "Add", "Remove", "SetOrder"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * The IFaxDeviceIds::get__NewEnum method returns a reference to an enumerator object that you can use to iterate through the FaxDeviceIds collection.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-get__newenum
+     * Receives an indirect pointer to the enumerator object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdeviceids-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -52,10 +68,14 @@ class IFaxDeviceIds extends IDispatch{
     }
 
     /**
+     * The IFaxDeviceIds::get_Item method represents a device ID from the FaxDeviceIds collection.
+     * @param {Integer} lIndex Type: <b>long</b>
      * 
-     * @param {Integer} lIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-get_item
+     * A value specifying the item to retrieve from the collection. Valid values for this parameter are in the range from 1 to n, where n is the number of devices returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdeviceids-count-vb">IFaxDeviceIds::get_Count</a> method.
+     * @returns {Integer} Type: <b>long*</b>
+     * 
+     * Pointer to a value that receives the item requested.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdeviceids-get_item
      */
     get_Item(lIndex) {
         result := ComCall(8, this, "int", lIndex, "int*", &plDeviceId := 0, "HRESULT")
@@ -63,9 +83,9 @@ class IFaxDeviceIds extends IDispatch{
     }
 
     /**
-     * 
+     * The IFaxDeviceIds::get_Count property represents the number of objects in the FaxDeviceIds collection. This is the total number of device IDs associated with the fax server.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdeviceids-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
@@ -73,10 +93,14 @@ class IFaxDeviceIds extends IDispatch{
     }
 
     /**
+     * The IFaxDeviceIds::Add method adds a fax device to the FaxDeviceIds collection, using the device's ID.
+     * @param {Integer} lDeviceId Type: <b>long</b>
      * 
-     * @param {Integer} lDeviceId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-add
+     * A <b>long</b> value that specifies the ID of the fax device to add to the collection.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdeviceids-add
      */
     Add(lDeviceId) {
         result := ComCall(10, this, "int", lDeviceId, "HRESULT")
@@ -84,10 +108,14 @@ class IFaxDeviceIds extends IDispatch{
     }
 
     /**
+     * The IFaxDeviceIds::Remove method removes an item from the FaxDeviceIds collection.
+     * @param {Integer} lIndex Type: <b>long</b>
      * 
-     * @param {Integer} lIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-remove
+     * A <b>long</b> value that specifies the index of the item to remove from the collection. Valid values for this parameter are in the range from 1 to n, where n is the number of devices returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdeviceids-count-vb">IFaxDeviceIds::get_Count</a> property.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdeviceids-remove
      */
     Remove(lIndex) {
         result := ComCall(11, this, "int", lIndex, "HRESULT")
@@ -95,11 +123,17 @@ class IFaxDeviceIds extends IDispatch{
     }
 
     /**
+     * The IFaxDeviceIds::SetOrder method changes the order of a device in the ordered FaxDeviceIds collection.
+     * @param {Integer} lDeviceId Type: <b>long</b>
      * 
-     * @param {Integer} lDeviceId 
-     * @param {Integer} lNewOrder 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceids-setorder
+     * Specifies the device ID of the device whose order you want to change.
+     * @param {Integer} lNewOrder Type: <b>long</b>
+     * 
+     * Specifies the new position of the device in the order.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdeviceids-setorder
      */
     SetOrder(lDeviceId, lNewOrder) {
         result := ComCall(12, this, "int", lDeviceId, "int", lNewOrder, "HRESULT")

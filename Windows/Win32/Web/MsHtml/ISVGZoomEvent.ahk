@@ -37,6 +37,41 @@ class ISVGZoomEvent extends IDispatch{
     static VTableNames => ["get_zoomRectScreen", "get_previousScale", "get_previousTranslate", "get_newScale", "get_newTranslate"]
 
     /**
+     * @type {ISVGRect} 
+     */
+    zoomRectScreen {
+        get => this.get_zoomRectScreen()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    previousScale {
+        get => this.get_previousScale()
+    }
+
+    /**
+     * @type {ISVGPoint} 
+     */
+    previousTranslate {
+        get => this.get_previousTranslate()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    newScale {
+        get => this.get_newScale()
+    }
+
+    /**
+     * @type {ISVGPoint} 
+     */
+    newTranslate {
+        get => this.get_newTranslate()
+    }
+
+    /**
      * 
      * @returns {ISVGRect} 
      */

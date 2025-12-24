@@ -37,12 +37,12 @@ class ITfProperty extends ITfReadOnlyProperty{
     static VTableNames => ["FindRange", "SetValueStore", "SetValue", "Clear"]
 
     /**
-     * 
-     * @param {Integer} ec 
-     * @param {ITfRange} pRange 
-     * @param {Integer} aPos 
-     * @returns {ITfRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-findrange
+     * ITfProperty::FindRange method
+     * @param {Integer} ec Contains an edit cookie that identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
+     * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that contains the point to obtain the property range for. The point will either be the start anchor or end anchor of this range, based upon the value of <i>aPos</i>.
+     * @param {Integer} aPos Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor">TfAnchor</a> values which specifies which anchor of <i>pRange</i> is used as the point to obtain the property range for.
+     * @returns {ITfRange} Pointer to an <b>ITfRange</b> interface pointer that receives the requested range object.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfproperty-findrange
      */
     FindRange(ec, pRange, aPos) {
         result := ComCall(7, this, "uint", ec, "ptr", pRange, "ptr*", &ppRange := 0, "int", aPos, "HRESULT")
@@ -50,12 +50,63 @@ class ITfProperty extends ITfReadOnlyProperty{
     }
 
     /**
+     * ITfProperty::SetValueStore method
+     * @param {Integer} ec Contains an edit cookie that identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
+     * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that contains the range that the property value is set for. This parameter cannot be <b>NULL</b>. This method fails if <i>pRange</i> is empty.
+     * @param {ITfPropertyStore} pPropStore Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfpropertystore">ITfPropertyStore</a> interface that obtains the property data.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} ec 
-     * @param {ITfRange} pRange 
-     * @param {ITfPropertyStore} pPropStore 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-setvaluestore
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TF_E_NOLOCK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The edit context identified by <i>ec</i> does not have a read/write lock.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfproperty-setvaluestore
      */
     SetValueStore(ec, pRange, pPropStore) {
         result := ComCall(8, this, "uint", ec, "ptr", pRange, "ptr", pPropStore, "HRESULT")
@@ -63,12 +114,96 @@ class ITfProperty extends ITfReadOnlyProperty{
     }
 
     /**
+     * ITfProperty::SetValue method
+     * @param {Integer} ec Contains an edit cookie that identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
+     * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that contains the range that the property value is set for. This parameter cannot be <b>NULL</b>. This method will fail if <i>pRange</i> is empty.
+     * @param {Pointer<VARIANT>} pvarValue Pointer to a <b>VARIANT</b> structure that contains the new property value. Only values of type VT_I4, VT_UNKNOWN, VT_BSTR and VT_EMPTY are supported.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} ec 
-     * @param {ITfRange} pRange 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-setvalue
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A memory allocation failure occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TF_E_NOLOCK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The edit context identified by <i>ec</i> does not have a read/write lock.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TF_E_READONLY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The edit context is read-only.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TF_E_NOTOWNEDRANGE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The TSF manager does not own the range.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfproperty-setvalue
      */
     SetValue(ec, pRange, pvarValue) {
         result := ComCall(9, this, "uint", ec, "ptr", pRange, "ptr", pvarValue, "HRESULT")
@@ -76,11 +211,73 @@ class ITfProperty extends ITfReadOnlyProperty{
     }
 
     /**
+     * ITfProperty::Clear method
+     * @param {Integer} ec Contains an edit cookie that identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
+     * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that contains the range that the property is cleared for. If this parameter is <b>NULL</b>, all values for this property over the entire edit context are cleared.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} ec 
-     * @param {ITfRange} pRange 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-clear
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pRange</i> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TF_E_NOLOCK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The edit context identified by <i>ec</i> does not have a read/write lock.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TF_E_READONLY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The edit context is read-only.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TF_E_NOTOWNEDRANGE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The TSF manager does not own the range.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfproperty-clear
      */
     Clear(ec, pRange) {
         result := ComCall(10, this, "uint", ec, "ptr", pRange, "HRESULT")

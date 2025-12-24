@@ -38,9 +38,9 @@ class IOpcUri extends IUri{
     static VTableNames => ["GetRelationshipsPartUri", "GetRelativeUri", "CombinePartUri"]
 
     /**
-     * 
-     * @returns {IOpcPartUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcuri-getrelationshipsparturi
+     * Gets the part name of the Relationships part that stores relationships that have the source URI represented by the current OPC URI object.
+     * @returns {IOpcPartUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface of the part URI object that represents the part name of the Relationships part. The source URI of the relationships stored in this Relationships part is represented by the  current OPC URI object.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcuri-getrelationshipsparturi
      */
     GetRelationshipsPartUri() {
         result := ComCall(28, this, "ptr*", &relationshipPartUri := 0, "HRESULT")
@@ -48,10 +48,10 @@ class IOpcUri extends IUri{
     }
 
     /**
-     * 
-     * @param {IOpcPartUri} targetPartUri 
-     * @returns {IUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcuri-getrelativeuri
+     * Forms a relative URI for a specified part, relative to the URI represented by the current OPC URI object.
+     * @param {IOpcPartUri} targetPartUri A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface of the part URI object that represents the part name from which the relative URI is formed.
+     * @returns {IUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775038(v=vs.85)">IUri</a> interface of the URI of the part, relative to the current OPC URI object.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcuri-getrelativeuri
      */
     GetRelativeUri(targetPartUri) {
         result := ComCall(29, this, "ptr", targetPartUri, "ptr*", &relativeUri := 0, "HRESULT")
@@ -59,10 +59,17 @@ class IOpcUri extends IUri{
     }
 
     /**
+     * Forms the part name of the part that is referenced by the specified relative URI.
+     * @param {IUri} relativeUri A pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775038(v=vs.85)">IUri</a> interface of the relative URI of the part.
      * 
-     * @param {IUri} relativeUri 
-     * @returns {IOpcPartUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcuri-combineparturi
+     * To form the part URI object that represents the part name, this input URI is resolved against the URI represented as the current OPC URI object. Therefore, the input URI must be relative to the URI represented by the current OPC URI object.
+     * 
+     * This URI may include a fragment component; however, the fragment will be ignored and will not be included in the part name to be formed. A fragment component is preceded by a '#', as described in <a href="https://www.ietf.org/rfc/rfc3986.txt">RFC 3986: URI Generic Syntax</a>.
+     * @returns {IOpcPartUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface of the part URI object that represents the part name.
+     *             
+     * 
+     * The part URI object is formed by resolving the relative URI in <i>relativeUri</i> against the URI represented by the current OPC URI object.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcuri-combineparturi
      */
     CombinePartUri(relativeUri) {
         result := ComCall(30, this, "ptr", relativeUri, "ptr*", &combinedUri := 0, "HRESULT")

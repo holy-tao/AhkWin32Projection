@@ -36,9 +36,18 @@ class IExpandCollapseProvider extends IUnknown{
     static VTableNames => ["Expand", "Collapse", "get_ExpandCollapseState"]
 
     /**
+     * @type {Integer} 
+     */
+    ExpandCollapseState {
+        get => this.get_ExpandCollapseState()
+    }
+
+    /**
+     * Displays all child nodes, controls, or content of the control.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-expand
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-expand
      */
     Expand() {
         result := ComCall(3, this, "HRESULT")
@@ -46,9 +55,11 @@ class IExpandCollapseProvider extends IUnknown{
     }
 
     /**
+     * Hides all child nodes, controls, or content of this element.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-collapse
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-collapse
      */
     Collapse() {
         result := ComCall(4, this, "HRESULT")
@@ -56,9 +67,9 @@ class IExpandCollapseProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates the state, expanded or collapsed, of the control.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-get_expandcollapsestate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iexpandcollapseprovider-get_expandcollapsestate
      */
     get_ExpandCollapseState() {
         result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")

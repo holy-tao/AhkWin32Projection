@@ -46,11 +46,17 @@ class IDirect3DSurface9 extends IDirect3DResource9{
     static VTableNames => ["GetContainer", "GetDesc", "LockRect", "UnlockRect", "GetDC", "ReleaseDC"]
 
     /**
+     * Provides access to the parent cube texture or texture (mipmap) object, if this surface is a child level of a cube texture or a mipmap. This method can also provide access to the parent swap chain if the surface is a back-buffer child.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppContainer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dsurface9-getcontainer
+     * Reference identifier of the container being requested.
+     * @param {Pointer<Pointer<Void>>} ppContainer Type: <b>void**</b>
+     * 
+     * Address of a pointer to fill with the container pointer if the query succeeds. See Remarks.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dsurface9-getcontainer
      */
     GetContainer(riid, ppContainer) {
         ppContainerMarshal := ppContainer is VarRef ? "ptr*" : "ptr"
@@ -60,10 +66,16 @@ class IDirect3DSurface9 extends IDirect3DResource9{
     }
 
     /**
+     * Retrieves a description of the surface.
+     * @param {Pointer<D3DSURFACE_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dsurface-desc">D3DSURFACE_DESC</a>*</b>
      * 
-     * @param {Pointer<D3DSURFACE_DESC>} pDesc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dsurface9-getdesc
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dsurface-desc">D3DSURFACE_DESC</a> structure, describing the surface.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK.
+     * 
+     * D3DERR_INVALIDCALL is returned if the argument is invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dsurface9-getdesc
      */
     GetDesc(pDesc) {
         result := ComCall(12, this, "ptr", pDesc, "HRESULT")
@@ -71,12 +83,33 @@ class IDirect3DSurface9 extends IDirect3DResource9{
     }
 
     /**
+     * Locks a rectangle on a surface.
+     * @param {Pointer<D3DLOCKED_RECT>} pLockedRect Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlocked-rect">D3DLOCKED_RECT</a>*</b>
      * 
-     * @param {Pointer<D3DLOCKED_RECT>} pLockedRect 
-     * @param {Pointer<RECT>} pRect 
-     * @param {Integer} Flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dsurface9-lockrect
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlocked-rect">D3DLOCKED_RECT</a> structure that describes the locked region.
+     * @param {Pointer<RECT>} pRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
+     * 
+     * Pointer to a rectangle to lock. Specified by a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure. Specifying <b>NULL</b> for this parameter expands the dirty region to cover the entire surface.
+     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * 
+     * Combination of zero or more locking flags that describe the type of lock to perform. For this method, the valid flags are: 
+     *     
+     * 
+     * 
+     * <ul>
+     * <li>D3DLOCK_DISCARD</li>
+     * <li>D3DLOCK_DONOTWAIT</li>
+     * <li>D3DLOCK_NO_DIRTY_UPDATE</li>
+     * <li>D3DLOCK_NOSYSLOCK</li>
+     * <li>D3DLOCK_READONLY</li>
+     * </ul>
+     * You may not specify a subrect when using D3DLOCK_DISCARD. For a description of the flags, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlock">D3DLOCK</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK.
+     * 
+     * If the method fails, the return value can be D3DERR_INVALIDCALL or D3DERR_WASSTILLDRAWING.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dsurface9-lockrect
      */
     LockRect(pLockedRect, pRect, Flags) {
         result := ComCall(13, this, "ptr", pLockedRect, "ptr", pRect, "uint", Flags, "HRESULT")
@@ -84,9 +117,11 @@ class IDirect3DSurface9 extends IDirect3DResource9{
     }
 
     /**
+     * Unlocks a rectangle on a surface.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dsurface9-unlockrect
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dsurface9-unlockrect
      */
     UnlockRect() {
         result := ComCall(14, this, "HRESULT")
@@ -94,12 +129,14 @@ class IDirect3DSurface9 extends IDirect3DResource9{
     }
 
     /**
-     * The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
-     * @param {Pointer<HDC>} phdc 
-     * @returns {HRESULT} If the function succeeds, the return value is a handle to the DC for the specified window's client area.
+     * Retrieves a device context.
+     * @param {Pointer<HDC>} phdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a>*</b>
      * 
-     * If the function fails, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdc
+     * Pointer to the device context for the surface.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL is returned if the argument is invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dsurface9-getdc
      */
     GetDC(phdc) {
         result := ComCall(15, this, "ptr", phdc, "HRESULT")
@@ -107,12 +144,14 @@ class IDirect3DSurface9 extends IDirect3DResource9{
     }
 
     /**
-     * The ReleaseDC function releases a device context (DC), freeing it for use by other applications. The effect of the ReleaseDC function depends on the type of DC. It frees only common and window DCs. It has no effect on class or private DCs.
-     * @param {HDC} hdc 
-     * @returns {HRESULT} The return value indicates whether the DC was released. If the DC was released, the return value is 1.
+     * Release a device context handle.
+     * @param {HDC} hdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a></b>
      * 
-     * If the DC was not released, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-releasedc
+     * Handle to a device context.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL is returned if the argument is invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dsurface9-releasedc
      */
     ReleaseDC(hdc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc

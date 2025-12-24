@@ -32,9 +32,23 @@ class INetworkConnection extends IDispatch{
     static VTableNames => ["GetNetwork", "get_IsConnectedToInternet", "get_IsConnected", "GetConnectivity", "GetConnectionId", "GetAdapterId", "GetDomainType"]
 
     /**
-     * 
-     * @returns {INetwork} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getnetwork
+     * @type {VARIANT_BOOL} 
+     */
+    IsConnectedToInternet {
+        get => this.get_IsConnectedToInternet()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsConnected {
+        get => this.get_IsConnected()
+    }
+
+    /**
+     * The GetNetwork method returns the network associated with the connection.
+     * @returns {INetwork} Pointer to a pointer that receives an <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/nn-netlistmgr-inetwork">INetwork</a> interface instance that specifies the network associated with the connection.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnection-getnetwork
      */
     GetNetwork() {
         result := ComCall(7, this, "ptr*", &ppNetwork := 0, "HRESULT")
@@ -42,9 +56,9 @@ class INetworkConnection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-get_isconnectedtointernet
+     * The get_IsConnectedToInternet property specifies if the associated network connection has internet connectivity.
+     * @returns {VARIANT_BOOL} If <b>TRUE</b>, this network connection has connectivity to the internet; if <b>FALSE</b>, it does not.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnection-get_isconnectedtointernet
      */
     get_IsConnectedToInternet() {
         result := ComCall(8, this, "short*", &pbIsConnected := 0, "HRESULT")
@@ -52,9 +66,9 @@ class INetworkConnection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-get_isconnected
+     * The get_IsConnected property specifies if the associated network connection has network connectivity.
+     * @returns {VARIANT_BOOL} If <b>TRUE</b>, this network connection has connectivity; if <b>FALSE</b>, it does not.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnection-get_isconnected
      */
     get_IsConnected() {
         result := ComCall(9, this, "short*", &pbIsConnected := 0, "HRESULT")
@@ -62,9 +76,9 @@ class INetworkConnection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getconnectivity
+     * The GetConnectivity method returns the connectivity state of the network connection.
+     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains  a bitmask that specifies the connectivity of this network connection.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnection-getconnectivity
      */
     GetConnectivity() {
         result := ComCall(10, this, "int*", &pConnectivity := 0, "HRESULT")
@@ -72,9 +86,9 @@ class INetworkConnection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getconnectionid
+     * The GetConnectionID method returns the Connection ID associated with this network connection.
+     * @returns {Guid} Pointer to a <b>GUID</b> that specifies the Connection ID associated with this network connection.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnection-getconnectionid
      */
     GetConnectionId() {
         pgdConnectionId := Guid()
@@ -83,9 +97,9 @@ class INetworkConnection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getadapterid
+     * The GetAdapterID method returns the ID of the network adapter used by this connection.
+     * @returns {Guid} Pointer to a GUID that specifies the adapter ID of the TCP/IP  interface used by this network connection.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnection-getadapterid
      */
     GetAdapterId() {
         pgdAdapterId := Guid()
@@ -94,9 +108,9 @@ class INetworkConnection extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnection-getdomaintype
+     * The GetDomainType method returns the domain type of the network connection.
+     * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_domain_type">NLM_DOMAIN_TYPE</a> enumeration value that specifies the domain type of the network.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnection-getdomaintype
      */
     GetDomainType() {
         result := ComCall(13, this, "int*", &pDomainType := 0, "HRESULT")

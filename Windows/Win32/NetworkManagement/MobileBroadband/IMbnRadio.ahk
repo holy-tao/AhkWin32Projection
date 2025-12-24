@@ -35,9 +35,23 @@ class IMbnRadio extends IUnknown{
     static VTableNames => ["get_SoftwareRadioState", "get_HardwareRadioState", "SetSoftwareRadioState"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    SoftwareRadioState {
+        get => this.get_SoftwareRadioState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HardwareRadioState {
+        get => this.get_HardwareRadioState()
+    }
+
+    /**
+     * The software radio state of a Mobile Broadband device.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-get_softwareradiostate
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnradio-get_softwareradiostate
      */
     get_SoftwareRadioState() {
         result := ComCall(3, this, "int*", &SoftwareRadioState := 0, "HRESULT")
@@ -45,9 +59,9 @@ class IMbnRadio extends IUnknown{
     }
 
     /**
-     * 
+     * The hardware radio state of a Mobile Broadband device.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-get_hardwareradiostate
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnradio-get_hardwareradiostate
      */
     get_HardwareRadioState() {
         result := ComCall(4, this, "int*", &HardwareRadioState := 0, "HRESULT")
@@ -55,10 +69,10 @@ class IMbnRadio extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} radioState 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnradio-setsoftwareradiostate
+     * Sets the software radio state of a Mobile Broadband device.
+     * @param {Integer} radioState A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/ne-mbnapi-mbn_radio">MBN_RADIO</a> value that specifies the new software radio state.
+     * @returns {Integer} A pointer to a request ID assigned by the Mobile Broadband service to identify this request.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnradio-setsoftwareradiostate
      */
     SetSoftwareRadioState(radioState) {
         result := ComCall(5, this, "int", radioState, "uint*", &requestID := 0, "HRESULT")

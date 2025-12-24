@@ -37,10 +37,15 @@ class IAudioEndpointFormatControl extends IUnknown{
     static VTableNames => ["ResetToDefault"]
 
     /**
+     * Resets the format to the default setting provided by the device manufacturer.
+     * @param {Integer} ResetFlags Allows the application to specify which formats are reset.  If
+     *                       no flags are set, then this method reevaluates both the endpoint's 
+     *     device format and mix format and sets them to their default values.
      * 
-     * @param {Integer} ResetFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audioendpoints/nf-audioendpoints-iaudioendpointformatcontrol-resettodefault
+     * ENDPOINT_FORMAT_RESET_MIX_ONLY: Only reset the mix format.  The endpoint's device
+     *     format will not be reset if this flag is set.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//audioendpoints/nf-audioendpoints-iaudioendpointformatcontrol-resettodefault
      */
     ResetToDefault(ResetFlags) {
         result := ComCall(3, this, "uint", ResetFlags, "HRESULT")

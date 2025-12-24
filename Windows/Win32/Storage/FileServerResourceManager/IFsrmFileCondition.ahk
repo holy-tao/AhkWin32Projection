@@ -29,6 +29,13 @@ class IFsrmFileCondition extends IDispatch{
     static VTableNames => ["get_Type", "Delete"]
 
     /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -31,12 +31,14 @@ class IWRdsGraphicsChannel extends IUnknown{
     static VTableNames => ["Write", "Close", "Open"]
 
     /**
+     * Called to send data to the virtual channel.
+     * @param {Integer} cbSize The length, in bytes, of the data in <i>pBuffer</i>.
+     * @param {Pointer<Integer>} pBuffer A pointer to a buffer that contains the data that was sent. The <i>cbBuffer</i> parameter contains the length of this buffer.
      * 
-     * @param {Integer} cbSize 
-     * @param {Pointer<Integer>} pBuffer 
-     * @param {IUnknown} pContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannel-write
+     * The implementation will take ownership of this buffer until the <a href="https://docs.microsoft.com/windows/desktop/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelevents-ondatasent">IWRdsGraphicsChannelEvents::OnDataSent</a> method is called. Before that time, this buffer must not be modified or freed.
+     * @param {IUnknown} pContext A user-defined interface pointer that is passed as the <i>pWriteContext</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelevents-ondatasent">IWRdsGraphicsChannelEvents::OnDataSent</a> method.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannel-write
      */
     Write(cbSize, pBuffer, pContext) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
@@ -46,9 +48,9 @@ class IWRdsGraphicsChannel extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannel-close
+     * Called to close the channel.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannel-close
      */
     Close() {
         result := ComCall(4, this, "HRESULT")
@@ -56,11 +58,17 @@ class IWRdsGraphicsChannel extends IUnknown{
     }
 
     /**
+     * Called to open a channel.
+     * @param {IWRdsGraphicsChannelEvents} pChannelEvents Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wrdsgraphicschannels/nn-wrdsgraphicschannels-iwrdsgraphicschannelevents">IWRdsGraphicsChannelEvents</a>*</b>
      * 
-     * @param {IWRdsGraphicsChannelEvents} pChannelEvents 
-     * @param {IUnknown} pOpenContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannel-open
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wrdsgraphicschannels/nn-wrdsgraphicschannels-iwrdsgraphicschannelevents">IWRdsGraphicsChannelEvents</a> interface that will receive notifications relating to the channel created.
+     * @param {IUnknown} pOpenContext Type: <b>IUnknown*</b>
+     * 
+     * A user-defined interface pointer that is passed as the <i>pOpenContext</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannelevents-onchannelopened">IWRdsGraphicsChannelEvents::OnChannelOpened</a> method.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wrdsgraphicschannels/nf-wrdsgraphicschannels-iwrdsgraphicschannel-open
      */
     Open(pChannelEvents, pOpenContext) {
         result := ComCall(5, this, "ptr", pChannelEvents, "ptr", pOpenContext, "HRESULT")

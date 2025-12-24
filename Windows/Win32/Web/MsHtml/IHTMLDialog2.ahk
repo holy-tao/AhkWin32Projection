@@ -30,6 +30,22 @@ class IHTMLDialog2 extends IDispatch{
     static VTableNames => ["put_status", "get_status", "put_resizable", "get_resizable"]
 
     /**
+     * @type {BSTR} 
+     */
+    status {
+        get => this.get_status()
+        set => this.put_status(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    resizable {
+        get => this.get_resizable()
+        set => this.put_resizable(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

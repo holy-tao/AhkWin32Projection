@@ -38,6 +38,34 @@ class IGPMStatusMessage extends IDispatch{
     static VTableNames => ["get_ObjectPath", "ErrorCode", "get_ExtensionName", "get_SettingsName", "OperationCode", "get_Message"]
 
     /**
+     * @type {BSTR} 
+     */
+    ObjectPath {
+        get => this.get_ObjectPath()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ExtensionName {
+        get => this.get_ExtensionName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SettingsName {
+        get => this.get_SettingsName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Message {
+        get => this.get_Message()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */
@@ -48,9 +76,13 @@ class IGPMStatusMessage extends IDispatch{
     }
 
     /**
+     * Returns the error that occurred during the GPMC operation.
+     * @returns {HRESULT} <h3>JScript</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstatusmessage-errorcode
+     * <h3>VB</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstatusmessage-errorcode
      */
     ErrorCode() {
         result := ComCall(8, this, "HRESULT")
@@ -78,9 +110,13 @@ class IGPMStatusMessage extends IDispatch{
     }
 
     /**
+     * Returns a code related to the GPMC operation.
+     * @returns {HRESULT} <h3>JScript</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstatusmessage-operationcode
+     * <h3>VB</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstatusmessage-operationcode
      */
     OperationCode() {
         result := ComCall(11, this, "HRESULT")

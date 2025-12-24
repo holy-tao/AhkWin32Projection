@@ -37,11 +37,11 @@ class IMFTopoLoader extends IUnknown{
     static VTableNames => ["Load"]
 
     /**
-     * 
-     * @param {IMFTopology} pInputTopo 
-     * @param {IMFTopology} pCurrentTopo 
-     * @returns {IMFTopology} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftopoloader-load
+     * Creates a fully loaded topology from the input partial topology.
+     * @param {IMFTopology} pInputTopo A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the partial topology to be resolved.
+     * @param {IMFTopology} pCurrentTopo A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the previous full topology. The topology loader can re-use objects from this topology in the new topology. This parameter can be <b>NULL</b>. See Remarks.
+     * @returns {IMFTopology} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the completed topology. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftopoloader-load
      */
     Load(pInputTopo, pCurrentTopo) {
         result := ComCall(3, this, "ptr", pInputTopo, "ptr*", &ppOutputTopo := 0, "ptr", pCurrentTopo, "HRESULT")

@@ -33,6 +33,28 @@ class IADsMembers extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "get_Filter", "put_Filter"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Filter {
+        get => this.get_Filter()
+        set => this.put_Filter(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */
@@ -42,9 +64,9 @@ class IADsMembers extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsmembers-get__newenum
+     * The IADsMembers::get__NewEnum method gets a dependent enumerator object that implements IEnumVARIANT for this ADSI collection object. Be aware that there are two underscore characters in the function name (get__NewEnum).
+     * @returns {IUnknown} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the enumerator object for this collection.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsmembers-get__newenum
      */
     get__NewEnum() {
         result := ComCall(8, this, "ptr*", &ppEnumerator := 0, "HRESULT")

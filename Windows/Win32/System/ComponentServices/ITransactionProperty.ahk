@@ -104,9 +104,9 @@ class ITransactionProperty extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ITransactionResourcePool} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactionproperty-gettransactionresourcepool
+     * Retrieves the resource pool that is associated with this context's transaction.
+     * @returns {ITransactionResourcePool} A reference to the transaction resource pool.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactionproperty-gettransactionresourcepool
      */
     GetTransactionResourcePool() {
         result := ComCall(12, this, "ptr*", &ppTxPool := 0, "HRESULT")

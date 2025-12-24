@@ -43,9 +43,23 @@ class INetFwAuthorizedApplications extends IDispatch{
     static VTableNames => ["get_Count", "Add", "Remove", "Item", "get__NewEnum"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * Specifies the number of items in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplications-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &count := 0, "HRESULT")
@@ -53,10 +67,136 @@ class INetFwAuthorizedApplications extends IDispatch{
     }
 
     /**
+     * The Add method adds a new application to the collection.
+     * @param {INetFwAuthorizedApplication} app <table>
+     * <tr>
+     * <td><strong>C++</strong></td>
+     * <td>
+     * Application to add to the collection via an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwauthorizedapplication">INetFWAuthorizedApplication</a> object.
      * 
-     * @param {INetFwAuthorizedApplication} app 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-add
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><strong>VB</strong></td>
+     * <td>
+     * Application to add to the collection via an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwauthorizedapplication">INetFWAuthorizedApplication</a> object. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} <h3>C++</h3>
+     * If the method succeeds the return value is S_OK.
+     * 
+     * If the method fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was aborted due to permissions issues.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed because a parameter was not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was unable to allocate required memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The  method failed because the  object is already in the collection.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <h3>VB</h3>
+     * If the method succeeds the return value is S_OK.
+     * 
+     * If the method fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was aborted due to permissions issues.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed because a parameter was not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was unable to allocate required memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The  method failed because the  object is already in the collection.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplications-add
      */
     Add(app) {
         result := ComCall(8, this, "ptr", app, "HRESULT")
@@ -64,10 +204,99 @@ class INetFwAuthorizedApplications extends IDispatch{
     }
 
     /**
+     * The Remove method removes an application from the collection.
+     * @param {BSTR} imageFileName Application name to be removed.
+     * @returns {HRESULT} <h3>C++</h3>
+     * If the method succeeds the return value is <b>S_OK</b>.
      * 
-     * @param {BSTR} imageFileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-remove
+     * If the method fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was aborted due to permissions issues.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed due to an invalid parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was unable to allocate required memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * <h3>VB</h3>
+     * If the method succeeds the return value is <b>S_OK</b>.
+     * 
+     * If the method fails, the return value is one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was aborted due to permissions issues.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method failed due to an invalid parameter.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was unable to allocate required memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplications-remove
      */
     Remove(imageFileName) {
         imageFileName := imageFileName is String ? BSTR.Alloc(imageFileName).Value : imageFileName
@@ -77,10 +306,10 @@ class INetFwAuthorizedApplications extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} imageFileName 
-     * @returns {INetFwAuthorizedApplication} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-item
+     * The Item method returns the specified application if it is in the collection.
+     * @param {BSTR} imageFileName Application to retrieve.
+     * @returns {INetFwAuthorizedApplication} Reference to the returned <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwauthorizedapplication">INetFwAuthorizedApplication</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplications-item
      */
     Item(imageFileName) {
         imageFileName := imageFileName is String ? BSTR.Alloc(imageFileName).Value : imageFileName
@@ -90,9 +319,9 @@ class INetFwAuthorizedApplications extends IDispatch{
     }
 
     /**
-     * 
+     * Returns an object supporting IEnumVARIANT that can be used to iterate through all the applications in the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwauthorizedapplications-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwauthorizedapplications-get__newenum
      */
     get__NewEnum() {
         result := ComCall(11, this, "ptr*", &newEnum := 0, "HRESULT")

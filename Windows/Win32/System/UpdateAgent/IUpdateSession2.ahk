@@ -36,9 +36,27 @@ class IUpdateSession2 extends IUpdateSession{
     static VTableNames => ["get_UserLocale", "put_UserLocale"]
 
     /**
+     * @type {Integer} 
+     */
+    UserLocale {
+        get => this.get_UserLocale()
+        set => this.put_UserLocale(value)
+    }
+
+    /**
+     * Gets and sets the preferred locale for which update information is retrieved..
+     * @remarks
+     * 
+     * A search from an <b>UpdateSearch</b> object that was created from the <b>UpdateSession</b> object fails if the following conditions are true:
+     * 
+     * <ul>
+     * <li>A user or a power user set the <b>UserLocale</b> property for the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesession2">IUpdateSession2</a> interface to a locale.</li>
+     * <li>The locale corresponds to a language that is not installed on the computer.</li>
+     * </ul>
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession2-get_userlocale
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession2-get_userlocale
      */
     get_UserLocale() {
         result := ComCall(15, this, "uint*", &retval := 0, "HRESULT")
@@ -46,10 +64,20 @@ class IUpdateSession2 extends IUpdateSession{
     }
 
     /**
+     * Gets and sets the preferred locale for which update information is retrieved..
+     * @remarks
+     * 
+     * A search from an <b>UpdateSearch</b> object that was created from the <b>UpdateSession</b> object fails if the following conditions are true:
+     * 
+     * <ul>
+     * <li>A user or a power user set the <b>UserLocale</b> property for the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesession2">IUpdateSession2</a> interface to a locale.</li>
+     * <li>The locale corresponds to a language that is not installed on the computer.</li>
+     * </ul>
+     * 
      * 
      * @param {Integer} lcid 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession2-put_userlocale
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession2-put_userlocale
      */
     put_UserLocale(lcid) {
         result := ComCall(16, this, "uint", lcid, "HRESULT")

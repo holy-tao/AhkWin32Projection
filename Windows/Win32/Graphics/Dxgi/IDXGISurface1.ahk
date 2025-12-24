@@ -44,10 +44,14 @@ class IDXGISurface1 extends IDXGISurface{
     static VTableNames => ["GetDC", "ReleaseDC"]
 
     /**
-     * The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
-     * @param {BOOL} Discard 
-     * @returns {HDC} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdc
+     * Returns a device context (DC) that allows you to render to a Microsoft DirectX Graphics Infrastructure (DXGI) surface using Windows Graphics Device Interface (GDI).
+     * @param {BOOL} Discard Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * 
+     * A Boolean value that specifies whether to preserve Direct3D contents in the GDI DC. <b>TRUE</b> directs the runtime not to preserve Direct3D contents in the GDI DC; that is, the runtime discards the Direct3D contents. <b>FALSE</b> guarantees that Direct3D contents are available in the GDI DC.
+     * @returns {HDC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HDC</a> handle that represents the current device context for GDI rendering.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgisurface1-getdc
      */
     GetDC(Discard) {
         phdc := HDC()
@@ -56,12 +60,21 @@ class IDXGISurface1 extends IDXGISurface{
     }
 
     /**
-     * The ReleaseDC function releases a device context (DC), freeing it for use by other applications. The effect of the ReleaseDC function depends on the type of DC. It frees only common and window DCs. It has no effect on class or private DCs.
-     * @param {Pointer<RECT>} pDirtyRect 
-     * @returns {HRESULT} The return value indicates whether the DC was released. If the DC was released, the return value is 1.
+     * Releases the GDI device context (DC) that is associated with the current surface and allows you to use Direct3D to render.
+     * @param {Pointer<RECT>} pDirtyRect Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
-     * If the DC was not released, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-releasedc
+     * A pointer to a <b>RECT</b> structure that identifies the dirty region of the surface.  
+     *           A dirty region is any part of the surface that you used for GDI rendering and that you want to preserve. 
+     *           This area is used as a performance hint to graphics subsystem in certain scenarios. 
+     *           Do not use this parameter to restrict rendering to the specified rectangular region. 
+     *           If you pass in <b>NULL</b>, <b>ReleaseDC</b> considers the whole surface as dirty. 
+     *           Otherwise, <b>ReleaseDC</b> uses the area specified by the RECT as a performance hint to indicate what areas have been manipulated by GDI rendering.
+     * 
+     * You can pass a pointer to an empty <b>RECT</b> structure (a rectangle with no position or area) if you didn't change any content.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgisurface1-releasedc
      */
     ReleaseDC(pDirtyRect) {
         result := ComCall(12, this, "ptr", pDirtyRect, "HRESULT")

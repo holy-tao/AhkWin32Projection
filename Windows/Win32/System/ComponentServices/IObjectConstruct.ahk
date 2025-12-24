@@ -31,10 +31,10 @@ class IObjectConstruct extends IUnknown{
     static VTableNames => ["Construct"]
 
     /**
-     * 
-     * @param {IDispatch} pCtorObj 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectconstruct-construct
+     * Constructs an object using the specified parameters.
+     * @param {IDispatch} pCtorObj A reference to an implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iobjectconstructstring">IObjectConstructString</a> interface.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectconstruct-construct
      */
     Construct(pCtorObj) {
         result := ComCall(3, this, "ptr", pCtorObj, "HRESULT")

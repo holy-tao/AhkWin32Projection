@@ -32,6 +32,14 @@ class IADsPostalAddress extends IDispatch{
     static VTableNames => ["get_PostalAddress", "put_PostalAddress"]
 
     /**
+     * @type {VARIANT} 
+     */
+    PostalAddress {
+        get => this.get_PostalAddress()
+        set => this.put_PostalAddress(value)
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

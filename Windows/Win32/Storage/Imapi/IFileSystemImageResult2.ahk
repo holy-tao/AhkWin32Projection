@@ -37,9 +37,16 @@ class IFileSystemImageResult2 extends IFileSystemImageResult{
     static VTableNames => ["get_ModifiedBlocks"]
 
     /**
-     * 
-     * @returns {IBlockRangeList} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifilesystemimageresult2-get_modifiedblocks
+     * @type {IBlockRangeList} 
+     */
+    ModifiedBlocks {
+        get => this.get_ModifiedBlocks()
+    }
+
+    /**
+     * Retrieves the list of modified blocks in the result image.
+     * @returns {IBlockRangeList} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-iblockrangelist">IBlockRangeList</a> interface representing the modified block ranges in the result image.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifilesystemimageresult2-get_modifiedblocks
      */
     get_ModifiedBlocks() {
         result := ComCall(12, this, "ptr*", &pVal := 0, "HRESULT")

@@ -30,9 +30,9 @@ class IWMDRMTranscryptionManager extends IUnknown{
     static VTableNames => ["CreateTranscryptor"]
 
     /**
-     * 
-     * @returns {IWMDRMTranscryptor} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptionmanager-createtranscryptor
+     * Creates a DRM transcryptor object.
+     * @returns {IWMDRMTranscryptor} Address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmdrmtranscryptor">IWMDRMTranscryptor</a> interface of the newly created DRM transcryptor object.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmtranscryptionmanager-createtranscryptor
      */
     CreateTranscryptor() {
         result := ComCall(3, this, "ptr*", &ppTranscryptor := 0, "HRESULT")

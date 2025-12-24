@@ -32,9 +32,30 @@ class IMtsEvents extends IDispatch{
     static VTableNames => ["get_PackageName", "get_PackageGuid", "PostEvent", "get_FireEvents", "GetProcessID"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsevents-get_packagename
+     * @type {BSTR} 
+     */
+    PackageName {
+        get => this.get_PackageName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PackageGuid {
+        get => this.get_PackageGuid()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    FireEvents {
+        get => this.get_FireEvents()
+    }
+
+    /**
+     * Retrieves the name of the package in which the instance of the object that implements the IMtsEvents interface is running.
+     * @returns {BSTR} A pointer to the package name string.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsevents-get_packagename
      */
     get_PackageName() {
         pVal := BSTR()
@@ -43,9 +64,9 @@ class IMtsEvents extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsevents-get_packageguid
+     * Retrieves the globally unique identifier (GUID) for the package in which the event occurred.
+     * @returns {BSTR} A pointer to the package GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsevents-get_packageguid
      */
     get_PackageGuid() {
         pVal := BSTR()
@@ -54,10 +75,10 @@ class IMtsEvents extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} vEvent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsevents-postevent
+     * Posts a user-defined event to an event sink.
+     * @param {Pointer<VARIANT>} vEvent A pointer to the name of the event.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsevents-postevent
      */
     PostEvent(vEvent) {
         result := ComCall(9, this, "ptr", vEvent, "HRESULT")
@@ -65,9 +86,9 @@ class IMtsEvents extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsevents-get_fireevents
+     * Retrieves whether events are enabled or disabled for an event sink.
+     * @returns {VARIANT_BOOL} Indicates whether events are enabled or disabled for an event sink.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsevents-get_fireevents
      */
     get_FireEvents() {
         result := ComCall(10, this, "short*", &pVal := 0, "HRESULT")
@@ -75,9 +96,9 @@ class IMtsEvents extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imtsevents-getprocessid
+     * Retrieves the identifier of the process in which the event occurred.
+     * @returns {Integer} A pointer to the process identification for the event.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imtsevents-getprocessid
      */
     GetProcessID() {
         result := ComCall(11, this, "int*", &id := 0, "HRESULT")

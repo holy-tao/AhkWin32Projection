@@ -31,9 +31,9 @@ class IMessageDispatcher extends IInspectable{
     static VTableNames => ["PumpMessages"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imessagedispatcher/nf-imessagedispatcher-imessagedispatcher-pumpmessages
+     * Performs custom dispatching when window messages are available to be dispatched on an ASTA thread.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//imessagedispatcher/nf-imessagedispatcher-imessagedispatcher-pumpmessages
      */
     PumpMessages() {
         result := ComCall(6, this, "HRESULT")

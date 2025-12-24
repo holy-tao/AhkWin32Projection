@@ -31,10 +31,10 @@ class IProvideClassInfo2 extends IProvideClassInfo{
     static VTableNames => ["GetGUID"]
 
     /**
-     * 
-     * @param {Integer} dwGuidKind 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iprovideclassinfo2-getguid
+     * Retrieves the specified GUID for the object.
+     * @param {Integer} dwGuidKind The GUID type. Possible values are from the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-guidkind">GUIDKIND</a> enumeration.
+     * @returns {Guid} A pointer to a variable that receives the GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iprovideclassinfo2-getguid
      */
     GetGUID(dwGuidKind) {
         pGUID := Guid()

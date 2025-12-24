@@ -32,10 +32,10 @@ class IWorkspaceReportMessage extends IUnknown{
     static VTableNames => ["RegisterErrorLogMessage", "IsErrorMessageRegistered", "RegisterErrorEvent"]
 
     /**
-     * 
-     * @param {BSTR} bstrMessage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspacereportmessage-registererrorlogmessage
+     * Registers the specified error message to use in the UI.
+     * @param {BSTR} bstrMessage A string containing the error message to use in the UI.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacereportmessage-registererrorlogmessage
      */
     RegisterErrorLogMessage(bstrMessage) {
         bstrMessage := bstrMessage is String ? BSTR.Alloc(bstrMessage).Value : bstrMessage
@@ -45,13 +45,13 @@ class IWorkspaceReportMessage extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrWkspId 
-     * @param {Integer} dwErrorType 
-     * @param {BSTR} bstrErrorMessageType 
-     * @param {Integer} dwErrorCode 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspacereportmessage-iserrormessageregistered
+     * Determines whether a specified error message is registered in a specified workspace.
+     * @param {BSTR} bstrWkspId A string containing the ID of the workspace to check.
+     * @param {Integer} dwErrorType The error type associated with the error message.
+     * @param {BSTR} bstrErrorMessageType A string containing the error message type.
+     * @param {Integer} dwErrorCode The error code of the event.
+     * @returns {VARIANT_BOOL} On success, returns a pointer to <b>VARIANT_TRUE</b> if the error message is registered in the specified workspace; otherwise, <b>VARIANT_FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacereportmessage-iserrormessageregistered
      */
     IsErrorMessageRegistered(bstrWkspId, dwErrorType, bstrErrorMessageType, dwErrorCode) {
         bstrWkspId := bstrWkspId is String ? BSTR.Alloc(bstrWkspId).Value : bstrWkspId
@@ -62,13 +62,13 @@ class IWorkspaceReportMessage extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrWkspId 
-     * @param {Integer} dwErrorType 
-     * @param {BSTR} bstrErrorMessageType 
-     * @param {Integer} dwErrorCode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspacereportmessage-registererrorevent
+     * Registers the specified error event message to use in the UI.
+     * @param {BSTR} bstrWkspId A string containing the workspace ID in which the error event is to be registered.
+     * @param {Integer} dwErrorType The error type of the event.
+     * @param {BSTR} bstrErrorMessageType A string containing the error message.
+     * @param {Integer} dwErrorCode The error code for the event.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacereportmessage-registererrorevent
      */
     RegisterErrorEvent(bstrWkspId, dwErrorType, bstrErrorMessageType, dwErrorCode) {
         bstrWkspId := bstrWkspId is String ? BSTR.Alloc(bstrWkspId).Value : bstrWkspId

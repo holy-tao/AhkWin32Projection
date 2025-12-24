@@ -73,9 +73,11 @@ class IObjectWithBackReferences extends IUnknown{
     static VTableNames => ["RemoveBackReferences"]
 
     /**
+     * Removes all back references held by an object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectwithbackreferences-removebackreferences
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectwithbackreferences-removebackreferences
      */
     RemoveBackReferences() {
         result := ComCall(3, this, "HRESULT")

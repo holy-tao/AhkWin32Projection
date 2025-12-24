@@ -68,9 +68,9 @@ class IOpcSignaturePartReference extends IUnknown{
     static VTableNames => ["GetPartName", "GetContentType", "GetDigestMethod", "GetDigestValue", "GetTransformMethod"]
 
     /**
-     * 
-     * @returns {IOpcPartUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-getpartname
+     * Gets the part name of the referenced part.
+     * @returns {IOpcPartUri} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that represents the part name.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturepartreference-getpartname
      */
     GetPartName() {
         result := ComCall(3, this, "ptr*", &partName := 0, "HRESULT")
@@ -78,9 +78,9 @@ class IOpcSignaturePartReference extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-getcontenttype
+     * Gets the content type of the referenced part.
+     * @returns {PWSTR} The content type of the referenced part.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturepartreference-getcontenttype
      */
     GetContentType() {
         result := ComCall(4, this, "ptr*", &contentType := 0, "HRESULT")
@@ -88,9 +88,9 @@ class IOpcSignaturePartReference extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-getdigestmethod
+     * Gets the digest method to use on part content of the referenced part when the part is signed.
+     * @returns {PWSTR} The digest method to use on part content of the referenced part when the part is signed.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturepartreference-getdigestmethod
      */
     GetDigestMethod() {
         result := ComCall(5, this, "ptr*", &digestMethod := 0, "HRESULT")
@@ -98,11 +98,42 @@ class IOpcSignaturePartReference extends IUnknown{
     }
 
     /**
+     * Gets the digest value that is calculated for part content of the referenced part when the part is signed.
+     * @param {Pointer<Pointer<Integer>>} digestValue A pointer to a buffer that contains the digest value that is calculated using the specified digest method; the method is  applied to part content of the referenced part when the part is signed.
+     * @param {Pointer<Integer>} count The size of the <i>digestValue</i> buffer.
      * 
-     * @param {Pointer<Pointer<Integer>>} digestValue 
-     * @param {Pointer<Integer>} count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-getdigestvalue
+     * If the referenced part has not been signed yet, <i>count</i> is 0.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     *  At least one of the <i>digestValue</i>, and <i>count</i> parameters is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturepartreference-getdigestvalue
      */
     GetDigestValue(digestValue, count) {
         digestValueMarshal := digestValue is VarRef ? "ptr*" : "ptr"
@@ -113,9 +144,9 @@ class IOpcSignaturePartReference extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturepartreference-gettransformmethod
+     * Gets the canonicalization method to use on part content of a referenced part when the part is signed.
+     * @returns {Integer} The canonicalization method to use on part content of a referenced part when the part is signed.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturepartreference-gettransformmethod
      */
     GetTransformMethod() {
         result := ComCall(7, this, "int*", &transformMethod := 0, "HRESULT")

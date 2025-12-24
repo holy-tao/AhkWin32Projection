@@ -66,11 +66,11 @@ class IMFPluginControl extends IUnknown{
     static VTableNames => ["GetPreferredClsid", "GetPreferredClsidByIndex", "SetPreferredClsid", "IsDisabled", "GetDisabledByIndex", "SetDisabled"]
 
     /**
-     * 
-     * @param {Integer} pluginType 
-     * @param {PWSTR} selector 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-getpreferredclsid
+     * Searches the preferred list for a class identifier (CLSID) that matches a specified key name.
+     * @param {Integer} pluginType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_plugin_type">MF_Plugin_Type</a> enumeration, specifying the type of object.
+     * @param {PWSTR} selector The key name to match. For more information about the format of key names, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfplugincontrol">IMFPluginControl</a>.
+     * @returns {Guid} Receives a CLSID from the preferred list.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfplugincontrol-getpreferredclsid
      */
     GetPreferredClsid(pluginType, selector) {
         selector := selector is String ? StrPtr(selector) : selector
@@ -81,13 +81,53 @@ class IMFPluginControl extends IUnknown{
     }
 
     /**
+     * Gets a class identifier (CLSID) from the preferred list, specified by index value.
+     * @param {Integer} pluginType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_plugin_type">MF_Plugin_Type</a> enumeration, specifying the type of object to enumerate.
+     * @param {Integer} index The zero-based index of the CLSID to retrieve.
+     * @param {Pointer<PWSTR>} selector Receives the key name associated with the CLSID. The caller must free the memory for the returned string by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function. For more information about the format of key names, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfplugincontrol">IMFPluginControl</a>.
+     * @param {Pointer<Guid>} clsid Receives the CLSID at the specified index.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} pluginType 
-     * @param {Integer} index 
-     * @param {Pointer<PWSTR>} selector 
-     * @param {Pointer<Guid>} clsid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-getpreferredclsidbyindex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>S_OK</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>E_INVALIDARG</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>HRESULT_FROM_WIN32(ERROR_NO_MORE_ITEMS)</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>index</i> parameter is out of range.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfplugincontrol-getpreferredclsidbyindex
      */
     GetPreferredClsidByIndex(pluginType, index, selector, clsid) {
         selectorMarshal := selector is VarRef ? "ptr*" : "ptr"
@@ -97,12 +137,12 @@ class IMFPluginControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} pluginType 
-     * @param {PWSTR} selector 
-     * @param {Pointer<Guid>} clsid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-setpreferredclsid
+     * Adds a class identifier (CLSID) to the preferred list or removes a CLSID from the list.
+     * @param {Integer} pluginType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_plugin_type">MF_Plugin_Type</a> enumeration, specifying the type of object.
+     * @param {PWSTR} selector The key name for the CLSID. For more information about the format of key names, see the Remarks section of <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfplugincontrol">IMFPluginControl</a>.
+     * @param {Pointer<Guid>} clsid The CLSID to add to the list. If this parameter is <b>NULL</b>, the key/value entry specified by the <i>selector</i> parameter is removed from the list.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfplugincontrol-setpreferredclsid
      */
     SetPreferredClsid(pluginType, selector, clsid) {
         selector := selector is String ? StrPtr(selector) : selector
@@ -112,11 +152,51 @@ class IMFPluginControl extends IUnknown{
     }
 
     /**
+     * Queries whether a class identifier (CLSID) appears in the blocked list.
+     * @param {Integer} pluginType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_plugin_type">MF_Plugin_Type</a> enumeration, specifying the type of object for the query.
+     * @param {Pointer<Guid>} clsid The CLSID to search for.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} pluginType 
-     * @param {Pointer<Guid>} clsid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-isdisabled
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>S_OK</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified CLSID appears in the blocked list.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>E_INVALIDARG</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>HRESULT_FROM_WIN32(ERROR_NOT_FOUND)</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified CLSID is not in the blocked list.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfplugincontrol-isdisabled
      */
     IsDisabled(pluginType, clsid) {
         result := ComCall(6, this, "uint", pluginType, "ptr", clsid, "HRESULT")
@@ -124,11 +204,11 @@ class IMFPluginControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} pluginType 
-     * @param {Integer} index 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-getdisabledbyindex
+     * Gets a class identifier (CLSID) from the blocked list.
+     * @param {Integer} pluginType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_plugin_type">MF_Plugin_Type</a> enumeration, specifying the type of object to enumerate.
+     * @param {Integer} index The zero-based index of the CLSID to retrieve.
+     * @returns {Guid} Receives the CLSID at the specified index.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfplugincontrol-getdisabledbyindex
      */
     GetDisabledByIndex(pluginType, index) {
         clsid := Guid()
@@ -137,12 +217,41 @@ class IMFPluginControl extends IUnknown{
     }
 
     /**
+     * Adds a class identifier (CLSID) to the blocked list, or removes a CLSID from the list.
+     * @param {Integer} pluginType Member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_plugin_type">MF_Plugin_Type</a> enumeration, specifying the type of object.
+     * @param {Pointer<Guid>} clsid The CLSID to add or remove.
+     * @param {BOOL} disabled Specifies whether to add or remove the CSLID. If the value is <b>TRUE</b>, the method adds the CLSID to the blocked list. Otherwise, the method removes it from the list.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} pluginType 
-     * @param {Pointer<Guid>} clsid 
-     * @param {BOOL} disabled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol-setdisabled
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>S_OK</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>E_INVALIDARG</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfplugincontrol-setdisabled
      */
     SetDisabled(pluginType, clsid, disabled) {
         result := ComCall(8, this, "uint", pluginType, "ptr", clsid, "int", disabled, "HRESULT")

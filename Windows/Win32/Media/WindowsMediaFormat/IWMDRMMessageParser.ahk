@@ -36,13 +36,42 @@ class IWMDRMMessageParser extends IUnknown{
     static VTableNames => ["ParseRegistrationReqMsg", "ParseLicenseRequestMsg"]
 
     /**
+     * The ParseRegistrationReqMsg method extracts the device certificate and identifier from a registration message sent by a device.
+     * @param {Pointer<Integer>} pbRegistrationReqMsg Address of the registration message in memory. This is a message received by your application from a device.
+     * @param {Integer} cbRegistrationReqMsg The size of registration message in bytes.
+     * @param {Pointer<INSSBuffer>} ppDeviceCert Address of a variable that receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface of the buffer object that contains the device certificate.
+     * @param {Pointer<DRM_VAL16>} pDeviceSerialNumber Address of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-drm_val16">DRM_VAL16</a> structure that receives the device identifier.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pbRegistrationReqMsg 
-     * @param {Integer} cbRegistrationReqMsg 
-     * @param {Pointer<INSSBuffer>} ppDeviceCert 
-     * @param {Pointer<DRM_VAL16>} pDeviceSerialNumber 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmmessageparser-parseregistrationreqmsg
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pbRegistrationMsg</i> parameter is <b>NULL</b>, or the <i>cbRegistrationMsg</i> parameter is 0.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmmessageparser-parseregistrationreqmsg
      */
     ParseRegistrationReqMsg(pbRegistrationReqMsg, cbRegistrationReqMsg, ppDeviceCert, pDeviceSerialNumber) {
         pbRegistrationReqMsgMarshal := pbRegistrationReqMsg is VarRef ? "char*" : "ptr"
@@ -52,14 +81,43 @@ class IWMDRMMessageParser extends IUnknown{
     }
 
     /**
+     * The ParseLicenseRequestMsg method extracts the device identification and requested action from a policy request message.
+     * @param {Pointer<Integer>} pbLicenseRequestMsg Address of the license request message in memory. This is a message received by your application from a device.
+     * @param {Integer} cbLicenseRequestMsg The size of license request message in bytes.
+     * @param {Pointer<INSSBuffer>} ppDeviceCert Address of a variable that receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface of the buffer object that contains the device certificate.
+     * @param {Pointer<DRM_VAL16>} pDeviceSerialNumber Address of a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-drm_val16">DRM_VAL16</a> structure that receives the device identifier.
+     * @param {Pointer<BSTR>} pbstrAction Address of a variable that receives the string containing the requested action. The supported actions correspond to rights associates with DRM licenses. The only action string currently supported is "Play".
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pbLicenseRequestMsg 
-     * @param {Integer} cbLicenseRequestMsg 
-     * @param {Pointer<INSSBuffer>} ppDeviceCert 
-     * @param {Pointer<DRM_VAL16>} pDeviceSerialNumber 
-     * @param {Pointer<BSTR>} pbstrAction 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmmessageparser-parselicenserequestmsg
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pbLicenseRequestMsg</i> parameter is <b>NULL</b>, or the <i>cbLicenseRequestMsg</i> parameter is 0.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmmessageparser-parselicenserequestmsg
      */
     ParseLicenseRequestMsg(pbLicenseRequestMsg, cbLicenseRequestMsg, ppDeviceCert, pDeviceSerialNumber, pbstrAction) {
         pbLicenseRequestMsgMarshal := pbLicenseRequestMsg is VarRef ? "char*" : "ptr"

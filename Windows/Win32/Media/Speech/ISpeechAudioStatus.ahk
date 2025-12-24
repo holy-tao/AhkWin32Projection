@@ -30,6 +30,41 @@ class ISpeechAudioStatus extends IDispatch{
     static VTableNames => ["get_FreeBufferSpace", "get_NonBlockingIO", "get_State", "get_CurrentSeekPosition", "get_CurrentDevicePosition"]
 
     /**
+     * @type {Integer} 
+     */
+    FreeBufferSpace {
+        get => this.get_FreeBufferSpace()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NonBlockingIO {
+        get => this.get_NonBlockingIO()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CurrentSeekPosition {
+        get => this.get_CurrentSeekPosition()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CurrentDevicePosition {
+        get => this.get_CurrentDevicePosition()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

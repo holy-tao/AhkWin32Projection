@@ -33,9 +33,9 @@ class IDvdGraphBuilder extends IUnknown{
     static VTableNames => ["GetFiltergraph", "GetDvdInterface", "RenderDvdVideoVolume"]
 
     /**
-     * 
-     * @returns {IGraphBuilder} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdgraphbuilder-getfiltergraph
+     * The GetFiltergraph method retrieves the IGraphBuilder interface for the filter graph used by the DVD-Video graph builder object.
+     * @returns {IGraphBuilder} Address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-igraphbuilder">IGraphBuilder</a> interface that the DVD-Video graph builder object is using.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvdgraphbuilder-getfiltergraph
      */
     GetFiltergraph() {
         result := ComCall(3, this, "ptr*", &ppGB := 0, "HRESULT")
@@ -43,10 +43,10 @@ class IDvdGraphBuilder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdgraphbuilder-getdvdinterface
+     * The GetDvdInterface method retrieves interfaces from the DVD-Video playback graph to make DVD-Video playback development easier.
+     * @param {Pointer<Guid>} riid IID of the requested interface.
+     * @returns {Pointer<Void>} Receives a pointer to the interface. The application must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvdgraphbuilder-getdvdinterface
      */
     GetDvdInterface(riid) {
         result := ComCall(4, this, "ptr", riid, "ptr*", &ppvIF := 0, "HRESULT")
@@ -54,11 +54,11 @@ class IDvdGraphBuilder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} lpcwszPathName 
-     * @param {Integer} dwFlags 
-     * @returns {AM_DVD_RENDERSTATUS} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvdgraphbuilder-renderdvdvideovolume
+     * The RenderDvdVideoVolume method completes building a filter graph according to user specifications for playing a DVD-Video volume.
+     * @param {PWSTR} lpcwszPathName Pointer to the path for the DVD-Video volume to play. Can be <b>NULL</b>.
+     * @param {Integer} dwFlags Bitwise OR of flags from <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-am_dvd_graph_flags">AM_DVD_GRAPH_FLAGS</a> enumeration, specifying how to build the DVD playback graph.
+     * @returns {AM_DVD_RENDERSTATUS} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_dvd_renderstatus">AM_DVD_RENDERSTATUS</a> structure. When the method returns, the structure indicates any rendering failures.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvdgraphbuilder-renderdvdvideovolume
      */
     RenderDvdVideoVolume(lpcwszPathName, dwFlags) {
         lpcwszPathName := lpcwszPathName is String ? StrPtr(lpcwszPathName) : lpcwszPathName

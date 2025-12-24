@@ -31,10 +31,14 @@ class IDWriteFontDownloadQueue extends IUnknown{
     static VTableNames => ["AddListener", "RemoveListener", "IsEmpty", "BeginDownload", "CancelDownload", "GetGenerationCount"]
 
     /**
+     * Registers a client-defined listener object that receives download notifications. All registered listener's DownloadCompleted will be called after BeginDownloadcompletes.
+     * @param {IDWriteFontDownloadListener} listener Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontdownloadlistener">IDWriteFontDownloadListener</a>*</b>
      * 
-     * @param {IDWriteFontDownloadListener} listener 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-addlistener
+     * Listener object to add.
+     * @returns {Integer} Type: <b>UINT32*</b>
+     * 
+     * Receives a token value, which the caller must subsequently pass to <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-removelistener">RemoveListener</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-addlistener
      */
     AddListener(listener) {
         result := ComCall(3, this, "ptr", listener, "uint*", &token := 0, "HRESULT")
@@ -42,10 +46,14 @@ class IDWriteFontDownloadQueue extends IUnknown{
     }
 
     /**
+     * Unregisters a notification handler that was previously registered using AddListener.
+     * @param {Integer} token Type: <b>UINT32</b>
      * 
-     * @param {Integer} token 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-removelistener
+     * Token value previously returned by <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-addlistener">AddListener</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-removelistener
      */
     RemoveListener(token) {
         result := ComCall(4, this, "uint", token, "HRESULT")
@@ -53,9 +61,11 @@ class IDWriteFontDownloadQueue extends IUnknown{
     }
 
     /**
+     * Determines whether the download queue is empty. Note that the queue does not include requests that are already being downloaded. Calling BeginDownloadclears the queue.
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-isempty
+     * TRUE if the queue is empty, FALSE if there are requests pending for <a href="/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-begindownload">BeginDownload</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-isempty
      */
     IsEmpty() {
         result := ComCall(5, this, "int")
@@ -63,10 +73,18 @@ class IDWriteFontDownloadQueue extends IUnknown{
     }
 
     /**
+     * Begins an asynchronous download operation. The download operation executes in the background until it completes or is cancelled by a CancelDownload call.
+     * @param {IUnknown} context Type: <b>IUnknown*</b>
      * 
-     * @param {IUnknown} context 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-begindownload
+     * Optional context object that is passed back to the     
+     *           download notification handler's DownloadCompleted method. If the context object  
+     *           implements IDWriteFontDownloadListener, its DownloadCompleted will be called    
+     *           when done.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     *  Returns S_OK if a download was successfully begun, S_FALSE if the queue was 
+     *           empty, or a standard HRESULT error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-begindownload
      */
     BeginDownload(context) {
         result := ComCall(6, this, "ptr", context, "HRESULT")
@@ -74,9 +92,11 @@ class IDWriteFontDownloadQueue extends IUnknown{
     }
 
     /**
+     * Removes all download requests from the queue and cancels any active download operations.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-canceldownload
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-canceldownload
      */
     CancelDownload() {
         result := ComCall(7, this, "HRESULT")
@@ -84,9 +104,11 @@ class IDWriteFontDownloadQueue extends IUnknown{
     }
 
     /**
+     * Gets the current generation number of the download queue, which is incremented every time after a download completes, whether failed or successful. This cookie value can be compared against cached data to determine if it is stale.
+     * @returns {Integer} Type: <b>UINT64</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-getgenerationcount
+     * The current generation number of the download queue.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontdownloadqueue-getgenerationcount
      */
     GetGenerationCount() {
         result := ComCall(8, this, "uint")

@@ -36,10 +36,14 @@ class ID2D1ComputeTransform extends ID2D1Transform{
     static VTableNames => ["SetComputeInfo", "CalculateThreadgroups"]
 
     /**
+     * Sets the render information used to specify the compute shader pass.
+     * @param {ID2D1ComputeInfo} computeInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1computeinfo">ID2D1ComputeInfo</a>*</b>
      * 
-     * @param {ID2D1ComputeInfo} computeInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computetransform-setcomputeinfo
+     * The render information object to set.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1computetransform-setcomputeinfo
      */
     SetComputeInfo(computeInfo) {
         result := ComCall(7, this, "ptr", computeInfo, "HRESULT")
@@ -47,13 +51,23 @@ class ID2D1ComputeTransform extends ID2D1Transform{
     }
 
     /**
+     * This method allows a compute-shader–based transform to select the number of thread groups to execute based on the number of output pixels it needs to fill.
+     * @param {Pointer<RECT>} outputRect Type: <b>const <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/hh847950(v=vs.85)">D2D1_RECT_L</a>*</b>
      * 
-     * @param {Pointer<RECT>} outputRect 
-     * @param {Pointer<Integer>} dimensionX 
-     * @param {Pointer<Integer>} dimensionY 
-     * @param {Pointer<Integer>} dimensionZ 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computetransform-calculatethreadgroups
+     * The output rectangle that will be filled by the compute transform.
+     * @param {Pointer<Integer>} dimensionX Type: <b>UINT32*</b>
+     * 
+     * The number of threads in the x dimension.
+     * @param {Pointer<Integer>} dimensionY Type: <b>UINT32*</b>
+     * 
+     * The number of threads in the y dimension.
+     * @param {Pointer<Integer>} dimensionZ Type: <b>UINT32*</b>
+     * 
+     * The number of threads in the z dimension.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1computetransform-calculatethreadgroups
      */
     CalculateThreadgroups(outputRect, dimensionX, dimensionY, dimensionZ) {
         dimensionXMarshal := dimensionX is VarRef ? "uint*" : "ptr"

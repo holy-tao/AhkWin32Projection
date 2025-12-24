@@ -37,10 +37,10 @@ class IEventObjectChange2 extends IUnknown{
     static VTableNames => ["ChangedSubscription", "ChangedEventClass"]
 
     /**
-     * 
-     * @param {Pointer<COMEVENTSYSCHANGEINFO>} pInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectchange2-changedsubscription
+     * Indicates that a subscription object has been added, modified, or deleted.
+     * @param {Pointer<COMEVENTSYSCHANGEINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/eventsys/ns-eventsys-comeventsyschangeinfo">COMEVENTSYSCHANGEINFO</a> structure.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectchange2-changedsubscription
      */
     ChangedSubscription(pInfo) {
         result := ComCall(3, this, "ptr", pInfo, "HRESULT")
@@ -48,10 +48,10 @@ class IEventObjectChange2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMEVENTSYSCHANGEINFO>} pInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventobjectchange2-changedeventclass
+     * Indicates that an event class object has been added, modified, or deleted.
+     * @param {Pointer<COMEVENTSYSCHANGEINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/eventsys/ns-eventsys-comeventsyschangeinfo">COMEVENTSYSCHANGEINFO</a> structure.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventobjectchange2-changedeventclass
      */
     ChangedEventClass(pInfo) {
         result := ComCall(4, this, "ptr", pInfo, "HRESULT")

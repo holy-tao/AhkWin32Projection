@@ -31,10 +31,28 @@ class IWMResizerProps extends IUnknown{
     static VTableNames => ["SetResizerQuality", "SetInterlaceMode", "SetClipRegion", "SetFullCropRegion", "GetFullCropRegion"]
 
     /**
+     * Specifies whether to use an algorithm that produces higher-quality video, or a faster algorithm.
+     * @param {Integer} lquality Boolean value. If <b>TRUE</b>, the video resizer uses an algorithm that produces higher-quality video. If <b>FALSE</b>, the video resizer uses a faster algorithm.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lquality 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setresizerquality
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setresizerquality
      */
     SetResizerQuality(lquality) {
         result := ComCall(3, this, "int", lquality, "HRESULT")
@@ -42,10 +60,28 @@ class IWMResizerProps extends IUnknown{
     }
 
     /**
+     * The SetInterlaceMode method specifies whether the input video stream is interlaced.
+     * @param {Integer} lmode Boolean value. If <b>TRUE</b>, the video is interlaced. If <b>FALSE</b>, the video is progressive.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lmode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setinterlacemode
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setinterlacemode
      */
     SetInterlaceMode(lmode) {
         result := ComCall(4, this, "int", lmode, "HRESULT")
@@ -53,13 +89,31 @@ class IWMResizerProps extends IUnknown{
     }
 
     /**
+     * Sets the source rectangle.
+     * @param {Integer} lClipOriXSrc Specifies the left edge of the source rectangle, in pixels.
+     * @param {Integer} lClipOriYSrc Specifies the top edge of the source rectangle, in pixels.
+     * @param {Integer} lClipWidthSrc Specifies the width of the source rectangle, in pixels.
+     * @param {Integer} lClipHeightSrc Specifies the height of the source rectangle, in pixels.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lClipOriXSrc 
-     * @param {Integer} lClipOriYSrc 
-     * @param {Integer} lClipWidthSrc 
-     * @param {Integer} lClipHeightSrc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setclipregion
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setclipregion
      */
     SetClipRegion(lClipOriXSrc, lClipOriYSrc, lClipWidthSrc, lClipHeightSrc) {
         result := ComCall(5, this, "int", lClipOriXSrc, "int", lClipOriYSrc, "int", lClipWidthSrc, "int", lClipHeightSrc, "HRESULT")
@@ -67,17 +121,35 @@ class IWMResizerProps extends IUnknown{
     }
 
     /**
+     * Sets the source and destination rectangles.
+     * @param {Integer} lClipOriXSrc Specifies the left edge of the source rectangle, in pixels.
+     * @param {Integer} lClipOriYSrc Specifies the top edge of the source rectangle, in pixels.
+     * @param {Integer} lClipWidthSrc Specifies the width of the source rectangle, in pixels.
+     * @param {Integer} lClipHeightSrc Specifies the height of the source rectangle, in pixels.
+     * @param {Integer} lClipOriXDst Specifies the left edge of the destination rectangle, in pixels.
+     * @param {Integer} lClipOriYDst Specifies the top edge of the destination rectangle, in pixels.
+     * @param {Integer} lClipWidthDst Specifies the width of the destination rectangle, in pixels.
+     * @param {Integer} lClipHeightDst Specifies the height of the destination rectangle, in pixels.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lClipOriXSrc 
-     * @param {Integer} lClipOriYSrc 
-     * @param {Integer} lClipWidthSrc 
-     * @param {Integer} lClipHeightSrc 
-     * @param {Integer} lClipOriXDst 
-     * @param {Integer} lClipOriYDst 
-     * @param {Integer} lClipWidthDst 
-     * @param {Integer} lClipHeightDst 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setfullcropregion
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-setfullcropregion
      */
     SetFullCropRegion(lClipOriXSrc, lClipOriYSrc, lClipWidthSrc, lClipHeightSrc, lClipOriXDst, lClipOriYDst, lClipWidthDst, lClipHeightDst) {
         result := ComCall(6, this, "int", lClipOriXSrc, "int", lClipOriYSrc, "int", lClipWidthSrc, "int", lClipHeightSrc, "int", lClipOriXDst, "int", lClipOriYDst, "int", lClipWidthDst, "int", lClipHeightDst, "HRESULT")
@@ -85,17 +157,35 @@ class IWMResizerProps extends IUnknown{
     }
 
     /**
+     * Retrieves the source and destination rectangles.
+     * @param {Pointer<Integer>} lClipOriXSrc Receives the left edge of the source rectangle, in pixels.
+     * @param {Pointer<Integer>} lClipOriYSrc Receives the top edge of the source rectangle, in pixels.
+     * @param {Pointer<Integer>} lClipWidthSrc Receives the width of the source rectangle, in pixels.
+     * @param {Pointer<Integer>} lClipHeightSrc Receives the height of the source rectangle, in pixels.
+     * @param {Pointer<Integer>} lClipOriXDst Receives the left edge of the destination rectangle, in pixels.
+     * @param {Pointer<Integer>} lClipOriYDst Receives the top edge of the destination rectangle, in pixels.
+     * @param {Pointer<Integer>} lClipWidthDst Receives the width of the destination rectangle, in pixels.
+     * @param {Pointer<Integer>} lClipHeightDst Receives the height of the destination rectangle, in pixels.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} lClipOriXSrc 
-     * @param {Pointer<Integer>} lClipOriYSrc 
-     * @param {Pointer<Integer>} lClipWidthSrc 
-     * @param {Pointer<Integer>} lClipHeightSrc 
-     * @param {Pointer<Integer>} lClipOriXDst 
-     * @param {Pointer<Integer>} lClipOriYDst 
-     * @param {Pointer<Integer>} lClipWidthDst 
-     * @param {Pointer<Integer>} lClipHeightDst 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-getfullcropregion
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresizerprops-getfullcropregion
      */
     GetFullCropRegion(lClipOriXSrc, lClipOriYSrc, lClipWidthSrc, lClipHeightSrc, lClipOriXDst, lClipOriYDst, lClipWidthDst, lClipHeightDst) {
         lClipOriXSrcMarshal := lClipOriXSrc is VarRef ? "int*" : "ptr"

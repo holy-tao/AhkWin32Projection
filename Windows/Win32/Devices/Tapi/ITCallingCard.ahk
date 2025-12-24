@@ -32,9 +32,58 @@ class ITCallingCard extends IDispatch{
     static VTableNames => ["get_PermanentCardID", "get_NumberOfDigits", "get_Options", "get_CardName", "get_SameAreaDialingRule", "get_LongDistanceDialingRule", "get_InternationalDialingRule"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_permanentcardid
+     * @type {Integer} 
+     */
+    PermanentCardID {
+        get => this.get_PermanentCardID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfDigits {
+        get => this.get_NumberOfDigits()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Options {
+        get => this.get_Options()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CardName {
+        get => this.get_CardName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SameAreaDialingRule {
+        get => this.get_SameAreaDialingRule()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LongDistanceDialingRule {
+        get => this.get_LongDistanceDialingRule()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InternationalDialingRule {
+        get => this.get_InternationalDialingRule()
+    }
+
+    /**
+     * The get_PermanentCardID method gets the permanent identifier that identifies the card.
+     * @returns {Integer} Pointer to calling card identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_permanentcardid
      */
     get_PermanentCardID() {
         result := ComCall(7, this, "int*", &plCardID := 0, "HRESULT")
@@ -42,9 +91,9 @@ class ITCallingCard extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_numberofdigits
+     * The get_NumberOfDigits method gets the number of digits in the existing card number.
+     * @returns {Integer} Pointer to number of digits in the card number.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_numberofdigits
      */
     get_NumberOfDigits() {
         result := ComCall(8, this, "int*", &plDigits := 0, "HRESULT")
@@ -52,9 +101,10 @@ class ITCallingCard extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_options
+     * The get_Options method gets the translation options for this address and card.
+     * @returns {Integer} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linetranslateoption--constants">LINETRANSLATEOPTION</a> flags.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_options
      */
     get_Options() {
         result := ComCall(9, this, "int*", &plOptions := 0, "HRESULT")
@@ -62,9 +112,9 @@ class ITCallingCard extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_cardname
+     * The get_CardName method gets the friendly name for the calling card.
+     * @returns {BSTR} Pointer to <b>BSTR</b> containing a displayable name for the calling card.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_cardname
      */
     get_CardName() {
         ppCardName := BSTR()
@@ -73,9 +123,9 @@ class ITCallingCard extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_sameareadialingrule
+     * The get_SameAreaDialingRule method gets the dialing rules for calls within the same area code.
+     * @returns {BSTR} Pointer to <b>BSTR</b> representation of local area dialing rules.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_sameareadialingrule
      */
     get_SameAreaDialingRule() {
         ppRule := BSTR()
@@ -84,9 +134,9 @@ class ITCallingCard extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_longdistancedialingrule
+     * The get_LongDistanceDialingRule method gets the long distance dialing rules for this calling card.
+     * @returns {BSTR} Pointer to <b>BSTR</b> representation of long distance dialing rules.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_longdistancedialingrule
      */
     get_LongDistanceDialingRule() {
         ppRule := BSTR()
@@ -95,9 +145,9 @@ class ITCallingCard extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallingcard-get_internationaldialingrule
+     * The get_InternationalDialingRule method gets the international dialing rules for this calling card.
+     * @returns {BSTR} Pointer to <b>BSTR</b> representation of international dialing rules.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallingcard-get_internationaldialingrule
      */
     get_InternationalDialingRule() {
         ppRule := BSTR()

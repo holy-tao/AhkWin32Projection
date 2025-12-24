@@ -53,12 +53,19 @@ class IDXGIDevice2 extends IDXGIDevice1{
     static VTableNames => ["OfferResources", "ReclaimResources", "EnqueueSetEvent"]
 
     /**
+     * Allows the operating system to free the video memory of resources by discarding their content.
+     * @param {Integer} NumResources The number of resources in the <i>ppResources</i> argument array.
+     * @param {Pointer<IDXGIResource>} ppResources An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interfaces for the resources to offer.
+     * @param {Integer} Priority A <a href="https://docs.microsoft.com/windows/desktop/api/dxgi1_2/ne-dxgi1_2-dxgi_offer_resource_priority">DXGI_OFFER_RESOURCE_PRIORITY</a>-typed value that indicates how valuable data is.
+     * @returns {HRESULT} <b>OfferResources</b> returns:
+     *             
+     *           
      * 
-     * @param {Integer} NumResources 
-     * @param {Pointer<IDXGIResource>} ppResources 
-     * @param {Integer} Priority 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-offerresources
+     * <ul>
+     * <li>S_OK if resources were successfully offered</li>
+     * <li>E_INVALIDARG if a resource in the array or the priority is invalid</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/nf-dxgi1_2-idxgidevice2-offerresources
      */
     OfferResources(NumResources, ppResources, Priority) {
         result := ComCall(14, this, "uint", NumResources, "ptr*", ppResources, "int", Priority, "HRESULT")
@@ -66,11 +73,11 @@ class IDXGIDevice2 extends IDXGIDevice1{
     }
 
     /**
-     * 
-     * @param {Integer} NumResources 
-     * @param {Pointer<IDXGIResource>} ppResources 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-reclaimresources
+     * Restores access to resources that were previously offered by calling IDXGIDevice2::OfferResources.
+     * @param {Integer} NumResources The number of resources in the <i>ppResources</i> argument and <i>pDiscarded</i> argument arrays.
+     * @param {Pointer<IDXGIResource>} ppResources An array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interfaces for the resources to reclaim.
+     * @returns {BOOL} A pointer to an array that receives Boolean values. Each value in the array corresponds to a resource at the same index that the <i>ppResources</i> parameter specifies.  The runtime sets each Boolean value to TRUE if the corresponding resource’s content was discarded and is now undefined, or to FALSE if the corresponding resource’s old content is still intact.  The caller can pass in <b>NULL</b>, if the caller intends to fill the resources with new content regardless of whether the old content was discarded.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/nf-dxgi1_2-idxgidevice2-reclaimresources
      */
     ReclaimResources(NumResources, ppResources) {
         result := ComCall(15, this, "uint", NumResources, "ptr*", ppResources, "int*", &pDiscarded := 0, "HRESULT")
@@ -78,10 +85,18 @@ class IDXGIDevice2 extends IDXGIDevice1{
     }
 
     /**
+     * Flushes any outstanding rendering commands and sets the specified event object to the signaled state after all previously submitted rendering commands complete.
+     * @param {HANDLE} hEvent A handle to the event object. The <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-createeventa">CreateEvent</a> or <a href="https://docs.microsoft.com/windows/desktop/api/synchapi/nf-synchapi-openeventa">OpenEvent</a> function returns this handle. All types of event objects (manual-reset, auto-reset, and so on) are supported.
      * 
-     * @param {HANDLE} hEvent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/nf-dxgi1_2-idxgidevice2-enqueuesetevent
+     * The handle must have the EVENT_MODIFY_STATE access right. For more information about access rights, see <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-object-security-and-access-rights">Synchronization Object Security and Access Rights</a>.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful; otherwise, returns one of the following values:
+     * 
+     * <ul>
+     * <li><b>E_OUTOFMEMORY</b> if insufficient memory is available to complete the operation.</li>
+     * <li><b>E_INVALIDARG</b> if the parameter was validated and determined to be incorrect.</li>
+     * </ul>
+     * <b>Platform Update for Windows 7:  </b>On Windows 7 or Windows Server 2008 R2 with the <a href="https://support.microsoft.com/help/2670838">Platform Update for Windows 7</a> installed, <b>EnqueueSetEvent</b> fails with E_NOTIMPL. For more info about the Platform Update for Windows 7, see <a href="/windows/desktop/direct3darticles/platform-update-for-windows-7">Platform Update for Windows 7</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_2/nf-dxgi1_2-idxgidevice2-enqueuesetevent
      */
     EnqueueSetEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent

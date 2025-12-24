@@ -32,12 +32,12 @@ class IMediaObjectInPlace extends IUnknown{
     static VTableNames => ["Process", "Clone", "GetLatency"]
 
     /**
-     * Performs ink recognition synchronously.
-     * @param {Integer} ulSize 
-     * @param {Pointer} pData 
-     * @param {Integer} refTimeStart 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} This function can return one of these values.
+     * The Process method processes a block of data. The application supplies a pointer to a block of input data. The DMO processes the data in place.
+     * @param {Integer} ulSize Size of the data, in bytes.
+     * @param {Pointer} pData Pointer to a buffer of size <i>ulSize</i>. On input, the buffer holds the input data. If the method returns successfully, the buffer contains the output data.
+     * @param {Integer} refTimeStart Start time of the data.
+     * @param {Integer} dwFlags Either DMO_INPLACE_NORMAL or DMO_INPLACE_ZERO. See Remarks for more information.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
      * 
      * <table>
      * <tr>
@@ -47,11 +47,11 @@ class IMediaObjectInPlace extends IUnknown{
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b>S_OK</b></dt>
+     * <dt><b>E_FAIL</b></dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * Success.
+     * Failure
      * 
      * </td>
      * </tr>
@@ -62,56 +62,23 @@ class IMediaObjectInPlace extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The function did not process the ink because the ink has been fully processed, or the <a href="/windows/desktop/api/msinkaut/nf-msinkaut-iinkrecognizercontext-endinkinput">EndInkInput</a> function has not been called and the recognizer does not support incremental processing of ink.
+     * Success. There is still data to process.
      * 
      * </td>
      * </tr>
      * <tr>
      * <td width="40%">
      * <dl>
-     * <dt><b>TPC_S_INTERRUPTED</b></dt>
+     * <dt><b>S_OK</b></dt>
      * </dl>
      * </td>
      * <td width="60%">
-     * The process was interrupted by a call to the <a href="/windows/desktop/api/recapis/nf-recapis-adviseinkchange">AdviseInkChange</a> function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * One of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An invalid argument was received.
+     * Success. There is no remaining data to process.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-process
+     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-imediaobjectinplace-process
      */
     Process(ulSize, pData, refTimeStart, dwFlags) {
         result := ComCall(3, this, "uint", ulSize, "ptr", pData, "int64", refTimeStart, "uint", dwFlags, "HRESULT")
@@ -119,9 +86,9 @@ class IMediaObjectInPlace extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IMediaObjectInPlace} 
-     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobjectinplace-clone
+     * The Clone method creates a copy of the DMO in its current state.
+     * @returns {IMediaObjectInPlace} Address of a pointer to receive the new DMO's <a href="https://docs.microsoft.com/windows/desktop/api/mediaobj/nn-mediaobj-imediaobjectinplace">IMediaObjectInPlace</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-imediaobjectinplace-clone
      */
     Clone() {
         result := ComCall(4, this, "ptr*", &ppMediaObject := 0, "HRESULT")
@@ -129,9 +96,9 @@ class IMediaObjectInPlace extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mediaobj/nf-mediaobj-imediaobjectinplace-getlatency
+     * The GetLatency method retrieves the latency introduced by this DMO.
+     * @returns {Integer} Pointer to a variable that receives the latency, in 100-nanosecond units.
+     * @see https://docs.microsoft.com/windows/win32/api//mediaobj/nf-mediaobj-imediaobjectinplace-getlatency
      */
     GetLatency() {
         result := ComCall(5, this, "int64*", &pLatencyTime := 0, "HRESULT")

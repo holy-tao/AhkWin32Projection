@@ -36,9 +36,95 @@ class IUIAutomationWindowPattern extends IUnknown{
     static VTableNames => ["Close", "WaitForInputIdle", "SetWindowVisualState", "get_CurrentCanMaximize", "get_CurrentCanMinimize", "get_CurrentIsModal", "get_CurrentIsTopmost", "get_CurrentWindowVisualState", "get_CurrentWindowInteractionState", "get_CachedCanMaximize", "get_CachedCanMinimize", "get_CachedIsModal", "get_CachedIsTopmost", "get_CachedWindowVisualState", "get_CachedWindowInteractionState"]
 
     /**
+     * @type {BOOL} 
+     */
+    CurrentCanMaximize {
+        get => this.get_CurrentCanMaximize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentCanMinimize {
+        get => this.get_CurrentCanMinimize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsModal {
+        get => this.get_CurrentIsModal()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CurrentIsTopmost {
+        get => this.get_CurrentIsTopmost()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentWindowVisualState {
+        get => this.get_CurrentWindowVisualState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentWindowInteractionState {
+        get => this.get_CurrentWindowInteractionState()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedCanMaximize {
+        get => this.get_CachedCanMaximize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedCanMinimize {
+        get => this.get_CachedCanMinimize()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsModal {
+        get => this.get_CachedIsModal()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    CachedIsTopmost {
+        get => this.get_CachedIsTopmost()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedWindowVisualState {
+        get => this.get_CachedWindowVisualState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedWindowInteractionState {
+        get => this.get_CachedWindowInteractionState()
+    }
+
+    /**
+     * Closes the window.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-close
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-close
      */
     Close() {
         result := ComCall(3, this, "HRESULT")
@@ -46,10 +132,14 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * Waits until the specified process has finished processing its initial input and is waiting for user input with no input pending, or until the time-out interval has elapsed.
-     * @param {Integer} milliseconds 
-     * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-waitforinputidle
+     * Causes the calling code to block for the specified time or until the associated process enters an idle state, whichever completes first.
+     * @param {Integer} milliseconds Type: <b>int</b>
+     * 
+     * The amount of time, in milliseconds, to wait for the associated process to become idle.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
+     * 
+     * Receives the result: <b>TRUE</b> if the window has entered the idle state, or <b>FALSE</b> if the time-out occurred.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-waitforinputidle
      */
     WaitForInputIdle(milliseconds) {
         result := ComCall(4, this, "int", milliseconds, "int*", &success := 0, "HRESULT")
@@ -57,10 +147,12 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Minimizes, maximizes, or restores the window.
      * @param {Integer} state 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-setwindowvisualstate
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-setwindowvisualstate
      */
     SetWindowVisualState(state) {
         result := ComCall(5, this, "int", state, "HRESULT")
@@ -68,9 +160,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the window can be maximized.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentcanmaximize
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentcanmaximize
      */
     get_CurrentCanMaximize() {
         result := ComCall(6, this, "int*", &retVal := 0, "HRESULT")
@@ -78,9 +170,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the window can be minimized.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentcanminimize
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentcanminimize
      */
     get_CurrentCanMinimize() {
         result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
@@ -88,9 +180,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the window is modal.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentismodal
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentismodal
      */
     get_CurrentIsModal() {
         result := ComCall(8, this, "int*", &retVal := 0, "HRESULT")
@@ -98,9 +190,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates whether the window is the topmost element in the z-order.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentistopmost
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentistopmost
      */
     get_CurrentIsTopmost() {
         result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")
@@ -108,9 +200,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the visual state of the window; that is, whether it is in the normal, maximized, or minimized state.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentwindowvisualstate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentwindowvisualstate
      */
     get_CurrentWindowVisualState() {
         result := ComCall(10, this, "int*", &retVal := 0, "HRESULT")
@@ -118,9 +210,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the current state of the window for the purposes of user interaction.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentwindowinteractionstate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_currentwindowinteractionstate
      */
     get_CurrentWindowInteractionState() {
         result := ComCall(11, this, "int*", &retVal := 0, "HRESULT")
@@ -128,9 +220,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates whether the window can be maximized.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedcanmaximize
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedcanmaximize
      */
     get_CachedCanMaximize() {
         result := ComCall(12, this, "int*", &retVal := 0, "HRESULT")
@@ -138,9 +230,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates whether the window can be minimized.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedcanminimize
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedcanminimize
      */
     get_CachedCanMinimize() {
         result := ComCall(13, this, "int*", &retVal := 0, "HRESULT")
@@ -148,9 +240,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates whether the window is modal.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedismodal
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedismodal
      */
     get_CachedIsModal() {
         result := ComCall(14, this, "int*", &retVal := 0, "HRESULT")
@@ -158,9 +250,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates whether the window is the topmost element in the z-order.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedistopmost
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedistopmost
      */
     get_CachedIsTopmost() {
         result := ComCall(15, this, "int*", &retVal := 0, "HRESULT")
@@ -168,9 +260,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates the visual state of the window; that is, whether it is in the normal, maximized, or minimized state.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedwindowvisualstate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedwindowvisualstate
      */
     get_CachedWindowVisualState() {
         result := ComCall(16, this, "int*", &retVal := 0, "HRESULT")
@@ -178,9 +270,9 @@ class IUIAutomationWindowPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a cached value that indicates the current state of the window for the purposes of user interaction.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedwindowinteractionstate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationwindowpattern-get_cachedwindowinteractionstate
      */
     get_CachedWindowInteractionState() {
         result := ComCall(17, this, "int*", &retVal := 0, "HRESULT")

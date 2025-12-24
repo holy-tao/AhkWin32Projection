@@ -44,9 +44,23 @@ class IFaxLoggingOptions extends IDispatch{
     static VTableNames => ["get_EventLogging", "get_ActivityLogging"]
 
     /**
-     * 
+     * @type {IFaxEventLogging} 
+     */
+    EventLogging {
+        get => this.get_EventLogging()
+    }
+
+    /**
+     * @type {IFaxActivityLogging} 
+     */
+    ActivityLogging {
+        get => this.get_ActivityLogging()
+    }
+
+    /**
+     * The EventLogging property retrieves the FaxEventLogging configuration object.
      * @returns {IFaxEventLogging} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxloggingoptions-get_eventlogging
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxloggingoptions-get_eventlogging
      */
     get_EventLogging() {
         result := ComCall(7, this, "ptr*", &pFaxEventLogging := 0, "HRESULT")
@@ -54,9 +68,9 @@ class IFaxLoggingOptions extends IDispatch{
     }
 
     /**
-     * 
+     * The ActivityLogging property retrieves the FaxActivityLogging configuration object.
      * @returns {IFaxActivityLogging} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxloggingoptions-get_activitylogging
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxloggingoptions-get_activitylogging
      */
     get_ActivityLogging() {
         result := ComCall(8, this, "ptr*", &pFaxActivityLogging := 0, "HRESULT")

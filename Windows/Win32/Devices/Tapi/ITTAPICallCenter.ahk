@@ -33,9 +33,17 @@ class ITTAPICallCenter extends IDispatch{
     static VTableNames => ["EnumerateAgentHandlers", "get_AgentHandlers"]
 
     /**
-     * 
-     * @returns {IEnumAgentHandler} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ittapicallcenter-enumerateagenthandlers
+     * @type {VARIANT} 
+     */
+    AgentHandlers {
+        get => this.get_AgentHandlers()
+    }
+
+    /**
+     * The EnumerateAgentHandlers method enumerates agent handlers that are currently associated with the call center.
+     * @returns {IEnumAgentHandler} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumagenthandler">IEnumAgentHandler</a> enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ittapicallcenter-enumerateagenthandlers
      */
     EnumerateAgentHandlers() {
         result := ComCall(7, this, "ptr*", &ppEnumHandler := 0, "HRESULT")
@@ -43,9 +51,11 @@ class ITTAPICallCenter extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ittapicallcenter-get_agenthandlers
+     * The get_AgentHandlers method creates a collection of agent handlers that are currently associated with the call center.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> containing an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagenthandler">ITAgentHandler</a> interface pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ittapicallcenter-get_agenthandlers
      */
     get_AgentHandlers() {
         pVariant := VARIANT()

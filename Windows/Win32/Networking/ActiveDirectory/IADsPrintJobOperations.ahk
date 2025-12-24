@@ -31,6 +31,35 @@ class IADsPrintJobOperations extends IADs{
     static VTableNames => ["get_Status", "get_TimeElapsed", "get_PagesPrinted", "get_Position", "put_Position", "Pause", "Resume"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TimeElapsed {
+        get => this.get_TimeElapsed()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PagesPrinted {
+        get => this.get_PagesPrinted()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Position {
+        get => this.get_Position()
+        set => this.put_Position(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */
@@ -77,9 +106,9 @@ class IADsPrintJobOperations extends IADs{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsprintjoboperations-pause
+     * The IADsPrintJobOperations::Pause method halts the processing of the current print job. Call the IADsPrintJobOperations::Resume method to continue the processing.
+     * @returns {HRESULT} This method supports standard return values. For other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintjoboperations-pause
      */
     Pause() {
         result := ComCall(25, this, "HRESULT")
@@ -87,9 +116,9 @@ class IADsPrintJobOperations extends IADs{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsprintjoboperations-resume
+     * The IADsPrintJobOperations::Resume method continues the print job halted by the IADsPrintJobOperations::Pause method.
+     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintjoboperations-resume
      */
     Resume() {
         result := ComCall(26, this, "HRESULT")

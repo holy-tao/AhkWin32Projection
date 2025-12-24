@@ -38,9 +38,9 @@ class SecurityProperty extends IDispatch{
     static VTableNames => ["GetDirectCallerName", "GetDirectCreatorName", "GetOriginalCallerName", "GetOriginalCreatorName"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getdirectcallername
+     * Retrieves the user name associated with the external process that called the currently executing method.
+     * @returns {BSTR} A reference to the user name associated with the external process that called the currently executing method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-securityproperty-getdirectcallername
      */
     GetDirectCallerName() {
         bstrUserName := BSTR()
@@ -49,9 +49,9 @@ class SecurityProperty extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getdirectcreatorname
+     * Retrieves the user name associated with the current object's immediate (out-of-process) creator.
+     * @returns {BSTR} A reference to the user name associated with the current object's immediate (out-of-process) creator.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-securityproperty-getdirectcreatorname
      */
     GetDirectCreatorName() {
         bstrUserName := BSTR()
@@ -60,9 +60,9 @@ class SecurityProperty extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getoriginalcallername
+     * Retrieves the user name associated with the base process that initiated the sequence of calls from which the call into the current object originated.
+     * @returns {BSTR} A reference to the user name associated with the base process that initiated the sequence of calls from which the call into the current object originated.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-securityproperty-getoriginalcallername
      */
     GetOriginalCallerName() {
         bstrUserName := BSTR()
@@ -71,9 +71,9 @@ class SecurityProperty extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-securityproperty-getoriginalcreatorname
+     * Retrieves the user name associated with the original base process that initiated the activity in which the current object is executing.
+     * @returns {BSTR} A reference to the user name associated with the original base process that initiated the activity in which the current object is executing.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-securityproperty-getoriginalcreatorname
      */
     GetOriginalCreatorName() {
         bstrUserName := BSTR()

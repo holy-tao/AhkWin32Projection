@@ -31,10 +31,14 @@ class IUIAutomationPatternHandler extends IUnknown{
     static VTableNames => ["CreateClientWrapper", "Dispatch"]
 
     /**
+     * Creates an object that enables a client application to interact with a custom control pattern.
+     * @param {IUIAutomationPatternInstance} pPatternInstance Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iuiautomationpatterninstance">IUIAutomationPatternInstance</a>*</b>
      * 
-     * @param {IUIAutomationPatternInstance} pPatternInstance 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationpatternhandler-createclientwrapper
+     * A pointer to the instance of the control pattern that will be used by the wrapper.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
+     * 
+     * Receives a pointer to the wrapper object.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iuiautomationpatternhandler-createclientwrapper
      */
     CreateClientWrapper(pPatternInstance) {
         result := ComCall(3, this, "ptr", pPatternInstance, "ptr*", &pClientWrapper := 0, "HRESULT")
@@ -42,13 +46,23 @@ class IUIAutomationPatternHandler extends IUnknown{
     }
 
     /**
+     * Dispatches a method or property getter to a custom control pattern provider.
+     * @param {IUnknown} pTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} pTarget 
-     * @param {Integer} index 
-     * @param {Pointer<UIAutomationParameter>} pParams 
-     * @param {Integer} cParams 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationpatternhandler-dispatch
+     * A pointer to the object that implements the control pattern provider.
+     * @param {Integer} index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The index of the method or property getter.
+     * @param {Pointer<UIAutomationParameter>} pParams Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiautomationparameter">UIAutomationParameter</a>*</b>
+     * 
+     * A pointer to an array of structures that contain information about the parameters to be passed.
+     * @param {Integer} cParams Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The count of parameters in <i>pParams</i>.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iuiautomationpatternhandler-dispatch
      */
     Dispatch(pTarget, index, pParams, cParams) {
         result := ComCall(4, this, "ptr", pTarget, "uint", index, "ptr", pParams, "uint", cParams, "HRESULT")

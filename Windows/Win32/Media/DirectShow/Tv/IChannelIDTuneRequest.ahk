@@ -43,9 +43,17 @@ class IChannelIDTuneRequest extends ITuneRequest{
     static VTableNames => ["get_ChannelID", "put_ChannelID"]
 
     /**
-     * 
+     * @type {BSTR} 
+     */
+    ChannelID {
+        get => this.get_ChannelID()
+        set => this.put_ChannelID(value)
+    }
+
+    /**
+     * Provider-defined channel identifier in string format.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichannelidtunerequest-get_channelid
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ichannelidtunerequest-get_channelid
      */
     get_ChannelID() {
         ChannelID := BSTR()
@@ -54,10 +62,10 @@ class IChannelIDTuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
+     * Provider-defined channel identifier in string format.
      * @param {BSTR} ChannelID 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichannelidtunerequest-put_channelid
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ichannelidtunerequest-put_channelid
      */
     put_ChannelID(ChannelID) {
         ChannelID := ChannelID is String ? BSTR.Alloc(ChannelID).Value : ChannelID

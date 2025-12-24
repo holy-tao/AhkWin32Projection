@@ -36,10 +36,10 @@ class IBackgroundCopyFile6 extends IBackgroundCopyFile5{
     static VTableNames => ["UpdateDownloadPosition", "RequestFileRanges", "GetFilledFileRanges"]
 
     /**
-     * 
-     * @param {Integer} offset 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nf-bits10_1-ibackgroundcopyfile6-updatedownloadposition
+     * Specifies a position to prioritize downloading missing data from.
+     * @param {Integer} offset Specifies the new position to prioritize downloading missing data from.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code. It will return <b>BG_E_RANDOM_ACCESS_NOT_SUPPORTED</b> if the job does not meet the requirements of a <b>BITS_JOB_PROPERTY_ON_DEMAND_MODE</b> job.
+     * @see https://docs.microsoft.com/windows/win32/api//bits10_1/nf-bits10_1-ibackgroundcopyfile6-updatedownloadposition
      */
     UpdateDownloadPosition(offset) {
         result := ComCall(15, this, "uint", offset, "HRESULT")
@@ -47,11 +47,11 @@ class IBackgroundCopyFile6 extends IBackgroundCopyFile5{
     }
 
     /**
-     * 
-     * @param {Integer} rangeCount 
-     * @param {Pointer<BG_FILE_RANGE>} ranges 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nf-bits10_1-ibackgroundcopyfile6-requestfileranges
+     * Adds a new set of file ranges to be prioritized for download.
+     * @param {Integer} rangeCount Specifies the size of the <i>Ranges</i> array.
+     * @param {Pointer<BG_FILE_RANGE>} ranges An array of file ranges to be downloaded. Requested ranges are allowed to overlap previously downloaded (or pending) ranges. Ranges are automatically split into non-overlapping ranges.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.  <b>BG_E_INVALID_RANGE</b> is returned if any part of the requested range is outside the actual file size; <b>BG_E_RANDOM_ACCESS_NOT_SUPPORTED</b> is returned if the job is not a download job or if the server loses its ability to support download ranges.
+     * @see https://docs.microsoft.com/windows/win32/api//bits10_1/nf-bits10_1-ibackgroundcopyfile6-requestfileranges
      */
     RequestFileRanges(rangeCount, ranges) {
         result := ComCall(16, this, "uint", rangeCount, "ptr", ranges, "HRESULT")
@@ -59,11 +59,11 @@ class IBackgroundCopyFile6 extends IBackgroundCopyFile5{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} rangeCount 
-     * @param {Pointer<Pointer<BG_FILE_RANGE>>} ranges 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits10_1/nf-bits10_1-ibackgroundcopyfile6-getfilledfileranges
+     * Returns the set of file ranges that have been downloaded.
+     * @param {Pointer<Integer>} rangeCount The number of elements in <i>Ranges</i>.
+     * @param {Pointer<Pointer<BG_FILE_RANGE>>} ranges Array of <b>BG_FILE_RANGE</b> structures that describes the ranges that have been downloaded. Ranges will be merged together as much as possible. The ranges are ordered by offset.  When done, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free <i>Ranges</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.  The error will be <b>E_OUTOFMEMORY</b> if the <i>Ranges</i> array could not be allocated and <b>BG_E_RANDOM_ACCESS_NOT_SUPPORTED</b> if the job is not a download job or if the server loses its ability to support download ranges.
+     * @see https://docs.microsoft.com/windows/win32/api//bits10_1/nf-bits10_1-ibackgroundcopyfile6-getfilledfileranges
      */
     GetFilledFileRanges(rangeCount, ranges) {
         rangeCountMarshal := rangeCount is VarRef ? "uint*" : "ptr"

@@ -45,14 +45,21 @@ class IOpcSignatureReferenceSet extends IUnknown{
     static VTableNames => ["Create", "Delete", "GetEnumerator"]
 
     /**
+     * Creates an IOpcSignatureReference interface pointer that represents a reference to an XML element to be signed.
+     * @param {IUri} referenceUri The URI of  the referenced XML element.
      * 
-     * @param {IUri} referenceUri 
-     * @param {PWSTR} referenceId 
-     * @param {PWSTR} type 
-     * @param {PWSTR} digestMethod 
-     * @param {Integer} transformMethod 
-     * @returns {IOpcSignatureReference} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceset-create
+     * Set the value of this parameter to a URI that represents "#" followed by  the <b>Id</b> attribute value of the referenced element: "#<i>&lt;elementIdValue&gt;</i>".
+     * 
+     * For examples, see the Remarks section.
+     * @param {PWSTR} referenceId The <b>Id</b> attribute of the <b>Reference</b> element that represents the reference in signature  markup. To omit the  <b>Id</b> attribute, set this parameter value to  <b>NULL</b>.
+     * @param {PWSTR} type The <b>Type</b> attribute of the <b>Reference</b> element that represents the reference in signature markup. To omit the <b>Type</b> attribute, set this parameter value to  <b>NULL</b>.
+     * @param {PWSTR} digestMethod The digest method to be used for the XML markup to be referenced. To use the default digest method,  set this parameter value to  <b>NULL</b>.
+     * 
+     * <div class="alert"><b>Important</b>  The default digest method must be set by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setdefaultdigestmethod">IOpcSigningOptions::SetDefaultDigestMethod</a> method before <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-sign">IOpcDigitalSignatureManager::Sign</a> is called.</div>
+     * <div> </div>
+     * @param {Integer} transformMethod The canonicalization method to be used for the XML markup to be referenced.
+     * @returns {IOpcSignatureReference} A new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer that represents the reference to  the XML element to be signed.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereferenceset-create
      */
     Create(referenceUri, referenceId, type, digestMethod, transformMethod) {
         referenceId := referenceId is String ? StrPtr(referenceId) : referenceId
@@ -64,10 +71,39 @@ class IOpcSignatureReferenceSet extends IUnknown{
     }
 
     /**
+     * Deletes a specified IOpcSignatureReference interface pointer from the set.
+     * @param {IOpcSignatureReference} reference An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointer to be deleted.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IOpcSignatureReference} reference 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceset-delete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>reference</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereferenceset-delete
      */
     Delete(reference) {
         result := ComCall(4, this, "ptr", reference, "HRESULT")
@@ -75,9 +111,9 @@ class IOpcSignatureReferenceSet extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcSignatureReferenceEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturereferenceset-getenumerator
+     * Gets an enumerator of IOpcSignatureReference interface pointers in the set.
+     * @returns {IOpcSignatureReferenceEnumerator} A pointer to an enumerator of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereference">IOpcSignatureReference</a> interface pointers in the set.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturereferenceset-getenumerator
      */
     GetEnumerator() {
         result := ComCall(5, this, "ptr*", &referenceEnumerator := 0, "HRESULT")

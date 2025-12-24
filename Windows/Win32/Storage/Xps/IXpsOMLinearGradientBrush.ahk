@@ -89,9 +89,9 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
     static VTableNames => ["GetStartPoint", "SetStartPoint", "GetEndPoint", "SetEndPoint", "Clone"]
 
     /**
-     * 
-     * @returns {XPS_POINT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-getstartpoint
+     * Gets the start point of the gradient.
+     * @returns {XPS_POINT} The x and y coordinates of the start point.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-getstartpoint
      */
     GetStartPoint() {
         startPoint := XPS_POINT()
@@ -100,10 +100,50 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
     }
 
     /**
+     * Sets the start point of the gradient.
+     * @param {Pointer<XPS_POINT>} startPoint The x and y coordinates of the start point.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {Pointer<XPS_POINT>} startPoint 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-setstartpoint
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The point described by <i>startPoint</i> was not valid. The <a href="/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>startPoint</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-setstartpoint
      */
     SetStartPoint(startPoint) {
         result := ComCall(18, this, "ptr", startPoint, "HRESULT")
@@ -111,9 +151,9 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
     }
 
     /**
-     * 
-     * @returns {XPS_POINT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-getendpoint
+     * Gets the end point of the gradient.
+     * @returns {XPS_POINT} The x and y coordinates of the end point.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-getendpoint
      */
     GetEndPoint() {
         endPoint := XPS_POINT()
@@ -122,10 +162,50 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
     }
 
     /**
+     * Sets the end point of the gradient.
+     * @param {Pointer<XPS_POINT>} endPoint The x and y coordinates of the end point.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {Pointer<XPS_POINT>} endPoint 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-setendpoint
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The point described by <i>endPoint</i> was not valid. The <a href="/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_point">XPS_POINT</a> structure must contain valid and finite floating-point values.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>endPoint</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-setendpoint
      */
     SetEndPoint(endPoint) {
         result := ComCall(20, this, "ptr", endPoint, "HRESULT")
@@ -133,9 +213,9 @@ class IXpsOMLinearGradientBrush extends IXpsOMGradientBrush{
     }
 
     /**
-     * 
-     * @returns {IXpsOMLinearGradientBrush} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-clone
+     * Makes a deep copy of the interface.
+     * @returns {IXpsOMLinearGradientBrush} A pointer to the copy of the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomlineargradientbrush-clone
      */
     Clone() {
         result := ComCall(21, this, "ptr*", &linearGradientBrush := 0, "HRESULT")

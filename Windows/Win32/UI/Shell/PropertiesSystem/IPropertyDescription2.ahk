@@ -43,10 +43,14 @@ class IPropertyDescription2 extends IPropertyDescription{
     static VTableNames => ["GetImageReferenceForValue"]
 
     /**
+     * Gets the image reference associated with a property value.
+     * @param {Pointer<PROPVARIANT>} propvar Type: <b>REFPROPVARIANT</b>
      * 
-     * @param {Pointer<PROPVARIANT>} propvar 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertydescription2-getimagereferenceforvalue
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> for which to get an image.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
+     * 
+     * A pointer to a buffer that receives, when this method returns successfully, a string of the form &lt;dll name&gt;,-&lt;resid&gt; that is suitable to be passed to <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-pathparseiconlocationa">PathParseIconLocation</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertydescription2-getimagereferenceforvalue
      */
     GetImageReferenceForValue(propvar) {
         result := ComCall(24, this, "ptr", propvar, "ptr*", &ppszImageRes := 0, "HRESULT")

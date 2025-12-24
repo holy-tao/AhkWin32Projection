@@ -31,9 +31,11 @@ class IDWriteFont2 extends IDWriteFont1{
     static VTableNames => ["IsColorFont"]
 
     /**
+     * Enables determining if a color rendering path is potentially necessary.
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefont2-iscolorfont
+     * Returns <b>TRUE</b> if the font has color information (COLR and CPAL tables); otherwise <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritefont2-iscolorfont
      */
     IsColorFont() {
         result := ComCall(18, this, "int")

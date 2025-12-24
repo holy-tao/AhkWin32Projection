@@ -38,11 +38,11 @@ class IPackageExecutionStateChangeNotification extends IUnknown{
     static VTableNames => ["OnStateChanged"]
 
     /**
-     * 
-     * @param {PWSTR} pszPackageFullName 
-     * @param {Integer} pesNewState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackageexecutionstatechangenotification-onstatechanged
+     * Called when package state changes during Windows Store app debugging.
+     * @param {PWSTR} pszPackageFullName The package full name.
+     * @param {Integer} pesNewState The new state that the package changed to.
+     * @returns {HRESULT} Return <b>S_OK</b> when you implement the <b>OnStateChanged</b>method.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackageexecutionstatechangenotification-onstatechanged
      */
     OnStateChanged(pszPackageFullName, pesNewState) {
         pszPackageFullName := pszPackageFullName is String ? StrPtr(pszPackageFullName) : pszPackageFullName

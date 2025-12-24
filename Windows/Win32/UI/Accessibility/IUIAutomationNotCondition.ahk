@@ -31,9 +31,11 @@ class IUIAutomationNotCondition extends IUIAutomationCondition{
     static VTableNames => ["GetChild"]
 
     /**
+     * Retrieves the condition of which this condition is the negative.
+     * @returns {IUIAutomationCondition} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcondition">IUIAutomationCondition</a>**</b>
      * 
-     * @returns {IUIAutomationCondition} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationnotcondition-getchild
+     * Receives a pointer to the condition.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationnotcondition-getchild
      */
     GetChild() {
         result := ComCall(3, this, "ptr*", &condition := 0, "HRESULT")

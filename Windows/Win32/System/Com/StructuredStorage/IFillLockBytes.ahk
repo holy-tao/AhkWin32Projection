@@ -31,11 +31,11 @@ class IFillLockBytes extends IUnknown{
     static VTableNames => ["FillAppend", "FillAt", "SetFillSize", "Terminate"]
 
     /**
-     * 
-     * @param {Pointer} pv 
-     * @param {Integer} cb 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-fillappend
+     * The FillAppend method writes a new block of bytes to the end of a byte array.
+     * @param {Pointer} pv Pointer to the data to be appended to the end of an existing byte array. This operation does not create a danger of a memory leak or a buffer overrun.
+     * @param {Integer} cb Size of <i>pv</i> in bytes.
+     * @returns {Integer} Number of bytes that were successfully written.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ifilllockbytes-fillappend
      */
     FillAppend(pv, cb) {
         result := ComCall(3, this, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
@@ -43,12 +43,12 @@ class IFillLockBytes extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulOffset 
-     * @param {Pointer} pv 
-     * @param {Integer} cb 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-fillat
+     * The FillAt method writes a new block of data to a specified location in the byte array.
+     * @param {Integer} ulOffset The offset, expressed in number of bytes, from the first element of the byte array.
+     * @param {Pointer} pv Pointer to the data to be written at the location specified by <i>uIOffset</i>.
+     * @param {Integer} cb Size of <i>pv</i> in bytes.
+     * @returns {Integer} Number of bytes that were successfully written.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ifilllockbytes-fillat
      */
     FillAt(ulOffset, pv, cb) {
         result := ComCall(4, this, "uint", ulOffset, "ptr", pv, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")
@@ -56,10 +56,11 @@ class IFillLockBytes extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-setfillsize
+     * The SetFillSize method sets the expected size of the byte array.
+     * @param {Integer} ulSize Size in bytes of the byte array object that is to be filled in subsequent calls to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ifilllockbytes-fillappend">IFillLockBytes::FillAppend</a>.
+     * @returns {HRESULT} This function supports the standard return values E_OUTOFMEMORY, E_UNEXPECTED, E_INVALIDARG, and E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ifilllockbytes-setfillsize
      */
     SetFillSize(ulSize) {
         result := ComCall(5, this, "uint", ulSize, "HRESULT")
@@ -67,10 +68,10 @@ class IFillLockBytes extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BOOL} bCanceled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ifilllockbytes-terminate
+     * The Terminate method informs the byte array that the download has been terminated, either successfully or unsuccessfully.
+     * @param {BOOL} bCanceled Download is complete. If <b>TRUE</b>, the download was terminated unsuccessfully. If <b>FALSE</b>, the download terminated successfully.
+     * @returns {HRESULT} This function supports the standard return values E_OUTOFMEMORY, E_UNEXPECTED, E_INVALIDARG, and E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ifilllockbytes-terminate
      */
     Terminate(bCanceled) {
         result := ComCall(6, this, "int", bCanceled, "HRESULT")

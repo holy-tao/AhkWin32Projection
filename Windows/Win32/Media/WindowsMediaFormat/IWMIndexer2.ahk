@@ -31,13 +31,46 @@ class IWMIndexer2 extends IWMIndexer{
     static VTableNames => ["Configure"]
 
     /**
+     * The Configure method changes the internal settings of the indexer object.
+     * @param {Integer} wStreamNum <b>WORD</b> containing the stream number for which an index is to be made. If you pass 0, all streams will be indexed.
+     * @param {Integer} nIndexerType A variable containing one member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_indexer_type">WMT_INDEXER_TYPE</a> enumeration type.
+     * @param {Pointer<Void>} pvInterval This void pointer must point to a <b>DWORD</b> containing the desired indexing interval. Intervals for temporal indexing are in milliseconds. Frame-based index intervals are specified in frames.
      * 
-     * @param {Integer} wStreamNum 
-     * @param {Integer} nIndexerType 
-     * @param {Pointer<Void>} pvInterval 
-     * @param {Pointer<Void>} pvIndexType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmindexer2-configure
+     * If you pass <b>NULL</b>, <b>Configure</b> will use the default value. For temporal indexes, the default value is 3000 milliseconds, for frame-based indexes it is 10 frames.
+     * @param {Pointer<Void>} pvIndexType This void pointer must point to a <b>WORD</b> value containing one member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_index_type">WMT_INDEX_TYPE</a> enumeration type. If you pass <b>NULL</b>, <b>Configure</b> will use the default value.
+     * 
+     * The default value is WMT_IT_NEAREST_CLEAN_POINT. Using another index type degrades seeking performance.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is unable to add the stream number to its internal list.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmindexer2-configure
      */
     Configure(wStreamNum, nIndexerType, pvInterval, pvIndexType) {
         pvIntervalMarshal := pvInterval is VarRef ? "ptr" : "ptr"

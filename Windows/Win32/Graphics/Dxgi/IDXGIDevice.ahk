@@ -55,9 +55,11 @@ class IDXGIDevice extends IDXGIObject{
     static VTableNames => ["GetAdapter", "CreateSurface", "QueryResourceResidency", "SetGPUThreadPriority", "GetGPUThreadPriority"]
 
     /**
+     * Returns the adapter for the specified device.
+     * @returns {IDXGIAdapter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a>**</b>
      * 
-     * @returns {IDXGIAdapter} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-getadapter
+     * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiadapter">IDXGIAdapter</a> interface pointer to the adapter.  This parameter must not be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgidevice-getadapter
      */
     GetAdapter() {
         result := ComCall(7, this, "ptr*", &pAdapter := 0, "HRESULT")
@@ -65,13 +67,23 @@ class IDXGIDevice extends IDXGIObject{
     }
 
     /**
+     * Returns a surface. This method is used internally and you should not call it directly in your application.
+     * @param {Pointer<DXGI_SURFACE_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_surface_desc">DXGI_SURFACE_DESC</a>*</b>
      * 
-     * @param {Pointer<DXGI_SURFACE_DESC>} pDesc 
-     * @param {Integer} NumSurfaces 
-     * @param {Integer} Usage 
-     * @param {Pointer<DXGI_SHARED_RESOURCE>} pSharedResource 
-     * @returns {IDXGISurface} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-createsurface
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_surface_desc">DXGI_SURFACE_DESC</a> structure that describes the surface.
+     * @param {Integer} NumSurfaces Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of surfaces to create.
+     * @param {Integer} Usage Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a></b>
+     * 
+     * A <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a> flag that specifies how the surface is expected to be used.
+     * @param {Pointer<DXGI_SHARED_RESOURCE>} pSharedResource Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_shared_resource">DXGI_SHARED_RESOURCE</a>*</b>
+     * 
+     * An optional pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ns-dxgi-dxgi_shared_resource">DXGI_SHARED_RESOURCE</a> structure that contains shared resource information for opening views of such resources.
+     * @returns {IDXGISurface} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgisurface">IDXGISurface</a>**</b>
+     * 
+     * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgisurface">IDXGISurface</a> interface pointer to the first created surface.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgidevice-createsurface
      */
     CreateSurface(pDesc, NumSurfaces, Usage, pSharedResource) {
         result := ComCall(8, this, "ptr", pDesc, "uint", NumSurfaces, "uint", Usage, "ptr", pSharedResource, "ptr*", &ppSurface := 0, "HRESULT")
@@ -79,11 +91,18 @@ class IDXGIDevice extends IDXGIObject{
     }
 
     /**
+     * Gets the residency status of an array of resources.
+     * @param {Pointer<IUnknown>} ppResources Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {Pointer<IUnknown>} ppResources 
-     * @param {Integer} NumResources 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-queryresourceresidency
+     * An array of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgiresource">IDXGIResource</a> interfaces.
+     * @param {Integer} NumResources Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of resources in the <i>ppResources</i> argument array and <i>pResidencyStatus</i> argument array.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_residency">DXGI_RESIDENCY</a>*</b>
+     * 
+     * An array of <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/ne-dxgi-dxgi_residency">DXGI_RESIDENCY</a> flags. Each element describes the residency status for corresponding element in 
+     *         the <i>ppResources</i> argument array.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgidevice-queryresourceresidency
      */
     QueryResourceResidency(ppResources, NumResources) {
         result := ComCall(9, this, "ptr*", ppResources, "int*", &pResidencyStatus := 0, "uint", NumResources, "HRESULT")
@@ -91,10 +110,14 @@ class IDXGIDevice extends IDXGIObject{
     }
 
     /**
+     * Sets the GPU thread priority.
+     * @param {Integer} Priority Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a></b>
      * 
-     * @param {Integer} Priority 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-setgputhreadpriority
+     * A value that specifies the required GPU thread priority. This value must be between -7 and 7, inclusive, where 0 represents normal priority.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Return S_OK if successful; otherwise, returns E_INVALIDARG if the <i>Priority</i> parameter is invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgidevice-setgputhreadpriority
      */
     SetGPUThreadPriority(Priority) {
         result := ComCall(10, this, "int", Priority, "HRESULT")
@@ -102,9 +125,11 @@ class IDXGIDevice extends IDXGIObject{
     }
 
     /**
+     * Gets the GPU thread priority.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">INT</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevice-getgputhreadpriority
+     * A pointer to a variable that receives a value that indicates the current GPU thread priority. The value will be between -7 and 7, inclusive, where 0 represents normal priority.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgidevice-getgputhreadpriority
      */
     GetGPUThreadPriority() {
         result := ComCall(11, this, "int*", &pPriority := 0, "HRESULT")

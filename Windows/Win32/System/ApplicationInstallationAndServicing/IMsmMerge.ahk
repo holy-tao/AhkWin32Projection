@@ -40,10 +40,53 @@ class IMsmMerge extends IDispatch{
     static VTableNames => ["OpenDatabase", "OpenModule", "CloseDatabase", "CloseModule", "OpenLog", "CloseLog", "Log", "get_Errors", "get_Dependencies", "Merge", "Connect", "ExtractCAB", "ExtractFiles"]
 
     /**
+     * @type {IMsmErrors} 
+     */
+    Errors {
+        get => this.get_Errors()
+    }
+
+    /**
+     * @type {IMsmDependencies} 
+     */
+    Dependencies {
+        get => this.get_Dependencies()
+    }
+
+    /**
+     * The OpenDatabase method opens a Windows Installer installation database, located at a specified path, that is to be merged with a module. For more information, see the OpenDatabase method of the Merge object.
+     * @param {BSTR} Path Path to the database being opened.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} Path 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-opendatabase
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was an error opening the database.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-opendatabase
      */
     OpenDatabase(Path) {
         Path := Path is String ? BSTR.Alloc(Path).Value : Path
@@ -53,11 +96,85 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
+     * The OpenModule method opens a Windows Installer merge module in read-only mode. A module must be opened before it can be merged with an installation database. For more information, see the OpenModule method of the Merge object.
+     * @param {BSTR} Path Fully qualified file name that points to a merge module. A <b>LPCWSTR</b> can be used in place of a <b>BSTR</b>.
+     * @param {Integer} Language A language identifier (<b>LANGID</b>).
+     * @returns {HRESULT} The <b>OpenModule</b> function returns the following values.
      * 
-     * @param {BSTR} Path 
-     * @param {Integer} Language 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-openmodule
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The file specified is an Windows Installer database, but is not a merge module (missing 
+     * <a href="/windows/desktop/Msi/modulesignature-table">ModuleSignature table</a>).
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSTALL_LANGUAGE_UNSUPPORTED as HRESULT </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The language is not supported by the module.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSTALL_TRANSFORM_FAILURE as HRESULT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The language is supported by the module, but there was an error applying the transform.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_OPEN_FAILED as HRESULT </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The file could not be opened as an Windows Installer database.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_TOO_MANY_OPEN_FILES as HRESULT </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is already a module open. Closes the current module first.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-openmodule
      */
     OpenModule(Path, Language) {
         Path := Path is String ? BSTR.Alloc(Path).Value : Path
@@ -67,10 +184,63 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
+     * The CloseDatabase method closes the currently open Windows Installer database. For more information, see the CloseDatabase method of the Merge object.
+     * @param {VARIANT_BOOL} Commit <b>TRUE</b> if changes should be saved, <b>FALSE</b> otherwise.
+     * @returns {HRESULT} The <b>CloseDatabase</b> function returns the following values.
      * 
-     * @param {VARIANT_BOOL} Commit 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-closedatabase
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was an error closing the database. The state of the 
+     * <a href="/windows/desktop/api/mergemod/nn-mergemod-imsmmerge">IMsmMerge</a> or 
+     * <a href="/windows/desktop/api/mergemod/nn-mergemod-imsmmerge2">IMsmMerge2</a> interface is now in an undefined state.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No database was open.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_CANTSAVE as HRESULT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to save database. This error is not generated if <i>bCommit</i> is <b>FALSE</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-closedatabase
      */
     CloseDatabase(Commit) {
         result := ComCall(9, this, "short", Commit, "HRESULT")
@@ -78,9 +248,51 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
+     * The CloseModule method closes the currently open Windows Installer merge module. For more information, see the CloseModule method of the Merge object.
+     * @returns {HRESULT} The <b>CloseModule</b> function returns the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-closemodule
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was an error closing the module. The state of the 
+     * <a href="/windows/desktop/api/mergemod/nn-mergemod-imsmmerge">IMsmMerge</a> or 
+     * <a href="/windows/desktop/api/mergemod/nn-mergemod-imsmmerge2">IMsmMerge2</a> interface is now undefined.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No module was open.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-closemodule
      */
     CloseModule() {
         result := ComCall(10, this, "HRESULT")
@@ -88,10 +300,50 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
+     * The OpenLog method opens a log file that receives progress and error messages.
+     * @param {BSTR} Path Fully qualified file name pointing to a file to open or create. A <b>LPCWSTR</b> may be used in place of a <b>BSTR</b>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} Path 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-openlog
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_TOO_MANY_OPEN_FILES as HRESULT </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is already a log file open.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_OPEN_FAILED as HRESULT </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The file could not be opened or created.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-openlog
      */
     OpenLog(Path) {
         Path := Path is String ? BSTR.Alloc(Path).Value : Path
@@ -101,9 +353,49 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
+     * The CloseLog function method closes the current log. For more information, see the CloseLog method of the Merge object.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-closelog
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was an error closing the log file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No log file was open.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-closelog
      */
     CloseLog() {
         result := ComCall(12, this, "HRESULT")
@@ -111,10 +403,61 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
+     * The Log method writes a text string to the currently open log file. For more information, see the Log method of the Merge object.
+     * @param {BSTR} Message The text string to display. A <b>LPCWSTR</b> may be used instead of a <b>BSTR</b>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} Message 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-log
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was an error writing to the log file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The argument is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No log file is open.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-log
      */
     Log(Message) {
         Message := Message is String ? BSTR.Alloc(Message).Value : Message
@@ -124,9 +467,9 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IMsmErrors} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-get_errors
+     * The get_Errors method retrieves the Errors property of the Merge object. This retrieves the current collection of errors.
+     * @returns {IMsmErrors} Pointer to a memory location containing another pointer to an <b>IMsmErrors</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-get_errors
      */
     get_Errors() {
         result := ComCall(14, this, "ptr*", &Errors := 0, "HRESULT")
@@ -134,9 +477,9 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IMsmDependencies} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-get_dependencies
+     * The get_Dependencies method retrieves the Dependencies property of the Merge object.
+     * @returns {IMsmDependencies} Pointer to a memory location to be filled with a pointer to a collection of unsatisfied dependencies for the current database. If there is an error, the memory location pointed to by <i>Dependencies</i> is set to null.
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-get_dependencies
      */
     get_Dependencies() {
         result := ComCall(15, this, "ptr*", &Dependencies := 0, "HRESULT")
@@ -144,11 +487,73 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
+     * The Merge method executes a merge of the current database and current module.
+     * @param {BSTR} Feature The name of a feature in the database. A <b>LPCWSTR</b> can be used in place of a <b>BSTR</b>.
+     * @param {BSTR} RedirectDir The key of an entry in the Directory table of the database. A <b>LPCWSTR</b> can be used in place of a <b>BSTR</b>. This parameter can be null or an empty string.
+     * @returns {HRESULT} The <b>Merge</b> function returns the following values.
      * 
-     * @param {BSTR} Feature 
-     * @param {BSTR} RedirectDir 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-merge
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The merge failed catastrophically. This indicates an operational error, and is not the normal error return for a failed merge.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded, but there were errors and the merge itself may not be valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the arguments is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The system ran out of memory and could not complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-merge
      */
     Merge(Feature, RedirectDir) {
         Feature := Feature is String ? BSTR.Alloc(Feature).Value : Feature
@@ -159,10 +564,50 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
+     * The Connect method connects a module that has been, or will be, merged into the database to an additional feature. For more information, see the Connect method of the Merge object.
+     * @param {BSTR} Feature The name of a feature in the database. A <b>LPCWSTR</b> may be used in place of a <b>BSTR</b>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} Feature 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-connect
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the arguments is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connect failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-connect
      */
     Connect(Feature) {
         Feature := Feature is String ? BSTR.Alloc(Feature).Value : Feature
@@ -172,10 +617,83 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
+     * The ExtractCAB method extracts the embedded .cab file from a module and saves it as the specified file.
+     * @param {BSTR} FileName The fully qualified destination file. A <b>LPCWSTR</b> may be used in place of a <b>BSTR</b>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} FileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-extractcab
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the arguments is invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_OPEN_FAILED as HRESULT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Could not create the output file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_WRITE_FAULT as HRESULT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Could not write data to the output file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to access embedded .cab file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No embedded .cab file was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-extractcab
      */
     ExtractCAB(FileName) {
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
@@ -185,10 +703,83 @@ class IMsmMerge extends IDispatch{
     }
 
     /**
+     * The ExtractFiles method extracts the embedded .cab file from a module and then writes those files to the destination directory. For more information, see the ExtractFiles method of the Merge object.
+     * @param {BSTR} Path The fully qualified destination directory. A <b>LPCWSTR</b> may be used in place of a <b>BSTR</b>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} Path 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmmerge-extractfiles
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_CANNOT_MAKE as HRESULT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Could not create the output path.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_OPEN_FAILED as HRESULT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Could not create the output file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_WRITE_FAULT as HRESULT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Could not write data to the output file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unable to access embedded .cab file, or create temporary file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No embedded .cab file was found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmmerge-extractfiles
      */
     ExtractFiles(Path) {
         Path := Path is String ? BSTR.Alloc(Path).Value : Path

@@ -46,11 +46,11 @@ class IMFRealTimeClient extends IUnknown{
     static VTableNames => ["RegisterThreads", "UnregisterThreads", "SetWorkQueue"]
 
     /**
-     * 
-     * @param {Integer} dwTaskIndex 
-     * @param {PWSTR} wszClass 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrealtimeclient-registerthreads
+     * Notifies the object to register its worker threads with the Multimedia Class Scheduler Service (MMCSS).
+     * @param {Integer} dwTaskIndex The MMCSS task identifier.
+     * @param {PWSTR} wszClass The name of the MMCSS task.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfrealtimeclient-registerthreads
      */
     RegisterThreads(dwTaskIndex, wszClass) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
@@ -60,9 +60,9 @@ class IMFRealTimeClient extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrealtimeclient-unregisterthreads
+     * Notifies the object to unregister its worker threads from the Multimedia Class Scheduler Service (MMCSS).
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfrealtimeclient-unregisterthreads
      */
     UnregisterThreads() {
         result := ComCall(4, this, "HRESULT")
@@ -70,10 +70,10 @@ class IMFRealTimeClient extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwWorkQueueId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrealtimeclient-setworkqueue
+     * Specifies the work queue for the topology branch that contains this object.
+     * @param {Integer} dwWorkQueueId The identifier of the work queue, or the value <b>MFASYNC_CALLBACK_QUEUE_UNDEFINED</b>. See Remarks.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfrealtimeclient-setworkqueue
      */
     SetWorkQueue(dwWorkQueueId) {
         result := ComCall(5, this, "uint", dwWorkQueueId, "HRESULT")

@@ -45,12 +45,12 @@ class IDvbSiParser2 extends IDvbSiParser{
     static VTableNames => ["GetEIT2"]
 
     /**
-     * 
+     * .
      * @param {Integer} tableId 
-     * @param {Pointer<Integer>} pwServiceId 
-     * @param {Pointer<Integer>} pbSegment 
-     * @returns {IDVB_EIT2} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbsiparser2-geteit2
+     * @param {Pointer<Integer>} pwServiceId An optional parameter that contains a service identifier. You can use this value to filter the request. Otherwise, set this parameter to <b>NULL</b>.
+     * @param {Pointer<Integer>} pbSegment An optional parameter that contains a segment number. You can use this value to filter the request. Otherwise, set this parameter to <b>NULL</b>.
+     * @returns {IDVB_EIT2} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nn-dvbsiparser-idvb_eit2">IDVB_EIT2</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbsiparser2-geteit2
      */
     GetEIT2(tableId, pwServiceId, pbSegment) {
         pwServiceIdMarshal := pwServiceId is VarRef ? "ushort*" : "ptr"

@@ -36,12 +36,20 @@ class IWICBitmapCodecProgressNotification extends IUnknown{
     static VTableNames => ["RegisterProgressNotification"]
 
     /**
+     * Registers a progress notification callback function.
+     * @param {Pointer<PFNProgressNotification>} pfnProgressNotification Type: <b>PFNProgressNotification</b>
      * 
-     * @param {Pointer<PFNProgressNotification>} pfnProgressNotification 
-     * @param {Pointer<Void>} pvData 
-     * @param {Integer} dwProgressFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapcodecprogressnotification-registerprogressnotification
+     * A function pointer to the application defined progress notification callback function. See <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nc-wincodec-pfnprogressnotification">ProgressNotificationCallback</a> for the callback signature.
+     * @param {Pointer<Void>} pvData Type: <b>LPVOID</b>
+     * 
+     * A pointer to component data for the callback method.
+     * @param {Integer} dwProgressFlags Type: <b>DWORD</b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicprogressoperation">WICProgressOperation</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicprogressnotification">WICProgressNotification</a> flags to use for progress notification.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapcodecprogressnotification-registerprogressnotification
      */
     RegisterProgressNotification(pfnProgressNotification, pvData, dwProgressFlags) {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"

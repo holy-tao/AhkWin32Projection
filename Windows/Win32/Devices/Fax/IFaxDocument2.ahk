@@ -38,9 +38,29 @@ class IFaxDocument2 extends IFaxDocument{
     static VTableNames => ["get_SubmissionId", "get_Bodies", "put_Bodies", "Submit2", "ConnectedSubmit2"]
 
     /**
+     * @type {BSTR} 
+     */
+    SubmissionId {
+        get => this.get_SubmissionId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Bodies {
+        get => this.get_Bodies()
+        set => this.put_Bodies(value)
+    }
+
+    /**
+     * Retrieves the submission identifier for the fax document.
+     * @remarks
+     * 
+     * This property is set whenever a method that submits a fax completes.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-get_submissionid
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument2-get_submissionid
      */
     get_SubmissionId() {
         pbstrSubmissionId := BSTR()
@@ -49,9 +69,16 @@ class IFaxDocument2 extends IFaxDocument{
     }
 
     /**
+     * Provides a collection of one or more documents to the fax document.
+     * @remarks
+     * 
+     * Examples of documents that you can send as fax bodies include text files (.txt), Microsoft Word documents (.doc), or Microsoft Excel spreadsheets (.xls). Filenames are separated with semi-colons ";". For example, "myfile.txt;anotherfile.doc".
+     * 
+     * Either the <b>IFaxDocument2::Bodies</b> property or the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-body-vb">Body</a> property must be <b>NULL</b>. You must use <b>IFaxDocument2::Bodies</b> if you will be submitting using either <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument2-connectedsubmit2-vb">IFaxDocument2::ConnectedSubmit2</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument2-submit2-vb">IFaxDocument2::Submit2</a> (both available only in Windows Vista or later). You must use <b>Body</b> if you will be submitting using either <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-connectedsubmit">ConnectedSubmit</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-submit-vb">Submit</a>.
+     * 
      * 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-get_bodies
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument2-get_bodies
      */
     get_Bodies() {
         pvBodies := VARIANT()
@@ -60,10 +87,17 @@ class IFaxDocument2 extends IFaxDocument{
     }
 
     /**
+     * Provides a collection of one or more documents to the fax document.
+     * @remarks
+     * 
+     * Examples of documents that you can send as fax bodies include text files (.txt), Microsoft Word documents (.doc), or Microsoft Excel spreadsheets (.xls). Filenames are separated with semi-colons ";". For example, "myfile.txt;anotherfile.doc".
+     * 
+     * Either the <b>IFaxDocument2::Bodies</b> property or the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-body-vb">Body</a> property must be <b>NULL</b>. You must use <b>IFaxDocument2::Bodies</b> if you will be submitting using either <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument2-connectedsubmit2-vb">IFaxDocument2::ConnectedSubmit2</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument2-submit2-vb">IFaxDocument2::Submit2</a> (both available only in Windows Vista or later). You must use <b>Body</b> if you will be submitting using either <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-connectedsubmit">ConnectedSubmit</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-submit-vb">Submit</a>.
+     * 
      * 
      * @param {VARIANT} vBodies 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-put_bodies
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument2-put_bodies
      */
     put_Bodies(vBodies) {
         result := ComCall(43, this, "ptr", vBodies, "HRESULT")
@@ -71,12 +105,20 @@ class IFaxDocument2 extends IFaxDocument{
     }
 
     /**
+     * Submits one or more documents to the fax service for processing.Note  This method is supported only in Windows Vista and later.
+     * @param {BSTR} bstrFaxServerName Type: <b>BSTR</b>
      * 
-     * @param {BSTR} bstrFaxServerName 
-     * @param {Pointer<VARIANT>} pvFaxOutgoingJobIDs 
-     * @param {Pointer<Integer>} plErrorBodyFile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-submit2
+     * <b>BSTR</b> that specifies a fax server. If this parameter is <b>NULL</b> or an empty string, the local fax server is specified.
+     * @param {Pointer<VARIANT>} pvFaxOutgoingJobIDs Type: <b>VARIANT*</b>
+     * 
+     * <b>VARIANT</b> that specifies a collection of outbound job IDs, one for each recipient of the fax.
+     * @param {Pointer<Integer>} plErrorBodyFile Type: <b>LONG*</b>
+     * 
+     * A <b>LONG</b> representing the zero-based position of the submitted file that caused the fax send operation to fail. See Remarks.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument2-submit2
      */
     Submit2(bstrFaxServerName, pvFaxOutgoingJobIDs, plErrorBodyFile) {
         bstrFaxServerName := bstrFaxServerName is String ? BSTR.Alloc(bstrFaxServerName).Value : bstrFaxServerName
@@ -88,12 +130,20 @@ class IFaxDocument2 extends IFaxDocument{
     }
 
     /**
+     * Submits one or more fax documents to the connected FaxServer.
+     * @param {IFaxServer} pFaxServer Type: <b>IFaxServer*</b>
      * 
-     * @param {IFaxServer} pFaxServer 
-     * @param {Pointer<VARIANT>} pvFaxOutgoingJobIDs 
-     * @param {Pointer<Integer>} plErrorBodyFile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument2-connectedsubmit2
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxserver">FaxServer</a> object that specifies a connected fax server.
+     * @param {Pointer<VARIANT>} pvFaxOutgoingJobIDs Type: <b>VARIANT*</b>
+     * 
+     * A <b>VARIANT</b> that holds an array of outbound job ID strings, one for each recipient of the fax.
+     * @param {Pointer<Integer>} plErrorBodyFile Type: <b>LONG*</b>
+     * 
+     * A <b>LONG</b> representing the zero-based position of the submitted file that caused the fax send operation to fail. See Remarks.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument2-connectedsubmit2
      */
     ConnectedSubmit2(pFaxServer, pvFaxOutgoingJobIDs, plErrorBodyFile) {
         plErrorBodyFileMarshal := plErrorBodyFile is VarRef ? "int*" : "ptr"

@@ -57,9 +57,9 @@ class ITypeLib extends IUnknown{
     static VTableNames => ["GetTypeInfoCount", "GetTypeInfo", "GetTypeInfoType", "GetTypeInfoOfGuid", "GetLibAttr", "GetTypeComp", "GetDocumentation", "IsName", "FindName", "ReleaseTLibAttr"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfocount
+     * Provides the number of type descriptions that are in a type library.
+     * @returns {Integer} The number of type descriptions in the type library.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib-gettypeinfocount
      */
     GetTypeInfoCount() {
         result := ComCall(3, this, "uint")
@@ -67,10 +67,10 @@ class ITypeLib extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {ITypeInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfo
+     * Retrieves the specified type description in the library.
+     * @param {Integer} index The index of the interface to be returned.
+     * @returns {ITypeInfo} If successful, returns a pointer to the pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo">ITypeInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib-gettypeinfo
      */
     GetTypeInfo(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &ppTInfo := 0, "HRESULT")
@@ -78,10 +78,10 @@ class ITypeLib extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfotype
+     * Retrieves the type of a type description.
+     * @param {Integer} index The index of the type description within the type library.
+     * @returns {Integer} The <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ne-oaidl-typekind">TYPEKIND</a> enumeration value for the type description.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib-gettypeinfotype
      */
     GetTypeInfoType(index) {
         result := ComCall(5, this, "uint", index, "int*", &pTKind := 0, "HRESULT")
@@ -89,10 +89,10 @@ class ITypeLib extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} guid 
-     * @returns {ITypeInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypeinfoofguid
+     * Retrieves the type description that corresponds to the specified GUID.
+     * @param {Pointer<Guid>} guid The GUID of the type description.
+     * @returns {ITypeInfo} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypeinfo">ITypeInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib-gettypeinfoofguid
      */
     GetTypeInfoOfGuid(guid) {
         result := ComCall(6, this, "ptr", guid, "ptr*", &ppTinfo := 0, "HRESULT")
@@ -100,9 +100,9 @@ class ITypeLib extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<TLIBATTR>} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-getlibattr
+     * Retrieves the structure that contains the library's attributes.
+     * @returns {Pointer<TLIBATTR>} The library's attributes.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib-getlibattr
      */
     GetLibAttr() {
         result := ComCall(7, this, "ptr*", &ppTLibAttr := 0, "HRESULT")
@@ -110,9 +110,9 @@ class ITypeLib extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ITypeComp} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-gettypecomp
+     * Enables a client compiler to bind to the types, variables, constants, and global functions for a library.
+     * @returns {ITypeComp} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypecomp">ITypeComp</a> instance for this <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-itypelib">ITypeLib</a>. A client compiler uses the methods in the <b>ITypeComp</b> interface to bind to types in <b>ITypeLib</b>, as well as to the global functions, variables, and constants defined in <b>ITypeLib</b>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib-gettypecomp
      */
     GetTypeComp() {
         result := ComCall(8, this, "ptr*", &ppTComp := 0, "HRESULT")
@@ -120,14 +120,57 @@ class ITypeLib extends IUnknown{
     }
 
     /**
+     * Retrieves the documentation string for the library, the complete Help file name and path, and the context identifier for the library Help topic in the Help file.
+     * @param {Integer} index The index of the type description whose documentation is to be returned. If <i>index</i> is -1, then the documentation for the library itself is returned.
+     * @param {Pointer<BSTR>} pBstrName The name of the specified item. If the caller does not need the item name, then <i>pBstrName</i> can be null.
+     * @param {Pointer<BSTR>} pBstrDocString The documentation string for the specified item. If the caller does not need the documentation string, then <i>pBstrDocString</i> can be null..
+     * @param {Pointer<Integer>} pdwHelpContext The Help context identifier (ID) associated with the specified item. If the caller does not need the Help context ID, then <i>pdwHelpContext</i> can be null.
+     * @param {Pointer<BSTR>} pBstrHelpFile The fully qualified name of the Help file. If the caller does not need the Help file name, then <i>pBstrHelpFile</i> can be null.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} index 
-     * @param {Pointer<BSTR>} pBstrName 
-     * @param {Pointer<BSTR>} pBstrDocString 
-     * @param {Pointer<Integer>} pdwHelpContext 
-     * @param {Pointer<BSTR>} pBstrHelpFile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-getdocumentation
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>STG_E_INSUFFICIENTMEMORY
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib-getdocumentation
      */
     GetDocumentation(index, pBstrName, pBstrDocString, pdwHelpContext, pBstrHelpFile) {
         pdwHelpContextMarshal := pdwHelpContext is VarRef ? "uint*" : "ptr"
@@ -137,11 +180,11 @@ class ITypeLib extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} szNameBuf 
-     * @param {Integer} lHashVal 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-isname
+     * Indicates whether a passed-in string contains the name of a type or member described in the library.
+     * @param {PWSTR} szNameBuf The string to test. If this method is successful, <i>szNameBuf</i> is modified to match the case (capitalization) found in the type library.
+     * @param {Integer} lHashVal The hash value of <i>szNameBuf</i>.
+     * @returns {BOOL} True if <i>szNameBuf</i> was found in the type library; otherwise false.
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib-isname
      */
     IsName(szNameBuf, lHashVal) {
         szNameBuf := szNameBuf is String ? StrPtr(szNameBuf) : szNameBuf
@@ -151,14 +194,59 @@ class ITypeLib extends IUnknown{
     }
 
     /**
+     * Finds occurrences of a type description in a type library. This may be used to quickly verify that a name exists in a type library.
+     * @param {PWSTR} szNameBuf The name to search for.
+     * @param {Integer} lHashVal A hash value to speed up the search, computed by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-lhashvalofnamesys">LHashValOfNameSys</a> function. If <i>lHashVal</i> = 0, a value is computed.
+     * @param {Pointer<ITypeInfo>} ppTInfo An array of pointers to the type descriptions that contain the name specified in <i>szNameBuf</i>. This parameter cannot be null.
+     * @param {Pointer<Integer>} rgMemId An array of the found items; <i>rgMemId</i>[<i>i</i>] is the MEMBERID that indexes into the type description specified by <i>ppTInfo</i>[<i>i</i>]. This parameter cannot be null.
+     * @param {Pointer<Integer>} pcFound On entry, indicates how many instances to look for. For example, *<i>pcFound</i> = 1 can be called to find the first occurrence. The search stops when one is found.
      * 
-     * @param {PWSTR} szNameBuf 
-     * @param {Integer} lHashVal 
-     * @param {Pointer<ITypeInfo>} ppTInfo 
-     * @param {Pointer<Integer>} rgMemId 
-     * @param {Pointer<Integer>} pcFound 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-findname
+     * On exit, indicates the number of instances that were found. If the in and out values of *<i>pcFound</i> are identical, there may be more type descriptions that contain the name.
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the arguments is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY
+     * </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib-findname
      */
     FindName(szNameBuf, lHashVal, ppTInfo, rgMemId, pcFound) {
         szNameBuf := szNameBuf is String ? StrPtr(szNameBuf) : szNameBuf
@@ -171,10 +259,10 @@ class ITypeLib extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<TLIBATTR>} pTLibAttr 
+     * Releases the TLIBATTR originally obtained from GetLibAttr.
+     * @param {Pointer<TLIBATTR>} pTLibAttr The TLIBATTR to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-itypelib-releasetlibattr
+     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-itypelib-releasetlibattr
      */
     ReleaseTLibAttr(pTLibAttr) {
         ComCall(12, this, "ptr", pTLibAttr)

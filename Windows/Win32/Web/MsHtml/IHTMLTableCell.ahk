@@ -37,6 +37,109 @@ class IHTMLTableCell extends IDispatch{
     static VTableNames => ["put_rowSpan", "get_rowSpan", "put_colSpan", "get_colSpan", "put_align", "get_align", "put_vAlign", "get_vAlign", "put_bgColor", "get_bgColor", "put_noWrap", "get_noWrap", "put_background", "get_background", "put_borderColor", "get_borderColor", "put_borderColorLight", "get_borderColorLight", "put_borderColorDark", "get_borderColorDark", "put_width", "get_width", "put_height", "get_height", "get_cellIndex"]
 
     /**
+     * @type {Integer} 
+     */
+    rowSpan {
+        get => this.get_rowSpan()
+        set => this.put_rowSpan(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    colSpan {
+        get => this.get_colSpan()
+        set => this.put_colSpan(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    vAlign {
+        get => this.get_vAlign()
+        set => this.put_vAlign(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    bgColor {
+        get => this.get_bgColor()
+        set => this.put_bgColor(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    noWrap {
+        get => this.get_noWrap()
+        set => this.put_noWrap(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    background {
+        get => this.get_background()
+        set => this.put_background(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderColor {
+        get => this.get_borderColor()
+        set => this.put_borderColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderColorLight {
+        get => this.get_borderColorLight()
+        set => this.put_borderColorLight(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    borderColorDark {
+        get => this.get_borderColorDark()
+        set => this.put_borderColorDark(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    cellIndex {
+        get => this.get_cellIndex()
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

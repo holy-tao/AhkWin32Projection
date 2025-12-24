@@ -38,11 +38,17 @@ class IWICBitmapSource extends IUnknown{
     static VTableNames => ["GetSize", "GetPixelFormat", "GetResolution", "CopyPalette", "CopyPixels"]
 
     /**
+     * Retrieves the pixel width and height of the bitmap.
+     * @param {Pointer<Integer>} puiWidth Type: <b>UINT*</b>
      * 
-     * @param {Pointer<Integer>} puiWidth 
-     * @param {Pointer<Integer>} puiHeight 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-getsize
+     * A pointer that receives the pixel width of the bitmap.
+     * @param {Pointer<Integer>} puiHeight Type: <b>UINT*</b>
+     * 
+     * A pointer that receives the pixel height of the bitmap
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapsource-getsize
      */
     GetSize(puiWidth, puiHeight) {
         puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
@@ -53,9 +59,11 @@ class IWICBitmapSource extends IUnknown{
     }
 
     /**
-     * The GetPixelFormat function obtains the index of the currently selected pixel format of the specified device context.
-     * @returns {Guid} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpixelformat
+     * Retrieves the pixel format of the bitmap source..
+     * @returns {Guid} Type: <b>WICPixelFormatGUID*</b>
+     * 
+     * Receives the pixel format GUID the bitmap is stored in. For a list of available pixel formats, see the <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-codec-native-pixel-formats">Native Pixel Formats</a> topic.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapsource-getpixelformat
      */
     GetPixelFormat() {
         pPixelFormat := Guid()
@@ -64,11 +72,17 @@ class IWICBitmapSource extends IUnknown{
     }
 
     /**
+     * Retrieves the sampling rate between pixels and physical world measurements.
+     * @param {Pointer<Float>} pDpiX Type: <b>double*</b>
      * 
-     * @param {Pointer<Float>} pDpiX 
-     * @param {Pointer<Float>} pDpiY 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-getresolution
+     * A pointer that receives the x-axis dpi resolution.
+     * @param {Pointer<Float>} pDpiY Type: <b>double*</b>
+     * 
+     * A pointer that receives the y-axis dpi resolution.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapsource-getresolution
      */
     GetResolution(pDpiX, pDpiY) {
         pDpiXMarshal := pDpiX is VarRef ? "double*" : "ptr"
@@ -79,10 +93,43 @@ class IWICBitmapSource extends IUnknown{
     }
 
     /**
+     * Retrieves the color table for indexed pixel formats.
+     * @param {IWICPalette} pIPalette Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a>*</b>
      * 
-     * @param {IWICPalette} pIPalette 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-copypalette
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a>. A palette can be created using the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicimagingfactory-createpalette">CreatePalette</a> method.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WINCODEC_ERR_PALETTEUNAVAILABLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The palette was unavailable.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The palette was successfully copied.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapsource-copypalette
      */
     CopyPalette(pIPalette) {
         result := ComCall(6, this, "ptr", pIPalette, "HRESULT")
@@ -90,12 +137,20 @@ class IWICBitmapSource extends IUnknown{
     }
 
     /**
+     * Instructs the object to produce pixels.
+     * @param {Pointer<WICRect>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicrect">WICRect</a>*</b>
      * 
-     * @param {Pointer<WICRect>} prc 
-     * @param {Integer} cbStride 
-     * @param {Integer} cbBufferSize 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels
+     * The rectangle to copy. A <b>NULL</b> value specifies the entire bitmap.
+     * @param {Integer} cbStride Type: <b>UINT</b>
+     * 
+     * The stride of the bitmap
+     * @param {Integer} cbBufferSize Type: <b>UINT</b>
+     * 
+     * The size of the buffer.
+     * @returns {Integer} Type: <b>BYTE*</b>
+     * 
+     * A pointer to the buffer.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapsource-copypixels
      */
     CopyPixels(prc, cbStride, cbBufferSize) {
         result := ComCall(7, this, "ptr", prc, "uint", cbStride, "uint", cbBufferSize, "char*", &pbBuffer := 0, "HRESULT")

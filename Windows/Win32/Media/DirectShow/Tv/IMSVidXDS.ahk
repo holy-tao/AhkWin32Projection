@@ -43,9 +43,16 @@ class IMSVidXDS extends IMSVidFeature{
     static VTableNames => ["get_ChannelChangeInterface"]
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidxds-get_channelchangeinterface
+     * @type {IUnknown} 
+     */
+    ChannelChangeInterface {
+        get => this.get_ChannelChangeInterface()
+    }
+
+    /**
+     * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later. .
+     * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidxds-get_channelchangeinterface
      */
     get_ChannelChangeInterface() {
         result := ComCall(16, this, "ptr*", &punkCC := 0, "HRESULT")

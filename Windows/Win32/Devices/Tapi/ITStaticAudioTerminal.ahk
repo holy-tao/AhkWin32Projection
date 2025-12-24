@@ -31,9 +31,16 @@ class ITStaticAudioTerminal extends IDispatch{
     static VTableNames => ["get_WaveId"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itstaticaudioterminal-get_waveid
+     * @type {Integer} 
+     */
+    WaveId {
+        get => this.get_WaveId()
+    }
+
+    /**
+     * The get_WaveId method returns the wave ID for the audio device used to implement this terminal.
+     * @returns {Integer} Pointer to a variable where, on success, the method will store the wave ID for this terminal.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itstaticaudioterminal-get_waveid
      */
     get_WaveId() {
         result := ComCall(7, this, "int*", &plWaveId := 0, "HRESULT")

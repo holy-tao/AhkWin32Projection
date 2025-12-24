@@ -45,9 +45,9 @@ class IMFAudioMediaType extends IMFMediaType{
     static VTableNames => ["GetAudioFormat"]
 
     /**
-     * 
-     * @returns {Pointer<WAVEFORMATEX>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfaudiomediatype-getaudioformat
+     * GetAudioFormat is no longer available for use as of Windows 7.
+     * @returns {Pointer<WAVEFORMATEX>} This method returns a pointer to a <a href="/previous-versions/dd757713(v=vs.85)">WAVEFORMATEX</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfaudiomediatype-getaudioformat
      */
     GetAudioFormat() {
         result := ComCall(38, this, "ptr")

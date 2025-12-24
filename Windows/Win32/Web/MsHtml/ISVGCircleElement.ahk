@@ -36,6 +36,27 @@ class ISVGCircleElement extends IDispatch{
     static VTableNames => ["putref_cx", "get_cx", "putref_cy", "get_cy", "putref_r", "get_r"]
 
     /**
+     * @type {ISVGAnimatedLength} 
+     */
+    cx {
+        get => this.get_cx()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    cy {
+        get => this.get_cy()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    r {
+        get => this.get_r()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 

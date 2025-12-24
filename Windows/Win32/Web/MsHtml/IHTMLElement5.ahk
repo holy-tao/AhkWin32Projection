@@ -33,6 +33,237 @@ class IHTMLElement5 extends IDispatch{
     static VTableNames => ["getAttributeNode", "setAttributeNode", "removeAttributeNode", "hasAttribute", "put_role", "get_role", "put_ariaBusy", "get_ariaBusy", "put_ariaChecked", "get_ariaChecked", "put_ariaDisabled", "get_ariaDisabled", "put_ariaExpanded", "get_ariaExpanded", "put_ariaHaspopup", "get_ariaHaspopup", "put_ariaHidden", "get_ariaHidden", "put_ariaInvalid", "get_ariaInvalid", "put_ariaMultiselectable", "get_ariaMultiselectable", "put_ariaPressed", "get_ariaPressed", "put_ariaReadonly", "get_ariaReadonly", "put_ariaRequired", "get_ariaRequired", "put_ariaSecret", "get_ariaSecret", "put_ariaSelected", "get_ariaSelected", "getAttribute", "setAttribute", "removeAttribute", "get_attributes", "put_ariaValuenow", "get_ariaValuenow", "put_ariaPosinset", "get_ariaPosinset", "put_ariaSetsize", "get_ariaSetsize", "put_ariaLevel", "get_ariaLevel", "put_ariaValuemin", "get_ariaValuemin", "put_ariaValuemax", "get_ariaValuemax", "put_ariaControls", "get_ariaControls", "put_ariaDescribedby", "get_ariaDescribedby", "put_ariaFlowto", "get_ariaFlowto", "put_ariaLabelledby", "get_ariaLabelledby", "put_ariaActivedescendant", "get_ariaActivedescendant", "put_ariaOwns", "get_ariaOwns", "hasAttributes", "put_ariaLive", "get_ariaLive", "put_ariaRelevant", "get_ariaRelevant"]
 
     /**
+     * @type {BSTR} 
+     */
+    role {
+        get => this.get_role()
+        set => this.put_role(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaBusy {
+        get => this.get_ariaBusy()
+        set => this.put_ariaBusy(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaChecked {
+        get => this.get_ariaChecked()
+        set => this.put_ariaChecked(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaDisabled {
+        get => this.get_ariaDisabled()
+        set => this.put_ariaDisabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaExpanded {
+        get => this.get_ariaExpanded()
+        set => this.put_ariaExpanded(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaHaspopup {
+        get => this.get_ariaHaspopup()
+        set => this.put_ariaHaspopup(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaHidden {
+        get => this.get_ariaHidden()
+        set => this.put_ariaHidden(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaInvalid {
+        get => this.get_ariaInvalid()
+        set => this.put_ariaInvalid(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaMultiselectable {
+        get => this.get_ariaMultiselectable()
+        set => this.put_ariaMultiselectable(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaPressed {
+        get => this.get_ariaPressed()
+        set => this.put_ariaPressed(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaReadonly {
+        get => this.get_ariaReadonly()
+        set => this.put_ariaReadonly(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaRequired {
+        get => this.get_ariaRequired()
+        set => this.put_ariaRequired(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaSecret {
+        get => this.get_ariaSecret()
+        set => this.put_ariaSecret(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaSelected {
+        get => this.get_ariaSelected()
+        set => this.put_ariaSelected(value)
+    }
+
+    /**
+     * @type {IHTMLAttributeCollection3} 
+     */
+    attributes {
+        get => this.get_attributes()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaValuenow {
+        get => this.get_ariaValuenow()
+        set => this.put_ariaValuenow(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ariaPosinset {
+        get => this.get_ariaPosinset()
+        set => this.put_ariaPosinset(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ariaSetsize {
+        get => this.get_ariaSetsize()
+        set => this.put_ariaSetsize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ariaLevel {
+        get => this.get_ariaLevel()
+        set => this.put_ariaLevel(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaValuemin {
+        get => this.get_ariaValuemin()
+        set => this.put_ariaValuemin(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaValuemax {
+        get => this.get_ariaValuemax()
+        set => this.put_ariaValuemax(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaControls {
+        get => this.get_ariaControls()
+        set => this.put_ariaControls(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaDescribedby {
+        get => this.get_ariaDescribedby()
+        set => this.put_ariaDescribedby(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaFlowto {
+        get => this.get_ariaFlowto()
+        set => this.put_ariaFlowto(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaLabelledby {
+        get => this.get_ariaLabelledby()
+        set => this.put_ariaLabelledby(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaActivedescendant {
+        get => this.get_ariaActivedescendant()
+        set => this.put_ariaActivedescendant(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaOwns {
+        get => this.get_ariaOwns()
+        set => this.put_ariaOwns(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaLive {
+        get => this.get_ariaLive()
+        set => this.put_ariaLive(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ariaRelevant {
+        get => this.get_ariaRelevant()
+        set => this.put_ariaRelevant(value)
+    }
+
+    /**
      * 
      * @param {BSTR} bstrname 
      * @returns {IHTMLDOMAttribute2} 

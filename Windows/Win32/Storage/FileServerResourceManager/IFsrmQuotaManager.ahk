@@ -59,9 +59,31 @@ class IFsrmQuotaManager extends IDispatch{
     static VTableNames => ["get_ActionVariables", "get_ActionVariableDescriptions", "CreateQuota", "CreateAutoApplyQuota", "GetQuota", "GetAutoApplyQuota", "GetRestrictiveQuota", "EnumQuotas", "EnumAutoApplyQuotas", "EnumEffectiveQuotas", "Scan", "CreateQuotaCollection"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ActionVariables {
+        get => this.get_ActionVariables()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ActionVariableDescriptions {
+        get => this.get_ActionVariableDescriptions()
+    }
+
+    /**
+     * Retrieves a list of macros that you can specify in action property values.
+     * @remarks
+     * 
+     * FSRM parses the action property for the macros and substitutes the macro string with the values that are 
+     *     specific to the event and computer on which the action occurred. For example, the following shows how you can 
+     *     format the message text for email: 
+     *     "User [<i>Source Io Owner</i>] has reached the quota limit for quota on [<i>Quota Path</i>] on server [<i>Server</i>]. The quota limit is [<i>Quota Limit MB</i>] MB and the current usage is [<i>Quota Used MB</i>] MB ([<i>Quota Used Percent</i>]% of limit)."
+     * 
      * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-get_actionvariables
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-get_actionvariables
      */
     get_ActionVariables() {
         result := ComCall(7, this, "ptr*", &variables := 0, "HRESULT")
@@ -69,9 +91,9 @@ class IFsrmQuotaManager extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the descriptions for the macros contained in the IFsrmQuotaManager::ActionVariables property.
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-get_actionvariabledescriptions
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-get_actionvariabledescriptions
      */
     get_ActionVariableDescriptions() {
         result := ComCall(8, this, "ptr*", &descriptions := 0, "HRESULT")
@@ -79,10 +101,12 @@ class IFsrmQuotaManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} path 
-     * @returns {IFsrmQuota} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-createquota
+     * Creates a quota for the specified directory.
+     * @param {BSTR} path The local directory path to which the quota applies. The string is limited to 260 characters.
+     * @returns {IFsrmQuota} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquota">IFsrmQuota</a> interface to the newly created quota 
+     *       object. Use this interface to define the quota. To add the quota to FSRM, call 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmQuota::Commit</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-createquota
      */
     CreateQuota(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
@@ -92,11 +116,15 @@ class IFsrmQuotaManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} quotaTemplateName 
-     * @param {BSTR} path 
-     * @returns {IFsrmAutoApplyQuota} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-createautoapplyquota
+     * Creates an automatic quota for the specified directory.
+     * @param {BSTR} quotaTemplateName The name of a template from which to derive the quota; automatic quotas must derive from a template. The 
+     *       string is limited to 4,000 characters.
+     * @param {BSTR} path The local directory path to which the quota applies. The string is limited to 260 characters.
+     * @returns {IFsrmAutoApplyQuota} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmautoapplyquota">IFsrmAutoApplyQuota</a> interface to the newly 
+     *       created quota object. The specified template is used to initialize the quota. Use this interface to change the 
+     *       quota and to exclude specific subdirectories from the quota. To add the quota to FSRM, call 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmAutoApplyQuota::Commit</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-createautoapplyquota
      */
     CreateAutoApplyQuota(quotaTemplateName, path) {
         quotaTemplateName := quotaTemplateName is String ? BSTR.Alloc(quotaTemplateName).Value : quotaTemplateName
@@ -107,10 +135,11 @@ class IFsrmQuotaManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} path 
-     * @returns {IFsrmQuota} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-getquota
+     * Retrieves the quota for the specified directory.
+     * @param {BSTR} path The local directory path that contains the quota that you want to retrieve. The string is limited to 260 
+     *       characters.
+     * @returns {IFsrmQuota} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquota">IFsrmQuota</a> interface to the quota object.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-getquota
      */
     GetQuota(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
@@ -120,10 +149,12 @@ class IFsrmQuotaManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} path 
-     * @returns {IFsrmAutoApplyQuota} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-getautoapplyquota
+     * Retrieves the automatic quota for the specified directory.
+     * @param {BSTR} path The local directory path that contains the quota that you want to retrieve. The string is limited to 260 
+     *       characters.
+     * @returns {IFsrmAutoApplyQuota} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmautoapplyquota">IFsrmAutoApplyQuota</a> interface to the quota 
+     *       object.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-getautoapplyquota
      */
     GetAutoApplyQuota(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
@@ -133,10 +164,10 @@ class IFsrmQuotaManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} path 
-     * @returns {IFsrmQuota} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-getrestrictivequota
+     * Retrieves the most restrictive quota for the specified path.
+     * @param {BSTR} path The local directory path. The string is limited to 260 characters.
+     * @returns {IFsrmQuota} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquota">IFsrmQuota</a> interface to  the quota object.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-getrestrictivequota
      */
     GetRestrictiveQuota(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
@@ -146,11 +177,31 @@ class IFsrmQuotaManager extends IDispatch{
     }
 
     /**
+     * Enumerates the quotas for the specified directory and any quotas associated with its subdirectories (recursively).
+     * @param {BSTR} path The local directory path that is associated with the quota that you want to enumerate. The string is limited 
+     *        to 260 characters.
      * 
-     * @param {BSTR} path 
-     * @param {Integer} options 
-     * @returns {IFsrmCommittableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-enumquotas
+     * If the path ends with "\*", retrieve all quotas associated with the immediate subdirectories 
+     *        of the path (does not include the quota associated with the path).
+     * 
+     * If the path ends with "\...", retrieve the quota for the path and all quotas associated with 
+     *        the immediate subdirectories of the path (recursively).
+     * 
+     * If the path does not end in "\*" or "\...", retrieve the quota for the path 
+     *        only.
+     * 
+     * If path is null or empty, the method returns all quotas.
+     * @param {Integer} options Options to use when enumerating the quotas. For possible values, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
+     * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface 
+     *        that contains a collection of the quotas.
+     * 
+     * Each item of the collection is a <b>VARIANT</b> of type 
+     *        <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member of the variant for 
+     *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquota">IFsrmQuota</a> interface.
+     * 
+     * The collection is empty if the path does not contain quotas.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-enumquotas
      */
     EnumQuotas(path, options) {
         path := path is String ? BSTR.Alloc(path).Value : path
@@ -160,11 +211,31 @@ class IFsrmQuotaManager extends IDispatch{
     }
 
     /**
+     * Enumerates the automatic quotas that are associated with the specified directory.
+     * @param {BSTR} path The local directory path that is associated with the automatic quota that you want to enumerate. The string 
+     *        is limited to 260 characters.
      * 
-     * @param {BSTR} path 
-     * @param {Integer} options 
-     * @returns {IFsrmCommittableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-enumautoapplyquotas
+     * If the path ends with "\*", retrieve all automatic quotas associated with the immediate 
+     *        subdirectories of the path (does not include the quota associated with the path).
+     * 
+     * If the path ends with "\...", retrieve the automatic quota for the path and all automatic 
+     *        quotas associated with the immediate subdirectories of the path (recursively).
+     * 
+     * If the path does not end in "\*" or "\...", retrieve the automatic quota 
+     *        for the path only.
+     * 
+     * If path is null or empty, the method returns all quotas.
+     * @param {Integer} options Options to use when enumerating the quotas. For possible values, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
+     * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface 
+     *        that contains a collection of the automatic quotas.
+     * 
+     * Each item of the collection is a <b>VARIANT</b> of type 
+     *        <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member of the variant for 
+     *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmautoapplyquota">IFsrmAutoApplyQuota</a> interface.
+     * 
+     * The collection is empty if the path does not contain quotas.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-enumautoapplyquotas
      */
     EnumAutoApplyQuotas(path, options) {
         path := path is String ? BSTR.Alloc(path).Value : path
@@ -174,11 +245,19 @@ class IFsrmQuotaManager extends IDispatch{
     }
 
     /**
+     * Enumerates all the quotas that affect the specified path.
+     * @param {BSTR} path A local directory path. The string is limited to 260 characters.
+     * @param {Integer} options Options to use when enumerating the quotas. For possible values, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
+     * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface 
+     *        that contains a collection of the quotas configured at or above the specified path.
      * 
-     * @param {BSTR} path 
-     * @param {Integer} options 
-     * @returns {IFsrmCommittableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-enumeffectivequotas
+     * Each item of the collection is a <b>VARIANT</b> of type 
+     *        <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member of the variant for 
+     *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquota">IFsrmQuota</a> interface.
+     * 
+     * The collection is empty if the path does not contain quotas.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-enumeffectivequotas
      */
     EnumEffectiveQuotas(path, options) {
         path := path is String ? BSTR.Alloc(path).Value : path
@@ -188,10 +267,10 @@ class IFsrmQuotaManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} strPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-scan
+     * Starts a quota scan on the specified path.
+     * @param {BSTR} strPath The local directory path to scan.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-scan
      */
     Scan(strPath) {
         strPath := strPath is String ? BSTR.Alloc(strPath).Value : strPath
@@ -201,9 +280,11 @@ class IFsrmQuotaManager extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IFsrmCommittableCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanager-createquotacollection
+     * Creates an empty collection to which you can add quotas.
+     * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface 
+     *       to the newly created collection. To add an object to the collection, call the 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmmutablecollection-add">IFsrmMutableCollection::Add</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanager-createquotacollection
      */
     CreateQuotaCollection() {
         result := ComCall(18, this, "ptr*", &collection := 0, "HRESULT")

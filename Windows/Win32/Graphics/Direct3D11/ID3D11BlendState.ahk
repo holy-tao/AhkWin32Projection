@@ -38,10 +38,17 @@ class ID3D11BlendState extends ID3D11DeviceChild{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Gets the description for blending state that you used to create the blend-state object.
+     * @remarks
      * 
-     * @param {Pointer<D3D11_BLEND_DESC>} pDesc 
+     * You use the description for blending state in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createblendstate">ID3D11Device::CreateBlendState</a> method to create the blend-state object.
+     * 
+     * 
+     * @param {Pointer<D3D11_BLEND_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_blend_desc">D3D11_BLEND_DESC</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_blend_desc">D3D11_BLEND_DESC</a> structure that receives a description of the blend state.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11blendstate-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11blendstate-getdesc
      */
     GetDesc(pDesc) {
         ComCall(7, this, "ptr", pDesc)

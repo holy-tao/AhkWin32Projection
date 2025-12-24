@@ -38,9 +38,104 @@ class IDataManager extends IDispatch{
     static VTableNames => ["get_Enabled", "put_Enabled", "get_CheckBeforeRunning", "put_CheckBeforeRunning", "get_MinFreeDisk", "put_MinFreeDisk", "get_MaxSize", "put_MaxSize", "get_MaxFolderCount", "put_MaxFolderCount", "get_ResourcePolicy", "put_ResourcePolicy", "get_FolderActions", "get_ReportSchema", "put_ReportSchema", "get_ReportFileName", "put_ReportFileName", "get_RuleTargetFileName", "put_RuleTargetFileName", "get_EventsFileName", "put_EventsFileName", "get_Rules", "put_Rules", "Run", "Extract"]
 
     /**
-     * 
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    CheckBeforeRunning {
+        get => this.get_CheckBeforeRunning()
+        set => this.put_CheckBeforeRunning(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinFreeDisk {
+        get => this.get_MinFreeDisk()
+        set => this.put_MinFreeDisk(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxSize {
+        get => this.get_MaxSize()
+        set => this.put_MaxSize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxFolderCount {
+        get => this.get_MaxFolderCount()
+        set => this.put_MaxFolderCount(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ResourcePolicy {
+        get => this.get_ResourcePolicy()
+        set => this.put_ResourcePolicy(value)
+    }
+
+    /**
+     * @type {IFolderActionCollection} 
+     */
+    FolderActions {
+        get => this.get_FolderActions()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReportSchema {
+        get => this.get_ReportSchema()
+        set => this.put_ReportSchema(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReportFileName {
+        get => this.get_ReportFileName()
+        set => this.put_ReportFileName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RuleTargetFileName {
+        get => this.get_RuleTargetFileName()
+        set => this.put_RuleTargetFileName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    EventsFileName {
+        get => this.get_EventsFileName()
+        set => this.put_EventsFileName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Rules {
+        get => this.get_Rules()
+        set => this.put_Rules(value)
+    }
+
+    /**
+     * Retrieves or sets a value that indicates whether the data manager is enabled to run.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_enabled
      */
     get_Enabled() {
         result := ComCall(7, this, "short*", &pfEnabled := 0, "HRESULT")
@@ -48,10 +143,10 @@ class IDataManager extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets a value that indicates whether the data manager is enabled to run.
      * @param {VARIANT_BOOL} fEnabled 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-put_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-put_enabled
      */
     put_Enabled(fEnabled) {
         result := ComCall(8, this, "short", fEnabled, "HRESULT")
@@ -59,9 +154,9 @@ class IDataManager extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets a value that indicates whether the data manager should check imposed limits, such as the minimum available free disk space, before collecting data.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_checkbeforerunning
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_checkbeforerunning
      */
     get_CheckBeforeRunning() {
         result := ComCall(9, this, "short*", &pfCheck := 0, "HRESULT")
@@ -69,10 +164,10 @@ class IDataManager extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets a value that indicates whether the data manager should check imposed limits, such as the minimum available free disk space, before collecting data.
      * @param {VARIANT_BOOL} fCheck 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-put_checkbeforerunning
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-put_checkbeforerunning
      */
     put_CheckBeforeRunning(fCheck) {
         result := ComCall(10, this, "short", fCheck, "HRESULT")
@@ -80,9 +175,14 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the minimum free disk space that needs to exist before data collection begins.
+     * @remarks
+     * 
+     * The minimum value applies to the folder specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> property. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_checkbeforerunning">IDataManager::CheckBeforeRunning</a> property checks this limit. The data manager also checks the limit when it runs.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_minfreedisk
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_minfreedisk
      */
     get_MinFreeDisk() {
         result := ComCall(11, this, "uint*", &MinFreeDisk := 0, "HRESULT")
@@ -90,10 +190,15 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the minimum free disk space that needs to exist before data collection begins.
+     * @remarks
+     * 
+     * The minimum value applies to the folder specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> property. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_checkbeforerunning">IDataManager::CheckBeforeRunning</a> property checks this limit. The data manager also checks the limit when it runs.
+     * 
      * 
      * @param {Integer} MinFreeDisk 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-put_minfreedisk
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-put_minfreedisk
      */
     put_MinFreeDisk(MinFreeDisk) {
         result := ComCall(12, this, "uint", MinFreeDisk, "HRESULT")
@@ -101,9 +206,27 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the maximum disk space to be used by all data collectors in the set.
+     * @remarks
+     * 
+     * The maximum value applies to all files in all subfolders under the path specified by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> property. 
+     * 
+     * This value is used by the data manager:
+     * 
+     * <ul>
+     * <li>Before the data collector set starts if the value of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_checkbeforerunning">IDataManager::CheckBeforeRunning</a> property is VARIANT_TRUE. If the maximum size is exceeded, the manager prevents the data collector set from running.</li>
+     * <li>After the collection is completed. If the maximum size is exceeded, the data manager will start deleting folders (according to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_resourcepolicy">IDataManager::ResourcePolicy</a> property) until the total size is below the maximum size.</li>
+     * </ul>
+     * The maximum size value is ignored for performance counter log collection. To work around this issue, you can do one of two things:
+     * 
+     * <ul>
+     * <li>Set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logcircular">IDataCollector::LogCircular</a> property to <b>True</b> and set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize">IDataCollectorSet::SegmentMaxSize</a> property to the desired maximum size.</li>
+     * <li>Set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logcircular">IDataCollector::LogCircular</a> property to <b>False</b>, set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize">IDataCollectorSet::SegmentMaxSize</a> property equal to the maximum folder size, and set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segment">IDataCollectorSet::Segment</a> property to <b>False</b>.</li>
+     * </ul>
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_maxsize
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_maxsize
      */
     get_MaxSize() {
         result := ComCall(13, this, "uint*", &pulMaxSize := 0, "HRESULT")
@@ -111,10 +234,28 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the maximum disk space to be used by all data collectors in the set.
+     * @remarks
+     * 
+     * The maximum value applies to all files in all subfolders under the path specified by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> property. 
+     * 
+     * This value is used by the data manager:
+     * 
+     * <ul>
+     * <li>Before the data collector set starts if the value of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_checkbeforerunning">IDataManager::CheckBeforeRunning</a> property is VARIANT_TRUE. If the maximum size is exceeded, the manager prevents the data collector set from running.</li>
+     * <li>After the collection is completed. If the maximum size is exceeded, the data manager will start deleting folders (according to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_resourcepolicy">IDataManager::ResourcePolicy</a> property) until the total size is below the maximum size.</li>
+     * </ul>
+     * The maximum size value is ignored for performance counter log collection. To work around this issue, you can do one of two things:
+     * 
+     * <ul>
+     * <li>Set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logcircular">IDataCollector::LogCircular</a> property to <b>True</b> and set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize">IDataCollectorSet::SegmentMaxSize</a> property to the desired maximum size.</li>
+     * <li>Set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logcircular">IDataCollector::LogCircular</a> property to <b>False</b>, set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segmentmaxsize">IDataCollectorSet::SegmentMaxSize</a> property equal to the maximum folder size, and set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_segment">IDataCollectorSet::Segment</a> property to <b>False</b>.</li>
+     * </ul>
+     * 
      * 
      * @param {Integer} ulMaxSize 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-put_maxsize
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-put_maxsize
      */
     put_MaxSize(ulMaxSize) {
         result := ComCall(14, this, "uint", ulMaxSize, "HRESULT")
@@ -122,9 +263,14 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the maximum number of folders to be used by all data collectors in the set.
+     * @remarks
+     * 
+     * The maximum value applies to all subfolders under the path specified by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> property. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_checkbeforerunning">IDataManager::CheckBeforeRunning</a> property checks this limit. The data manager also checks the limit when it runs.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_maxfoldercount
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_maxfoldercount
      */
     get_MaxFolderCount() {
         result := ComCall(15, this, "uint*", &pulMaxFolderCount := 0, "HRESULT")
@@ -132,10 +278,15 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the maximum number of folders to be used by all data collectors in the set.
+     * @remarks
+     * 
+     * The maximum value applies to all subfolders under the path specified by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> property. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_checkbeforerunning">IDataManager::CheckBeforeRunning</a> property checks this limit. The data manager also checks the limit when it runs.
+     * 
      * 
      * @param {Integer} ulMaxFolderCount 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-put_maxfoldercount
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-put_maxfoldercount
      */
     put_MaxFolderCount(ulMaxFolderCount) {
         result := ComCall(16, this, "uint", ulMaxFolderCount, "HRESULT")
@@ -143,9 +294,14 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the action to take when one of the disk resource limits is exceeded.
+     * @remarks
+     * 
+     * The folders are deleted based on the resource policy until the disk resource condition is satisfied. For example, if the maximum size is 7 MB and the current size is 10 MB, PLA will delete folders until the current size is 7 MB or less. If the first folder to be deleted is 3 MB, PLA will delete that folder and then stop deleting folders because the current size will be equal to the maximum size. If the first folder to be deleted is 9 MB, PLA will delete that folder and then stop deleting folders because the current size will be 1 MB, which will also satisfy the condition.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_resourcepolicy
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_resourcepolicy
      */
     get_ResourcePolicy() {
         result := ComCall(17, this, "int*", &pPolicy := 0, "HRESULT")
@@ -153,10 +309,15 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the action to take when one of the disk resource limits is exceeded.
+     * @remarks
+     * 
+     * The folders are deleted based on the resource policy until the disk resource condition is satisfied. For example, if the maximum size is 7 MB and the current size is 10 MB, PLA will delete folders until the current size is 7 MB or less. If the first folder to be deleted is 3 MB, PLA will delete that folder and then stop deleting folders because the current size will be equal to the maximum size. If the first folder to be deleted is 9 MB, PLA will delete that folder and then stop deleting folders because the current size will be 1 MB, which will also satisfy the condition.
+     * 
      * 
      * @param {Integer} Policy 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-put_resourcepolicy
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-put_resourcepolicy
      */
     put_ResourcePolicy(Policy) {
         result := ComCall(18, this, "int", Policy, "HRESULT")
@@ -164,9 +325,9 @@ class IDataManager extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves a collection that you use to manage the actions to take on each folder in the data collector set when the age and size conditions are met.
      * @returns {IFolderActionCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_folderactions
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_folderactions
      */
     get_FolderActions() {
         result := ComCall(19, this, "ptr*", &Actions := 0, "HRESULT")
@@ -174,9 +335,9 @@ class IDataManager extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the schema used to customize the report that the TraceRpt.exe application generates.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_reportschema
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_reportschema
      */
     get_ReportSchema() {
         ReportSchema := BSTR()
@@ -185,10 +346,10 @@ class IDataManager extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the schema used to customize the report that the TraceRpt.exe application generates.
      * @param {BSTR} ReportSchema 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-put_reportschema
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-put_reportschema
      */
     put_ReportSchema(ReportSchema) {
         ReportSchema := ReportSchema is String ? BSTR.Alloc(ReportSchema).Value : ReportSchema
@@ -198,9 +359,14 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name of the HTML file that results from converting the file in the IDataManager::RuleTargetFileName property from XML to HTML.
+     * @remarks
+     * 
+     * For details, see the <b>plaCreateHtml</b> value of the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-datamanagersteps">DataManagerSteps</a> enumeration.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_reportfilename
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_reportfilename
      */
     get_ReportFileName() {
         pbstrFilename := BSTR()
@@ -209,10 +375,15 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name of the HTML file that results from converting the file in the IDataManager::RuleTargetFileName property from XML to HTML.
+     * @remarks
+     * 
+     * For details, see the <b>plaCreateHtml</b> value of the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-datamanagersteps">DataManagerSteps</a> enumeration.
+     * 
      * 
      * @param {BSTR} pbstrFilename 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-put_reportfilename
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-put_reportfilename
      */
     put_ReportFileName(pbstrFilename) {
         pbstrFilename := pbstrFilename is String ? BSTR.Alloc(pbstrFilename).Value : pbstrFilename
@@ -222,9 +393,16 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name of the report file that the TraceRpt.exe application creates.
+     * @remarks
+     * 
+     * PLA uses the file name only if you include the <b>plaCreateReport</b> value of the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-datamanagersteps">DataManagerSteps</a> enumeration in the <i>Steps</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-run">IDataManager::Run</a> method.
+     * 
+     * To specify the contents of the report, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_reportschema">IDataManager::ReportSchema</a> property. To modify the contents of the report after it has been created, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_rules">IDataManager::Rules</a> property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_ruletargetfilename
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_ruletargetfilename
      */
     get_RuleTargetFileName() {
         Filename := BSTR()
@@ -233,10 +411,17 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name of the report file that the TraceRpt.exe application creates.
+     * @remarks
+     * 
+     * PLA uses the file name only if you include the <b>plaCreateReport</b> value of the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-datamanagersteps">DataManagerSteps</a> enumeration in the <i>Steps</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-run">IDataManager::Run</a> method.
+     * 
+     * To specify the contents of the report, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_reportschema">IDataManager::ReportSchema</a> property. To modify the contents of the report after it has been created, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_rules">IDataManager::Rules</a> property.
+     * 
      * 
      * @param {BSTR} Filename 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-put_ruletargetfilename
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-put_ruletargetfilename
      */
     put_RuleTargetFileName(Filename) {
         Filename := Filename is String ? BSTR.Alloc(Filename).Value : Filename
@@ -246,9 +431,14 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name for the events file.
+     * @remarks
+     * 
+     * PLA uses the file name only if you include the <b>plaCreateReport</b> value of the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-datamanagersteps">DataManagerSteps</a> enumeration in the <i>Steps</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-run">IDataManager::Run</a> method and if the data collection set contains trace data collectors.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_eventsfilename
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_eventsfilename
      */
     get_EventsFileName() {
         pbstrFilename := BSTR()
@@ -257,10 +447,15 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the name for the events file.
+     * @remarks
+     * 
+     * PLA uses the file name only if you include the <b>plaCreateReport</b> value of the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-datamanagersteps">DataManagerSteps</a> enumeration in the <i>Steps</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-run">IDataManager::Run</a> method and if the data collection set contains trace data collectors.
+     * 
      * 
      * @param {BSTR} pbstrFilename 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-put_eventsfilename
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-put_eventsfilename
      */
     put_EventsFileName(pbstrFilename) {
         pbstrFilename := pbstrFilename is String ? BSTR.Alloc(pbstrFilename).Value : pbstrFilename
@@ -270,9 +465,85 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the rules to apply to the report.
+     * @remarks
+     * 
+     * The rules modify  the contents of the report after it is generated. To specify the content that TraceRpt generates, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_reportschema">IDataManager::ReportSchema</a>.
+     * 
+     * The following schema defines the rules that you can specify. The <b>Rules</b> element is the root node. You can specify one or more <b>Group</b> elements, and each <b>Group</b> element can contain one or more <b>Rule</b> elements. The <b>Help</b> element is an optional user-defined element. The <b>Step</b> element defines a set of conditions and associated actions that are taken if the conditions are met.
+     * 
+     * 
+     * ```xml
+     * <Rules>
+     *     <Include name="" fatal="true|false"/>
+     *     <Group name="" enabled="true|false">
+     *         <Rule name="" enabled="true|false">
+     *             <Help/>
+     *             <Step/>
+     *         </Rule>
+     *     </Group>
+     * </Rules>
+     * 
+     * ```
+     * 
+     * 
+     * 
+     * ```xml
+     * <Step select="" fatal="true|false" sortType="first|max|min" sortValue="" sortDataType="">
+     *     <UserInput/>
+     *     <Exists>
+     *         <When/>
+     *         <Otherwise/>
+     *     </Exists>
+     *     <Otherwise/>
+     * </Step>
+     * 
+     * ```
+     * 
+     * 
+     * 
+     * ```xml
+     * <UserInput name="" expression="">
+     *     <Description/>
+     * </UserInput>
+     * 
+     * ```
+     * 
+     * 
+     * 
+     * ```xml
+     * <When expression="" matchRE="">
+     *     <Action/>
+     * </When>
+     * ...
+     * <Otherwise>
+     *     <Action/>
+     * </Otherwise>
+     * 
+     * ```
+     * 
+     * 
+     * 
+     * ```xml
+     * <Variable name="" expression="">
+     * </Variable>
+     * 
+     * <Warning name="">
+     * </Warning>
+     * 
+     * <Notify type="" code="" severity="" title="">
+     * </Notify>
+     * 
+     * <Insert select="">
+     *     <Attribute name="" value=""/>
+     *     <Node axis=""/>
+     * </Insert>
+     * 
+     * ```
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-get_rules
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-get_rules
      */
     get_Rules() {
         pbstrXml := BSTR()
@@ -281,10 +552,86 @@ class IDataManager extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the rules to apply to the report.
+     * @remarks
+     * 
+     * The rules modify  the contents of the report after it is generated. To specify the content that TraceRpt generates, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatamanager-get_reportschema">IDataManager::ReportSchema</a>.
+     * 
+     * The following schema defines the rules that you can specify. The <b>Rules</b> element is the root node. You can specify one or more <b>Group</b> elements, and each <b>Group</b> element can contain one or more <b>Rule</b> elements. The <b>Help</b> element is an optional user-defined element. The <b>Step</b> element defines a set of conditions and associated actions that are taken if the conditions are met.
+     * 
+     * 
+     * ```xml
+     * <Rules>
+     *     <Include name="" fatal="true|false"/>
+     *     <Group name="" enabled="true|false">
+     *         <Rule name="" enabled="true|false">
+     *             <Help/>
+     *             <Step/>
+     *         </Rule>
+     *     </Group>
+     * </Rules>
+     * 
+     * ```
+     * 
+     * 
+     * 
+     * ```xml
+     * <Step select="" fatal="true|false" sortType="first|max|min" sortValue="" sortDataType="">
+     *     <UserInput/>
+     *     <Exists>
+     *         <When/>
+     *         <Otherwise/>
+     *     </Exists>
+     *     <Otherwise/>
+     * </Step>
+     * 
+     * ```
+     * 
+     * 
+     * 
+     * ```xml
+     * <UserInput name="" expression="">
+     *     <Description/>
+     * </UserInput>
+     * 
+     * ```
+     * 
+     * 
+     * 
+     * ```xml
+     * <When expression="" matchRE="">
+     *     <Action/>
+     * </When>
+     * ...
+     * <Otherwise>
+     *     <Action/>
+     * </Otherwise>
+     * 
+     * ```
+     * 
+     * 
+     * 
+     * ```xml
+     * <Variable name="" expression="">
+     * </Variable>
+     * 
+     * <Warning name="">
+     * </Warning>
+     * 
+     * <Notify type="" code="" severity="" title="">
+     * </Notify>
+     * 
+     * <Insert select="">
+     *     <Attribute name="" value=""/>
+     *     <Node axis=""/>
+     * </Insert>
+     * 
+     * ```
+     * 
      * 
      * @param {BSTR} bstrXml 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-put_rules
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-put_rules
      */
     put_Rules(bstrXml) {
         bstrXml := bstrXml is String ? BSTR.Alloc(bstrXml).Value : bstrXml
@@ -294,11 +641,11 @@ class IDataManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Steps 
-     * @param {BSTR} bstrFolder 
-     * @returns {IValueMap} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-run
+     * Manually runs the data manager.
+     * @param {Integer} Steps Determines whether the folder actions and resource policies are applied and how to generate the report. For possible steps, see the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-datamanagersteps">DataManagerSteps</a> enumeration.
+     * @param {BSTR} bstrFolder The folder under the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorset-get_rootpath">IDataCollectorSet::RootPath</a> property that contains the files used to generate the report. If <b>NULL</b>, PLA uses all the files in the collection. This folder is used only if the <i>Steps</i> parameter includes <b>plaCreateReport</b> or <b>plaRunRules</b>.
+     * @returns {IValueMap} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ivaluemap">IValueMap</a> interface that you use to retrieve any errors that occurred. The value map can contain the list of directories where errors were encountered, along with the error codes. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemap-get_count">IValueMap::Count</a> property is zero if there were no errors.
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-run
      */
     Run(Steps, bstrFolder) {
         bstrFolder := bstrFolder is String ? BSTR.Alloc(bstrFolder).Value : bstrFolder
@@ -308,11 +655,11 @@ class IDataManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} CabFilename 
-     * @param {BSTR} DestinationPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatamanager-extract
+     * Extracts the specified CAB file.
+     * @param {BSTR} CabFilename The name of the CAB file to extract.
+     * @param {BSTR} DestinationPath The path where you want to place the CAB file.
+     * @returns {HRESULT} Returns S_OK if successful.
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatamanager-extract
      */
     Extract(CabFilename, DestinationPath) {
         CabFilename := CabFilename is String ? BSTR.Alloc(CabFilename).Value : CabFilename

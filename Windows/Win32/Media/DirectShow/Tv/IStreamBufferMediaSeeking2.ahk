@@ -36,11 +36,29 @@ class IStreamBufferMediaSeeking2 extends IStreamBufferMediaSeeking{
     static VTableNames => ["SetRateEx"]
 
     /**
+     * .
+     * @param {Float} dRate Playback rate. Valid range is (<i>dRate</i> &gt;= 0.1 || <i>dRate</i> &lt;= -0.1).
+     * @param {Integer} dwFramesPerSec Frames per second for fast-forward play. Cannot be zero. See Remarks for more information.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Float} dRate 
-     * @param {Integer} dwFramesPerSec 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambuffermediaseeking2-setrateex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambuffermediaseeking2-setrateex
      */
     SetRateEx(dRate, dwFramesPerSec) {
         result := ComCall(20, this, "double", dRate, "uint", dwFramesPerSec, "HRESULT")

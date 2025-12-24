@@ -35,6 +35,14 @@ class IHTMLDTElement extends IDispatch{
     static VTableNames => ["put_noWrap", "get_noWrap"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    noWrap {
+        get => this.get_noWrap()
+        set => this.put_noWrap(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 

@@ -35,6 +35,22 @@ class ISVGPathSegCurvetoQuadraticSmoothAbs extends IDispatch{
     static VTableNames => ["put_x", "get_x", "put_y", "get_y"]
 
     /**
+     * @type {Float} 
+     */
+    x {
+        get => this.get_x()
+        set => this.put_x(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    y {
+        get => this.get_y()
+        set => this.put_y(value)
+    }
+
+    /**
      * 
      * @param {Float} v 
      * @returns {HRESULT} 

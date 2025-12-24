@@ -31,11 +31,11 @@ class IDirectManipulationManager3 extends IDirectManipulationManager2{
     static VTableNames => ["GetService"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} clsid 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager3-getservice
+     * Retrieves an IDirectManipulationDeferContactService object.
+     * @param {Pointer<Guid>} clsid The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationdefercontactservice">IDirectManipulationDeferContactService</a> CLSID.
+     * @param {Pointer<Guid>} riid The IID of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationdefercontactservice">IDirectManipulationDeferContactService</a> to retrieve.
+     * @returns {Pointer<Void>} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationdefercontactservice">IDirectManipulationDeferContactService</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationmanager3-getservice
      */
     GetService(clsid, riid) {
         result := ComCall(11, this, "ptr", clsid, "ptr", riid, "ptr*", &object := 0, "HRESULT")

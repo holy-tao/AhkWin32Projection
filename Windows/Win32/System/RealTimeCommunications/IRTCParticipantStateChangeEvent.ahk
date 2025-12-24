@@ -30,6 +30,27 @@ class IRTCParticipantStateChangeEvent extends IDispatch{
     static VTableNames => ["get_Participant", "get_State", "get_StatusCode"]
 
     /**
+     * @type {IRTCParticipant} 
+     */
+    Participant {
+        get => this.get_Participant()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
      * 
      * @returns {IRTCParticipant} 
      */

@@ -43,9 +43,25 @@ class IMSVidEVR extends IMSVidVideoRenderer{
     static VTableNames => ["get_Presenter", "put_Presenter", "put_SuppressEffects", "get_SuppressEffects"]
 
     /**
-     * 
-     * @returns {IMFVideoPresenter} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidevr-get_presenter
+     * @type {IMFVideoPresenter} 
+     */
+    Presenter {
+        get => this.get_Presenter()
+        set => this.put_Presenter(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SuppressEffects {
+        get => this.get_SuppressEffects()
+        set => this.put_SuppressEffects(value)
+    }
+
+    /**
+     * .
+     * @returns {IMFVideoPresenter} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/evr/nn-evr-imfvideopresenter">IMFVideoPresenter</a> interface. This interface is documented in this Media Foundation SDK documentaion. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidevr-get_presenter
      */
     get_Presenter() {
         result := ComCall(46, this, "ptr*", &ppAllocPresent := 0, "HRESULT")
@@ -53,10 +69,10 @@ class IMSVidEVR extends IMSVidVideoRenderer{
     }
 
     /**
-     * 
-     * @param {IMFVideoPresenter} pAllocPresent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidevr-put_presenter
+     * The put_Presenter method sets the presenter object for the Enhanced Video Renderer (EVR) filter.
+     * @param {IMFVideoPresenter} pAllocPresent Pointer to a presenter's <a href="https://docs.microsoft.com/windows/desktop/api/evr/nn-evr-imfvideopresenter">IMFVideoPresenter</a> interface. This interface is documented in this Media Foundation SDK documentaion.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidevr-put_presenter
      */
     put_Presenter(pAllocPresent) {
         result := ComCall(47, this, "ptr", pAllocPresent, "HRESULT")
@@ -64,10 +80,10 @@ class IMSVidEVR extends IMSVidVideoRenderer{
     }
 
     /**
-     * 
-     * @param {VARIANT_BOOL} bSuppress 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidevr-put_suppresseffects
+     * The put_SuppressEffects method specifies whether the Video Control configures the system for optimal video playback.
+     * @param {VARIANT_BOOL} bSuppress Specifies a Boolean value. See Remarks for more information.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidevr-put_suppresseffects
      */
     put_SuppressEffects(bSuppress) {
         result := ComCall(48, this, "short", bSuppress, "HRESULT")
@@ -75,9 +91,9 @@ class IMSVidEVR extends IMSVidVideoRenderer{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidevr-get_suppresseffects
+     * The get_SuppressEffects method queries whether the Video Control configures the system for optimal video playback
+     * @returns {VARIANT_BOOL} Receives a <b>VARIANT_BOOL</b>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsvidevr-put_suppresseffects">IMSVidEVR::put_SuppressEffects</a>. The default value is VARIANT_TRUE.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidevr-get_suppresseffects
      */
     get_SuppressEffects() {
         result := ComCall(49, this, "short*", &bSuppress := 0, "HRESULT")

@@ -38,10 +38,10 @@ class IPropertyNotifySink extends IUnknown{
     static VTableNames => ["OnChanged", "OnRequestEdit"]
 
     /**
-     * 
-     * @param {Integer} dispID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertynotifysink-onchanged
+     * Notifies a sink that a bindable property has changed.
+     * @param {Integer} dispID The dispatch identifier of the property that changed, or DISPID_UNKNOWN if multiple properties have changed. The client (owner of the sink) should retrieve the current value of each property of interest from the object that generated the notification.
+     * @returns {HRESULT} This method returns S_OK in all cases.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertynotifysink-onchanged
      */
     OnChanged(dispID) {
         result := ComCall(3, this, "int", dispID, "HRESULT")
@@ -49,10 +49,39 @@ class IPropertyNotifySink extends IUnknown{
     }
 
     /**
+     * Notifies a sink that a requestedit property is about to change.
+     * @param {Integer} dispID The dispatch identifier of the property that is about to change or DISPID_UNKNOWN if multiple properties are about to change.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Integer} dispID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertynotifysink-onrequestedit
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified property or properties are allowed to change.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified property or properties are not allowed to change. The caller must obey this return value by discarding the new property value(s). This is part of the contract of the [<a href="/windows/desktop/Midl/requestedit">requestedit</a>] attribute and this method.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertynotifysink-onrequestedit
      */
     OnRequestEdit(dispID) {
         result := ComCall(4, this, "int", dispID, "HRESULT")

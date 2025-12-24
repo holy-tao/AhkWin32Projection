@@ -32,10 +32,15 @@ class IUISimplePropertySet extends IUnknown{
     static VTableNames => ["GetValue"]
 
     /**
+     * Retrieves the value identified by a property key.
+     * @param {Pointer<PROPERTYKEY>} key Type: <b>REFPROPERTYKEY</b>
      * 
-     * @param {Pointer<PROPERTYKEY>} key 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuisimplepropertyset-getvalue
+     * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-reference-properties">Property Key</a> of interest.
+     * @returns {PROPVARIANT} Type: <b>PROPVARIANT*</b>
+     * 
+     * When this method returns, contains a pointer to the value for 
+     * 					<i>key</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuisimplepropertyset-getvalue
      */
     GetValue(key) {
         value := PROPVARIANT()

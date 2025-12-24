@@ -36,6 +36,14 @@ class IHTMLBlockElement extends IDispatch{
     static VTableNames => ["put_clear", "get_clear"]
 
     /**
+     * @type {BSTR} 
+     */
+    clear {
+        get => this.get_clear()
+        set => this.put_clear(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

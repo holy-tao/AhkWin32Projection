@@ -51,9 +51,11 @@ class IDXGIResource extends IDXGIDeviceSubObject{
     static VTableNames => ["GetSharedHandle", "GetUsage", "SetEvictionPriority", "GetEvictionPriority"]
 
     /**
+     * Gets the handle to a shared resource.
+     * @returns {HANDLE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HANDLE</a>*</b>
      * 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getsharedhandle
+     * A pointer to a handle.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiresource-getsharedhandle
      */
     GetSharedHandle() {
         pSharedHandle := HANDLE()
@@ -62,9 +64,11 @@ class IDXGIResource extends IDXGIDeviceSubObject{
     }
 
     /**
+     * Get the expected resource usage.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getusage
+     * A pointer to a usage flag (see <a href="https://docs.microsoft.com/windows/desktop/direct3ddxgi/dxgi-usage">DXGI_USAGE</a>). For Direct3D 10, a surface can be used as a shader input or a render-target output.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiresource-getusage
      */
     GetUsage() {
         result := ComCall(9, this, "uint*", &pUsage := 0, "HRESULT")
@@ -72,10 +76,12 @@ class IDXGIResource extends IDXGIDeviceSubObject{
     }
 
     /**
+     * Set the priority for evicting the resource from memory.
+     * @param {Integer} EvictionPriority Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @param {Integer} EvictionPriority 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-setevictionpriority
+     * Returns one of the following <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiresource-setevictionpriority
      */
     SetEvictionPriority(EvictionPriority) {
         result := ComCall(10, this, "uint", EvictionPriority, "HRESULT")
@@ -83,9 +89,70 @@ class IDXGIResource extends IDXGIDeviceSubObject{
     }
 
     /**
+     * Get the eviction priority.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiresource-getevictionpriority
+     * A pointer to the eviction priority, which determines when a resource can be evicted from memory.  
+     * 
+     * The following defined values are possible.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="DXGI_RESOURCE_PRIORITY_MINIMUM__0x28000000_"></a><a id="dxgi_resource_priority_minimum__0x28000000_"></a><a id="DXGI_RESOURCE_PRIORITY_MINIMUM__0X28000000_"></a><dl>
+     * <dt><b>DXGI_RESOURCE_PRIORITY_MINIMUM (0x28000000)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The resource is unused and can be evicted as soon as another resource requires the memory that the resource occupies.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="DXGI_RESOURCE_PRIORITY_LOW__0x50000000_"></a><a id="dxgi_resource_priority_low__0x50000000_"></a><a id="DXGI_RESOURCE_PRIORITY_LOW__0X50000000_"></a><dl>
+     * <dt><b>DXGI_RESOURCE_PRIORITY_LOW (0x50000000)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The eviction priority of the resource is low. The placement of the resource is not critical, and minimal work is performed to find a location for the resource. For example, if a GPU can render with a vertex buffer from either local or non-local memory with little difference in performance, that vertex buffer is low priority. Other more critical resources (for example, a render target or texture) can then occupy the faster memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="DXGI_RESOURCE_PRIORITY_NORMAL__0x78000000_"></a><a id="dxgi_resource_priority_normal__0x78000000_"></a><a id="DXGI_RESOURCE_PRIORITY_NORMAL__0X78000000_"></a><dl>
+     * <dt><b>DXGI_RESOURCE_PRIORITY_NORMAL (0x78000000)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The eviction priority of the resource is normal. The placement of the resource is important, but not critical, for performance. The resource is placed in its preferred location instead of a low-priority resource. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="DXGI_RESOURCE_PRIORITY_HIGH__0xa0000000_"></a><a id="dxgi_resource_priority_high__0xa0000000_"></a><a id="DXGI_RESOURCE_PRIORITY_HIGH__0XA0000000_"></a><dl>
+     * <dt><b>DXGI_RESOURCE_PRIORITY_HIGH (0xa0000000)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The eviction priority of the resource is high. The resource is placed in its preferred location instead of a low-priority or normal-priority resource.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="DXGI_RESOURCE_PRIORITY_MAXIMUM__0xc8000000_"></a><a id="dxgi_resource_priority_maximum__0xc8000000_"></a><a id="DXGI_RESOURCE_PRIORITY_MAXIMUM__0XC8000000_"></a><dl>
+     * <dt><b>DXGI_RESOURCE_PRIORITY_MAXIMUM (0xc8000000)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The resource is evicted from memory only if there is no other way of resolving the memory requirement.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiresource-getevictionpriority
      */
     GetEvictionPriority() {
         result := ComCall(11, this, "uint*", &pEvictionPriority := 0, "HRESULT")

@@ -37,6 +37,111 @@ class IGPMConstants2 extends IGPMConstants{
     static VTableNames => ["get_BackupTypeGPO", "get_BackupTypeStarterGPO", "get_StarterGPOTypeSystem", "get_StarterGPOTypeCustom", "get_SearchPropertyStarterGPOPermissions", "get_SearchPropertyStarterGPOEffectivePermissions", "get_SearchPropertyStarterGPODisplayName", "get_SearchPropertyStarterGPOID", "get_SearchPropertyStarterGPODomain", "get_PermStarterGPORead", "get_PermStarterGPOEdit", "get_PermStarterGPOFullControl", "get_PermStarterGPOCustom", "get_ReportLegacy", "get_ReportComments"]
 
     /**
+     * @type {Integer} 
+     */
+    BackupTypeGPO {
+        get => this.get_BackupTypeGPO()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BackupTypeStarterGPO {
+        get => this.get_BackupTypeStarterGPO()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StarterGPOTypeSystem {
+        get => this.get_StarterGPOTypeSystem()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StarterGPOTypeCustom {
+        get => this.get_StarterGPOTypeCustom()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyStarterGPOPermissions {
+        get => this.get_SearchPropertyStarterGPOPermissions()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyStarterGPOEffectivePermissions {
+        get => this.get_SearchPropertyStarterGPOEffectivePermissions()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyStarterGPODisplayName {
+        get => this.get_SearchPropertyStarterGPODisplayName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyStarterGPOID {
+        get => this.get_SearchPropertyStarterGPOID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SearchPropertyStarterGPODomain {
+        get => this.get_SearchPropertyStarterGPODomain()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermStarterGPORead {
+        get => this.get_PermStarterGPORead()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermStarterGPOEdit {
+        get => this.get_PermStarterGPOEdit()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermStarterGPOFullControl {
+        get => this.get_PermStarterGPOFullControl()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PermStarterGPOCustom {
+        get => this.get_PermStarterGPOCustom()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReportLegacy {
+        get => this.get_ReportLegacy()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReportComments {
+        get => this.get_ReportComments()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

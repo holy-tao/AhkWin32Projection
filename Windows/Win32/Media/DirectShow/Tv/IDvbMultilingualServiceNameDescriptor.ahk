@@ -32,9 +32,9 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetCountOfRecords", "GetRecordLangId", "GetRecordServiceProviderNameW", "GetRecordServiceNameW"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-gettag
+     * Gets the tag identifying a Digital Video Broadcast (DVB) multilingual service name descriptor.
+     * @returns {Integer} Receives the service list descriptor tag. Typically, this value is 0x5D for multilingual service name descriptors.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -42,9 +42,9 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getlength
+     * Gets the descriptor_length field value from a from a Digital Video Broadcast (DVB) multilingual service name descriptor.
+     * @returns {Integer} Receives the descriptor_length field value.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -52,9 +52,9 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getcountofrecords
+     * Gets the number of service records in a Digital Video Broadcast (DVB) multilingual service name descriptor.
+     * @returns {Integer} Receives the number of service records.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -62,10 +62,11 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getrecordlangid
+     * Gets the three-character ISO 639 language code from a Digital Video Broadcast (DVB) multilingual service name descriptor. The language code identifies the language used for text in the descriptor.
+     * @param {Integer} bRecordIndex Specifies the service record number,
+     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getcountofrecords">IDvbMultilingualServiceNameDescriptor::GetCountOfRecords</a>method to get the number of records in the multilingual service name descriptor.
+     * @returns {Integer} Pointer to a buffer that receives the language code. For a list of language codes, refer to <a href="http://www.sil.org/ISO639-3/codes.asp">this document</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getrecordlangid
      */
     GetRecordLangId(bRecordIndex) {
         result := ComCall(6, this, "char", bRecordIndex, "uint*", &ulVal := 0, "HRESULT")
@@ -73,11 +74,12 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
+     * Gets the service provider name in string format from a Digital Video Broadcast (DVB) multilingual service name descriptor.
+     * @param {Integer} bRecordIndex Specifies the service record number,
+     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getcountofrecords">IDvbMultilingualServiceNameDescriptor::GetCountOfRecords</a>method to get the number of records in the logical channel descriptor.
      * @param {Integer} convMode 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getrecordserviceprovidernamew
+     * @returns {BSTR} Pointer to a memory block that receives the service provider name string. The caller is responsible for freeing this memory.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getrecordserviceprovidernamew
      */
     GetRecordServiceProviderNameW(bRecordIndex, convMode) {
         pbstrName := BSTR()
@@ -86,11 +88,12 @@ class IDvbMultilingualServiceNameDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
+     * Gets the service name in string format from a Digital Video Broadcast (DVB) multilingual service name descriptor.
+     * @param {Integer} bRecordIndex Specifies the service record number,
+     *   indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getcountofrecords">IDvbMultilingualServiceNameDescriptor::GetCountOfRecords</a>method to get the number of records in the logical channel descriptor.
      * @param {Integer} convMode 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getrecordservicenamew
+     * @returns {BSTR} Pointer to a buffer that receives the service name string. The caller is responsible for freeing this memory.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbmultilingualservicenamedescriptor-getrecordservicenamew
      */
     GetRecordServiceNameW(bRecordIndex, convMode) {
         pbstrName := BSTR()

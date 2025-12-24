@@ -42,14 +42,14 @@ class ICreatePropBagOnRegKey extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
-     * @param {HKEY} hkey 
-     * @param {PWSTR} subkey 
-     * @param {Integer} ulOptions 
-     * @param {Integer} samDesired 
-     * @param {Pointer<Guid>} iid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/regbag/nf-regbag-icreatepropbagonregkey-create
+     * The Create method creates a property bag that can store information in the system registry.
+     * @param {HKEY} hkey Specifies a handle to the registry key.
+     * @param {PWSTR} subkey Specifies the subkey.
+     * @param {Integer} ulOptions Reserved; must be zero.
+     * @param {Integer} samDesired Specifies the desired access rights to the key. The value can be any combination of flags from the <i>samDesired</i> parameter in the Win32 <b>RegOpenKeyEx</b> function.
+     * @param {Pointer<Guid>} iid Specifies the interface identifier (IID) of a property bag interface. Use the value IID_IPropertyBag or IID_IPropertyBag2.
+     * @returns {Pointer<Void>} Address of a variable that receives the interface specified by the <i>iid</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//regbag/nf-regbag-icreatepropbagonregkey-create
      */
     Create(hkey, subkey, ulOptions, samDesired, iid) {
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey

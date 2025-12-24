@@ -40,9 +40,46 @@ class ISchedule extends IDispatch{
     static VTableNames => ["get_StartDate", "put_StartDate", "get_EndDate", "put_EndDate", "get_StartTime", "put_StartTime", "get_Days", "put_Days"]
 
     /**
+     * @type {VARIANT} 
+     */
+    StartDate {
+        get => this.get_StartDate()
+        set => this.put_StartDate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    EndDate {
+        get => this.get_EndDate()
+        set => this.put_EndDate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    StartTime {
+        get => this.get_StartTime()
+        set => this.put_StartTime(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Days {
+        get => this.get_Days()
+        set => this.put_Days(value)
+    }
+
+    /**
+     * Retrieves or sets the date when the schedule becomes valid.
+     * @remarks
+     * 
+     * Use the start and end date to specify a date range when the schedule is valid.
+     * 
      * 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-get_startdate
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedule-get_startdate
      */
     get_StartDate() {
         start := VARIANT()
@@ -51,10 +88,15 @@ class ISchedule extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the date when the schedule becomes valid.
+     * @remarks
+     * 
+     * Use the start and end date to specify a date range when the schedule is valid.
+     * 
      * 
      * @param {VARIANT} start 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-put_startdate
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedule-put_startdate
      */
     put_StartDate(start) {
         result := ComCall(8, this, "ptr", start, "HRESULT")
@@ -62,9 +104,16 @@ class ISchedule extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the last date that the schedule is valid.
+     * @remarks
+     * 
+     * The end date must be greater than or equal to the start date.
+     * 
+     * The set cannot be started after the end date, but if the set is running when the end date is reached, it continues to run.
+     * 
      * 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-get_enddate
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedule-get_enddate
      */
     get_EndDate() {
         end := VARIANT()
@@ -73,10 +122,17 @@ class ISchedule extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the last date that the schedule is valid.
+     * @remarks
+     * 
+     * The end date must be greater than or equal to the start date.
+     * 
+     * The set cannot be started after the end date, but if the set is running when the end date is reached, it continues to run.
+     * 
      * 
      * @param {VARIANT} end 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-put_enddate
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedule-put_enddate
      */
     put_EndDate(end) {
         result := ComCall(10, this, "ptr", end, "HRESULT")
@@ -84,9 +140,9 @@ class ISchedule extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the time of day when the data collector set runs.
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-get_starttime
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedule-get_starttime
      */
     get_StartTime() {
         start := VARIANT()
@@ -95,10 +151,10 @@ class ISchedule extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the time of day when the data collector set runs.
      * @param {VARIANT} start 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-put_starttime
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedule-put_starttime
      */
     put_StartTime(start) {
         result := ComCall(12, this, "ptr", start, "HRESULT")
@@ -106,9 +162,9 @@ class ISchedule extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the days on which the data collector set runs.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-get_days
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedule-get_days
      */
     get_Days() {
         result := ComCall(13, this, "int*", &days := 0, "HRESULT")
@@ -116,10 +172,10 @@ class ISchedule extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the days on which the data collector set runs.
      * @param {Integer} days 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ischedule-put_days
+     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ischedule-put_days
      */
     put_Days(days) {
         result := ComCall(14, this, "int", days, "HRESULT")

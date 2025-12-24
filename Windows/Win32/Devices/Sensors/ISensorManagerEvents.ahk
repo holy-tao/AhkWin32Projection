@@ -31,11 +31,29 @@ class ISensorManagerEvents extends IUnknown{
     static VTableNames => ["OnSensorEnter"]
 
     /**
+     * Provides notification when a sensor device is connected.
+     * @param {ISensor} pSensor A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensor">ISensor</a> interface of the sensor that was connected.
+     * @param {Integer} state <a href="https://docs.microsoft.com/windows/win32/api/sensorsapi/ne-sensorsapi-sensorstate">SensorState</a> indicating the current state of the sensor.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {ISensor} pSensor 
-     * @param {Integer} state 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensormanagerevents-onsensorenter
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensormanagerevents-onsensorenter
      */
     OnSensorEnter(pSensor, state) {
         result := ComCall(3, this, "ptr", pSensor, "int", state, "HRESULT")

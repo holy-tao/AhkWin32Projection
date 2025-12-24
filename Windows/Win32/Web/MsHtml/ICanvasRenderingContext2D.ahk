@@ -42,6 +42,133 @@ class ICanvasRenderingContext2D extends IDispatch{
     static VTableNames => ["get_canvas", "restore", "save", "rotate", "scale", "setTransform", "transform", "translate", "put_globalAlpha", "get_globalAlpha", "put_globalCompositeOperation", "get_globalCompositeOperation", "put_fillStyle", "get_fillStyle", "put_strokeStyle", "get_strokeStyle", "createLinearGradient", "createRadialGradient", "createPattern", "put_lineCap", "get_lineCap", "put_lineJoin", "get_lineJoin", "put_lineWidth", "get_lineWidth", "put_miterLimit", "get_miterLimit", "put_shadowBlur", "get_shadowBlur", "put_shadowColor", "get_shadowColor", "put_shadowOffsetX", "get_shadowOffsetX", "put_shadowOffsetY", "get_shadowOffsetY", "clearRect", "fillRect", "strokeRect", "arc", "arcTo", "beginPath", "bezierCurveTo", "clip", "closePath", "fill", "lineTo", "moveTo", "quadraticCurveTo", "rect", "stroke", "isPointInPath", "put_font", "get_font", "put_textAlign", "get_textAlign", "put_textBaseline", "get_textBaseline", "fillText", "measureText", "strokeText", "drawImage", "createImageData", "getImageData", "putImageData"]
 
     /**
+     * @type {IHTMLCanvasElement} 
+     */
+    canvas {
+        get => this.get_canvas()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    globalAlpha {
+        get => this.get_globalAlpha()
+        set => this.put_globalAlpha(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    globalCompositeOperation {
+        get => this.get_globalCompositeOperation()
+        set => this.put_globalCompositeOperation(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    fillStyle {
+        get => this.get_fillStyle()
+        set => this.put_fillStyle(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    strokeStyle {
+        get => this.get_strokeStyle()
+        set => this.put_strokeStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    lineCap {
+        get => this.get_lineCap()
+        set => this.put_lineCap(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    lineJoin {
+        get => this.get_lineJoin()
+        set => this.put_lineJoin(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    lineWidth {
+        get => this.get_lineWidth()
+        set => this.put_lineWidth(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    miterLimit {
+        get => this.get_miterLimit()
+        set => this.put_miterLimit(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    shadowBlur {
+        get => this.get_shadowBlur()
+        set => this.put_shadowBlur(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    shadowColor {
+        get => this.get_shadowColor()
+        set => this.put_shadowColor(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    shadowOffsetX {
+        get => this.get_shadowOffsetX()
+        set => this.put_shadowOffsetX(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    shadowOffsetY {
+        get => this.get_shadowOffsetY()
+        set => this.put_shadowOffsetY(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    font {
+        get => this.get_font()
+        set => this.put_font(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textAlign {
+        get => this.get_textAlign()
+        set => this.put_textAlign(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textBaseline {
+        get => this.get_textBaseline()
+        set => this.put_textBaseline(value)
+    }
+
+    /**
      * 
      * @returns {IHTMLCanvasElement} 
      */

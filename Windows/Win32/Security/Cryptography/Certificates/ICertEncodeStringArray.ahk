@@ -32,10 +32,13 @@ class ICertEncodeStringArray extends IDispatch{
     static VTableNames => ["Decode", "GetStringType", "GetCount", "GetValue", "Reset", "SetValue", "Encode"]
 
     /**
+     * Decodes an Abstract Syntax Notation One (ASN.1)-encoded string array and stores the resulting array of strings in the CertEncodeStringArray object.
+     * @param {BSTR} strBinary An ASN.1-encoded string array.
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
      * 
-     * @param {BSTR} strBinary 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-decode
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodestringarray-decode
      */
     Decode(strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
@@ -45,9 +48,9 @@ class ICertEncodeStringArray extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getstringtype
+     * Returns the type of string values that the string array contains.
+     * @returns {Integer} A pointer to a <b>Long</b> that  represents the string type. For a list of string types, see Remarks.
+     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodestringarray-getstringtype
      */
     GetStringType() {
         result := ComCall(8, this, "int*", &pStringType := 0, "HRESULT")
@@ -55,9 +58,9 @@ class ICertEncodeStringArray extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getcount
+     * Returns the number of string values in the string array.
+     * @returns {Integer} A pointer to a <b>LONG</b> that receives the number of string values contained in the string array.
+     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodestringarray-getcount
      */
     GetCount() {
         result := ComCall(9, this, "int*", &pCount := 0, "HRESULT")
@@ -65,10 +68,10 @@ class ICertEncodeStringArray extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Index 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-getvalue
+     * Returns the specified string from the string array.
+     * @param {Integer} Index The zero-based index that specifies the string to retrieve.
+     * @returns {BSTR} A pointer to a <b>BSTR</b> that represents the string value. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodestringarray-getvalue
      */
     GetValue(Index) {
         pstr := BSTR()
@@ -77,11 +80,14 @@ class ICertEncodeStringArray extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Count 
+     * Specifies the size of the string array and the type of strings the array will contain.
+     * @param {Integer} Count Specifies the number of elements in the string array.
      * @param {Integer} StringType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-reset
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
+     * 
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodestringarray-reset
      */
     Reset(Count, StringType) {
         result := ComCall(11, this, "int", Count, "int", StringType, "HRESULT")
@@ -89,11 +95,14 @@ class ICertEncodeStringArray extends IDispatch{
     }
 
     /**
+     * Sets a string value at the specified index of the string array.
+     * @param {Integer} Index The zero-based index that specifies the element of the string array to set.
+     * @param {BSTR} str Specifies the string value to set.
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
      * 
-     * @param {Integer} Index 
-     * @param {BSTR} str 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-setvalue
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodestringarray-setvalue
      */
     SetValue(Index, str) {
         str := str is String ? BSTR.Alloc(str).Value : str
@@ -103,9 +112,9 @@ class ICertEncodeStringArray extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodestringarray-encode
+     * Returns an ASN.1-encoded string of the string array stored in this object.
+     * @returns {BSTR} A pointer to a <b>BSTR</b> that will contain the encoded string array. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
+     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodestringarray-encode
      */
     Encode() {
         pstrBinary := BSTR()

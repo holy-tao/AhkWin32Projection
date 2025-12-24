@@ -75,10 +75,15 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Specifies whether to apply the transfer function to the red channel.
+     * @param {BOOL} redDisable Type: <b>BOOL</b>
      * 
-     * @param {BOOL} redDisable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setreddisable
+     * A boolean value that specifies whether to apply the transfer function to the red channel.
+     *             If you set this to TRUE the effect does not apply the transfer function to the red channel. If you set this to FALSE the effect applies the RedLinearTransfer function to the red channel.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionlineartransfereffect-setreddisable
      */
     SetRedDisable(redDisable) {
         result := ComCall(8, this, "int", redDisable, "HRESULT")
@@ -130,10 +135,15 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Specifies whether to apply the transfer function to the green channel.
+     * @param {BOOL} greenDisable Type: <b>BOOL</b>
      * 
-     * @param {BOOL} greenDisable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreendisable
+     * A boolean value that specifies whether to apply the transfer function to the green channel.
+     *             If you set this to TRUE the effect does not apply the transfer function to the green channel. If you set this to FALSE it applies the GreenLinearTransfer function to the green channel.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionlineartransfereffect-setgreendisable
      */
     SetGreenDisable(greenDisable) {
         result := ComCall(13, this, "int", greenDisable, "HRESULT")
@@ -185,10 +195,15 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Specifies whether to apply the transfer function to the blue channel.
+     * @param {BOOL} blueDisable Type: <b>BOOL</b>
      * 
-     * @param {BOOL} blueDisable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setbluedisable
+     * A boolean value that specifies whether to apply the transfer function to the blue channel.
+     *             If you set this to TRUE the effect does not apply the transfer function to the blue channel. If you set this to FALSE it applies the BlueLinearTransfer function to the blue channel.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionlineartransfereffect-setbluedisable
      */
     SetBlueDisable(blueDisable) {
         result := ComCall(18, this, "int", blueDisable, "HRESULT")
@@ -240,10 +255,15 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Specifies whether to apply the transfer function to the alpha channel.
+     * @param {BOOL} alphaDisable Type: <b>BOOL</b>
      * 
-     * @param {BOOL} alphaDisable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphadisable
+     * A boolean value that specifies whether to apply the transfer function to the alpha channel.
+     *             If you set this to TRUE the effect does not apply the transfer function to the Alpha channel. If you set this to FALSE it applies the AlphaLinearTransfer function to the Alpha channel.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionlineartransfereffect-setalphadisable
      */
     SetAlphaDisable(alphaDisable) {
         result := ComCall(23, this, "int", alphaDisable, "HRESULT")
@@ -251,10 +271,16 @@ class IDCompositionLinearTransferEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * Specifies whether the effect clamps color values to between 0 and 1 before the effect passes the values to the next effect in the graph.
+     * @param {BOOL} clampOutput Type: <b>BOOL</b>
      * 
-     * @param {BOOL} clampOutput 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionlineartransfereffect-setclampoutput
+     * A boolean value that specifies whether the effect clamps color values to between 0 and 1 before the effect passes the values to the next effect in the graph.
+     *             If you set this to TRUE the effect will clamp the values. If you set this to FALSE, the effect will not clamp the color values, but other effects and the output
+     *             surface may clamp the values if they are not of high enough precision.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionlineartransfereffect-setclampoutput
      */
     SetClampOutput(clampOutput) {
         result := ComCall(24, this, "int", clampOutput, "HRESULT")

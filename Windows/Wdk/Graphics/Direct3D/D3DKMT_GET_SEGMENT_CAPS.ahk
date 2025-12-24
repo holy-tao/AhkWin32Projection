@@ -1,0 +1,41 @@
+#Requires AutoHotkey v2.0.0 64-bit
+#Include ..\..\..\..\Win32Struct.ahk
+#Include .\D3DKMT_SEGMENT_CAPS.ahk
+
+/**
+ * @namespace Windows.Wdk.Graphics.Direct3D
+ * @version v4.0.30319
+ */
+class D3DKMT_GET_SEGMENT_CAPS extends Win32Struct
+{
+    static sizeof => 264
+
+    static packingSize => 8
+
+    /**
+     * @type {Integer}
+     */
+    PhysicalAdapterIndex {
+        get => NumGet(this, 0, "uint")
+        set => NumPut("uint", value, this, 0)
+    }
+
+    /**
+     * @type {Integer}
+     */
+    NumSegments {
+        get => NumGet(this, 4, "uint")
+        set => NumPut("uint", value, this, 4)
+    }
+
+    /**
+     * @type {Array<D3DKMT_SEGMENT_CAPS>}
+     */
+    SegmentCaps{
+        get {
+            if(!this.HasProp("__SegmentCapsProxyArray"))
+                this.__SegmentCapsProxyArray := Win32FixedArray(this.ptr + 8, 32, Primitive, "ptr")
+            return this.__SegmentCapsProxyArray
+        }
+    }
+}

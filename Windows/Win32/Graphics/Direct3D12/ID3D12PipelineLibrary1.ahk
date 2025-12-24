@@ -31,12 +31,28 @@ class ID3D12PipelineLibrary1 extends ID3D12PipelineLibrary{
     static VTableNames => ["LoadPipeline"]
 
     /**
+     * Retrieves the requested PSO from the library. The pipeline stream description is matched against the library database and remembered in order to prevent duplication of PSO contents.
+     * @param {PWSTR} pName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pName 
-     * @param {Pointer<D3D12_PIPELINE_STATE_STREAM_DESC>} pDesc 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12pipelinelibrary1-loadpipeline
+     * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-function-parameters-and-return-values?view=vs-2015">SAL</a>: <c>_In_</c>
+     * 
+     * The unique name of the PSO.
+     * @param {Pointer<D3D12_PIPELINE_STATE_STREAM_DESC>} pDesc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_pipeline_state_stream_desc">D3D12_PIPELINE_STATE_STREAM_DESC</a>*</b>
+     * 
+     * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-function-parameters-and-return-values?view=vs-2015">SAL</a>: <c>_In_</c>
+     * 
+     * Describes the required PSO using a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_pipeline_state_stream_desc">D3D12_PIPELINE_STATE_STREAM_DESC</a> structure. This description is matched against the library database and stored in order to prevent duplication of PSO contents.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * Specifies a REFIID for the ID3D12PipelineStateState object.
+     * 
+     * Applications should typically set this argument and the following argument, ppPipelineState, by using the macro IID_PPV_ARGS(&amp;PSO1), where PSO1 is the name of the object.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * <a href="https://docs.microsoft.com/visualstudio/code-quality/annotating-function-parameters-and-return-values?view=vs-2015">SAL</a>: <c>_COM_Outptr_</c>
+     * 
+     * Specifies the pointer that will reference the PSO after the function successfully returns.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12pipelinelibrary1-loadpipeline
      */
     LoadPipeline(pName, pDesc, riid) {
         pName := pName is String ? StrPtr(pName) : pName

@@ -34,9 +34,23 @@ class ITACDGroup extends IDispatch{
     static VTableNames => ["get_Name", "EnumerateQueues", "get_Queues"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itacdgroup-get_name
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Queues {
+        get => this.get_Queues()
+    }
+
+    /**
+     * The get_Name method gets the ACD group name. This string can be a displayable name for the group.
+     * @returns {BSTR} Pointer to <b>BSTR</b> representation of group name.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itacdgroup-get_name
      */
     get_Name() {
         ppName := BSTR()
@@ -45,9 +59,10 @@ class ITACDGroup extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumQueue} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itacdgroup-enumeratequeues
+     * The EnumerateQueues method enumerates queues currently on the ACD group. This method is provided for C and C++ applications. Automation client applications, such as those written in Visual Basic, must use the get_Queues method.
+     * @returns {IEnumQueue} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumqueue">IEnumQueue</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itacdgroup-enumeratequeues
      */
     EnumerateQueues() {
         result := ComCall(8, this, "ptr*", &ppEnumQueue := 0, "HRESULT")
@@ -55,9 +70,11 @@ class ITACDGroup extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itacdgroup-get_queues
+     * The get_Queues method creates a collection of queues associated with the current ACD group. This method is provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateQueues method.
+     * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3cc/nn-tapi3cc-itqueue">ITQueue</a> interface pointers (queue objects).
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itacdgroup-get_queues
      */
     get_Queues() {
         pVariant := VARIANT()

@@ -32,11 +32,11 @@ class ITLegacyAddressMediaControl2 extends ITLegacyAddressMediaControl{
     static VTableNames => ["ConfigDialog", "ConfigDialogEdit"]
 
     /**
-     * 
-     * @param {HWND} hwndOwner 
-     * @param {BSTR} pDeviceClass 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacyaddressmediacontrol2-configdialog
+     * The ConfigDialog method causes the provider of the specified line device to display a dialog box to allow the user to configure parameters related to the line device. The parameters that can be edited are those currently in use on the device.
+     * @param {HWND} hwndOwner A handle to a window to which the dialog box is to be attached. This parameter can be <b>NULL</b> to indicate that a window created by the method should have no owner window.
+     * @param {BSTR} pDeviceClass Pointer to a <b>BSTR</b> that specifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest-level configuration is selected.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacyaddressmediacontrol2-configdialog
      */
     ConfigDialog(hwndOwner, pDeviceClass) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -47,15 +47,15 @@ class ITLegacyAddressMediaControl2 extends ITLegacyAddressMediaControl{
     }
 
     /**
-     * 
-     * @param {HWND} hwndOwner 
-     * @param {BSTR} pDeviceClass 
-     * @param {Integer} dwSizeIn 
-     * @param {Pointer<Integer>} pDeviceConfigIn 
-     * @param {Pointer<Integer>} pdwSizeOut 
-     * @param {Pointer<Pointer<Integer>>} ppDeviceConfigOut 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itlegacyaddressmediacontrol2-configdialogedit
+     * The ConfigDialogEdit method causes the provider of the specified line device to display a dialog box to allow the user to configure parameters related to the line device.
+     * @param {HWND} hwndOwner A handle to a window to which the dialog box is to be attached. Can be <b>NULL</b> to indicate that a window created by the method should have no owner window.
+     * @param {BSTR} pDeviceClass Pointer to a <b>BSTR</b> that specifies a device class name. This device class allows the application to select a specific subscreen of configuration information applicable to that device class. This parameter is optional and can be left <b>NULL</b> or empty, in which case the highest level configuration is selected.
+     * @param {Integer} dwSizeIn Pointer to the size of the configuration data pointed to by the <i>pDeviceConfigIn</i> parameter.
+     * @param {Pointer<Integer>} pDeviceConfigIn Pointer to an array of bytes containing device configuration data to edit.
+     * @param {Pointer<Integer>} pdwSizeOut Pointer to the size of the configuration data pointed to by the <i>ppDeviceConfigOut</i> parameter.
+     * @param {Pointer<Pointer<Integer>>} ppDeviceConfigOut Pointer to an array of bytes containing edited device configuration data.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itlegacyaddressmediacontrol2-configdialogedit
      */
     ConfigDialogEdit(hwndOwner, pDeviceClass, dwSizeIn, pDeviceConfigIn, pdwSizeOut, ppDeviceConfigOut) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner

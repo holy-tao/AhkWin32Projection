@@ -36,9 +36,11 @@ class ID3D12ShaderReflectionVariable extends Win32ComInterface{
     static VTableNames => ["GetDesc", "GetType", "GetBuffer", "GetInterfaceSlot"]
 
     /**
+     * Gets a shader-variable description.
+     * @returns {D3D12_SHADER_VARIABLE_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/ns-d3d12shader-d3d12_shader_variable_desc">D3D12_SHADER_VARIABLE_DESC</a>*</b>
      * 
-     * @returns {D3D12_SHADER_VARIABLE_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectionvariable-getdesc
+     * A pointer to a shader-variable description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/ns-d3d12shader-d3d12_shader_variable_desc">D3D12_SHADER_VARIABLE_DESC</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectionvariable-getdesc
      */
     GetDesc() {
         pDesc := D3D12_SHADER_VARIABLE_DESC()
@@ -47,9 +49,11 @@ class ID3D12ShaderReflectionVariable extends Win32ComInterface{
     }
 
     /**
+     * Gets a shader-variable type.
+     * @returns {ID3D12ShaderReflectionType} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
      * 
-     * @returns {ID3D12ShaderReflectionType} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectionvariable-gettype
+     * A pointer to a <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectionvariable-gettype
      */
     GetType() {
         result := ComCall(1, this, "ptr")
@@ -57,9 +61,11 @@ class ID3D12ShaderReflectionVariable extends Win32ComInterface{
     }
 
     /**
+     * Returns the ID3D12ShaderReflectionConstantBuffer of the present ID3D12ShaderReflectionVariable.
+     * @returns {ID3D12ShaderReflectionConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectionconstantbuffer">ID3D12ShaderReflectionConstantBuffer</a>*</b>
      * 
-     * @returns {ID3D12ShaderReflectionConstantBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectionvariable-getbuffer
+     * Returns a pointer to the <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectionconstantbuffer">ID3D12ShaderReflectionConstantBuffer</a> of the present <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectionvariable">ID3D12ShaderReflectionVariable</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectionvariable-getbuffer
      */
     GetBuffer() {
         result := ComCall(2, this, "ptr")
@@ -67,10 +73,15 @@ class ID3D12ShaderReflectionVariable extends Win32ComInterface{
     }
 
     /**
+     * Gets the corresponding interface slot for a variable that represents an interface pointer.
+     * @param {Integer} uArrayIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} uArrayIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectionvariable-getinterfaceslot
+     * The index of the array element to get the slot number for.
+     *             For a non-array variable this value will be zero.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Returns the index of the interface in the interface array.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectionvariable-getinterfaceslot
      */
     GetInterfaceSlot(uArrayIndex) {
         result := ComCall(3, this, "uint", uArrayIndex, "uint")

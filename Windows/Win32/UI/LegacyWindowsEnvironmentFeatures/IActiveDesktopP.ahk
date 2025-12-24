@@ -31,10 +31,14 @@ class IActiveDesktopP extends IUnknown{
     static VTableNames => ["SetSafeMode", "EnsureUpdateHTML", "SetScheme", "GetScheme"]
 
     /**
+     * Sets or updates the Microsoft Active Desktop to safe mode.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-iactivedesktopp-setsafemode
+     * One of the following flags.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-iactivedesktopp-setsafemode
      */
     SetSafeMode(dwFlags) {
         result := ComCall(3, this, "uint", dwFlags, "HRESULT")

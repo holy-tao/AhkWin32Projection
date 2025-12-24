@@ -37,12 +37,18 @@ class IUserNotification2 extends IUnknown{
     static VTableNames => ["SetBalloonInfo", "SetBalloonRetry", "SetIconInfo", "Show", "PlaySound"]
 
     /**
+     * Sets the information to be displayed in a balloon notification.
+     * @param {PWSTR} pszTitle Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszTitle 
-     * @param {PWSTR} pszText 
-     * @param {Integer} dwInfoFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iusernotification2-setballooninfo
+     * A pointer to a Unicode string that specifies the title of the notification.
+     * @param {PWSTR} pszText Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a Unicode string that specifies the text to be displayed in the body of the balloon.
+     * @param {Integer} dwInfoFlags Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iusernotification2-setballooninfo
      */
     SetBalloonInfo(pszTitle, pszText, dwInfoFlags) {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
@@ -53,12 +59,20 @@ class IUserNotification2 extends IUnknown{
     }
 
     /**
+     * Specifies the conditions for trying to display user information when the first attempt fails.
+     * @param {Integer} dwShowTime Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwShowTime 
-     * @param {Integer} dwInterval 
-     * @param {Integer} cRetryCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iusernotification2-setballoonretry
+     * The amount of time, in milliseconds, to display the user information.
+     * @param {Integer} dwInterval Type: <b>DWORD</b>
+     * 
+     * The interval of time, in milliseconds, between attempts to display the user information.
+     * @param {Integer} cRetryCount Type: <b>UINT</b>
+     * 
+     * The number of times the system should try to display the user information.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iusernotification2-setballoonretry
      */
     SetBalloonRetry(dwShowTime, dwInterval, cRetryCount) {
         result := ComCall(4, this, "uint", dwShowTime, "uint", dwInterval, "uint", cRetryCount, "HRESULT")
@@ -66,11 +80,17 @@ class IUserNotification2 extends IUnknown{
     }
 
     /**
+     * Sets the notification area icon associated with specific user information.
+     * @param {HICON} hIcon Type: <b>HICON</b>
      * 
-     * @param {HICON} hIcon 
-     * @param {PWSTR} pszToolTip 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iusernotification2-seticoninfo
+     * A handle to the icon.
+     * @param {PWSTR} pszToolTip Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a string that contains the tooltip text to display for the specified icon. This value can be <b>NULL</b>, although it is not recommended.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iusernotification2-seticoninfo
      */
     SetIconInfo(hIcon, pszToolTip) {
         hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
@@ -81,12 +101,20 @@ class IUserNotification2 extends IUnknown{
     }
 
     /**
+     * Displays the user information in a balloon-style tooltip.
+     * @param {IQueryContinue} pqc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iquerycontinue">IQueryContinue</a>*</b>
      * 
-     * @param {IQueryContinue} pqc 
-     * @param {Integer} dwContinuePollInterval 
-     * @param {IUserNotificationCallback} pSink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iusernotification2-show
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iquerycontinue">IQueryContinue</a> interface pointer, used to determine whether the notification display can continue or should stop (for example, if the user closes the notification). This value can be <b>NULL</b>.
+     * @param {Integer} dwContinuePollInterval Type: <b>DWORD</b>
+     * 
+     * The length of time, in milliseconds, to display user information.
+     * @param {IUserNotificationCallback} pSink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-iusernotificationcallback">IUserNotificationCallback</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-iusernotificationcallback">IUserNotificationCallback</a> interface, used to handle mouse click and hover actions on the notification area icon and within the notification itself. This value can be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iusernotification2-show
      */
     Show(pqc, dwContinuePollInterval, pSink) {
         result := ComCall(6, this, "ptr", pqc, "uint", dwContinuePollInterval, "ptr", pSink, "HRESULT")
@@ -94,10 +122,14 @@ class IUserNotification2 extends IUnknown{
     }
 
     /**
+     * Plays a sound in conjunction with the notification.
+     * @param {PWSTR} pszSoundName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszSoundName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iusernotification2-playsound
+     * A pointer to a null-terminated Unicode string that specifies the alias of the sound file to play.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iusernotification2-playsound
      */
     PlaySound(pszSoundName) {
         pszSoundName := pszSoundName is String ? StrPtr(pszSoundName) : pszSoundName

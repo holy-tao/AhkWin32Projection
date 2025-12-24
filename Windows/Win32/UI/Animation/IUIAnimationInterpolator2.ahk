@@ -40,9 +40,9 @@ class IUIAnimationInterpolator2 extends IUnknown{
     static VTableNames => ["GetDimension", "SetInitialValueAndVelocity", "SetDuration", "GetDuration", "GetFinalValue", "InterpolateValue", "InterpolateVelocity", "GetPrimitiveInterpolation", "GetDependencies"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getdimension
+     * Gets the number of dimensions that require interpolation.
+     * @returns {Integer} The number of dimensions.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator2-getdimension
      */
     GetDimension() {
         result := ComCall(3, this, "uint*", &dimension := 0, "HRESULT")
@@ -50,12 +50,12 @@ class IUIAnimationInterpolator2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Float>} initialValue 
-     * @param {Pointer<Float>} initialVelocity 
-     * @param {Integer} cDimension 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-setinitialvalueandvelocity
+     * Sets the initial value and velocity of the transition for the given dimension.
+     * @param {Pointer<Float>} initialValue The initial value.
+     * @param {Pointer<Float>} initialVelocity The initial velocity.
+     * @param {Integer} cDimension The dimension in which to set the initial value or velocity of the transition.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator2-setinitialvalueandvelocity
      */
     SetInitialValueAndVelocity(initialValue, initialVelocity, cDimension) {
         initialValueMarshal := initialValue is VarRef ? "double*" : "ptr"
@@ -66,10 +66,10 @@ class IUIAnimationInterpolator2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Float} duration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-setduration
+     * Sets the duration of the transition in the given dimension.
+     * @param {Float} duration The duration of the transition.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator2-setduration
      */
     SetDuration(duration) {
         result := ComCall(5, this, "double", duration, "HRESULT")
@@ -77,9 +77,9 @@ class IUIAnimationInterpolator2 extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getduration
+     * Gets the duration of a transition for the given dimension.
+     * @returns {Float} The duration of the transition.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator2-getduration
      */
     GetDuration() {
         result := ComCall(6, this, "double*", &duration := 0, "HRESULT")
@@ -87,10 +87,10 @@ class IUIAnimationInterpolator2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} cDimension 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getfinalvalue
+     * Gets the final value at the end of the transition for the given dimension.
+     * @param {Integer} cDimension The dimension from which to retrieve the final value.
+     * @returns {Float} The final value.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator2-getfinalvalue
      */
     GetFinalValue(cDimension) {
         result := ComCall(7, this, "double*", &value := 0, "uint", cDimension, "HRESULT")
@@ -98,11 +98,13 @@ class IUIAnimationInterpolator2 extends IUnknown{
     }
 
     /**
+     * Interpolates the value of an animation variable at the specified offset and for the given dimension.
+     * @param {Float} offset The offset from the start of the transition.
      * 
-     * @param {Float} offset 
-     * @param {Integer} cDimension 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-interpolatevalue
+     * This parameter is always greater than or equal to zero and less than the duration of the transition. This method is not called if the duration of the transition is zero.
+     * @param {Integer} cDimension The dimension in which to interpolate the value.
+     * @returns {Float} The interpolated value.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator2-interpolatevalue
      */
     InterpolateValue(offset, cDimension) {
         result := ComCall(8, this, "double", offset, "double*", &value := 0, "uint", cDimension, "HRESULT")
@@ -110,11 +112,15 @@ class IUIAnimationInterpolator2 extends IUnknown{
     }
 
     /**
+     * Interpolates the velocity, or rate of change, at the specified offset for the given dimension.
+     * @param {Float} offset The offset from the start of the transition.
      * 
-     * @param {Float} offset 
-     * @param {Integer} cDimension 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-interpolatevelocity
+     * 
+     * 
+     * The offset is always greater than or equal to zero and less than or equal to the duration of the transition. This method is not called if the duration of the transition is zero.
+     * @param {Integer} cDimension The dimension in which to interpolate the velocity.
+     * @returns {Float} The interpolated velocity.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator2-interpolatevelocity
      */
     InterpolateVelocity(offset, cDimension) {
         result := ComCall(9, this, "double", offset, "double*", &velocity := 0, "uint", cDimension, "HRESULT")
@@ -122,11 +128,11 @@ class IUIAnimationInterpolator2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUIAnimationPrimitiveInterpolation} interpolation 
-     * @param {Integer} cDimension 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getprimitiveinterpolation
+     * Generates a primitive interpolation of the specified animation curve.
+     * @param {IUIAnimationPrimitiveInterpolation} interpolation The object that defines the custom animation curve information.
+     * @param {Integer} cDimension The dimension in which to apply the new segment.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator2-getprimitiveinterpolation
      */
     GetPrimitiveInterpolation(interpolation, cDimension) {
         result := ComCall(10, this, "ptr", interpolation, "uint", cDimension, "HRESULT")
@@ -134,12 +140,12 @@ class IUIAnimationInterpolator2 extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} initialValueDependencies 
-     * @param {Pointer<Integer>} initialVelocityDependencies 
-     * @param {Pointer<Integer>} durationDependencies 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationinterpolator2-getdependencies
+     * For the given dimension, GetDependencies retrieves the aspects of the interpolator that depend on the initial value or velocity that is passed to the IUIAnimationInterpolator2::SetInitialValueAndVelocity method or the duration that is passed to the IUIAnimationInterpolator2::SetDuration method.
+     * @param {Pointer<Integer>} initialValueDependencies Aspects of the interpolator that depend on the  initial value passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator2-setinitialvalueandvelocity">SetInitialValueAndVelocity</a>.
+     * @param {Pointer<Integer>} initialVelocityDependencies Aspects of the interpolator that depend on the initial velocity passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator2-setinitialvalueandvelocity">SetInitialValueAndVelocity</a>.
+     * @param {Pointer<Integer>} durationDependencies Aspects of the interpolator that depend on the duration passed to <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationinterpolator2-setduration">SetDuration</a>.
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationinterpolator2-getdependencies
      */
     GetDependencies(initialValueDependencies, initialVelocityDependencies, durationDependencies) {
         initialValueDependenciesMarshal := initialValueDependencies is VarRef ? "int*" : "ptr"

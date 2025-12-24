@@ -45,9 +45,22 @@ class IFaxIncomingQueue extends IDispatch{
     static VTableNames => ["get_Blocked", "put_Blocked", "Refresh", "Save", "GetJobs", "GetJob"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Blocked {
+        get => this.get_Blocked()
+        set => this.put_Blocked(value)
+    }
+
+    /**
+     * The Blocked property is a Boolean value that indicates whether the job queue for incoming faxes is blocked.
+     * @remarks
+     * 
+     * If this property is equal to <b>TRUE</b>, the inbound job queue is blocked and the fax service is not answering incoming fax calls. If this property is equal to <b>FALSE</b>, the queue is not blocked.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-get_blocked
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingqueue-get_blocked
      */
     get_Blocked() {
         result := ComCall(7, this, "short*", &pbBlocked := 0, "HRESULT")
@@ -55,10 +68,15 @@ class IFaxIncomingQueue extends IDispatch{
     }
 
     /**
+     * The Blocked property is a Boolean value that indicates whether the job queue for incoming faxes is blocked.
+     * @remarks
+     * 
+     * If this property is equal to <b>TRUE</b>, the inbound job queue is blocked and the fax service is not answering incoming fax calls. If this property is equal to <b>FALSE</b>, the queue is not blocked.
+     * 
      * 
      * @param {VARIANT_BOOL} bBlocked 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-put_blocked
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingqueue-put_blocked
      */
     put_Blocked(bBlocked) {
         result := ComCall(8, this, "short", bBlocked, "HRESULT")
@@ -66,9 +84,11 @@ class IFaxIncomingQueue extends IDispatch{
     }
 
     /**
+     * The Refresh method refreshes FaxIncomingQueue object information from the fax server. When the Refresh method is called, any configuration changes made after the last Save method call are lost.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-refresh
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingqueue-refresh
      */
     Refresh() {
         result := ComCall(9, this, "HRESULT")
@@ -76,9 +96,11 @@ class IFaxIncomingQueue extends IDispatch{
     }
 
     /**
+     * The Save method saves the FaxIncomingQueue object's data.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-save
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingqueue-save
      */
     Save() {
         result := ComCall(10, this, "HRESULT")
@@ -86,9 +108,11 @@ class IFaxIncomingQueue extends IDispatch{
     }
 
     /**
+     * The GetJobs method returns the collection of inbound fax jobs in the queue.
+     * @returns {IFaxIncomingJobs} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxincomingjobs">IFaxIncomingJobs</a>**</b>
      * 
-     * @returns {IFaxIncomingJobs} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-getjobs
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingjobs">FaxIncomingJobs</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingqueue-getjobs
      */
     GetJobs() {
         result := ComCall(11, this, "ptr*", &pFaxIncomingJobs := 0, "HRESULT")
@@ -96,10 +120,14 @@ class IFaxIncomingQueue extends IDispatch{
     }
 
     /**
+     * The GetJob method returns an incoming fax job in the job queue according to its ID.
+     * @param {BSTR} bstrJobId Type: <b>BSTR</b>
      * 
-     * @param {BSTR} bstrJobId 
-     * @returns {IFaxIncomingJob} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingqueue-getjob
+     * Specifies the job ID.
+     * @returns {IFaxIncomingJob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxincomingjob">IFaxIncomingJob</a>**</b>
+     * 
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxincomingjob">FaxIncomingJob</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingqueue-getjob
      */
     GetJob(bstrJobId) {
         bstrJobId := bstrJobId is String ? BSTR.Alloc(bstrJobId).Value : bstrJobId

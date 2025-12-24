@@ -31,12 +31,14 @@ class IWbemUnboundObjectSink extends IUnknown{
     static VTableNames => ["IndicateToConsumer"]
 
     /**
-     * 
-     * @param {IWbemClassObject} pLogicalConsumer 
-     * @param {Integer} lNumObjects 
-     * @param {Pointer<IWbemClassObject>} apObjects 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemunboundobjectsink-indicatetoconsumer
+     * Called by WMI to actually deliver events to a consumer.
+     * @param {IWbemClassObject} pLogicalConsumer Pointer to the logical consumer object for which this set of objects is delivered.
+     * @param {Integer} lNumObjects Number of objects delivered in the array that follows.
+     * @param {Pointer<IWbemClassObject>} apObjects Pointer to an array of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemclassobject">IWbemClassObject</a> instances which represent the events delivered. Because each object in the array corresponds to a separate event, an implementation of 
+     * <b>IndicateToConsumer</b> must treat each object separately.
+     * @returns {HRESULT} This method returns <b>WBEM_S_NO_ERROR</b> if successful. Otherwise, the implementation should return an appropriate error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemunboundobjectsink-indicatetoconsumer
      */
     IndicateToConsumer(pLogicalConsumer, lNumObjects, apObjects) {
         result := ComCall(3, this, "ptr", pLogicalConsumer, "int", lNumObjects, "ptr*", apObjects, "HRESULT")

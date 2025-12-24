@@ -33,9 +33,40 @@ class ITFileTrack extends IDispatch{
     static VTableNames => ["get_Format", "put_Format", "get_ControllingTerminal", "get_AudioFormatForScripting", "put_AudioFormatForScripting", "get_EmptyAudioFormatForScripting"]
 
     /**
-     * 
-     * @returns {Pointer<AM_MEDIA_TYPE>} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-get_format
+     * @type {Pointer<AM_MEDIA_TYPE>} 
+     */
+    Format {
+        get => this.get_Format()
+        set => this.put_Format(value)
+    }
+
+    /**
+     * @type {ITTerminal} 
+     */
+    ControllingTerminal {
+        get => this.get_ControllingTerminal()
+    }
+
+    /**
+     * @type {ITScriptableAudioFormat} 
+     */
+    AudioFormatForScripting {
+        get => this.get_AudioFormatForScripting()
+        set => this.put_AudioFormatForScripting(value)
+    }
+
+    /**
+     * @type {ITScriptableAudioFormat} 
+     */
+    EmptyAudioFormatForScripting {
+        get => this.get_EmptyAudioFormatForScripting()
+    }
+
+    /**
+     * The get_Format method gets the file terminal's format.
+     * @returns {Pointer<AM_MEDIA_TYPE>} Pointer to an 
+     * <b>AM_MEDIA_TYPE</b> descriptor of the terminal format. For more information on <b>AM_MEDIA_TYPE</b>, see the DirectX documentation.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfiletrack-get_format
      */
     get_Format() {
         result := ComCall(7, this, "ptr*", &ppmt := 0, "HRESULT")
@@ -43,10 +74,11 @@ class ITFileTrack extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<AM_MEDIA_TYPE>} pmt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-put_format
+     * The put_Format method sets the format type of the track.
+     * @param {Pointer<AM_MEDIA_TYPE>} pmt The
+     * <b>AM_MEDIA_TYPE</b> descriptor of the file track format. For more information about <b>AM_MEDIA_TYPE</b>, see the DirectX documentation. The <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itfiletrack">ITFileTrack</a> only supports the <b>FORMAT_WaveFormatEx</b> format type  in the <b>AM_MEDIA_TYPE</b> structure.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfiletrack-put_format
      */
     put_Format(pmt) {
         result := ComCall(8, this, "ptr", pmt, "HRESULT")
@@ -54,9 +86,10 @@ class ITFileTrack extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITTerminal} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-get_controllingterminal
+     * The get_ControllingTerminal method returns the multitrack terminal that controls the current track.
+     * @returns {ITTerminal} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfiletrack-get_controllingterminal
      */
     get_ControllingTerminal() {
         result := ComCall(9, this, "ptr*", &ppControllingTerminal := 0, "HRESULT")
@@ -64,9 +97,10 @@ class ITFileTrack extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITScriptableAudioFormat} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-get_audioformatforscripting
+     * The get_AudioFormatForScripting method gets the audio scripting format.
+     * @returns {ITScriptableAudioFormat} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itscriptableaudioformat">ITScriptableAudioFormat</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfiletrack-get_audioformatforscripting
      */
     get_AudioFormatForScripting() {
         result := ComCall(10, this, "ptr*", &ppAudioFormat := 0, "HRESULT")
@@ -74,10 +108,11 @@ class ITFileTrack extends IDispatch{
     }
 
     /**
-     * 
-     * @param {ITScriptableAudioFormat} pAudioFormat 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-put_audioformatforscripting
+     * The put_AudioFormatForScripting method sets the audio scripting format.
+     * @param {ITScriptableAudioFormat} pAudioFormat Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itscriptableaudioformat">ITScriptableAudioFormat</a> interface.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfiletrack-put_audioformatforscripting
      */
     put_AudioFormatForScripting(pAudioFormat) {
         result := ComCall(11, this, "ptr", pAudioFormat, "HRESULT")
@@ -85,9 +120,10 @@ class ITFileTrack extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITScriptableAudioFormat} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itfiletrack-get_emptyaudioformatforscripting
+     * The get_EmptyAudioFormatForScripting method is used to get an ITScriptableAudioFormat interface with all fields set to 0.
+     * @returns {ITScriptableAudioFormat} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itscriptableaudioformat">ITScriptableAudioFormat</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itfiletrack-get_emptyaudioformatforscripting
      */
     get_EmptyAudioFormatForScripting() {
         result := ComCall(12, this, "ptr*", &ppAudioFormat := 0, "HRESULT")

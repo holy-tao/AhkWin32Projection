@@ -36,6 +36,27 @@ class IDOMTextEvent extends IDispatch{
     static VTableNames => ["get_data", "get_inputMethod", "initTextEvent", "get_locale"]
 
     /**
+     * @type {BSTR} 
+     */
+    data {
+        get => this.get_data()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    inputMethod {
+        get => this.get_inputMethod()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    locale {
+        get => this.get_locale()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -34,9 +34,18 @@ class ITTAPI2 extends ITTAPI{
     static VTableNames => ["get_Phones", "EnumeratePhones", "CreateEmptyCollectionObject"]
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi2-get_phones
+     * @type {VARIANT} 
+     */
+    Phones {
+        get => this.get_Phones()
+    }
+
+    /**
+     * The get_Phones method enumerates the phone objects corresponding to the phone devices. If there are no phones available that can be used with the address, this method produces an empty collection and returns S_OK.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> containing an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi2-get_phones
      */
     get_Phones() {
         pPhones := VARIANT()
@@ -45,9 +54,10 @@ class ITTAPI2 extends ITTAPI{
     }
 
     /**
-     * 
-     * @returns {IEnumPhone} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi2-enumeratephones
+     * The EnumeratePhones method enumerates the phone objects corresponding to the phone devices. If there are no phones available that can be used with the address, this method produces an empty enumeration and returns S_OK.
+     * @returns {IEnumPhone} Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumphone">IEnumPhone</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi2-enumeratephones
      */
     EnumeratePhones() {
         result := ComCall(24, this, "ptr*", &ppEnumPhone := 0, "HRESULT")
@@ -55,9 +65,10 @@ class ITTAPI2 extends ITTAPI{
     }
 
     /**
-     * 
-     * @returns {ITCollection2} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi2-createemptycollectionobject
+     * The CreateEmptyCollectionObject method creates an empty collection object. The collection can be filled with ITDetectTone or ITCustomTone objects for use with the DetectTonesByCollection method or the GenerateCustomTonesByCollection method, respectively.
+     * @returns {ITCollection2} Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection2">ITCollection2</a> interface on the new collection object.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi2-createemptycollectionobject
      */
     CreateEmptyCollectionObject() {
         result := ComCall(25, this, "ptr*", &ppCollection := 0, "HRESULT")

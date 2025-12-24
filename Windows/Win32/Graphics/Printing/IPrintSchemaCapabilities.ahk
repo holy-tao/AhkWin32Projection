@@ -34,6 +34,27 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement{
     static VTableNames => ["GetFeatureByKeyName", "GetFeature", "get_PageImageableSize", "get_JobCopiesAllDocumentsMinValue", "get_JobCopiesAllDocumentsMaxValue", "GetSelectedOptionInPrintTicket", "GetOptions"]
 
     /**
+     * @type {IPrintSchemaPageImageableSize} 
+     */
+    PageImageableSize {
+        get => this.get_PageImageableSize()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    JobCopiesAllDocumentsMinValue {
+        get => this.get_JobCopiesAllDocumentsMinValue()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    JobCopiesAllDocumentsMaxValue {
+        get => this.get_JobCopiesAllDocumentsMaxValue()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrKeyName 
      * @returns {IPrintSchemaFeature} 

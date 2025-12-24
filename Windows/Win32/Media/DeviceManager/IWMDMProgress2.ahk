@@ -31,10 +31,10 @@ class IWMDMProgress2 extends IWMDMProgress{
     static VTableNames => ["End2"]
 
     /**
-     * 
-     * @param {HRESULT} hrCompletionCode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmprogress2-end2
+     * The End2 method extends IWMDMProgress::End by providing a completion status indicator.
+     * @param {HRESULT} hrCompletionCode The return value of the operation that ended.
+     * @returns {HRESULT} The return value from the method is ignored by Windows Media Device Manager.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmprogress2-end2
      */
     End2(hrCompletionCode) {
         result := ComCall(6, this, "int", hrCompletionCode, "HRESULT")

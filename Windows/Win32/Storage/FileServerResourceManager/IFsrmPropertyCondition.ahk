@@ -36,9 +36,33 @@ class IFsrmPropertyCondition extends IDispatch{
     static VTableNames => ["get_Name", "put_Name", "get_Type", "put_Type", "get_Value", "put_Value", "Delete"]
 
     /**
-     * 
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+        set => this.put_Type(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
+     * The name of the classification property whose value you want to compare to the property condition's value.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmpropertycondition-get_name
      */
     get_Name() {
         name := BSTR()
@@ -47,10 +71,10 @@ class IFsrmPropertyCondition extends IDispatch{
     }
 
     /**
-     * 
+     * The name of the classification property whose value you want to compare to the property condition's value.
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-put_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmpropertycondition-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -60,9 +84,9 @@ class IFsrmPropertyCondition extends IDispatch{
     }
 
     /**
-     * 
+     * The comparison operator used to determine whether the property condition is met.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-get_type
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmpropertycondition-get_type
      */
     get_Type() {
         result := ComCall(9, this, "int*", &type := 0, "HRESULT")
@@ -70,10 +94,10 @@ class IFsrmPropertyCondition extends IDispatch{
     }
 
     /**
-     * 
+     * The comparison operator used to determine whether the property condition is met.
      * @param {Integer} type 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-put_type
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmpropertycondition-put_type
      */
     put_Type(type) {
         result := ComCall(10, this, "int", type, "HRESULT")
@@ -81,9 +105,9 @@ class IFsrmPropertyCondition extends IDispatch{
     }
 
     /**
-     * 
+     * The property condition's value.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-get_value
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmpropertycondition-get_value
      */
     get_Value() {
         value := BSTR()
@@ -92,10 +116,10 @@ class IFsrmPropertyCondition extends IDispatch{
     }
 
     /**
-     * 
+     * The property condition's value.
      * @param {BSTR} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-put_value
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmpropertycondition-put_value
      */
     put_Value(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -105,9 +129,9 @@ class IFsrmPropertyCondition extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmpropertycondition-delete
+     * Removes this property condition from the collection of property conditions specified for the file management job.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmpropertycondition-delete
      */
     Delete() {
         result := ComCall(13, this, "HRESULT")

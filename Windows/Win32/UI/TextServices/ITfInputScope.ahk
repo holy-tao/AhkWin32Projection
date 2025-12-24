@@ -42,11 +42,29 @@ class ITfInputScope extends IUnknown{
     static VTableNames => ["GetInputScopes", "GetPhrase", "GetRegularExpression", "GetSRGS", "GetXML"]
 
     /**
+     * ITfInputScope::GetInputScopes method
+     * @param {Pointer<Pointer<Integer>>} pprgInputScopes Pointer to an array of pointers to the input scopes. The calling function must call <b>CoTaskMemFree()</b> to free the buffer.
+     * @param {Pointer<Integer>} pcCount Pointer to the number of input scopes returned.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Pointer<Integer>>} pprgInputScopes 
-     * @param {Pointer<Integer>} pcCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getinputscopes
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope-getinputscopes
      */
     GetInputScopes(pprgInputScopes, pcCount) {
         pprgInputScopesMarshal := pprgInputScopes is VarRef ? "ptr*" : "ptr"
@@ -57,11 +75,29 @@ class ITfInputScope extends IUnknown{
     }
 
     /**
+     * ITfInputScope::GetPhrase method
+     * @param {Pointer<Pointer<BSTR>>} ppbstrPhrases Pointer to an array of pointers to strings containing phrases. The calling function must call <b>SystFreeString()</b> to free the memory allocated to the strings and <b>CoTaskMemFree</b> to free the buffer.
+     * @param {Pointer<Integer>} pcCount Pointer to the number of phrases returned.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Pointer<BSTR>>} ppbstrPhrases 
-     * @param {Pointer<Integer>} pcCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getphrase
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope-getphrase
      */
     GetPhrase(ppbstrPhrases, pcCount) {
         ppbstrPhrasesMarshal := ppbstrPhrases is VarRef ? "ptr*" : "ptr"
@@ -72,9 +108,9 @@ class ITfInputScope extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getregularexpression
+     * ITfInputScope::GetRegularExpression method
+     * @returns {BSTR} Pointer to a string containing the regular expression. The calling function must call <b>SystFreeString()</b> to free the memory allocated to the strings.
+     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope-getregularexpression
      */
     GetRegularExpression() {
         pbstrRegExp := BSTR()
@@ -83,9 +119,9 @@ class ITfInputScope extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getsrgs
+     * ITfInputScope::GetSRGS method
+     * @returns {BSTR} The xml string. The calling function must call <b>SysFreeString()</b> to free the buffer.
+     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope-getsrgs
      */
     GetSRGS() {
         pbstrSRGS := BSTR()
@@ -94,9 +130,9 @@ class ITfInputScope extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope-getxml
+     * ITfInputScope::GetXML method
+     * @returns {BSTR} Pointer to a string containing the xml string. The calling function must call <b>SysFreeString()</b> to free the buffer.
+     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope-getxml
      */
     GetXML() {
         pbstrXML := BSTR()

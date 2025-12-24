@@ -42,9 +42,9 @@ class IDvbLogicalChannelDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetCountOfRecords", "GetRecordServiceId", "GetRecordLogicalChannelNumber"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-gettag
+     * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.  .
+     * @returns {Integer} Receives the descriptor tag.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -52,9 +52,9 @@ class IDvbLogicalChannelDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getlength
+     * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. .
+     * @returns {Integer} Receives the length of the descriptor body, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -62,9 +62,9 @@ class IDvbLogicalChannelDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getcountofrecords
+     * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. .
+     * @returns {Integer} Receives the number of records in the descriptor.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -72,10 +72,10 @@ class IDvbLogicalChannelDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getrecordserviceid
+     * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.  .
+     * @param {Integer} bRecordIndex Zero-based index of the service identifier to return. To get the number of service identifiers in the descriptor, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getcountofrecords">IDvbLogicalChannelDescriptor::GetCountOfRecords</a>.
+     * @returns {Integer} Receives the service_id field.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getrecordserviceid
      */
     GetRecordServiceId(bRecordIndex) {
         result := ComCall(6, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")
@@ -83,10 +83,10 @@ class IDvbLogicalChannelDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getrecordlogicalchannelnumber
+     * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later. .
+     * @param {Integer} bRecordIndex Zero-based index of the logical channel number to return. To get the number of logical channel numbers in the descriptor, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getcountofrecords">IDvbLogicalChannelDescriptor::GetCountOfRecords</a>.
+     * @returns {Integer} Receives the logical_channel_number field.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvblogicalchanneldescriptor-getrecordlogicalchannelnumber
      */
     GetRecordLogicalChannelNumber(bRecordIndex) {
         result := ComCall(7, this, "char", bRecordIndex, "ushort*", &pwVal := 0, "HRESULT")

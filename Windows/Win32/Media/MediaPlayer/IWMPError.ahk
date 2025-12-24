@@ -32,9 +32,33 @@ class IWMPError extends IDispatch{
     static VTableNames => ["clearErrorQueue", "get_errorCount", "get_item", "webHelp"]
 
     /**
+     */
+    errorCount {
+        get => this.get_errorCount()
+    }
+
+    /**
+     * The clearErrorQueue method clears the errors from the error queue.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-clearerrorqueue
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperror-clearerrorqueue
      */
     clearErrorQueue() {
         result := ComCall(7, this, "HRESULT")
@@ -42,10 +66,28 @@ class IWMPError extends IDispatch{
     }
 
     /**
+     * The get_errorCount method retrieves the number of errors in the error queue.
+     * @param {Pointer<Integer>} plNumErrors Pointer to a <b>long</b> containing the number of errors.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plNumErrors 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-get_errorcount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperror-get_errorcount
      */
     get_errorCount(plNumErrors) {
         plNumErrorsMarshal := plNumErrors is VarRef ? "int*" : "ptr"
@@ -55,10 +97,10 @@ class IWMPError extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} dwIndex 
-     * @returns {IWMPErrorItem} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-get_item
+     * The get_item method retrieves a pointer to an IWMPErrorItem interface from the error queue.
+     * @param {Integer} dwIndex <b>long</b> containing the index of the pointer to an <b>IWMPErrorItem</b> interface.
+     * @returns {IWMPErrorItem} Pointer to a pointer to an <b>IWMPErrorItem</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperror-get_item
      */
     get_item(dwIndex) {
         result := ComCall(9, this, "int", dwIndex, "ptr*", &ppErrorItem := 0, "HRESULT")
@@ -66,9 +108,27 @@ class IWMPError extends IDispatch{
     }
 
     /**
+     * The webHelp method launches the Windows Media Player Web Help page to display further information about the first error in the error queue (index zero).
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-webhelp
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperror-webhelp
      */
     webHelp() {
         result := ComCall(10, this, "HRESULT")

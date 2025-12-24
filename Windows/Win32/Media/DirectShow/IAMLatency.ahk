@@ -31,9 +31,9 @@ class IAMLatency extends IUnknown{
     static VTableNames => ["GetLatency"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamlatency-getlatency
+     * The GetLatency method retrieves the expected latency associated with this filter.
+     * @returns {Integer} Pointer to a variable that receives the latency in 100-nanosecond units.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamlatency-getlatency
      */
     GetLatency() {
         result := ComCall(3, this, "int64*", &prtLatency := 0, "HRESULT")

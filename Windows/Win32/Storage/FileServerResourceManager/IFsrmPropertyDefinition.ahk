@@ -50,9 +50,54 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     static VTableNames => ["get_Name", "put_Name", "get_Type", "put_Type", "get_PossibleValues", "put_PossibleValues", "get_ValueDescriptions", "put_ValueDescriptions", "get_Parameters", "put_Parameters"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+        set => this.put_Type(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    PossibleValues {
+        get => this.get_PossibleValues()
+        set => this.put_PossibleValues(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ValueDescriptions {
+        get => this.get_ValueDescriptions()
+        set => this.put_ValueDescriptions(value)
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Parameters {
+        get => this.get_Parameters()
+        set => this.put_Parameters(value)
+    }
+
+    /**
+     * The name of the property.
+     * @remarks
+     * 
+     * You cannot change the name after you commit the definition.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_name
      */
     get_Name() {
         name := BSTR()
@@ -61,10 +106,15 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     }
 
     /**
+     * The name of the property.
+     * @remarks
+     * 
+     * You cannot change the name after you commit the definition.
+     * 
      * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -74,9 +124,14 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     }
 
     /**
+     * The type of data that the property contains.
+     * @remarks
+     * 
+     * You cannot change the type after you commit the definition.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_type
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_type
      */
     get_Type() {
         result := ComCall(14, this, "int*", &type := 0, "HRESULT")
@@ -84,10 +139,15 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     }
 
     /**
+     * The type of data that the property contains.
+     * @remarks
+     * 
+     * You cannot change the type after you commit the definition.
+     * 
      * 
      * @param {Integer} type 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_type
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_type
      */
     put_Type(type) {
         result := ComCall(15, this, "int", type, "HRESULT")
@@ -95,9 +155,27 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     }
 
     /**
+     * The possible values to which the property can be set.
+     * @remarks
+     * 
+     * You must specify a possible values list if the property's type is 
+     *     <b>FsrmPropertyDefinitionType_OrderedList</b> or 
+     *     <b>FsrmPropertyDefinitionType_MultiChoiceList.</b>
+     * 
+     * You cannot delete a possible value from the list if a rule specifies the value (see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_value">IFsrmClassificationRule.Value</a>). Deleting 
+     *     the value does not remove the value from files that are currently classified using that value.
+     * 
+     * You can change the order of the values in the list. For ordered lists, changing the order can affect 
+     *     aggregation the next time classification runs.
+     * 
+     * To specify descriptions for each possible value, set the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_valuedescriptions">IFsrmPropertyDefinition.ValueDescriptions</a> 
+     *     property.
+     * 
      * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_possiblevalues
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_possiblevalues
      */
     get_PossibleValues() {
         result := ComCall(16, this, "ptr*", &possibleValues := 0, "HRESULT")
@@ -105,10 +183,28 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     }
 
     /**
+     * The possible values to which the property can be set.
+     * @remarks
+     * 
+     * You must specify a possible values list if the property's type is 
+     *     <b>FsrmPropertyDefinitionType_OrderedList</b> or 
+     *     <b>FsrmPropertyDefinitionType_MultiChoiceList.</b>
+     * 
+     * You cannot delete a possible value from the list if a rule specifies the value (see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationrule-get_value">IFsrmClassificationRule.Value</a>). Deleting 
+     *     the value does not remove the value from files that are currently classified using that value.
+     * 
+     * You can change the order of the values in the list. For ordered lists, changing the order can affect 
+     *     aggregation the next time classification runs.
+     * 
+     * To specify descriptions for each possible value, set the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_valuedescriptions">IFsrmPropertyDefinition.ValueDescriptions</a> 
+     *     property.
+     * 
      * 
      * @param {Pointer<SAFEARRAY>} possibleValues 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_possiblevalues
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_possiblevalues
      */
     put_PossibleValues(possibleValues) {
         result := ComCall(17, this, "ptr", possibleValues, "HRESULT")
@@ -116,9 +212,17 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     }
 
     /**
+     * Descriptions for each of the possible values specified in the PossibleValues property.
+     * @remarks
+     * 
+     * There is a one-to-one relationship between these descriptions and the list of possible values specified in the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_possiblevalues">PossibleValues</a> property. If you 
+     *     do not want to specify a description for one of the values in the list, set the corresponding item in the array to 
+     *     an empty string.
+     * 
      * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_valuedescriptions
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_valuedescriptions
      */
     get_ValueDescriptions() {
         result := ComCall(18, this, "ptr*", &valueDescriptions := 0, "HRESULT")
@@ -126,10 +230,18 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     }
 
     /**
+     * Descriptions for each of the possible values specified in the PossibleValues property.
+     * @remarks
+     * 
+     * There is a one-to-one relationship between these descriptions and the list of possible values specified in the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_possiblevalues">PossibleValues</a> property. If you 
+     *     do not want to specify a description for one of the values in the list, set the corresponding item in the array to 
+     *     an empty string.
+     * 
      * 
      * @param {Pointer<SAFEARRAY>} valueDescriptions 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_valuedescriptions
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_valuedescriptions
      */
     put_ValueDescriptions(valueDescriptions) {
         result := ComCall(19, this, "ptr", valueDescriptions, "HRESULT")
@@ -137,9 +249,9 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     }
 
     /**
-     * 
+     * The parameters for the property definition.
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_parameters
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-get_parameters
      */
     get_Parameters() {
         result := ComCall(20, this, "ptr*", &parameters := 0, "HRESULT")
@@ -147,10 +259,10 @@ class IFsrmPropertyDefinition extends IFsrmObject{
     }
 
     /**
-     * 
+     * The parameters for the property definition.
      * @param {Pointer<SAFEARRAY>} parameters 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_parameters
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertydefinition-put_parameters
      */
     put_Parameters(parameters) {
         result := ComCall(21, this, "ptr", parameters, "HRESULT")

@@ -32,6 +32,91 @@ class IHTMLDOMAttribute2 extends IDispatch{
     static VTableNames => ["get_name", "put_value", "get_value", "get_expando", "get_nodeType", "get_parentNode", "get_childNodes", "get_firstChild", "get_lastChild", "get_previousSibling", "get_nextSibling", "get_attributes", "get_ownerDocument", "insertBefore", "replaceChild", "removeChild", "appendChild", "hasChildNodes", "cloneNode"]
 
     /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    expando {
+        get => this.get_expando()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    nodeType {
+        get => this.get_nodeType()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    parentNode {
+        get => this.get_parentNode()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    childNodes {
+        get => this.get_childNodes()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    firstChild {
+        get => this.get_firstChild()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    lastChild {
+        get => this.get_lastChild()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    previousSibling {
+        get => this.get_previousSibling()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    nextSibling {
+        get => this.get_nextSibling()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    attributes {
+        get => this.get_attributes()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    ownerDocument {
+        get => this.get_ownerDocument()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

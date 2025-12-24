@@ -31,6 +31,918 @@ class IHTMLCSSStyleDeclaration2 extends IDispatch{
     static VTableNames => ["put_msScrollChaining", "get_msScrollChaining", "put_msContentZooming", "get_msContentZooming", "put_msContentZoomSnapType", "get_msContentZoomSnapType", "put_msScrollRails", "get_msScrollRails", "put_msContentZoomChaining", "get_msContentZoomChaining", "put_msScrollSnapType", "get_msScrollSnapType", "put_msContentZoomLimit", "get_msContentZoomLimit", "put_msContentZoomSnap", "get_msContentZoomSnap", "put_msContentZoomSnapPoints", "get_msContentZoomSnapPoints", "put_msContentZoomLimitMin", "get_msContentZoomLimitMin", "put_msContentZoomLimitMax", "get_msContentZoomLimitMax", "put_msScrollSnapX", "get_msScrollSnapX", "put_msScrollSnapY", "get_msScrollSnapY", "put_msScrollSnapPointsX", "get_msScrollSnapPointsX", "put_msScrollSnapPointsY", "get_msScrollSnapPointsY", "put_msGridColumn", "get_msGridColumn", "put_msGridColumnAlign", "get_msGridColumnAlign", "put_msGridColumns", "get_msGridColumns", "put_msGridColumnSpan", "get_msGridColumnSpan", "put_msGridRow", "get_msGridRow", "put_msGridRowAlign", "get_msGridRowAlign", "put_msGridRows", "get_msGridRows", "put_msGridRowSpan", "get_msGridRowSpan", "put_msWrapThrough", "get_msWrapThrough", "put_msWrapMargin", "get_msWrapMargin", "put_msWrapFlow", "get_msWrapFlow", "put_msAnimationName", "get_msAnimationName", "put_msAnimationDuration", "get_msAnimationDuration", "put_msAnimationTimingFunction", "get_msAnimationTimingFunction", "put_msAnimationDelay", "get_msAnimationDelay", "put_msAnimationDirection", "get_msAnimationDirection", "put_msAnimationPlayState", "get_msAnimationPlayState", "put_msAnimationIterationCount", "get_msAnimationIterationCount", "put_msAnimation", "get_msAnimation", "put_msAnimationFillMode", "get_msAnimationFillMode", "put_colorInterpolationFilters", "get_colorInterpolationFilters", "put_columnCount", "get_columnCount", "put_columnWidth", "get_columnWidth", "put_columnGap", "get_columnGap", "put_columnFill", "get_columnFill", "put_columnSpan", "get_columnSpan", "put_columns", "get_columns", "put_columnRule", "get_columnRule", "put_columnRuleColor", "get_columnRuleColor", "put_columnRuleStyle", "get_columnRuleStyle", "put_columnRuleWidth", "get_columnRuleWidth", "put_breakBefore", "get_breakBefore", "put_breakAfter", "get_breakAfter", "put_breakInside", "get_breakInside", "put_floodColor", "get_floodColor", "put_floodOpacity", "get_floodOpacity", "put_lightingColor", "get_lightingColor", "put_msScrollLimitXMin", "get_msScrollLimitXMin", "put_msScrollLimitYMin", "get_msScrollLimitYMin", "put_msScrollLimitXMax", "get_msScrollLimitXMax", "put_msScrollLimitYMax", "get_msScrollLimitYMax", "put_msScrollLimit", "get_msScrollLimit", "put_textShadow", "get_textShadow", "put_msFlowFrom", "get_msFlowFrom", "put_msFlowInto", "get_msFlowInto", "put_msHyphens", "get_msHyphens", "put_msHyphenateLimitZone", "get_msHyphenateLimitZone", "put_msHyphenateLimitChars", "get_msHyphenateLimitChars", "put_msHyphenateLimitLines", "get_msHyphenateLimitLines", "put_msHighContrastAdjust", "get_msHighContrastAdjust", "put_enableBackground", "get_enableBackground", "put_msFontFeatureSettings", "get_msFontFeatureSettings", "put_msUserSelect", "get_msUserSelect", "put_msOverflowStyle", "get_msOverflowStyle", "put_msTransformStyle", "get_msTransformStyle", "put_msBackfaceVisibility", "get_msBackfaceVisibility", "put_msPerspective", "get_msPerspective", "put_msPerspectiveOrigin", "get_msPerspectiveOrigin", "put_msTransitionProperty", "get_msTransitionProperty", "put_msTransitionDuration", "get_msTransitionDuration", "put_msTransitionTimingFunction", "get_msTransitionTimingFunction", "put_msTransitionDelay", "get_msTransitionDelay", "put_msTransition", "get_msTransition", "put_msTouchAction", "get_msTouchAction", "put_msScrollTranslation", "get_msScrollTranslation", "put_msFlex", "get_msFlex", "put_msFlexPositive", "get_msFlexPositive", "put_msFlexNegative", "get_msFlexNegative", "put_msFlexPreferredSize", "get_msFlexPreferredSize", "put_msFlexFlow", "get_msFlexFlow", "put_msFlexDirection", "get_msFlexDirection", "put_msFlexWrap", "get_msFlexWrap", "put_msFlexAlign", "get_msFlexAlign", "put_msFlexItemAlign", "get_msFlexItemAlign", "put_msFlexPack", "get_msFlexPack", "put_msFlexLinePack", "get_msFlexLinePack", "put_msFlexOrder", "get_msFlexOrder", "put_msTouchSelect", "get_msTouchSelect", "put_transform", "get_transform", "put_transformOrigin", "get_transformOrigin", "put_transformStyle", "get_transformStyle", "put_backfaceVisibility", "get_backfaceVisibility", "put_perspective", "get_perspective", "put_perspectiveOrigin", "get_perspectiveOrigin", "put_transitionProperty", "get_transitionProperty", "put_transitionDuration", "get_transitionDuration", "put_transitionTimingFunction", "get_transitionTimingFunction", "put_transitionDelay", "get_transitionDelay", "put_transition", "get_transition", "put_fontFeatureSettings", "get_fontFeatureSettings", "put_animationName", "get_animationName", "put_animationDuration", "get_animationDuration", "put_animationTimingFunction", "get_animationTimingFunction", "put_animationDelay", "get_animationDelay", "put_animationDirection", "get_animationDirection", "put_animationPlayState", "get_animationPlayState", "put_animationIterationCount", "get_animationIterationCount", "put_animation", "get_animation", "put_animationFillMode", "get_animationFillMode"]
 
     /**
+     * @type {BSTR} 
+     */
+    msScrollChaining {
+        get => this.get_msScrollChaining()
+        set => this.put_msScrollChaining(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msContentZooming {
+        get => this.get_msContentZooming()
+        set => this.put_msContentZooming(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msContentZoomSnapType {
+        get => this.get_msContentZoomSnapType()
+        set => this.put_msContentZoomSnapType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msScrollRails {
+        get => this.get_msScrollRails()
+        set => this.put_msScrollRails(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msContentZoomChaining {
+        get => this.get_msContentZoomChaining()
+        set => this.put_msContentZoomChaining(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msScrollSnapType {
+        get => this.get_msScrollSnapType()
+        set => this.put_msScrollSnapType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msContentZoomLimit {
+        get => this.get_msContentZoomLimit()
+        set => this.put_msContentZoomLimit(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msContentZoomSnap {
+        get => this.get_msContentZoomSnap()
+        set => this.put_msContentZoomSnap(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msContentZoomSnapPoints {
+        get => this.get_msContentZoomSnapPoints()
+        set => this.put_msContentZoomSnapPoints(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msContentZoomLimitMin {
+        get => this.get_msContentZoomLimitMin()
+        set => this.put_msContentZoomLimitMin(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msContentZoomLimitMax {
+        get => this.get_msContentZoomLimitMax()
+        set => this.put_msContentZoomLimitMax(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msScrollSnapX {
+        get => this.get_msScrollSnapX()
+        set => this.put_msScrollSnapX(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msScrollSnapY {
+        get => this.get_msScrollSnapY()
+        set => this.put_msScrollSnapY(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msScrollSnapPointsX {
+        get => this.get_msScrollSnapPointsX()
+        set => this.put_msScrollSnapPointsX(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msScrollSnapPointsY {
+        get => this.get_msScrollSnapPointsY()
+        set => this.put_msScrollSnapPointsY(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msGridColumn {
+        get => this.get_msGridColumn()
+        set => this.put_msGridColumn(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msGridColumnAlign {
+        get => this.get_msGridColumnAlign()
+        set => this.put_msGridColumnAlign(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msGridColumns {
+        get => this.get_msGridColumns()
+        set => this.put_msGridColumns(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msGridColumnSpan {
+        get => this.get_msGridColumnSpan()
+        set => this.put_msGridColumnSpan(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msGridRow {
+        get => this.get_msGridRow()
+        set => this.put_msGridRow(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msGridRowAlign {
+        get => this.get_msGridRowAlign()
+        set => this.put_msGridRowAlign(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msGridRows {
+        get => this.get_msGridRows()
+        set => this.put_msGridRows(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msGridRowSpan {
+        get => this.get_msGridRowSpan()
+        set => this.put_msGridRowSpan(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msWrapThrough {
+        get => this.get_msWrapThrough()
+        set => this.put_msWrapThrough(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msWrapMargin {
+        get => this.get_msWrapMargin()
+        set => this.put_msWrapMargin(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msWrapFlow {
+        get => this.get_msWrapFlow()
+        set => this.put_msWrapFlow(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msAnimationName {
+        get => this.get_msAnimationName()
+        set => this.put_msAnimationName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msAnimationDuration {
+        get => this.get_msAnimationDuration()
+        set => this.put_msAnimationDuration(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msAnimationTimingFunction {
+        get => this.get_msAnimationTimingFunction()
+        set => this.put_msAnimationTimingFunction(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msAnimationDelay {
+        get => this.get_msAnimationDelay()
+        set => this.put_msAnimationDelay(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msAnimationDirection {
+        get => this.get_msAnimationDirection()
+        set => this.put_msAnimationDirection(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msAnimationPlayState {
+        get => this.get_msAnimationPlayState()
+        set => this.put_msAnimationPlayState(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msAnimationIterationCount {
+        get => this.get_msAnimationIterationCount()
+        set => this.put_msAnimationIterationCount(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msAnimation {
+        get => this.get_msAnimation()
+        set => this.put_msAnimation(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msAnimationFillMode {
+        get => this.get_msAnimationFillMode()
+        set => this.put_msAnimationFillMode(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    colorInterpolationFilters {
+        get => this.get_colorInterpolationFilters()
+        set => this.put_colorInterpolationFilters(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    columnCount {
+        get => this.get_columnCount()
+        set => this.put_columnCount(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    columnWidth {
+        get => this.get_columnWidth()
+        set => this.put_columnWidth(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    columnGap {
+        get => this.get_columnGap()
+        set => this.put_columnGap(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    columnFill {
+        get => this.get_columnFill()
+        set => this.put_columnFill(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    columnSpan {
+        get => this.get_columnSpan()
+        set => this.put_columnSpan(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    columns {
+        get => this.get_columns()
+        set => this.put_columns(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    columnRule {
+        get => this.get_columnRule()
+        set => this.put_columnRule(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    columnRuleColor {
+        get => this.get_columnRuleColor()
+        set => this.put_columnRuleColor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    columnRuleStyle {
+        get => this.get_columnRuleStyle()
+        set => this.put_columnRuleStyle(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    columnRuleWidth {
+        get => this.get_columnRuleWidth()
+        set => this.put_columnRuleWidth(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    breakBefore {
+        get => this.get_breakBefore()
+        set => this.put_breakBefore(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    breakAfter {
+        get => this.get_breakAfter()
+        set => this.put_breakAfter(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    breakInside {
+        get => this.get_breakInside()
+        set => this.put_breakInside(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    floodColor {
+        get => this.get_floodColor()
+        set => this.put_floodColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    floodOpacity {
+        get => this.get_floodOpacity()
+        set => this.put_floodOpacity(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    lightingColor {
+        get => this.get_lightingColor()
+        set => this.put_lightingColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msScrollLimitXMin {
+        get => this.get_msScrollLimitXMin()
+        set => this.put_msScrollLimitXMin(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msScrollLimitYMin {
+        get => this.get_msScrollLimitYMin()
+        set => this.put_msScrollLimitYMin(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msScrollLimitXMax {
+        get => this.get_msScrollLimitXMax()
+        set => this.put_msScrollLimitXMax(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msScrollLimitYMax {
+        get => this.get_msScrollLimitYMax()
+        set => this.put_msScrollLimitYMax(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msScrollLimit {
+        get => this.get_msScrollLimit()
+        set => this.put_msScrollLimit(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textShadow {
+        get => this.get_textShadow()
+        set => this.put_textShadow(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msFlowFrom {
+        get => this.get_msFlowFrom()
+        set => this.put_msFlowFrom(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msFlowInto {
+        get => this.get_msFlowInto()
+        set => this.put_msFlowInto(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msHyphens {
+        get => this.get_msHyphens()
+        set => this.put_msHyphens(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msHyphenateLimitZone {
+        get => this.get_msHyphenateLimitZone()
+        set => this.put_msHyphenateLimitZone(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msHyphenateLimitChars {
+        get => this.get_msHyphenateLimitChars()
+        set => this.put_msHyphenateLimitChars(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msHyphenateLimitLines {
+        get => this.get_msHyphenateLimitLines()
+        set => this.put_msHyphenateLimitLines(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msHighContrastAdjust {
+        get => this.get_msHighContrastAdjust()
+        set => this.put_msHighContrastAdjust(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    enableBackground {
+        get => this.get_enableBackground()
+        set => this.put_enableBackground(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msFontFeatureSettings {
+        get => this.get_msFontFeatureSettings()
+        set => this.put_msFontFeatureSettings(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msUserSelect {
+        get => this.get_msUserSelect()
+        set => this.put_msUserSelect(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msOverflowStyle {
+        get => this.get_msOverflowStyle()
+        set => this.put_msOverflowStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msTransformStyle {
+        get => this.get_msTransformStyle()
+        set => this.put_msTransformStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msBackfaceVisibility {
+        get => this.get_msBackfaceVisibility()
+        set => this.put_msBackfaceVisibility(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msPerspective {
+        get => this.get_msPerspective()
+        set => this.put_msPerspective(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msPerspectiveOrigin {
+        get => this.get_msPerspectiveOrigin()
+        set => this.put_msPerspectiveOrigin(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msTransitionProperty {
+        get => this.get_msTransitionProperty()
+        set => this.put_msTransitionProperty(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msTransitionDuration {
+        get => this.get_msTransitionDuration()
+        set => this.put_msTransitionDuration(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msTransitionTimingFunction {
+        get => this.get_msTransitionTimingFunction()
+        set => this.put_msTransitionTimingFunction(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msTransitionDelay {
+        get => this.get_msTransitionDelay()
+        set => this.put_msTransitionDelay(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msTransition {
+        get => this.get_msTransition()
+        set => this.put_msTransition(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msTouchAction {
+        get => this.get_msTouchAction()
+        set => this.put_msTouchAction(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msScrollTranslation {
+        get => this.get_msScrollTranslation()
+        set => this.put_msScrollTranslation(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msFlex {
+        get => this.get_msFlex()
+        set => this.put_msFlex(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msFlexPositive {
+        get => this.get_msFlexPositive()
+        set => this.put_msFlexPositive(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msFlexNegative {
+        get => this.get_msFlexNegative()
+        set => this.put_msFlexNegative(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msFlexPreferredSize {
+        get => this.get_msFlexPreferredSize()
+        set => this.put_msFlexPreferredSize(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msFlexFlow {
+        get => this.get_msFlexFlow()
+        set => this.put_msFlexFlow(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msFlexDirection {
+        get => this.get_msFlexDirection()
+        set => this.put_msFlexDirection(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msFlexWrap {
+        get => this.get_msFlexWrap()
+        set => this.put_msFlexWrap(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msFlexAlign {
+        get => this.get_msFlexAlign()
+        set => this.put_msFlexAlign(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msFlexItemAlign {
+        get => this.get_msFlexItemAlign()
+        set => this.put_msFlexItemAlign(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msFlexPack {
+        get => this.get_msFlexPack()
+        set => this.put_msFlexPack(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msFlexLinePack {
+        get => this.get_msFlexLinePack()
+        set => this.put_msFlexLinePack(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    msFlexOrder {
+        get => this.get_msFlexOrder()
+        set => this.put_msFlexOrder(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    msTouchSelect {
+        get => this.get_msTouchSelect()
+        set => this.put_msTouchSelect(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    transform {
+        get => this.get_transform()
+        set => this.put_transform(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    transformOrigin {
+        get => this.get_transformOrigin()
+        set => this.put_transformOrigin(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    transformStyle {
+        get => this.get_transformStyle()
+        set => this.put_transformStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    backfaceVisibility {
+        get => this.get_backfaceVisibility()
+        set => this.put_backfaceVisibility(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    perspective {
+        get => this.get_perspective()
+        set => this.put_perspective(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    perspectiveOrigin {
+        get => this.get_perspectiveOrigin()
+        set => this.put_perspectiveOrigin(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    transitionProperty {
+        get => this.get_transitionProperty()
+        set => this.put_transitionProperty(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    transitionDuration {
+        get => this.get_transitionDuration()
+        set => this.put_transitionDuration(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    transitionTimingFunction {
+        get => this.get_transitionTimingFunction()
+        set => this.put_transitionTimingFunction(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    transitionDelay {
+        get => this.get_transitionDelay()
+        set => this.put_transitionDelay(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    transition {
+        get => this.get_transition()
+        set => this.put_transition(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fontFeatureSettings {
+        get => this.get_fontFeatureSettings()
+        set => this.put_fontFeatureSettings(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    animationName {
+        get => this.get_animationName()
+        set => this.put_animationName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    animationDuration {
+        get => this.get_animationDuration()
+        set => this.put_animationDuration(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    animationTimingFunction {
+        get => this.get_animationTimingFunction()
+        set => this.put_animationTimingFunction(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    animationDelay {
+        get => this.get_animationDelay()
+        set => this.put_animationDelay(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    animationDirection {
+        get => this.get_animationDirection()
+        set => this.put_animationDirection(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    animationPlayState {
+        get => this.get_animationPlayState()
+        set => this.put_animationPlayState(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    animationIterationCount {
+        get => this.get_animationIterationCount()
+        set => this.put_animationIterationCount(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    animation {
+        get => this.get_animation()
+        set => this.put_animation(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    animationFillMode {
+        get => this.get_animationFillMode()
+        set => this.put_animationFillMode(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

@@ -33,6 +33,48 @@ class IADs extends IDispatch{
     static VTableNames => ["get_Name", "get_Class", "get_GUID", "get_ADsPath", "get_Parent", "get_Schema", "GetInfo", "SetInfo", "Get", "Put", "GetEx", "PutEx", "GetInfoEx"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Class {
+        get => this.get_Class()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    GUID {
+        get => this.get_GUID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ADsPath {
+        get => this.get_ADsPath()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Schema {
+        get => this.get_Schema()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */
@@ -93,9 +135,12 @@ class IADs extends IDispatch{
     }
 
     /**
+     * Loads into the property cache values of the supported properties of this ADSI object from the underlying directory store.
+     * @returns {HRESULT} This method supports the standard return values, as well as the following.
+     *       
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iads-getinfo
+     * For more information, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iads-getinfo
      */
     GetInfo() {
         result := ComCall(13, this, "HRESULT")
@@ -103,9 +148,9 @@ class IADs extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iads-setinfo
+     * The IADs::SetInfo method saves the cached property values of the ADSI object to the underlying directory store.
+     * @returns {HRESULT} This method supports the standard return values, including S_OK for a successful operation. For more information, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iads-setinfo
      */
     SetInfo() {
         result := ComCall(14, this, "HRESULT")
@@ -113,10 +158,10 @@ class IADs extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrName 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iads-get
+     * Retrieves a property of a given name from the property cache.
+     * @param {BSTR} bstrName Contains a <b>BSTR</b> that specifies the property name.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> that receives the value of the property. For a multi-valued property, <i>pvProp</i> is a variant array of <b>VARIANT</b>, unless the property is a binary type. In this latter case, <i>pvProp</i> is a variant array of bytes (VT_U1 or VT_ARRAY). For the property that refers to an object, <i>pvProp</i> is a VT_DISPATCH pointer to the object referred to.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iads-get
      */
     Get(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -127,11 +172,14 @@ class IADs extends IDispatch{
     }
 
     /**
+     * Sets the values of an attribute in the ADSI attribute cache.
+     * @param {BSTR} bstrName Contains a <b>BSTR</b> that specifies the property name.
+     * @param {VARIANT} vProp Contains a <b>VARIANT</b> that specifies the new values of the property.
+     * @returns {HRESULT} This method supports the standard return values, as well as the following.
+     *       
      * 
-     * @param {BSTR} bstrName 
-     * @param {VARIANT} vProp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iads-put
+     * For more information, and other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iads-put
      */
     Put(bstrName, vProp) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -141,10 +189,10 @@ class IADs extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrName 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iads-getex
+     * Retrieves, from the property cache, property values of a given attribute.
+     * @param {BSTR} bstrName Contains a <b>BSTR</b> that specifies the property name.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> that receives the value, or values, of the property.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iads-getex
      */
     GetEx(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -155,12 +203,15 @@ class IADs extends IDispatch{
     }
 
     /**
+     * Modifies the values of an attribute in the ADSI attribute cache.
+     * @param {Integer} lnControlCode Control code that  indicates the mode of modification: Append, Replace, Remove, and Delete. For more information and a list of values, see  <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_property_operation_enum">ADS_PROPERTY_OPERATION_ENUM</a>.
+     * @param {BSTR} bstrName Contains a <b>BSTR</b> that specifies the property name.
+     * @param {VARIANT} vProp Contains a <b>VARIANT</b> array that contains the new value or values of the property. A single-valued property is represented as an array with a single element. If <i>InControlCode</i> is set to <b>ADS_PROPERTY_CLEAR</b>, the value of the property specified by <i>vProp</i> is irrelevant.
+     * @returns {HRESULT} This method supports  standard return values, as well as the following.
+     *       
      * 
-     * @param {Integer} lnControlCode 
-     * @param {BSTR} bstrName 
-     * @param {VARIANT} vProp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iads-putex
+     * For more information, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iads-putex
      */
     PutEx(lnControlCode, bstrName, vProp) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -170,11 +221,14 @@ class IADs extends IDispatch{
     }
 
     /**
+     * The IADs::GetInfoEx method loads the values of specified properties of the ADSI object from the underlying directory store into the property cache.
+     * @param {VARIANT} vProperties Array of null-terminated Unicode string entries that list the properties to load into the Active Directory property cache. Each property name must match one in this object's schema class definition.
+     * @param {Integer} lnReserved Reserved for future use. Must be set to zero.
+     * @returns {HRESULT} This method supports the standard return values, as well as the following.
+     *       
      * 
-     * @param {VARIANT} vProperties 
-     * @param {Integer} lnReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iads-getinfoex
+     * For more information, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iads-getinfoex
      */
     GetInfoEx(vProperties, lnReserved) {
         result := ComCall(19, this, "ptr", vProperties, "int", lnReserved, "HRESULT")

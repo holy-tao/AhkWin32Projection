@@ -31,9 +31,38 @@ class IUIAutomation2 extends IUIAutomation{
     static VTableNames => ["get_AutoSetFocus", "put_AutoSetFocus", "get_ConnectionTimeout", "put_ConnectionTimeout", "get_TransactionTimeout", "put_TransactionTimeout"]
 
     /**
+     * @type {BOOL} 
+     */
+    AutoSetFocus {
+        get => this.get_AutoSetFocus()
+        set => this.put_AutoSetFocus(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ConnectionTimeout {
+        get => this.get_ConnectionTimeout()
+        set => this.put_ConnectionTimeout(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TransactionTimeout {
+        get => this.get_TransactionTimeout()
+        set => this.put_TransactionTimeout(value)
+    }
+
+    /**
+     * Specifies whether calls to UI Automation control pattern methods automatically set focus to the target element.
+     * @remarks
+     * 
+     *  By default, most UI Automation methods that perform an action on an element, such as <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationinvokepattern-invoke">IUIAutomationInvokePattern::Invoke</a> and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-setvalue">IUIAutomationValuePattern::SetValue</a>, set focus to the element before performing the action. For most applications, setting the focus results in a more consistent user experience.  In situations where setting the focus would be disruptive, such as automating a drop-down menu, you can set <b>AutoSetFocus</b> to FALSE to prevent UI Automation methods from setting the focus.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-get_autosetfocus
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation2-get_autosetfocus
      */
     get_AutoSetFocus() {
         result := ComCall(58, this, "int*", &autoSetFocus := 0, "HRESULT")
@@ -41,10 +70,15 @@ class IUIAutomation2 extends IUIAutomation{
     }
 
     /**
+     * Specifies whether calls to UI Automation control pattern methods automatically set focus to the target element.
+     * @remarks
+     * 
+     *  By default, most UI Automation methods that perform an action on an element, such as <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationinvokepattern-invoke">IUIAutomationInvokePattern::Invoke</a> and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationvaluepattern-setvalue">IUIAutomationValuePattern::SetValue</a>, set focus to the element before performing the action. For most applications, setting the focus results in a more consistent user experience.  In situations where setting the focus would be disruptive, such as automating a drop-down menu, you can set <b>AutoSetFocus</b> to FALSE to prevent UI Automation methods from setting the focus.
+     * 
      * 
      * @param {BOOL} autoSetFocus 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-put_autosetfocus
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation2-put_autosetfocus
      */
     put_AutoSetFocus(autoSetFocus) {
         result := ComCall(59, this, "int", autoSetFocus, "HRESULT")
@@ -52,9 +86,14 @@ class IUIAutomation2 extends IUIAutomation{
     }
 
     /**
+     * Specifies the length of time that UI Automation will wait for a provider to respond to a client request for an automation element.
+     * @remarks
+     * 
+     * The default connection timeout value is two seconds. A responsive UI Automation provider can typically return an automation element to a client in a short length of time.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-get_connectiontimeout
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation2-get_connectiontimeout
      */
     get_ConnectionTimeout() {
         result := ComCall(60, this, "uint*", &timeout := 0, "HRESULT")
@@ -62,10 +101,15 @@ class IUIAutomation2 extends IUIAutomation{
     }
 
     /**
+     * Specifies the length of time that UI Automation will wait for a provider to respond to a client request for an automation element.
+     * @remarks
+     * 
+     * The default connection timeout value is two seconds. A responsive UI Automation provider can typically return an automation element to a client in a short length of time.
+     * 
      * 
      * @param {Integer} timeout 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-put_connectiontimeout
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation2-put_connectiontimeout
      */
     put_ConnectionTimeout(timeout) {
         result := ComCall(61, this, "uint", timeout, "HRESULT")
@@ -73,9 +117,14 @@ class IUIAutomation2 extends IUIAutomation{
     }
 
     /**
+     * Specifies the length of time that UI Automation will wait for a provider to respond to a client request for information about an automation element.
+     * @remarks
+     * 
+     * The default transaction timeout value is 20 seconds.  Because some operations require the provider to process hundreds of elements, the provider might need a significant amount of time to return information to the client.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-get_transactiontimeout
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation2-get_transactiontimeout
      */
     get_TransactionTimeout() {
         result := ComCall(62, this, "uint*", &timeout := 0, "HRESULT")
@@ -83,10 +132,15 @@ class IUIAutomation2 extends IUIAutomation{
     }
 
     /**
+     * Specifies the length of time that UI Automation will wait for a provider to respond to a client request for information about an automation element.
+     * @remarks
+     * 
+     * The default transaction timeout value is 20 seconds.  Because some operations require the provider to process hundreds of elements, the provider might need a significant amount of time to return information to the client.
+     * 
      * 
      * @param {Integer} timeout 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation2-put_transactiontimeout
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation2-put_transactiontimeout
      */
     put_TransactionTimeout(timeout) {
         result := ComCall(63, this, "uint", timeout, "HRESULT")

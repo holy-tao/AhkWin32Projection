@@ -31,12 +31,52 @@ class IWMIndexer extends IUnknown{
     static VTableNames => ["StartIndexing", "Cancel"]
 
     /**
+     * The StartIndexing method initiates indexing.
+     * @param {PWSTR} pwszURL Pointer to a wide-character <b>null</b>-terminated string containing the URL or file name.
+     * @param {IWMStatusCallback} pCallback Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface.
+     * @param {Pointer<Void>} pvContext Generic pointer, for use by the application.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pwszURL 
-     * @param {IWMStatusCallback} pCallback 
-     * @param {Pointer<Void>} pvContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmindexer-startindexing
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parameter <i>pwszURL</i> or <i>pCallback</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_BUSY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method cannot start indexing in the current state.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmindexer-startindexing
      */
     StartIndexing(pwszURL, pCallback, pvContext) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
@@ -48,9 +88,9 @@ class IWMIndexer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmindexer-cancel
+     * The Cancel method cancels the current indexing operation.
+     * @returns {HRESULT} This method always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmindexer-cancel
      */
     Cancel() {
         result := ComCall(4, this, "HRESULT")

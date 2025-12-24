@@ -33,6 +33,35 @@ class ISpeechRecoGrammar extends IDispatch{
     static VTableNames => ["get_Id", "get_RecoContext", "put_State", "get_State", "get_Rules", "Reset", "CmdLoadFromFile", "CmdLoadFromObject", "CmdLoadFromResource", "CmdLoadFromMemory", "CmdLoadFromProprietaryGrammar", "CmdSetRuleState", "CmdSetRuleIdState", "DictationLoad", "DictationUnload", "DictationSetState", "SetWordSequenceData", "SetTextSelection", "IsPronounceable"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {ISpeechRecoContext} 
+     */
+    RecoContext {
+        get => this.get_RecoContext()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+        set => this.put_State(value)
+    }
+
+    /**
+     * @type {ISpeechGrammarRules} 
+     */
+    Rules {
+        get => this.get_Rules()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

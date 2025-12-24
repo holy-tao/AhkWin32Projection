@@ -36,6 +36,14 @@ class IHTMLNextIdElement extends IDispatch{
     static VTableNames => ["put_n", "get_n"]
 
     /**
+     * @type {BSTR} 
+     */
+    n {
+        get => this.get_n()
+        set => this.put_n(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

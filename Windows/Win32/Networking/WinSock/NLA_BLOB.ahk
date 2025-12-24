@@ -7,9 +7,9 @@
  */
 class NLA_BLOB extends Win32Struct
 {
-    static sizeof => 1048
+    static sizeof => 1056
 
-    static packingSize => 4
+    static packingSize => 8
 
     class _header extends Win32Struct {
         static sizeof => 12
@@ -42,8 +42,8 @@ class NLA_BLOB extends Win32Struct
     }
 
     class _data_e__Union extends Win32Struct {
-        static sizeof => 1036
-        static packingSize => 4
+        static sizeof => 1040
+        static packingSize => 8
 
         class _interfaceData extends Win32Struct {
             static sizeof => 12
@@ -112,8 +112,8 @@ class NLA_BLOB extends Win32Struct
         }
     
         class _ICS extends Win32Struct {
-            static sizeof => 1036
-            static packingSize => 4
+            static sizeof => 1040
+            static packingSize => 8
     
             class _remote extends Win32Struct {
                 static sizeof => 1036
@@ -245,7 +245,7 @@ class NLA_BLOB extends Win32Struct
     data{
         get {
             if(!this.HasProp("__data"))
-                this.__data := %this.__Class%._data_e__Union(12, this)
+                this.__data := %this.__Class%._data_e__Union(16, this)
             return this.__data
         }
     }

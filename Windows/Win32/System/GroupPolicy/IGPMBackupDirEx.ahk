@@ -39,6 +39,20 @@ class IGPMBackupDirEx extends IDispatch{
     static VTableNames => ["get_BackupDir", "get_BackupType", "GetBackup", "SearchBackups"]
 
     /**
+     * @type {BSTR} 
+     */
+    BackupDir {
+        get => this.get_BackupDir()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BackupType {
+        get => this.get_BackupType()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */
@@ -58,10 +72,11 @@ class IGPMBackupDirEx extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrID 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmbackupdirex-getbackup
+     * Retrieves the GPMBackup or GPMStarterGPOBackup object with the specified backup ID. The backup ID is a GUID. The backup ID is the ID of the backed-up Group Policy object (GPO), not the ID of the GPO.
+     * @param {BSTR} bstrID ID of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">GPMBackup</a> or <b>GPMStarterGPOBackup</b> object to open.
+     * @returns {VARIANT} Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">IGPMBackup</a> or <b>IGPMStarterGPOBackup</b> interface for the ID specified.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmbackupdirex-getbackup
      */
     GetBackup(bstrID) {
         bstrID := bstrID is String ? BSTR.Alloc(bstrID).Value : bstrID
@@ -72,10 +87,11 @@ class IGPMBackupDirEx extends IDispatch{
     }
 
     /**
-     * 
-     * @param {IGPMSearchCriteria} pIGPMSearchCriteria 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmbackupdirex-searchbackups
+     * Executes a search for a GPMBackup object or an IGPMStarterGPOBackup interface according to the specified criteria, and returns a GPMBackupCollection or GPMStarterGPOBackupCollection object.
+     * @param {IGPMSearchCriteria} pIGPMSearchCriteria Pointer to the criteria to be applied to the search.
+     * @returns {VARIANT} Pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackupcollection">IGPMBackupCollection</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackupcollection">IGPMStarterGPOBackupCollection</a> interface that represent the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">IGPMBackup</a> or <b>IGPMStarterGPOBackup</b> objects that are found by the search.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmbackupdirex-searchbackups
      */
     SearchBackups(pIGPMSearchCriteria) {
         pvarBackupCollection := VARIANT()

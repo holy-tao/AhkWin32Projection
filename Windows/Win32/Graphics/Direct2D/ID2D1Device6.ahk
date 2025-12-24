@@ -32,10 +32,14 @@ class ID2D1Device6 extends ID2D1Device5{
     static VTableNames => ["CreateDeviceContext"]
 
     /**
+     * Creates a new device context with no initially assigned target.
+     * @param {Integer} options Type: <b>D2D1_DEVICE_CONTEXT_OPTIONS</b>
      * 
-     * @param {Integer} options 
-     * @returns {ID2D1DeviceContext6} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1device6-createdevicecontext
+     * Options for creating the device context.
+     * @returns {ID2D1DeviceContext6} Type: <b>ID2D1DeviceContext6**</b>
+     * 
+     * The created device context.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1device6-createdevicecontext
      */
     CreateDeviceContext(options) {
         result := ComCall(20, this, "int", options, "ptr*", &deviceContext6 := 0, "HRESULT")

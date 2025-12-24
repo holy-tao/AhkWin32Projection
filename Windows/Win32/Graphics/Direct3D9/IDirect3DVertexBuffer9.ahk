@@ -52,13 +52,34 @@ class IDirect3DVertexBuffer9 extends IDirect3DResource9{
     static VTableNames => ["Lock", "Unlock", "GetDesc"]
 
     /**
+     * Locks a range of vertex data and obtains a pointer to the vertex buffer memory.
+     * @param {Integer} OffsetToLock Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} OffsetToLock 
-     * @param {Integer} SizeToLock 
-     * @param {Pointer<Pointer<Void>>} ppbData 
-     * @param {Integer} Flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexbuffer9-lock
+     * Offset into the vertex data to lock, in bytes. To lock the entire vertex buffer, specify 0 for both parameters, SizeToLock and OffsetToLock.
+     * @param {Integer} SizeToLock Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Size of the vertex data to lock, in bytes. To lock the entire vertex buffer, specify 0 for both parameters, SizeToLock and OffsetToLock.
+     * @param {Pointer<Pointer<Void>>} ppbData Type: <b>VOID**</b>
+     * 
+     * VOID* pointer to a memory buffer containing the returned vertex data.
+     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * 
+     * Combination of zero or more locking flags that describe the type of lock to perform. For this method, the valid flags are: 
+     *     
+     * 
+     * 
+     * <ul>
+     * <li>D3DLOCK_DISCARD</li>
+     * <li>D3DLOCK_NO_DIRTY_UPDATE</li>
+     * <li>D3DLOCK_NOSYSLOCK</li>
+     * <li>D3DLOCK_READONLY</li>
+     * <li>D3DLOCK_NOOVERWRITE</li>
+     * </ul>
+     * For a description of the flags, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlock">D3DLOCK</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvertexbuffer9-lock
      */
     Lock(OffsetToLock, SizeToLock, ppbData, Flags) {
         ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
@@ -68,9 +89,11 @@ class IDirect3DVertexBuffer9 extends IDirect3DResource9{
     }
 
     /**
+     * Unlocks vertex data.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexbuffer9-unlock
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvertexbuffer9-unlock
      */
     Unlock() {
         result := ComCall(12, this, "HRESULT")
@@ -78,10 +101,14 @@ class IDirect3DVertexBuffer9 extends IDirect3DResource9{
     }
 
     /**
+     * Retrieves a description of the vertex buffer resource.
+     * @param {Pointer<D3DVERTEXBUFFER_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dvertexbuffer-desc">D3DVERTEXBUFFER_DESC</a>*</b>
      * 
-     * @param {Pointer<D3DVERTEXBUFFER_DESC>} pDesc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexbuffer9-getdesc
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dvertexbuffer-desc">D3DVERTEXBUFFER_DESC</a> structure, describing the returned vertex buffer.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL is returned if the argument is invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvertexbuffer9-getdesc
      */
     GetDesc(pDesc) {
         result := ComCall(13, this, "ptr", pDesc, "HRESULT")

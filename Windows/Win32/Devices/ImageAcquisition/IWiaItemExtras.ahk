@@ -61,9 +61,11 @@ class IWiaItemExtras extends IUnknown{
     static VTableNames => ["GetExtendedErrorInfo", "Escape", "CancelPendingIO"]
 
     /**
+     * The IWiaItemExtras::GetExtendedErrorInfo method gets a string from the device driver that contains information about the most recent error.
+     * @returns {BSTR} Type: <b>BSTR*</b>
      * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitemextras-getextendederrorinfo
+     * Pointer to a string that contains the error information.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitemextras-getextendederrorinfo
      */
     GetExtendedErrorInfo() {
         bstrErrorText := BSTR()
@@ -72,17 +74,29 @@ class IWiaItemExtras extends IUnknown{
     }
 
     /**
-     * Enables an application to access the system-defined device capabilities that are not available through GDI.
-     * @param {Integer} dwEscapeCode 
-     * @param {Pointer<Integer>} lpInData 
-     * @param {Integer} cbInDataSize 
-     * @param {Pointer<Integer>} pOutData 
-     * @param {Integer} dwOutDataSize 
-     * @param {Pointer<Integer>} pdwActualDataSize 
-     * @returns {HRESULT} If the function succeeds, the return value is greater than zero, except with the <a href="/previous-versions/windows/desktop/legacy/ff686811(v=vs.85)">QUERYESCSUPPORT</a> printer escape, which checks for implementation only. If the escape is not implemented, the return value is zero.
+     * The IWiaItemExtras::Escape method sends a request for a vendor-specific I/O operation to a still image device.
+     * @param {Integer} dwEscapeCode Type: <b>DWORD</b>
      * 
-     * If the function fails, the return value is a system error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-escape
+     * Calling application-supplied, vendor-defined, DWORD-sized value that represents an I/O operation.
+     * @param {Pointer<Integer>} lpInData Type: <b>BYTE*</b>
+     * 
+     * Pointer to a calling application-supplied buffer that contains data to be sent to the device.
+     * @param {Integer} cbInDataSize Type: <b>DWORD</b>
+     * 
+     * Calling application-supplied length, in bytes, of the data contained in the buffer pointed to by <i>lpInData</i>.
+     * @param {Pointer<Integer>} pOutData Type: <b>BYTE*</b>
+     * 
+     * Pointer to a calling application-supplied memory buffer to receive data from the device.
+     * @param {Integer} dwOutDataSize Type: <b>DWORD</b>
+     * 
+     * Calling application-supplied length, in bytes, of the buffer pointed to by <i>pOutData</i>.
+     * @param {Pointer<Integer>} pdwActualDataSize Type: <b>DWORD*</b>
+     * 
+     * Receives the number of bytes actually written to <i>pOutData</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitemextras-escape
      */
     Escape(dwEscapeCode, lpInData, cbInDataSize, pOutData, dwOutDataSize, pdwActualDataSize) {
         lpInDataMarshal := lpInData is VarRef ? "char*" : "ptr"
@@ -94,9 +108,11 @@ class IWiaItemExtras extends IUnknown{
     }
 
     /**
+     * The IWiaItemExtras::CancelPendingIO method cancels all pending input/output operations on the driver.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwiaitemextras-cancelpendingio
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwiaitemextras-cancelpendingio
      */
     CancelPendingIO() {
         result := ComCall(5, this, "HRESULT")

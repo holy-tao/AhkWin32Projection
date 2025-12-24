@@ -32,11 +32,17 @@ class IWICFormatConverterInfo extends IWICComponentInfo{
     static VTableNames => ["GetPixelFormats", "CreateInstance"]
 
     /**
+     * Retrieves a list of GUIDs that signify which pixel formats the converter supports.
+     * @param {Integer} cFormats Type: <b>UINT</b>
      * 
-     * @param {Integer} cFormats 
-     * @param {Pointer<Guid>} pPixelFormatGUIDs 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicformatconverterinfo-getpixelformats
+     * The size of the <i>pPixelFormatGUIDs</i> array.
+     * @param {Pointer<Guid>} pPixelFormatGUIDs Type: <b>WICPixelFormatGUID*</b>
+     * 
+     * Pointer to a GUID array that receives the pixel formats the converter supports.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * The actual array size needed to retrieve all pixel formats supported by the converter.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicformatconverterinfo-getpixelformats
      */
     GetPixelFormats(cFormats, pPixelFormatGUIDs) {
         result := ComCall(11, this, "uint", cFormats, "ptr", pPixelFormatGUIDs, "uint*", &pcActual := 0, "HRESULT")
@@ -44,9 +50,11 @@ class IWICFormatConverterInfo extends IWICComponentInfo{
     }
 
     /**
+     * Creates a new IWICFormatConverter instance.
+     * @returns {IWICFormatConverter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicformatconverter">IWICFormatConverter</a>**</b>
      * 
-     * @returns {IWICFormatConverter} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicformatconverterinfo-createinstance
+     * A pointer that receives a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicformatconverter">IWICFormatConverter</a> instance.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicformatconverterinfo-createinstance
      */
     CreateInstance() {
         result := ComCall(12, this, "ptr*", &ppIConverter := 0, "HRESULT")

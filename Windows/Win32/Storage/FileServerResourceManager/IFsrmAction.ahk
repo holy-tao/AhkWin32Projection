@@ -37,9 +37,31 @@ class IFsrmAction extends IDispatch{
     static VTableNames => ["get_Id", "get_ActionType", "get_RunLimitInterval", "put_RunLimitInterval", "Delete"]
 
     /**
-     * 
+     * @type {Guid} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ActionType {
+        get => this.get_ActionType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RunLimitInterval {
+        get => this.get_RunLimitInterval()
+        set => this.put_RunLimitInterval(value)
+    }
+
+    /**
+     * Retrieves the identifier of the action.
      * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_id
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaction-get_id
      */
     get_Id() {
         id := Guid()
@@ -48,9 +70,9 @@ class IFsrmAction extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the action's type.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_actiontype
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaction-get_actiontype
      */
     get_ActionType() {
         result := ComCall(8, this, "int*", &actionType := 0, "HRESULT")
@@ -58,9 +80,58 @@ class IFsrmAction extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the interval that must expire before the action is run again.
+     * @remarks
+     * 
+     * This property specifies the interval that should occur before the action is run again. For example, if the 
+     *     interval has expired since the action last ran, the server will run the action again in response to an event; 
+     *     otherwise, the server cannot run the action again.
+     * 
+     * You can specify the interval as follows.
+     * 
+     * <table>
+     * <tr>
+     * <th>Interval</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * –1
+     * 
+     * </td>
+     * <td>
+     * Use the global run-time limit. For a description, see the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-setactionrunlimitinterval">IFsrmSetting::SetActionRunLimitInterval</a> 
+     *        method.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 0
+     * 
+     * </td>
+     * <td>
+     * Run the action for each quota or file screen event.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * &gt;0
+     * 
+     * </td>
+     * <td>
+     * If an event occurs during this interval, do not run the action again. The interval timer starts when the 
+     *        action begins. When the interval expires, the timer is reset.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-get_runlimitinterval
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaction-get_runlimitinterval
      */
     get_RunLimitInterval() {
         result := ComCall(9, this, "int*", &minutes := 0, "HRESULT")
@@ -68,10 +139,59 @@ class IFsrmAction extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the interval that must expire before the action is run again.
+     * @remarks
+     * 
+     * This property specifies the interval that should occur before the action is run again. For example, if the 
+     *     interval has expired since the action last ran, the server will run the action again in response to an event; 
+     *     otherwise, the server cannot run the action again.
+     * 
+     * You can specify the interval as follows.
+     * 
+     * <table>
+     * <tr>
+     * <th>Interval</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * –1
+     * 
+     * </td>
+     * <td>
+     * Use the global run-time limit. For a description, see the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-setactionrunlimitinterval">IFsrmSetting::SetActionRunLimitInterval</a> 
+     *        method.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 0
+     * 
+     * </td>
+     * <td>
+     * Run the action for each quota or file screen event.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * &gt;0
+     * 
+     * </td>
+     * <td>
+     * If an event occurs during this interval, do not run the action again. The interval timer starts when the 
+     *        action begins. When the interval expires, the timer is reset.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * 
      * 
      * @param {Integer} minutes 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-put_runlimitinterval
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaction-put_runlimitinterval
      */
     put_RunLimitInterval(minutes) {
         result := ComCall(10, this, "int", minutes, "HRESULT")
@@ -79,9 +199,9 @@ class IFsrmAction extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmaction-delete
+     * Removes the action from the quota or file screen's list of actions.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmaction-delete
      */
     Delete() {
         result := ComCall(11, this, "HRESULT")

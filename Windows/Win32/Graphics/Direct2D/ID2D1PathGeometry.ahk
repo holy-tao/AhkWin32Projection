@@ -43,9 +43,11 @@ class ID2D1PathGeometry extends ID2D1Geometry{
     static VTableNames => ["Open", "Stream", "GetSegmentCount", "GetFigureCount"]
 
     /**
+     * Retrieves the geometry sink that is used to populate the path geometry with figures and segments.
+     * @returns {ID2D1GeometrySink} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometrysink">ID2D1GeometrySink</a>**</b>
      * 
-     * @returns {ID2D1GeometrySink} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1pathgeometry-open
+     * When this method returns, <i>geometrySink</i> contains the address of a pointer to the geometry sink that is used to populate the path geometry with figures and segments. This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1pathgeometry-open
      */
     Open() {
         result := ComCall(17, this, "ptr*", &geometrySink := 0, "HRESULT")
@@ -53,10 +55,14 @@ class ID2D1PathGeometry extends ID2D1Geometry{
     }
 
     /**
+     * Copies the contents of the path geometry to the specified ID2D1GeometrySink.
+     * @param {ID2D1GeometrySink} geometrySink Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometrysink">ID2D1GeometrySink</a>*</b>
      * 
-     * @param {ID2D1GeometrySink} geometrySink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1pathgeometry-stream
+     * The sink to which the path geometry's contents are copied. Modifying this sink does not change the contents of this path geometry.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1pathgeometry-stream
      */
     Stream(geometrySink) {
         result := ComCall(18, this, "ptr", geometrySink, "HRESULT")
@@ -64,9 +70,11 @@ class ID2D1PathGeometry extends ID2D1Geometry{
     }
 
     /**
+     * Retrieves the number of segments in the path geometry.
+     * @returns {Integer} Type: <b>UINT32*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1pathgeometry-getsegmentcount
+     * A pointer that receives the number of segments in the path geometry when this method returns. You must allocate storage for this parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1pathgeometry-getsegmentcount
      */
     GetSegmentCount() {
         result := ComCall(19, this, "uint*", &count := 0, "HRESULT")
@@ -74,9 +82,11 @@ class ID2D1PathGeometry extends ID2D1Geometry{
     }
 
     /**
+     * Retrieves the number of figures in the path geometry.
+     * @returns {Integer} Type: <b>UINT32*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1pathgeometry-getfigurecount
+     * A pointer that receives the number of figures in the path geometry when this method returns. You must allocate storage for this parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1pathgeometry-getfigurecount
      */
     GetFigureCount() {
         result := ComCall(20, this, "uint*", &count := 0, "HRESULT")

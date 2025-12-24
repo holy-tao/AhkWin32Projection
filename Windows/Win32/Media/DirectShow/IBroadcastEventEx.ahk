@@ -41,14 +41,14 @@ class IBroadcastEventEx extends IBroadcastEvent{
     static VTableNames => ["FireEx"]
 
     /**
-     * 
-     * @param {Guid} EventID 
-     * @param {Integer} Param1 
-     * @param {Integer} Param2 
-     * @param {Integer} Param3 
-     * @param {Integer} Param4 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibroadcasteventex-fireex
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {Guid} EventID GUID that specifies the event.
+     * @param {Integer} Param1 Specifies the first implementation-dependent parameter.
+     * @param {Integer} Param2 Specifies the second implementation-dependent parameter.
+     * @param {Integer} Param3 Specifies the third implementation-dependent parameter.
+     * @param {Integer} Param4 Specifies the fourth implementation-dependent parameter.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ibroadcasteventex-fireex
      */
     FireEx(EventID, Param1, Param2, Param3, Param4) {
         result := ComCall(4, this, "ptr", EventID, "uint", Param1, "uint", Param2, "uint", Param3, "uint", Param4, "HRESULT")

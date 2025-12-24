@@ -30,6 +30,38 @@ class IHTMLImgElement3 extends IDispatch{
     static VTableNames => ["put_longDesc", "get_longDesc", "put_vrml", "get_vrml", "put_lowsrc", "get_lowsrc", "put_dynsrc", "get_dynsrc"]
 
     /**
+     * @type {BSTR} 
+     */
+    longDesc {
+        get => this.get_longDesc()
+        set => this.put_longDesc(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    vrml {
+        get => this.get_vrml()
+        set => this.put_vrml(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    lowsrc {
+        get => this.get_lowsrc()
+        set => this.put_lowsrc(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dynsrc {
+        get => this.get_dynsrc()
+        set => this.put_dynsrc(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

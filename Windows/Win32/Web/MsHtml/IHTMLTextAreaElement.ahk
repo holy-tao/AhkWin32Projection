@@ -39,6 +39,108 @@ class IHTMLTextAreaElement extends IDispatch{
     static VTableNames => ["get_type", "put_value", "get_value", "put_name", "get_name", "put_status", "get_status", "put_disabled", "get_disabled", "get_form", "put_defaultValue", "get_defaultValue", "select", "put_onchange", "get_onchange", "put_onselect", "get_onselect", "put_readOnly", "get_readOnly", "put_rows", "get_rows", "put_cols", "get_cols", "put_wrap", "get_wrap", "createTextRange"]
 
     /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    status {
+        get => this.get_status()
+        set => this.put_status(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    disabled {
+        get => this.get_disabled()
+        set => this.put_disabled(value)
+    }
+
+    /**
+     * @type {IHTMLFormElement} 
+     */
+    form {
+        get => this.get_form()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    defaultValue {
+        get => this.get_defaultValue()
+        set => this.put_defaultValue(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onchange {
+        get => this.get_onchange()
+        set => this.put_onchange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onselect {
+        get => this.get_onselect()
+        set => this.put_onselect(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    readOnly {
+        get => this.get_readOnly()
+        set => this.put_readOnly(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    rows {
+        get => this.get_rows()
+        set => this.put_rows(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    cols {
+        get => this.get_cols()
+        set => this.put_cols(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    wrap {
+        get => this.get_wrap()
+        set => this.put_wrap(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

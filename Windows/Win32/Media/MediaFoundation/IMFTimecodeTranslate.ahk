@@ -39,12 +39,52 @@ class IMFTimecodeTranslate extends IUnknown{
     static VTableNames => ["BeginConvertTimecodeToHNS", "EndConvertTimecodeToHNS", "BeginConvertHNSToTimecode", "EndConvertHNSToTimecode"]
 
     /**
+     * Starts an asynchronous call to convert Society of Motion Picture and Television Engineers (SMPTE) time code to 100-nanosecond units.
+     * @param {Pointer<PROPVARIANT>} pPropVarTimecode Time in SMPTE time code to convert. The <b>vt</b> member of the <b>PROPVARIANT</b> structure is set to <b>VT_I8</b>. The <b>hVal.QuadPart</b> member contains the time in binary coded decimal (BCD) form. See Remarks.
+     * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
+     * @param {IUnknown} punkState PPointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<PROPVARIANT>} pPropVarTimecode 
-     * @param {IMFAsyncCallback} pCallback 
-     * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftimecodetranslate-beginconverttimecodetohns
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pPropVarTimecode</i> is not <b>VT_I8</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_SHUTDOWN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object's <b>Shutdown</b> method was called.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_BYTESTREAM_NOT_SEEKABLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The byte stream is not seekable. The time code cannot be read from the end of the byte stream.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftimecodetranslate-beginconverttimecodetohns
      */
     BeginConvertTimecodeToHNS(pPropVarTimecode, pCallback, punkState) {
         result := ComCall(3, this, "ptr", pPropVarTimecode, "ptr", pCallback, "ptr", punkState, "HRESULT")
@@ -52,10 +92,10 @@ class IMFTimecodeTranslate extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFAsyncResult} pResult 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftimecodetranslate-endconverttimecodetohns
+     * Completes an asynchronous request to convert time in Society of Motion Picture and Television Engineers (SMPTE) time code to 100-nanosecond units.
+     * @param {IMFAsyncResult} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
+     * @returns {Integer} Receives the converted time.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftimecodetranslate-endconverttimecodetohns
      */
     EndConvertTimecodeToHNS(pResult) {
         result := ComCall(4, this, "ptr", pResult, "int64*", &phnsTime := 0, "HRESULT")
@@ -63,12 +103,41 @@ class IMFTimecodeTranslate extends IUnknown{
     }
 
     /**
+     * Starts an asynchronous call to convert time in 100-nanosecond units to Society of Motion Picture and Television Engineers (SMPTE) time code.
+     * @param {Integer} hnsTime The time to convert, in 100-nanosecond units.
+     * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
+     * @param {IUnknown} punkState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} hnsTime 
-     * @param {IMFAsyncCallback} pCallback 
-     * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftimecodetranslate-beginconverthnstotimecode
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_SHUTDOWN</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object's <b>Shutdown</b> method was called.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_BYTESTREAM_NOT_SEEKABLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The byte stream is not seekable. The time code cannot be read from the end of the byte stream.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftimecodetranslate-beginconverthnstotimecode
      */
     BeginConvertHNSToTimecode(hnsTime, pCallback, punkState) {
         result := ComCall(5, this, "int64", hnsTime, "ptr", pCallback, "ptr", punkState, "HRESULT")
@@ -76,10 +145,10 @@ class IMFTimecodeTranslate extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFAsyncResult} pResult 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imftimecodetranslate-endconverthnstotimecode
+     * Completes an asynchronous request to convert time in 100-nanosecond units to Society of Motion Picture and Television Engineers (SMPTE) time code.
+     * @param {IMFAsyncResult} pResult A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
+     * @returns {PROPVARIANT} A pointer to a <b>PROPVARIANT</b> that receives the converted time. The <b>vt</b> member of the <b>PROPVARIANT</b> structure is set to VT_I8. The <b>hVal.QuadPart</b> member contains the converted time in binary coded decimal (BCD) form. See Remarks.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imftimecodetranslate-endconverthnstotimecode
      */
     EndConvertHNSToTimecode(pResult) {
         pPropVarTimecode := PROPVARIANT()

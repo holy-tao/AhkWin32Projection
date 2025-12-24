@@ -31,10 +31,17 @@ class IMDSPStorage3 extends IMDSPStorage2{
     static VTableNames => ["GetMetadata", "SetMetadata"]
 
     /**
+     * The GetMetadata method retrieves metadata from the service provider.
+     * @param {IWMDMMetaData} pMetadata Pointer to an <b>IWMDMMetaData</b> interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {IWMDMMetaData} pMetadata 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage3-getmetadata
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspstorage3-getmetadata
      */
     GetMetadata(pMetadata) {
         result := ComCall(17, this, "ptr", pMetadata, "HRESULT")
@@ -42,10 +49,39 @@ class IMDSPStorage3 extends IMDSPStorage2{
     }
 
     /**
+     * The SetMetadata method provides the metadata associated with a specified content.
+     * @param {IWMDMMetaData} pMetadata Pointer to an <b>IWMDMMetadata</b> interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IWMDMMetaData} pMetadata 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspstorage3-setmetadata
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded, which indicates that SP has successfully processed the metadata.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>WMDM_E_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device does not support setting metadata.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspstorage3-setmetadata
      */
     SetMetadata(pMetadata) {
         result := ComCall(18, this, "ptr", pMetadata, "HRESULT")

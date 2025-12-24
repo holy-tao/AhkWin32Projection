@@ -33,6 +33,118 @@ class ISchemaType extends ISchemaItem{
     static VTableNames => ["get_baseTypes", "get_final", "get_variety", "get_derivedBy", "isValid", "get_minExclusive", "get_minInclusive", "get_maxExclusive", "get_maxInclusive", "get_totalDigits", "get_fractionDigits", "get_length", "get_minLength", "get_maxLength", "get_enumeration", "get_whitespace", "get_patterns"]
 
     /**
+     * @type {ISchemaItemCollection} 
+     */
+    baseTypes {
+        get => this.get_baseTypes()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    final {
+        get => this.get_final()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    variety {
+        get => this.get_variety()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    derivedBy {
+        get => this.get_derivedBy()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    minExclusive {
+        get => this.get_minExclusive()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    minInclusive {
+        get => this.get_minInclusive()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    maxExclusive {
+        get => this.get_maxExclusive()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    maxInclusive {
+        get => this.get_maxInclusive()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    totalDigits {
+        get => this.get_totalDigits()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    fractionDigits {
+        get => this.get_fractionDigits()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    minLength {
+        get => this.get_minLength()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    maxLength {
+        get => this.get_maxLength()
+    }
+
+    /**
+     * @type {ISchemaStringCollection} 
+     */
+    enumeration {
+        get => this.get_enumeration()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    whitespace {
+        get => this.get_whitespace()
+    }
+
+    /**
+     * @type {ISchemaStringCollection} 
+     */
+    patterns {
+        get => this.get_patterns()
+    }
+
+    /**
      * 
      * @returns {ISchemaItemCollection} 
      */

@@ -31,11 +31,17 @@ class IMFTimedTextBinary extends IUnknown{
     static VTableNames => ["GetData"]
 
     /**
+     * Gets the data content of the timed-text object.
+     * @param {Pointer<Pointer<Integer>>} data Type: <b>const BYTE**</b>
      * 
-     * @param {Pointer<Pointer<Integer>>} data 
-     * @param {Pointer<Integer>} length 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextbinary-getdata
+     * A pointer to a memory block that receives a pointer to the data content of the timed-text object.
+     * @param {Pointer<Integer>} length Type: <b>DWORD*</b>
+     * 
+     * A pointer to a variable that receives the length in bytes of the data content.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextbinary-getdata
      */
     GetData(data, length) {
         dataMarshal := data is VarRef ? "ptr*" : "ptr"

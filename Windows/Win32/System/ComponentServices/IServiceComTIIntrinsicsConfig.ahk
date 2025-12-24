@@ -31,10 +31,10 @@ class IServiceComTIIntrinsicsConfig extends IUnknown{
     static VTableNames => ["ComTIIntrinsicsConfig"]
 
     /**
-     * 
-     * @param {Integer} comtiIntrinsicsConfig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicecomtiintrinsicsconfig-comtiintrinsicsconfig
+     * Configures the COMTI intrinsics for the enclosed work.
+     * @param {Integer} comtiIntrinsicsConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_comtiintrinsicsconfig">CSC_COMTIIntrinsicsConfig</a> enumeration.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicecomtiintrinsicsconfig-comtiintrinsicsconfig
      */
     ComTIIntrinsicsConfig(comtiIntrinsicsConfig) {
         result := ComCall(3, this, "int", comtiIntrinsicsConfig, "HRESULT")

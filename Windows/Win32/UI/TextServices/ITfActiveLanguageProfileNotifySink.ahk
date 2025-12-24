@@ -31,12 +31,12 @@ class ITfActiveLanguageProfileNotifySink extends IUnknown{
     static VTableNames => ["OnActivated"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} clsid 
-     * @param {Pointer<Guid>} guidProfile 
-     * @param {BOOL} fActivated 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfactivelanguageprofilenotifysink-onactivated
+     * ITfActiveLanguageProfileNotifySink::OnActivated method
+     * @param {Pointer<Guid>} clsid CLSID of the TSF text service activated or deactivated. This will be **NULL** for a language change.
+     * @param {Pointer<Guid>} guidProfile Profile GUID for the TSF text service. This is specified by the TSF text service when it is installed. This will be <b>NULL</b> for a language change.
+     * @param {BOOL} fActivated TRUE if the TSF text service is activated or FALSE if the TSF text service is deactivated.
+     * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfactivelanguageprofilenotifysink-onactivated
      */
     OnActivated(clsid, guidProfile, fActivated) {
         result := ComCall(3, this, "ptr", clsid, "ptr", guidProfile, "int", fActivated, "HRESULT")

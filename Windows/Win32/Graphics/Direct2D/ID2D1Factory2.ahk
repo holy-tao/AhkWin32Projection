@@ -32,10 +32,14 @@ class ID2D1Factory2 extends ID2D1Factory1{
     static VTableNames => ["CreateDevice"]
 
     /**
+     * Creates an ID2D1Device1 object.
+     * @param {IDXGIDevice} dxgiDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice">IDXGIDevice</a>*</b>
      * 
-     * @param {IDXGIDevice} dxgiDevice 
-     * @returns {ID2D1Device1} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-id2d1factory2-createdevice
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice">IDXGIDevice</a> object used when creating  the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_2/nn-d2d1_2-id2d1device1">ID2D1Device1</a>.
+     * @returns {ID2D1Device1} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_2/nn-d2d1_2-id2d1device1">ID2D1Device1</a>**</b>
+     * 
+     * The requested <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_2/nn-d2d1_2-id2d1device1">ID2D1Device1</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_2/nf-d2d1_2-id2d1factory2-createdevice
      */
     CreateDevice(dxgiDevice) {
         result := ComCall(27, this, "ptr", dxgiDevice, "ptr*", &d2dDevice1 := 0, "HRESULT")

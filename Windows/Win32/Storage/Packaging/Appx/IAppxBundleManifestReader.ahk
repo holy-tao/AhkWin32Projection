@@ -34,9 +34,11 @@ class IAppxBundleManifestReader extends IUnknown{
     static VTableNames => ["GetPackageId", "GetPackageInfoItems", "GetStream"]
 
     /**
-     * Gets the package identifier (ID) for the specified process.
-     * @returns {IAppxManifestPackageId} 
-     * @see https://docs.microsoft.com/windows/win32/api//appmodel/nf-appmodel-getpackageid
+     * Retrieves an object that represents the &lt;Identity&gt; element under the root &lt;Bundle&gt; element.
+     * @returns {IAppxManifestPackageId} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxmanifestpackageid">IAppxManifestPackageId</a>**</b>
+     * 
+     * The package identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestreader-getpackageid
      */
     GetPackageId() {
         result := ComCall(3, this, "ptr*", &packageId := 0, "HRESULT")
@@ -44,9 +46,11 @@ class IAppxBundleManifestReader extends IUnknown{
     }
 
     /**
+     * Retrieves an enumerator over all the &lt;Package&gt; elements under the &lt;Packages&gt; element.
+     * @returns {IAppxBundleManifestPackageInfoEnumerator} Type: <b>IAppxBundleManifestPackageInfoEnumerator**</b>
      * 
-     * @returns {IAppxBundleManifestPackageInfoEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestreader-getpackageinfoitems
+     *  An enumerator over all payload packages in a &lt;Packages&gt; element of a bundle.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestreader-getpackageinfoitems
      */
     GetPackageInfoItems() {
         result := ComCall(4, this, "ptr*", &packageInfoItems := 0, "HRESULT")
@@ -54,9 +58,11 @@ class IAppxBundleManifestReader extends IUnknown{
     }
 
     /**
+     * Gets the raw XML document without any preprocessing.
+     * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestreader-getstream
+     * The read-only stream that represents the XML content of the manifest.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestreader-getstream
      */
     GetStream() {
         result := ComCall(5, this, "ptr*", &manifestStream := 0, "HRESULT")

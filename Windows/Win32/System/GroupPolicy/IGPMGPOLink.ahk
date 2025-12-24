@@ -39,6 +39,50 @@ class IGPMGPOLink extends IDispatch{
     static VTableNames => ["get_GPOID", "get_GPODomain", "get_Enabled", "put_Enabled", "get_Enforced", "put_Enforced", "get_SOMLinkOrder", "get_SOM", "Delete"]
 
     /**
+     * @type {BSTR} 
+     */
+    GPOID {
+        get => this.get_GPOID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    GPODomain {
+        get => this.get_GPODomain()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Enforced {
+        get => this.get_Enforced()
+        set => this.put_Enforced(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SOMLinkOrder {
+        get => this.get_SOMLinkOrder()
+    }
+
+    /**
+     * @type {IGPMSOM} 
+     */
+    SOM {
+        get => this.get_SOM()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */
@@ -115,9 +159,13 @@ class IGPMGPOLink extends IDispatch{
     }
 
     /**
+     * Removes the GPO link from the scope of management (SOM). The method does not delete the GPO.
+     * @returns {HRESULT} <h3>JScript</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmgpolink-delete
+     * <h3>VB</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmgpolink-delete
      */
     Delete() {
         result := ComCall(15, this, "HRESULT")

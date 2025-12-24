@@ -31,9 +31,11 @@ class IDWriteColorGlyphRunEnumerator extends IUnknown{
     static VTableNames => ["MoveNext", "GetCurrentRun"]
 
     /**
+     * Move to the next glyph run in the enumerator.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritecolorglyphrunenumerator-movenext
+     * Returns <b>TRUE</b> if there is a next glyph run.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritecolorglyphrunenumerator-movenext
      */
     MoveNext() {
         result := ComCall(3, this, "int*", &hasRun := 0, "HRESULT")
@@ -41,9 +43,11 @@ class IDWriteColorGlyphRunEnumerator extends IUnknown{
     }
 
     /**
+     * Returns the current glyph run of the enumerator.
+     * @returns {Pointer<DWRITE_COLOR_GLYPH_RUN>} Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ns-dwrite_2-dwrite_color_glyph_run">DWRITE_COLOR_GLYPH_RUN</a>**</b>
      * 
-     * @returns {Pointer<DWRITE_COLOR_GLYPH_RUN>} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritecolorglyphrunenumerator-getcurrentrun
+     * A pointer to the current glyph run.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritecolorglyphrunenumerator-getcurrentrun
      */
     GetCurrentRun() {
         result := ComCall(4, this, "ptr*", &colorGlyphRun := 0, "HRESULT")

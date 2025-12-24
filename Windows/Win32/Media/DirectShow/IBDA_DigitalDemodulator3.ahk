@@ -29,6 +29,20 @@ class IBDA_DigitalDemodulator3 extends IBDA_DigitalDemodulator2{
     static VTableNames => ["put_SignalTimeouts", "get_SignalTimeouts", "put_PLPNumber", "get_PLPNumber"]
 
     /**
+     */
+    SignalTimeouts {
+        get => this.get_SignalTimeouts()
+        set => this.put_SignalTimeouts(value)
+    }
+
+    /**
+     */
+    PLPNumber {
+        get => this.get_PLPNumber()
+        set => this.put_PLPNumber(value)
+    }
+
+    /**
      * 
      * @param {Pointer<BDA_SIGNAL_TIMEOUTS>} pSignalTimeouts 
      * @returns {HRESULT} 

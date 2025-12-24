@@ -29,6 +29,41 @@ class ILineInfo extends IUnknown{
     static VTableNames => ["get_x", "get_baseLine", "get_textDescent", "get_textHeight", "get_lineDirection"]
 
     /**
+     * @type {Integer} 
+     */
+    x {
+        get => this.get_x()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    baseLine {
+        get => this.get_baseLine()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    textDescent {
+        get => this.get_textDescent()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    textHeight {
+        get => this.get_textHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    lineDirection {
+        get => this.get_lineDirection()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

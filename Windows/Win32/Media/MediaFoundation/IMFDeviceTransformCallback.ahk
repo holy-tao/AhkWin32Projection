@@ -31,11 +31,11 @@ class IMFDeviceTransformCallback extends IUnknown{
     static VTableNames => ["OnBufferSent"]
 
     /**
-     * 
-     * @param {IMFAttributes} pCallbackAttributes 
-     * @param {Integer} pinId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mftransform/nf-mftransform-imfdevicetransformcallback-onbuffersent
+     * Called when system-allocated frame buffers are sent to the device driver.
+     * @param {IMFAttributes} pCallbackAttributes The attributes containing the callback data. The System-allocated frame buffer information is stored in the attribute with the MF_DMFT_FRAME_BUFFER_INFO key.
+     * @param {Integer} pinId The identifier of the device pin to which the frame buffers are sent.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mftransform/nf-mftransform-imfdevicetransformcallback-onbuffersent
      */
     OnBufferSent(pCallbackAttributes, pinId) {
         result := ComCall(3, this, "ptr", pCallbackAttributes, "uint", pinId, "HRESULT")

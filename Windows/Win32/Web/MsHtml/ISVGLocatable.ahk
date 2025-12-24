@@ -32,6 +32,20 @@ class ISVGLocatable extends IDispatch{
     static VTableNames => ["get_nearestViewportElement", "get_farthestViewportElement", "getBBox", "getCTM", "getScreenCTM", "getTransformToElement"]
 
     /**
+     * @type {ISVGElement} 
+     */
+    nearestViewportElement {
+        get => this.get_nearestViewportElement()
+    }
+
+    /**
+     * @type {ISVGElement} 
+     */
+    farthestViewportElement {
+        get => this.get_farthestViewportElement()
+    }
+
+    /**
      * 
      * @returns {ISVGElement} 
      */

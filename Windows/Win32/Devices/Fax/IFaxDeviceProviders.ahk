@@ -43,9 +43,25 @@ class IFaxDeviceProviders extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * The IFaxDeviceProviders::get__NewEnum method returns a reference to an enumerator object that you can use to iterate through the FaxDeviceProviders collection.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceproviders-get__newenum
+     * Receives an indirect pointer to the enumerator object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdeviceproviders-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -53,10 +69,18 @@ class IFaxDeviceProviders extends IDispatch{
     }
 
     /**
+     * The IFaxDeviceProviders::get_Item property returns a FaxDeviceProvider object from the FaxDeviceProviders collection.
+     * @param {VARIANT} vIndex Type: <b>VARIANT</b>
      * 
-     * @param {VARIANT} vIndex 
-     * @returns {IFaxDeviceProvider} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceproviders-get_item
+     * <b>VARIANT</b> that specifies the item to retrieve from the collection.
+     *                     
+     *                     
+     * 
+     * If this parameter is type VT_I2 or VT_I4, the parameter specifies the index of the item to retrieve from the collection. The index is 1-based. If this parameter is type VT_BSTR, the parameter is the unique name that identifies the FSP to retrieve. Other types are not supported.
+     * @returns {IFaxDeviceProvider} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdeviceprovider">IFaxDeviceProvider</a>**</b>
+     * 
+     * Address of a pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdeviceprovider">IFaxDeviceProvider</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdeviceproviders-get_item
      */
     get_Item(vIndex) {
         result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxDeviceProvider := 0, "HRESULT")
@@ -64,9 +88,9 @@ class IFaxDeviceProviders extends IDispatch{
     }
 
     /**
-     * 
+     * The Count property represents the number of objects in the FaxDeviceProviders collection. This is the total number of fax device providers associated with the fax server.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdeviceproviders-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdeviceproviders-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")

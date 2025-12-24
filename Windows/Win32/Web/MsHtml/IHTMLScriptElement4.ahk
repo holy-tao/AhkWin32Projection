@@ -30,6 +30,13 @@ class IHTMLScriptElement4 extends IDispatch{
     static VTableNames => ["get_usedCharset"]
 
     /**
+     * @type {BSTR} 
+     */
+    usedCharset {
+        get => this.get_usedCharset()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

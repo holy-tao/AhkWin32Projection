@@ -31,9 +31,11 @@ class IWICComponentInfo extends IUnknown{
     static VTableNames => ["GetComponentType", "GetCLSID", "GetSigningStatus", "GetAuthor", "GetVendorGUID", "GetVersion", "GetSpecVersion", "GetFriendlyName"]
 
     /**
+     * Retrieves the component's WICComponentType.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponenttype">WICComponentType</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getcomponenttype
+     * A pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponenttype">WICComponentType</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getcomponenttype
      */
     GetComponentType() {
         result := ComCall(3, this, "int*", &pType := 0, "HRESULT")
@@ -41,9 +43,11 @@ class IWICComponentInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the component's class identifier (CLSID)
+     * @returns {Guid} Type: <b>CLSID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getclsid
+     * A pointer that receives the component's CLSID.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getclsid
      */
     GetCLSID() {
         pclsid := Guid()
@@ -52,9 +56,11 @@ class IWICComponentInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the signing status of the component.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getsigningstatus
+     * A pointer that receives the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wiccomponentsigning">WICComponentSigning</a> status of the component.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getsigningstatus
      */
     GetSigningStatus() {
         result := ComCall(5, this, "uint*", &pStatus := 0, "HRESULT")
@@ -62,11 +68,18 @@ class IWICComponentInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the name of component's author.
+     * @param {Integer} cchAuthor Type: <b>UINT</b>
      * 
-     * @param {Integer} cchAuthor 
-     * @param {PWSTR} wzAuthor 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getauthor
+     * The size of the <i>wzAuthor</i> buffer.
+     * @param {PWSTR} wzAuthor Type: <b>WCHAR*</b>
+     * 
+     * A pointer that receives the name of the component's author.
+     *                The locale of the string depends on the value that the codec wrote to the registry at install time. For built-in components, these strings are always in English.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * A pointer that receives the actual length of the component's authors name. The author name is optional; if an author name is not specified by the component, the length returned is 0.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getauthor
      */
     GetAuthor(cchAuthor, wzAuthor) {
         wzAuthor := wzAuthor is String ? StrPtr(wzAuthor) : wzAuthor
@@ -76,9 +89,11 @@ class IWICComponentInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the vendor GUID.
+     * @returns {Guid} Type: <b>GUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getvendorguid
+     * A pointer that receives the component's vendor GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getvendorguid
      */
     GetVendorGUID() {
         pguidVendor := Guid()
@@ -87,11 +102,17 @@ class IWICComponentInfo extends IUnknown{
     }
 
     /**
-     * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
-     * @param {Integer} cchVersion 
-     * @param {PWSTR} wzVersion 
-     * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
+     * Retrieves the component's version.
+     * @param {Integer} cchVersion Type: <b>UINT</b>
+     * 
+     * The size of the <i>wzVersion</i> buffer.
+     * @param {PWSTR} wzVersion Type: <b>WCHAR*</b>
+     * 
+     * A pointer that receives a culture invariant string of the component's version.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * A pointer that receives the actual length of the component's version. The version is optional; if a value is not specified by the component, the length returned is 0.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getversion
      */
     GetVersion(cchVersion, wzVersion) {
         wzVersion := wzVersion is String ? StrPtr(wzVersion) : wzVersion
@@ -101,11 +122,17 @@ class IWICComponentInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the component's specification version.
+     * @param {Integer} cchSpecVersion Type: <b>UINT</b>
      * 
-     * @param {Integer} cchSpecVersion 
-     * @param {PWSTR} wzSpecVersion 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getspecversion
+     * The size of the <i>wzSpecVersion</i> buffer.
+     * @param {PWSTR} wzSpecVersion Type: <b>WCHAR*</b>
+     * 
+     * When this method returns, contain a culture invarient string of the component's specification version. The version form is NN.NN.NN.NN.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * A pointer that receives the actual length of the component's specification version. The specification version is optional; if a value is not specified by the component, the length returned is 0.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getspecversion
      */
     GetSpecVersion(cchSpecVersion, wzSpecVersion) {
         wzSpecVersion := wzSpecVersion is String ? StrPtr(wzSpecVersion) : wzSpecVersion
@@ -115,11 +142,18 @@ class IWICComponentInfo extends IUnknown{
     }
 
     /**
+     * Retrieves the component's friendly name, which is a human-readable display name for the component.
+     * @param {Integer} cchFriendlyName Type: <b>UINT</b>
      * 
-     * @param {Integer} cchFriendlyName 
-     * @param {PWSTR} wzFriendlyName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwiccomponentinfo-getfriendlyname
+     * The size of the <i>wzFriendlyName</i> buffer.
+     * @param {PWSTR} wzFriendlyName Type: <b>WCHAR*</b>
+     * 
+     * A pointer that receives the friendly name of the component.
+     *                The locale of the string depends on the value that the codec wrote to the registry at install time. For built-in components, these strings are always in English.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * A pointer that receives the actual length of the component's friendly name.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccomponentinfo-getfriendlyname
      */
     GetFriendlyName(cchFriendlyName, wzFriendlyName) {
         wzFriendlyName := wzFriendlyName is String ? StrPtr(wzFriendlyName) : wzFriendlyName

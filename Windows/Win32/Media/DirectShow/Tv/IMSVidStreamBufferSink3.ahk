@@ -38,9 +38,92 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     static VTableNames => ["SetMinSeek", "get_AudioCounter", "get_VideoCounter", "get_CCCounter", "get_WSTCounter", "put_AudioAnalysisFilter", "get_AudioAnalysisFilter", "put__AudioAnalysisFilter", "get__AudioAnalysisFilter", "put_VideoAnalysisFilter", "get_VideoAnalysisFilter", "put__VideoAnalysisFilter", "get__VideoAnalysisFilter", "put_DataAnalysisFilter", "get_DataAnalysisFilter", "put__DataAnalysisFilter", "get__DataAnalysisFilter", "get_LicenseErrorCode"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-setminseek
+     * @type {IUnknown} 
+     */
+    AudioCounter {
+        get => this.get_AudioCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    VideoCounter {
+        get => this.get_VideoCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    CCCounter {
+        get => this.get_CCCounter()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    WSTCounter {
+        get => this.get_WSTCounter()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AudioAnalysisFilter {
+        get => this.get_AudioAnalysisFilter()
+        set => this.put_AudioAnalysisFilter(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _AudioAnalysisFilter {
+        get => this.get__AudioAnalysisFilter()
+        set => this.put__AudioAnalysisFilter(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VideoAnalysisFilter {
+        get => this.get_VideoAnalysisFilter()
+        set => this.put_VideoAnalysisFilter(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _VideoAnalysisFilter {
+        get => this.get__VideoAnalysisFilter()
+        set => this.put__VideoAnalysisFilter(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DataAnalysisFilter {
+        get => this.get_DataAnalysisFilter()
+        set => this.put_DataAnalysisFilter(value)
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    _DataAnalysisFilter {
+        get => this.get__DataAnalysisFilter()
+        set => this.put__DataAnalysisFilter(value)
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    LicenseErrorCode {
+        get => this.get_LicenseErrorCode()
+    }
+
+    /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {Integer} Receives the current position, in hundredths of seconds.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-setminseek
      */
     SetMinSeek() {
         result := ComCall(23, this, "int*", &pdwMin := 0, "HRESULT")
@@ -48,9 +131,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_audiocounter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-get_audiocounter
      */
     get_AudioCounter() {
         result := ComCall(24, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -58,9 +141,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_videocounter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-get_videocounter
      */
     get_VideoCounter() {
         result := ComCall(25, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -68,9 +151,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_cccounter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-get_cccounter
      */
     get_CCCounter() {
         result := ComCall(26, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -78,9 +161,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_wstcounter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-get_wstcounter
      */
     get_WSTCounter() {
         result := ComCall(27, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -88,10 +171,10 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @param {BSTR} szCLSID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-put_audioanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {BSTR} szCLSID Reserved.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-put_audioanalysisfilter
      */
     put_AudioAnalysisFilter(szCLSID) {
         szCLSID := szCLSID is String ? BSTR.Alloc(szCLSID).Value : szCLSID
@@ -101,9 +184,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_audioanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {BSTR} Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-get_audioanalysisfilter
      */
     get_AudioAnalysisFilter() {
         pszCLSID := BSTR()
@@ -112,10 +195,10 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @param {Guid} guid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-put__audioanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {Guid} guid Reserved.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-put__audioanalysisfilter
      */
     put__AudioAnalysisFilter(guid) {
         result := ComCall(30, this, "ptr", guid, "HRESULT")
@@ -123,9 +206,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get__audioanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {Guid} Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-get__audioanalysisfilter
      */
     get__AudioAnalysisFilter() {
         pGuid := Guid()
@@ -134,10 +217,10 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @param {BSTR} szCLSID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-put_videoanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {BSTR} szCLSID Reserved.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-put_videoanalysisfilter
      */
     put_VideoAnalysisFilter(szCLSID) {
         szCLSID := szCLSID is String ? BSTR.Alloc(szCLSID).Value : szCLSID
@@ -147,9 +230,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_videoanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {BSTR} Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-get_videoanalysisfilter
      */
     get_VideoAnalysisFilter() {
         pszCLSID := BSTR()
@@ -158,10 +241,10 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @param {Guid} guid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-put__videoanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {Guid} guid Reserved.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-put__videoanalysisfilter
      */
     put__VideoAnalysisFilter(guid) {
         result := ComCall(34, this, "ptr", guid, "HRESULT")
@@ -169,9 +252,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get__videoanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {Guid} Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-get__videoanalysisfilter
      */
     get__VideoAnalysisFilter() {
         pGuid := Guid()
@@ -180,10 +263,10 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @param {BSTR} szCLSID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-put_dataanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {BSTR} szCLSID Reserved.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-put_dataanalysisfilter
      */
     put_DataAnalysisFilter(szCLSID) {
         szCLSID := szCLSID is String ? BSTR.Alloc(szCLSID).Value : szCLSID
@@ -193,9 +276,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_dataanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {BSTR} Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-get_dataanalysisfilter
      */
     get_DataAnalysisFilter() {
         pszCLSID := BSTR()
@@ -204,10 +287,10 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @param {Guid} guid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-put__dataanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @param {Guid} guid Reserved.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-put__dataanalysisfilter
      */
     put__DataAnalysisFilter(guid) {
         result := ComCall(38, this, "ptr", guid, "HRESULT")
@@ -215,9 +298,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get__dataanalysisfilter
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {Guid} Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-get__dataanalysisfilter
      */
     get__DataAnalysisFilter() {
         pGuid := Guid()
@@ -226,9 +309,9 @@ class IMSVidStreamBufferSink3 extends IMSVidStreamBufferSink2{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersink3-get_licenseerrorcode
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @returns {HRESULT} Receives an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersink3-get_licenseerrorcode
      */
     get_LicenseErrorCode() {
         result := ComCall(40, this, "int*", &hres := 0, "HRESULT")

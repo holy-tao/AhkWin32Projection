@@ -40,10 +40,14 @@ class ICredentialProviderEvents extends IUnknown{
     static VTableNames => ["CredentialsChanged"]
 
     /**
+     * Signals the Logon UI or Credential UI that the enumerated list of credentials has changed.
+     * @param {Pointer} upAdviseContext Type: <b>UINT_PTR</b>
      * 
-     * @param {Pointer} upAdviseContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialproviderevents-credentialschanged
+     * A pointer to an integer that uniquely identifies which credential provider has requested re-enumeration. The credential provider should pass back the interface pointer it received from <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovider-advise">Advise</a> in this parameter.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialproviderevents-credentialschanged
      */
     CredentialsChanged(upAdviseContext) {
         result := ComCall(3, this, "ptr", upAdviseContext, "HRESULT")

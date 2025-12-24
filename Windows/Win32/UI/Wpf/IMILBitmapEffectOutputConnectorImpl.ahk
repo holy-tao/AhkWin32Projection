@@ -35,10 +35,12 @@ class IMILBitmapEffectOutputConnectorImpl extends IUnknown{
     static VTableNames => ["AddBackLink", "RemoveBackLink"]
 
     /**
+     * IMILBitmapEffectOutputConnectorImpl::AddBackLink method
+     * @param {IMILBitmapEffectInputConnector} pConnection Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>*</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {IMILBitmapEffectInputConnector} pConnection 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectoutputconnectorimpl-addbacklink
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectoutputconnectorimpl-addbacklink
      */
     AddBackLink(pConnection) {
         result := ComCall(3, this, "ptr", pConnection, "HRESULT")
@@ -46,10 +48,12 @@ class IMILBitmapEffectOutputConnectorImpl extends IUnknown{
     }
 
     /**
+     * IMILBitmapEffectOutputConnectorImpl::RemoveBackLink method
+     * @param {IMILBitmapEffectInputConnector} pConnection Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>*</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {IMILBitmapEffectInputConnector} pConnection 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectoutputconnectorimpl-removebacklink
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectoutputconnectorimpl-removebacklink
      */
     RemoveBackLink(pConnection) {
         result := ComCall(4, this, "ptr", pConnection, "HRESULT")

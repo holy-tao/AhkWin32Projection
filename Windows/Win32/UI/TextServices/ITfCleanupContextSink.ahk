@@ -43,11 +43,11 @@ class ITfCleanupContextSink extends IUnknown{
     static VTableNames => ["OnCleanupContext"]
 
     /**
-     * 
-     * @param {Integer} ecWrite 
-     * @param {ITfContext} pic 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcleanupcontextsink-oncleanupcontext
+     * ITfCleanupContextSink::OnCleanupContext method
+     * @param {Integer} ecWrite Contains a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfeditcookie">TfEditCookie</a> value that identifies the edit context cleaned up. The edit context is guaranteed to have a read/write lock.
+     * @param {ITfContext} pic Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface that represents the context cleaned up.
+     * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcleanupcontextsink-oncleanupcontext
      */
     OnCleanupContext(ecWrite, pic) {
         result := ComCall(3, this, "uint", ecWrite, "ptr", pic, "HRESULT")

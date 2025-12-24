@@ -32,12 +32,31 @@ class ISensNetwork extends IDispatch{
     static VTableNames => ["ConnectionMade", "ConnectionMadeNoQOCInfo", "ConnectionLost", "DestinationReachable", "DestinationReachableNoQOCInfo"]
 
     /**
+     * The ConnectionMade method notifies your application that the specified connection has been established.
+     * @param {BSTR} bstrConnection For WAN connections, the information passed is the connection name. For WAN connections, the connection name is the name of the phone book entry. For LAN connections, the information passed is "LAN connection".
+     * @param {Integer} ulType Connection type. This value can be CONNECTION_LAN (0) or CONNECTION_WAN (1).
+     * @param {Pointer<SENS_QOCINFO>} lpQOCInfo Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sensevts/ns-sensevts-sens_qocinfo">SENS_QOCINFO</a> structure which contains Quality of Connection information.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} bstrConnection 
-     * @param {Integer} ulType 
-     * @param {Pointer<SENS_QOCINFO>} lpQOCInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isensnetwork-connectionmade
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method returned successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isensnetwork-connectionmade
      */
     ConnectionMade(bstrConnection, ulType, lpQOCInfo) {
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
@@ -47,11 +66,29 @@ class ISensNetwork extends IDispatch{
     }
 
     /**
+     * The ConnectionMadeNoQOCInfo method notifies your application that the specified connection has been established with no Quality of Connection information available.
+     * @param {BSTR} bstrConnection For WAN connections, the information passed is the connection name. For WAN connections, the connection name is the name of the phone book entry. For LAN connections, the information passed is "LAN connection".
+     * @param {Integer} ulType Connection type. This value can be CONNECTION_LAN (0) or CONNECTION_WAN (1).
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} bstrConnection 
-     * @param {Integer} ulType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isensnetwork-connectionmadenoqocinfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method returned successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isensnetwork-connectionmadenoqocinfo
      */
     ConnectionMadeNoQOCInfo(bstrConnection, ulType) {
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection
@@ -61,11 +98,29 @@ class ISensNetwork extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrConnection 
+     * The ConnectionLost method notifies your application that the specified connection has been dropped.
+     * @param {BSTR} bstrConnection For WAN connections, the information passed is the connection name. For WAN connections, the connection name is the name of the phone book entry. For LAN connections, the information passed is "LAN connection".
      * @param {Integer} ulType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isensnetwork-connectionlost
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method returned successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isensnetwork-connectionlost
      */
     ConnectionLost(bstrConnection, ulType) {
         bstrConnection := bstrConnection is String ? BSTR.Alloc(bstrConnection).Value : bstrConnection

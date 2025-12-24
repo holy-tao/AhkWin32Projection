@@ -31,11 +31,11 @@ class IWMDRMWriter extends IUnknown{
     static VTableNames => ["GenerateKeySeed", "GenerateKeyID", "GenerateSigningKeyPair", "SetDRMAttribute"]
 
     /**
-     * 
-     * @param {PWSTR} pwszKeySeed 
-     * @param {Pointer<Integer>} pcwchLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmwriter-generatekeyseed
+     * The GenerateKeySeed method generates a DRM key seed.
+     * @param {PWSTR} pwszKeySeed Pointer to a wide-character <b>null</b>-terminated string containing the key seed. Set to <b>NULL</b> to retrieve the size of the string, which is returned in <i>pcwchLength</i>.
+     * @param {Pointer<Integer>} pcwchLength Pointer to a <b>DWORD</b> containing the size, in wide characters, of <i>pwszKeySeed</i>. This size includes the terminating <b>null</b> character.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmwriter-generatekeyseed
      */
     GenerateKeySeed(pwszKeySeed, pcwchLength) {
         pwszKeySeed := pwszKeySeed is String ? StrPtr(pwszKeySeed) : pwszKeySeed
@@ -47,11 +47,11 @@ class IWMDRMWriter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwszKeyID 
-     * @param {Pointer<Integer>} pcwchLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmwriter-generatekeyid
+     * The GenerateKeyID method generates a DRM key ID.
+     * @param {PWSTR} pwszKeyID Pointer to a wide-character <b>null</b>-terminated string containing the key identifier. Set to <b>NULL</b> to retrieve the size of the string, which is returned in <i>pcwchLength</i>.
+     * @param {Pointer<Integer>} pcwchLength Pointer to a <b>DWORD</b> containing the size, in wide characters, of <i>pwszKeyID</i>. This size includes the terminating <b>null</b> character.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmwriter-generatekeyid
      */
     GenerateKeyID(pwszKeyID, pcwchLength) {
         pwszKeyID := pwszKeyID is String ? StrPtr(pwszKeyID) : pwszKeyID
@@ -63,13 +63,13 @@ class IWMDRMWriter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} pwszPrivKey 
-     * @param {Pointer<Integer>} pcwchPrivKeyLength 
-     * @param {PWSTR} pwszPubKey 
-     * @param {Pointer<Integer>} pcwchPubKeyLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmwriter-generatesigningkeypair
+     * The GenerateSigningKeyPair method generates a public and private key pair that are used to sign the DRM header object.
+     * @param {PWSTR} pwszPrivKey Pointer to a wide-character <b>null</b>-terminated string containing the private key. Set to <b>NULL</b> to retrieve the size of the string, which is returned in <i>pcwchPrivKeyLength</i>. Use this key to set the <a href="https://docs.microsoft.com/windows/desktop/wmformat/drm-headersignprivkey">DRM_HeaderSignPrivKey</a> property.
+     * @param {Pointer<Integer>} pcwchPrivKeyLength Pointer to a <b>DWORD</b> containing the size, in wide characters, of <i>pwszPrivKey</i>. This size includes the terminating <b>null</b> character.
+     * @param {PWSTR} pwszPubKey Pointer to a wide-character <b>null</b>-terminated string containing the public key. Set to <b>NULL</b> to retrieve the size of the string, which is returned in <i>pcwchPubKeyLength</i>. This key is shared only with the license server; it enables the license server to verify the signature of the DRM header object when users attempt to obtain a content license for a file.
+     * @param {Pointer<Integer>} pcwchPubKeyLength Pointer to a <b>DWORD</b> containing the size, in wide characters, of <i>pwsPubKey</i>. This size includes the terminating <b>null</b> character.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmwriter-generatesigningkeypair
      */
     GenerateSigningKeyPair(pwszPrivKey, pcwchPrivKeyLength, pwszPubKey, pcwchPubKeyLength) {
         pwszPrivKey := pwszPrivKey is String ? StrPtr(pwszPrivKey) : pwszPrivKey
@@ -83,14 +83,14 @@ class IWMDRMWriter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} wStreamNum 
-     * @param {PWSTR} pszName 
-     * @param {Integer} Type 
-     * @param {Pointer<Integer>} pValue 
-     * @param {Integer} cbLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmwriter-setdrmattribute
+     * The SetDRMAttribute method sets DRM-header attributes as well as other DRM run-time properties.
+     * @param {Integer} wStreamNum <b>WORD</b> containing the stream number to which the attribute applies.
+     * @param {PWSTR} pszName Pointer to a null-terminated string containing the attribute name. See Remarks for supported attributes.
+     * @param {Integer} Type A value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type specifying the data type of the attribute data.
+     * @param {Pointer<Integer>} pValue Pointer to an array of bytes containing the attribute data.
+     * @param {Integer} cbLength The size, in bytes, of the attribute data pointed to by <i>pValue</i>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmwriter-setdrmattribute
      */
     SetDRMAttribute(wStreamNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName

@@ -36,9 +36,16 @@ class ITunerCapEx extends IUnknown{
     static VTableNames => ["get_Has608_708Caption"]
 
     /**
-     * 
+     * @type {VARIANT_BOOL} 
+     */
+    Has608_708Caption {
+        get => this.get_Has608_708Caption()
+    }
+
+    /**
+     * Gets a flag indicating whether a BDA tuner device supports 608/708 closed captioning for ATSC, digital cable, or analog cable. In 608/708 closed captioning, the broadcast includes closed-captioning data.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunercapex-get_has608_708caption
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-itunercapex-get_has608_708caption
      */
     get_Has608_708Caption() {
         result := ComCall(3, this, "short*", &pbHasCaption := 0, "HRESULT")

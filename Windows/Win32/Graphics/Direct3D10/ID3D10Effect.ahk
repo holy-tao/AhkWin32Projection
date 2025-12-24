@@ -53,9 +53,11 @@ class ID3D10Effect extends IUnknown{
     static VTableNames => ["IsValid", "IsPool", "GetDevice", "GetDesc", "GetConstantBufferByIndex", "GetConstantBufferByName", "GetVariableByIndex", "GetVariableByName", "GetVariableBySemantic", "GetTechniqueByIndex", "GetTechniqueByName", "Optimize", "IsOptimized"]
 
     /**
+     * Test an effect to see if it contains valid syntax.
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-isvalid
+     * <b>TRUE</b> if the code syntax is valid; otherwise <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-isvalid
      */
     IsValid() {
         result := ComCall(3, this, "int")
@@ -63,9 +65,11 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Test an effect to see if it is part of a memory pool.
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-ispool
+     * <b>TRUE</b> if the effect is pooled; otherwise <b>FALSE</b>. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectpool">ID3D10EffectPool Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-ispool
      */
     IsPool() {
         result := ComCall(4, this, "int")
@@ -73,9 +77,11 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Get the device that created the effect.
+     * @returns {ID3D10Device} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device</a>**</b>
      * 
-     * @returns {ID3D10Device} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getdevice
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10device">ID3D10Device Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-getdevice
      */
     GetDevice() {
         result := ComCall(5, this, "ptr*", &ppDevice := 0, "HRESULT")
@@ -83,9 +89,11 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Get an effect description.
+     * @returns {D3D10_EFFECT_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_effect_desc">D3D10_EFFECT_DESC</a>*</b>
      * 
-     * @returns {D3D10_EFFECT_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getdesc
+     * A pointer to an effect description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10effect/ns-d3d10effect-d3d10_effect_desc">D3D10_EFFECT_DESC</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-getdesc
      */
     GetDesc() {
         pDesc := D3D10_EFFECT_DESC()
@@ -94,10 +102,14 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Get a constant buffer by index.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10EffectConstantBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getconstantbufferbyindex
+     * A zero-based index.
+     * @returns {ID3D10EffectConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectconstantbuffer">ID3D10EffectConstantBuffer</a>*</b>
+     * 
+     * A pointer to a <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectconstantbuffer">ID3D10EffectConstantBuffer Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(Index) {
         result := ComCall(7, this, "uint", Index, "ptr")
@@ -105,10 +117,14 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Get a constant buffer by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D10EffectConstantBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getconstantbufferbyname
+     * The constant-buffer name.
+     * @returns {ID3D10EffectConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectconstantbuffer">ID3D10EffectConstantBuffer</a>*</b>
+     * 
+     * A pointer to the constant buffer indicated by the Name. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectconstantbuffer">ID3D10EffectConstantBuffer</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-getconstantbufferbyname
      */
     GetConstantBufferByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -118,10 +134,14 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Get a variable by index.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10EffectVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getvariablebyindex
+     * A zero-based index.
+     * @returns {ID3D10EffectVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable</a>*</b>
+     * 
+     * A pointer to a <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-getvariablebyindex
      */
     GetVariableByIndex(Index) {
         result := ComCall(9, this, "uint", Index, "ptr")
@@ -129,10 +149,14 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Get a variable by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D10EffectVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getvariablebyname
+     * The variable name.
+     * @returns {ID3D10EffectVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable</a>*</b>
+     * 
+     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-getvariablebyname
      */
     GetVariableByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -142,10 +166,14 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Get a variable by semantic.
+     * @param {PSTR} Semantic Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Semantic 
-     * @returns {ID3D10EffectVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-getvariablebysemantic
+     * The semantic name.
+     * @returns {ID3D10EffectVariable} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable</a>*</b>
+     * 
+     * A pointer to the effect variable indicated by the Semantic. See <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effectvariable">ID3D10EffectVariable Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-getvariablebysemantic
      */
     GetVariableBySemantic(Semantic) {
         Semantic := Semantic is String ? StrPtr(Semantic) : Semantic
@@ -155,10 +183,14 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Get a technique by index.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10EffectTechnique} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-gettechniquebyindex
+     * A zero-based index.
+     * @returns {ID3D10EffectTechnique} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effecttechnique">ID3D10EffectTechnique</a>*</b>
+     * 
+     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effecttechnique">ID3D10EffectTechnique Interface</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-gettechniquebyindex
      */
     GetTechniqueByIndex(Index) {
         result := ComCall(12, this, "uint", Index, "ptr")
@@ -166,10 +198,14 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Get a technique by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D10EffectTechnique} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-gettechniquebyname
+     * The name of the technique.
+     * @returns {ID3D10EffectTechnique} Type: <b><a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effecttechnique">ID3D10EffectTechnique</a>*</b>
+     * 
+     * A pointer to an <a href="/windows/desktop/api/d3d10effect/nn-d3d10effect-id3d10effecttechnique">ID3D10EffectTechnique Interface</a>, or <b>NULL</b> if the technique is not found.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-gettechniquebyname
      */
     GetTechniqueByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -179,9 +215,11 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Minimize the amount of memory required for an effect.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-optimize
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-optimize
      */
     Optimize() {
         result := ComCall(14, this, "HRESULT")
@@ -189,9 +227,11 @@ class ID3D10Effect extends IUnknown{
     }
 
     /**
+     * Test an effect to see if the reflection metadata has been removed from memory.
+     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effect-isoptimized
+     * <b>TRUE</b> if the effect is optimized; otherwise <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effect-isoptimized
      */
     IsOptimized() {
         result := ComCall(15, this, "int")

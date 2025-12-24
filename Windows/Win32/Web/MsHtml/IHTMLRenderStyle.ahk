@@ -37,6 +37,78 @@ class IHTMLRenderStyle extends IDispatch{
     static VTableNames => ["put_textLineThroughStyle", "get_textLineThroughStyle", "put_textUnderlineStyle", "get_textUnderlineStyle", "put_textEffect", "get_textEffect", "put_textColor", "get_textColor", "put_textBackgroundColor", "get_textBackgroundColor", "put_textDecorationColor", "get_textDecorationColor", "put_renderingPriority", "get_renderingPriority", "put_defaultTextSelection", "get_defaultTextSelection", "put_textDecoration", "get_textDecoration"]
 
     /**
+     * @type {BSTR} 
+     */
+    textLineThroughStyle {
+        get => this.get_textLineThroughStyle()
+        set => this.put_textLineThroughStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textUnderlineStyle {
+        get => this.get_textUnderlineStyle()
+        set => this.put_textUnderlineStyle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textEffect {
+        get => this.get_textEffect()
+        set => this.put_textEffect(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    textColor {
+        get => this.get_textColor()
+        set => this.put_textColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    textBackgroundColor {
+        get => this.get_textBackgroundColor()
+        set => this.put_textBackgroundColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    textDecorationColor {
+        get => this.get_textDecorationColor()
+        set => this.put_textDecorationColor(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    renderingPriority {
+        get => this.get_renderingPriority()
+        set => this.put_renderingPriority(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    defaultTextSelection {
+        get => this.get_defaultTextSelection()
+        set => this.put_defaultTextSelection(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textDecoration {
+        get => this.get_textDecoration()
+        set => this.put_textDecoration(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

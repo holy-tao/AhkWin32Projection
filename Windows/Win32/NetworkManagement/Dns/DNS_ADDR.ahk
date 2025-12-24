@@ -30,6 +30,23 @@ class DNS_ADDR extends Win32Struct
     
     }
 
+    class _Data_e__Union extends Win32Struct {
+        static sizeof => 32
+        static packingSize => 1
+
+        /**
+         * @type {Array<UInt32>}
+         */
+        DnsAddrUserDword{
+            get {
+                if(!this.HasProp("__DnsAddrUserDwordProxyArray"))
+                    this.__DnsAddrUserDwordProxyArray := Win32FixedArray(this.ptr + 0, 8, Primitive, "uint")
+                return this.__DnsAddrUserDwordProxyArray
+            }
+        }
+    
+    }
+
     /**
      * A value that contains the socket IP address. It is a <a href="https://docs.microsoft.com/windows/desktop/WinSock/sockaddr-2">sockaddr_in</a> structure if the address is IPv4 and a sockaddr_in6 structure if the address is IPv6.
      * @type {String}

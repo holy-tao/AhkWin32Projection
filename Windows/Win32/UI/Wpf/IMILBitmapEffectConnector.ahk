@@ -32,9 +32,11 @@ class IMILBitmapEffectConnector extends IMILBitmapEffectConnectorInfo{
     static VTableNames => ["IsConnected", "GetBitmapEffect"]
 
     /**
+     * Determines whether the connector is connected to an effect.
+     * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
      * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnector-isconnected
+     * A pointer that receives <c>TRUE</code> if the connector is connected to an effect; otherwise, <code>FALSE</c>.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnector-isconnected
      */
     IsConnected() {
         result := ComCall(7, this, "short*", &pfConnected := 0, "HRESULT")
@@ -42,9 +44,11 @@ class IMILBitmapEffectConnector extends IMILBitmapEffectConnectorInfo{
     }
 
     /**
+     * Gets the IMILBitmapEffect associated with the connector.
+     * @returns {IMILBitmapEffect} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>**</b>
      * 
-     * @returns {IMILBitmapEffect} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnector-getbitmapeffect
+     * A pointer that receives a pointer to the bitmap effect.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnector-getbitmapeffect
      */
     GetBitmapEffect() {
         result := ComCall(8, this, "ptr*", &ppEffect := 0, "HRESULT")

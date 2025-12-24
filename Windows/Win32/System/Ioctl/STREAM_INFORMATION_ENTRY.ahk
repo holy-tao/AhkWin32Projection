@@ -7,12 +7,12 @@
  */
 class STREAM_INFORMATION_ENTRY extends Win32Struct
 {
-    static sizeof => 56
+    static sizeof => 64
 
     static packingSize => 8
 
     class _StreamInformation extends Win32Struct {
-        static sizeof => 48
+        static sizeof => 56
         static packingSize => 8
 
         class _DesiredStorageClass extends Win32Struct {

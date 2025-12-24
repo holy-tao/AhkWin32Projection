@@ -31,9 +31,9 @@ class INewMenuClient extends IUnknown{
     static VTableNames => ["IncludeItems", "SelectAndEditItem"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inewmenuclient-includeitems
+     * Allows the view to filter the items shown in the menu.
+     * @returns {Integer} Type: <b>NMCII_FLAGS*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inewmenuclient-includeitems
      */
     IncludeItems() {
         result := ComCall(3, this, "int*", &pflags := 0, "HRESULT")
@@ -41,11 +41,13 @@ class INewMenuClient extends IUnknown{
     }
 
     /**
+     * INewMenuClient::SelectAndEditItem method
+     * @param {Pointer<ITEMIDLIST>} pidlItem Type: <b>PCIDLIST_ABSOLUTE</b>
+     * @param {Integer} flags Type: <b>NMCSAEI_FLAGS</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidlItem 
-     * @param {Integer} flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inewmenuclient-selectandedititem
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inewmenuclient-selectandedititem
      */
     SelectAndEditItem(pidlItem, flags) {
         result := ComCall(4, this, "ptr", pidlItem, "int", flags, "HRESULT")

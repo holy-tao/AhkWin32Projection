@@ -35,6 +35,14 @@ class ISVGNumber extends IDispatch{
     static VTableNames => ["put_value", "get_value"]
 
     /**
+     * @type {Float} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
      * 
      * @param {Float} v 
      * @returns {HRESULT} 

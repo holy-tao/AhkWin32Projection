@@ -23,20 +23,19 @@ With rich IntelliSense features and full documentation directly in your IDE:
 ![Modern IntelliSense for APIs from the 90s](./Examples/Images/IntelliSense-Example.png)
 
 ## Table of Contents
-- [AhkWin32Projection](#ahkwin32projection)
-  - [Table of Contents](#table-of-contents)
-  - [What Is This?](#what-is-this)
-  - [Usage](#usage)
-    - [Don't Want 31,000 Files?](#dont-want-31000-files)	 
-    - [Common Namespaces](#common-namespaces)
-  - [Structs](#structs)
-    - [Creating Structs](#creating-structs)
-  - [COM Interfaces](#com-interfaces)
-    - [Implementing COM Interfaces](#implementing-com-interfaces)
-  - [Enums and Constants](#enums-and-constants)
-  - [Methods](#methods)
-  - [Limitations](#limitations)
-  - [Links](#links)
+- [Table of Contents](#table-of-contents)
+- [What Is This?](#what-is-this)
+- [Usage](#usage)
+  - [Don't Want 31,000 Files?](#dont-want-31000-files)
+  - [Common Namespaces](#common-namespaces)
+- [Structs](#structs)
+  - [Creating Structs](#creating-structs)
+- [COM Interfaces](#com-interfaces)
+  - [Implementing COM Interfaces](#implementing-com-interfaces)
+- [Enums and Constants](#enums-and-constants)
+- [Methods](#methods)
+- [Limitations](#limitations)
+- [Links](#links)
 
 
 ## What Is This?
@@ -214,5 +213,6 @@ See the [wiki](https://github.com/holy-tao/AhkWin32Projection/wiki/Functions) fo
   - Documentation is taken from the [Microsoft.Windows.SKD.Win32Docs](https://www.nuget.org/packages/Microsoft.Windows.SDK.Win32Docs/) package.
 
 ## Links
-- [Microsoft's win32metadata project](https://github.com/microsoft/win32metadata/tree/main): the data from which these files are generated
+- Microsoft's [win32metadata project](https://github.com/microsoft/win32metadata/tree/main): the data from which the files in the `Windows.Win32` namespace are generated
+- The [community wdkmetadata project](https://github.com/microsoft/wdkmetadata): the data from which the files in the `Windows.Wdk` namespace are generated
 - [Generator](https://github.com/holy-tao/AhkWin32Structs-Generator): the actual generator

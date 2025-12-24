@@ -41,11 +41,11 @@ class IGlobalInterfaceTable extends IUnknown{
     static VTableNames => ["RegisterInterfaceInGlobal", "RevokeInterfaceFromGlobal", "GetInterfaceFromGlobal"]
 
     /**
-     * 
-     * @param {IUnknown} pUnk 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobalinterfacetable-registerinterfaceinglobal
+     * Registers the specified interface on an object residing in one apartment of a process as a global interface, enabling other apartments access to that interface.
+     * @param {IUnknown} pUnk An interface pointer of type <i>riid</i> on the object on which the interface to be registered as global is implemented.
+     * @param {Pointer<Guid>} riid The IID of the interface to be registered as global.
+     * @returns {Integer} An identifier that can be used by another apartment to get access to a pointer to the interface being registered. The value of an invalid cookie is 0.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iglobalinterfacetable-registerinterfaceinglobal
      */
     RegisterInterfaceInGlobal(pUnk, riid) {
         result := ComCall(3, this, "ptr", pUnk, "ptr", riid, "uint*", &pdwCookie := 0, "HRESULT")
@@ -53,10 +53,39 @@ class IGlobalInterfaceTable extends IUnknown{
     }
 
     /**
+     * Revokes the registration of an interface in the global interface table.
+     * @param {Integer} dwCookie Identifies the interface whose global registration is to be revoked.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Integer} dwCookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobalinterfacetable-revokeinterfacefromglobal
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parameter is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iglobalinterfacetable-revokeinterfacefromglobal
      */
     RevokeInterfaceFromGlobal(dwCookie) {
         result := ComCall(4, this, "uint", dwCookie, "HRESULT")
@@ -64,11 +93,11 @@ class IGlobalInterfaceTable extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwCookie 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-iglobalinterfacetable-getinterfacefromglobal
+     * Retrieves a pointer to an interface on an object that is usable by the calling apartment. This interface must be currently registered in the global interface table.
+     * @param {Integer} dwCookie Identifies the interface (and its object), and is retrieved through a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-iglobalinterfacetable-registerinterfaceinglobal">IGlobalInterfaceTable::RegisterInterfaceInGlobal</a>.
+     * @param {Pointer<Guid>} riid The IID of the interface.
+     * @returns {Pointer<Void>} A pointer to the pointer for the requested interface.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iglobalinterfacetable-getinterfacefromglobal
      */
     GetInterfaceFromGlobal(dwCookie, riid) {
         result := ComCall(5, this, "uint", dwCookie, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

@@ -36,6 +36,13 @@ class ILogFileItem extends IUnknown{
     static VTableNames => ["get_Path"]
 
     /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -125,10 +125,14 @@ class IFileOperation extends IUnknown{
     static VTableNames => ["Advise", "Unadvise", "SetOperationFlags", "SetProgressMessage", "SetProgressDialog", "SetProperties", "SetOwnerWindow", "ApplyPropertiesToItem", "ApplyPropertiesToItems", "RenameItem", "RenameItems", "MoveItem", "MoveItems", "CopyItem", "CopyItems", "DeleteItem", "DeleteItems", "NewItem", "PerformOperations", "GetAnyOperationsAborted"]
 
     /**
+     * Enables a handler to provide status and error information for all operations.
+     * @param {IFileOperationProgressSink} pfops Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a>*</b>
      * 
-     * @param {IFileOperationProgressSink} pfops 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-advise
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a> object to be used for progress status and error notifications.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * When this method returns, this parameter points to a returned token that uniquely identifies this connection. The calling application uses this token later to delete the connection by passing it to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-unadvise">IFileOperation::Unadvise</a>. If the call to <b>Advise</b> fails, this value is meaningless.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-advise
      */
     Advise(pfops) {
         result := ComCall(3, this, "ptr", pfops, "uint*", &pdwCookie := 0, "HRESULT")
@@ -136,10 +140,43 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Terminates an advisory connection previously established through IFileOperation::Advise.
+     * @param {Integer} dwCookie Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwCookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-unadvise
+     * The connection token that identifies the connection to delete. This value was originally retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-advise">Advise</a> when the connection was made.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Any value other than those listed here indicate a failure.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The connection was terminated successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONNECT_E_NOCONNECTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value in <i>dwCookie</i> does not represent a valid connection.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-unadvise
      */
     Unadvise(dwCookie) {
         result := ComCall(4, this, "uint", dwCookie, "HRESULT")
@@ -147,10 +184,19 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Sets parameters for the current operation.
+     * @param {Integer} dwOperationFlags Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwOperationFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-setoperationflags
+     * Flags that control the file operation. This member can be a combination of the following flags. FOF flags are defined in Shellapi.h and FOFX flags are defined in Shobjidl.h.
+     *     
+     *                         
+     * 
+     * <div class="alert"><b>Note</b>  If this method is not called, the default value used by the operation is FOF_ALLOWUNDO | FOF_NOCONFIRMMKDIR.</div>
+     * <div> </div>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-setoperationflags
      */
     SetOperationFlags(dwOperationFlags) {
         result := ComCall(5, this, "uint", dwOperationFlags, "HRESULT")
@@ -158,10 +204,14 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Not implemented.
+     * @param {PWSTR} pszMessage Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszMessage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-setprogressmessage
+     * Pointer to the window title. This is a null-terminated, Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-setprogressmessage
      */
     SetProgressMessage(pszMessage) {
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
@@ -171,10 +221,14 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Specifies a dialog box used to display the progress of the operation.
+     * @param {IOperationsProgressDialog} popd Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ioperationsprogressdialog">IOperationsProgressDialog</a>*</b>
      * 
-     * @param {IOperationsProgressDialog} popd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-setprogressdialog
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ioperationsprogressdialog">IOperationsProgressDialog</a> object that represents the dialog box.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-setprogressdialog
      */
     SetProgressDialog(popd) {
         result := ComCall(7, this, "ptr", popd, "HRESULT")
@@ -182,10 +236,14 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a set of properties and values to be set on an item or items.
+     * @param {IPropertyChangeArray} pproparray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertychangearray">IPropertyChangeArray</a>*</b>
      * 
-     * @param {IPropertyChangeArray} pproparray 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-setproperties
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertychangearray">IPropertyChangeArray</a>, which accesses a collection of <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertychange">IPropertyChange</a> objects that specify the properties to be set and their new values.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-setproperties
      */
     SetProperties(pproparray) {
         result := ComCall(8, this, "ptr", pproparray, "HRESULT")
@@ -193,10 +251,14 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Sets the parent or owner window for progress and dialog windows.
+     * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
-     * @param {HWND} hwndOwner 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-setownerwindow
+     * A handle to the owner window of the operation. This window will receive error messages.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-setownerwindow
      */
     SetOwnerWindow(hwndOwner) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -206,10 +268,14 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a single item whose property values are to be set.
+     * @param {IShellItem} psiItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-applypropertiestoitem
+     * Pointer to the item to receive the new property values.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-applypropertiestoitem
      */
     ApplyPropertiesToItem(psiItem) {
         result := ComCall(10, this, "ptr", psiItem, "HRESULT")
@@ -217,10 +283,14 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a set of items for which to apply a common set of property values.
+     * @param {IUnknown} punkItems Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkItems 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-applypropertiestoitems
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumshellitems">IEnumShellItems</a> object which represents the group of items.  You can also point to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ipersistidlist">IPersistIDList</a> object to represent a single item, effectively accomplishing the same function as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-applypropertiestoitem">IFileOperation::ApplyPropertiesToItem</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-applypropertiestoitems
      */
     ApplyPropertiesToItems(punkItems) {
         result := ComCall(11, this, "ptr", punkItems, "HRESULT")
@@ -228,12 +298,20 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a single item that is to be given a new display name.
+     * @param {IShellItem} psiItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiItem 
-     * @param {PWSTR} pszNewName 
-     * @param {IFileOperationProgressSink} pfopsItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-renameitem
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that specifies the source item.
+     * @param {PWSTR} pszNewName Type: <b>LPCWSTR</b>
+     * 
+     * Pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellitem-getdisplayname">display name</a> of the item. This is a null-terminated, Unicode string.
+     * @param {IFileOperationProgressSink} pfopsItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a> object to be used for status and failure notifications. If you call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-advise">IFileOperation::Advise</a> for the overall operation, progress status and error notifications for the rename operation are included there, so set this parameter to <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-renameitem
      */
     RenameItem(psiItem, pszNewName, pfopsItem) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
@@ -243,11 +321,17 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a set of items that are to be given a new display name. All items are given the same name.
+     * @param {IUnknown} pUnkItems Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} pUnkItems 
-     * @param {PWSTR} pszNewName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-renameitems
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumshellitems">IEnumShellItems</a> object which represents the group of items to be renamed. You can also point to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ipersistidlist">IPersistIDList</a> object to represent a single item, effectively accomplishing the same function as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-renameitem">IFileOperation::RenameItem</a>.
+     * @param {PWSTR} pszNewName Type: <b>LPCWSTR</b>
+     * 
+     * Pointer to the new display name of the items. This is a null-terminated, Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-renameitems
      */
     RenameItems(pUnkItems, pszNewName) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
@@ -257,13 +341,23 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a single item that is to be moved to a specified destination.
+     * @param {IShellItem} psiItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiItem 
-     * @param {IShellItem} psiDestinationFolder 
-     * @param {PWSTR} pszNewName 
-     * @param {IFileOperationProgressSink} pfopsItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-moveitem
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that specifies the source item.
+     * @param {IShellItem} psiDestinationFolder Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that specifies the destination folder to contain the moved item.
+     * @param {PWSTR} pszNewName Type: <b>LPCWSTR</b>
+     * 
+     * Pointer to a new name for the item in its new location. This is a null-terminated Unicode string and can be <b>NULL</b>. If <b>NULL</b>, the name of the destination item is the same as the source.
+     * @param {IFileOperationProgressSink} pfopsItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a> object to be used for progress status and error notifications for this specific move operation. If you call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-advise">IFileOperation::Advise</a> for the overall operation, progress status and error notifications for the move operation are included there, so set this parameter to <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-moveitem
      */
     MoveItem(psiItem, psiDestinationFolder, pszNewName, pfopsItem) {
         pszNewName := pszNewName is String ? StrPtr(pszNewName) : pszNewName
@@ -273,11 +367,17 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a set of items that are to be moved to a specified destination.
+     * @param {IUnknown} punkItems Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkItems 
-     * @param {IShellItem} psiDestinationFolder 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-moveitems
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumshellitems">IEnumShellItems</a> object which represents the group of items to be moved. You can also point to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ipersistidlist">IPersistIDList</a> object to represent a single item, effectively accomplishing the same function as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-moveitem">IFileOperation::MoveItem</a>.
+     * @param {IShellItem} psiDestinationFolder Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that specifies the destination folder to contain the moved items.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-moveitems
      */
     MoveItems(punkItems, psiDestinationFolder) {
         result := ComCall(15, this, "ptr", punkItems, "ptr", psiDestinationFolder, "HRESULT")
@@ -285,13 +385,23 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a single item that is to be copied to a specified destination.
+     * @param {IShellItem} psiItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiItem 
-     * @param {IShellItem} psiDestinationFolder 
-     * @param {PWSTR} pszCopyName 
-     * @param {IFileOperationProgressSink} pfopsItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-copyitem
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that specifies the source item.
+     * @param {IShellItem} psiDestinationFolder Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that specifies the destination folder to contain the copy of the item.
+     * @param {PWSTR} pszCopyName Type: <b>LPCWSTR</b>
+     * 
+     * Pointer to a new name for the item after it has been copied. This is a null-terminated Unicode string and can be <b>NULL</b>. If <b>NULL</b>, the name of the destination item is the same as the source.
+     * @param {IFileOperationProgressSink} pfopsItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a> object to be used for progress status and error notifications for this specific copy operation. If you call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-advise">IFileOperation::Advise</a> for the overall operation, progress status and error notifications for the copy operation are included there, so set this parameter to <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-copyitem
      */
     CopyItem(psiItem, psiDestinationFolder, pszCopyName, pfopsItem) {
         pszCopyName := pszCopyName is String ? StrPtr(pszCopyName) : pszCopyName
@@ -301,11 +411,17 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a set of items that are to be copied to a specified destination.
+     * @param {IUnknown} punkItems Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkItems 
-     * @param {IShellItem} psiDestinationFolder 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-copyitems
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumshellitems">IEnumShellItems</a> object which represents the group of items to be copied. You can also point to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ipersistidlist">IPersistIDList</a> object to represent a single item, effectively accomplishing the same function as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-copyitem">IFileOperation::CopyItem</a>.
+     * @param {IShellItem} psiDestinationFolder Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that specifies the destination folder to contain the copy of the items.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-copyitems
      */
     CopyItems(punkItems, psiDestinationFolder) {
         result := ComCall(17, this, "ptr", punkItems, "ptr", psiDestinationFolder, "HRESULT")
@@ -313,11 +429,17 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a single item that is to be deleted.
+     * @param {IShellItem} psiItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiItem 
-     * @param {IFileOperationProgressSink} pfopsItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-deleteitem
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that specifies the item to be deleted.
+     * @param {IFileOperationProgressSink} pfopsItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a> object to be used for progress status and error notifications for this specific delete operation. If you call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-advise">IFileOperation::Advise</a> for the overall operation, progress status and error notifications for the delete operation are included there, so set this parameter to <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-deleteitem
      */
     DeleteItem(psiItem, pfopsItem) {
         result := ComCall(18, this, "ptr", psiItem, "ptr", pfopsItem, "HRESULT")
@@ -325,10 +447,14 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a set of items that are to be deleted.
+     * @param {IUnknown} punkItems Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkItems 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-deleteitems
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>, or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumshellitems">IEnumShellItems</a> object which represents the group of items to be deleted. You can also point to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ipersistidlist">IPersistIDList</a> object to represent a single item, effectively accomplishing the same function as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-deleteitem">IFileOperation::DeleteItem</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-deleteitems
      */
     DeleteItems(punkItems) {
         result := ComCall(19, this, "ptr", punkItems, "HRESULT")
@@ -336,14 +462,37 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Declares a new item that is to be created in a specified location.
+     * @param {IShellItem} psiDestinationFolder Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiDestinationFolder 
-     * @param {Integer} dwFileAttributes 
-     * @param {PWSTR} pszName 
-     * @param {PWSTR} pszTemplateName 
-     * @param {IFileOperationProgressSink} pfopsItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-newitem
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that specifies the destination folder that will contain the new item.
+     * @param {Integer} dwFileAttributes Type: <b>DWORD</b>
+     * 
+     * A bitwise value that specifies the file system attributes for the file or folder. See <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-getfileattributesa">GetFileAttributes</a> for possible values.
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
+     * 
+     * Pointer to the file name of the new item, for instance <b>Newfile.txt</b>. This is a null-terminated, Unicode string.
+     * @param {PWSTR} pszTemplateName Type: <b>LPCWSTR</b>
+     * 
+     * Pointer to the name of the template file (for example <b>Excel9.xls</b>) that the new item is based on, stored in one of the following locations:
+     *                     
+     *                     
+     * 
+     * <ul>
+     * <li>CSIDL_COMMON_TEMPLATES. The default path for this folder is %ALLUSERSPROFILE%\Templates.</li>
+     * <li>CSIDL_TEMPLATES. The default path for this folder is %USERPROFILE%\Templates.</li>
+     * <li>%SystemRoot%\shellnew</li>
+     * </ul>
+     * This is a null-terminated, Unicode string used to specify an existing file of the same type as the new file, containing the minimal content that an application wants to include in any new file.
+     * 
+     * This parameter is normally <b>NULL</b> to specify a new, blank file.
+     * @param {IFileOperationProgressSink} pfopsItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a>*</b>
+     * 
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifileoperationprogresssink">IFileOperationProgressSink</a> object to be used for status and failure notifications. If you call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-advise">IFileOperation::Advise</a> for the overall operation, progress status and error notifications for the creation operation are included there, so set this parameter to <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-newitem
      */
     NewItem(psiDestinationFolder, dwFileAttributes, pszName, pszTemplateName, pfopsItem) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -354,9 +503,11 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Executes all selected operations.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-performoperations
+     * Returns S_OK if successful, or an error value otherwise. Note that if the operation was canceled by the user, this method can still return a success code. Use the <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ifileoperation-getanyoperationsaborted">GetAnyOperationsAborted</a> method to determine if this was the case.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-performoperations
      */
     PerformOperations() {
         result := ComCall(21, this, "HRESULT")
@@ -364,9 +515,11 @@ class IFileOperation extends IUnknown{
     }
 
     /**
+     * Gets a value that states whether any file operations initiated by a call to IFileOperation::PerformOperations were stopped before they were complete. The operations could be stopped either by user action or silently by the system.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifileoperation-getanyoperationsaborted
+     * When this method returns, points to <b>TRUE</b> if any file operations were aborted before they were complete; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifileoperation-getanyoperationsaborted
      */
     GetAnyOperationsAborted() {
         result := ComCall(22, this, "int*", &pfAnyOperationsAborted := 0, "HRESULT")

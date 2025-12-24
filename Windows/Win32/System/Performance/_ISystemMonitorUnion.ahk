@@ -40,6 +40,329 @@ class _ISystemMonitorUnion extends IUnknown{
     static VTableNames => ["get_Appearance", "put_Appearance", "get_BackColor", "put_BackColor", "get_BorderStyle", "put_BorderStyle", "get_ForeColor", "put_ForeColor", "get_Font", "putref_Font", "get_Counters", "put_ShowVerticalGrid", "get_ShowVerticalGrid", "put_ShowHorizontalGrid", "get_ShowHorizontalGrid", "put_ShowLegend", "get_ShowLegend", "put_ShowScaleLabels", "get_ShowScaleLabels", "put_ShowValueBar", "get_ShowValueBar", "put_MaximumScale", "get_MaximumScale", "put_MinimumScale", "get_MinimumScale", "put_UpdateInterval", "get_UpdateInterval", "put_DisplayType", "get_DisplayType", "put_ManualUpdate", "get_ManualUpdate", "put_GraphTitle", "get_GraphTitle", "put_YAxisLabel", "get_YAxisLabel", "CollectSample", "UpdateGraph", "BrowseCounters", "DisplayProperties", "Counter", "AddCounter", "DeleteCounter", "get_BackColorCtl", "put_BackColorCtl", "put_LogFileName", "get_LogFileName", "put_LogViewStart", "get_LogViewStart", "put_LogViewStop", "get_LogViewStop", "get_GridColor", "put_GridColor", "get_TimeBarColor", "put_TimeBarColor", "get_Highlight", "put_Highlight", "get_ShowToolbar", "put_ShowToolbar", "Paste", "Copy", "Reset", "put_ReadOnly", "get_ReadOnly", "put_ReportValueType", "get_ReportValueType", "put_MonitorDuplicateInstances", "get_MonitorDuplicateInstances", "put_DisplayFilter", "get_DisplayFilter", "get_LogFiles", "put_DataSourceType", "get_DataSourceType", "put_SqlDsnName", "get_SqlDsnName", "put_SqlLogSetName", "get_SqlLogSetName", "put_EnableDigitGrouping", "get_EnableDigitGrouping", "put_EnableToolTips", "get_EnableToolTips", "put_ShowTimeAxisLabels", "get_ShowTimeAxisLabels", "put_ChartScroll", "get_ChartScroll", "put_DataPointCount", "get_DataPointCount", "ScaleToFit", "SaveAs", "Relog", "ClearData", "get_LogSourceStartTime", "get_LogSourceStopTime", "SetLogViewRange", "GetLogViewRange", "BatchingLock", "LoadSettings"]
 
     /**
+     * @type {Integer} 
+     */
+    Appearance {
+        get => this.get_Appearance()
+        set => this.put_Appearance(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BackColor {
+        get => this.get_BackColor()
+        set => this.put_BackColor(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BorderStyle {
+        get => this.get_BorderStyle()
+        set => this.put_BorderStyle(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ForeColor {
+        get => this.get_ForeColor()
+        set => this.put_ForeColor(value)
+    }
+
+    /**
+     * @type {IFontDisp} 
+     */
+    Font {
+        get => this.get_Font()
+    }
+
+    /**
+     * @type {ICounters} 
+     */
+    Counters {
+        get => this.get_Counters()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ShowVerticalGrid {
+        get => this.get_ShowVerticalGrid()
+        set => this.put_ShowVerticalGrid(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ShowHorizontalGrid {
+        get => this.get_ShowHorizontalGrid()
+        set => this.put_ShowHorizontalGrid(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ShowLegend {
+        get => this.get_ShowLegend()
+        set => this.put_ShowLegend(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ShowScaleLabels {
+        get => this.get_ShowScaleLabels()
+        set => this.put_ShowScaleLabels(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ShowValueBar {
+        get => this.get_ShowValueBar()
+        set => this.put_ShowValueBar(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaximumScale {
+        get => this.get_MaximumScale()
+        set => this.put_MaximumScale(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MinimumScale {
+        get => this.get_MinimumScale()
+        set => this.put_MinimumScale(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    UpdateInterval {
+        get => this.get_UpdateInterval()
+        set => this.put_UpdateInterval(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DisplayType {
+        get => this.get_DisplayType()
+        set => this.put_DisplayType(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ManualUpdate {
+        get => this.get_ManualUpdate()
+        set => this.put_ManualUpdate(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    GraphTitle {
+        get => this.get_GraphTitle()
+        set => this.put_GraphTitle(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    YAxisLabel {
+        get => this.get_YAxisLabel()
+        set => this.put_YAxisLabel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BackColorCtl {
+        get => this.get_BackColorCtl()
+        set => this.put_BackColorCtl(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LogFileName {
+        get => this.get_LogFileName()
+        set => this.put_LogFileName(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LogViewStart {
+        get => this.get_LogViewStart()
+        set => this.put_LogViewStart(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LogViewStop {
+        get => this.get_LogViewStop()
+        set => this.put_LogViewStop(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    GridColor {
+        get => this.get_GridColor()
+        set => this.put_GridColor(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TimeBarColor {
+        get => this.get_TimeBarColor()
+        set => this.put_TimeBarColor(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Highlight {
+        get => this.get_Highlight()
+        set => this.put_Highlight(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ShowToolbar {
+        get => this.get_ShowToolbar()
+        set => this.put_ShowToolbar(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ReadOnly {
+        get => this.get_ReadOnly()
+        set => this.put_ReadOnly(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ReportValueType {
+        get => this.get_ReportValueType()
+        set => this.put_ReportValueType(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MonitorDuplicateInstances {
+        get => this.get_MonitorDuplicateInstances()
+        set => this.put_MonitorDuplicateInstances(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DisplayFilter {
+        get => this.get_DisplayFilter()
+        set => this.put_DisplayFilter(value)
+    }
+
+    /**
+     * @type {ILogFiles} 
+     */
+    LogFiles {
+        get => this.get_LogFiles()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DataSourceType {
+        get => this.get_DataSourceType()
+        set => this.put_DataSourceType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SqlDsnName {
+        get => this.get_SqlDsnName()
+        set => this.put_SqlDsnName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SqlLogSetName {
+        get => this.get_SqlLogSetName()
+        set => this.put_SqlLogSetName(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    EnableDigitGrouping {
+        get => this.get_EnableDigitGrouping()
+        set => this.put_EnableDigitGrouping(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    EnableToolTips {
+        get => this.get_EnableToolTips()
+        set => this.put_EnableToolTips(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ShowTimeAxisLabels {
+        get => this.get_ShowTimeAxisLabels()
+        set => this.put_ShowTimeAxisLabels(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ChartScroll {
+        get => this.get_ChartScroll()
+        set => this.put_ChartScroll(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DataPointCount {
+        get => this.get_DataPointCount()
+        set => this.put_DataPointCount(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LogSourceStartTime {
+        get => this.get_LogSourceStartTime()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LogSourceStopTime {
+        get => this.get_LogSourceStopTime()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

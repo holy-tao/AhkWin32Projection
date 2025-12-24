@@ -38,6 +38,56 @@ class ISWbemProperty extends IDispatch{
     static VTableNames => ["get_Value", "put_Value", "get_Name", "get_IsLocal", "get_Origin", "get_CIMType", "get_Qualifiers_", "get_IsArray"]
 
     /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+        set => this.put_Value(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsLocal {
+        get => this.get_IsLocal()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Origin {
+        get => this.get_Origin()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CIMType {
+        get => this.get_CIMType()
+    }
+
+    /**
+     * @type {ISWbemQualifierSet} 
+     */
+    Qualifiers_ {
+        get => this.get_Qualifiers_()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsArray {
+        get => this.get_IsArray()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

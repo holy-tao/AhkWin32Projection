@@ -57,10 +57,10 @@ class IOleUndoManager extends IUnknown{
     static VTableNames => ["Open", "Close", "Add", "GetOpenParentState", "DiscardFrom", "UndoTo", "RedoTo", "EnumUndoable", "EnumRedoable", "GetLastUndoDescription", "GetLastRedoDescription", "Enable"]
 
     /**
-     * 
-     * @param {IOleParentUndoUnit} pPUU 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-open
+     * Opens a new parent undo unit, which becomes part of its containing unit's undo stack.
+     * @param {IOleParentUndoUnit} pPUU An <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleparentundounit">IOleParentUndoUnit</a> pointer to the parent undo unit to be opened.
+     * @returns {HRESULT} This method returns S_OK if the parent undo unit was successfully opened or if a currently open unit is blocked. If the undo manager is currently disabled, it will return S_OK and do nothing else.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-open
      */
     Open(pPUU) {
         result := ComCall(3, this, "ptr", pPUU, "HRESULT")
@@ -68,11 +68,40 @@ class IOleUndoManager extends IUnknown{
     }
 
     /**
+     * Closes the specified parent undo unit.
+     * @param {IOleParentUndoUnit} pPUU A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleparentundounit">IOleParentUndoUnit</a> interface for the currently open parent unit to be closed.
+     * @param {BOOL} fCommit Indicates whether to keep or discard the unit. If <b>TRUE</b>, the unit is kept in the collection. If <b>FALSE</b>, the unit is discarded. This parameter is used to allow the client to discard an undo unit under construction if an error or a cancellation occurs.
+     * @returns {HRESULT} This method returns S_OK if the undo manager had an open parent undo unit and it was successfully closed. If the undo manager is disabled, it should immediately return S_OK and do nothing else. Other possible return values include the following.
      * 
-     * @param {IOleParentUndoUnit} pPUU 
-     * @param {BOOL} fCommit 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-close
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parent undo unit did not have an open child and it was successfully closed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * If <i>pPUU</i> does not match the currently open parent undo unit, then implementations of this method should return E_INVALIDARG without changing any internal state unless the parent unit is blocked.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-close
      */
     Close(pPUU, fCommit) {
         result := ComCall(4, this, "ptr", pPUU, "int", fCommit, "int")
@@ -80,10 +109,10 @@ class IOleUndoManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IOleUndoUnit} pUU 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-add
+     * Adds a simple undo unit to the collection. While a parent undo unit is open, the undo manager adds undo units to it by calling IOleParentUndoUnit::Add.
+     * @param {IOleUndoUnit} pUU An <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleundounit">IOleUndoUnit</a> pointer to the undo unit to be added.
+     * @returns {HRESULT} This method returns S_OK if the specified unit was successfully added, the parent unit was blocked, or the undo manager is disabled.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-add
      */
     Add(pUU) {
         result := ComCall(5, this, "ptr", pUU, "HRESULT")
@@ -91,9 +120,9 @@ class IOleUndoManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-getopenparentstate
+     * Retrieves state information about the innermost open parent undo unit.
+     * @returns {Integer} A pointer to a variable that receives the state information. This information is a value taken from the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/ne-ocidl-uasflags">UASFLAGS</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-getopenparentstate
      */
     GetOpenParentState() {
         result := ComCall(6, this, "uint*", &pdwState := 0, "HRESULT")
@@ -101,10 +130,39 @@ class IOleUndoManager extends IUnknown{
     }
 
     /**
+     * Instructs the undo manager to discard the specified undo unit and all undo units below it on the undo or redo stack.
+     * @param {IOleUndoUnit} pUU An <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleundounit">IOleUndoUnit</a> pointer to the undo unit to be discarded. This parameter can be <b>NULL</b> to discard the entire undo or redo stack. If the parameter is not <b>NULL</b> then the stack will not be discarded.
+     * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
-     * @param {IOleUndoUnit} pUU 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-discardfrom
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified undo unit was not found in the stacks.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The undo manager is disabled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-discardfrom
      */
     DiscardFrom(pUU) {
         result := ComCall(7, this, "ptr", pUU, "HRESULT")
@@ -112,10 +170,50 @@ class IOleUndoManager extends IUnknown{
     }
 
     /**
+     * Instructs the undo manager to invoke undo actions back through the undo stack, down to and including the specified undo unit.
+     * @param {IOleUndoUnit} pUU Pointer to the top level unit to undo. If this parameter is <b>NULL</b>, the most recently added top level unit is used.
+     * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
-     * @param {IOleUndoUnit} pUU 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-undoto
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified undo unit is not on the undo stack.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Both the undo attempt and the rollback attempt failed. The undo manager should never propagate the E_ABORT obtained from a contained undo unit. Instead, it should map any E_ABORT values returned from other undo units to E_FAIL. The undo manager should map any E_ABORT value returned from other undo units to E_FAIL because the caller of <a href="/windows/desktop/api/ocidl/nf-ocidl-ioleundomanager-undoto">IOleUndoManager::UndoTo</a> knows that the undo attempt and the rollback attempt failed and this is the only reason for the return value of E_ABORT. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The undo manager is disabled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-undoto
      */
     UndoTo(pUU) {
         result := ComCall(8, this, "ptr", pUU, "HRESULT")
@@ -123,10 +221,50 @@ class IOleUndoManager extends IUnknown{
     }
 
     /**
+     * Instructs the undo manager to invoke undo actions back through the redo stack, down to and including the specified undo unit.
+     * @param {IOleUndoUnit} pUU An <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ioleundounit">IOleUndoUnit</a> pointer to the top level unit to redo. If this parameter is <b>NULL</b>, the most recently added top level unit is used.
+     * @returns {HRESULT} This method returns S_OK on success. Other possible return values include the following.
      * 
-     * @param {IOleUndoUnit} pUU 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-redoto
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified undo unit is not on the redo stack.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Both the undo attempt and the rollback attempt failed. The undo manager should never propagate the E_ABORT obtained from a contained undo unit. Instead, it should map any E_ABORT values returned from other undo units to E_FAIL.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The undo manager is disabled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-redoto
      */
     RedoTo(pUU) {
         result := ComCall(9, this, "ptr", pUU, "HRESULT")
@@ -134,9 +272,9 @@ class IOleUndoManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumOleUndoUnits} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-enumundoable
+     * Creates an enumerator object that the caller can use to iterate through a series of top-level undo units from the undo stack.
+     * @returns {IEnumOleUndoUnits} Address of <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ienumoleundounits">IEnumOleUndoUnits</a> pointer variable that receives the interface pointer to the enumerator object.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-enumundoable
      */
     EnumUndoable() {
         result := ComCall(10, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -144,9 +282,9 @@ class IOleUndoManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumOleUndoUnits} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-enumredoable
+     * Creates an enumerator object that the caller can use to iterate through a series of top-level undo units from the redo stack.
+     * @returns {IEnumOleUndoUnits} Address of <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-ienumoleundounits">IEnumOleUndoUnits</a> pointer variable that receives the interface pointer to the enumerator object.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-enumredoable
      */
     EnumRedoable() {
         result := ComCall(11, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -154,9 +292,9 @@ class IOleUndoManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-getlastundodescription
+     * Retrieves the description for the top-level undo unit that is on top of the undo stack.
+     * @returns {BSTR} A pointer to a string that contains a description of the top-level undo unit on the undo stack.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-getlastundodescription
      */
     GetLastUndoDescription() {
         pBstr := BSTR()
@@ -165,9 +303,9 @@ class IOleUndoManager extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-getlastredodescription
+     * Retrieves the description for the top-level undo unit that is on top of the redo stack.
+     * @returns {BSTR} A pointer to a string that contains a description of the top-level undo unit on the redo stack.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-getlastredodescription
      */
     GetLastRedoDescription() {
         pBstr := BSTR()
@@ -176,10 +314,28 @@ class IOleUndoManager extends IUnknown{
     }
 
     /**
+     * Enables or disables the undo manager.
+     * @param {BOOL} fEnable Indicates whether to enable or disable the undo manager. If <b>TRUE</b>, the undo manager should be enabled. If <b>FALSE</b>, the undo manager should be disabled.
+     * @returns {HRESULT} This method returns S_OK if the undo manager was successfully enabled or disabled. Other possible return values include the following.
      * 
-     * @param {BOOL} fEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ioleundomanager-enable
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is an open undo unit on the stack or the undo manager is currently performing an undo or a redo.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ioleundomanager-enable
      */
     Enable(fEnable) {
         result := ComCall(14, this, "int", fEnable, "HRESULT")

@@ -37,6 +37,46 @@ class ISideShowNotification extends IUnknown{
     static VTableNames => ["get_NotificationId", "put_NotificationId", "get_Title", "put_Title", "get_Message", "put_Message", "get_Image", "put_Image", "get_ExpirationTime", "put_ExpirationTime"]
 
     /**
+     * @type {Integer} 
+     */
+    NotificationId {
+        get => this.get_NotificationId()
+        set => this.put_NotificationId(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Title {
+        get => this.get_Title()
+        set => this.put_Title(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Message {
+        get => this.get_Message()
+        set => this.put_Message(value)
+    }
+
+    /**
+     * @type {HICON} 
+     */
+    Image {
+        get => this.get_Image()
+        set => this.put_Image(value)
+    }
+
+    /**
+     * @type {SYSTEMTIME} 
+     */
+    ExpirationTime {
+        get => this.get_ExpirationTime()
+        set => this.put_ExpirationTime(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

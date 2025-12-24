@@ -43,12 +43,12 @@ class IPipeByte extends IUnknown{
     static VTableNames => ["Pull", "Push"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} buf 
-     * @param {Integer} cRequest 
-     * @param {Pointer<Integer>} pcReturned 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipipebyte-pull
+     * Retrieves data of the byte type from the pipe source.
+     * @param {Pointer<Integer>} buf A pointer to the memory buffer that receives the data. The buffer must be able to hold at least the number of bytes specified in <i>cRequest</i>.
+     * @param {Integer} cRequest The number of bytes requested.
+     * @param {Pointer<Integer>} pcReturned The actual number of bytes returned.
+     * @returns {HRESULT} This method returns S_OK to indicate that the data was retrieved successfully.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ipipebyte-pull
      */
     Pull(buf, cRequest, pcReturned) {
         bufMarshal := buf is VarRef ? "char*" : "ptr"
@@ -59,11 +59,11 @@ class IPipeByte extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} buf 
-     * @param {Integer} cSent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-ipipebyte-push
+     * Sends data of the byte type to the pipe source.
+     * @param {Pointer<Integer>} buf A pointer to the memory buffer that holds the data to be sent.
+     * @param {Integer} cSent The number of bytes in the buffer.
+     * @returns {HRESULT} This method returns S_OK to indicate that the data was sent successfully.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ipipebyte-push
      */
     Push(buf, cSent) {
         bufMarshal := buf is VarRef ? "char*" : "ptr"

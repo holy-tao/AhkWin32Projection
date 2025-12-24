@@ -31,12 +31,12 @@ class IMFRealTimeClientEx extends IUnknown{
     static VTableNames => ["RegisterThreadsEx", "UnregisterThreads", "SetWorkQueueEx"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pdwTaskIndex 
-     * @param {PWSTR} wszClassName 
-     * @param {Integer} lBasePriority 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrealtimeclientex-registerthreadsex
+     * Notifies the object to register its worker threads with the Multimedia Class Scheduler Service (MMCSS).
+     * @param {Pointer<Integer>} pdwTaskIndex The MMCSS task identifier. If the value is zero on input,  the object should create a new MCCSS task group. See Remarks.
+     * @param {PWSTR} wszClassName The name of the MMCSS task.
+     * @param {Integer} lBasePriority The base priority of the thread.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfrealtimeclientex-registerthreadsex
      */
     RegisterThreadsEx(pdwTaskIndex, wszClassName, lBasePriority) {
         wszClassName := wszClassName is String ? StrPtr(wszClassName) : wszClassName
@@ -48,9 +48,9 @@ class IMFRealTimeClientEx extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrealtimeclientex-unregisterthreads
+     * Notifies the object to unregister its worker threads from the Multimedia Class Scheduler Service (MMCSS).
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfrealtimeclientex-unregisterthreads
      */
     UnregisterThreads() {
         result := ComCall(4, this, "HRESULT")
@@ -58,11 +58,11 @@ class IMFRealTimeClientEx extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwMultithreadedWorkQueueId 
-     * @param {Integer} lWorkItemBasePriority 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfrealtimeclientex-setworkqueueex
+     * Specifies the work queue that this object should use for asynchronous work items.
+     * @param {Integer} dwMultithreadedWorkQueueId The work queue identifier.
+     * @param {Integer} lWorkItemBasePriority The base priority for work items.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfrealtimeclientex-setworkqueueex
      */
     SetWorkQueueEx(dwMultithreadedWorkQueueId, lWorkItemBasePriority) {
         result := ComCall(5, this, "uint", dwMultithreadedWorkQueueId, "int", lWorkItemBasePriority, "HRESULT")

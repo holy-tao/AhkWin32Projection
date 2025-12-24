@@ -33,9 +33,31 @@ class ITToneTerminalEvent extends IDispatch{
     static VTableNames => ["get_Terminal", "get_Call", "get_Error"]
 
     /**
-     * 
-     * @returns {ITTerminal} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittoneterminalevent-get_terminal
+     * @type {ITTerminal} 
+     */
+    Terminal {
+        get => this.get_Terminal()
+    }
+
+    /**
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {HRESULT} 
+     */
+    Error {
+        get => this.get_Error()
+    }
+
+    /**
+     * The get_Terminal method returns an ITTerminal pointer for the tone terminal on which the event occurred.
+     * @returns {ITTerminal} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittoneterminalevent-get_terminal
      */
     get_Terminal() {
         result := ComCall(7, this, "ptr*", &ppTerminal := 0, "HRESULT")
@@ -43,9 +65,10 @@ class ITToneTerminalEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITCallInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittoneterminalevent-get_call
+     * The get_Call method retrieves an interface pointer for the call object on which the event occurred.
+     * @returns {ITCallInfo} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittoneterminalevent-get_call
      */
     get_Call() {
         result := ComCall(8, this, "ptr*", &ppCall := 0, "HRESULT")
@@ -53,9 +76,9 @@ class ITToneTerminalEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittoneterminalevent-get_error
+     * The get_Error method returns an HRESULT cast of the error code involved in the event.
+     * @returns {HRESULT} <b>HRESULT</b> cast of the error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittoneterminalevent-get_error
      */
     get_Error() {
         result := ComCall(9, this, "int*", &phrErrorCode := 0, "HRESULT")

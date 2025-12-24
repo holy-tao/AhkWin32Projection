@@ -31,11 +31,48 @@ class IChangeUnitException extends IUnknown{
     static VTableNames => ["GetItemId", "GetChangeUnitId", "GetClockVector"]
 
     /**
+     * Gets the item ID for the item that contains the change unit that is associated with the exception.
+     * @param {Pointer<Integer>} pbItemId Returns the item ID that contains the change unit that is associated with the exception.
+     * @param {Pointer<Integer>} pcbIdSize Specifies the number of bytes in <i>pbItemId</i>. Returns the number of bytes required to retrieve the ID when <i>pbItemId</i> is too small, or the number of bytes written.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pbItemId 
-     * @param {Pointer<Integer>} pcbIdSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitexception-getitemid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pbItemId</i> is too small. In this case, the required number of bytes is returned in <i>pcbIdSize</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitexception-getitemid
      */
     GetItemId(pbItemId, pcbIdSize) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
@@ -46,11 +83,51 @@ class IChangeUnitException extends IUnknown{
     }
 
     /**
+     * Gets the change unit ID for the change unit that is associated with the exception.
+     * @param {Pointer<Integer>} pbChangeUnitId Returns the change unit ID that is associated with the exception.
+     * @param {Pointer<Integer>} pcbIdSize Specifies the number of bytes in <i>pbChangeUnitId</i>. Returns the number of bytes required to retrieve the ID when <i>pbChangeUnitId</i> is too small, or the number of bytes written.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pbChangeUnitId 
-     * @param {Pointer<Integer>} pcbIdSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitexception-getchangeunitid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pbChangeUnitId</i> is null.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pbChangeUnitId</i> is too small. In this case, the required number of bytes is returned in <i>pcbIdSize</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitexception-getchangeunitid
      */
     GetChangeUnitId(pbChangeUnitId, pcbIdSize) {
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
@@ -61,11 +138,37 @@ class IChangeUnitException extends IUnknown{
     }
 
     /**
+     * Gets the clock vector that is associated with this exception.
+     * @param {Pointer<Guid>} riid The IID of the object to retrieve. Must be <b>IID_IEnumClockVector</b>.
+     * @param {Pointer<Pointer<Void>>} ppUnk Returns an object that implements <i>riid</i> and that represents the clock vector that is associated with this exception.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppUnk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitexception-getclockvector
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitexception-getclockvector
      */
     GetClockVector(riid, ppUnk) {
         ppUnkMarshal := ppUnk is VarRef ? "ptr*" : "ptr"

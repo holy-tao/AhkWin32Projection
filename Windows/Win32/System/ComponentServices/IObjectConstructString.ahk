@@ -31,10 +31,16 @@ class IObjectConstructString extends IDispatch{
     static VTableNames => ["get_ConstructString"]
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectconstructstring-get_constructstring
+     */
+    ConstructString {
+        get => this.get_ConstructString()
+    }
+
+    /**
+     * Retrieves the constructor string for the object.
+     * @param {Pointer<BSTR>} pVal A reference to an administratively supplied object constructor string.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectconstructstring-get_constructstring
      */
     get_ConstructString(pVal) {
         result := ComCall(7, this, "ptr", pVal, "HRESULT")

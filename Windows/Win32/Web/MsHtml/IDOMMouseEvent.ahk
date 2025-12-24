@@ -38,6 +38,160 @@ class IDOMMouseEvent extends IDispatch{
     static VTableNames => ["get_screenX", "get_screenY", "get_clientX", "get_clientY", "get_ctrlKey", "get_shiftKey", "get_altKey", "get_metaKey", "get_button", "get_relatedTarget", "initMouseEvent", "getModifierState", "get_buttons", "get_fromElement", "get_toElement", "get_x", "get_y", "get_offsetX", "get_offsetY", "get_pageX", "get_pageY", "get_layerX", "get_layerY", "get_which"]
 
     /**
+     * @type {Integer} 
+     */
+    screenX {
+        get => this.get_screenX()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    screenY {
+        get => this.get_screenY()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientX {
+        get => this.get_clientX()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientY {
+        get => this.get_clientY()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ctrlKey {
+        get => this.get_ctrlKey()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    shiftKey {
+        get => this.get_shiftKey()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    altKey {
+        get => this.get_altKey()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    metaKey {
+        get => this.get_metaKey()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    button {
+        get => this.get_button()
+    }
+
+    /**
+     * @type {IEventTarget} 
+     */
+    relatedTarget {
+        get => this.get_relatedTarget()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    buttons {
+        get => this.get_buttons()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    fromElement {
+        get => this.get_fromElement()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    toElement {
+        get => this.get_toElement()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    x {
+        get => this.get_x()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    y {
+        get => this.get_y()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    offsetX {
+        get => this.get_offsetX()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    offsetY {
+        get => this.get_offsetY()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pageX {
+        get => this.get_pageX()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pageY {
+        get => this.get_pageY()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    layerX {
+        get => this.get_layerX()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    layerY {
+        get => this.get_layerY()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    which {
+        get => this.get_which()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

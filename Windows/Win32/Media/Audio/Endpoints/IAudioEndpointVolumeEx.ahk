@@ -31,13 +31,31 @@ class IAudioEndpointVolumeEx extends IAudioEndpointVolume{
     static VTableNames => ["GetVolumeRangeChannel"]
 
     /**
+     * The GetVolumeRangeChannel method gets the volume range for a specified channel.
+     * @param {Integer} iChannel The channel number for which to get the volume range. If the audio stream has <i>n</i> channels, the channels are numbered from 0 to <i>n</i>– 1. To obtain the number of channels in the stream, call the <a href="https://docs.microsoft.com/windows/desktop/api/endpointvolume/nf-endpointvolume-iaudioendpointvolume-getchannelcount">IAudioEndpointVolume::GetChannelCount</a> method.
+     * @param {Pointer<Float>} pflVolumeMindB Receives  the minimum volume level for the channel, in decibels.
+     * @param {Pointer<Float>} pflVolumeMaxdB Receives  the maximum volume level for the channel, in decibels.
+     * @param {Pointer<Float>} pflVolumeIncrementdB Receives the volume increment for the channel, in decibels.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} iChannel 
-     * @param {Pointer<Float>} pflVolumeMindB 
-     * @param {Pointer<Float>} pflVolumeMaxdB 
-     * @param {Pointer<Float>} pflVolumeIncrementdB 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/endpointvolume/nf-endpointvolume-iaudioendpointvolumeex-getvolumerangechannel
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Parameter <i>pfLevelMinDB</i>, <i>pfLevelMaxDB</i>, or <i>pfVolumeIncrementDB</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//endpointvolume/nf-endpointvolume-iaudioendpointvolumeex-getvolumerangechannel
      */
     GetVolumeRangeChannel(iChannel, pflVolumeMindB, pflVolumeMaxdB, pflVolumeIncrementdB) {
         pflVolumeMindBMarshal := pflVolumeMindB is VarRef ? "float*" : "ptr"

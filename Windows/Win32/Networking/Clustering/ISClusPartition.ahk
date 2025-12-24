@@ -30,6 +30,55 @@ class ISClusPartition extends IDispatch{
     static VTableNames => ["get_Flags", "get_DeviceName", "get_VolumeLabel", "get_SerialNumber", "get_MaximumComponentLength", "get_FileSystemFlags", "get_FileSystem"]
 
     /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DeviceName {
+        get => this.get_DeviceName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VolumeLabel {
+        get => this.get_VolumeLabel()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SerialNumber {
+        get => this.get_SerialNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaximumComponentLength {
+        get => this.get_MaximumComponentLength()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FileSystemFlags {
+        get => this.get_FileSystemFlags()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FileSystem {
+        get => this.get_FileSystem()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

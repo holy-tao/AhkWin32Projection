@@ -31,9 +31,37 @@ class ISpellingError extends IUnknown{
     static VTableNames => ["get_StartIndex", "get_Length", "get_CorrectiveAction", "get_Replacement"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    StartIndex {
+        get => this.get_StartIndex()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Length {
+        get => this.get_Length()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CorrectiveAction {
+        get => this.get_CorrectiveAction()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Replacement {
+        get => this.get_Replacement()
+    }
+
+    /**
+     * Gets the position in the checked text where the error begins.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_startindex
+     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellingerror-get_startindex
      */
     get_StartIndex() {
         result := ComCall(3, this, "uint*", &value := 0, "HRESULT")
@@ -41,9 +69,9 @@ class ISpellingError extends IUnknown{
     }
 
     /**
-     * 
+     * Gets the length of the erroneous text.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_length
+     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellingerror-get_length
      */
     get_Length() {
         result := ComCall(4, this, "uint*", &value := 0, "HRESULT")
@@ -51,9 +79,9 @@ class ISpellingError extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates which corrective action should be taken for the spelling error.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_correctiveaction
+     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellingerror-get_correctiveaction
      */
     get_CorrectiveAction() {
         result := ComCall(5, this, "int*", &value := 0, "HRESULT")
@@ -61,9 +89,14 @@ class ISpellingError extends IUnknown{
     }
 
     /**
+     * Gets the text to use as replacement text when the corrective action is replace.
+     * @remarks
+     * 
+     * If the <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/ne-spellcheck-corrective_action">CORRECTIVE_ACTION</a> returned by <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nf-spellcheck-ispellingerror-get_correctiveaction">CorrectiveAction</a> is not <b>CORRECTIVE_ACTION_REPLACE</b>, <i>value</i> is the empty string.
+     * 
      * 
      * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellingerror-get_replacement
+     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellingerror-get_replacement
      */
     get_Replacement() {
         result := ComCall(6, this, "ptr*", &value := 0, "HRESULT")

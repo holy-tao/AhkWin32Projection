@@ -36,10 +36,10 @@ class IBDA_NameValueService extends IUnknown{
     static VTableNames => ["GetValueNameByIndex", "GetValue", "SetValue"]
 
     /**
-     * 
-     * @param {Integer} ulIndex 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_namevalueservice-getvaluenamebyindex
+     * Gets a name, specified by index, from the device's list of name/value pairs.
+     * @param {Integer} ulIndex The zero-based index of the name to get.
+     * @returns {BSTR} Receives the name as a <b>BSTR</b>. The caller must free the <b>BSTR</b> by calling <b>SysFreeString</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_namevalueservice-getvaluenamebyindex
      */
     GetValueNameByIndex(ulIndex) {
         pbstrName := BSTR()
@@ -48,11 +48,11 @@ class IBDA_NameValueService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrName 
-     * @param {BSTR} bstrLanguage 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_namevalueservice-getvalue
+     * Gets a value by name.
+     * @param {BSTR} bstrName The name of the value to retrieve.
+     * @param {BSTR} bstrLanguage The language for the value. If the value of the name/value pair is localizable, this string must contain an ISO 639-2 language code with a dash followed by an ISO 3166 country/region code. Otherwise, this parameter may contain an empty string.
+     * @returns {BSTR} Receives the value as a <b>BSTR</b>. The caller must free the <b>BSTR</b> by calling <b>SysFreeString</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_namevalueservice-getvalue
      */
     GetValue(bstrName, bstrLanguage) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -64,14 +64,14 @@ class IBDA_NameValueService extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulDialogRequest 
-     * @param {BSTR} bstrLanguage 
-     * @param {BSTR} bstrName 
-     * @param {BSTR} bstrValue 
-     * @param {Integer} ulReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_namevalueservice-setvalue
+     * Sets a name/value pair in device memory.
+     * @param {Integer} ulDialogRequest Specifies a logical link with a user interface (MMI) dialog box that might be triggered by setting the value.
+     * @param {BSTR} bstrLanguage The language of the dialog box. This string contains an ISO 639-2 language code with a dash followed by an ISO 3166 country/region code.
+     * @param {BSTR} bstrName The name of the name/value pair to set.
+     * @param {BSTR} bstrValue The value to set.
+     * @param {Integer} ulReserved Reserved. Set to zero.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_namevalueservice-setvalue
      */
     SetValue(ulDialogRequest, bstrLanguage, bstrName, bstrValue, ulReserved) {
         bstrLanguage := bstrLanguage is String ? BSTR.Alloc(bstrLanguage).Value : bstrLanguage

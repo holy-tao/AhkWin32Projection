@@ -40,14 +40,65 @@ class IWCContextMenuCallback extends IUnknown{
     static VTableNames => ["AddExtensionMenuItem"]
 
     /**
-     * 
-     * @param {BSTR} lpszName 
-     * @param {BSTR} lpszStatusBarText 
-     * @param {Integer} nCommandID 
-     * @param {Integer} nSubmenuCommandID 
+     * Adds a menu item to a Failover Cluster Administrator context menu.
+     * @param {BSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the item to be added to the menu. Although 
+     *        declared as a <b>BSTR</b>, this parameter is implemented as an 
+     *        <b>LPWSTR</b>.
+     * @param {BSTR} lpszStatusBarText Pointer to text to display on the status bar when the new item is selected. Although declared as a 
+     *        <b>BSTR</b>, this parameter is implemented as an 
+     *        <b>LPWSTR</b>.
+     * @param {Integer} nCommandID Identifier for the command to be invoked when the menu item is selected. The 
+     *        <i>nCommandID</i> parameter must not be set to –1.
+     * @param {Integer} nSubmenuCommandID Identifier for a submenu. Submenus are not supported, and the <i>nSubmenuCommandID</i> 
+     *        parameter must be zero.
      * @param {Integer} uFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwccontextmenucallback-addextensionmenuitem
+     * @returns {HRESULT} If <b>AddExtensionMenuItem</b> 
+     *        is not successful, it can return other <b>HRESULT</b> values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NOERROR</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt>0x80070057</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>uFlags</i> parameter was set to either <b>MF_OWNERDRAW</b> 
+     *          or <b>MF_POPUP</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * <dt>0x8007000e</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was an error allocating the menu item.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iwccontextmenucallback-addextensionmenuitem
      */
     AddExtensionMenuItem(lpszName, lpszStatusBarText, nCommandID, nSubmenuCommandID, uFlags) {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName

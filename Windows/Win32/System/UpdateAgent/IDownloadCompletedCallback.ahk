@@ -31,11 +31,11 @@ class IDownloadCompletedCallback extends IUnknown{
     static VTableNames => ["Invoke"]
 
     /**
-     * 
-     * @param {IDownloadJob} downloadJob 
-     * @param {IDownloadCompletedCallbackArgs} callbackArgs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadcompletedcallback-invoke
+     * Notifies the caller that the download is complete.
+     * @param {IDownloadJob} downloadJob An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadjob">IDownloadJob</a> interface that contains download information.
+     * @param {IDownloadCompletedCallbackArgs} callbackArgs This parameter is reserved for future use and can be ignored.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadcompletedcallback-invoke
      */
     Invoke(downloadJob, callbackArgs) {
         result := ComCall(3, this, "ptr", downloadJob, "ptr", callbackArgs, "HRESULT")

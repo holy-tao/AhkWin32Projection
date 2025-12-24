@@ -31,10 +31,12 @@ class ID3D12GraphicsCommandList3 extends ID3D12GraphicsCommandList2{
     static VTableNames => ["SetProtectedResourceSession"]
 
     /**
+     * Specifies whether or not protected resources can be accessed by subsequent commands in the command list.
+     * @param {ID3D12ProtectedResourceSession} pProtectedResourceSession Type: **[ID3D12ProtectedResourceSession](./nn-d3d12-id3d12protectedresourcesession.md)\***
      * 
-     * @param {ID3D12ProtectedResourceSession} pProtectedResourceSession 
+     * An optional pointer to an **ID3D12ProtectedResourceSession**. You can obtain an **ID3D12ProtectedResourceSession** by calling [ID3D12Device4::CreateProtectedResourceSession](./nf-d3d12-id3d12device4-createprotectedresourcesession.md).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist3-setprotectedresourcesession
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist3-setprotectedresourcesession
      */
     SetProtectedResourceSession(pProtectedResourceSession) {
         ComCall(67, this, "ptr", pProtectedResourceSession)

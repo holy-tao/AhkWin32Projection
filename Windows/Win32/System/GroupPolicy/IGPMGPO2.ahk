@@ -32,6 +32,14 @@ class IGPMGPO2 extends IGPMGPO{
     static VTableNames => ["get_Description", "put_Description"]
 
     /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

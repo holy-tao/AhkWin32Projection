@@ -32,10 +32,10 @@ class IDvbServiceDescriptor2 extends IDvbServiceDescriptor{
     static VTableNames => ["GetServiceProviderNameW", "GetServiceNameW"]
 
     /**
-     * 
+     * Gets a string containing the service provider name from a Digital Video Broadcast (DVB) service descriptor.
      * @param {Integer} convMode 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getserviceprovidernamew
+     * @returns {BSTR} Receives the service provider name string as a <b>BSTR</b>. The caller must free the string by calling <b>SysFreeString</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getserviceprovidernamew
      */
     GetServiceProviderNameW(convMode) {
         pbstrName := BSTR()
@@ -44,10 +44,10 @@ class IDvbServiceDescriptor2 extends IDvbServiceDescriptor{
     }
 
     /**
-     * 
+     * Gets a string containing the service name from a Digital Video Broadcast (DVB) service descriptor.
      * @param {Integer} convMode 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getservicenamew
+     * @returns {BSTR} Receives the service name string as a <b>BSTR</b>. The caller must free the string by calling <b>SysFreeString</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbservicedescriptor2-getservicenamew
      */
     GetServiceNameW(convMode) {
         pbstrName := BSTR()

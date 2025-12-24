@@ -41,6 +41,102 @@ class IADsService extends IADs{
     static VTableNames => ["get_HostComputer", "put_HostComputer", "get_DisplayName", "put_DisplayName", "get_Version", "put_Version", "get_ServiceType", "put_ServiceType", "get_StartType", "put_StartType", "get_Path", "put_Path", "get_StartupParameters", "put_StartupParameters", "get_ErrorControl", "put_ErrorControl", "get_LoadOrderGroup", "put_LoadOrderGroup", "get_ServiceAccountName", "put_ServiceAccountName", "get_ServiceAccountPath", "put_ServiceAccountPath", "get_Dependencies", "put_Dependencies"]
 
     /**
+     * @type {BSTR} 
+     */
+    HostComputer {
+        get => this.get_HostComputer()
+        set => this.put_HostComputer(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+        set => this.put_DisplayName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Version {
+        get => this.get_Version()
+        set => this.put_Version(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ServiceType {
+        get => this.get_ServiceType()
+        set => this.put_ServiceType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StartType {
+        get => this.get_StartType()
+        set => this.put_StartType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+        set => this.put_Path(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StartupParameters {
+        get => this.get_StartupParameters()
+        set => this.put_StartupParameters(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ErrorControl {
+        get => this.get_ErrorControl()
+        set => this.put_ErrorControl(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LoadOrderGroup {
+        get => this.get_LoadOrderGroup()
+        set => this.put_LoadOrderGroup(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServiceAccountName {
+        get => this.get_ServiceAccountName()
+        set => this.put_ServiceAccountName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ServiceAccountPath {
+        get => this.get_ServiceAccountPath()
+        set => this.put_ServiceAccountPath(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Dependencies {
+        get => this.get_Dependencies()
+        set => this.put_Dependencies(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

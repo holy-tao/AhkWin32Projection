@@ -32,9 +32,9 @@ class ISnapinAbout extends IUnknown{
     static VTableNames => ["GetSnapinDescription", "GetProvider", "GetSnapinVersion", "GetSnapinImage", "GetStaticFolderImage"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getsnapindescription
+     * Enables the console to obtain the text for the snap-in's description box.
+     * @returns {PWSTR} A pointer to the text for the description box on an <b>About</b> property page.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-isnapinabout-getsnapindescription
      */
     GetSnapinDescription() {
         result := ComCall(3, this, "ptr*", &lpDescription := 0, "HRESULT")
@@ -42,9 +42,9 @@ class ISnapinAbout extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getprovider
+     * The ISnapinAbout::GetProvider method enables the console to obtain the snap-in provider name.
+     * @returns {PWSTR} A pointer to the text of the snap-in provider name.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-isnapinabout-getprovider
      */
     GetProvider() {
         result := ComCall(4, this, "ptr*", &lpName := 0, "HRESULT")
@@ -52,9 +52,9 @@ class ISnapinAbout extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getsnapinversion
+     * Enables the console to obtain the snap-in's version number.
+     * @returns {PWSTR} A pointer to the text of the snap-in version number.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-isnapinabout-getsnapinversion
      */
     GetSnapinVersion() {
         result := ComCall(5, this, "ptr*", &lpVersion := 0, "HRESULT")
@@ -62,9 +62,9 @@ class ISnapinAbout extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HICON} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getsnapinimage
+     * Enables the console to obtain the snap-in's main icon to be used in the About box.
+     * @returns {HICON} A pointer to the handle to the main icon of the snap-in that is to be used in the About property page.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-isnapinabout-getsnapinimage
      */
     GetSnapinImage() {
         hAppIcon := HICON()
@@ -73,13 +73,14 @@ class ISnapinAbout extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<HBITMAP>} hSmallImage 
-     * @param {Pointer<HBITMAP>} hSmallImageOpen 
-     * @param {Pointer<HBITMAP>} hLargeImage 
-     * @param {Pointer<COLORREF>} cMask 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-isnapinabout-getstaticfolderimage
+     * The ISnapinAbout::GetStaticFolderImage method allows the console to obtain the static folder images for the scope and result panes.
+     * @param {Pointer<HBITMAP>} hSmallImage A pointer to the handle to a small icon (16x16 pixels) in either the scope or result view pane.
+     * @param {Pointer<HBITMAP>} hSmallImageOpen A pointer to the handle to a small open-folder icon (16x16 pixels).
+     * @param {Pointer<HBITMAP>} hLargeImage A pointer to the handle to a large icon (32x32 pixels).
+     * @param {Pointer<COLORREF>} cMask A pointer to a 
+     * COLORREF structure that specifies the color used to generate a mask.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-isnapinabout-getstaticfolderimage
      */
     GetStaticFolderImage(hSmallImage, hSmallImageOpen, hLargeImage, cMask) {
         cMaskMarshal := cMask is VarRef ? "uint*" : "ptr"

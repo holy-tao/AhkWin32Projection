@@ -31,10 +31,10 @@ class IAMGraphBuilderCallback extends IUnknown{
     static VTableNames => ["SelectedFilter", "CreatedFilter"]
 
     /**
-     * 
-     * @param {IMoniker} pMon 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamgraphbuildercallback-selectedfilter
+     * The Filter Graph Manager calls this method when it finds a candidate filter for the graph, but before it creates the filter.
+     * @param {IMoniker} pMon Pointer to a moniker that contains information about the filter.
+     * @returns {HRESULT} If the method returns a success code, the Filter Graph Manager creates the filter and tries to connect it. If the method returns a failure code, the Filter Graph Manager rejects the filter.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamgraphbuildercallback-selectedfilter
      */
     SelectedFilter(pMon) {
         result := ComCall(3, this, "ptr", pMon, "HRESULT")
@@ -42,10 +42,10 @@ class IAMGraphBuilderCallback extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IBaseFilter} pFil 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamgraphbuildercallback-createdfilter
+     * The Filter Graph Manager calls this method after it has created a filter, but before it attempts to connect the filter.
+     * @param {IBaseFilter} pFil Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface of the filter.
+     * @returns {HRESULT} If the method returns a success code, the Filter Graph Manager tries to connect the filter. If the method returns a failure code, the Filter Graph Manager rejects the filter.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamgraphbuildercallback-createdfilter
      */
     CreatedFilter(pFil) {
         result := ComCall(4, this, "ptr", pFil, "HRESULT")

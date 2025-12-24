@@ -33,10 +33,24 @@ class IObjectIds extends IDispatch{
     static VTableNames => ["get_ItemByIndex", "get_Count", "get__NewEnum", "Add", "Remove", "Clear", "AddRange"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * Retrieves an IObjectId object from the collection by index number.
      * @param {Integer} Index 
      * @returns {IObjectId} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectids-get_itembyindex
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectids-get_itembyindex
      */
     get_ItemByIndex(Index) {
         result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
@@ -44,9 +58,9 @@ class IObjectIds extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the number of objects in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectids-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectids-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -54,9 +68,9 @@ class IObjectIds extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the enumerator for the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectids-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectids-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
@@ -64,10 +78,12 @@ class IObjectIds extends IDispatch{
     }
 
     /**
+     * Adds an IObjectId object to the collection.
+     * @param {IObjectId} pVal Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface that represents the object identifier to add.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {IObjectId} pVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectids-add
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectids-add
      */
     Add(pVal) {
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
@@ -75,10 +91,12 @@ class IObjectIds extends IDispatch{
     }
 
     /**
+     * Removes an IObjectId object from the collection by index value.
+     * @param {Integer} Index A <b>LONG</b> variable that contains the index of the object to remove.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {Integer} Index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectids-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectids-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")
@@ -86,9 +104,11 @@ class IObjectIds extends IDispatch{
     }
 
     /**
+     * Removes all IObjectId objects from the collection.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectids-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectids-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -96,10 +116,12 @@ class IObjectIds extends IDispatch{
     }
 
     /**
+     * Adds a range of IObjectId objects to the collection.
+     * @param {IObjectIds} pValue Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectids">IObjectIds</a> interface that represents the collection to add.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {IObjectIds} pValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectids-addrange
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectids-addrange
      */
     AddRange(pValue) {
         result := ComCall(13, this, "ptr", pValue, "HRESULT")

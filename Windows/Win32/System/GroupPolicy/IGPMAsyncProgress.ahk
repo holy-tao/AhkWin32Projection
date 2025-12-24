@@ -51,20 +51,17 @@ class IGPMAsyncProgress extends IDispatch{
     static VTableNames => ["Status"]
 
     /**
-     * The Status enumeration indicates the result of a Windows GDI+ method call.
-     * @remarks
+     * The server calls this method to notify the client about the status of a Group Policy Management Console (GPMC) operation.
+     * @param {Integer} lProgressNumerator Numerator of a fraction that represents the percent of the GPMC operation that is complete.
+     * @param {Integer} lProgressDenominator Denominator of a fraction that represents the percent of the GPMC operation that is complete. The value of this parameter is proportional to the number of extensions in the Group Policy object (GPO), whether the GPO is a "live" GPO or a backed-up GPO. This value can be used to display the progress bar to the user.
      * 
-     * If you construct a GDI+ object and then immediately call the 
-     * 				<b>GetLastStatus</b> method of that object, you can determine whether the constructor succeeded or failed. In such cases, 
-     * 				<b>GetLastStatus</b> might return <b><b>OutOfMemory</b></b> even though there was plenty of memory available to create the object. Several GDI+ constructors set the status to <b><b>OutOfMemory</b></b> when they fail regardless of the reason for failure.
-     * 
-     * @param {Integer} lProgressNumerator 
-     * @param {Integer} lProgressDenominator 
-     * @param {HRESULT} hrStatus 
-     * @param {Pointer<VARIANT>} pResult 
-     * @param {IGPMStatusMsgCollection} ppIGPMStatusMsgCollection 
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//gdiplustypes/ne-gdiplustypes-status
+     * In the GPMC user interface, the progress bar is divided into <i>lProgressDenominator</i> intervals. When <i>lProgressNumerator</i>==<i>lProgressDenominator</i> the operation is complete.
+     * @param {HRESULT} hrStatus Status of the operation. If no error occurred, the value of the parameter is <b>S_OK</b>.
+     * @param {Pointer<VARIANT>} pResult Result of the operation. 
+     * This parameter is an interface pointer to the object that resulted from the GPMC operation. For example, it may be a pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpo">GPMGPO</a> object or to  a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">GPMBackup</a> object. This object is only returned when the operation is complete.
+     * @param {IGPMStatusMsgCollection} ppIGPMStatusMsgCollection A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a> interface that contains detailed status information about the operation. In cases where there are no errors, or if there are no detailed messages, Status passes in a null collection.
+     * @returns {HRESULT} This method has no return values.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmasyncprogress-status
      */
     Status(lProgressNumerator, lProgressDenominator, hrStatus, pResult, ppIGPMStatusMsgCollection) {
         result := ComCall(7, this, "int", lProgressNumerator, "int", lProgressDenominator, "int", hrStatus, "ptr", pResult, "ptr", ppIGPMStatusMsgCollection, "HRESULT")

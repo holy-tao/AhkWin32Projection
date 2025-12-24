@@ -39,9 +39,9 @@ class IVssSnapshotMgmt2 extends IUnknown{
     static VTableNames => ["GetMinDiffAreaSize"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivsssnapshotmgmt2-getmindiffareasize
+     * Returns the current minimum size of the shadow copy storage area.
+     * @returns {Integer} A pointer to a variable that receives the minimum size, in bytes, of the shadow copy storage area.
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivsssnapshotmgmt2-getmindiffareasize
      */
     GetMinDiffAreaSize() {
         result := ComCall(3, this, "int64*", &pllMinDiffAreaSize := 0, "HRESULT")

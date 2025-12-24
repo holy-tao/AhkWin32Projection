@@ -36,10 +36,10 @@ class IMFPMPClient extends IUnknown{
     static VTableNames => ["SetPMPHost"]
 
     /**
-     * 
-     * @param {IMFPMPHost} pPMPHost 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfpmpclient-setpmphost
+     * Provides a pointer to the IMFPMPHost interface.
+     * @param {IMFPMPHost} pPMPHost A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpmphost">IMFPMPHost</a> interface.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfpmpclient-setpmphost
      */
     SetPMPHost(pPMPHost) {
         result := ComCall(3, this, "ptr", pPMPHost, "HRESULT")

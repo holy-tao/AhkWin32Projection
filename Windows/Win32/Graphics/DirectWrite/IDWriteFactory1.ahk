@@ -33,10 +33,14 @@ class IDWriteFactory1 extends IDWriteFactory{
     static VTableNames => ["GetEudcFontCollection", "CreateCustomRenderingParams"]
 
     /**
+     * Gets a font collection representing the set of EUDC (end-user defined characters) fonts.
+     * @param {BOOL} checkForUpdates Type: <b>BOOL</b>
      * 
-     * @param {BOOL} checkForUpdates 
-     * @returns {IDWriteFontCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefactory1-geteudcfontcollection
+     * Whether to check for updates.
+     * @returns {IDWriteFontCollection} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
+     * 
+     * The font collection to fill.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefactory1-geteudcfontcollection
      */
     GetEudcFontCollection(checkForUpdates) {
         result := ComCall(24, this, "ptr*", &fontCollection := 0, "int", checkForUpdates, "HRESULT")
@@ -44,15 +48,29 @@ class IDWriteFactory1 extends IDWriteFactory{
     }
 
     /**
+     * Creates a rendering parameters object with the specified properties.
+     * @param {Float} gamma Type: <b>FLOAT</b>
      * 
-     * @param {Float} gamma 
-     * @param {Float} enhancedContrast 
-     * @param {Float} enhancedContrastGrayscale 
-     * @param {Float} clearTypeLevel 
-     * @param {Integer} pixelGeometry 
-     * @param {Integer} renderingMode 
-     * @returns {IDWriteRenderingParams1} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefactory1-createcustomrenderingparams
+     * The gamma level to be set for the new rendering parameters object.
+     * @param {Float} enhancedContrast Type: <b>FLOAT</b>
+     * 
+     * The enhanced contrast level to be set for the new rendering parameters object.
+     * @param {Float} enhancedContrastGrayscale Type: <b>FLOAT</b>
+     * 
+     * The amount of contrast enhancement to use for grayscale antialiasing, zero or greater.
+     * @param {Float} clearTypeLevel Type: <b>FLOAT</b>
+     * 
+     * The ClearType level to be set for the new rendering parameters object.
+     * @param {Integer} pixelGeometry Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_pixel_geometry">DWRITE_PIXEL_GEOMETRY</a></b>
+     * 
+     * Represents the internal structure of a device pixel (that is, the physical arrangement of red, green, and blue color components) that is assumed for purposes of rendering text.
+     * @param {Integer} renderingMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a></b>
+     * 
+     * A value that represents the method (for example, ClearType natural quality) for rendering glyphs.
+     * @returns {IDWriteRenderingParams1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwriterenderingparams1">IDWriteRenderingParams1</a>**</b>
+     * 
+     * When this method returns, contains an address of a pointer to the newly created rendering parameters object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefactory1-createcustomrenderingparams
      */
     CreateCustomRenderingParams(gamma, enhancedContrast, enhancedContrastGrayscale, clearTypeLevel, pixelGeometry, renderingMode) {
         result := ComCall(25, this, "float", gamma, "float", enhancedContrast, "float", enhancedContrastGrayscale, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "ptr*", &renderingParams := 0, "HRESULT")

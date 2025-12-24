@@ -42,10 +42,22 @@ class IBootTrigger extends ITrigger{
     static VTableNames => ["get_Delay", "put_Delay"]
 
     /**
+     */
+    Delay {
+        get => this.get_Delay()
+        set => this.put_Delay(value)
+    }
+
+    /**
+     * Gets or sets a value that indicates the amount of time between when the system is booted and when the task is started.
+     * @remarks
+     * 
+     * When reading or writing your own XML for a task, the boot delay is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-delay-boottriggertype-element">Delay</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {Pointer<BSTR>} pDelay 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iboottrigger-get_delay
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iboottrigger-get_delay
      */
     get_Delay(pDelay) {
         result := ComCall(20, this, "ptr", pDelay, "HRESULT")
@@ -53,10 +65,15 @@ class IBootTrigger extends ITrigger{
     }
 
     /**
+     * Gets or sets a value that indicates the amount of time between when the system is booted and when the task is started.
+     * @remarks
+     * 
+     * When reading or writing your own XML for a task, the boot delay is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-delay-boottriggertype-element">Delay</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {BSTR} delay 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iboottrigger-put_delay
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iboottrigger-put_delay
      */
     put_Delay(delay) {
         delay := delay is String ? BSTR.Alloc(delay).Value : delay

@@ -36,6 +36,38 @@ class ISVGAngle extends IDispatch{
     static VTableNames => ["put_unitType", "get_unitType", "put_value", "get_value", "put_valueInSpecifiedUnits", "get_valueInSpecifiedUnits", "put_valueAsString", "get_valueAsString", "newValueSpecifiedUnits", "convertToSpecifiedUnits"]
 
     /**
+     * @type {Integer} 
+     */
+    unitType {
+        get => this.get_unitType()
+        set => this.put_unitType(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    valueInSpecifiedUnits {
+        get => this.get_valueInSpecifiedUnits()
+        set => this.put_valueInSpecifiedUnits(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    valueAsString {
+        get => this.get_valueAsString()
+        set => this.put_valueAsString(value)
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

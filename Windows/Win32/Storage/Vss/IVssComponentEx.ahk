@@ -32,10 +32,63 @@ class IVssComponentEx extends IVssComponent{
     static VTableNames => ["SetPrepareForBackupFailureMsg", "SetPostSnapshotFailureMsg", "GetPrepareForBackupFailureMsg", "GetPostSnapshotFailureMsg", "GetAuthoritativeRestore", "GetRollForward", "GetRestoreName"]
 
     /**
+     * Sets a PrepareForBackup failure message string for a component.
+     * @param {PWSTR} wszFailureMsg The address of a caller-allocated <b>NULL</b>-terminated wide character string containing the failure message that describes an error that occurred 
+     *       while processing a <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PrepareForBackup</a> 
+     *       event.
+     * @returns {HRESULT} The following are the valid return codes for this method.
      * 
-     * @param {PWSTR} wszFailureMsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-setprepareforbackupfailuremsg
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The failure message was successfully set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameter values is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller is out of memory or other system resources.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_BAD_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This method was not called by a writer's <a href="/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpreparebackup">CVssWriter::OnPrepareBackup</a> method.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-setprepareforbackupfailuremsg
      */
     SetPrepareForBackupFailureMsg(wszFailureMsg) {
         wszFailureMsg := wszFailureMsg is String ? StrPtr(wszFailureMsg) : wszFailureMsg
@@ -45,10 +98,63 @@ class IVssComponentEx extends IVssComponent{
     }
 
     /**
+     * Sets a PostSnapshot failure message string for a component.
+     * @param {PWSTR} wszFailureMsg The address of a caller-allocated <b>NULL</b>-terminated wide character string containing the failure message that describes an error that occurred 
+     *       while processing a <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PostSnapshot</a> 
+     *       event.
+     * @returns {HRESULT} The following are the valid return codes for this method.
      * 
-     * @param {PWSTR} wszFailureMsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-setpostsnapshotfailuremsg
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The failure message was successfully set.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameter values is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller is out of memory or other system resources.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_BAD_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This method was not called by a writer's <a href="/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onpostsnapshot">CVssWriter::OnPostSnapshot</a> method.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-setpostsnapshotfailuremsg
      */
     SetPostSnapshotFailureMsg(wszFailureMsg) {
         wszFailureMsg := wszFailureMsg is String ? StrPtr(wszFailureMsg) : wszFailureMsg
@@ -58,9 +164,11 @@ class IVssComponentEx extends IVssComponent{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getprepareforbackupfailuremsg
+     * Returns the PrepareForBackup failure message string that a writer has set for a given component.
+     * @returns {BSTR} A pointer to a null-terminated wide character string containing the failure message that describes an error that occurred 
+     *       while processing a <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PrepareForBackup</a> 
+     *       event.
+     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-getprepareforbackupfailuremsg
      */
     GetPrepareForBackupFailureMsg() {
         pbstrFailureMsg := BSTR()
@@ -69,9 +177,11 @@ class IVssComponentEx extends IVssComponent{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getpostsnapshotfailuremsg
+     * Returns the PostSnapshot failure message string that a writer has set for a given component.
+     * @returns {BSTR} A pointer to a null-terminated wide character string containing the failure message that describes an error that occurred 
+     *       while processing a <a href="https://docs.microsoft.com/windows/desktop/VSS/vssgloss-p">PostSnapshot</a> 
+     *       event.
+     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-getpostsnapshotfailuremsg
      */
     GetPostSnapshotFailureMsg() {
         pbstrFailureMsg := BSTR()
@@ -80,9 +190,9 @@ class IVssComponentEx extends IVssComponent{
     }
 
     /**
-     * 
-     * @returns {Boolean} 
-     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getauthoritativerestore
+     * Determines whether a requester has marked the restore of a component as authoritative for a replicated data store.
+     * @returns {Boolean} The address of a caller-allocated variable that receives <b>true</b> if the restore is authoritative, or <b>false</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-getauthoritativerestore
      */
     GetAuthoritativeRestore() {
         result := ComCall(45, this, "int*", &pbAuth := 0, "HRESULT")
@@ -90,11 +200,51 @@ class IVssComponentEx extends IVssComponent{
     }
 
     /**
+     * Obtains the roll-forward operation type for a component and obtains the restore point for a partial roll-forward operation.
+     * @param {Pointer<Integer>} pRollType A <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_rollforward_type">VSS_ROLLFORWARD_TYPE</a> enumeration value indicating the type of roll-forward operation to be performed.
+     * @param {Pointer<BSTR>} pbstrPoint The address of a caller-allocated variable that receives a null-terminated wide character string specifying the roll-forward restore point.
+     * @returns {HRESULT} The following are the valid return codes for this method.
      * 
-     * @param {Pointer<Integer>} pRollType 
-     * @param {Pointer<BSTR>} pbstrPoint 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getrollforward
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameter values is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller is out of memory or other system resources.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-getrollforward
      */
     GetRollForward(pRollType, pbstrPoint) {
         pRollTypeMarshal := pRollType is VarRef ? "int*" : "ptr"
@@ -104,9 +254,9 @@ class IVssComponentEx extends IVssComponent{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscomponentex-getrestorename
+     * Obtains the logical name assigned to a component that is being restored.
+     * @returns {BSTR} The address of a caller-allocated variable that receives a null-terminated wide character string containing the restore name for the component.
+     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscomponentex-getrestorename
      */
     GetRestoreName() {
         pbstrName := BSTR()

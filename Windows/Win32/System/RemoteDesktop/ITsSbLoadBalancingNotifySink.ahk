@@ -31,11 +31,12 @@ class ITsSbLoadBalancingNotifySink extends ITsSbBaseNotifySink{
     static VTableNames => ["OnGetMostSuitableTarget"]
 
     /**
-     * 
-     * @param {ITsSbLoadBalanceResult} pLBResult 
-     * @param {BOOL} fIsNewConnection 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbloadbalancingnotifysink-ongetmostsuitabletarget
+     * Returns a load-balancing result to Remote Desktop Connection Broker (RD Connection Broker).
+     * @param {ITsSbLoadBalanceResult} pLBResult A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbloadbalanceresult">ITsSbLoadBalanceResult</a> object that  includes the name of the target to which the connection should 
+     * be redirected.
+     * @param {BOOL} fIsNewConnection Indicates whether this is a new connection. <b>TRUE</b> if it is a new connection; <b>FALSE</b> otherwise.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbloadbalancingnotifysink-ongetmostsuitabletarget
      */
     OnGetMostSuitableTarget(pLBResult, fIsNewConnection) {
         result := ComCall(5, this, "ptr", pLBResult, "int", fIsNewConnection, "HRESULT")

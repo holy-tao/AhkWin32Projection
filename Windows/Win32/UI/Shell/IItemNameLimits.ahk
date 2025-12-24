@@ -31,11 +31,17 @@ class IItemNameLimits extends IUnknown{
     static VTableNames => ["GetValidCharacters", "GetMaxLength"]
 
     /**
+     * Loads a string that contains each of the characters that are valid or invalid in the namespace under which it is called.
+     * @param {Pointer<PWSTR>} ppwszValidChars Type: <b>LPWSTR*</b>
      * 
-     * @param {Pointer<PWSTR>} ppwszValidChars 
-     * @param {Pointer<PWSTR>} ppwszInvalidChars 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iitemnamelimits-getvalidcharacters
+     * A pointer to a string that contains all valid characters in the namespace. If the namespace provides <i>any</i> invalid characters in <i>ppwszInvalidChars</i>, then this value returns <b>NULL</b>. See Remarks for more details.
+     * @param {Pointer<PWSTR>} ppwszInvalidChars Type: <b>LPWSTR*</b>
+     * 
+     * A pointer to a string that contains all invalid characters in the namespace.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iitemnamelimits-getvalidcharacters
      */
     GetValidCharacters(ppwszValidChars, ppwszInvalidChars) {
         ppwszValidCharsMarshal := ppwszValidChars is VarRef ? "ptr*" : "ptr"
@@ -46,10 +52,14 @@ class IItemNameLimits extends IUnknown{
     }
 
     /**
+     * Returns the maximum number of characters allowed for a particular name in the namespace under which it is called.
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iitemnamelimits-getmaxlength
+     * A pointer to a string containing a name.
+     * @returns {Integer} Type: <b>int*</b>
+     * 
+     * A pointer to the maximum number of characters which can be used in the name.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iitemnamelimits-getmaxlength
      */
     GetMaxLength(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName

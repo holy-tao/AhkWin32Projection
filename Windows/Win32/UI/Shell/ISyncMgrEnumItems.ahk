@@ -41,12 +41,20 @@ class ISyncMgrEnumItems extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Enumerates the next celt elements in the enumerator's list, returning them in rgelt along with the actual number of enumerated elements in pceltFetched.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<SYNCMGRITEM>} rgelt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrenumitems-next
+     * The number of items in the array.
+     * @param {Pointer<SYNCMGRITEM>} rgelt Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ns-mobsync-syncmgritem">SYNCMGRITEM</a>*</b>
+     * 
+     * The address of array containing items.
+     * @param {Pointer<Integer>} pceltFetched Type: <b>ULONG*</b>
+     * 
+     * The address of variable containing actual number of items.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Return S_OK if the method succeeds.
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrenumitems-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -56,10 +64,14 @@ class ISyncMgrEnumItems extends IUnknown{
     }
 
     /**
+     * Instructs the enumerator to skip the next celt elements in the enumeration so that the next call to ISyncMgrEnumItems::Next does not return those elements.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrenumitems-skip
+     * The number of items to skip.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Return S_OK if the method succeeds.
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrenumitems-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -67,9 +79,11 @@ class ISyncMgrEnumItems extends IUnknown{
     }
 
     /**
+     * Instructs the enumerator to position itself at the beginning of the list of elements.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrenumitems-reset
+     * Return S_OK if the method succeeds.
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrenumitems-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -77,9 +91,11 @@ class ISyncMgrEnumItems extends IUnknown{
     }
 
     /**
+     * Creates another items enumerator with the same state as the current enumerator to iterate over the same list. This method makes it possible to record a point in the enumeration sequence in order to return to that point at a later time.
+     * @returns {ISyncMgrEnumItems} Type: <b>ppenum**</b>
      * 
-     * @returns {ISyncMgrEnumItems} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrenumitems-clone
+     * The address of a variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nn-mobsync-isyncmgrenumitems">ISyncMgrEnumItems</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrenumitems-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

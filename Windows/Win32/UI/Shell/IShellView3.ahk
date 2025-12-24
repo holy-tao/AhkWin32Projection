@@ -36,17 +36,35 @@ class IShellView3 extends IShellView2{
     static VTableNames => ["CreateViewWindow3"]
 
     /**
+     * Requests the creation of a new Shell view window. The view can be either the right pane of Windows Explorer or the client window of a folder window. This method replaces CreateViewWindow2.
+     * @param {IShellBrowser} psbOwner Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellbrowser">IShellBrowser</a>*</b>
      * 
-     * @param {IShellBrowser} psbOwner 
-     * @param {IShellView} psvPrev 
-     * @param {Integer} dwViewFlags 
-     * @param {Integer} dwMask 
-     * @param {Integer} dwFlags 
-     * @param {Integer} fvMode 
-     * @param {Pointer<Guid>} pvid 
-     * @param {Pointer<RECT>} prcView 
-     * @returns {HWND} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ishellview3-createviewwindow3
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellbrowser">IShellBrowser</a> interface to provide namespace extension services.
+     * @param {IShellView} psvPrev Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> interface that represents the previous view in the Windows Explorer or folder window.
+     * @param {Integer} dwViewFlags Type: <b>SV3CVW3_FLAGS</b>
+     * 
+     * Flags that specify details of the view being created.
+     * @param {Integer} dwMask Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a></b>
+     * 
+     * A bitwise mask that specifies which folder options specified in <i>dwFlags</i> are to be used.
+     * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a></b>
+     * 
+     * A bitwise value that contains the folder options, as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a>, to use in the new view.
+     * @param {Integer} fvMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a></b>
+     * 
+     * A bitwise value that contains the folder view mode options, as <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a>, to use in the new view.
+     * @param {Pointer<Guid>} pvid Type: <b>const SHELLVIEWID*</b>
+     * 
+     * A pointer to Shell view ID as a <b>GUID</b>.
+     * @param {Pointer<RECT>} prcView Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
+     * 
+     * A pointer to a <b>RECT</b> structure that provides the dimensions of the view window.
+     * @returns {HWND} Type: <b>HWND*</b>
+     * 
+     * A value that receives a pointer to the handle of the new Shell view window.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ishellview3-createviewwindow3
      */
     CreateViewWindow3(psbOwner, psvPrev, dwViewFlags, dwMask, dwFlags, fvMode, pvid, prcView) {
         phwndView := HWND()

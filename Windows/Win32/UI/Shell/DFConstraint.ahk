@@ -37,6 +37,20 @@ class DFConstraint extends IDispatch{
     static VTableNames => ["get_Name", "get_Value"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

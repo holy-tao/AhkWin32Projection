@@ -32,6 +32,13 @@ class IADsServiceOperations extends IADs{
     static VTableNames => ["get_Status", "Start", "Stop", "Pause", "Continue", "SetPassword"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */
@@ -41,9 +48,9 @@ class IADsServiceOperations extends IADs{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsserviceoperations-start
+     * The IADsServiceOperations::Start method starts a network service.
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsserviceoperations-start
      */
     Start() {
         result := ComCall(21, this, "HRESULT")
@@ -51,9 +58,9 @@ class IADsServiceOperations extends IADs{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsserviceoperations-stop
+     * The IADsServiceOperations::Stop method stops a currently active network service.
+     * @returns {HRESULT} This method supports standard return values, including S_OK. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsserviceoperations-stop
      */
     Stop() {
         result := ComCall(22, this, "HRESULT")
@@ -61,9 +68,9 @@ class IADsServiceOperations extends IADs{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsserviceoperations-pause
+     * The IADsServiceOperations::Pause method pauses a service started with the IADsServiceOperations::Start method.
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsserviceoperations-pause
      */
     Pause() {
         result := ComCall(23, this, "HRESULT")
@@ -71,9 +78,9 @@ class IADsServiceOperations extends IADs{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsserviceoperations-continue
+     * The IADsServiceOperations::Continue method resumes a service operation paused by the IADsServiceOperations::Pause method.
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsserviceoperations-continue
      */
     Continue() {
         result := ComCall(24, this, "HRESULT")
@@ -81,10 +88,10 @@ class IADsServiceOperations extends IADs{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrNewPassword 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsserviceoperations-setpassword
+     * The IADsServiceOperations::SetPassword method sets the password for the account used by the service manager. This method is called when the security context for this service is created.
+     * @param {BSTR} bstrNewPassword The null-terminated Unicode string to be stored as the new password.
+     * @returns {HRESULT} This method supports the standard return values, including S_OK. For more information about other return values, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsserviceoperations-setpassword
      */
     SetPassword(bstrNewPassword) {
         bstrNewPassword := bstrNewPassword is String ? BSTR.Alloc(bstrNewPassword).Value : bstrNewPassword

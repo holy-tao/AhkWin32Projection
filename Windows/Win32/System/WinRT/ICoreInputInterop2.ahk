@@ -30,6 +30,13 @@ class ICoreInputInterop2 extends IInspectable{
     static VTableNames => ["get_WindowHandle", "ChangeHostingContext"]
 
     /**
+     * @type {HWND} 
+     */
+    WindowHandle {
+        get => this.get_WindowHandle()
+    }
+
+    /**
      * 
      * @returns {HWND} 
      */

@@ -33,9 +33,21 @@ class ISpellCheckProviderFactory extends IUnknown{
     static VTableNames => ["get_SupportedLanguages", "IsSupported", "CreateSpellCheckProvider"]
 
     /**
+     * @type {IEnumString} 
+     */
+    SupportedLanguages {
+        get => this.get_SupportedLanguages()
+    }
+
+    /**
+     * Gets the set of languages/dialects supported by the spell checker.
+     * @remarks
+     * 
+     * The supported languages are specific, not neutral. For Hebrew, for example, the supported language is "he-IL", not "he".
+     * 
      * 
      * @returns {IEnumString} 
-     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckproviderfactory-get_supportedlanguages
+     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckproviderfactory-get_supportedlanguages
      */
     get_SupportedLanguages() {
         result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
@@ -43,10 +55,10 @@ class ISpellCheckProviderFactory extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} languageTag 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckproviderfactory-issupported
+     * Determines if the specified language is supported by this spell checker.
+     * @param {PWSTR} languageTag A <a href="http://tools.ietf.org/html/bcp47">BCP47</a> language tag that identifies the language for the requested spell checker.
+     * @returns {BOOL} <b>TRUE</b> if supported; <b>FALSE</b> if not supported.
+     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckproviderfactory-issupported
      */
     IsSupported(languageTag) {
         languageTag := languageTag is String ? StrPtr(languageTag) : languageTag
@@ -56,10 +68,10 @@ class ISpellCheckProviderFactory extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} languageTag 
-     * @returns {ISpellCheckProvider} 
-     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckproviderfactory-createspellcheckprovider
+     * Creates a spell checker (implemented by a spell check provider) that supports the specified language.
+     * @param {PWSTR} languageTag A <a href="http://tools.ietf.org/html/bcp47">BCP47</a> language tag that identifies the language for the requested spell checker.
+     * @returns {ISpellCheckProvider} The created spell checker.
+     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckproviderfactory-createspellcheckprovider
      */
     CreateSpellCheckProvider(languageTag) {
         languageTag := languageTag is String ? StrPtr(languageTag) : languageTag

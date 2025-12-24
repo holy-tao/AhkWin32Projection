@@ -78,10 +78,12 @@ class IBackgroundCopyCallback extends IUnknown{
     static VTableNames => ["JobTransferred", "JobError", "JobModification"]
 
     /**
+     * BITS calls your implementation of the JobTransferred method when all of the files in the job have been successfully transferred.
+     * @param {IBackgroundCopyJob} pJob Contains job-related information, such as the time the job completed, the number of bytes transferred, and the number of files transferred. Do not release <i>pJob</i>; BITS releases the interface when the method returns.
+     * @returns {HRESULT} This method should return <b>S_OK</b>; otherwise,  BITS continues to call this method until <b>S_OK</b> is returned. For performance reasons, you should limit the number  of times you return a value other than <b>S_OK</b> to a few times. As an alternative to returning an error code, consider always returning <b>S_OK</b> and handling the error internally. The interval at which this method is called is arbitrary.
      * 
-     * @param {IBackgroundCopyJob} pJob 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopycallback-jobtransferred
+     * Note that if this method fails and you   called the <a href="/windows/desktop/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-setnotifycmdline">IBackgroundCopyJob2::SetNotifyCmdLine</a> method, the command line is executed and this method is not called again.
+     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopycallback-jobtransferred
      */
     JobTransferred(pJob) {
         result := ComCall(3, this, "ptr", pJob, "HRESULT")
@@ -89,11 +91,13 @@ class IBackgroundCopyCallback extends IUnknown{
     }
 
     /**
+     * BITS calls your implementation of the JobError method when the state of the job changes to BG_JOB_STATE_ERROR.
+     * @param {IBackgroundCopyJob} pJob Contains job-related information, such as the number of bytes and files transferred before the error occurred. It also contains the methods to resume and cancel the job. Do not release <i>pJob</i>; BITS releases the interface when the <b>JobError</b> method returns.
+     * @param {IBackgroundCopyError} pError Contains error information, such as the file being processed at the time the fatal error occurred and a description of the error. Do not release <i>pError</i>; BITS releases the interface when the <b>JobError</b> method returns.
+     * @returns {HRESULT} This method should return <b>S_OK</b>; otherwise,  BITS continues to call this method until <b>S_OK</b> is returned. For performance reasons, you should limit the number  of times you return a value other than <b>S_OK</b> to a few times. As an alternative to returning an error code, consider always returning <b>S_OK</b> and handling the error internally. The interval at which this method is called is arbitrary.
      * 
-     * @param {IBackgroundCopyJob} pJob 
-     * @param {IBackgroundCopyError} pError 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopycallback-joberror
+     * Note that if this method fails and you   called the <a href="/windows/desktop/api/bits1_5/nf-bits1_5-ibackgroundcopyjob2-setnotifycmdline">IBackgroundCopyJob2::SetNotifyCmdLine</a> method, the command line is executed and this method is not called again.
+     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopycallback-joberror
      */
     JobError(pJob, pError) {
         result := ComCall(4, this, "ptr", pJob, "ptr", pError, "HRESULT")
@@ -101,11 +105,11 @@ class IBackgroundCopyCallback extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IBackgroundCopyJob} pJob 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopycallback-jobmodification
+     * BITS calls your implementation of the JobModification method when the job has been modified.
+     * @param {IBackgroundCopyJob} pJob Contains the methods for accessing property, progress, and state information of the job. Do not release <i>pJob</i>; BITS releases the interface when the <b>JobModification</b> method returns.
+     * @param {Integer} dwReserved Reserved for future use.
+     * @returns {HRESULT} This method should return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopycallback-jobmodification
      */
     JobModification(pJob, dwReserved) {
         result := ComCall(5, this, "ptr", pJob, "uint", dwReserved, "HRESULT")

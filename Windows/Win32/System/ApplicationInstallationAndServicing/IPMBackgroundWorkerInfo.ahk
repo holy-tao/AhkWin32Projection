@@ -29,6 +29,46 @@ class IPMBackgroundWorkerInfo extends IUnknown{
     static VTableNames => ["get_ProductID", "get_TaskID", "get_BGName", "get_MaxStartupLatency", "get_ExpectedRuntime", "get_IsBootWorker"]
 
     /**
+     * @type {Guid} 
+     */
+    ProductID {
+        get => this.get_ProductID()
+    }
+
+    /**
+     */
+    TaskID {
+        get => this.get_TaskID()
+    }
+
+    /**
+     */
+    BGName {
+        get => this.get_BGName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxStartupLatency {
+        get => this.get_MaxStartupLatency()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ExpectedRuntime {
+        get => this.get_ExpectedRuntime()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsBootWorker {
+        get => this.get_IsBootWorker()
+    }
+
+    /**
      * 
      * @returns {Guid} 
      */

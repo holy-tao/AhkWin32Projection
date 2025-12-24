@@ -32,9 +32,49 @@ class IFsrmQuotaObject extends IFsrmQuotaBase{
     static VTableNames => ["get_Path", "get_UserSid", "get_UserAccount", "get_SourceTemplateName", "get_MatchesSourceTemplate", "ApplyTemplate"]
 
     /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserSid {
+        get => this.get_UserSid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserAccount {
+        get => this.get_UserAccount()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SourceTemplateName {
+        get => this.get_SourceTemplateName()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MatchesSourceTemplate {
+        get => this.get_MatchesSourceTemplate()
+    }
+
+    /**
+     * Retrieves the path to which the quota applies.
+     * @remarks
+     * 
+     * The path is specified when you create the quota object.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_path
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_path
      */
     get_Path() {
         path := BSTR()
@@ -43,9 +83,15 @@ class IFsrmQuotaObject extends IFsrmQuotaBase{
     }
 
     /**
+     * Retrieves the string form of the user's security identifier (SID) that is associated with the object.
+     * @remarks
+     * 
+     * This method always returns the well-known SID of 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-well_known_sid_type">WinNULLSid</a>.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_usersid
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_usersid
      */
     get_UserSid() {
         userSid := BSTR()
@@ -54,9 +100,15 @@ class IFsrmQuotaObject extends IFsrmQuotaBase{
     }
 
     /**
+     * Retrieves the string form of the user account that is associated with the object.
+     * @remarks
+     * 
+     * This method always returns the string form of the account that corresponds to the well-known SID of 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-well_known_sid_type">WinNULLSid</a>.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_useraccount
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_useraccount
      */
     get_UserAccount() {
         userAccount := BSTR()
@@ -65,9 +117,9 @@ class IFsrmQuotaObject extends IFsrmQuotaBase{
     }
 
     /**
-     * 
+     * Retrieves the name of the template from which this quota was derived.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_sourcetemplatename
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_sourcetemplatename
      */
     get_SourceTemplateName() {
         quotaTemplateName := BSTR()
@@ -76,9 +128,9 @@ class IFsrmQuotaObject extends IFsrmQuotaBase{
     }
 
     /**
-     * 
+     * Retrieves a value that determines whether the property values of this quota object match those of the template from which it was derived.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_matchessourcetemplate
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotaobject-get_matchessourcetemplate
      */
     get_MatchesSourceTemplate() {
         result := ComCall(26, this, "short*", &matches := 0, "HRESULT")
@@ -86,10 +138,10 @@ class IFsrmQuotaObject extends IFsrmQuotaBase{
     }
 
     /**
-     * 
-     * @param {BSTR} quotaTemplateName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotaobject-applytemplate
+     * Applies the property values of the specified quota template to this quota object.
+     * @param {BSTR} quotaTemplateName The name of the quota template.  The string is limited to 4,000 characters.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotaobject-applytemplate
      */
     ApplyTemplate(quotaTemplateName) {
         quotaTemplateName := quotaTemplateName is String ? BSTR.Alloc(quotaTemplateName).Value : quotaTemplateName

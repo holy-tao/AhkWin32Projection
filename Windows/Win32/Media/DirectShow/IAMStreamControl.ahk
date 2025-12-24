@@ -32,11 +32,13 @@ class IAMStreamControl extends IUnknown{
     static VTableNames => ["StartAt", "StopAt", "GetInfo"]
 
     /**
+     * The StartAt method informs the pin when to start delivering data.
+     * @param {Pointer<Integer>} ptStart Pointer to a <a href="https://docs.microsoft.com/windows/desktop/DirectShow/reference-time">REFERENCE_TIME</a> value that specifies when the pin should start delivering data. If the value is <b>MAXLONGLONG</b> (0x7FFFFFFFFFFFFFFF), the method cancels the previous start request. If <i>psStart</i> is <b>NULL</b>, the pin starts immediately when the graph runs.
      * 
-     * @param {Pointer<Integer>} ptStart 
-     * @param {Integer} dwCookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamcontrol-startat
+     * For preview pins, only the values <b>NULL</b> and <b>MAXLONGLONG</b> are valid, because preview pins do not time stamp the samples they deliver.
+     * @param {Integer} dwCookie Specifies a value to send along with the start notification. See Remarks.
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, returns an <b>HRESULT</b> value indicating the cause of the failure.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamstreamcontrol-startat
      */
     StartAt(ptStart, dwCookie) {
         ptStartMarshal := ptStart is VarRef ? "int64*" : "ptr"
@@ -46,12 +48,14 @@ class IAMStreamControl extends IUnknown{
     }
 
     /**
+     * The StopAt method informs the pin when to stop delivering data.
+     * @param {Pointer<Integer>} ptStop Pointer to a <a href="https://docs.microsoft.com/windows/desktop/DirectShow/reference-time">REFERENCE_TIME</a> value that specifies when the pin should stop delivering data. If the value is <b>MAXLONGLONG</b> (0x7FFFFFFFFFFFFFFF), the method cancels any previous stop request. If <i>psStop</i> is <b>NULL</b>, the pin stops immediately.
      * 
-     * @param {Pointer<Integer>} ptStop 
-     * @param {BOOL} bSendExtra 
-     * @param {Integer} dwCookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamcontrol-stopat
+     * For preview pins, only the values <b>NULL</b> and <b>MAXLONGLONG</b> are valid, because preview pins do not time stamp the samples they deliver.
+     * @param {BOOL} bSendExtra Specifies a Boolean value that indicates whether to send an extra sample after the scheduled stop time. If <b>TRUE</b>, the pin sends one extra sample.
+     * @param {Integer} dwCookie Specifies a value to send along with the start notification. See Remarks.
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, returns an <b>HRESULT</b> value indicating the cause of the failure.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamstreamcontrol-stopat
      */
     StopAt(ptStop, bSendExtra, dwCookie) {
         ptStopMarshal := ptStop is VarRef ? "int64*" : "ptr"
@@ -61,9 +65,9 @@ class IAMStreamControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {AM_STREAM_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamcontrol-getinfo
+     * The GetInfo method retrieves information about the current stream-control settings, including the start and stop times.
+     * @returns {AM_STREAM_INFO} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_stream_info">AM_STREAM_INFO</a> structure, allocated by the caller, that receives the current stream-control settings.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamstreamcontrol-getinfo
      */
     GetInfo() {
         pInfo := AM_STREAM_INFO()

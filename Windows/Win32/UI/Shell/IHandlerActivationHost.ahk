@@ -35,12 +35,13 @@ class IHandlerActivationHost extends IUnknown{
     static VTableNames => ["BeforeCoCreateInstance", "BeforeCreateProcess"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} clsidHandler 
-     * @param {IShellItemArray} itemsBeingActivated 
-     * @param {IHandlerInfo} handlerInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihandleractivationhost-beforecocreateinstance
+     * .
+     * @param {Pointer<Guid>} clsidHandler Identifies the handler.
+     * @param {IShellItemArray} itemsBeingActivated The Shell item objects that will be passed to the handler. Typically there is only one, but in some cases there can be more than one.
+     * @param {IHandlerInfo} handlerInfo Provides access to information about the handler that will be invoked. This object also supports **IHandlerInfo2** on versions of Windows that support that interface.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. 
+     * Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code, <b>HRESULT_FROM_WIN32(ERROR_CANCELLED)</b> inciates that the ShellExecute call should be canceled, <b>EXECUTE_E_LAUNCH_APPLICATION</b> indicates that this handler should not be used, but if there is another it should be used.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ihandleractivationhost-beforecocreateinstance
      */
     BeforeCoCreateInstance(clsidHandler, itemsBeingActivated, handlerInfo) {
         result := ComCall(3, this, "ptr", clsidHandler, "ptr", itemsBeingActivated, "ptr", handlerInfo, "HRESULT")
@@ -48,12 +49,13 @@ class IHandlerActivationHost extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} applicationPath 
-     * @param {PWSTR} commandLine 
-     * @param {IHandlerInfo} handlerInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ihandleractivationhost-beforecreateprocess
+     * .
+     * @param {PWSTR} applicationPath The fully qualified path to the process executable, or in some cases a DLL path.
+     * @param {PWSTR} commandLine The full command line that will be passed to **CreateProcess** including the arguments that the handler requested via its registration.
+     * @param {IHandlerInfo} handlerInfo Provides access to information about the handler that will be invoked. This object also supports **IHandlerInfo2** on versions of windows that support that interface. This object also implements [IObjectWithSelection](./nn-shobjidl_core-iobjectwithselection.md). This can be used to get the Shell item, or items in some cases, that are being launched.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. 
+     * Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code, <b>HRESULT_FROM_WIN32(ERROR_CANCELLED)</b> inciates that the ShellExecute call should be canceled.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ihandleractivationhost-beforecreateprocess
      */
     BeforeCreateProcess(applicationPath, commandLine, handlerInfo) {
         applicationPath := applicationPath is String ? StrPtr(applicationPath) : applicationPath

@@ -9,13 +9,13 @@
  */
 class KSPROPERTY_EXTDEVICE_S extends Win32Struct
 {
-    static sizeof => 536
+    static sizeof => 544
 
     static packingSize => 8
 
     class _u_e__Union extends Win32Struct {
-        static sizeof => 520
-        static packingSize => 4
+        static sizeof => 524
+        static packingSize => 8
 
         /**
          * @type {DEVCAPS}

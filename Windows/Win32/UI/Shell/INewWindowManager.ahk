@@ -39,16 +39,72 @@ class INewWindowManager extends IUnknown{
     static VTableNames => ["EvaluateNewWindow"]
 
     /**
+     * Accepts data about a new window that is attempting to display and determines whether that window should be allowed to open based on the user's preferences.
+     * @param {PWSTR} pszUrl Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszUrl 
-     * @param {PWSTR} pszName 
-     * @param {PWSTR} pszUrlContext 
-     * @param {PWSTR} pszFeatures 
-     * @param {BOOL} fReplace 
-     * @param {Integer} dwFlags 
-     * @param {Integer} dwUserActionTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inewwindowmanager-evaluatenewwindow
+     * A pointer to a buffer that contains the URL of the content that will be displayed in the new window.
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the name of the new window. This parameter can be <b>NULL</b>.
+     * @param {PWSTR} pszUrlContext Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the URL that has issued the command to open the new window.
+     * @param {PWSTR} pszFeatures Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the feature string for the new window. This value can be <b>NULL</b>.
+     * @param {BOOL} fReplace Type: <b>BOOL</b>
+     * 
+     * A boolean value used when the new content specified in <i>pszUrl</i> is loaded into the existing window instead of creating a new one. <b>TRUE</b> if the new document should replace the current document in the history list; <b>FALSE</b> if the new document should be given a new entry.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * 
+     * A flag or flags from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-nwmf">NWMF</a> enumeration that provide situational information about the call to open the new window. This value can be 0 if no flags are needed.
+     * @param {Integer} dwUserActionTime Type: <b>DWORD</b>
+     * 
+     * The tick count when the last user action occurred. To find out how long ago the action occurred, call <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-gettickcount">GetTickCount</a> and compare the result with the value in this parameter.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns standard error codes, including the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Allow display of the window.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Block display of the window.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * When you implement <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inewwindowmanager">INewWindowManager</a> for a hosted <a href="/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa752040(v=vs.85)">WebBrowser</a> control, this value instructs the WebBrowser control to use the default implementation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inewwindowmanager-evaluatenewwindow
      */
     EvaluateNewWindow(pszUrl, pszName, pszUrlContext, pszFeatures, fReplace, dwFlags, dwUserActionTime) {
         pszUrl := pszUrl is String ? StrPtr(pszUrl) : pszUrl

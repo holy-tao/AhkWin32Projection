@@ -32,9 +32,11 @@ class IWICBitmapFrameDecode extends IWICBitmapSource{
     static VTableNames => ["GetMetadataQueryReader", "GetColorContexts", "GetThumbnail"]
 
     /**
+     * Retrieves a metadata query reader for the frame.
+     * @returns {IWICMetadataQueryReader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataqueryreader">IWICMetadataQueryReader</a>**</b>
      * 
-     * @returns {IWICMetadataQueryReader} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframedecode-getmetadataqueryreader
+     * When this method returns, contains a pointer to the frame's metadata query reader.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapframedecode-getmetadataqueryreader
      */
     GetMetadataQueryReader() {
         result := ComCall(8, this, "ptr*", &ppIMetadataQueryReader := 0, "HRESULT")
@@ -42,11 +44,19 @@ class IWICBitmapFrameDecode extends IWICBitmapSource{
     }
 
     /**
+     * Retrieves the IWICColorContext associated with the image frame.
+     * @param {Integer} cCount Type: <b>UINT</b>
      * 
-     * @param {Integer} cCount 
-     * @param {Pointer<IWICColorContext>} ppIColorContexts 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframedecode-getcolorcontexts
+     * The number of color contexts to retrieve.
+     * 
+     * This value must be the size of, or smaller than, the size available to <i>ppIColorContexts</i>.
+     * @param {Pointer<IWICColorContext>} ppIColorContexts Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a>**</b>
+     * 
+     * A pointer that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a> objects.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * A pointer that receives the number of color contexts contained in the image frame.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapframedecode-getcolorcontexts
      */
     GetColorContexts(cCount, ppIColorContexts) {
         result := ComCall(9, this, "uint", cCount, "ptr*", ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
@@ -54,9 +64,11 @@ class IWICBitmapFrameDecode extends IWICBitmapSource{
     }
 
     /**
+     * Retrieves a small preview of the frame, if supported by the codec.
+     * @returns {IWICBitmapSource} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>**</b>
      * 
-     * @returns {IWICBitmapSource} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapframedecode-getthumbnail
+     * A pointer that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> of the thumbnail.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapframedecode-getthumbnail
      */
     GetThumbnail() {
         result := ComCall(10, this, "ptr*", &ppIThumbnail := 0, "HRESULT")

@@ -35,6 +35,98 @@ class IHTMLOptionsHolder extends IDispatch{
     static VTableNames => ["get_document", "get_fonts", "put_execArg", "get_execArg", "put_errorLine", "get_errorLine", "put_errorCharacter", "get_errorCharacter", "put_errorCode", "get_errorCode", "put_errorMessage", "get_errorMessage", "put_errorDebug", "get_errorDebug", "get_unsecuredWindowOfDocument", "put_findText", "get_findText", "put_anythingAfterFrameset", "get_anythingAfterFrameset", "sizes", "openfiledlg", "savefiledlg", "choosecolordlg", "showSecurityInfo", "isApartmentModel", "getCharset", "get_secureConnectionInfo"]
 
     /**
+     * @type {IHTMLDocument2} 
+     */
+    document {
+        get => this.get_document()
+    }
+
+    /**
+     * @type {IHTMLFontNamesCollection} 
+     */
+    fonts {
+        get => this.get_fonts()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    execArg {
+        get => this.get_execArg()
+        set => this.put_execArg(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    errorLine {
+        get => this.get_errorLine()
+        set => this.put_errorLine(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    errorCharacter {
+        get => this.get_errorCharacter()
+        set => this.put_errorCharacter(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    errorCode {
+        get => this.get_errorCode()
+        set => this.put_errorCode(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    errorMessage {
+        get => this.get_errorMessage()
+        set => this.put_errorMessage(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    errorDebug {
+        get => this.get_errorDebug()
+        set => this.put_errorDebug(value)
+    }
+
+    /**
+     * @type {IHTMLWindow2} 
+     */
+    unsecuredWindowOfDocument {
+        get => this.get_unsecuredWindowOfDocument()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    findText {
+        get => this.get_findText()
+        set => this.put_findText(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    anythingAfterFrameset {
+        get => this.get_anythingAfterFrameset()
+        set => this.put_anythingAfterFrameset(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    secureConnectionInfo {
+        get => this.get_secureConnectionInfo()
+    }
+
+    /**
      * 
      * @returns {IHTMLDocument2} 
      */

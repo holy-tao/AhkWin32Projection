@@ -34,6 +34,501 @@ class IHTMLWindow7 extends IDispatch{
     static VTableNames => ["getSelection", "getComputedStyle", "get_styleMedia", "put_performance", "get_performance", "get_innerWidth", "get_innerHeight", "get_pageXOffset", "get_pageYOffset", "get_screenX", "get_screenY", "get_outerWidth", "get_outerHeight", "put_onabort", "get_onabort", "put_oncanplay", "get_oncanplay", "put_oncanplaythrough", "get_oncanplaythrough", "put_onchange", "get_onchange", "put_onclick", "get_onclick", "put_oncontextmenu", "get_oncontextmenu", "put_ondblclick", "get_ondblclick", "put_ondrag", "get_ondrag", "put_ondragend", "get_ondragend", "put_ondragenter", "get_ondragenter", "put_ondragleave", "get_ondragleave", "put_ondragover", "get_ondragover", "put_ondragstart", "get_ondragstart", "put_ondrop", "get_ondrop", "put_ondurationchange", "get_ondurationchange", "put_onfocusin", "get_onfocusin", "put_onfocusout", "get_onfocusout", "put_oninput", "get_oninput", "put_onemptied", "get_onemptied", "put_onended", "get_onended", "put_onkeydown", "get_onkeydown", "put_onkeypress", "get_onkeypress", "put_onkeyup", "get_onkeyup", "put_onloadeddata", "get_onloadeddata", "put_onloadedmetadata", "get_onloadedmetadata", "put_onloadstart", "get_onloadstart", "put_onmousedown", "get_onmousedown", "put_onmouseenter", "get_onmouseenter", "put_onmouseleave", "get_onmouseleave", "put_onmousemove", "get_onmousemove", "put_onmouseout", "get_onmouseout", "put_onmouseover", "get_onmouseover", "put_onmouseup", "get_onmouseup", "put_onmousewheel", "get_onmousewheel", "put_onoffline", "get_onoffline", "put_ononline", "get_ononline", "put_onprogress", "get_onprogress", "put_onratechange", "get_onratechange", "put_onreadystatechange", "get_onreadystatechange", "put_onreset", "get_onreset", "put_onseeked", "get_onseeked", "put_onseeking", "get_onseeking", "put_onselect", "get_onselect", "put_onstalled", "get_onstalled", "put_onstorage", "get_onstorage", "put_onsubmit", "get_onsubmit", "put_onsuspend", "get_onsuspend", "put_ontimeupdate", "get_ontimeupdate", "put_onpause", "get_onpause", "put_onplay", "get_onplay", "put_onplaying", "get_onplaying", "put_onvolumechange", "get_onvolumechange", "put_onwaiting", "get_onwaiting"]
 
     /**
+     * @type {IHTMLStyleMedia} 
+     */
+    styleMedia {
+        get => this.get_styleMedia()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    performance {
+        get => this.get_performance()
+        set => this.put_performance(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    innerWidth {
+        get => this.get_innerWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    innerHeight {
+        get => this.get_innerHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pageXOffset {
+        get => this.get_pageXOffset()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    pageYOffset {
+        get => this.get_pageYOffset()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    screenX {
+        get => this.get_screenX()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    screenY {
+        get => this.get_screenY()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    outerWidth {
+        get => this.get_outerWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    outerHeight {
+        get => this.get_outerHeight()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onabort {
+        get => this.get_onabort()
+        set => this.put_onabort(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncanplay {
+        get => this.get_oncanplay()
+        set => this.put_oncanplay(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncanplaythrough {
+        get => this.get_oncanplaythrough()
+        set => this.put_oncanplaythrough(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onchange {
+        get => this.get_onchange()
+        set => this.put_onchange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onclick {
+        get => this.get_onclick()
+        set => this.put_onclick(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncontextmenu {
+        get => this.get_oncontextmenu()
+        set => this.put_oncontextmenu(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondblclick {
+        get => this.get_ondblclick()
+        set => this.put_ondblclick(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondrag {
+        get => this.get_ondrag()
+        set => this.put_ondrag(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondragend {
+        get => this.get_ondragend()
+        set => this.put_ondragend(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondragenter {
+        get => this.get_ondragenter()
+        set => this.put_ondragenter(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondragleave {
+        get => this.get_ondragleave()
+        set => this.put_ondragleave(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondragover {
+        get => this.get_ondragover()
+        set => this.put_ondragover(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondragstart {
+        get => this.get_ondragstart()
+        set => this.put_ondragstart(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondrop {
+        get => this.get_ondrop()
+        set => this.put_ondrop(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondurationchange {
+        get => this.get_ondurationchange()
+        set => this.put_ondurationchange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfocusin {
+        get => this.get_onfocusin()
+        set => this.put_onfocusin(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfocusout {
+        get => this.get_onfocusout()
+        set => this.put_onfocusout(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oninput {
+        get => this.get_oninput()
+        set => this.put_oninput(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onemptied {
+        get => this.get_onemptied()
+        set => this.put_onemptied(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onended {
+        get => this.get_onended()
+        set => this.put_onended(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onkeydown {
+        get => this.get_onkeydown()
+        set => this.put_onkeydown(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onkeypress {
+        get => this.get_onkeypress()
+        set => this.put_onkeypress(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onkeyup {
+        get => this.get_onkeyup()
+        set => this.put_onkeyup(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onloadeddata {
+        get => this.get_onloadeddata()
+        set => this.put_onloadeddata(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onloadedmetadata {
+        get => this.get_onloadedmetadata()
+        set => this.put_onloadedmetadata(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onloadstart {
+        get => this.get_onloadstart()
+        set => this.put_onloadstart(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmousedown {
+        get => this.get_onmousedown()
+        set => this.put_onmousedown(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseenter {
+        get => this.get_onmouseenter()
+        set => this.put_onmouseenter(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseleave {
+        get => this.get_onmouseleave()
+        set => this.put_onmouseleave(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmousemove {
+        get => this.get_onmousemove()
+        set => this.put_onmousemove(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseout {
+        get => this.get_onmouseout()
+        set => this.put_onmouseout(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseover {
+        get => this.get_onmouseover()
+        set => this.put_onmouseover(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseup {
+        get => this.get_onmouseup()
+        set => this.put_onmouseup(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmousewheel {
+        get => this.get_onmousewheel()
+        set => this.put_onmousewheel(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onoffline {
+        get => this.get_onoffline()
+        set => this.put_onoffline(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ononline {
+        get => this.get_ononline()
+        set => this.put_ononline(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onprogress {
+        get => this.get_onprogress()
+        set => this.put_onprogress(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onratechange {
+        get => this.get_onratechange()
+        set => this.put_onratechange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreadystatechange {
+        get => this.get_onreadystatechange()
+        set => this.put_onreadystatechange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreset {
+        get => this.get_onreset()
+        set => this.put_onreset(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onseeked {
+        get => this.get_onseeked()
+        set => this.put_onseeked(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onseeking {
+        get => this.get_onseeking()
+        set => this.put_onseeking(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onselect {
+        get => this.get_onselect()
+        set => this.put_onselect(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onstalled {
+        get => this.get_onstalled()
+        set => this.put_onstalled(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onstorage {
+        get => this.get_onstorage()
+        set => this.put_onstorage(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onsubmit {
+        get => this.get_onsubmit()
+        set => this.put_onsubmit(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onsuspend {
+        get => this.get_onsuspend()
+        set => this.put_onsuspend(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ontimeupdate {
+        get => this.get_ontimeupdate()
+        set => this.put_ontimeupdate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onpause {
+        get => this.get_onpause()
+        set => this.put_onpause(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onplay {
+        get => this.get_onplay()
+        set => this.put_onplay(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onplaying {
+        get => this.get_onplaying()
+        set => this.put_onplaying(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onvolumechange {
+        get => this.get_onvolumechange()
+        set => this.put_onvolumechange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onwaiting {
+        get => this.get_onwaiting()
+        set => this.put_onwaiting(value)
+    }
+
+    /**
      * 
      * @returns {IHTMLSelection} 
      */

@@ -36,6 +36,14 @@ class IHTMLStyleFontFace extends IDispatch{
     static VTableNames => ["put_fontsrc", "get_fontsrc"]
 
     /**
+     * @type {BSTR} 
+     */
+    fontsrc {
+        get => this.get_fontsrc()
+        set => this.put_fontsrc(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

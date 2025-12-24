@@ -32,18 +32,18 @@ class IWorkspaceScriptable2 extends IWorkspaceScriptable{
     static VTableNames => ["StartWorkspaceEx", "ResourceDismissed"]
 
     /**
-     * 
-     * @param {BSTR} bstrWorkspaceId 
-     * @param {BSTR} bstrWorkspaceFriendlyName 
-     * @param {BSTR} bstrRedirectorName 
-     * @param {BSTR} bstrUserName 
-     * @param {BSTR} bstrPassword 
-     * @param {BSTR} bstrAppContainer 
-     * @param {BSTR} bstrWorkspaceParams 
-     * @param {Integer} lTimeout 
+     * Associates user credentials and certificates with a connection ID; also contains additional security and UI elements.
+     * @param {BSTR} bstrWorkspaceId A string that contains the connection ID.
+     * @param {BSTR} bstrWorkspaceFriendlyName The friendly name of the workspace to display in the UI.
+     * @param {BSTR} bstrRedirectorName String containing the name of the redirector.
+     * @param {BSTR} bstrUserName A string that contains a user name.
+     * @param {BSTR} bstrPassword A string that contains a password.
+     * @param {BSTR} bstrAppContainer A string containing the app container for the workspace.
+     * @param {BSTR} bstrWorkspaceParams A string that contains one or more Secure Hash Algorithm 1 (SHA-1) hashes of signing certificates to associate with the specified connection ID. The hash values should be in hexadecimal string format and delimited by semicolons.
+     * @param {Integer} lTimeout The time period, in minutes, after which the credentials are deleted.
      * @param {Integer} lFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspacescriptable2-startworkspaceex
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacescriptable2-startworkspaceex
      */
     StartWorkspaceEx(bstrWorkspaceId, bstrWorkspaceFriendlyName, bstrRedirectorName, bstrUserName, bstrPassword, bstrAppContainer, bstrWorkspaceParams, lTimeout, lFlags) {
         bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId
@@ -59,11 +59,11 @@ class IWorkspaceScriptable2 extends IWorkspaceScriptable{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrWorkspaceId 
-     * @param {BSTR} bstrWorkspaceFriendlyName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspacescriptable2-resourcedismissed
+     * Alerts the user that a resource has been disabled or otherwise dismissed.
+     * @param {BSTR} bstrWorkspaceId String containing the ID of the workspace that contains the unavailable resource.
+     * @param {BSTR} bstrWorkspaceFriendlyName String containing the friendly name of the workspace that holds the unavailable resource.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspacescriptable2-resourcedismissed
      */
     ResourceDismissed(bstrWorkspaceId, bstrWorkspaceFriendlyName) {
         bstrWorkspaceId := bstrWorkspaceId is String ? BSTR.Alloc(bstrWorkspaceId).Value : bstrWorkspaceId

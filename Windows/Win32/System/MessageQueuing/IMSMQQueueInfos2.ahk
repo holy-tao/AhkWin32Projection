@@ -30,6 +30,13 @@ class IMSMQQueueInfos2 extends IDispatch{
     static VTableNames => ["Reset", "Next", "get_Properties"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

@@ -31,9 +31,9 @@ class IRtwqAsyncResult extends IUnknown{
     static VTableNames => ["GetState", "GetStatus", "SetStatus", "GetObject", "GetStateNoAddRef"]
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-irtwqasyncresult-getstate
+     * Returns the state object specified by the caller in the asynchronous Begin method.
+     * @returns {IUnknown} Receives a pointer to the state object's <b>IUnknown</b> interface. If the value is not <b>NULL</b>, the caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-irtwqasyncresult-getstate
      */
     GetState() {
         result := ComCall(3, this, "ptr*", &ppunkState := 0, "HRESULT")
@@ -41,9 +41,27 @@ class IRtwqAsyncResult extends IUnknown{
     }
 
     /**
+     * Returns the status of the asynchronous operation.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-irtwqasyncresult-getstatus
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-irtwqasyncresult-getstatus
      */
     GetStatus() {
         result := ComCall(4, this, "HRESULT")
@@ -51,10 +69,28 @@ class IRtwqAsyncResult extends IUnknown{
     }
 
     /**
+     * Sets the status of the asynchronous operation.
+     * @param {HRESULT} hrStatus The status of the asynchronous operation.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {HRESULT} hrStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-irtwqasyncresult-setstatus
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-irtwqasyncresult-setstatus
      */
     SetStatus(hrStatus) {
         result := ComCall(5, this, "int", hrStatus, "HRESULT")
@@ -62,9 +98,9 @@ class IRtwqAsyncResult extends IUnknown{
     }
 
     /**
-     * The GetObject function retrieves information for the specified graphics object.
-     * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
+     * Returns an object associated with the asynchronous operation. The type of object, if any, depends on the asynchronous method that was called.
+     * @returns {IUnknown} Receives a pointer to the object's <b>IUnknown</b> interface. If no object is associated with the operation, this parameter receives the value <b>NULL</b>. If the value is not <b>NULL</b>, the caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-irtwqasyncresult-getobject
      */
     GetObject() {
         result := ComCall(6, this, "ptr*", &ppObject := 0, "HRESULT")
@@ -72,9 +108,9 @@ class IRtwqAsyncResult extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtworkq/nf-rtworkq-irtwqasyncresult-getstatenoaddref
+     * Returns the state object specified by the caller in the asynchronous Begin method, without incrementing the object's reference count.
+     * @returns {IUnknown} Returns a pointer to the state object's <b>IUnknown</b> interface, or <b>NULL</b> if no object was set. This pointer does not have an outstanding reference count. If you store this pointer, you must call <b>AddRef</b> on the pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-irtwqasyncresult-getstatenoaddref
      */
     GetStateNoAddRef() {
         result := ComCall(7, this, "ptr")

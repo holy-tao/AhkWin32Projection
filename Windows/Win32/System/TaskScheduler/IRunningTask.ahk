@@ -32,9 +32,56 @@ class IRunningTask extends IDispatch{
     static VTableNames => ["get_Name", "get_InstanceGuid", "get_Path", "get_State", "get_CurrentAction", "Stop", "Refresh", "get_EnginePID"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InstanceGuid {
+        get => this.get_InstanceGuid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CurrentAction {
+        get => this.get_CurrentAction()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EnginePID {
+        get => this.get_EnginePID()
+    }
+
+    /**
+     * Gets the name of the task.
+     * @remarks
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-irunningtask-refresh">IRunningTask::Refresh</a> method is called before the property value is returned.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irunningtask-get_name
      */
     get_Name() {
         pName := BSTR()
@@ -43,9 +90,14 @@ class IRunningTask extends IDispatch{
     }
 
     /**
+     * Gets the GUID identifier for this instance of the task.
+     * @remarks
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-irunningtask-refresh">IRunningTask::Refresh</a> method is called before the property value is returned.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_instanceguid
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irunningtask-get_instanceguid
      */
     get_InstanceGuid() {
         pGuid := BSTR()
@@ -54,9 +106,14 @@ class IRunningTask extends IDispatch{
     }
 
     /**
+     * Gets the path to where the task is stored.
+     * @remarks
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-irunningtask-refresh">IRunningTask::Refresh</a> method is called before the property value is returned.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_path
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irunningtask-get_path
      */
     get_Path() {
         pPath := BSTR()
@@ -65,9 +122,14 @@ class IRunningTask extends IDispatch{
     }
 
     /**
+     * Gets an identifier for the state of the running task.
+     * @remarks
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-irunningtask-refresh">IRunningTask::Refresh</a> method is called before the property value is returned.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_state
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irunningtask-get_state
      */
     get_State() {
         result := ComCall(10, this, "int*", &pState := 0, "HRESULT")
@@ -75,9 +137,14 @@ class IRunningTask extends IDispatch{
     }
 
     /**
+     * Gets the name of the current action that the running task is performing.
+     * @remarks
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-irunningtask-refresh">IRunningTask::Refresh</a> method is called before the property value is returned.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_currentaction
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irunningtask-get_currentaction
      */
     get_CurrentAction() {
         pName := BSTR()
@@ -86,9 +153,38 @@ class IRunningTask extends IDispatch{
     }
 
     /**
+     * Stops this instance of the task.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-stop
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The task was stopped.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user does not have permission to stop the task, the task is disabled, or the task is not allowed to be run on demand.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irunningtask-stop
      */
     Stop() {
         result := ComCall(12, this, "HRESULT")
@@ -96,9 +192,9 @@ class IRunningTask extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-refresh
+     * Refreshes all of the local instance variables of the task.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irunningtask-refresh
      */
     Refresh() {
         result := ComCall(13, this, "HRESULT")
@@ -106,9 +202,9 @@ class IRunningTask extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the process ID for the engine (process) which is running the task.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtask-get_enginepid
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irunningtask-get_enginepid
      */
     get_EnginePID() {
         result := ComCall(14, this, "uint*", &pPID := 0, "HRESULT")

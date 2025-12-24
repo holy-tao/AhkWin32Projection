@@ -31,16 +31,15 @@ class IGetVBAObject extends IUnknown{
     static VTableNames => ["GetObject"]
 
     /**
-     * The GetObject function retrieves information for the specified graphics object.
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} ppvObj 
-     * @param {Integer} dwReserved 
-     * @returns {HRESULT} If the function succeeds, and <i>lpvObject</i> is a valid pointer, the return value is the number of bytes stored into the buffer.
-     * 
-     * If the function succeeds, and <i>lpvObject</i> is <b>NULL</b>, the return value is the number of bytes required to hold the information the function would store into the buffer.
-     * 
-     * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
+     * Gets a pointer to an interface on the VBA object.
+     * @param {Pointer<Guid>} riid Specifies the interface to retrieve. Pass <b>IID_IVBFormat</b> to retrieve a pointer to 
+     *       the <a href="https://docs.microsoft.com/windows/desktop/api/vbinterf/nn-vbinterf-ivbformat">IVBFormat</a> interface.
+     * @param {Pointer<Pointer<Void>>} ppvObj Pointer to the interface.
+     * @param {Integer} dwReserved Reserved.
+     * @returns {HRESULT} This method supports the standard return values <b>E_INVALIDARG</b>, 
+     *       <b>E_OUTOFMEMORY</b>, and <b>E_UNEXPECTED</b>, as well as the 
+     *       following:
+     * @see https://docs.microsoft.com/windows/win32/api//vbinterf/nf-vbinterf-igetvbaobject-getobject
      */
     GetObject(riid, ppvObj, dwReserved) {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"

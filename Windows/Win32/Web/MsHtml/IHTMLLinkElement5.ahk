@@ -30,6 +30,13 @@ class IHTMLLinkElement5 extends IDispatch{
     static VTableNames => ["get_sheet"]
 
     /**
+     * @type {IHTMLStyleSheet} 
+     */
+    sheet {
+        get => this.get_sheet()
+    }
+
+    /**
      * 
      * @returns {IHTMLStyleSheet} 
      */

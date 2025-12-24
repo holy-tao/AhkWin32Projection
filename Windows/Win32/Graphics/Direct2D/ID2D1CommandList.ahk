@@ -231,10 +231,17 @@ class ID2D1CommandList extends ID2D1Image{
     static VTableNames => ["Stream", "Close"]
 
     /**
+     * Streams the contents of the command list to the specified command sink.
+     * @param {ID2D1CommandSink} sink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1commandsink">ID2D1CommandSink</a>*</b>
      * 
-     * @param {ID2D1CommandSink} sink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandlist-stream
+     * The sink into which the command list will be streamed.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code. 
+     * 
+     * 
+     * The return value indicates any failures the command sink implementation  returns through its <a href="/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1commandsink-enddraw">EndDraw</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1commandlist-stream
      */
     Stream(sink) {
         result := ComCall(4, this, "ptr", sink, "HRESULT")
@@ -242,9 +249,31 @@ class ID2D1CommandList extends ID2D1Image{
     }
 
     /**
+     * Instructs the command list to stop accepting commands so that you can use it as an input to an effect or in a call to ID2D1DeviceContext::DrawImage.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1commandlist-close
+     * The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>HRESULT</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>No error occurred.</td>
+     * </tr>
+     * <tr>
+     * <td>D2DERR_WRONG_STATE </td>
+     * <td>Close has already been called on the command list.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * <div class="alert"><b>Note</b>  If the device context associated with the command list has an error, the command list returns the same error.</div>
+     * <div> </div>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1commandlist-close
      */
     Close() {
         result := ComCall(5, this, "HRESULT")

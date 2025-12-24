@@ -31,11 +31,12 @@ class IAppxEncryptedBundleWriter extends IUnknown{
     static VTableNames => ["AddPayloadPackageEncrypted", "Close"]
 
     /**
-     * 
-     * @param {PWSTR} fileName 
-     * @param {IStream} packageStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptedbundlewriter-addpayloadpackageencrypted
+     * Encrypts a new payload package to the bundle.
+     * @param {PWSTR} fileName The name of the payload file. The file name path must be relative to the root of the package.
+     * @param {IStream} packageStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> that provides the contents of <i>fileName</i>.
+     *           The stream must support <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">Seek</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a>.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptedbundlewriter-addpayloadpackageencrypted
      */
     AddPayloadPackageEncrypted(fileName, packageStream) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
@@ -45,9 +46,9 @@ class IAppxEncryptedBundleWriter extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptedbundlewriter-close
+     * Writes the bundle manifest and blockmap footprint files to the bundle.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptedbundlewriter-close
      */
     Close() {
         result := ComCall(4, this, "HRESULT")

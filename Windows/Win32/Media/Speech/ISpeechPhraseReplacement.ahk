@@ -30,6 +30,34 @@ class ISpeechPhraseReplacement extends IDispatch{
     static VTableNames => ["get_DisplayAttributes", "get_Text", "get_FirstElement", "get_NumberOfElements"]
 
     /**
+     * @type {Integer} 
+     */
+    DisplayAttributes {
+        get => this.get_DisplayAttributes()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Text {
+        get => this.get_Text()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FirstElement {
+        get => this.get_FirstElement()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfElements {
+        get => this.get_NumberOfElements()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

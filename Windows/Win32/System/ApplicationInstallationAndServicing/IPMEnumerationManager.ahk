@@ -42,6 +42,13 @@ class IPMEnumerationManager extends IUnknown{
     static VTableNames => ["get_AllApplications", "get_AllTiles", "get_AllTasks", "get_AllExtensions", "get_AllBackgroundServiceAgents", "get_AllBackgroundWorkers", "get_ApplicationInfo", "get_TileInfo", "get_TaskInfo", "get_TaskInfoEx", "get_BackgroundServiceAgentInfo", "get_AllLiveTileJobs", "get_LiveTileJob", "get_ApplicationInfoExternal", "get_FileHandlerGenericLogo", "get_ApplicationInfoFromAccessClaims", "get_StartTileEnumeratorBlob", "get_StartAppEnumeratorBlob"]
 
     /**
+     * @type {IPMLiveTileJobInfoEnumerator} 
+     */
+    AllLiveTileJobs {
+        get => this.get_AllLiveTileJobs()
+    }
+
+    /**
      * 
      * @param {PM_ENUM_FILTER} Filter 
      * @returns {IPMApplicationInfoEnumerator} 

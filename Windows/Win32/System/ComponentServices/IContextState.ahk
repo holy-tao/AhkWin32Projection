@@ -31,10 +31,40 @@ class IContextState extends IUnknown{
     static VTableNames => ["SetDeactivateOnReturn", "GetDeactivateOnReturn", "SetMyTransactionVote", "GetMyTransactionVote"]
 
     /**
+     * Sets the done flag, which controls whether the object deactivates on method return.
+     * @param {VARIANT_BOOL} bDeactivate The done flag.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {VARIANT_BOOL} bDeactivate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextstate-setdeactivateonreturn
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONTEXT_E_NOJIT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="/windows/desktop/cossdk/com--just-in-time-activation">Just-in-Time Activation</a> is not available to this context.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icontextstate-setdeactivateonreturn
      */
     SetDeactivateOnReturn(bDeactivate) {
         result := ComCall(3, this, "short", bDeactivate, "HRESULT")
@@ -42,10 +72,40 @@ class IContextState extends IUnknown{
     }
 
     /**
+     * Retrieves the value of the done flag.
+     * @param {Pointer<VARIANT_BOOL>} pbDeactivate The done flag.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {Pointer<VARIANT_BOOL>} pbDeactivate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextstate-getdeactivateonreturn
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONTEXT_E_NOJIT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="/windows/desktop/cossdk/com--just-in-time-activation">Just-in-Time Activation</a> is not available to this context.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icontextstate-getdeactivateonreturn
      */
     GetDeactivateOnReturn(pbDeactivate) {
         pbDeactivateMarshal := pbDeactivate is VarRef ? "short*" : "ptr"
@@ -55,10 +115,40 @@ class IContextState extends IUnknown{
     }
 
     /**
+     * Sets the consistent flag.
+     * @param {Integer} txVote The consistent flag. For a list of values, see the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-transactionvote">TransactionVote</a> enumeration. Set this parameter to TxCommit if the consistent flag is true;set it to TxAbort if the consistent flag is false.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {Integer} txVote 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextstate-setmytransactionvote
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONTEXT_E_NOJIT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="/windows/desktop/cossdk/com--just-in-time-activation">Just-in-Time Activation</a> is not available to this context.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icontextstate-setmytransactionvote
      */
     SetMyTransactionVote(txVote) {
         result := ComCall(5, this, "int", txVote, "HRESULT")
@@ -66,10 +156,39 @@ class IContextState extends IUnknown{
     }
 
     /**
+     * Retrieves the value of the consistent flag.
+     * @param {Pointer<Integer>} ptxVote The consistent flag. For a list of values, see the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-transactionvote">TransactionVote</a> enumeration. This parameter is set to TxCommit if the consistent flag is true; it is set to TxAbort if the consistent flag is false.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {Pointer<Integer>} ptxVote 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icontextstate-getmytransactionvote
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONTEXT_E_NOTRANSACTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object is not running in a transaction.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icontextstate-getmytransactionvote
      */
     GetMyTransactionVote(ptxVote) {
         ptxVoteMarshal := ptxVote is VarRef ? "int*" : "ptr"

@@ -32,10 +32,28 @@ class ISensLogon extends IDispatch{
     static VTableNames => ["Logon", "Logoff", "StartShell", "DisplayLock", "DisplayUnlock", "StartScreenSaver", "StopScreenSaver"]
 
     /**
+     * The Logon method notifies an application that a user is logged on.
+     * @param {BSTR} bstrUserName The name of a user who is logged on.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} bstrUserName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-logon
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method returns successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-logon
      */
     Logon(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -45,10 +63,28 @@ class ISensLogon extends IDispatch{
     }
 
     /**
+     * The Logoff method notifies an application that a user is logged off.
+     * @param {BSTR} bstrUserName The name of a user who logs off.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} bstrUserName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-logoff
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method returns successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-logoff
      */
     Logoff(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -58,10 +94,28 @@ class ISensLogon extends IDispatch{
     }
 
     /**
+     * The StartShell method notifies an application that the shell is started.
+     * @param {BSTR} bstrUserName The name of a current user.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} bstrUserName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-startshell
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method returns successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-startshell
      */
     StartShell(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -71,10 +125,28 @@ class ISensLogon extends IDispatch{
     }
 
     /**
+     * The DisplayLock method notifies an application that the screen display is locked.
+     * @param {BSTR} bstrUserName The name of a current user.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} bstrUserName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-displaylock
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method returns successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-displaylock
      */
     DisplayLock(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -97,10 +169,28 @@ class ISensLogon extends IDispatch{
     }
 
     /**
+     * The StartScreenSaver method notifies an application that a screen saver is started.
+     * @param {BSTR} bstrUserName The name of a current user.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} bstrUserName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-startscreensaver
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method returns successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-startscreensaver
      */
     StartScreenSaver(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -110,10 +200,28 @@ class ISensLogon extends IDispatch{
     }
 
     /**
+     * The StopScreenSaver method notifies an application that a screen saver is stopped.
+     * @param {BSTR} bstrUserName The name of a current user.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} bstrUserName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon-stopscreensaver
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method returns successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon-stopscreensaver
      */
     StopScreenSaver(bstrUserName) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName

@@ -32,9 +32,9 @@ class IWTSListener extends IUnknown{
     static VTableNames => ["GetConfiguration"]
 
     /**
-     * 
-     * @returns {IPropertyBag} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtslistener-getconfiguration
+     * Retrieves the listener-specific configuration.
+     * @returns {IPropertyBag} Output parameter that receives the property bag.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtslistener-getconfiguration
      */
     GetConfiguration() {
         result := ComCall(3, this, "ptr*", &ppPropertyBag := 0, "HRESULT")

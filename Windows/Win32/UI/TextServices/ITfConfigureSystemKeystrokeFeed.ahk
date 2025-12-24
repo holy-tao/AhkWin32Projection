@@ -31,9 +31,27 @@ class ITfConfigureSystemKeystrokeFeed extends IUnknown{
     static VTableNames => ["DisableSystemKeystrokeFeed", "EnableSystemKeystrokeFeed"]
 
     /**
+     * ITfConfigureSystemKeystrokeFeed::DisableSystemKeystrokeFeed method
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfconfiguresystemkeystrokefeed-disablesystemkeystrokefeed
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfconfiguresystemkeystrokefeed-disablesystemkeystrokefeed
      */
     DisableSystemKeystrokeFeed() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +59,38 @@ class ITfConfigureSystemKeystrokeFeed extends IUnknown{
     }
 
     /**
+     * ITfConfigureSystemKeystrokeFeed::EnableSystemKeystrokeFeed method
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfconfiguresystemkeystrokefeed-enablesystemkeystrokefeed
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was no corresponding call to DisableSystemKeystrokeFeed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfconfiguresystemkeystrokefeed-enablesystemkeystrokefeed
      */
     EnableSystemKeystrokeFeed() {
         result := ComCall(4, this, "HRESULT")

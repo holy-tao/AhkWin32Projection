@@ -32,12 +32,162 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
     static VTableNames => ["AddDiffArea", "ChangeDiffAreaMaximumSize", "QueryVolumesSupportedForDiffAreas", "QueryDiffAreasForVolume", "QueryDiffAreasOnVolume", "QueryDiffAreasForSnapshot"]
 
     /**
+     * Adds a shadow copy storage area association for the specified volume.
+     * @param {Pointer<Integer>} pwszVolumeName The name of the volume that will be the source of shadow copies. This volume is associated with a shadow copy 
+     *       storage area on the <i>pwszDiffAreaVolumeName</i> volume.
+     *       
      * 
-     * @param {Pointer<Integer>} pwszVolumeName 
-     * @param {Pointer<Integer>} pwszDiffAreaVolumeName 
-     * @param {Integer} llMaximumDiffSpace 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-adddiffarea
+     * The name of the volume must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder, for example, Y:\MountX\</li>
+     * <li>A drive letter, for example, 
+     *          D:\</li>
+     * <li>A volume GUID path of the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @param {Pointer<Integer>} pwszDiffAreaVolumeName The name of the volume that will contain the  shadow copy storage  area to be associated with the 
+     *       <i>pwszVolumeName</i> volume.
+     *       
+     * 
+     * The name of the volume must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder</li>
+     * <li>A drive letter, for example, 
+     *          D:\</li>
+     * <li>A volume GUID path of the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @param {Integer} llMaximumDiffSpace The maximum size, in bytes, of the shadow copy storage area on the  volume. This value 
+     *       must be at least 320 MB, up to the system-wide limit.
+     *        If this value is –1, the maximum size is unlimited.
+     * 
+     * <b>Windows Server 2003:  </b>Prior to Windows Server 2003 with SP1, the shadow copy storage area size was fixed at 100 MB.
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Successfully added the shadow copy storage area association.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Caller does not have sufficient backup privileges or is not an administrator.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameter values is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller is out of memory or other system resources.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_MAXIMUM_DIFFAREA_ASSOCIATIONS_REACHED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The maximum number of shadow copy storage areas has been added to the shadow copy source volume. The 
+     *         specified shadow copy storage volume was not associated with the specified shadow copy source volume.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_NESTED_VOLUME_LIMIT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified volume is nested too deeply to participate in the VSS operation.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This return code is not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_OBJECT_ALREADY_EXISTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The association between the <i>pwszVolumeName</i> and 
+     *         <i>pwszDiffAreaVolumeName</i> volumes already exists.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_PROVIDER_VETO</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Expected provider error. The provider logged the error in the event log. For more information, see 
+     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unexpected error. The error code is logged in the error log file. For more information, see 
+     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_VOLUME_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pwszDiffAreaVolumeName</i> volume is not an NTFS volume or has insufficient free 
+     *         space.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-adddiffarea
      */
     AddDiffArea(pwszVolumeName, pwszDiffAreaVolumeName, llMaximumDiffSpace) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
@@ -48,12 +198,144 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
     }
 
     /**
+     * Updates the shadow copy storage area maximum size for a certain volume.
+     * @param {Pointer<Integer>} pwszVolumeName Name of the volume that is the source of shadow copies. This volume is associated with a shadow copy storage area 
+     *       on the <i>pwszDiffAreaVolumeName</i> volume.
+     *       
      * 
-     * @param {Pointer<Integer>} pwszVolumeName 
-     * @param {Pointer<Integer>} pwszDiffAreaVolumeName 
-     * @param {Integer} llMaximumDiffSpace 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-changediffareamaximumsize
+     * The name of the volume must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder, for example, Y:\MountX\</li>
+     * <li>A drive letter, for example, 
+     *          D:\</li>
+     * <li>A volume GUID path of the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @param {Pointer<Integer>} pwszDiffAreaVolumeName Name of the volume that contains the  shadow copy storage  area associated with the 
+     *       <i>pwszVolumeName</i> volume.
+     *       
+     * 
+     * The name of the volume must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder</li>
+     * <li>A drive letter, for example, 
+     *          D:\</li>
+     * <li>A volume GUID path of the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @param {Integer} llMaximumDiffSpace Specifies the maximum size, in bytes, for the shadow copy storage area to use for the volume. If this value is zero, 
+     *       the shadow copy storage area will be deleted. If this value is –1, the maximum size is unlimited.
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Successfully changed the shadow copy storage area maximum size.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Caller does not have sufficient backup privileges or is not an administrator.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameter values is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller is out of memory or other system resources.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_INSUFFICIENT_STORAGE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pwszDiffAreaVolumeName</i> volume does not have sufficient free space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_OBJECT_NOT_FOUND</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The association between the <i>pwszVolumeName</i> and 
+     *         <i>pwszDiffAreaVolumeName</i> volumes was not found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_PROVIDER_VETO</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Provider error - the provider logged the error in the event log. For more information, see 
+     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unexpected error. The error code is logged in the error log file. For more information, see 
+     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_VOLUME_IN_USE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A shadow copy is currently using the shadow copy storage area.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-changediffareamaximumsize
      */
     ChangeDiffAreaMaximumSize(pwszVolumeName, pwszDiffAreaVolumeName, llMaximumDiffSpace) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
@@ -64,10 +346,20 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
     }
 
     /**
+     * Queries volumes that support shadow copy storage areas (including volumes with disabled shadow copy storage areas).
+     * @param {Pointer<Integer>} pwszOriginalVolumeName Name of the original volume that is the source of the shadow copies. The name of the volume must be in one 
+     *       of the following formats and must include a trailing backslash (\\):
+     *       
      * 
-     * @param {Pointer<Integer>} pwszOriginalVolumeName 
-     * @returns {IVssEnumMgmtObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-queryvolumessupportedfordiffareas
+     * <ul>
+     * <li>The path of a mounted folder, for example, Y:\MountX\</li>
+     * <li>A drive letter, for example, 
+     *         D:\</li>
+     * <li>A volume GUID path of the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @returns {IVssEnumMgmtObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nn-vsmgmt-ivssenummgmtobject">IVssEnumMgmtObject</a> interface 
+     *       pointer, which is initialized on return. Callers must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-queryvolumessupportedfordiffareas
      */
     QueryVolumesSupportedForDiffAreas(pwszOriginalVolumeName) {
         pwszOriginalVolumeNameMarshal := pwszOriginalVolumeName is VarRef ? "ushort*" : "ptr"
@@ -77,10 +369,20 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
     }
 
     /**
+     * Queries shadow copy storage areas in use by the volume.
+     * @param {Pointer<Integer>} pwszVolumeName Name of the volume that contains shadow copy storage areas.
+     *       
      * 
-     * @param {Pointer<Integer>} pwszVolumeName 
-     * @returns {IVssEnumMgmtObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasforvolume
+     * The name of the volume must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder, for example, Y:\MountX\</li>
+     * <li>A drive letter, for example, 
+     *          D:\</li>
+     * <li>A volume GUID path of the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @returns {IVssEnumMgmtObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nn-vsmgmt-ivssenummgmtobject">IVssEnumMgmtObject</a> interface 
+     *       pointer, which is initialized on return. Callers must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasforvolume
      */
     QueryDiffAreasForVolume(pwszVolumeName) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
@@ -90,10 +392,20 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
     }
 
     /**
+     * Queries shadow copy storage areas that physically reside on the given volume.
+     * @param {Pointer<Integer>} pwszVolumeName Name of the volume that contains shadow copy storage areas.
+     *       
      * 
-     * @param {Pointer<Integer>} pwszVolumeName 
-     * @returns {IVssEnumMgmtObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasonvolume
+     * The name of the volume must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder, for example, Y:\MountX\</li>
+     * <li>A drive letter, for example, 
+     *          D:\</li>
+     * <li>A volume GUID path of the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @returns {IVssEnumMgmtObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nn-vsmgmt-ivssenummgmtobject">IVssEnumMgmtObject</a> interface 
+     *       pointer, which is initialized on return. Callers must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasonvolume
      */
     QueryDiffAreasOnVolume(pwszVolumeName) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
@@ -103,10 +415,11 @@ class IVssDifferentialSoftwareSnapshotMgmt extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} SnapshotId 
-     * @returns {IVssEnumMgmtObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasforsnapshot
+     * Queries shadow copy storage areas in use by the original volume associated with the input shadow copy.
+     * @param {Guid} SnapshotId The <b>VSS_ID</b> of a shadow copy.
+     * @returns {IVssEnumMgmtObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nn-vsmgmt-ivssenummgmtobject">IVssEnumMgmtObject</a> interface 
+     *       pointer, which is initialized on return. Callers must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt-querydiffareasforsnapshot
      */
     QueryDiffAreasForSnapshot(SnapshotId) {
         result := ComCall(8, this, "ptr", SnapshotId, "ptr*", &ppEnum := 0, "HRESULT")

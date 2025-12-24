@@ -64,9 +64,9 @@ class IADsFileServiceOperations extends IADsServiceOperations{
     static VTableNames => ["Sessions", "Resources"]
 
     /**
-     * 
-     * @returns {IADsCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsfileserviceoperations-sessions
+     * The IADsFileServiceOperations::Sessions method gets a pointer to a pointer to the IADsCollection interface on a collection of the session objects that represent the current open sessions for this file service.
+     * @returns {IADsCollection} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> interface used to enumerate objects that implement the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadssession">IADsSession</a> interface and represent the current open sessions for this file service.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsfileserviceoperations-sessions
      */
     Sessions() {
         result := ComCall(26, this, "ptr*", &ppSessions := 0, "HRESULT")
@@ -74,9 +74,9 @@ class IADsFileServiceOperations extends IADsServiceOperations{
     }
 
     /**
-     * 
-     * @returns {IADsCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsfileserviceoperations-resources
+     * The IADsFileServiceOperations::Resources method gets a pointer to a pointer to the IADsCollection interface on a collection of the resource objects representing the current open resources on this file service.
+     * @returns {IADsCollection} Pointer to a  pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> interface that can then be used to enumerate objects implementing the <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsresource">IADsResource</a> interface and representing the current open resources for this file service.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsfileserviceoperations-resources
      */
     Resources() {
         result := ComCall(27, this, "ptr*", &ppResources := 0, "HRESULT")

@@ -31,10 +31,10 @@ class IMixerOCXNotify extends IUnknown{
     static VTableNames => ["OnInvalidateRect", "OnStatusChange", "OnDataChange"]
 
     /**
-     * 
-     * @param {Pointer<RECT>} lpcRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocxnotify-oninvalidaterect
+     * The OnInvalidateRect method notifies the client that the video rectangle has been invalidated.
+     * @param {Pointer<RECT>} lpcRect Specifies the rectangle that has been invalidated, in screen coordinates.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocxnotify-oninvalidaterect
      */
     OnInvalidateRect(lpcRect) {
         result := ComCall(3, this, "ptr", lpcRect, "HRESULT")
@@ -42,10 +42,35 @@ class IMixerOCXNotify extends IUnknown{
     }
 
     /**
+     * The OnStatusChange method informs the client that a status change has occurred.
+     * @param {Integer} ulStatusFlags Bitwise OR of one or more of the following status flags.
      * 
-     * @param {Integer} ulStatusFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocxnotify-onstatuschange
+     * <table>
+     * <tr>
+     * <th>Flag
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>MIXER_STATE_UNCONNECTED (0x00000000)</td>
+     * <td>The Overlay Mixer is unconnected and stopped.</td>
+     * </tr>
+     * <tr>
+     * <td>MIXER_STATE_CONNECTED_STOPPED (0x00000001)</td>
+     * <td>The Overlay Mixer is connected and stopped.</td>
+     * </tr>
+     * <tr>
+     * <td>MIXER_STATE_CONNECTED_PAUSED (0x00000002)</td>
+     * <td>The Overlay Mixer is connected and paused.</td>
+     * </tr>
+     * <tr>
+     * <td>MIXER_STATE_CONNECTED_PLAYING (0x00000003)</td>
+     * <td>The Overlay Mixer is connected and playing.</td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocxnotify-onstatuschange
      */
     OnStatusChange(ulStatusFlags) {
         result := ComCall(4, this, "uint", ulStatusFlags, "HRESULT")
@@ -53,10 +78,31 @@ class IMixerOCXNotify extends IUnknown{
     }
 
     /**
+     * The OnDataChange method notifies the client when the video rectangle's aspect ratio or size, or the display palette, has changed.
+     * @param {Integer} ulDataFlags Flag indicating which set of data has changed. The following flags are defined.
      * 
-     * @param {Integer} ulDataFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mixerocx/nf-mixerocx-imixerocxnotify-ondatachange
+     * <table>
+     * <tr>
+     * <th>Flags
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>MIXER_DATA_ASPECT_RATIO (0x00000001)</td>
+     * <td>Picture aspect ratio.</td>
+     * </tr>
+     * <tr>
+     * <td>MIXER_DATA_NATIVE_SIZE (0x00000002)</td>
+     * <td>The video stream's native size changed.</td>
+     * </tr>
+     * <tr>
+     * <td>MIXER_DATA_PALETTE (0x00000004)</td>
+     * <td>The video palette changed.</td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//mixerocx/nf-mixerocx-imixerocxnotify-ondatachange
      */
     OnDataChange(ulDataFlags) {
         result := ComCall(5, this, "uint", ulDataFlags, "HRESULT")

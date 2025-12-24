@@ -59,12 +59,12 @@ class IXMLHTTPRequest3 extends IXMLHTTPRequest2{
     static VTableNames => ["SetClientCertificate"]
 
     /**
-     * 
-     * @param {Integer} cbClientCertificateHash 
-     * @param {Pointer<Integer>} pbClientCertificateHash 
-     * @param {PWSTR} pwszPin 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msxml6/nf-msxml6-ixmlhttprequest3-setclientcertificate
+     * Sets a client certificate to be used to authenticate against the URL specified in the Open method.
+     * @param {Integer} cbClientCertificateHash The number of bytes of <i>pbClientCertHash</i> parameter.
+     * @param {Pointer<Integer>} pbClientCertificateHash The thumbprint or hash completed over the complete client certificate being set on the HTTPS request.
+     * @param {PWSTR} pwszPin This parameter is reserved.
+     * @returns {HRESULT} Returns S_OK on success.
+     * @see https://docs.microsoft.com/windows/win32/api//msxml6/nf-msxml6-ixmlhttprequest3-setclientcertificate
      */
     SetClientCertificate(cbClientCertificateHash, pbClientCertificateHash, pwszPin) {
         pwszPin := pwszPin is String ? StrPtr(pwszPin) : pwszPin

@@ -40,9 +40,23 @@ class IUPnPServices extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "get_Item"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservices-get_count
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * The Count property specifies the number of services in the collection.
+     * @returns {Integer} Receives a reference to the number of services in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpservices-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
@@ -50,9 +64,9 @@ class IUPnPServices extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservices-get__newenum
+     * The _NewEnum property specifies either the IEnumVARIANT or IEnumUnknown enumerator interface for the collection.
+     * @returns {IUnknown} Receives a reference to the enumerator interface.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpservices-get__newenum
      */
     get__NewEnum() {
         result := ComCall(8, this, "ptr*", &ppunk := 0, "HRESULT")
@@ -60,10 +74,11 @@ class IUPnPServices extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrServiceId 
-     * @returns {IUPnPService} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservices-get_item
+     * The Item property specifies the IUPnPService interface for a service, identified by the service ID, in the collection.
+     * @param {BSTR} bstrServiceId Specifies a service in the collection.
+     * @returns {IUPnPService} Receives a reference to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpservice">IUPnPService</a> interface for the specified service.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpservices-get_item
      */
     get_Item(bstrServiceId) {
         bstrServiceId := bstrServiceId is String ? BSTR.Alloc(bstrServiceId).Value : bstrServiceId

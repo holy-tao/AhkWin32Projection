@@ -31,10 +31,13 @@ class ICertView2 extends ICertView{
     static VTableNames => ["SetTable"]
 
     /**
-     * 
+     * Specifies which Certificate Services database table is used for subsequent calls to the methods of the ICertView2 interface.
      * @param {Integer} Table 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certview/nf-certview-icertview2-settable
+     * @returns {HRESULT} <h3>VB</h3>
+     *  If the method succeeds, the method returns S_OK.
+     * 
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certview/nf-certview-icertview2-settable
      */
     SetTable(Table) {
         result := ComCall(15, this, "int", Table, "HRESULT")

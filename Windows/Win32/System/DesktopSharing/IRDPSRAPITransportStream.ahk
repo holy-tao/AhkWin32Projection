@@ -32,10 +32,14 @@ class IRDPSRAPITransportStream extends IUnknown{
     static VTableNames => ["AllocBuffer", "FreeBuffer", "WriteBuffer", "ReadBuffer", "Open", "Close"]
 
     /**
+     * Called by the Remote Desktop Protocol (RDP) stack to allocate a stream buffer.
+     * @param {Integer} maxPayload Type: <b>long</b>
      * 
-     * @param {Integer} maxPayload 
-     * @returns {IRDPSRAPITransportStreamBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-allocbuffer
+     * The maximum size, in bytes, of the payload that will be placed into the buffer.
+     * @returns {IRDPSRAPITransportStreamBuffer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer">IRDPSRAPITransportStreamBuffer</a>**</b>
+     * 
+     * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer">IRDPSRAPITransportStreamBuffer</a> interface pointer that receives the buffer object.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-allocbuffer
      */
     AllocBuffer(maxPayload) {
         result := ComCall(3, this, "int", maxPayload, "ptr*", &ppBuffer := 0, "HRESULT")
@@ -43,10 +47,14 @@ class IRDPSRAPITransportStream extends IUnknown{
     }
 
     /**
+     * Called by the Remote Desktop Protocol (RDP) stack to return a stream buffer to the stream.
+     * @param {IRDPSRAPITransportStreamBuffer} pBuffer Type: <b>IRDPSRAPITransportStreamBuffer*</b>
      * 
-     * @param {IRDPSRAPITransportStreamBuffer} pBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-freebuffer
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer">IRDPSRAPITransportStreamBuffer</a> interface pointer that represents the buffer to free.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-freebuffer
      */
     FreeBuffer(pBuffer) {
         result := ComCall(4, this, "ptr", pBuffer, "HRESULT")
@@ -54,10 +62,14 @@ class IRDPSRAPITransportStream extends IUnknown{
     }
 
     /**
+     * Called by the Remote Desktop Protocol (RDP) stack to write the contents of a stream buffer to the network.
+     * @param {IRDPSRAPITransportStreamBuffer} pBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer">IRDPSRAPITransportStreamBuffer</a>*</b>
      * 
-     * @param {IRDPSRAPITransportStreamBuffer} pBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-writebuffer
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer">IRDPSRAPITransportStreamBuffer</a> interface pointer that represents the buffer to write.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-writebuffer
      */
     WriteBuffer(pBuffer) {
         result := ComCall(5, this, "ptr", pBuffer, "HRESULT")
@@ -65,10 +77,14 @@ class IRDPSRAPITransportStream extends IUnknown{
     }
 
     /**
+     * Called by the Remote Desktop Protocol (RDP) stack to read the contents of a stream buffer.
+     * @param {IRDPSRAPITransportStreamBuffer} pBuffer Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer">IRDPSRAPITransportStreamBuffer</a>*</b>
      * 
-     * @param {IRDPSRAPITransportStreamBuffer} pBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-readbuffer
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer">IRDPSRAPITransportStreamBuffer</a> interface pointer that represents the buffer to read.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-readbuffer
      */
     ReadBuffer(pBuffer) {
         result := ComCall(6, this, "ptr", pBuffer, "HRESULT")
@@ -76,10 +92,14 @@ class IRDPSRAPITransportStream extends IUnknown{
     }
 
     /**
+     * Called by the Remote Desktop Protocol (RDP) stack to start the stream and indicate that the RDP stack is ready to receive notifications of events.
+     * @param {IRDPSRAPITransportStreamEvents} pCallbacks Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreamevents">IRDPSRAPITransportStreamEvents</a>*</b>
      * 
-     * @param {IRDPSRAPITransportStreamEvents} pCallbacks 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-open
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreamevents">IRDPSRAPITransportStreamEvents</a> interface pointer that will receive the transport stream events.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-open
      */
     Open(pCallbacks) {
         result := ComCall(7, this, "ptr", pCallbacks, "HRESULT")
@@ -87,9 +107,9 @@ class IRDPSRAPITransportStream extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-close
+     * Called by the Remote Desktop Protocol (RDP) stack to close the stream.
+     * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-close
      */
     Close() {
         result := ComCall(8, this, "HRESULT")

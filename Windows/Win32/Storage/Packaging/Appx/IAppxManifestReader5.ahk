@@ -32,9 +32,9 @@ class IAppxManifestReader5 extends IUnknown{
     static VTableNames => ["GetMainPackageDependencies"]
 
     /**
-     * 
-     * @returns {IAppxManifestMainPackageDependenciesEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestreader5-getmainpackagedependencies
+     * Gets a main package dependencies enumerator.
+     * @returns {IAppxManifestMainPackageDependenciesEnumerator} The main package dependencies enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader5-getmainpackagedependencies
      */
     GetMainPackageDependencies() {
         result := ComCall(3, this, "ptr*", &mainPackageDependencies := 0, "HRESULT")

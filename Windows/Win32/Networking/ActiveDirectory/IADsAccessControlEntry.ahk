@@ -32,6 +32,62 @@ class IADsAccessControlEntry extends IDispatch{
     static VTableNames => ["get_AccessMask", "put_AccessMask", "get_AceType", "put_AceType", "get_AceFlags", "put_AceFlags", "get_Flags", "put_Flags", "get_ObjectType", "put_ObjectType", "get_InheritedObjectType", "put_InheritedObjectType", "get_Trustee", "put_Trustee"]
 
     /**
+     * @type {Integer} 
+     */
+    AccessMask {
+        get => this.get_AccessMask()
+        set => this.put_AccessMask(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AceType {
+        get => this.get_AceType()
+        set => this.put_AceType(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AceFlags {
+        get => this.get_AceFlags()
+        set => this.put_AceFlags(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+        set => this.put_Flags(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ObjectType {
+        get => this.get_ObjectType()
+        set => this.put_ObjectType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InheritedObjectType {
+        get => this.get_InheritedObjectType()
+        set => this.put_InheritedObjectType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Trustee {
+        get => this.get_Trustee()
+        set => this.put_Trustee(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

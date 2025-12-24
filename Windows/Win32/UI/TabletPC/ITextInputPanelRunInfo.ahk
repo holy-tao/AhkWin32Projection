@@ -36,9 +36,9 @@ class ITextInputPanelRunInfo extends IUnknown{
     static VTableNames => ["IsTipRunning"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-itextinputpanelruninfo-istiprunning
+     * Indicates if the Tablet PC Input Panel is running at the time the method is called.
+     * @returns {BOOL} <b>TRUE</b> if the Input Panel was running, otherwise <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//peninputpanel/nf-peninputpanel-itextinputpanelruninfo-istiprunning
      */
     IsTipRunning() {
         result := ComCall(3, this, "int*", &pfRunning := 0, "HRESULT")

@@ -31,10 +31,10 @@ class IServicePartitionConfig extends IUnknown{
     static VTableNames => ["PartitionConfig", "PartitionID"]
 
     /**
-     * 
-     * @param {Integer} partitionConfig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepartitionconfig-partitionconfig
+     * Configures how partitions are used for the enclosed work.
+     * @param {Integer} partitionConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_partitionconfig">CSC_PartitionConfig</a> enumeration.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicepartitionconfig-partitionconfig
      */
     PartitionConfig(partitionConfig) {
         result := ComCall(3, this, "int", partitionConfig, "HRESULT")
@@ -42,10 +42,10 @@ class IServicePartitionConfig extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} guidPartitionID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicepartitionconfig-partitionid
+     * Sets the GUID for the partition that is used for the enclosed work.
+     * @param {Pointer<Guid>} guidPartitionID A GUID that is used to specify the partition that is to be used to run the enclosed work.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicepartitionconfig-partitionid
      */
     PartitionID(guidPartitionID) {
         result := ComCall(4, this, "ptr", guidPartitionID, "HRESULT")

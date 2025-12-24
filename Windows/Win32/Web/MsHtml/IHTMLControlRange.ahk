@@ -32,6 +32,13 @@ class IHTMLControlRange extends IDispatch{
     static VTableNames => ["select", "add", "remove", "item", "scrollIntoView", "queryCommandSupported", "queryCommandEnabled", "queryCommandState", "queryCommandIndeterm", "queryCommandText", "queryCommandValue", "execCommand", "execCommandShowHelp", "commonParentElement", "get_length"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * The select function determines the status of one or more sockets, waiting if necessary, to perform synchronous I/O.
      * @returns {HRESULT} The 
      * <b>select</b> function returns the total number of socket handles that are ready and contained in the 

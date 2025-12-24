@@ -32,11 +32,25 @@ class IMFMediaKeySession extends IUnknown{
     static VTableNames => ["GetError", "get_KeySystem", "get_SessionId", "Update", "Close"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} code 
-     * @param {Pointer<Integer>} systemCode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysession-geterror
+     * @type {BSTR} 
+     */
+    KeySystem {
+        get => this.get_KeySystem()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SessionId {
+        get => this.get_SessionId()
+    }
+
+    /**
+     * Gets the error state associated with the media key session.
+     * @param {Pointer<Integer>} code The error code.
+     * @param {Pointer<Integer>} systemCode Platform specific error information.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeysession-geterror
      */
     GetError(code, systemCode) {
         codeMarshal := code is VarRef ? "ushort*" : "ptr"
@@ -47,9 +61,9 @@ class IMFMediaKeySession extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysession-get_keysystem
+     * Gets the name of the key system name the media keys object was created with.
+     * @returns {BSTR} The name of the key system.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeysession-get_keysystem
      */
     get_KeySystem() {
         keySystem := BSTR()
@@ -58,9 +72,9 @@ class IMFMediaKeySession extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysession-get_sessionid
+     * Gets a unique session id created for this session.
+     * @returns {BSTR} The media key session id.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeysession-get_sessionid
      */
     get_SessionId() {
         sessionId := BSTR()
@@ -69,11 +83,11 @@ class IMFMediaKeySession extends IUnknown{
     }
 
     /**
-     * 
+     * Passes in a key value with any associated data required by the Content Decryption Module for the given key system.
      * @param {Pointer} key 
-     * @param {Integer} cb 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysession-update
+     * @param {Integer} cb The count in bytes of <i>key</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeysession-update
      */
     Update(key, cb) {
         result := ComCall(6, this, "ptr", key, "uint", cb, "HRESULT")
@@ -81,9 +95,9 @@ class IMFMediaKeySession extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysession-close
+     * Closes the media key session and must be called before the key session is released.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeysession-close
      */
     Close() {
         result := ComCall(7, this, "HRESULT")

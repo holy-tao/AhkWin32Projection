@@ -34,9 +34,32 @@ class ITMultiTrackTerminal extends IDispatch{
     static VTableNames => ["get_TrackTerminals", "EnumerateTrackTerminals", "CreateTrackTerminal", "get_MediaTypesInUse", "get_DirectionsInUse", "RemoveTrackTerminal"]
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-get_trackterminals
+     * @type {VARIANT} 
+     */
+    TrackTerminals {
+        get => this.get_TrackTerminals()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MediaTypesInUse {
+        get => this.get_MediaTypesInUse()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DirectionsInUse {
+        get => this.get_DirectionsInUse()
+    }
+
+    /**
+     * The get_TrackTerminals method creates and returns a collection containing the terminals contained by the multitrack terminal on which this method was called.
+     * @returns {VARIANT} Pointer to a VARIANT containing an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface pointers for the tracks available.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmultitrackterminal-get_trackterminals
      */
     get_TrackTerminals() {
         pVariant := VARIANT()
@@ -45,9 +68,10 @@ class ITMultiTrackTerminal extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumTerminal} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-enumeratetrackterminals
+     * The EnumerateTrackTerminals method creates and returns an enumeration containing the terminals contained by the multitrack terminal on which this method was called.
+     * @returns {IEnumTerminal} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumterminal">IEnumTerminal</a> interface enumerating terminals contained in the multitrack terminal.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmultitrackterminal-enumeratetrackterminals
      */
     EnumerateTrackTerminals() {
         result := ComCall(8, this, "ptr*", &ppEnumTerminal := 0, "HRESULT")
@@ -55,11 +79,14 @@ class ITMultiTrackTerminal extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} MediaType 
-     * @param {Integer} TerminalDirection 
-     * @returns {ITTerminal} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-createtrackterminal
+     * The CreateTrackTerminal method creates a multitrack terminal that can handle a given media type or types and media direction.
+     * @param {Integer} MediaType Bitwise ORed list of 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> required for the terminal.
+     * @param {Integer} TerminalDirection The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor for the terminal.
+     * @returns {ITTerminal} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmultitrackterminal-createtrackterminal
      */
     CreateTrackTerminal(MediaType, TerminalDirection) {
         result := ComCall(9, this, "int", MediaType, "int", TerminalDirection, "ptr*", &ppTerminal := 0, "HRESULT")
@@ -67,9 +94,10 @@ class ITMultiTrackTerminal extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-get_mediatypesinuse
+     * The get_MediaTypesInUse method returns the media types (bitwise ORed) of all tracks managed currently by the multitrack terminal.
+     * @returns {Integer} Bitwise ORed list of 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media types</a> in use.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmultitrackterminal-get_mediatypesinuse
      */
     get_MediaTypesInUse() {
         result := ComCall(10, this, "int*", &plMediaTypesInUse := 0, "HRESULT")
@@ -77,9 +105,10 @@ class ITMultiTrackTerminal extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-get_directionsinuse
+     * The get_DirectionsInUse method returns the direction of all tracks managed currently by the multitrack terminal.
+     * @returns {Integer} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor of the directions.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmultitrackterminal-get_directionsinuse
      */
     get_DirectionsInUse() {
         result := ComCall(11, this, "int*", &plDirectionsInUsed := 0, "HRESULT")
@@ -87,10 +116,51 @@ class ITMultiTrackTerminal extends IDispatch{
     }
 
     /**
+     * The RemoveTrackTerminal method removes the specified terminal from the collection of track terminals that belong to the multitrack terminal on which the method was called.
+     * @param {ITTerminal} pTrackTerminalToRemove Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface of the terminal to remove.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {ITTerminal} pTrackTerminalToRemove 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmultitrackterminal-removetrackterminal
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pTrackTerminalToRemove</i> parameter is not a valid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmultitrackterminal-removetrackterminal
      */
     RemoveTrackTerminal(pTrackTerminalToRemove) {
         result := ComCall(12, this, "ptr", pTrackTerminalToRemove, "HRESULT")

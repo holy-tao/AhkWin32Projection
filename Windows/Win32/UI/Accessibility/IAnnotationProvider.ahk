@@ -33,9 +33,44 @@ class IAnnotationProvider extends IUnknown{
     static VTableNames => ["get_AnnotationTypeId", "get_AnnotationTypeName", "get_Author", "get_DateTime", "get_Target"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    AnnotationTypeId {
+        get => this.get_AnnotationTypeId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AnnotationTypeName {
+        get => this.get_AnnotationTypeName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Author {
+        get => this.get_Author()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DateTime {
+        get => this.get_DateTime()
+    }
+
+    /**
+     * @type {IRawElementProviderSimple} 
+     */
+    Target {
+        get => this.get_Target()
+    }
+
+    /**
+     * The annotation type identifier of this annotation.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iannotationprovider-get_annotationtypeid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iannotationprovider-get_annotationtypeid
      */
     get_AnnotationTypeId() {
         result := ComCall(3, this, "int*", &retVal := 0, "HRESULT")
@@ -43,9 +78,14 @@ class IAnnotationProvider extends IUnknown{
     }
 
     /**
+     * The name of this annotation type.
+     * @remarks
+     * 
+     * The name of the annotation type can correspond to one of the annotation type identifiers (for example, “Comment” for  <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-annotation-type-identifiers">AnnotationType_Comment</a>), but it is not required to.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iannotationprovider-get_annotationtypename
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iannotationprovider-get_annotationtypename
      */
     get_AnnotationTypeName() {
         retVal := BSTR()
@@ -54,9 +94,9 @@ class IAnnotationProvider extends IUnknown{
     }
 
     /**
-     * 
+     * The name of the annotation author.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iannotationprovider-get_author
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iannotationprovider-get_author
      */
     get_Author() {
         retVal := BSTR()
@@ -65,9 +105,9 @@ class IAnnotationProvider extends IUnknown{
     }
 
     /**
-     * 
+     * The date and time when this annotation was created.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iannotationprovider-get_datetime
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iannotationprovider-get_datetime
      */
     get_DateTime() {
         retVal := BSTR()
@@ -76,9 +116,9 @@ class IAnnotationProvider extends IUnknown{
     }
 
     /**
-     * 
+     * The UI Automation element that is being annotated.
      * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iannotationprovider-get_target
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iannotationprovider-get_target
      */
     get_Target() {
         result := ComCall(7, this, "ptr*", &retVal := 0, "HRESULT")

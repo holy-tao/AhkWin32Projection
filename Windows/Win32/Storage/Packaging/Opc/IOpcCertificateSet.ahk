@@ -44,10 +44,42 @@ class IOpcCertificateSet extends IUnknown{
     static VTableNames => ["Add", "Remove", "GetEnumerator"]
 
     /**
+     * Adds a certificate to the set.
+     * @param {Pointer<CERT_CONTEXT>} certificate A 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> 
+     *        structure that contains the certificate to be added.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, 
+     *        those in the following table.
      * 
-     * @param {Pointer<CERT_CONTEXT>} certificate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateset-add
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>certificate</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateset-add
      */
     Add(certificate) {
         result := ComCall(3, this, "ptr", certificate, "HRESULT")
@@ -55,10 +87,39 @@ class IOpcCertificateSet extends IUnknown{
     }
 
     /**
+     * Removes a specified certificate from the set.
+     * @param {Pointer<CERT_CONTEXT>} certificate A <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> structure that contains the certificate to be removed.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<CERT_CONTEXT>} certificate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateset-remove
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>certificate</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateset-remove
      */
     Remove(certificate) {
         result := ComCall(4, this, "ptr", certificate, "HRESULT")
@@ -66,9 +127,9 @@ class IOpcCertificateSet extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcCertificateEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateset-getenumerator
+     * Gets an enumerator of certificates in the set.
+     * @returns {IOpcCertificateEnumerator} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopccertificateenumerator">IOpcCertificateEnumerator</a> interface of certificates in the set.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateset-getenumerator
      */
     GetEnumerator() {
         result := ComCall(5, this, "ptr*", &certificateEnumerator := 0, "HRESULT")

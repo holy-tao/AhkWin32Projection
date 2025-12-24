@@ -31,9 +31,9 @@ class IManagedPoolAction extends IUnknown{
     static VTableNames => ["LastRelease"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imanagedpoolaction-lastrelease
+     * Called when a COM+ object pool drops the last reference to the object that implements it.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imanagedpoolaction-lastrelease
      */
     LastRelease() {
         result := ComCall(3, this, "HRESULT")

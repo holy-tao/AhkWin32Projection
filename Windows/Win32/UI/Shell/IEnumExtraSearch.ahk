@@ -40,12 +40,20 @@ class IEnumExtraSearch extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
+     * Used to request information on one or more search objects.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @param {Pointer<EXTRASEARCH>} rgelt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumextrasearch-next
+     * The number of search objects to be enumerated, starting from the current object. If <i>celt</i> is too large, the method should stop and return the actual number of search objects in <i>pceltFetched</i>.
+     * @param {Pointer<EXTRASEARCH>} rgelt Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-extrasearch">EXTRASEARCH</a>*</b>
+     * 
+     * A pointer to an array of <i>pceltFetched</i> <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-extrasearch">EXTRASEARCH</a> structures containing information on the enumerated objects.
+     * @param {Pointer<Integer>} pceltFetched Type: <b>ULONG*</b>
+     * 
+     * The number of objects actually enumerated. This may be less than <i>celt</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM-defined error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumextrasearch-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -55,10 +63,14 @@ class IEnumExtraSearch extends IUnknown{
     }
 
     /**
+     * Skip a specified number of objects.
+     * @param {Integer} celt Type: <b>ULONG</b>
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumextrasearch-skip
+     * The number of objects to skip.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM-defined error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumextrasearch-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -66,9 +78,11 @@ class IEnumExtraSearch extends IUnknown{
     }
 
     /**
+     * Used to reset the enumeration index to zero.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumextrasearch-reset
+     * Returns S_OK if successful, or a COM-defined error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumextrasearch-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -76,9 +90,11 @@ class IEnumExtraSearch extends IUnknown{
     }
 
     /**
+     * Used to request a duplicate of the enumerator object to preserve its current state.
+     * @returns {IEnumExtraSearch} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumextrasearch">IEnumExtraSearch</a>**</b>
      * 
-     * @returns {IEnumExtraSearch} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ienumextrasearch-clone
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumextrasearch">IEnumExtraSearch</a> interface of a new enumerator object.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ienumextrasearch-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

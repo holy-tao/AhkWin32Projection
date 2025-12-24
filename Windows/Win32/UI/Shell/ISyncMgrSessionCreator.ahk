@@ -40,12 +40,20 @@ class ISyncMgrSessionCreator extends IUnknown{
     static VTableNames => ["CreateSession"]
 
     /**
+     * Notifies Sync Center that synchronization of the specified items has begun.
+     * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszHandlerID 
-     * @param {Pointer<PWSTR>} ppszItemIDs 
-     * @param {Integer} cItems 
-     * @returns {ISyncMgrSyncCallback} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsessioncreator-createsession
+     * A pointer to a buffer containing the unique ID of the handler. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
+     * @param {Pointer<PWSTR>} ppszItemIDs Type: <b>LPCWSTR*</b>
+     * 
+     * The address of a pointer to a buffer containing an array of item IDs, managed by the handler specified in <i>pszHandlerID</i>, to be synchronized. Each ID is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
+     * @param {Integer} cItems Type: <b>ULONG</b>
+     * 
+     * The number of item IDs contained in the buffer referenced in <i>ppszItemIDs</i>.
+     * @returns {ISyncMgrSyncCallback} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsynccallback">ISyncMgrSyncCallback</a>**</b>
+     * 
+     * The address of a pointer to an instance of <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsynccallback">ISyncMgrSyncCallback</a> used to report progress and events. This value can be <b>NULL</b> if no callback is needed.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsessioncreator-createsession
      */
     CreateSession(pszHandlerID, ppszItemIDs, cItems) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID

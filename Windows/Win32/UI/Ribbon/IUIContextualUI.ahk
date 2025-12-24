@@ -55,11 +55,17 @@ class IUIContextualUI extends IUnknown{
     static VTableNames => ["ShowAtLocation"]
 
     /**
+     * Displays a ContextPopup.
+     * @param {Integer} x Type: <b>INT32</b>
      * 
-     * @param {Integer} x 
-     * @param {Integer} y 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicontextualui-showatlocation
+     * The absolute x-coordinate, in screen coordinates, for the upper-left corner of the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-contextpopup">ContextPopup</a>.
+     * @param {Integer} y Type: <b>INT32</b>
+     * 
+     * The absolute y-coordinate, in screen coordinates, for the upper-left corner of the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-contextpopup">ContextPopup</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicontextualui-showatlocation
      */
     ShowAtLocation(x, y) {
         result := ComCall(3, this, "int", x, "int", y, "HRESULT")

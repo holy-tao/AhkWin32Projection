@@ -47,10 +47,10 @@ class IVirtualDesktopManager extends IUnknown{
     static VTableNames => ["IsWindowOnCurrentVirtualDesktop", "GetWindowDesktopId", "MoveWindowToDesktop"]
 
     /**
-     * 
-     * @param {HWND} topLevelWindow 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ivirtualdesktopmanager-iswindowoncurrentvirtualdesktop
+     * Indicates whether the provided window is on the currently active virtual desktop.
+     * @param {HWND} topLevelWindow The window of interest.
+     * @returns {BOOL} <b>True</b> if the <i>topLevelWindow</i> is on the currently active virtual desktop, otherwise <b>false</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ivirtualdesktopmanager-iswindowoncurrentvirtualdesktop
      */
     IsWindowOnCurrentVirtualDesktop(topLevelWindow) {
         topLevelWindow := topLevelWindow is Win32Handle ? NumGet(topLevelWindow, "ptr") : topLevelWindow
@@ -60,10 +60,10 @@ class IVirtualDesktopManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} topLevelWindow 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ivirtualdesktopmanager-getwindowdesktopid
+     * Gets the identifier for the virtual desktop hosting the provided top-level window.
+     * @param {HWND} topLevelWindow The top level window for the virtual desktop you are interested in.
+     * @returns {Guid} The identifier for the virtual desktop hosting the <i>topLevelWindow</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ivirtualdesktopmanager-getwindowdesktopid
      */
     GetWindowDesktopId(topLevelWindow) {
         topLevelWindow := topLevelWindow is Win32Handle ? NumGet(topLevelWindow, "ptr") : topLevelWindow
@@ -74,11 +74,11 @@ class IVirtualDesktopManager extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} topLevelWindow 
-     * @param {Pointer<Guid>} desktopId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ivirtualdesktopmanager-movewindowtodesktop
+     * Moves a window to the specified virtual desktop.
+     * @param {HWND} topLevelWindow The window to move.
+     * @param {Pointer<Guid>} desktopId The identifier of the virtual desktop to move the [GetWindowDesktopId](./nf-shobjidl_core-ivirtualdesktopmanager-getwindowdesktopid.md) to get a window's identifier.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ivirtualdesktopmanager-movewindowtodesktop
      */
     MoveWindowToDesktop(topLevelWindow, desktopId) {
         topLevelWindow := topLevelWindow is Win32Handle ? NumGet(topLevelWindow, "ptr") : topLevelWindow

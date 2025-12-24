@@ -33,10 +33,28 @@ class IUIAutomationTextPattern extends IUnknown{
     static VTableNames => ["RangeFromPoint", "RangeFromChild", "GetSelection", "GetVisibleRanges", "get_DocumentRange", "get_SupportedTextSelection"]
 
     /**
+     * @type {IUIAutomationTextRange} 
+     */
+    DocumentRange {
+        get => this.get_DocumentRange()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SupportedTextSelection {
+        get => this.get_SupportedTextSelection()
+    }
+
+    /**
+     * Retrieves the degenerate (empty) text range nearest to the specified screen coordinates.
+     * @param {POINT} pt Type: <b><a href="https://docs.microsoft.com/previous-versions/dd162805(v=vs.85)">POINT</a></b>
      * 
-     * @param {POINT} pt 
-     * @returns {IUIAutomationTextRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-rangefrompoint
+     * A structure that contains the location, in screen coordinates.
+     * @returns {IUIAutomationTextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange">IUIAutomationTextRange</a>**</b>
+     * 
+     * Receives a pointer to the degenerate text range nearest the specified location.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-rangefrompoint
      */
     RangeFromPoint(pt) {
         result := ComCall(3, this, "ptr", pt, "ptr*", &range := 0, "HRESULT")
@@ -44,10 +62,14 @@ class IUIAutomationTextPattern extends IUnknown{
     }
 
     /**
+     * Retrieves a text range enclosing a child element such as an image, hyperlink, Microsoft Excel spreadsheet, or other embedded object.
+     * @param {IUIAutomationElement} child Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} child 
-     * @returns {IUIAutomationTextRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-rangefromchild
+     * A pointer to the child element to be enclosed in the text range.
+     * @returns {IUIAutomationTextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrange">IUIAutomationTextRange</a>**</b>
+     * 
+     * Receives a pointer to a text range that encloses the child element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-rangefromchild
      */
     RangeFromChild(child) {
         result := ComCall(4, this, "ptr", child, "ptr*", &range := 0, "HRESULT")
@@ -55,9 +77,11 @@ class IUIAutomationTextPattern extends IUnknown{
     }
 
     /**
+     * Retrieves a collection of text ranges that represents the currently selected text in a text-based control.
+     * @returns {IUIAutomationTextRangeArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrangearray">IUIAutomationTextRangeArray</a>**</b>
      * 
-     * @returns {IUIAutomationTextRangeArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-getselection
+     * Receives a pointer to the collection of text ranges.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-getselection
      */
     GetSelection() {
         result := ComCall(5, this, "ptr*", &ranges := 0, "HRESULT")
@@ -65,9 +89,11 @@ class IUIAutomationTextPattern extends IUnknown{
     }
 
     /**
+     * Retrieves an array of disjoint text ranges from a text-based control where each text range represents a contiguous span of visible text.
+     * @returns {IUIAutomationTextRangeArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationtextrangearray">IUIAutomationTextRangeArray</a>**</b>
      * 
-     * @returns {IUIAutomationTextRangeArray} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-getvisibleranges
+     * Receives a pointer to the collection of visible text ranges within the text-based control.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-getvisibleranges
      */
     GetVisibleRanges() {
         result := ComCall(6, this, "ptr*", &ranges := 0, "HRESULT")
@@ -75,9 +101,14 @@ class IUIAutomationTextPattern extends IUnknown{
     }
 
     /**
+     * Retrieves a text range that encloses the main text of a document.
+     * @remarks
+     * 
+     * Some auxiliary text such as headers, footnotes, or annotations might not be included.
+     * 
      * 
      * @returns {IUIAutomationTextRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-get_documentrange
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-get_documentrange
      */
     get_DocumentRange() {
         result := ComCall(7, this, "ptr*", &range := 0, "HRESULT")
@@ -85,9 +116,9 @@ class IUIAutomationTextPattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a value that specifies the type of text selection that is supported by the control.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-get_supportedtextselection
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-get_supportedtextselection
      */
     get_SupportedTextSelection() {
         result := ComCall(8, this, "int*", &supportedTextSelection := 0, "HRESULT")

@@ -32,9 +32,17 @@ class IMsmGetFiles extends IDispatch{
     static VTableNames => ["get_ModuleFiles"]
 
     /**
-     * 
-     * @returns {IMsmStrings} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmgetfiles-get_modulefiles
+     * @type {IMsmStrings} 
+     */
+    ModuleFiles {
+        get => this.get_ModuleFiles()
+    }
+
+    /**
+     * The get_ModuleFiles method retrieves the ModuleFiles property of the GetFiles object.
+     * @returns {IMsmStrings} Collection of IMsmStrings that are the primary keys of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Msi/file-table">File table</a> for the currently open module.
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmgetfiles-get_modulefiles
      */
     get_ModuleFiles() {
         result := ComCall(7, this, "ptr*", &Files := 0, "HRESULT")

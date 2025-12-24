@@ -52,16 +52,23 @@ class IStrokeBuilder extends IUnknown{
     static VTableNames => ["CreateStroke", "BeginStroke", "AppendPackets", "EndStroke", "get_Ink", "putref_Ink"]
 
     /**
-     * 
-     * @param {Integer} cPktBuffLength 
-     * @param {Pointer<Integer>} pPackets 
-     * @param {Integer} cPacketProperties 
-     * @param {Pointer<PACKET_PROPERTY>} pPacketProperties 
-     * @param {Float} fInkToDeviceScaleX 
-     * @param {Float} fInkToDeviceScaleY 
-     * @param {Pointer<IInkStrokeDisp>} ppIInkStroke 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-createstroke
+     * @type {IInkDisp} 
+     */
+    Ink {
+        get => this.get_Ink()
+    }
+
+    /**
+     * Creates strokes on an ink object by using packet data that came from a RealTimeStylus Class object.
+     * @param {Integer} cPktBuffLength The number of LONGs in the <i>pPackets</i> array not the size in bytes. Valid values are between 0 and 0x000FFFFF, inclusive.
+     * @param {Pointer<Integer>} pPackets A pointer to the start of the packet data.
+     * @param {Integer} cPacketProperties The count of longs in the <i>pPacketProperties</i> buffer. This is the number of packets multiplied by the number of properties. Valid values are between 0 and 32, inclusive.
+     * @param {Pointer<PACKET_PROPERTY>} pPacketProperties The buffer containing the packet properties.
+     * @param {Float} fInkToDeviceScaleX The horizontal, or x-axis, conversion factor for the horizontal axis from ink space to digitizer coordinates.
+     * @param {Float} fInkToDeviceScaleY The vertical, or y-axis, conversion factor for the vertical axis from ink space to digitizer coordinates.
+     * @param {Pointer<IInkStrokeDisp>} ppIInkStroke A pointer to the newly created stroke. This value can be <b>NULL</b>.
+     * @returns {HRESULT} For a description of the return values, see <a href="/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-istrokebuilder-createstroke
      */
     CreateStroke(cPktBuffLength, pPackets, cPacketProperties, pPacketProperties, fInkToDeviceScaleX, fInkToDeviceScaleY, ppIInkStroke) {
         pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
@@ -71,17 +78,17 @@ class IStrokeBuilder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tcid 
-     * @param {Integer} sid 
-     * @param {Pointer<Integer>} pPacket 
-     * @param {Integer} cPacketProperties 
-     * @param {Pointer<PACKET_PROPERTY>} pPacketProperties 
-     * @param {Float} fInkToDeviceScaleX 
-     * @param {Float} fInkToDeviceScaleY 
-     * @param {Pointer<IInkStrokeDisp>} ppIInkStroke 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-beginstroke
+     * Begins a stroke on an ink object by using packet data from a RealTimeStylus Class object.
+     * @param {Integer} tcid The tablet context identifier.
+     * @param {Integer} sid The stylus identifier.
+     * @param {Pointer<Integer>} pPacket The start of the packet data. It is read-only.
+     * @param {Integer} cPacketProperties The count of LONGs, which is the number of packets multiplied by the number of properties, in the <i>pPacketProperties</i> buffer.
+     * @param {Pointer<PACKET_PROPERTY>} pPacketProperties The buffer containing the packet properties.
+     * @param {Float} fInkToDeviceScaleX The horizontal, or x-axis, conversion factor for the horizontal axis from ink space to digitizer coordinates.
+     * @param {Float} fInkToDeviceScaleY The vertical, or y-axis, conversion factor for the vertical axis from ink space to digitizer coordinates.
+     * @param {Pointer<IInkStrokeDisp>} ppIInkStroke A a pointer to the new stroke. This value can be <b>NULL</b>.
+     * @returns {HRESULT} For a description of return values, see <a href="/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-istrokebuilder-beginstroke
      */
     BeginStroke(tcid, sid, pPacket, cPacketProperties, pPacketProperties, fInkToDeviceScaleX, fInkToDeviceScaleY, ppIInkStroke) {
         pPacketMarshal := pPacket is VarRef ? "int*" : "ptr"
@@ -91,13 +98,13 @@ class IStrokeBuilder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tcid 
-     * @param {Integer} sid 
-     * @param {Integer} cPktBuffLength 
-     * @param {Pointer<Integer>} pPackets 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-appendpackets
+     * Adds a packet to the end of the digitizer input packet list.
+     * @param {Integer} tcid The context identifier for the tablet device to which the stylus belongs.
+     * @param {Integer} sid The identifier of the stylus object.
+     * @param {Integer} cPktBuffLength The number of LONGs in the <i>pPackets</i> array not the size in bytes. Valid values are betwwen 0 and 0x7FFF, inclusive.
+     * @param {Pointer<Integer>} pPackets The start of the packet data. It is read-only.
+     * @returns {HRESULT} For a description of the return values, see <a href="/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-istrokebuilder-appendpackets
      */
     AppendPackets(tcid, sid, cPktBuffLength, pPackets) {
         pPacketsMarshal := pPackets is VarRef ? "int*" : "ptr"
@@ -107,13 +114,13 @@ class IStrokeBuilder extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} tcid 
-     * @param {Integer} sid 
-     * @param {Pointer<IInkStrokeDisp>} ppIInkStroke 
-     * @param {Pointer<RECT>} pDirtyRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-endstroke
+     * Ends a stroke and returns the stroke object.
+     * @param {Integer} tcid The tablet context identifier.
+     * @param {Integer} sid The stylus identifier.
+     * @param {Pointer<IInkStrokeDisp>} ppIInkStroke A pointer to the new stroke. This value can be <b>NULL</b>.
+     * @param {Pointer<RECT>} pDirtyRect The dirty, or changed, rectangle of the tablet. This value can be <b>NULL</b>.
+     * @returns {HRESULT} For a description of return values, see <a href="/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>..
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-istrokebuilder-endstroke
      */
     EndStroke(tcid, sid, ppIInkStroke, pDirtyRect) {
         result := ComCall(6, this, "uint", tcid, "uint", sid, "ptr*", ppIInkStroke, "ptr", pDirtyRect, "HRESULT")
@@ -121,9 +128,9 @@ class IStrokeBuilder extends IUnknown{
     }
 
     /**
-     * 
+     * Gets or sets the ink object that is associated with the IStrokeBuilder object.
      * @returns {IInkDisp} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-istrokebuilder-get_ink
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-istrokebuilder-get_ink
      */
     get_Ink() {
         result := ComCall(7, this, "ptr*", &ppiInkObj := 0, "HRESULT")

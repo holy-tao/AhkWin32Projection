@@ -31,10 +31,14 @@ class ISynchronizedInputProvider extends IUnknown{
     static VTableNames => ["StartListening", "Cancel"]
 
     /**
+     * Starts listening for input of the specified type.
+     * @param {Integer} inputType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-synchronizedinputtype">SynchronizedInputType</a></b>
      * 
-     * @param {Integer} inputType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-isynchronizedinputprovider-startlistening
+     * The type of input that is requested to be synchronized.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-isynchronizedinputprovider-startlistening
      */
     StartListening(inputType) {
         result := ComCall(3, this, "int", inputType, "HRESULT")
@@ -42,9 +46,11 @@ class ISynchronizedInputProvider extends IUnknown{
     }
 
     /**
+     * Cancels listening for input.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-isynchronizedinputprovider-cancel
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-isynchronizedinputprovider-cancel
      */
     Cancel() {
         result := ComCall(4, this, "HRESULT")

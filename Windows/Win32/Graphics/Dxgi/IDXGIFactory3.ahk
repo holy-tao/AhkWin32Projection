@@ -31,9 +31,9 @@ class IDXGIFactory3 extends IDXGIFactory2{
     static VTableNames => ["GetCreationFlags"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgifactory3-getcreationflags
+     * Gets the flags that were used when a Microsoft DirectX Graphics Infrastructure (DXGI) object was created.
+     * @returns {Integer} The creation flags.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-idxgifactory3-getcreationflags
      */
     GetCreationFlags() {
         result := ComCall(25, this, "uint")

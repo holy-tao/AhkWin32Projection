@@ -31,13 +31,13 @@ class ITfTransitoryExtensionSink extends IUnknown{
     static VTableNames => ["OnTransitoryExtensionUpdated"]
 
     /**
-     * 
-     * @param {ITfContext} pic 
-     * @param {Integer} ecReadOnly 
-     * @param {ITfRange} pResultRange 
-     * @param {ITfRange} pCompositionRange 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftransitoryextensionsink-ontransitoryextensionupdated
+     * ITfTransitoryExtensionSink::OnTransitoryExtensionUpdated method
+     * @param {ITfContext} pic [in] A pointer of <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface. This is a context object in which the update happened.
+     * @param {Integer} ecReadOnly [in] A read only edit cookie to access the <i>pic</i>. Using this edit cookie, the application can get the text that is contained in the context object.
+     * @param {ITfRange} pResultRange [in] A pointer of the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface. This is the range of the result string (determined string).
+     * @param {ITfRange} pCompositionRange [in] A pointer of the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface. This is the range of the current composition string.
+     * @returns {BOOL} [out] A pointer to return the bool value. If it is true, TSF manager deletes the result range so only the current composition range remains in the transitory extension.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itftransitoryextensionsink-ontransitoryextensionupdated
      */
     OnTransitoryExtensionUpdated(pic, ecReadOnly, pResultRange, pCompositionRange) {
         result := ComCall(3, this, "ptr", pic, "uint", ecReadOnly, "ptr", pResultRange, "ptr", pCompositionRange, "int*", &pfDeleteResultRange := 0, "HRESULT")

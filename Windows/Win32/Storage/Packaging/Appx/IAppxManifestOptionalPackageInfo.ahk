@@ -31,9 +31,9 @@ class IAppxManifestOptionalPackageInfo extends IUnknown{
     static VTableNames => ["GetIsOptionalPackage", "GetMainPackageName"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestoptionalpackageinfo-getisoptionalpackage
+     * Determines whether the package is optional.
+     * @returns {BOOL} True if the package is optional, false otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestoptionalpackageinfo-getisoptionalpackage
      */
     GetIsOptionalPackage() {
         result := ComCall(3, this, "int*", &isOptionalPackage := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IAppxManifestOptionalPackageInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestoptionalpackageinfo-getmainpackagename
+     * Gets the main package name from the optional package.
+     * @returns {PWSTR} The main package name.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestoptionalpackageinfo-getmainpackagename
      */
     GetMainPackageName() {
         result := ComCall(4, this, "ptr*", &mainPackageName := 0, "HRESULT")

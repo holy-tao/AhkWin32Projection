@@ -31,10 +31,10 @@ class IUIEventLogger extends IUnknown{
     static VTableNames => ["OnUIEvent"]
 
     /**
-     * 
-     * @param {Pointer<UI_EVENTPARAMS>} pEventParams 
+     * Receives notifications that a ribbon event has occurred.
+     * @param {Pointer<UI_EVENTPARAMS>} pEventParams The parameters associated with the event. This value varies according to the event type.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuieventlogger-onuievent
+     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuieventlogger-onuievent
      */
     OnUIEvent(pEventParams) {
         ComCall(3, this, "ptr", pEventParams)

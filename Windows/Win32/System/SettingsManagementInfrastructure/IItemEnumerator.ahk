@@ -36,9 +36,9 @@ class IItemEnumerator extends IUnknown{
     static VTableNames => ["Current", "MoveNext", "Reset"]
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-iitemenumerator-current
+     * Retrieves an item from the current position of the enumerator.
+     * @returns {VARIANT} A variant that contains the key value for the collection. For most collections, the key is the name of the item.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-iitemenumerator-current
      */
     Current() {
         Item := VARIANT()
@@ -47,9 +47,9 @@ class IItemEnumerator extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-iitemenumerator-movenext
+     * Moves the current position to the next item in the enumerator if available.
+     * @returns {BOOL} Returns <b>True</b> if a valid item is found in the position after the move.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-iitemenumerator-movenext
      */
     MoveNext() {
         result := ComCall(4, this, "int*", &ItemValid := 0, "HRESULT")
@@ -57,9 +57,9 @@ class IItemEnumerator extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-iitemenumerator-reset
+     * Resets the state of the enumerator to its initialized state. You must immediately follow IItemEnumerator::Reset with a call to IItemEnumerator::MoveNext on the enumerator in order to set the current pointer at the first position in the enumeration.
+     * @returns {HRESULT} This method returns an HRESULT value. <b>S_OK</b> indicates success.
+     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-iitemenumerator-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")

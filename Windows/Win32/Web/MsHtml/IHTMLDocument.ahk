@@ -35,6 +35,13 @@ class IHTMLDocument extends IDispatch{
     static VTableNames => ["get_Script"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Script {
+        get => this.get_Script()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

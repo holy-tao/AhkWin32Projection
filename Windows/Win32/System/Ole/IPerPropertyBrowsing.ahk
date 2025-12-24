@@ -33,10 +33,10 @@ class IPerPropertyBrowsing extends IUnknown{
     static VTableNames => ["GetDisplayString", "MapPropertyToPage", "GetPredefinedStrings", "GetPredefinedValue"]
 
     /**
-     * 
-     * @param {Integer} dispID 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iperpropertybrowsing-getdisplaystring
+     * Retrieves a text string describing the specified property.
+     * @param {Integer} dispID The dispatch identifier of the property whose display name is requested.
+     * @returns {BSTR} A pointer to a variable that receives the display name for the property identified in <i>dispID</i>. The string is allocated by this method using <b>SysAllocString</b>. Upon return, the string is the responsibility of the caller, which must free it with <b>SysFreeString</b> when it is no longer needed.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iperpropertybrowsing-getdisplaystring
      */
     GetDisplayString(dispID) {
         pBstr := BSTR()
@@ -45,10 +45,10 @@ class IPerPropertyBrowsing extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dispID 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iperpropertybrowsing-mappropertytopage
+     * Retrieves the CLSID of the property page associated with the specified property.
+     * @param {Integer} dispID The dispatch identifier of the property.
+     * @returns {Guid} A pointer to the CLSID identifying the property page associated with the property specified by <i>dispID</i>. If this method fails, *<i>pClsid</i> is set to CLSID_NULL.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iperpropertybrowsing-mappropertytopage
      */
     MapPropertyToPage(dispID) {
         pClsid := Guid()
@@ -57,12 +57,52 @@ class IPerPropertyBrowsing extends IUnknown{
     }
 
     /**
+     * Retrieves an array description strings for the allowable values that the specified property can accept.
+     * @param {Integer} dispID The dispatch identifier of the property.
+     * @param {Pointer<CALPOLESTR>} pCaStringsOut A pointer to a caller-allocated, counted array structure that contains the element count and address of a method-allocated array of string pointers. This method also allocates memory for the string values containing the predefined names, and it stores the string pointers in the array. If the method fails, no memory is allocated, and the contents of the structure are undefined.
+     * @param {Pointer<CADWORD>} pCaCookiesOut A pointer to the caller-allocated, counted array structure that contains the element count and address of a method-allocated array of <b>DWORD</b> values. The values in the array can be passed to <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iperpropertybrowsing-getpredefinedvalue">IPerPropertyBrowsing::GetPredefinedValue</a> to retrieve the value associated with the name in the same array position inside <i>pCaStringsOut</i>. If the method fails, no memory is allocated, and the contents of the structure are undefined.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
-     * @param {Integer} dispID 
-     * @param {Pointer<CALPOLESTR>} pCaStringsOut 
-     * @param {Pointer<CADWORD>} pCaCookiesOut 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iperpropertybrowsing-getpredefinedstrings
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed succesfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This method is not implemented and predefined names are not supported.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The address in <i>pCaStringsOut</i> or <i>pCaCookiesOut</i> is not valid. For example, either parameter may be <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iperpropertybrowsing-getpredefinedstrings
      */
     GetPredefinedStrings(dispID, pCaStringsOut, pCaCookiesOut) {
         result := ComCall(5, this, "int", dispID, "ptr", pCaStringsOut, "ptr", pCaCookiesOut, "HRESULT")
@@ -70,11 +110,11 @@ class IPerPropertyBrowsing extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dispID 
-     * @param {Integer} dwCookie 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iperpropertybrowsing-getpredefinedvalue
+     * Retrieves the value of the specified property that is associated with a predefined string name.
+     * @param {Integer} dispID The dispatch identifier of the property for which a predefined value is requested.
+     * @param {Integer} dwCookie A token identifying which value to return. The token was previously returned in the <i>pCaCookiesOut</i> array filled by <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iperpropertybrowsing-getpredefinedstrings">GetPredefinedStrings</a>.
+     * @returns {VARIANT} A pointer to the <b>VARIANT</b> value for the property.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iperpropertybrowsing-getpredefinedvalue
      */
     GetPredefinedValue(dispID, dwCookie) {
         pVarOut := VARIANT()

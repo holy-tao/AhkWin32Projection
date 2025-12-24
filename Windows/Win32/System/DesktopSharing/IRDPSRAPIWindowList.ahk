@@ -39,9 +39,16 @@ class IRDPSRAPIWindowList extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item"]
 
     /**
-     * 
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * An enumerator interface for the window collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")
@@ -49,10 +56,10 @@ class IRDPSRAPIWindowList extends IDispatch{
     }
 
     /**
-     * 
+     * An item in the window collection.
      * @param {Integer} item 
      * @returns {IRDPSRAPIWindow} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindowlist-get_item
      */
     get_Item(item) {
         result := ComCall(8, this, "int", item, "ptr*", &pWindow := 0, "HRESULT")

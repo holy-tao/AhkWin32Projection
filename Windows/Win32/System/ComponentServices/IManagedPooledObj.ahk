@@ -31,10 +31,10 @@ class IManagedPooledObj extends IUnknown{
     static VTableNames => ["SetHeld"]
 
     /**
-     * 
-     * @param {BOOL} m_bHeld 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-imanagedpooledobj-setheld
+     * Sets whether the managed object should go back into the COM+ object pool.
+     * @param {BOOL} m_bHeld Indicates whether the managed object should go back into the COM+ object pool.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-imanagedpooledobj-setheld
      */
     SetHeld(m_bHeld) {
         result := ComCall(3, this, "int", m_bHeld, "HRESULT")

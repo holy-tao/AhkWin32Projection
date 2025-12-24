@@ -31,10 +31,10 @@ class IAMClockAdjust extends IUnknown{
     static VTableNames => ["SetClockDelta"]
 
     /**
-     * 
-     * @param {Integer} rtDelta 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamclockadjust-setclockdelta
+     * The SetClockDelta method adjusts the clock time.
+     * @param {Integer} rtDelta Specifies the amount by which to adjust the clock, as a <a href="https://docs.microsoft.com/windows/desktop/DirectShow/reference-time">REFERENCE_TIME</a> value. A positive value moves the clock forward, and a negative value moves the clock backward.
+     * @returns {HRESULT} Returns S_OK or an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamclockadjust-setclockdelta
      */
     SetClockDelta(rtDelta) {
         result := ComCall(3, this, "int64", rtDelta, "HRESULT")

@@ -31,9 +31,9 @@ class IAudioPeakMeter extends IUnknown{
     static VTableNames => ["GetChannelCount", "GetLevel"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiopeakmeter-getchannelcount
+     * The GetChannelCount method gets the number of channels in the audio stream.
+     * @returns {Integer} Pointer to a <b>UINT</b> variable into which the method writes the channel count.
+     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iaudiopeakmeter-getchannelcount
      */
     GetChannelCount() {
         result := ComCall(3, this, "uint*", &pcChannels := 0, "HRESULT")
@@ -41,10 +41,10 @@ class IAudioPeakMeter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nChannel 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiopeakmeter-getlevel
+     * The GetLevel method gets the peak level that the peak meter recorded for the specified channel since the peak level for that channel was previously read.
+     * @param {Integer} nChannel The channel number. If the audio stream has <i>N</i> channels, the channels are numbered from 0 to <i>N</i>– 1. To get the number of channels in the stream, call the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iaudiopeakmeter-getchannelcount">IAudioPeakMeter::GetChannelCount</a> method.
+     * @returns {Float} Pointer to a <b>float</b> variable into which the method writes the peak meter level in decibels.
+     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iaudiopeakmeter-getlevel
      */
     GetLevel(nChannel) {
         result := ComCall(4, this, "uint", nChannel, "float*", &pfLevel := 0, "HRESULT")

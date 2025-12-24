@@ -30,6 +30,105 @@ class IFeedItem extends IDispatch{
     static VTableNames => ["Xml", "get_Title", "get_Link", "get_Guid", "get_Description", "get_PubDate", "get_Comments", "get_Author", "get_Enclosure", "get_IsRead", "put_IsRead", "get_LocalId", "get_Parent", "Delete", "get_DownloadUrl", "get_LastDownloadTime", "get_Modified"]
 
     /**
+     * @type {BSTR} 
+     */
+    Title {
+        get => this.get_Title()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Link {
+        get => this.get_Link()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Guid {
+        get => this.get_Guid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    PubDate {
+        get => this.get_PubDate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Comments {
+        get => this.get_Comments()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Author {
+        get => this.get_Author()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Enclosure {
+        get => this.get_Enclosure()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsRead {
+        get => this.get_IsRead()
+        set => this.put_IsRead(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LocalId {
+        get => this.get_LocalId()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DownloadUrl {
+        get => this.get_DownloadUrl()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    LastDownloadTime {
+        get => this.get_LastDownloadTime()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    Modified {
+        get => this.get_Modified()
+    }
+
+    /**
      * 
      * @param {Integer} includeFlags 
      * @returns {BSTR} 

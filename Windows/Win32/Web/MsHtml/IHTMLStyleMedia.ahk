@@ -36,6 +36,13 @@ class IHTMLStyleMedia extends IDispatch{
     static VTableNames => ["get_type", "matchMedium"]
 
     /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -37,9 +37,10 @@ class IRdcFileReader extends IUnknown{
     static VTableNames => ["GetFileSize", "Read", "GetFilePosition"]
 
     /**
-     * Retrieves the size of the specified file, in bytes.
-     * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fileapi/nf-fileapi-getfilesize
+     * Returns the size of a file.
+     * @returns {Integer} Address of a <b>ULONGLONG</b> that on successful return will be filled with the size 
+     *       of the file, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcfilereader-getfilesize
      */
     GetFileSize() {
         result := ComCall(3, this, "uint*", &fileSize := 0, "HRESULT")
@@ -47,14 +48,16 @@ class IRdcFileReader extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} offsetFileStart 
-     * @param {Integer} bytesToRead 
-     * @param {Pointer<Integer>} bytesActuallyRead 
-     * @param {Pointer<Integer>} buffer 
-     * @param {Pointer<BOOL>} eof 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcfilereader-read
+     * Reads the specified amount of data starting at the specified position.
+     * @param {Integer} offsetFileStart Offset from the start of the data at which to start the read.
+     * @param {Integer} bytesToRead Number of bytes to be read.
+     * @param {Pointer<Integer>} bytesActuallyRead Address of a <b>ULONG</b> that will receive the number of bytes read.
+     * @param {Pointer<Integer>} buffer Address of the buffer that receives the data read. This buffer must be at least 
+     *       <i>bytesToRead</i> bytes in size.
+     * @param {Pointer<BOOL>} eof Address of a <b>BOOL</b> that is set to <b>TRUE</b> if the end of 
+     *       the file has been read.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcfilereader-read
      */
     Read(offsetFileStart, bytesToRead, bytesActuallyRead, buffer, eof) {
         bytesActuallyReadMarshal := bytesActuallyRead is VarRef ? "uint*" : "ptr"
@@ -66,9 +69,10 @@ class IRdcFileReader extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcfilereader-getfileposition
+     * Returns the current file position.
+     * @returns {Integer} Address of a <b>ULONGLONG</b> that will receive the current offset from the start of 
+     *       the data.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcfilereader-getfileposition
      */
     GetFilePosition() {
         result := ComCall(5, this, "uint*", &offsetFromStart := 0, "HRESULT")

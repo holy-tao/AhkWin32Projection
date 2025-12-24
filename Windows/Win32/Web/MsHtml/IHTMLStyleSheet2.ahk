@@ -31,6 +31,13 @@ class IHTMLStyleSheet2 extends IDispatch{
     static VTableNames => ["get_pages", "addPageRule"]
 
     /**
+     * @type {IHTMLStyleSheetPagesCollection} 
+     */
+    pages {
+        get => this.get_pages()
+    }
+
+    /**
      * 
      * @returns {IHTMLStyleSheetPagesCollection} 
      */

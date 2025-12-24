@@ -82,7 +82,7 @@ class KEY_EVENT_RECORD extends Win32Struct
     uChar{
         get {
             if(!this.HasProp("__uChar"))
-                this.__uChar := %this.__Class%._uChar_e__Union(10, this)
+                this.__uChar := %this.__Class%._uChar_e__Union(12, this)
             return this.__uChar
         }
     }

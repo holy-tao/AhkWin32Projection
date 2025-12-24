@@ -32,9 +32,24 @@ class IFsrmObject extends IDispatch{
     static VTableNames => ["get_Id", "get_Description", "put_Description", "Delete", "Commit"]
 
     /**
-     * 
+     * @type {Guid} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * Retrieves the identifier of the object.
      * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmobject-get_id
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmobject-get_id
      */
     get_Id() {
         id := Guid()
@@ -43,9 +58,9 @@ class IFsrmObject extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the description of the object.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmobject-get_description
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmobject-get_description
      */
     get_Description() {
         description := BSTR()
@@ -54,10 +69,10 @@ class IFsrmObject extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets the description of the object.
      * @param {BSTR} description 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmobject-put_description
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmobject-put_description
      */
     put_Description(description) {
         description := description is String ? BSTR.Alloc(description).Value : description
@@ -67,9 +82,9 @@ class IFsrmObject extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmobject-delete
+     * Removes the object from the server's list of objects.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmobject-delete
      */
     Delete() {
         result := ComCall(10, this, "HRESULT")
@@ -77,9 +92,9 @@ class IFsrmObject extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmobject-commit
+     * Saves the object in the server's list of objects.
+     * @returns {HRESULT} The method returns the following return values as well as others depending of the object being committed.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmobject-commit
      */
     Commit() {
         result := ComCall(11, this, "HRESULT")

@@ -37,9 +37,9 @@ class IFunctionInstanceQuery extends IUnknown{
     static VTableNames => ["Execute"]
 
     /**
-     * 
-     * @returns {IFunctionInstance} 
-     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancequery-execute
+     * Performs the query defined by IFunctionDiscovery::CreateInstanceQuery.
+     * @returns {IFunctionInstance} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface pointer that receives the requested function instance.
+     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstancequery-execute
      */
     Execute() {
         result := ComCall(3, this, "ptr*", &ppIFunctionInstance := 0, "HRESULT")

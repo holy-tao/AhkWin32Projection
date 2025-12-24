@@ -16,8 +16,8 @@ class KSPROPERTY_EXTXPORT_NODE_S extends Win32Struct
     static packingSize => 8
 
     class _u_e__Union extends Win32Struct {
-        static sizeof => 516
-        static packingSize => 4
+        static sizeof => 520
+        static packingSize => 8
 
         class _Timecode extends Win32Struct {
             static sizeof => 4

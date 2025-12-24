@@ -31,9 +31,9 @@ class IMFContentEnabler extends IUnknown{
     static VTableNames => ["GetEnableType", "GetEnableURL", "GetEnableData", "IsAutomaticSupported", "AutomaticEnable", "MonitorEnable", "Cancel"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-getenabletype
+     * Retrieves the type of operation that this content enabler performs.
+     * @returns {Guid} Receives a GUID that identifies the type of operation. An application can tailor its user interface (UI) strings for known operation types. See Remarks.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentenabler-getenabletype
      */
     GetEnableType() {
         pType := Guid()
@@ -42,12 +42,41 @@ class IMFContentEnabler extends IUnknown{
     }
 
     /**
+     * Retrieves a URL for performing a manual content enabling action.
+     * @param {Pointer<PWSTR>} ppwszURL Receives a pointer to a buffer that contains the URL. The caller must release the memory for the buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @param {Pointer<Integer>} pcchURL Receives the number of characters returned in <i>ppwszURL</i>, including the terminating NULL character.
+     * @param {Pointer<Integer>} pTrustStatus Receives a member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mf_url_trust_status">MF_URL_TRUST_STATUS</a> enumeration indicating whether the URL is trusted.
+     * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<PWSTR>} ppwszURL 
-     * @param {Pointer<Integer>} pcchURL 
-     * @param {Pointer<Integer>} pTrustStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-getenableurl
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_NOT_AVAILABLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No URL is available.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentenabler-getenableurl
      */
     GetEnableURL(ppwszURL, pcchURL, pTrustStatus) {
         ppwszURLMarshal := ppwszURL is VarRef ? "ptr*" : "ptr"
@@ -59,11 +88,40 @@ class IMFContentEnabler extends IUnknown{
     }
 
     /**
+     * Retrieves the data for a manual content enabling action.
+     * @param {Pointer<Pointer<Integer>>} ppbData Receives a pointer to a buffer that contains the data. The caller must free the buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @param {Pointer<Integer>} pcbData Receives the size of the <i>ppbData</i> buffer.
+     * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Pointer<Integer>>} ppbData 
-     * @param {Pointer<Integer>} pcbData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-getenabledata
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_NOT_AVAILABLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No data is available.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentenabler-getenabledata
      */
     GetEnableData(ppbData, pcbData) {
         ppbDataMarshal := ppbData is VarRef ? "ptr*" : "ptr"
@@ -74,9 +132,9 @@ class IMFContentEnabler extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-isautomaticsupported
+     * Queries whether the content enabler can perform all of its actions automatically.
+     * @returns {BOOL} Receives a Boolean value. If <b>TRUE</b>, the content enabler can perform the enabing action automatically.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentenabler-isautomaticsupported
      */
     IsAutomaticSupported() {
         result := ComCall(6, this, "int*", &pfAutomatic := 0, "HRESULT")
@@ -84,9 +142,27 @@ class IMFContentEnabler extends IUnknown{
     }
 
     /**
+     * Performs a content enabling action without any user interaction.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-automaticenable
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentenabler-automaticenable
      */
     AutomaticEnable() {
         result := ComCall(7, this, "HRESULT")
@@ -94,9 +170,38 @@ class IMFContentEnabler extends IUnknown{
     }
 
     /**
+     * Requests notification when the enabling action is completed.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-monitorenable
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded and no action was required.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentenabler-monitorenable
      */
     MonitorEnable() {
         result := ComCall(8, this, "HRESULT")
@@ -104,9 +209,27 @@ class IMFContentEnabler extends IUnknown{
     }
 
     /**
+     * Cancels a pending content enabling action.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentenabler-cancel
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentenabler-cancel
      */
     Cancel() {
         result := ComCall(9, this, "HRESULT")

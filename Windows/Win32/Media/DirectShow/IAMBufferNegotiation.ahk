@@ -32,10 +32,61 @@ class IAMBufferNegotiation extends IUnknown{
     static VTableNames => ["SuggestAllocatorProperties", "GetAllocatorProperties"]
 
     /**
+     * The SuggestAllocatorProperties method informs the pin of the application's preferred allocator properties. Call this method before the pin connects.
+     * @param {Pointer<ALLOCATOR_PROPERTIES>} pprop Pointer to an [ALLOCATOR_PROPERTIES](/windows/desktop/api/strmif/ns-strmif-allocator_properties) structure that contains the requested properties. A negative value for any member indicates that the pin should use its default setting for that property.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Pointer<ALLOCATOR_PROPERTIES>} pprop 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iambuffernegotiation-suggestallocatorproperties
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failure.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_ALREADY_CONNECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Pin is already connected.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iambuffernegotiation-suggestallocatorproperties
      */
     SuggestAllocatorProperties(pprop) {
         result := ComCall(3, this, "ptr", pprop, "HRESULT")
@@ -43,9 +94,9 @@ class IAMBufferNegotiation extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ALLOCATOR_PROPERTIES} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iambuffernegotiation-getallocatorproperties
+     * The GetAllocatorProperties method retrieves the allocator properties that the pin is using.
+     * @returns {ALLOCATOR_PROPERTIES} Pointer to an [ALLOCATOR_PROPERTIES](/windows/desktop/api/strmif/ns-strmif-allocator_properties) structure, allocated by the caller, that receives the allocator properties.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iambuffernegotiation-getallocatorproperties
      */
     GetAllocatorProperties() {
         pprop := ALLOCATOR_PROPERTIES()

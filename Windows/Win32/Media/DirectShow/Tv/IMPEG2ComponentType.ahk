@@ -42,9 +42,17 @@ class IMPEG2ComponentType extends ILanguageComponentType{
     static VTableNames => ["get_StreamType", "put_StreamType"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2componenttype-get_streamtype
+     * @type {Integer} 
+     */
+    StreamType {
+        get => this.get_StreamType()
+        set => this.put_StreamType(value)
+    }
+
+    /**
+     * The get_StreamType method retrieves the stream type.
+     * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/mpeg2streamtype">MPEG2StreamType</a> that receives the stream type value.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2componenttype-get_streamtype
      */
     get_StreamType() {
         result := ComCall(26, this, "int*", &MP2StreamType := 0, "HRESULT")
@@ -52,10 +60,10 @@ class IMPEG2ComponentType extends ILanguageComponentType{
     }
 
     /**
-     * 
-     * @param {Integer} MP2StreamType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-impeg2componenttype-put_streamtype
+     * The put_StreamType method sets the MPEG2 stream type.
+     * @param {Integer} MP2StreamType Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/mpeg2streamtype">MPEG2StreamType</a> that specifies the stream type.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-impeg2componenttype-put_streamtype
      */
     put_StreamType(MP2StreamType) {
         result := ComCall(27, this, "int", MP2StreamType, "HRESULT")

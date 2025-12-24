@@ -37,11 +37,11 @@ class IESEvents extends IUnknown{
     static VTableNames => ["OnESEventReceived"]
 
     /**
-     * 
-     * @param {Guid} guidEventType 
-     * @param {IESEvent} pESEvent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesevents-oneseventreceived
+     * Defines a handler for an event that is derived from the IESEvent interface.
+     * @param {Guid} guidEventType GUID for the type of event being handled.
+     * @param {IESEvent} pESEvent Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-iesevent">IESEvent</a> object that contains data from the event being handled.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesevents-oneseventreceived
      */
     OnESEventReceived(guidEventType, pESEvent) {
         result := ComCall(3, this, "ptr", guidEventType, "ptr", pESEvent, "HRESULT")

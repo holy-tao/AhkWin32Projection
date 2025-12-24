@@ -35,11 +35,17 @@ class IPublishedApp2 extends IPublishedApp{
     static VTableNames => ["Install2"]
 
     /**
+     * Installs an application published by an application publisher, while preventing multiple windows from being active on the same thread.
+     * @param {Pointer<SYSTEMTIME>} pstInstall Type: <b>LPSYSTEMTIME</b>
      * 
-     * @param {Pointer<SYSTEMTIME>} pstInstall 
-     * @param {HWND} hwndParent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ipublishedapp2-install2
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure.
+     * @param {HWND} hwndParent Type: <b>HWND</b>
+     * 
+     * A handle to the parent window.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ipublishedapp2-install2
      */
     Install2(pstInstall, hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

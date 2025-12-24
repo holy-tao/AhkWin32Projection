@@ -31,13 +31,13 @@ class IWMDRMEditor extends IUnknown{
     static VTableNames => ["GetDRMProperty"]
 
     /**
-     * 
-     * @param {PWSTR} pwstrName 
-     * @param {Pointer<Integer>} pdwType 
-     * @param {Pointer<Integer>} pValue 
-     * @param {Pointer<Integer>} pcbLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmeditor-getdrmproperty
+     * The GetDRMProperty method retrieves the specified DRM property.
+     * @param {PWSTR} pwstrName Specifies the DRM file attribute to retrieve.
+     * @param {Pointer<Integer>} pdwType Pointer that receives the data type of the returned value.
+     * @param {Pointer<Integer>} pValue Pointer to the value requested in <i>pwstrName</i>.
+     * @param {Pointer<Integer>} pcbLength Length of <i>pValue</i> in bytes.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmeditor-getdrmproperty
      */
     GetDRMProperty(pwstrName, pdwType, pValue, pcbLength) {
         pwstrName := pwstrName is String ? StrPtr(pwstrName) : pwstrName

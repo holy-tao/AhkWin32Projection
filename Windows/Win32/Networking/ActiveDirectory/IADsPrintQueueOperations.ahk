@@ -32,6 +32,13 @@ class IADsPrintQueueOperations extends IADs{
     static VTableNames => ["get_Status", "PrintJobs", "Pause", "Resume", "Purge"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */
@@ -41,9 +48,9 @@ class IADsPrintQueueOperations extends IADs{
     }
 
     /**
-     * 
-     * @returns {IADsCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsprintqueueoperations-printjobs
+     * The IADsPrintQueueOperations::PrintJobs method gets an IADsCollection interface pointer on the collection of the print jobs processed in this print queue.
+     * @returns {IADsCollection} Pointer to a pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> interface on the collection of objects added to this print queue. Objects in the collection implement the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadsprintjob">IADsPrintJob</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintqueueoperations-printjobs
      */
     PrintJobs() {
         result := ComCall(21, this, "ptr*", &pObject := 0, "HRESULT")
@@ -51,9 +58,9 @@ class IADsPrintQueueOperations extends IADs{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsprintqueueoperations-pause
+     * The IADsPrintQueueOperations::Pause method suspends the processing of print jobs within a print queue service.
+     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see the  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintqueueoperations-pause
      */
     Pause() {
         result := ComCall(22, this, "HRESULT")
@@ -61,9 +68,9 @@ class IADsPrintQueueOperations extends IADs{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsprintqueueoperations-resume
+     * The IADsPrintQueueOperations::Resume method resumes processing of suspended print jobs in the print queue.
+     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see the  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintqueueoperations-resume
      */
     Resume() {
         result := ComCall(23, this, "HRESULT")
@@ -71,9 +78,9 @@ class IADsPrintQueueOperations extends IADs{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsprintqueueoperations-purge
+     * The IADsPrintQueueOperations::Purge method clears the print queue of all print jobs without processing them.
+     * @returns {HRESULT} This method supports the standard return values. For more information about other return values, see the  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsprintqueueoperations-purge
      */
     Purge() {
         result := ComCall(24, this, "HRESULT")

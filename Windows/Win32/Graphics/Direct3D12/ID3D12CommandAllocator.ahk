@@ -39,9 +39,12 @@ class ID3D12CommandAllocator extends ID3D12Pageable{
     static VTableNames => ["Reset"]
 
     /**
+     * Indicates to re-use the memory that is associated with the command allocator.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12commandallocator-reset
+     * This method returns <b>E_FAIL</b> if there is an actively recording command list referencing the command allocator.  The debug layer will also issue an error in this case.  
+     *         See <a href="/windows/desktop/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a> for other possible return values.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12commandallocator-reset
      */
     Reset() {
         result := ComCall(8, this, "HRESULT")

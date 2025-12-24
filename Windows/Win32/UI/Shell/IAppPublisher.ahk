@@ -91,9 +91,9 @@ class IAppPublisher extends IUnknown{
     static VTableNames => ["GetNumberOfCategories", "GetCategories", "GetNumberOfApps", "EnumApps"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-iapppublisher-getnumberofcategories
+     * Obsolete. Clients of the Add/Remove Programs Control Panel Application may return E_NOTIMPL.
+     * @returns {Integer} This parameter is unused.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-iapppublisher-getnumberofcategories
      */
     GetNumberOfCategories() {
         result := ComCall(3, this, "uint*", &pdwCat := 0, "HRESULT")
@@ -101,9 +101,11 @@ class IAppPublisher extends IUnknown{
     }
 
     /**
+     * Retrieves a structure listing the categories provided by an application publisher.
+     * @returns {APPCATEGORYINFOLIST} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-appcategoryinfolist">APPCATEGORYINFOLIST</a>*</b>
      * 
-     * @returns {APPCATEGORYINFOLIST} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-iapppublisher-getcategories
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-appcategoryinfolist">APPCATEGORYINFOLIST</a> structure. This structure's <b>cCategory</b> member returns the count of supported categories. The <b>pCategoryInfo</b> member returns a pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/appmgmt/ns-appmgmt-appcategoryinfo">APPCATEGORYINFO</a> structures. This array contains all the categories an application publisher supports and must be allocated using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and freed using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-iapppublisher-getcategories
      */
     GetCategories() {
         pAppCategoryList := APPCATEGORYINFOLIST()
@@ -112,9 +114,9 @@ class IAppPublisher extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-iapppublisher-getnumberofapps
+     * Obsolete. Clients of Add/Remove Programs Control Panel Application can return E_NOTIMPL.
+     * @returns {Integer} This parameter is unused.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-iapppublisher-getnumberofapps
      */
     GetNumberOfApps() {
         result := ComCall(5, this, "uint*", &pdwApps := 0, "HRESULT")
@@ -122,10 +124,14 @@ class IAppPublisher extends IUnknown{
     }
 
     /**
+     * Creates an enumerator for enumerating all applications published by an application publisher for a given category.
+     * @param {Pointer<Guid>} pAppCategoryId Type: <b>GUID*</b>
      * 
-     * @param {Pointer<Guid>} pAppCategoryId 
-     * @returns {IEnumPublishedApps} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-iapppublisher-enumapps
+     * A pointer to a GUID that specifies the application category to be enumerated. This must be one of the categories provided through <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-iapppublisher-getcategories">IAppPublisher::GetCategories</a>. If <i>pAppCategoryID</i> identifies a category not provided through <b>IAppPublisher::GetCategories</b>, creation of the enumerator succeeds with the enumerator returning zero items. If this parameter value is <b>NULL</b>, the enumerator returns applications published for all categories.
+     * @returns {IEnumPublishedApps} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ienumpublishedapps">IEnumPublishedApps</a>**</b>
+     * 
+     * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ienumpublishedapps">IEnumPublishedApps</a> reference variable that points to a <b>IEnumPublishedApps</b> interface. Application publishers must create an enumeration object that supports the <b>IEnumPublishedApps</b> interface, and return its pointer value through this parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-iapppublisher-enumapps
      */
     EnumApps(pAppCategoryId) {
         result := ComCall(6, this, "ptr", pAppCategoryId, "ptr*", &ppepa := 0, "HRESULT")

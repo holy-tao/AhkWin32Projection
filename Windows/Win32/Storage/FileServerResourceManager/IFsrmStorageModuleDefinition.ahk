@@ -31,9 +31,33 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
     static VTableNames => ["get_Capabilities", "put_Capabilities", "get_StorageType", "put_StorageType", "get_UpdatesFileContent", "put_UpdatesFileContent"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    Capabilities {
+        get => this.get_Capabilities()
+        set => this.put_Capabilities(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StorageType {
+        get => this.get_StorageType()
+        set => this.put_StorageType(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    UpdatesFileContent {
+        get => this.get_UpdatesFileContent()
+        set => this.put_UpdatesFileContent(value)
+    }
+
+    /**
+     * Flags that specify capabilities of the storage module.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_capabilities
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_capabilities
      */
     get_Capabilities() {
         result := ComCall(31, this, "int*", &capabilities := 0, "HRESULT")
@@ -41,10 +65,10 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
     }
 
     /**
-     * 
+     * Flags that specify capabilities of the storage module.
      * @param {Integer} capabilities 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-put_capabilities
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-put_capabilities
      */
     put_Capabilities(capabilities) {
         result := ComCall(32, this, "int", capabilities, "HRESULT")
@@ -52,9 +76,9 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
     }
 
     /**
-     * 
+     * The type of storage that the storage module uses.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_storagetype
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_storagetype
      */
     get_StorageType() {
         result := ComCall(33, this, "int*", &storageType := 0, "HRESULT")
@@ -62,10 +86,10 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
     }
 
     /**
-     * 
+     * The type of storage that the storage module uses.
      * @param {Integer} storageType 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-put_storagetype
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-put_storagetype
      */
     put_StorageType(storageType) {
         result := ComCall(34, this, "int", storageType, "HRESULT")
@@ -73,9 +97,18 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
     }
 
     /**
+     * Determines whether the module updates the contents of the file.
+     * @remarks
+     * 
+     * Setting this property to <b>VARIANT_TRUE</b> does not require that the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_storagetype">IFsrmStorageModuleDefinition::StorageType</a> 
+     *     property to be set to <b>FsrmStorageModuleType_InFile</b>. For example, you can set this 
+     *     property to <b>VARIANT_TRUE</b> if you need to update the file to let another process know that 
+     *     you have processed the file.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_updatesfilecontent
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_updatesfilecontent
      */
     get_UpdatesFileContent() {
         result := ComCall(35, this, "short*", &updatesFileContent := 0, "HRESULT")
@@ -83,10 +116,19 @@ class IFsrmStorageModuleDefinition extends IFsrmPipelineModuleDefinition{
     }
 
     /**
+     * Determines whether the module updates the contents of the file.
+     * @remarks
+     * 
+     * Setting this property to <b>VARIANT_TRUE</b> does not require that the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-get_storagetype">IFsrmStorageModuleDefinition::StorageType</a> 
+     *     property to be set to <b>FsrmStorageModuleType_InFile</b>. For example, you can set this 
+     *     property to <b>VARIANT_TRUE</b> if you need to update the file to let another process know that 
+     *     you have processed the file.
+     * 
      * 
      * @param {VARIANT_BOOL} updatesFileContent 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-put_updatesfilecontent
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduledefinition-put_updatesfilecontent
      */
     put_UpdatesFileContent(updatesFileContent) {
         result := ComCall(36, this, "short", updatesFileContent, "HRESULT")

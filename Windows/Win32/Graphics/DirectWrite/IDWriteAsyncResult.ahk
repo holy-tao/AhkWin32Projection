@@ -37,9 +37,11 @@ class IDWriteAsyncResult extends IUnknown{
     static VTableNames => ["GetWaitHandle", "GetResult"]
 
     /**
+     * Returns a handle that can be used to wait for the asynchronous operation to complete. The handle remains valid until the interface is released.
+     * @returns {HANDLE} Type: <b>HANDLE</b>
      * 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteasyncresult-getwaithandle
+     * Returns a handle that can be used to wait for the asynchronous operation to complete. The handle remains valid until the interface is released.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteasyncresult-getwaithandle
      */
     GetWaitHandle() {
         result := ComCall(3, this, "ptr")
@@ -47,9 +49,11 @@ class IDWriteAsyncResult extends IUnknown{
     }
 
     /**
+     * Returns the result of the asynchronous operation. The return value is E_PENDING if the operation has not yet completed.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriteasyncresult-getresult
+     * Returns the result of the asynchronous operation. The return value is E_PENDING if the operation has not yet completed.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriteasyncresult-getresult
      */
     GetResult() {
         result := ComCall(4, this, "HRESULT")

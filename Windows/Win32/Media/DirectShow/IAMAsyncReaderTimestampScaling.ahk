@@ -38,9 +38,36 @@ class IAMAsyncReaderTimestampScaling extends IUnknown{
     static VTableNames => ["GetTimestampMode", "SetTimestampMode"]
 
     /**
+     * Gets the filter's time-stamping mode.
+     * @returns {BOOL} Receives a Boolean value.
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamasyncreadertimestampscaling-gettimestampmode
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TRUE"></a><a id="true"></a><dl>
+     * <dt><b><b>TRUE</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Time stamps are in units of bytes.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="FALSE"></a><a id="false"></a><dl>
+     * <dt><b><b>FALSE</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Time stamps are in units of bytes × 10000000. To get the offset in bytes, divide the sample time by 10000000.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamasyncreadertimestampscaling-gettimestampmode
      */
     GetTimestampMode() {
         result := ComCall(3, this, "int*", &pfRaw := 0, "HRESULT")
@@ -48,10 +75,40 @@ class IAMAsyncReaderTimestampScaling extends IUnknown{
     }
 
     /**
+     * Sets the filter's time-stamping mode.
+     * @param {BOOL} fRaw Specifies the units for the source filter's time stamps.
      * 
-     * @param {BOOL} fRaw 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamasyncreadertimestampscaling-settimestampmode
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TRUE"></a><a id="true"></a><dl>
+     * <dt><b><b>TRUE</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Time stamps are in units of bytes.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="FALSE"></a><a id="false"></a><dl>
+     * <dt><b><b>FALSE</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Time stamps are in units of bytes × 10000000. To get the offset in bytes, divide the sample time by 10000000.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The default value is <b>FALSE</b>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamasyncreadertimestampscaling-settimestampmode
      */
     SetTimestampMode(fRaw) {
         result := ComCall(4, this, "int", fRaw, "HRESULT")

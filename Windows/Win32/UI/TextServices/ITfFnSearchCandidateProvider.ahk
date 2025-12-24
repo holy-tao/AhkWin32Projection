@@ -42,11 +42,11 @@ class ITfFnSearchCandidateProvider extends ITfFunction{
     static VTableNames => ["GetSearchCandidates", "SetResult"]
 
     /**
-     * 
-     * @param {BSTR} bstrQuery 
-     * @param {BSTR} bstrApplicationId 
-     * @returns {ITfCandidateList} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnsearchcandidateprovider-getsearchcandidates
+     * Gets a list of conversion candidates for a given string without generating any IME-related messages or events.
+     * @param {BSTR} bstrQuery A string that specifies the reading string that the text service attempts to convert.
+     * @param {BSTR} bstrApplicationId App-specified string that enables a text service to optionally provide different candidates to different apps or contexts based on input history. You can pass an empty <b>BSTR</b>, L””, for a generic context.
+     * @returns {ITfCandidateList} An <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-itfcandidatelist">ITfCandidateList</a> that receives the requested candidate data.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnsearchcandidateprovider-getsearchcandidates
      */
     GetSearchCandidates(bstrQuery, bstrApplicationId) {
         bstrQuery := bstrQuery is String ? BSTR.Alloc(bstrQuery).Value : bstrQuery
@@ -57,12 +57,30 @@ class ITfFnSearchCandidateProvider extends ITfFunction{
     }
 
     /**
+     * Provides a text Service or IME with history data when a candidate is chosen by the user.
+     * @param {BSTR} bstrQuery The reading string for the text service or IME to convert.
+     * @param {BSTR} bstrApplicationID App-specified string that enables a text service or IME to optionally provide different candidates to different apps or contexts based on input history. You can pass an empty <b>BSTR</b>, L””, for a generic context.
+     * @param {BSTR} bstrResult A string that represents the candidate string chosen by the user.  It should be one of the candidate string values returned by the <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nf-ctffunc-itffnsearchcandidateprovider-getsearchcandidates">GetSearchCandidates</a> method.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} bstrQuery 
-     * @param {BSTR} bstrApplicationID 
-     * @param {BSTR} bstrResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnsearchcandidateprovider-setresult
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnsearchcandidateprovider-setresult
      */
     SetResult(bstrQuery, bstrApplicationID, bstrResult) {
         bstrQuery := bstrQuery is String ? BSTR.Alloc(bstrQuery).Value : bstrQuery

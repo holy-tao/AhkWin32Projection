@@ -31,9 +31,17 @@ class IFsrmFileGroupImported extends IFsrmFileGroup{
     static VTableNames => ["get_OverwriteOnCommit", "put_OverwriteOnCommit"]
 
     /**
-     * 
+     * @type {VARIANT_BOOL} 
+     */
+    OverwriteOnCommit {
+        get => this.get_OverwriteOnCommit()
+        set => this.put_OverwriteOnCommit(value)
+    }
+
+    /**
+     * Retrieves or sets a value that determines whether a file group is overwritten if it exists.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupimported-get_overwriteoncommit
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupimported-get_overwriteoncommit
      */
     get_OverwriteOnCommit() {
         result := ComCall(18, this, "short*", &overwrite := 0, "HRESULT")
@@ -41,10 +49,10 @@ class IFsrmFileGroupImported extends IFsrmFileGroup{
     }
 
     /**
-     * 
+     * Retrieves or sets a value that determines whether a file group is overwritten if it exists.
      * @param {VARIANT_BOOL} overwrite 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupimported-put_overwriteoncommit
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupimported-put_overwriteoncommit
      */
     put_OverwriteOnCommit(overwrite) {
         result := ComCall(19, this, "short", overwrite, "HRESULT")

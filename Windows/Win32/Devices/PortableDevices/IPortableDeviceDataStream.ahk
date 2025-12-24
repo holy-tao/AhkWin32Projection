@@ -31,9 +31,9 @@ class IPortableDeviceDataStream extends IStream{
     static VTableNames => ["GetObjectID", "Cancel"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicedatastream-getobjectid
+     * The GetObjectID method retrieves the object ID of the resource that was written to the device. This method is only valid after calling IStream::Commit on the data stream.
+     * @returns {PWSTR} The ID of the object just transferred to the device.
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicedatastream-getobjectid
      */
     GetObjectID() {
         result := ComCall(14, this, "ptr*", &ppszObjectID := 0, "HRESULT")
@@ -41,9 +41,27 @@ class IPortableDeviceDataStream extends IStream{
     }
 
     /**
+     * The Cancel method cancels a call in progress on this interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicedatastream-cancel
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicedatastream-cancel
      */
     Cancel() {
         result := ComCall(15, this, "HRESULT")

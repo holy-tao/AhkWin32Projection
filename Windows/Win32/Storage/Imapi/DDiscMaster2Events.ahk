@@ -38,11 +38,13 @@ class DDiscMaster2Events extends IDispatch{
     static VTableNames => ["NotifyDeviceAdded", "NotifyDeviceRemoved"]
 
     /**
+     * Receives notification when an optical media device is added to the computer.
+     * @param {IDispatch} object An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscmaster2">IDiscMaster2</a> interface that you can use to enumerate the devices on the computer. 
      * 
-     * @param {IDispatch} object 
-     * @param {BSTR} uniqueId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscmaster2events-notifydeviceadded
+     * This parameter is a <b>MsftDiscMaster2</b> object in script.
+     * @param {BSTR} uniqueId String that contains an identifier that uniquely identifies the optical media device that was added to the computer.
+     * @returns {HRESULT} Return values are ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-ddiscmaster2events-notifydeviceadded
      */
     NotifyDeviceAdded(object, uniqueId) {
         uniqueId := uniqueId is String ? BSTR.Alloc(uniqueId).Value : uniqueId
@@ -52,11 +54,13 @@ class DDiscMaster2Events extends IDispatch{
     }
 
     /**
+     * Receives notification when an optical media device is removed from the computer.
+     * @param {IDispatch} object An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscmaster2">IDiscMaster2</a> interface that you can use to enumerate the devices on the computer. 
      * 
-     * @param {IDispatch} object 
-     * @param {BSTR} uniqueId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscmaster2events-notifydeviceremoved
+     * This parameter is a <b>MsftDiscMaster2</b> object in script.
+     * @param {BSTR} uniqueId String that contains an identifier that uniquely identifies the optical media device that was added to the computer.
+     * @returns {HRESULT} Return values are ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-ddiscmaster2events-notifydeviceremoved
      */
     NotifyDeviceRemoved(object, uniqueId) {
         uniqueId := uniqueId is String ? BSTR.Alloc(uniqueId).Value : uniqueId

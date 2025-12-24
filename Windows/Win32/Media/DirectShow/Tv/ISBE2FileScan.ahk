@@ -35,10 +35,50 @@ class ISBE2FileScan extends IUnknown{
     static VTableNames => ["RepairFile"]
 
     /**
+     * Repairs a corrupted .WTV file.
+     * @param {PWSTR} filename A pointer to a null-terminated wide-character string that specifies the full path name of the .WTV file.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {PWSTR} filename 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-isbe2filescan-repairfile
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>S_OK</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>E_POINTER</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Null pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>INVALID_HANDLE_VALUE</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid .WTV file.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-isbe2filescan-repairfile
      */
     RepairFile(filename) {
         filename := filename is String ? StrPtr(filename) : filename

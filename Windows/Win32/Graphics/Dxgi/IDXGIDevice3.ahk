@@ -52,9 +52,9 @@ class IDXGIDevice3 extends IDXGIDevice2{
     static VTableNames => ["Trim"]
 
     /**
-     * 
+     * Trims the graphics memory allocated by the IDXGIDevice3 DXGI device on the app's behalf.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_3/nf-dxgi1_3-idxgidevice3-trim
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_3/nf-dxgi1_3-idxgidevice3-trim
      */
     Trim() {
         ComCall(17, this)

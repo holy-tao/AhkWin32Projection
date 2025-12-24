@@ -31,10 +31,11 @@ class ITPluggableTerminalEventSink extends IUnknown{
     static VTableNames => ["FireEvent"]
 
     /**
-     * 
-     * @param {Pointer<MSP_EVENT_INFO>} pMspEventInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msp/nf-msp-itpluggableterminaleventsink-fireevent
+     * The FireEvent method results in a message that notifies the client application of a change in the pluggable terminal.
+     * @param {Pointer<MSP_EVENT_INFO>} pMspEventInfo Pointer to a const cast of the 
+     * <a href="https://docs.microsoft.com/windows/win32/api/msp/ns-msp-msp_event_info">MSP_EVENT_INFO</a> structure.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3/nf-tapi3-itpluggableterminaleventsink-fireevent
      */
     FireEvent(pMspEventInfo) {
         result := ComCall(3, this, "ptr", pMspEventInfo, "HRESULT")

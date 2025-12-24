@@ -30,6 +30,13 @@ class IPMTaskInfoEnumerator extends IUnknown{
     static VTableNames => ["get_Next"]
 
     /**
+     * @type {IPMTaskInfo} 
+     */
+    Next {
+        get => this.get_Next()
+    }
+
+    /**
      * 
      * @returns {IPMTaskInfo} 
      */

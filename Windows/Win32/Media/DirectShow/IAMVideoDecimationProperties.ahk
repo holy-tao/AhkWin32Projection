@@ -31,9 +31,9 @@ class IAMVideoDecimationProperties extends IUnknown{
     static VTableNames => ["QueryDecimationUsage", "SetDecimationUsage"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideodecimationproperties-querydecimationusage
+     * The QueryDecimationUsage method retrieves the current decimation strategy.
+     * @returns {Integer} Pointer to a variable of type [DECIMATION_USAGE](/windows/desktop/api/strmif/ne-strmif-decimation_usage) that receives the decimation setting.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideodecimationproperties-querydecimationusage
      */
     QueryDecimationUsage() {
         result := ComCall(3, this, "int*", &lpUsage := 0, "HRESULT")
@@ -41,10 +41,10 @@ class IAMVideoDecimationProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} Usage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideodecimationproperties-setdecimationusage
+     * The SetDecimationUsage method sets the decimation strategy.
+     * @param {Integer} Usage Member of the [DECIMATION_USAGE](/windows/desktop/api/strmif/ne-strmif-decimation_usage) enumeration that specifies the decimation strategy.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface. The DirectShow implementation returns S_OK if successful, or E_INVALIDARG otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideodecimationproperties-setdecimationusage
      */
     SetDecimationUsage(Usage) {
         result := ComCall(4, this, "int", Usage, "HRESULT")

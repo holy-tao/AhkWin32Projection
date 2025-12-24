@@ -33,11 +33,17 @@ class ID2D1DeviceContext5 extends ID2D1DeviceContext4{
     static VTableNames => ["CreateSvgDocument", "DrawSvgDocument", "CreateColorContextFromDxgiColorSpace", "CreateColorContextFromSimpleColorProfile"]
 
     /**
+     * Creates an SVG document from a stream.
+     * @param {IStream} inputXmlStream Type: <b>IStream*</b>
      * 
-     * @param {IStream} inputXmlStream 
-     * @param {D2D_SIZE_F} viewportSize 
-     * @returns {ID2D1SvgDocument} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext5-createsvgdocument
+     * An input stream containing the SVG XML document. If null, an empty document is created.
+     * @param {D2D_SIZE_F} viewportSize Type: <b>D2D1_SIZE_F</b>
+     * 
+     * Size of the initial viewport of the document.
+     * @returns {ID2D1SvgDocument} Type: <b>ID2D1SvgDocument**</b>
+     * 
+     * When this method returns, contains a pointer to the created SVG document.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext5-createsvgdocument
      */
     CreateSvgDocument(inputXmlStream, viewportSize) {
         result := ComCall(115, this, "ptr", inputXmlStream, "ptr", viewportSize, "ptr*", &svgDocument := 0, "HRESULT")
@@ -45,20 +51,26 @@ class ID2D1DeviceContext5 extends ID2D1DeviceContext4{
     }
 
     /**
+     * Draws an SVG document.
+     * @param {ID2D1SvgDocument} svgDocument Type: <b>ID2D1SvgDocument*</b>
      * 
-     * @param {ID2D1SvgDocument} svgDocument 
+     * The SVG document to draw.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext5-drawsvgdocument
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext5-drawsvgdocument
      */
     DrawSvgDocument(svgDocument) {
         ComCall(116, this, "ptr", svgDocument)
     }
 
     /**
+     * Creates a color context from a DXGI color space type. It is only valid to use this with the Color Management Effect in 'Best' mode.
+     * @param {Integer} colorSpace Type: <b>DXGI_COLOR_SPACE_TYPE</b>
      * 
-     * @param {Integer} colorSpace 
-     * @returns {ID2D1ColorContext1} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext5-createcolorcontextfromdxgicolorspace
+     * The color space to create the color context from.
+     * @returns {ID2D1ColorContext1} Type: <b>ID2D1ColorContext1**</b>
+     * 
+     * The created color context.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext5-createcolorcontextfromdxgicolorspace
      */
     CreateColorContextFromDxgiColorSpace(colorSpace) {
         result := ComCall(117, this, "int", colorSpace, "ptr*", &colorContext := 0, "HRESULT")

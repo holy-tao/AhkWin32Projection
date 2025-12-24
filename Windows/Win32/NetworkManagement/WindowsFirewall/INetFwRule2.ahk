@@ -31,9 +31,17 @@ class INetFwRule2 extends INetFwRule{
     static VTableNames => ["get_EdgeTraversalOptions", "put_EdgeTraversalOptions"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    EdgeTraversalOptions {
+        get => this.get_EdgeTraversalOptions()
+        set => this.put_EdgeTraversalOptions(value)
+    }
+
+    /**
+     * This property can be used to access the edge properties of a firewall rule defined by NET_FW_EDGE_TRAVERSAL_TYPE.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule2-get_edgetraversaloptions
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule2-get_edgetraversaloptions
      */
     get_EdgeTraversalOptions() {
         result := ComCall(43, this, "int*", &lOptions := 0, "HRESULT")
@@ -41,10 +49,10 @@ class INetFwRule2 extends INetFwRule{
     }
 
     /**
-     * 
+     * This property can be used to access the edge properties of a firewall rule defined by NET_FW_EDGE_TRAVERSAL_TYPE.
      * @param {Integer} lOptions 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule2-put_edgetraversaloptions
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule2-put_edgetraversaloptions
      */
     put_EdgeTraversalOptions(lOptions) {
         result := ComCall(44, this, "int", lOptions, "HRESULT")

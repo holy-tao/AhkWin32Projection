@@ -36,6 +36,21 @@ class ISVGAnimatedString extends IDispatch{
     static VTableNames => ["put_baseVal", "get_baseVal", "get_animVal"]
 
     /**
+     * @type {BSTR} 
+     */
+    baseVal {
+        get => this.get_baseVal()
+        set => this.put_baseVal(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    animVal {
+        get => this.get_animVal()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

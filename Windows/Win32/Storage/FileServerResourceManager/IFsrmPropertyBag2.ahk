@@ -33,10 +33,14 @@ class IFsrmPropertyBag2 extends IFsrmPropertyBag{
     static VTableNames => ["GetFieldValue", "GetUntrustedInFileProperties"]
 
     /**
+     * Gets the value of the specified field from the property bag.
+     * @param {Integer} field Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmpropertybagfield">FsrmPropertyBagField</a></b>
      * 
-     * @param {Integer} field 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag2-getfieldvalue
+     * Indicates whether the volume name returned is the name of the volume being accessed, which may be a snapshot, or the volume where the property bag lives.
+     * @returns {VARIANT} Type: <b>VARIANT*</b>
+     * 
+     * Returns the specified value.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag2-getfieldvalue
      */
     GetFieldValue(field) {
         value := VARIANT()

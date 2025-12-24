@@ -30,6 +30,14 @@ class IHTMLFrameBase3 extends IDispatch{
     static VTableNames => ["put_longDesc", "get_longDesc"]
 
     /**
+     * @type {BSTR} 
+     */
+    longDesc {
+        get => this.get_longDesc()
+        set => this.put_longDesc(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

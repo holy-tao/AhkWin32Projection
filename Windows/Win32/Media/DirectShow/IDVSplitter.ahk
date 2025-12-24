@@ -31,10 +31,39 @@ class IDVSplitter extends IUnknown{
     static VTableNames => ["DiscardAlternateVideoFrames"]
 
     /**
+     * The DiscardAlternateVideoFrames method discards half of the frames in the video stream. For NTSC, the frame rate is reduced from 30 frames per second (fps) to 15 fps. For PAL, the frame rate is reduced from 25 fps to 12.5 fps.
+     * @param {Integer} nDiscard Flag that specifies whether to discard frames. If the value is non-zero, the filter discards alternate frames. If the value is zero, the filter delivers every frame.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those shown in the following table.
      * 
-     * @param {Integer} nDiscard 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvsplitter-discardalternatevideoframes
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Filter is paused or running.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvsplitter-discardalternatevideoframes
      */
     DiscardAlternateVideoFrames(nDiscard) {
         result := ComCall(3, this, "int", nDiscard, "HRESULT")

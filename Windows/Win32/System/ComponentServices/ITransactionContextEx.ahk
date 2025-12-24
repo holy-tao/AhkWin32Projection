@@ -52,11 +52,11 @@ class ITransactionContextEx extends IUnknown{
     static VTableNames => ["CreateInstance", "Commit", "Abort"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} rclsid 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactioncontextex-createinstance
+     * Creates a COM object that can execute within the scope of the transaction that was initiated by the transaction context object.
+     * @param {Pointer<Guid>} rclsid A reference to the CLSID of the type of object to be instantiated.
+     * @param {Pointer<Guid>} riid A reference to the interface ID of the interface through which you will communicate with the new object.
+     * @returns {Pointer<Void>} A reference to a new object of the type specified by the <i>rclsid</i> parameter, through the interface specified by the <i>riid</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactioncontextex-createinstance
      */
     CreateInstance(rclsid, riid) {
         result := ComCall(3, this, "ptr", rclsid, "ptr", riid, "ptr*", &pObject := 0, "HRESULT")
@@ -64,9 +64,49 @@ class ITransactionContextEx extends IUnknown{
     }
 
     /**
+     * Attempts to commit the work of all COM objects participating in the current transaction. The transaction ends on return from this method.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactioncontextex-commit
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The transaction was committed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="/windows/desktop/cossdk/transactioncontextex">TransactionContextEx</a> object is not running under a COM+ process, possibly indicating a corrupted registry entry for the <b>TransactionContextEx</b> component.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>CONTEXT_E_ABORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The transaction was aborted.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactioncontextex-commit
      */
     Commit() {
         result := ComCall(4, this, "HRESULT")
@@ -74,9 +114,39 @@ class ITransactionContextEx extends IUnknown{
     }
 
     /**
+     * Aborts the work of all COM objects participating in the current transaction. The transaction ends on return from this method.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, and E_UNEXPECTED, as well as the following values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-itransactioncontextex-abort
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The transaction was aborted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="/windows/desktop/cossdk/transactioncontextex">TransactionContextEx</a> object is not running under a COM+ process, possibly indicating a corrupted registry entry for the <b>TransactionContextEx</b> component.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-itransactioncontextex-abort
      */
     Abort() {
         result := ComCall(5, this, "HRESULT")

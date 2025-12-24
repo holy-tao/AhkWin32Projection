@@ -32,9 +32,23 @@ class IFsrmDerivedObjectsResult extends IDispatch{
     static VTableNames => ["get_DerivedObjects", "get_Results"]
 
     /**
-     * 
+     * @type {IFsrmCollection} 
+     */
+    DerivedObjects {
+        get => this.get_DerivedObjects()
+    }
+
+    /**
+     * @type {IFsrmCollection} 
+     */
+    Results {
+        get => this.get_Results()
+    }
+
+    /**
+     * Retrieves the collection of derived objects that were updated.
      * @returns {IFsrmCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_derivedobjects
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_derivedobjects
      */
     get_DerivedObjects() {
         result := ComCall(7, this, "ptr*", &derivedObjects := 0, "HRESULT")
@@ -42,9 +56,15 @@ class IFsrmDerivedObjectsResult extends IDispatch{
     }
 
     /**
+     * Retrieves the HRESULT values that indicate the success or failure of the update for each derived object.
+     * @remarks
+     * 
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_derivedobjects">IFsrmDerivedObjectsResult::DerivedObjects</a> property contains the corresponding list of derived objects.
+     * 
+     * 
      * 
      * @returns {IFsrmCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_results
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmderivedobjectsresult-get_results
      */
     get_Results() {
         result := ComCall(8, this, "ptr*", &results := 0, "HRESULT")

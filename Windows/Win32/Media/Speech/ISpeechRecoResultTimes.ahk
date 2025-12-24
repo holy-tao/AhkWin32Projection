@@ -30,6 +30,34 @@ class ISpeechRecoResultTimes extends IDispatch{
     static VTableNames => ["get_StreamTime", "get_Length", "get_TickCount", "get_OffsetFromStart"]
 
     /**
+     * @type {VARIANT} 
+     */
+    StreamTime {
+        get => this.get_StreamTime()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Length {
+        get => this.get_Length()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TickCount {
+        get => this.get_TickCount()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    OffsetFromStart {
+        get => this.get_OffsetFromStart()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

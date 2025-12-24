@@ -31,10 +31,16 @@ class IDirectWriterLock extends IUnknown{
     static VTableNames => ["WaitForWriteAccess", "ReleaseWriteAccess", "HaveWriteAccess"]
 
     /**
+     * The WaitForWriteAccess method obtains exclusive write access to a storage object.
+     * @param {Integer} dwTimeout Specifies the time in milliseconds that this method blocks while waiting to obtain exclusive write access to the storage object. If <i>dwTimeout</i> is zero, the method does not block waiting for exclusive access for writing. The INFINITE time-out defined in the Platform SDK is allowed for <i>dwTimeout</i>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} dwTimeout 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idirectwriterlock-waitforwriteaccess
+     * | Return code | Description |
+     * |----------------|---------------|
+     * |S_OK | The caller has successfully obtained exclusive write access to the storage.|
+     * |S_FALSE | This method was called again without an intervening call to IDirectWriterLock::ReleaseWriteAccess.|
+     * |STG_E_INUSE | The specified time-out expired without obtaining exclusive write access.|
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-idirectwriterlock-waitforwriteaccess
      */
     WaitForWriteAccess(dwTimeout) {
         result := ComCall(3, this, "uint", dwTimeout, "HRESULT")
@@ -42,9 +48,13 @@ class IDirectWriterLock extends IUnknown{
     }
 
     /**
+     * The ReleaseWriteAccess method releases the write lock previously obtained.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idirectwriterlock-releasewriteaccess
+     * | Return code | Description |
+     * |----------------|---------------|
+     * |S_OK | The write lock was successfully released.|
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-idirectwriterlock-releasewriteaccess
      */
     ReleaseWriteAccess() {
         result := ComCall(4, this, "HRESULT")
@@ -52,9 +62,14 @@ class IDirectWriterLock extends IUnknown{
     }
 
     /**
+     * The HaveWriteAccess method indicates whether the write lock has been taken.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-idirectwriterlock-havewriteaccess
+     * | Return code | Description |
+     * |----------------|---------------|
+     * |S_OK | The storage object is currently locked for write access.|
+     * |S_FALSE | The storage object is not currently locked for write access.|
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-idirectwriterlock-havewriteaccess
      */
     HaveWriteAccess() {
         result := ComCall(5, this, "HRESULT")

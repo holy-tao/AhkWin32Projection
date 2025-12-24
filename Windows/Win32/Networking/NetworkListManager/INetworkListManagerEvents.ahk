@@ -31,10 +31,10 @@ class INetworkListManagerEvents extends IUnknown{
     static VTableNames => ["ConnectivityChanged"]
 
     /**
-     * 
-     * @param {Integer} newConnectivity 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworklistmanagerevents-connectivitychanged
+     * The NetworkConnectivityChanged method is called when network connectivity related changes occur.
+     * @param {Integer} newConnectivity An <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains the new connectivity settings of the machine.
+     * @returns {HRESULT} Returns S_OK if the method succeeds.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworklistmanagerevents-connectivitychanged
      */
     ConnectivityChanged(newConnectivity) {
         result := ComCall(3, this, "int", newConnectivity, "HRESULT")

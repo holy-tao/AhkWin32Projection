@@ -42,10 +42,13 @@ class IUnsecuredApartment extends IUnknown{
     static VTableNames => ["CreateObjectStub"]
 
     /**
-     * 
-     * @param {IUnknown} pObject 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iunsecuredapartment-createobjectstub
+     * The CreateObjectStub method creates an object forwarder sink to assist in receiving asynchronous calls from Windows Management.
+     * @param {IUnknown} pObject Pointer to the client's in-process implementation of 
+     * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemobjectsink">IWbemObjectSink</a>.
+     * @returns {IUnknown} Receives a pointer to a substitute object to be used in asynchronous 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> calls. The user receives an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer and must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for <b>IID_WbemObjectSink</b> before using this object in asynchronous 
+     * <b>IWbemServices</b> calls.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iunsecuredapartment-createobjectstub
      */
     CreateObjectStub(pObject) {
         result := ComCall(3, this, "ptr", pObject, "ptr*", &ppStub := 0, "HRESULT")

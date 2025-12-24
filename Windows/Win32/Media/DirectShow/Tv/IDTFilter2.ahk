@@ -37,9 +37,16 @@ class IDTFilter2 extends IDTFilter{
     static VTableNames => ["get_ChallengeUrl", "GetCurrLicenseExpDate", "GetLastErrorCode"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-get_challengeurl
+     * @type {BSTR} 
+     */
+    ChallengeUrl {
+        get => this.get_ChallengeUrl()
+    }
+
+    /**
+     * Not implemented in this release.
+     * @returns {BSTR} Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-idtfilter2-get_challengeurl
      */
     get_ChallengeUrl() {
         pbstrChallengeUrl := BSTR()
@@ -48,10 +55,10 @@ class IDTFilter2 extends IDTFilter{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} protType 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-getcurrlicenseexpdate
+     * Not implemented in this release.
+     * @param {Pointer<Integer>} protType Reserved.
+     * @returns {Integer} Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-idtfilter2-getcurrlicenseexpdate
      */
     GetCurrLicenseExpDate(protType) {
         protTypeMarshal := protType is VarRef ? "int*" : "ptr"
@@ -61,9 +68,49 @@ class IDTFilter2 extends IDTFilter{
     }
 
     /**
+     * The GetLastErrorCode method returns the most recent error code from the Decrypter/Detagger filter.
+     * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include the following.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter2-getlasterrorcode
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_DRM_APPCERT_REVOKED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A problem has occurred in the digital rights management (DRM) component.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_DRM_CERTIFICATE_REVOKED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The client's certificate has been revoked.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No DRM errors have occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-idtfilter2-getlasterrorcode
      */
     GetLastErrorCode() {
         result := ComCall(13, this, "HRESULT")

@@ -38,6 +38,84 @@ class IHTMLOptionButtonElement extends IDispatch{
     static VTableNames => ["put_value", "get_value", "get_type", "put_name", "get_name", "put_checked", "get_checked", "put_defaultChecked", "get_defaultChecked", "put_onchange", "get_onchange", "put_disabled", "get_disabled", "put_status", "get_status", "put_indeterminate", "get_indeterminate", "get_form"]
 
     /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    checked {
+        get => this.get_checked()
+        set => this.put_checked(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    defaultChecked {
+        get => this.get_defaultChecked()
+        set => this.put_defaultChecked(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onchange {
+        get => this.get_onchange()
+        set => this.put_onchange(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    disabled {
+        get => this.get_disabled()
+        set => this.put_disabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    status {
+        get => this.get_status()
+        set => this.put_status(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    indeterminate {
+        get => this.get_indeterminate()
+        set => this.put_indeterminate(value)
+    }
+
+    /**
+     * @type {IHTMLFormElement} 
+     */
+    form {
+        get => this.get_form()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

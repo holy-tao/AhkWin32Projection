@@ -42,10 +42,39 @@ class ITfIntegratableCandidateListUIElement extends IUnknown{
     static VTableNames => ["SetIntegrationStyle", "GetSelectionStyle", "OnKeyDown", "ShowCandidateNumbers", "FinalizeExactCompositionString"]
 
     /**
+     * Sets the integration style.
+     * @param {Guid} guidIntegrationStyle The desired type of keyboard integration experience.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Guid} guidIntegrationStyle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-setintegrationstyle
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The text service supports the integration style.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The text service does not support the integration style.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-setintegrationstyle
      */
     SetIntegrationStyle(guidIntegrationStyle) {
         result := ComCall(3, this, "ptr", guidIntegrationStyle, "HRESULT")
@@ -53,9 +82,9 @@ class ITfIntegratableCandidateListUIElement extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-getselectionstyle
+     * Retrieves the selection style.
+     * @returns {Integer} A value that specifies the selection style.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-getselectionstyle
      */
     GetSelectionStyle() {
         result := ComCall(4, this, "int*", &ptfSelectionStyle := 0, "HRESULT")
@@ -63,11 +92,11 @@ class ITfIntegratableCandidateListUIElement extends IUnknown{
     }
 
     /**
-     * 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-onkeydown
+     * Processes a key press.
+     * @param {WPARAM} wParam Specifies the virtual-key code of the key. For more information about this parameter, see the <i>wParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @param {LPARAM} lParam Specifies the repeat count, scan code, extended-key flag, context code, previous key-state flag, and transition-state flag of the key. For more information about this parameter, see the <i>lParam</i> parameter in <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a>.
+     * @returns {BOOL} <b>TRUE</b> if the key event was handled; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-onkeydown
      */
     OnKeyDown(wParam, lParam) {
         result := ComCall(5, this, "ptr", wParam, "ptr", lParam, "int*", &pfEaten := 0, "HRESULT")
@@ -75,9 +104,9 @@ class ITfIntegratableCandidateListUIElement extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-showcandidatenumbers
+     * Specifies whether candidate numbers should be shown.
+     * @returns {BOOL} <b>TRUE</b> if candidate numbers should be shown; otherwise <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-showcandidatenumbers
      */
     ShowCandidateNumbers() {
         result := ComCall(6, this, "int*", &pfShow := 0, "HRESULT")
@@ -85,9 +114,27 @@ class ITfIntegratableCandidateListUIElement extends IUnknown{
     }
 
     /**
+     * Finalizes the current composition with the value currently shown to the user.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-finalizeexactcompositionstring
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfintegratablecandidatelistuielement-finalizeexactcompositionstring
      */
     FinalizeExactCompositionString() {
         result := ComCall(7, this, "HRESULT")

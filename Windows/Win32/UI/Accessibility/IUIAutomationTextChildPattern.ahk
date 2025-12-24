@@ -33,9 +33,23 @@ class IUIAutomationTextChildPattern extends IUnknown{
     static VTableNames => ["get_TextContainer", "get_TextRange"]
 
     /**
-     * 
+     * @type {IUIAutomationElement} 
+     */
+    TextContainer {
+        get => this.get_TextContainer()
+    }
+
+    /**
+     * @type {IUIAutomationTextRange} 
+     */
+    TextRange {
+        get => this.get_TextRange()
+    }
+
+    /**
+     * Retrieves this element's nearest ancestor element that supports the Text control pattern.
      * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextchildpattern-get_textcontainer
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextchildpattern-get_textcontainer
      */
     get_TextContainer() {
         result := ComCall(3, this, "ptr*", &container := 0, "HRESULT")
@@ -43,9 +57,14 @@ class IUIAutomationTextChildPattern extends IUnknown{
     }
 
     /**
+     * Retrieves a text range that encloses this child element.
+     * @remarks
+     * 
+     * This property is equivalent to  specifying this child element in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextpattern-rangefromchild">IUIAutomationTextPattern::RangeFromChild</a> method.
+     * 
      * 
      * @returns {IUIAutomationTextRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtextchildpattern-get_textrange
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtextchildpattern-get_textrange
      */
     get_TextRange() {
         result := ComCall(4, this, "ptr*", &range := 0, "HRESULT")

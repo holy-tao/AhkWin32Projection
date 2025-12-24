@@ -40,12 +40,41 @@ class IUIAnimationPriorityComparison extends IUnknown{
     static VTableNames => ["HasPriority"]
 
     /**
+     * Determines whether a new storyboard has priority over a scheduled storyboard.
+     * @param {IUIAnimationStoryboard} scheduledStoryboard The currently scheduled storyboard.
+     * @param {IUIAnimationStoryboard} newStoryboard The new storyboard that is interrupting the scheduled storyboard specified in <i>scheduledStoryboard</i>.
+     * @param {Integer} priorityEffect The potential effect on <i>newStoryboard</i> if <i>scheduledStoryboard</i> has a higher priority.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {IUIAnimationStoryboard} scheduledStoryboard 
-     * @param {IUIAnimationStoryboard} newStoryboard 
-     * @param {Integer} priorityEffect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationprioritycomparison-haspriority
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>newStoryboard</i> has priority.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>scheduledStoryboard</i> has priority.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationprioritycomparison-haspriority
      */
     HasPriority(scheduledStoryboard, newStoryboard, priorityEffect) {
         result := ComCall(3, this, "ptr", scheduledStoryboard, "ptr", newStoryboard, "int", priorityEffect, "HRESULT")

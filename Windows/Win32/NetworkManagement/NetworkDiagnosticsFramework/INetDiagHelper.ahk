@@ -33,21 +33,74 @@ class INetDiagHelper extends IUnknown{
     static VTableNames => ["Initialize", "GetDiagnosticsInfo", "GetKeyAttributes", "LowHealth", "HighUtilization", "GetLowerHypotheses", "GetDownStreamHypotheses", "GetHigherHypotheses", "GetUpStreamHypotheses", "Repair", "Validate", "GetRepairInfo", "GetLifeTime", "SetLifeTime", "GetCacheTime", "GetAttributes", "Cancel", "Cleanup"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Integer} celt 
-     * @param {Pointer<HELPER_ATTRIBUTE>} rgAttributes 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The Initialize method passes in attributes to the Helper Class Extension from the hypothesis. The helper class should store these parameters for use in the main diagnostics functions. This method must be called before any diagnostics function.
+     * @param {Integer} celt A pointer to a count of elements in <b>HELPER_ATTRIBUTE</b> array.
+     * @param {Pointer<HELPER_ATTRIBUTE>} rgAttributes A reference to the <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-helper_attribute">HELPER_ATTRIBUTE</a> array.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-initialize
      */
     Initialize(celt, rgAttributes) {
         result := ComCall(3, this, "uint", celt, "ptr", rgAttributes, "HRESULT")
@@ -55,9 +108,9 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<DiagnosticsInfo>} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getdiagnosticsinfo
+     * Enables the Helper Class Extension instance to provide an estimate.
+     * @returns {Pointer<DiagnosticsInfo>} A pointer to a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ns-ndhelper-diagnosticsinfo">DiagnosticsInfo</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-getdiagnosticsinfo
      */
     GetDiagnosticsInfo() {
         result := ComCall(4, this, "ptr*", &ppInfo := 0, "HRESULT")
@@ -65,11 +118,85 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Retrieves the key attributes of the Helper Class Extension.
+     * @param {Pointer<Integer>} pcelt A pointer to a count of elements in the <b>HELPER_ATTRIBUTE</b> array.
+     * @param {Pointer<Pointer<HELPER_ATTRIBUTE>>} pprgAttributes A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-helper_attribute">HELPER_ATTRIBUTE</a> structures.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @param {Pointer<Pointer<HELPER_ATTRIBUTE>>} pprgAttributes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getkeyattributes
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This optional method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-getkeyattributes
      */
     GetKeyAttributes(pcelt, pprgAttributes) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
@@ -80,13 +207,76 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Check whether the component being diagnosed is healthy.
+     * @param {PWSTR} pwszInstanceDescription A pointer to a null-terminated string containing the user-friendly description of the information being diagnosed.  For example, if a class were to diagnosis a connectivity issue with an IP address, the <i>pwszInstanceDescription</i> parameter would contain the host name.
+     * @param {Pointer<PWSTR>} ppwszDescription A pointer to a null-terminated string containing the description of the issue found if the component is found to be unhealthy.
+     * @param {Pointer<Integer>} pDeferredTime A pointer to the time, in seconds, to be deferred if the diagnosis cannot be started immediately.  This is used when the <i>pStatus</i> parameter is set to <b>DS_DEFERRED</b>.
+     * @param {Pointer<Integer>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-diagnosis_status">DIAGNOSIS_STATUS</a> that is returned from the diagnosis.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {PWSTR} pwszInstanceDescription 
-     * @param {Pointer<PWSTR>} ppwszDescription 
-     * @param {Pointer<Integer>} pDeferredTime 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-lowhealth
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-lowhealth
      */
     LowHealth(pwszInstanceDescription, ppwszDescription, pDeferredTime, pStatus) {
         pwszInstanceDescription := pwszInstanceDescription is String ? StrPtr(pwszInstanceDescription) : pwszInstanceDescription
@@ -100,13 +290,87 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Check whether the corresponding component is highly utilized.
+     * @param {PWSTR} pwszInstanceDescription A pointer to a null-terminated string containing the user-friendly description of the information being diagnosed.  For example, if a class were to diagnosis a connectivity issue with an IP address, the <i>pwszInstanceDescription</i> parameter would contain the host name.
+     * @param {Pointer<PWSTR>} ppwszDescription A pointer to a null-terminated string containing the description of high utilization diagnosis result.
+     * @param {Pointer<Integer>} pDeferredTime A pointer to the time, in seconds, to be deferred if the diagnosis cannot be started immediately. This is used when the <i>pStatus</i> parameter is set to <b>DS_DEFERRED</b>.
+     * @param {Pointer<Integer>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-diagnosis_status">DIAGNOSIS_STATUS</a> that is returned from the diagnosis.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {PWSTR} pwszInstanceDescription 
-     * @param {Pointer<PWSTR>} ppwszDescription 
-     * @param {Pointer<Integer>} pDeferredTime 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-highutilization
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This optional method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-highutilization
      */
     HighUtilization(pwszInstanceDescription, ppwszDescription, pDeferredTime, pStatus) {
         pwszInstanceDescription := pwszInstanceDescription is String ? StrPtr(pwszInstanceDescription) : pwszInstanceDescription
@@ -120,11 +384,85 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Generate hypotheses for possible causes of low health in the local components.
+     * @param {Pointer<Integer>} pcelt A pointer to a count of elements in the <b>HYPOTHESIS</b> array.
+     * @param {Pointer<Pointer<HYPOTHESIS>>} pprgHypotheses A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ns-ndhelper-hypothesis">HYPOTHESIS</a> array.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @param {Pointer<Pointer<HYPOTHESIS>>} pprgHypotheses 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getlowerhypotheses
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This optional method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-getlowerhypotheses
      */
     GetLowerHypotheses(pcelt, pprgHypotheses) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
@@ -135,11 +473,85 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Asks the Helper Class Extension to generate hypotheses.
+     * @param {Pointer<Integer>} pcelt A pointer to a count of elements in the HYPOTHESIS array.
+     * @param {Pointer<Pointer<HYPOTHESIS>>} pprgHypotheses A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ns-ndhelper-hypothesis">HYPOTHESIS</a> structures.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @param {Pointer<Pointer<HYPOTHESIS>>} pprgHypotheses 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getdownstreamhypotheses
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This optional method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-getdownstreamhypotheses
      */
     GetDownStreamHypotheses(pcelt, pprgHypotheses) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
@@ -150,11 +562,85 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Generate hypotheses for possible causes of high utilization.
+     * @param {Pointer<Integer>} pcelt A pointer to a count of elements in the HYPOTHESIS array.
+     * @param {Pointer<Pointer<HYPOTHESIS>>} pprgHypotheses A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ns-ndhelper-hypothesis">HYPOTHESIS</a> structures.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @param {Pointer<Pointer<HYPOTHESIS>>} pprgHypotheses 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-gethigherhypotheses
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This optional method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-gethigherhypotheses
      */
     GetHigherHypotheses(pcelt, pprgHypotheses) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
@@ -165,11 +651,85 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Generate hypotheses for possible causes of high utilization in the upstream network components.
+     * @param {Pointer<Integer>} pcelt A pointer to a count of elements in the <b>HYPOTHESIS</b> array.
+     * @param {Pointer<Pointer<HYPOTHESIS>>} pprgHypotheses A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ns-ndhelper-hypothesis">HYPOTHESIS</a> array.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @param {Pointer<Pointer<HYPOTHESIS>>} pprgHypotheses 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getupstreamhypotheses
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This optional method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-getupstreamhypotheses
      */
     GetUpStreamHypotheses(pcelt, pprgHypotheses) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
@@ -180,12 +740,86 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Performs a repair specified by the input parameter.
+     * @param {Pointer<RepairInfo>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-repairinfo">RepairInfo</a> structure.
+     * @param {Pointer<Integer>} pDeferredTime A pointer to the time, in seconds, to be deferred if the repair cannot be started immediately. This is only valid when the pStatus parameter is set to <b>DS_DEFERRED</b>.
+     * @param {Pointer<Integer>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-repair_status">REPAIR_STATUS</a> that is returned from the repair.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {Pointer<RepairInfo>} pInfo 
-     * @param {Pointer<Integer>} pDeferredTime 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-repair
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This optional method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-repair
      */
     Repair(pInfo, pDeferredTime, pStatus) {
         pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
@@ -196,12 +830,86 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Called by NDF after a repair is successfully completed.
+     * @param {Integer} problem The <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-problem_type">PROBLEM_TYPE</a> that the helper class has previously diagnosed.
+     * @param {Pointer<Integer>} pDeferredTime A pointer to the time to be deferred, in seconds, if the diagnosis cannot be started immediately. This is used only when the pStatus member is set to <b>DS_DEFERRED</b>.
+     * @param {Pointer<Integer>} pStatus A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-diagnosis_status">DIAGNOSIS_STATUS</a> that is returned from the diagnosis.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {Integer} problem 
-     * @param {Pointer<Integer>} pDeferredTime 
-     * @param {Pointer<Integer>} pStatus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-validate
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This optional method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-validate
      */
     Validate(problem, pDeferredTime, pStatus) {
         pDeferredTimeMarshal := pDeferredTime is VarRef ? "int*" : "ptr"
@@ -212,12 +920,86 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Retrieves the repair information that the Helper Class Extension has for a given problem type.
+     * @param {Integer} problem A <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ne-ndhelper-problem_type">PROBLEM_TYPE</a> value that specifies the problem type that the helper class has previously diagnosed.
+     * @param {Pointer<Integer>} pcelt A pointer to a count of elements in the <b>RepairInfo</b> array.
+     * @param {Pointer<Pointer<RepairInfo>>} ppInfo A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-repairinfo">RepairInfo</a> structures.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {Integer} problem 
-     * @param {Pointer<Integer>} pcelt 
-     * @param {Pointer<Pointer<RepairInfo>>} ppInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getrepairinfo
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This optional method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-getrepairinfo
      */
     GetRepairInfo(problem, pcelt, ppInfo) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
@@ -228,9 +1010,9 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {LIFE_TIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getlifetime
+     * Retrieves the lifetime of the Helper Class Extension instance.
+     * @returns {LIFE_TIME} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-life_time">LIFE_TIME</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-getlifetime
      */
     GetLifeTime() {
         pLifeTime := LIFE_TIME()
@@ -239,10 +1021,84 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * The Helper Class Extension can limit its diagnosis to events within that time period.
+     * @param {LIFE_TIME} lifeTime A <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-life_time">LIFE_TIME</a> structure.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {LIFE_TIME} lifeTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-setlifetime
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This optional method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-setlifetime
      */
     SetLifeTime(lifeTime) {
         result := ComCall(16, this, "ptr", lifeTime, "HRESULT")
@@ -250,9 +1106,9 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {FILETIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getcachetime
+     * Specifies the time when cached results of a diagnosis and repair operation have expired.
+     * @returns {FILETIME} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-getcachetime
      */
     GetCacheTime() {
         pCacheTime := FILETIME()
@@ -261,11 +1117,85 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Retrieves additional information about a problem that the helper class extension has diagnosed.
+     * @param {Pointer<Integer>} pcelt A pointer to a count of elements in the <b>HELPER_ATTRIBUTE</b> array.
+     * @param {Pointer<Pointer<HELPER_ATTRIBUTE>>} pprgAttributes A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ndattrib/ns-ndattrib-helper_attribute">HELPER_ATTRIBUTE</a> structures.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @param {Pointer<Integer>} pcelt 
-     * @param {Pointer<Pointer<HELPER_ATTRIBUTE>>} pprgAttributes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-getattributes
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters has not been provided correctly.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This optional method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-getattributes
      */
     GetAttributes(pcelt, pprgAttributes) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
@@ -276,9 +1206,61 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Cancels an ongoing diagnosis or repair.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-cancel
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-cancel
      */
     Cancel() {
         result := ComCall(19, this, "HRESULT")
@@ -286,9 +1268,61 @@ class INetDiagHelper extends IUnknown{
     }
 
     /**
+     * Allows the Helper Class Extension to clean up resources following a diagnosis or repair operation.
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelper-cleanup
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is not enough memory available to complete this operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient privileges to perform the diagnosis or repair operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ABORT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The diagnosis or repair operation has been canceled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Helper Class Extensions may return HRESULTS that are specific to the failures encountered in the function.
+     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelper-cleanup
      */
     Cleanup() {
         result := ComCall(20, this, "HRESULT")

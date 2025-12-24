@@ -30,6 +30,20 @@ class IRTCClientEvent extends IDispatch{
     static VTableNames => ["get_EventType", "get_Client"]
 
     /**
+     * @type {Integer} 
+     */
+    EventType {
+        get => this.get_EventType()
+    }
+
+    /**
+     * @type {IRTCClient} 
+     */
+    Client {
+        get => this.get_Client()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

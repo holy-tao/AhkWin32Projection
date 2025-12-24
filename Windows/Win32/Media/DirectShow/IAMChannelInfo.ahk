@@ -37,10 +37,46 @@ class IAMChannelInfo extends IDispatch{
     static VTableNames => ["get_ChannelName", "get_ChannelDescription", "get_ChannelURL", "get_ContactAddress", "get_ContactPhone", "get_ContactEmail"]
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrChannelName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamchannelinfo-get_channelname
+     */
+    ChannelName {
+        get => this.get_ChannelName()
+    }
+
+    /**
+     */
+    ChannelDescription {
+        get => this.get_ChannelDescription()
+    }
+
+    /**
+     */
+    ChannelURL {
+        get => this.get_ChannelURL()
+    }
+
+    /**
+     */
+    ContactAddress {
+        get => this.get_ContactAddress()
+    }
+
+    /**
+     */
+    ContactPhone {
+        get => this.get_ContactPhone()
+    }
+
+    /**
+     */
+    ContactEmail {
+        get => this.get_ContactEmail()
+    }
+
+    /**
+     * The get_ChannelName method retrieves the channel name.
+     * @param {Pointer<BSTR>} pbstrChannelName Pointer to a variable that receives a string containing the channel name.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamchannelinfo-get_channelname
      */
     get_ChannelName(pbstrChannelName) {
         result := ComCall(7, this, "ptr", pbstrChannelName, "HRESULT")
@@ -48,10 +84,10 @@ class IAMChannelInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrChannelDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamchannelinfo-get_channeldescription
+     * The get_ChannelDescription method retrieves the description of the channel.
+     * @param {Pointer<BSTR>} pbstrChannelDescription Receives the channel description.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamchannelinfo-get_channeldescription
      */
     get_ChannelDescription(pbstrChannelDescription) {
         result := ComCall(8, this, "ptr", pbstrChannelDescription, "HRESULT")
@@ -59,10 +95,10 @@ class IAMChannelInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrChannelURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamchannelinfo-get_channelurl
+     * The get_ChannelURL method retrieves the channel URL.
+     * @param {Pointer<BSTR>} pbstrChannelURL Pointer to a variable that receives the URL.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamchannelinfo-get_channelurl
      */
     get_ChannelURL(pbstrChannelURL) {
         result := ComCall(9, this, "ptr", pbstrChannelURL, "HRESULT")
@@ -70,10 +106,10 @@ class IAMChannelInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrContactAddress 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamchannelinfo-get_contactaddress
+     * The get_ContactAddress method retrieves the contact address.
+     * @param {Pointer<BSTR>} pbstrContactAddress Pointer to a variable that receives the contact address.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamchannelinfo-get_contactaddress
      */
     get_ContactAddress(pbstrContactAddress) {
         result := ComCall(10, this, "ptr", pbstrContactAddress, "HRESULT")
@@ -81,10 +117,10 @@ class IAMChannelInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrContactPhone 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamchannelinfo-get_contactphone
+     * The get_ContactPhone method retrieves the phone number of the contact.
+     * @param {Pointer<BSTR>} pbstrContactPhone Pointer to a variable that receives the contact's phone number.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamchannelinfo-get_contactphone
      */
     get_ContactPhone(pbstrContactPhone) {
         result := ComCall(11, this, "ptr", pbstrContactPhone, "HRESULT")
@@ -92,10 +128,10 @@ class IAMChannelInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrContactEmail 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamchannelinfo-get_contactemail
+     * The get_ContactEmail method gets the email address of the contact.
+     * @param {Pointer<BSTR>} pbstrContactEmail Receives the contact email.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamchannelinfo-get_contactemail
      */
     get_ContactEmail(pbstrContactEmail) {
         result := ComCall(12, this, "ptr", pbstrContactEmail, "HRESULT")

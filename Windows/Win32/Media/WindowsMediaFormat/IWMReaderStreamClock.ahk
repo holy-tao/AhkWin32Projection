@@ -31,10 +31,39 @@ class IWMReaderStreamClock extends IUnknown{
     static VTableNames => ["GetTime", "SetTimer", "KillTimer"]
 
     /**
+     * The GetTime method retrieves the current value of the stream clock.
+     * @param {Pointer<Integer>} pcnsNow Pointer to the current time of the stream clock, in 100-nanosecond units.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} pcnsNow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-gettime
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pcnsNow</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-gettime
      */
     GetTime(pcnsNow) {
         pcnsNowMarshal := pcnsNow is VarRef ? "uint*" : "ptr"
@@ -44,11 +73,11 @@ class IWMReaderStreamClock extends IUnknown{
     }
 
     /**
-     * Creates a timer with the specified time-out value.
-     * @param {Integer} cnsWhen 
-     * @param {Pointer<Void>} pvParam 
-     * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-settimer
+     * The SetTimer method sets a timer on the clock.
+     * @param {Integer} cnsWhen Specifies the time at which the reader notifies the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">OnStatus</a> callback, in 100-nanosecond units.
+     * @param {Pointer<Void>} pvParam Specifies a pointer to the timer context parameters that are returned in the <b>OnStatus</b> callback.
+     * @returns {Integer} Pointer to a <b>DWORD</b> containing the timer identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-settimer
      */
     SetTimer(cnsWhen, pvParam) {
         pvParamMarshal := pvParam is VarRef ? "ptr" : "ptr"
@@ -58,14 +87,10 @@ class IWMReaderStreamClock extends IUnknown{
     }
 
     /**
-     * Destroys the specified timer.
-     * @param {Integer} dwTimerId 
-     * @returns {HRESULT} Type: <b>BOOL</b>
-     * 
-     * If the function succeeds, the return value is nonzero.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-killtimer
+     * The KillTimer method cancels a timer that has been set on the clock.
+     * @param {Integer} dwTimerId <b>DWORD</b> containing the timer identifier.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderstreamclock-killtimer
      */
     KillTimer(dwTimerId) {
         result := ComCall(5, this, "uint", dwTimerId, "HRESULT")

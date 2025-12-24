@@ -34,9 +34,37 @@ class ISearchResult extends IDispatch{
     static VTableNames => ["get_ResultCode", "get_RootCategories", "get_Updates", "get_Warnings"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    ResultCode {
+        get => this.get_ResultCode()
+    }
+
+    /**
+     * @type {ICategoryCollection} 
+     */
+    RootCategories {
+        get => this.get_RootCategories()
+    }
+
+    /**
+     * @type {IUpdateCollection} 
+     */
+    Updates {
+        get => this.get_Updates()
+    }
+
+    /**
+     * @type {IUpdateExceptionCollection} 
+     */
+    Warnings {
+        get => this.get_Warnings()
+    }
+
+    /**
+     * Gets an OperationResultCode enumeration that specifies the result of a search.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_resultcode
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchresult-get_resultcode
      */
     get_ResultCode() {
         result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
@@ -44,9 +72,9 @@ class ISearchResult extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an interface collection of the root categories that are currently available on the computer.
      * @returns {ICategoryCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_rootcategories
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchresult-get_rootcategories
      */
     get_RootCategories() {
         result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
@@ -54,9 +82,9 @@ class ISearchResult extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an interface collection of the updates that result from a search.
      * @returns {IUpdateCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_updates
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchresult-get_updates
      */
     get_Updates() {
         result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
@@ -64,9 +92,9 @@ class ISearchResult extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a collection of the warnings that result from a search.
      * @returns {IUpdateExceptionCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_warnings
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchresult-get_warnings
      */
     get_Warnings() {
         result := ComCall(10, this, "ptr*", &retval := 0, "HRESULT")

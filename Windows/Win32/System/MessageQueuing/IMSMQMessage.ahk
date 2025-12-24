@@ -38,6 +38,219 @@ class IMSMQMessage extends IDispatch{
     static VTableNames => ["get_Class", "get_PrivLevel", "put_PrivLevel", "get_AuthLevel", "put_AuthLevel", "get_IsAuthenticated", "get_Delivery", "put_Delivery", "get_Trace", "put_Trace", "get_Priority", "put_Priority", "get_Journal", "put_Journal", "get_ResponseQueueInfo", "putref_ResponseQueueInfo", "get_AppSpecific", "put_AppSpecific", "get_SourceMachineGuid", "get_BodyLength", "get_Body", "put_Body", "get_AdminQueueInfo", "putref_AdminQueueInfo", "get_Id", "get_CorrelationId", "put_CorrelationId", "get_Ack", "put_Ack", "get_Label", "put_Label", "get_MaxTimeToReachQueue", "put_MaxTimeToReachQueue", "get_MaxTimeToReceive", "put_MaxTimeToReceive", "get_HashAlgorithm", "put_HashAlgorithm", "get_EncryptAlgorithm", "put_EncryptAlgorithm", "get_SentTime", "get_ArrivedTime", "get_DestinationQueueInfo", "get_SenderCertificate", "put_SenderCertificate", "get_SenderId", "get_SenderIdType", "put_SenderIdType", "Send", "AttachCurrentSecurityContext"]
 
     /**
+     * @type {Integer} 
+     */
+    Class {
+        get => this.get_Class()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PrivLevel {
+        get => this.get_PrivLevel()
+        set => this.put_PrivLevel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AuthLevel {
+        get => this.get_AuthLevel()
+        set => this.put_AuthLevel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IsAuthenticated {
+        get => this.get_IsAuthenticated()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Delivery {
+        get => this.get_Delivery()
+        set => this.put_Delivery(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Trace {
+        get => this.get_Trace()
+        set => this.put_Trace(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Priority {
+        get => this.get_Priority()
+        set => this.put_Priority(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Journal {
+        get => this.get_Journal()
+        set => this.put_Journal(value)
+    }
+
+    /**
+     * @type {IMSMQQueueInfo} 
+     */
+    ResponseQueueInfo {
+        get => this.get_ResponseQueueInfo()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AppSpecific {
+        get => this.get_AppSpecific()
+        set => this.put_AppSpecific(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SourceMachineGuid {
+        get => this.get_SourceMachineGuid()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BodyLength {
+        get => this.get_BodyLength()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Body {
+        get => this.get_Body()
+        set => this.put_Body(value)
+    }
+
+    /**
+     * @type {IMSMQQueueInfo} 
+     */
+    AdminQueueInfo {
+        get => this.get_AdminQueueInfo()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CorrelationId {
+        get => this.get_CorrelationId()
+        set => this.put_CorrelationId(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Ack {
+        get => this.get_Ack()
+        set => this.put_Ack(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Label {
+        get => this.get_Label()
+        set => this.put_Label(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxTimeToReachQueue {
+        get => this.get_MaxTimeToReachQueue()
+        set => this.put_MaxTimeToReachQueue(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxTimeToReceive {
+        get => this.get_MaxTimeToReceive()
+        set => this.put_MaxTimeToReceive(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HashAlgorithm {
+        get => this.get_HashAlgorithm()
+        set => this.put_HashAlgorithm(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EncryptAlgorithm {
+        get => this.get_EncryptAlgorithm()
+        set => this.put_EncryptAlgorithm(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SentTime {
+        get => this.get_SentTime()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ArrivedTime {
+        get => this.get_ArrivedTime()
+    }
+
+    /**
+     * @type {IMSMQQueueInfo} 
+     */
+    DestinationQueueInfo {
+        get => this.get_DestinationQueueInfo()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SenderCertificate {
+        get => this.get_SenderCertificate()
+        set => this.put_SenderCertificate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SenderId {
+        get => this.get_SenderId()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SenderIdType {
+        get => this.get_SenderIdType()
+        set => this.put_SenderIdType(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

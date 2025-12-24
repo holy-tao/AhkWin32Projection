@@ -32,9 +32,9 @@ class IKsJackSinkInformation extends IUnknown{
     static VTableNames => ["GetJackSinkInformation"]
 
     /**
-     * 
-     * @returns {KSJACK_SINK_INFORMATION} 
-     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iksjacksinkinformation-getjacksinkinformation
+     * The GetJackSinkInformation method retrieves the sink information for the specified jack.
+     * @returns {KSJACK_SINK_INFORMATION} Pointer to a caller-allocated buffer that receives the sink information of the jack in a <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ns-devicetopology-ksjack_sink_information">KSJACK_SINK_INFORMATION</a> structure. The buffer size must be at least <c>sizeof(KSJACK_SINK_INFORMATION)</c>.
+     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iksjacksinkinformation-getjacksinkinformation
      */
     GetJackSinkInformation() {
         pJackSinkInformation := KSJACK_SINK_INFORMATION()

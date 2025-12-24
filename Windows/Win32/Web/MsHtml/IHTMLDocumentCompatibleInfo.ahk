@@ -36,6 +36,20 @@ class IHTMLDocumentCompatibleInfo extends IDispatch{
     static VTableNames => ["get_userAgent", "get_version"]
 
     /**
+     * @type {BSTR} 
+     */
+    userAgent {
+        get => this.get_userAgent()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    version {
+        get => this.get_version()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -31,9 +31,18 @@ class ITAMMediaFormat extends IUnknown{
     static VTableNames => ["get_MediaFormat", "put_MediaFormat"]
 
     /**
-     * 
-     * @returns {Pointer<AM_MEDIA_TYPE>} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itammediaformat-get_mediaformat
+     * @type {Pointer<AM_MEDIA_TYPE>} 
+     */
+    MediaFormat {
+        get => this.get_MediaFormat()
+        set => this.put_MediaFormat(value)
+    }
+
+    /**
+     * The get_MediaFormat method gets the media format.
+     * @returns {Pointer<AM_MEDIA_TYPE>} Pointer to an array of 
+     * <b>AM_MEDIA_TYPE</b> structures. For more information on <b>AM_MEDIA_TYPE</b>, see the DirectX documentation.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3ds/nf-tapi3ds-itammediaformat-get_mediaformat
      */
     get_MediaFormat() {
         result := ComCall(3, this, "ptr*", &ppmt := 0, "HRESULT")
@@ -41,10 +50,40 @@ class ITAMMediaFormat extends IUnknown{
     }
 
     /**
+     * The put_MediaFormat method sets the media format.
+     * @param {Pointer<AM_MEDIA_TYPE>} pmt Pointer to 
+     * <b>AM_MEDIA_TYPE</b> structure. For more information on <b>AM_MEDIA_TYPE</b>, see the DirectX documentation.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<AM_MEDIA_TYPE>} pmt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itammediaformat-put_mediaformat
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3ds/nf-tapi3ds-itammediaformat-put_mediaformat
      */
     put_MediaFormat(pmt) {
         result := ComCall(4, this, "ptr", pmt, "HRESULT")

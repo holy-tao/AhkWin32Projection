@@ -36,10 +36,10 @@ class ITfReverseConversion extends IUnknown{
     static VTableNames => ["DoReverseConversion"]
 
     /**
-     * 
-     * @param {PWSTR} lpstr 
-     * @returns {ITfReverseConversionList} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfreverseconversion-doreverseconversion
+     * Performs a reverse conversion of the specified string.
+     * @param {PWSTR} lpstr The string to convert.
+     * @returns {ITfReverseConversionList} The result of the conversion: a list of the key strokes required to create the string specied by <i>lpstr</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfreverseconversion-doreverseconversion
      */
     DoReverseConversion(lpstr) {
         lpstr := lpstr is String ? StrPtr(lpstr) : lpstr

@@ -31,12 +31,21 @@ class IDWriteFontDownloadListener extends IUnknown{
     static VTableNames => ["DownloadCompleted"]
 
     /**
+     * The DownloadCompleted method is called back on an arbitrary thread when a download operation ends.
+     * @param {IDWriteFontDownloadQueue} downloadQueue Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontdownloadqueue">IDWriteFontDownloadQueue</a>*</b>
      * 
-     * @param {IDWriteFontDownloadQueue} downloadQueue 
-     * @param {IUnknown} context 
-     * @param {HRESULT} downloadResult 
+     * Pointer to the download queue interface on which     
+     *           the BeginDownload method was called.
+     * @param {IUnknown} context Type: <b>IUnknown*</b>
+     * 
+     * Optional context object that was passed to BeginDownload.    
+     *           AddRef is called on the context object by BeginDownload and Release is called  
+     *           after the DownloadCompleted method returns.
+     * @param {HRESULT} downloadResult Type: <b>HRESULT</b>
+     * 
+     * Result of the download operation.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontdownloadlistener-downloadcompleted
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontdownloadlistener-downloadcompleted
      */
     DownloadCompleted(downloadQueue, context, downloadResult) {
         ComCall(3, this, "ptr", downloadQueue, "ptr", context, "int", downloadResult)

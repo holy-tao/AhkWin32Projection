@@ -31,9 +31,11 @@ class IDMLDispatchable extends IDMLPageable{
     static VTableNames => ["GetBindingProperties"]
 
     /**
+     * Retrieves the binding properties for a dispatchable object (an operator initializer, or a compiled operator).
+     * @returns {DML_BINDING_PROPERTIES} Type: [**DML_BINDING_PROPERTIES**](/windows/win32/api/directml/ns-directml-dml_binding_properties)
      * 
-     * @returns {DML_BINDING_PROPERTIES} 
-     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmldispatchable-getbindingproperties
+     * A [DML_BINDING_PROPERTIES](/windows/win32/api/directml/ns-directml-dml_binding_properties) value containing binding properties.
+     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmldispatchable-getbindingproperties
      */
     GetBindingProperties() {
         result := ComCall(8, this, "ptr")

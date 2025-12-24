@@ -31,84 +31,14 @@ class IDefaultExtractIconInit extends IUnknown{
     static VTableNames => ["SetFlags", "SetKey", "SetNormalIcon", "SetOpenIcon", "SetShortcutIcon", "SetDefaultIcon"]
 
     /**
-     * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
-     * @param {Integer} uFlags 
-     * @returns {HRESULT} This function can return one of these values.
+     * Sets GIL_XXX flags.
+     * @param {Integer} uFlags Type: <b>UINT</b>
      * 
-     * <table>
-     * <tr>
-     * <th>HRESULT value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
+     * Specifies return flags to get icon location.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The flag is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not support this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unable to allocate memory to complete the operation.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context is invalid or one of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setflags
      */
     SetFlags(uFlags) {
         result := ComCall(3, this, "uint", uFlags, "HRESULT")
@@ -116,10 +46,14 @@ class IDefaultExtractIconInit extends IUnknown{
     }
 
     /**
+     * Sets the registry key from which to load the &quot;DefaultIcon&quot; value.
+     * @param {HKEY} hkey Type: <b>HKEY</b>
      * 
-     * @param {HKEY} hkey 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setkey
+     * A handle to the registry key.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setkey
      */
     SetKey(hkey) {
         hkey := hkey is Win32Handle ? NumGet(hkey, "ptr") : hkey
@@ -129,11 +63,17 @@ class IDefaultExtractIconInit extends IUnknown{
     }
 
     /**
+     * Sets the normal icon.
+     * @param {PWSTR} pszFile Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszFile 
-     * @param {Integer} iIcon 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setnormalicon
+     * A pointer to a buffer that contains the full icon path, including the file name and extension, as a Unicode string. This pointer can be <b>NULL</b>.
+     * @param {Integer} iIcon Type: <b>int</b>
+     * 
+     * A Shell icon ID.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setnormalicon
      */
     SetNormalIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
@@ -143,11 +83,17 @@ class IDefaultExtractIconInit extends IUnknown{
     }
 
     /**
+     * Sets the icon that allows containers to specify an &quot;open&quot; look.
+     * @param {PWSTR} pszFile Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszFile 
-     * @param {Integer} iIcon 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setopenicon
+     * A pointer to a buffer that contains the full icon path, including the file name and extension, as a Unicode string. This pointer can be <b>NULL</b>.
+     * @param {Integer} iIcon Type: <b>int</b>
+     * 
+     * Shell icon ID.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setopenicon
      */
     SetOpenIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
@@ -157,11 +103,17 @@ class IDefaultExtractIconInit extends IUnknown{
     }
 
     /**
+     * Sets the icon for a shortcut to the object.
+     * @param {PWSTR} pszFile Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszFile 
-     * @param {Integer} iIcon 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setshortcuticon
+     * A pointer to a buffer that contains the full icon path, including the file name and extension, as a Unicode string. This pointer can be <b>NULL</b>.
+     * @param {Integer} iIcon Type: <b>int</b>
+     * 
+     * Shell icon ID.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setshortcuticon
      */
     SetShortcutIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile
@@ -171,11 +123,17 @@ class IDefaultExtractIconInit extends IUnknown{
     }
 
     /**
+     * Sets the default icon.
+     * @param {PWSTR} pszFile Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszFile 
-     * @param {Integer} iIcon 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setdefaulticon
+     * A pointer to a buffer that contains the full icon path, including the file name and extension, as a Unicode string. This pointer can be <b>NULL</b>.
+     * @param {Integer} iIcon Type: <b>int</b>
+     * 
+     * The Shell icon ID.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idefaultextracticoninit-setdefaulticon
      */
     SetDefaultIcon(pszFile, iIcon) {
         pszFile := pszFile is String ? StrPtr(pszFile) : pszFile

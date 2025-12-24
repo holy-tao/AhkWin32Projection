@@ -76,6 +76,70 @@ class DVD_DISC_CONTROL_BLOCK_WRITE_INHIBIT extends Win32Struct
     
     }
 
+    class _WriteProtectActions_e__Union extends Win32Struct {
+        static sizeof => 4
+        static packingSize => 4
+
+        /**
+         * @type {Array<Byte>}
+         */
+        ReservedDoNotUse_UseAsByteInstead_0{
+            get {
+                if(!this.HasProp("__ReservedDoNotUse_UseAsByteInstead_0ProxyArray"))
+                    this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray := Win32FixedArray(this.ptr + 0, 3, Primitive, "char")
+                return this.__ReservedDoNotUse_UseAsByteInstead_0ProxyArray
+            }
+        }
+    
+        /**
+         * This bitfield backs the following members:
+         * - WriteProtectStatus
+         * - ReservedDoNotUse_UseAsByteInstead_1
+         * - UpdateRequiresPassword
+         * @type {Integer}
+         */
+        _bitfield {
+            get => NumGet(this, 3, "char")
+            set => NumPut("char", value, this, 3)
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        WriteProtectStatus {
+            get => (this._bitfield >> 0) & 0x3
+            set => this._bitfield := ((value & 0x3) << 0) | (this._bitfield & ~(0x3 << 0))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        ReservedDoNotUse_UseAsByteInstead_1 {
+            get => (this._bitfield >> 2) & 0x1F
+            set => this._bitfield := ((value & 0x1F) << 2) | (this._bitfield & ~(0x1F << 2))
+        }
+    
+        /**
+         * @type {Integer}
+         */
+        UpdateRequiresPassword {
+            get => (this._bitfield >> 7) & 0x1
+            set => this._bitfield := ((value & 0x1) << 7) | (this._bitfield & ~(0x1 << 7))
+        }
+    
+        /**
+         * @type {Array<Byte>}
+         */
+        AsByte{
+            get {
+                if(!this.HasProp("__AsByteProxyArray"))
+                    this.__AsByteProxyArray := Win32FixedArray(this.ptr + 0, 4, Primitive, "char")
+                return this.__AsByteProxyArray
+            }
+        }
+    
+    }
+
     /**
      * @type {DVD_DISC_CONTROL_BLOCK_HEADER}
      */

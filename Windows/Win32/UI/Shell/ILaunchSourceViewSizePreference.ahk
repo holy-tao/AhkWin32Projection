@@ -38,9 +38,11 @@ class ILaunchSourceViewSizePreference extends IUnknown{
     static VTableNames => ["GetSourceViewToPosition", "GetSourceViewSizePreference"]
 
     /**
+     * Retrieves the position of the source application window.
+     * @returns {HWND} Type: <b>HWND*</b>
      * 
-     * @returns {HWND} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewtoposition
+     * Contains the address of a pointer to a window handle.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewtoposition
      */
     GetSourceViewToPosition() {
         hwnd := HWND()
@@ -49,9 +51,11 @@ class ILaunchSourceViewSizePreference extends IUnknown{
     }
 
     /**
+     * Retrieves the view size preference of the application after the application has launched.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewsizepreference
+     * Contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewsizepreference
      */
     GetSourceViewSizePreference() {
         result := ComCall(4, this, "int*", &sourceSizeAfterLaunch := 0, "HRESULT")

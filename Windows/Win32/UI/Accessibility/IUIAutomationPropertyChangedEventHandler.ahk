@@ -36,12 +36,20 @@ class IUIAutomationPropertyChangedEventHandler extends IUnknown{
     static VTableNames => ["HandlePropertyChangedEvent"]
 
     /**
+     * Handles a Microsoft UI Automation property-changed event.
+     * @param {IUIAutomationElement} sender Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} sender 
-     * @param {Integer} propertyId 
-     * @param {VARIANT} newValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationpropertychangedeventhandler-handlepropertychangedevent
+     * A pointer to the element that raised the event.
+     * @param {Integer} propertyId Type: <b>PROPERTYID</b>
+     * 
+     * The identifier of the property whose value has changed. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
+     * @param {VARIANT} newValue Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a></b>
+     * 
+     * The new property value.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationpropertychangedeventhandler-handlepropertychangedevent
      */
     HandlePropertyChangedEvent(sender, propertyId, newValue) {
         result := ComCall(3, this, "ptr", sender, "int", propertyId, "ptr", newValue, "HRESULT")

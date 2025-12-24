@@ -31,10 +31,57 @@ class IMsmDependency extends IDispatch{
     static VTableNames => ["get_Module", "get_Language", "get_Version"]
 
     /**
+     */
+    Module {
+        get => this.get_Module()
+    }
+
+    /**
+     */
+    Language {
+        get => this.get_Language()
+    }
+
+    /**
+     */
+    Version {
+        get => this.get_Version()
+    }
+
+    /**
+     * The get_Module method retrieves the Module property of the Dependency object. This method returns the ModuleID of the module required by the current string in the form of a BSTR. The ModuleID is of the same form as used in the ModuleSignature table.
+     * @param {Pointer<BSTR>} Module A pointer to a location in memory that is filled in with a <b>BSTR</b> value.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<BSTR>} Module 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmdependency-get_module
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Module is null
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmdependency-get_module
      */
     get_Module(Module) {
         result := ComCall(7, this, "ptr", Module, "HRESULT")
@@ -42,10 +89,39 @@ class IMsmDependency extends IDispatch{
     }
 
     /**
+     * The get_Language method retrieves the Language property of the Dependency object. This method returns the LANGID of the required module.
+     * @param {Pointer<Integer>} Language A pointer to a location in memory that receives the language.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<Integer>} Language 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmdependency-get_language
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Language is null.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmdependency-get_language
      */
     get_Language(Language) {
         LanguageMarshal := Language is VarRef ? "short*" : "ptr"
@@ -55,10 +131,39 @@ class IMsmDependency extends IDispatch{
     }
 
     /**
+     * The get_Version method retrieves the Version property of the Dependency object. This method returns the version of the required module in the form of a BSTR.
+     * @param {Pointer<BSTR>} Version A pointer to a location in memory that is filled in with a <b>BSTR</b> value.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Pointer<BSTR>} Version 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mergemod/nf-mergemod-imsmdependency-get_version
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Version is null.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The function succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mergemod/nf-mergemod-imsmdependency-get_version
      */
     get_Version(Version) {
         result := ComCall(9, this, "ptr", Version, "HRESULT")

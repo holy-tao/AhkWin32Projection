@@ -10,7 +10,7 @@
  */
 class DNS_RECORD_OPTW extends Win32Struct
 {
-    static sizeof => 40
+    static sizeof => 48
 
     static packingSize => 8
 
@@ -41,7 +41,7 @@ class DNS_RECORD_OPTW extends Win32Struct
 
     class _Data_e__Union extends Win32Struct {
         static sizeof => 6
-        static packingSize => 2
+        static packingSize => 6
 
         /**
          * @type {DNS_OPT_DATA}
@@ -132,7 +132,7 @@ class DNS_RECORD_OPTW extends Win32Struct
     Data{
         get {
             if(!this.HasProp("__Data"))
-                this.__Data := %this.__Class%._Data_e__Union(32, this)
+                this.__Data := %this.__Class%._Data_e__Union(36, this)
             return this.__Data
         }
     }

@@ -31,9 +31,11 @@ class IWPCProviderState extends IUnknown{
     static VTableNames => ["Enable", "Disable"]
 
     /**
+     * Notifies the third-party application that it has been selected as the new current provider.
+     * @returns {HRESULT} If the method succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderstate-enable
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderstate-enable
      */
     Enable() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +43,11 @@ class IWPCProviderState extends IUnknown{
     }
 
     /**
+     * Notifies the third-party application that it is not the current provider.
+     * @returns {HRESULT} If the method succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderstate-disable
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderstate-disable
      */
     Disable() {
         result := ComCall(4, this, "HRESULT")

@@ -35,6 +35,36 @@ class IRTCClientPresence extends IUnknown{
     static VTableNames => ["EnablePresence", "Export", "Import", "EnumerateBuddies", "get_Buddies", "get_Buddy", "AddBuddy", "RemoveBuddy", "EnumerateWatchers", "get_Watchers", "get_Watcher", "AddWatcher", "RemoveWatcher", "SetLocalPresenceInfo", "get_OfferWatcherMode", "put_OfferWatcherMode", "get_PrivacyMode", "put_PrivacyMode"]
 
     /**
+     * @type {IRTCCollection} 
+     */
+    Buddies {
+        get => this.get_Buddies()
+    }
+
+    /**
+     * @type {IRTCCollection} 
+     */
+    Watchers {
+        get => this.get_Watchers()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OfferWatcherMode {
+        get => this.get_OfferWatcherMode()
+        set => this.put_OfferWatcherMode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PrivacyMode {
+        get => this.get_PrivacyMode()
+        set => this.put_PrivacyMode(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} fUseStorage 
      * @param {VARIANT} varStorage 

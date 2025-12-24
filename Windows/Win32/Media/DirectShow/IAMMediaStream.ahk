@@ -31,23 +31,13 @@ class IAMMediaStream extends IMediaStream{
     static VTableNames => ["Initialize", "SetState", "JoinAMMultiMediaStream", "JoinFilter", "JoinFilterGraph"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IUnknown} pSourceObject 
+     * Note  This interface is deprecated. New applications should not use it. The Initialize method creates and initializes a new media stream with the specified stream type and purpose ID.
+     * @param {IUnknown} pSourceObject Pointer to an <b>IUnknown</b> source object.
      * @param {Integer} dwFlags 
-     * @param {Pointer<Guid>} PurposeId 
-     * @param {Integer} StreamType 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @param {Pointer<Guid>} PurposeId Purpose ID for the new media stream.
+     * @param {Integer} StreamType <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_type">STREAM_TYPE</a> enumeration value that specifies the new media stream's media type.
+     * @returns {HRESULT} Returns S_OK if successful or E_POINTER if one or more of the required parameters are invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammediastream-initialize
      */
     Initialize(pSourceObject, dwFlags, PurposeId, StreamType) {
         result := ComCall(9, this, "ptr", pSourceObject, "uint", dwFlags, "ptr", PurposeId, "int", StreamType, "HRESULT")
@@ -55,10 +45,10 @@ class IAMMediaStream extends IMediaStream{
     }
 
     /**
-     * 
-     * @param {Integer} State 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediastream-setstate
+     * Note  This interface is deprecated. New applications should not use it. The SetState method sets the filter state.
+     * @param {Integer} State Sets the filter's state, as specified by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-filter_state">FILTER_STATE</a> enumerated type.
+     * @returns {HRESULT} Returns S_OK if successful or E_INVALIDARG if the <i>State</i> parameter is invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammediastream-setstate
      */
     SetState(State) {
         result := ComCall(10, this, "int", State, "HRESULT")
@@ -66,10 +56,10 @@ class IAMMediaStream extends IMediaStream{
     }
 
     /**
-     * 
-     * @param {IAMMultiMediaStream} pAMMultiMediaStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediastream-joinammultimediastream
+     * Note  This interface is deprecated. New applications should not use it. The IAMMultiMediaStream::AddMediaStream method calls this method, which adds the specified media stream to the current multimedia stream.
+     * @param {IAMMultiMediaStream} pAMMultiMediaStream Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/amstream/nn-amstream-iammultimediastream">IAMMultiMediaStream</a> object to add the current media stream to.
+     * @returns {HRESULT} Returns S_OK if successful or MS_E_SAMPLEALLOC if the media stream already has allocated stream samples.
+     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammediastream-joinammultimediastream
      */
     JoinAMMultiMediaStream(pAMMultiMediaStream) {
         result := ComCall(11, this, "ptr", pAMMultiMediaStream, "HRESULT")
@@ -77,10 +67,10 @@ class IAMMediaStream extends IMediaStream{
     }
 
     /**
-     * 
-     * @param {IMediaStreamFilter} pMediaStreamFilter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediastream-joinfilter
+     * Note  This interface is deprecated. New applications should not use it. The JoinFilter method connects a media stream to the Media Stream filter, which is used internally by the multimedia stream object. Applications should not call this method.
+     * @param {IMediaStreamFilter} pMediaStreamFilter Pointer to the filter's <a href="https://docs.microsoft.com/windows/desktop/api/amstream/nn-amstream-imediastreamfilter">IMediaStreamFilter</a> interface.
+     * @returns {HRESULT} Returns S_OK if successful.
+     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammediastream-joinfilter
      */
     JoinFilter(pMediaStreamFilter) {
         result := ComCall(12, this, "ptr", pMediaStreamFilter, "HRESULT")
@@ -88,10 +78,10 @@ class IAMMediaStream extends IMediaStream{
     }
 
     /**
-     * 
-     * @param {IFilterGraph} pFilterGraph 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-iammediastream-joinfiltergraph
+     * Note  This interface is deprecated. New applications should not use it. The JoinFilterGraph method connects a media stream filter to a filter graph.
+     * @param {IFilterGraph} pFilterGraph Pointer to the current media stream filter to add to the specified filter graph.
+     * @returns {HRESULT} Returns S_OK if successful or E_POINTER if <i>pGraph</i> is <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-iammediastream-joinfiltergraph
      */
     JoinFilterGraph(pFilterGraph) {
         result := ComCall(13, this, "ptr", pFilterGraph, "HRESULT")

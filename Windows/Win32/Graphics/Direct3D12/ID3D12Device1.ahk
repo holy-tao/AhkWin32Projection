@@ -36,12 +36,20 @@ class ID3D12Device1 extends ID3D12Device{
     static VTableNames => ["CreatePipelineLibrary", "SetEventOnMultipleFenceCompletion", "SetResidencyPriority"]
 
     /**
+     * Creates a cached pipeline library.
+     * @param {Pointer<Void>} pLibraryBlob Type: **const void\***
      * 
-     * @param {Pointer<Void>} pLibraryBlob 
-     * @param {Pointer} BlobLength 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device1-createpipelinelibrary
+     * If the input library blob is empty, then the initial content of the library is empty. If the input library blob is not empty, then it is validated for integrity, parsed, and the pointer is stored. The pointer provided as input to this method must remain valid for the lifetime of the object returned. For efficiency reasons, the data is not copied.
+     * @param {Pointer} BlobLength Type: **[SIZE_T](/windows/win32/winprog/windows-data-types)**
+     * 
+     * Specifies the length of *pLibraryBlob* in bytes.
+     * @param {Pointer<Guid>} riid Type: **REFIID**
+     * 
+     * Specifies a unique REFIID for the [ID3D12PipelineLibrary](./nn-d3d12-id3d12pipelinelibrary.md) object. Typically set this and the following parameter with the macro `IID_PPV_ARGS(&Library)`, where **Library** is the name of the object.
+     * @returns {Pointer<Void>} Type: **void\*\***
+     * 
+     * Returns a pointer to the created library.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device1-createpipelinelibrary
      */
     CreatePipelineLibrary(pLibraryBlob, BlobLength, riid) {
         pLibraryBlobMarshal := pLibraryBlob is VarRef ? "ptr" : "ptr"
@@ -51,14 +59,26 @@ class ID3D12Device1 extends ID3D12Device{
     }
 
     /**
+     * Specifies an event that should be fired when one or more of a collection of fences reach specific values.
+     * @param {Pointer<ID3D12Fence>} ppFences Type: <b>ID3D12Fence*</b>
      * 
-     * @param {Pointer<ID3D12Fence>} ppFences 
-     * @param {Pointer<Integer>} pFenceValues 
-     * @param {Integer} NumFences 
-     * @param {Integer} Flags 
-     * @param {HANDLE} hEvent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device1-seteventonmultiplefencecompletion
+     * An array of length <i>NumFences</i> that specifies the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12fence">ID3D12Fence</a> objects.
+     * @param {Pointer<Integer>} pFenceValues Type: <b>const UINT64*</b>
+     * 
+     * An array of length <i>NumFences</i> that specifies the fence values required for the event is to be signaled.
+     * @param {Integer} NumFences Type: <b>UINT</b>
+     * 
+     * Specifies the number of fences to be included.
+     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_multiple_fence_wait_flags">D3D12_MULTIPLE_FENCE_WAIT_FLAGS</a></b>
+     * 
+     * Specifies one  of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_multiple_fence_wait_flags">D3D12_MULTIPLE_FENCE_WAIT_FLAGS</a> that determines how to proceed.
+     * @param {HANDLE} hEvent Type: <b>HANDLE</b>
+     * 
+     * A handle to the event object.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns an HRESULT success or error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device1-seteventonmultiplefencecompletion
      */
     SetEventOnMultipleFenceCompletion(ppFences, pFenceValues, NumFences, Flags, hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
@@ -70,12 +90,20 @@ class ID3D12Device1 extends ID3D12Device{
     }
 
     /**
+     * This method sets residency priorities of a specified list of objects.
+     * @param {Integer} NumObjects Type: <b>UINT</b>
      * 
-     * @param {Integer} NumObjects 
-     * @param {Pointer<ID3D12Pageable>} ppObjects 
-     * @param {Pointer<Integer>} pPriorities 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device1-setresidencypriority
+     * Specifies the number of objects in the <i>ppObjects</i> and <i>pPriorities</i> arrays.
+     * @param {Pointer<ID3D12Pageable>} ppObjects Type: <b>ID3D12Pageable*</b>
+     * 
+     * Specifies an array, of length <i>NumObjects</i>, containing references to <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12pageable">ID3D12Pageable</a> objects.
+     * @param {Pointer<Integer>} pPriorities Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_residency_priority">D3D12_RESIDENCY_PRIORITY</a>*</b>
+     * 
+     * Specifies an array, of length <i>NumObjects</i>, of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_residency_priority">D3D12_RESIDENCY_PRIORITY</a> values for the list of objects.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns an HRESULT success or error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device1-setresidencypriority
      */
     SetResidencyPriority(NumObjects, ppObjects, pPriorities) {
         pPrioritiesMarshal := pPriorities is VarRef ? "int*" : "ptr"

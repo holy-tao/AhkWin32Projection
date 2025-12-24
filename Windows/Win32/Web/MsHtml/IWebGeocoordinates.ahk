@@ -36,6 +36,55 @@ class IWebGeocoordinates extends IDispatch{
     static VTableNames => ["get_latitude", "get_longitude", "get_altitude", "get_accuracy", "get_altitudeAccuracy", "get_heading", "get_speed"]
 
     /**
+     * @type {Float} 
+     */
+    latitude {
+        get => this.get_latitude()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    longitude {
+        get => this.get_longitude()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    altitude {
+        get => this.get_altitude()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    accuracy {
+        get => this.get_accuracy()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    altitudeAccuracy {
+        get => this.get_altitudeAccuracy()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    heading {
+        get => this.get_heading()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    speed {
+        get => this.get_speed()
+    }
+
+    /**
      * 
      * @returns {Float} 
      */

@@ -31,9 +31,11 @@ class IDWriteBitmapRenderTarget1 extends IDWriteBitmapRenderTarget{
     static VTableNames => ["GetTextAntialiasMode", "SetTextAntialiasMode"]
 
     /**
+     * Gets the current text antialiasing mode of the bitmap render target.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_text_antialias_mode">DWRITE_TEXT_ANTIALIAS_MODE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritebitmaprendertarget1-gettextantialiasmode
+     * Returns a <a href="/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_text_antialias_mode">DWRITE_TEXT_ANTIALIAS_MODE</a>-typed value that specifies the antialiasing mode.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritebitmaprendertarget1-gettextantialiasmode
      */
     GetTextAntialiasMode() {
         result := ComCall(11, this, "int")
@@ -41,10 +43,14 @@ class IDWriteBitmapRenderTarget1 extends IDWriteBitmapRenderTarget{
     }
 
     /**
+     * Sets the current text antialiasing mode of the bitmap render target.
+     * @param {Integer} antialiasMode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_text_antialias_mode">DWRITE_TEXT_ANTIALIAS_MODE</a></b>
      * 
-     * @param {Integer} antialiasMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritebitmaprendertarget1-settextantialiasmode
+     * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_text_antialias_mode">DWRITE_TEXT_ANTIALIAS_MODE</a>-typed value that specifies the antialiasing mode.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or E_INVALIDARG if the argument is not valid.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritebitmaprendertarget1-settextantialiasmode
      */
     SetTextAntialiasMode(antialiasMode) {
         result := ComCall(12, this, "int", antialiasMode, "HRESULT")

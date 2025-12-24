@@ -60,13 +60,32 @@ class IMFContentProtectionManager extends IUnknown{
     static VTableNames => ["BeginEnableContent", "EndEnableContent"]
 
     /**
+     * Begins an asynchronous request to perform a content enabling action.
+     * @param {IMFActivate} pEnablerActivate Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfactivate">IMFActivate</a> interface of a content enabler object. To create the content enabler, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfactivate-activateobject">IMFActivate::ActivateObject</a> and request the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfcontentenabler">IMFContentEnabler</a> interface. The application should use the methods in <b>IMFContentEnabler</b> to complete the content enabling action.
+     * @param {IMFTopology} pTopo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the pending topology.
+     * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. When the operation is complete, the application should call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> on the callback.
+     * @param {IUnknown} punkState Reserved. Currently this parameter is always <b>NULL</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFActivate} pEnablerActivate 
-     * @param {IMFTopology} pTopo 
-     * @param {IMFAsyncCallback} pCallback 
-     * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentprotectionmanager-beginenablecontent
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>S_OK</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentprotectionmanager-beginenablecontent
      */
     BeginEnableContent(pEnablerActivate, pTopo, pCallback, punkState) {
         result := ComCall(3, this, "ptr", pEnablerActivate, "ptr", pTopo, "ptr", pCallback, "ptr", punkState, "HRESULT")
@@ -74,10 +93,28 @@ class IMFContentProtectionManager extends IUnknown{
     }
 
     /**
+     * Ends an asynchronous request to perform a content enabling action. This method is called by the protected media path (PMP) to complete an asynchronous call to IMFContentProtectionManager::BeginEnableContent.
+     * @param {IMFAsyncResult} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. This pointer is the same value that the application passed to the caller's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFAsyncResult} pResult 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcontentprotectionmanager-endenablecontent
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfcontentprotectionmanager-endenablecontent
      */
     EndEnableContent(pResult) {
         result := ComCall(4, this, "ptr", pResult, "HRESULT")

@@ -30,6 +30,13 @@ class IMSMQTransaction3 extends IMSMQTransaction2{
     static VTableNames => ["get_ITransaction"]
 
     /**
+     * @type {VARIANT} 
+     */
+    ITransaction {
+        get => this.get_ITransaction()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

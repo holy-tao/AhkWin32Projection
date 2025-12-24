@@ -36,6 +36,41 @@ class IDOMMutationEvent extends IDispatch{
     static VTableNames => ["get_relatedNode", "get_prevValue", "get_newValue", "get_attrName", "get_attrChange", "initMutationEvent"]
 
     /**
+     * @type {IDispatch} 
+     */
+    relatedNode {
+        get => this.get_relatedNode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    prevValue {
+        get => this.get_prevValue()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    newValue {
+        get => this.get_newValue()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    attrName {
+        get => this.get_attrName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    attrChange {
+        get => this.get_attrChange()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

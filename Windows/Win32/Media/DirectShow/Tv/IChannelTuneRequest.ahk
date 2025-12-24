@@ -42,9 +42,17 @@ class IChannelTuneRequest extends ITuneRequest{
     static VTableNames => ["get_Channel", "put_Channel"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichanneltunerequest-get_channel
+     * @type {Integer} 
+     */
+    Channel {
+        get => this.get_Channel()
+        set => this.put_Channel(value)
+    }
+
+    /**
+     * The get_Channel method gets the channel to be tuned.
+     * @returns {Integer} Pointer to a variable of type <b>long</b> that receives the current channel.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ichanneltunerequest-get_channel
      */
     get_Channel() {
         result := ComCall(12, this, "int*", &Channel := 0, "HRESULT")
@@ -52,10 +60,10 @@ class IChannelTuneRequest extends ITuneRequest{
     }
 
     /**
-     * 
-     * @param {Integer} Channel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ichanneltunerequest-put_channel
+     * The put_Channel method sets the channel to be tuned.
+     * @param {Integer} Channel Variable of type <b>long</b> that specifies the channel.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM IErrorInfo interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ichanneltunerequest-put_channel
      */
     put_Channel(Channel) {
         result := ComCall(13, this, "int", Channel, "HRESULT")

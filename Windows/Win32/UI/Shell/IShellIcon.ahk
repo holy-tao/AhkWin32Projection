@@ -44,11 +44,15 @@ class IShellIcon extends IUnknown{
     static VTableNames => ["GetIconOf"]
 
     /**
+     * Gets an icon for an object inside a specific folder.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>LPCITEMIDLIST</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Integer} flags 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellicon-geticonof
+     * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that specifies the relative location of the folder.
+     * @param {Integer} flags Type: <b>UINT</b>
+     * @returns {Integer} Type: <b>LPINT</b>
+     * 
+     * The address of the index of the icon in the system image list. The following standard image list indexes can be returned.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellicon-geticonof
      */
     GetIconOf(pidl, flags) {
         result := ComCall(3, this, "ptr", pidl, "uint", flags, "int*", &pIconIndex := 0, "HRESULT")

@@ -35,10 +35,14 @@ class IQueryContinueWithStatus extends IQueryContinue{
     static VTableNames => ["SetStatusMessage"]
 
     /**
+     * Enables the credential provider to set status messages as it attempts to complete IConnectableCredentialProviderCredential::Connect.
+     * @param {PWSTR} psz Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} psz 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-iquerycontinuewithstatus-setstatusmessage
+     * A pointer to the status message.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-iquerycontinuewithstatus-setstatusmessage
      */
     SetStatusMessage(psz) {
         psz := psz is String ? StrPtr(psz) : psz

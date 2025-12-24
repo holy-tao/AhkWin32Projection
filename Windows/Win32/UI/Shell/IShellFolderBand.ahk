@@ -31,11 +31,17 @@ class IShellFolderBand extends IUnknown{
     static VTableNames => ["InitializeSFB", "SetBandInfoSFB", "GetBandInfoSFB"]
 
     /**
+     * Initializes an IShellFolderBand object.
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
-     * @param {IShellFolder} psf 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-ishellfolderband-initializesfb
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> object.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCIDLIST_ABSOLUTE</b>
+     * 
+     * A PIDL.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-ishellfolderband-initializesfb
      */
     InitializeSFB(psf, pidl) {
         result := ComCall(3, this, "ptr", psf, "ptr", pidl, "HRESULT")
@@ -43,10 +49,14 @@ class IShellFolderBand extends IUnknown{
     }
 
     /**
+     * Uses the information in a BANDINFOSFB structure to set the band information for a IShellFolderBand object.
+     * @param {Pointer<BANDINFOSFB>} pbi Type: <b>PBANDINFOSFB</b>
      * 
-     * @param {Pointer<BANDINFOSFB>} pbi 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-ishellfolderband-setbandinfosfb
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/ns-shlobj-bandinfosfb">BANDINFOSFB</a> structure.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-ishellfolderband-setbandinfosfb
      */
     SetBandInfoSFB(pbi) {
         result := ComCall(4, this, "ptr", pbi, "HRESULT")
@@ -54,10 +64,14 @@ class IShellFolderBand extends IUnknown{
     }
 
     /**
+     * Gets information concerning an IShellFolderBand object and places it in a BANDINFOSFB structure.
+     * @param {Pointer<BANDINFOSFB>} pbi Type: <b>PBANDINFOSFB</b>
      * 
-     * @param {Pointer<BANDINFOSFB>} pbi 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-ishellfolderband-getbandinfosfb
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/ns-shlobj-bandinfosfb">BANDINFOSFB</a> structure.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-ishellfolderband-getbandinfosfb
      */
     GetBandInfoSFB(pbi) {
         result := ComCall(5, this, "ptr", pbi, "HRESULT")

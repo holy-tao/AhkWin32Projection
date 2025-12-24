@@ -37,9 +37,23 @@ class IUpdateIdentity extends IDispatch{
     static VTableNames => ["get_RevisionNumber", "get_UpdateID"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    RevisionNumber {
+        get => this.get_RevisionNumber()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UpdateID {
+        get => this.get_UpdateID()
+    }
+
+    /**
+     * Gets the revision number of an update.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateidentity-get_revisionnumber
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateidentity-get_revisionnumber
      */
     get_RevisionNumber() {
         result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
@@ -47,9 +61,9 @@ class IUpdateIdentity extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the revision-independent identifier of an update.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateidentity-get_updateid
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateidentity-get_updateid
      */
     get_UpdateID() {
         retval := BSTR()

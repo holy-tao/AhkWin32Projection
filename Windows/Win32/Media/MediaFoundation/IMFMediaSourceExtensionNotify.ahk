@@ -31,27 +31,27 @@ class IMFMediaSourceExtensionNotify extends IUnknown{
     static VTableNames => ["OnSourceOpen", "OnSourceEnded", "OnSourceClose"]
 
     /**
-     * 
+     * Used to indicate that the media source has opened.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceopen
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceopen
      */
     OnSourceOpen() {
         ComCall(3, this)
     }
 
     /**
-     * 
+     * Used to indicate that the media source has ended.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceended
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceended
      */
     OnSourceEnded() {
         ComCall(4, this)
     }
 
     /**
-     * 
+     * Used to indicate that the media source has closed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceclose
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediasourceextensionnotify-onsourceclose
      */
     OnSourceClose() {
         ComCall(5, this)

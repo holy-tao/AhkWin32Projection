@@ -46,9 +46,9 @@ class ID2D1Multithread extends IUnknown{
     static VTableNames => ["GetMultithreadProtected", "Enter", "Leave"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1multithread-getmultithreadprotected
+     * Returns whether the Direct2D factory was created with the D2D1_FACTORY_TYPE_MULTI_THREADED flag.
+     * @returns {BOOL} Returns true if the Direct2D factory was created as multi-threaded, or false if it was created as single-threaded.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1multithread-getmultithreadprotected
      */
     GetMultithreadProtected() {
         result := ComCall(3, this, "int")
@@ -56,18 +56,18 @@ class ID2D1Multithread extends IUnknown{
     }
 
     /**
-     * 
+     * Enters the Direct2D API critical section, if it exists.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1multithread-enter
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1multithread-enter
      */
     Enter() {
         ComCall(4, this)
     }
 
     /**
-     * 
+     * Leaves the Direct2D API critical section, if it exists.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1multithread-leave
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1multithread-leave
      */
     Leave() {
         ComCall(5, this)

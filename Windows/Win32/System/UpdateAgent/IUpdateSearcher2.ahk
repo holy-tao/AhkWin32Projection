@@ -36,9 +36,22 @@ class IUpdateSearcher2 extends IUpdateSearcher{
     static VTableNames => ["get_IgnoreDownloadPriority", "put_IgnoreDownloadPriority"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    IgnoreDownloadPriority {
+        get => this.get_IgnoreDownloadPriority()
+        set => this.put_IgnoreDownloadPriority(value)
+    }
+
+    /**
+     * Gets and sets a Boolean value that indicates whether to ignore the download priority.
+     * @remarks
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher2">IUpdateSearcher2</a> interface  may require you to update Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher2-get_ignoredownloadpriority
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher2-get_ignoredownloadpriority
      */
     get_IgnoreDownloadPriority() {
         result := ComCall(25, this, "short*", &retval := 0, "HRESULT")
@@ -46,10 +59,15 @@ class IUpdateSearcher2 extends IUpdateSearcher{
     }
 
     /**
+     * Gets and sets a Boolean value that indicates whether to ignore the download priority.
+     * @remarks
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher2">IUpdateSearcher2</a> interface  may require you to update Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
+     * 
      * 
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher2-put_ignoredownloadpriority
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher2-put_ignoredownloadpriority
      */
     put_IgnoreDownloadPriority(value) {
         result := ComCall(26, this, "short", value, "HRESULT")

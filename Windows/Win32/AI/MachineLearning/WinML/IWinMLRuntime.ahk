@@ -33,10 +33,10 @@ class IWinMLRuntime extends IUnknown{
     static VTableNames => ["LoadModel", "CreateEvaluationContext", "EvaluateModel"]
 
     /**
-     * 
-     * @param {PWSTR} Path 
-     * @returns {IWinMLModel} 
-     * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlruntime-loadmodel
+     * Loads a WinML model.
+     * @param {PWSTR} Path Path name for the model.
+     * @returns {IWinMLModel} A double pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winml/nn-winml-iwinmlmodel">IWinMLModel</a> describing a WinML model.
+     * @see https://docs.microsoft.com/windows/win32/api//winml/nf-winml-iwinmlruntime-loadmodel
      */
     LoadModel(Path) {
         Path := Path is String ? StrPtr(Path) : Path
@@ -46,10 +46,10 @@ class IWinMLRuntime extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ID3D12Device} device 
-     * @returns {IWinMLEvaluationContext} 
-     * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlruntime-createevaluationcontext
+     * Creates a WinML evaluation context object.
+     * @param {ID3D12Device} device A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12device">ID3D12Device</a> describing a D3D12 device input.
+     * @returns {IWinMLEvaluationContext} On success, returns a double pointer to the newly-created <a href="https://docs.microsoft.com/windows/desktop/api/winml/nn-winml-iwinmlevaluationcontext">WinMLEvaluationContext</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//winml/nf-winml-iwinmlruntime-createevaluationcontext
      */
     CreateEvaluationContext(device) {
         result := ComCall(4, this, "ptr", device, "ptr*", &ppContext := 0, "HRESULT")
@@ -57,10 +57,10 @@ class IWinMLRuntime extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IWinMLEvaluationContext} pContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winml/nf-winml-iwinmlruntime-evaluatemodel
+     * Evaluates a WinML model.
+     * @param {IWinMLEvaluationContext} pContext A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/winml/nn-winml-iwinmlevaluationcontext">WinMLEvaluationContext</a> to evaluate.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//winml/nf-winml-iwinmlruntime-evaluatemodel
      */
     EvaluateModel(pContext) {
         result := ComCall(5, this, "ptr", pContext, "HRESULT")

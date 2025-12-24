@@ -40,9 +40,9 @@ class IWSManEx3 extends IWSManEx2{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanex3-sessionflagusecredssp
+     * Returns the value of the authentication flag WSManFlagUseCredSsp for use in the flags parameter of IWSMan::CreateSession.
+     * @returns {Integer} Specifies the authentication flag to use.
+     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanex3-sessionflagusecredssp
      */
     SessionFlagUseCredSsp() {
         result := ComCall(33, this, "int*", &flags := 0, "HRESULT")

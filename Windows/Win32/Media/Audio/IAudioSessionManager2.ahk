@@ -49,9 +49,9 @@ class IAudioSessionManager2 extends IAudioSessionManager{
     static VTableNames => ["GetSessionEnumerator", "RegisterSessionNotification", "UnregisterSessionNotification", "RegisterDuckNotification", "UnregisterDuckNotification"]
 
     /**
-     * 
-     * @returns {IAudioSessionEnumerator} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-getsessionenumerator
+     * The GetSessionEnumerator method gets a pointer to the audio session enumerator object.
+     * @returns {IAudioSessionEnumerator} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionenumerator">IAudioSessionEnumerator</a> interface of the session enumerator object that the client can use to enumerate audio sessions on the audio device. Through this method, the caller obtains a counted reference to the interface. The caller is responsible for releasing the interface, when it is no longer needed, by calling the interface's <b>Release</b> method.
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionmanager2-getsessionenumerator
      */
     GetSessionEnumerator() {
         result := ComCall(5, this, "ptr*", &SessionEnum := 0, "HRESULT")
@@ -59,10 +59,40 @@ class IAudioSessionManager2 extends IAudioSessionManager{
     }
 
     /**
+     * The RegisterSessionNotification method registers the application to receive a notification when a session is created.
+     * @param {IAudioSessionNotification} SessionNotification A pointer to the application's implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a> interface. If the method call succeeds, it calls the <b>AddRef</b> method on the application's <b>IAudioSessionNotification</b> interface.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
+     *           If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {IAudioSessionNotification} SessionNotification 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registersessionnotification
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>E_POINTER</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>SessionNotification</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>E_OUTOFMEMORY</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Internal object could not be created due to insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registersessionnotification
      */
     RegisterSessionNotification(SessionNotification) {
         result := ComCall(6, this, "ptr", SessionNotification, "HRESULT")
@@ -70,10 +100,31 @@ class IAudioSessionManager2 extends IAudioSessionManager{
     }
 
     /**
+     * The UnregisterSessionNotification method deletes the registration to receive a notification when a session is created.
+     * @param {IAudioSessionNotification} SessionNotification A pointer to the application's implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a> interface. Pass the same interface pointer that was specified to the session manager in  a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registersessionnotification">IAudioSessionManager2::RegisterSessionNotification</a> to register for notification.  
      * 
-     * @param {IAudioSessionNotification} SessionNotification 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-unregistersessionnotification
+     * If the <b>UnregisterSessionNotification</b> method succeeds, it calls the <b>Release</b> method on the application's <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionnotification">IAudioSessionNotification</a> interface.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
+     *           If it fails, possible return codes include, but are not limited to, the values shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>E_POINTER</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>SessionNotification</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionmanager2-unregistersessionnotification
      */
     UnregisterSessionNotification(SessionNotification) {
         result := ComCall(7, this, "ptr", SessionNotification, "HRESULT")
@@ -81,11 +132,45 @@ class IAudioSessionManager2 extends IAudioSessionManager{
     }
 
     /**
+     * The RegisterDuckNotification method registers the application with the session manager to receive ducking notifications.
+     * @param {PWSTR} sessionID Pointer to a null-terminated string that contains a  session instance identifier. Applications that are playing a media stream and want to provide custom stream attenuation or ducking behavior, pass their own session instance identifier.  For more information, see Remarks.
      * 
-     * @param {PWSTR} sessionID 
-     * @param {IAudioVolumeDuckNotification} duckNotification 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registerducknotification
+     * Other applications
+     *     that do not want to alter their streams but want to get all the ducking notifications
+     *     must pass <b>NULL</b>.
+     * @param {IAudioVolumeDuckNotification} duckNotification Pointer to the application's implementation of the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiovolumeducknotification">IAudioVolumeDuckNotification</a> interface. The implementation is called when ducking events are raised by the audio system and  notifications are sent to the registered applications.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
+     *           If it fails, possible return codes include, but are not limited to, the values shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>E_POINTER</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>duckNotification</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>E_OUTOFMEMORY</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Internal object could not be created due to insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registerducknotification
      */
     RegisterDuckNotification(sessionID, duckNotification) {
         sessionID := sessionID is String ? StrPtr(sessionID) : sessionID
@@ -95,10 +180,29 @@ class IAudioSessionManager2 extends IAudioSessionManager{
     }
 
     /**
+     * The UnregisterDuckNotification method deletes a previous registration by the application to receive notifications.
+     * @param {IAudioVolumeDuckNotification} duckNotification Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiovolumeducknotification">IAudioVolumeDuckNotification</a> interface that is implemented by the application. Pass the same interface pointer that was specified to the session manager in a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-registerducknotification">IAudioSessionManager2::RegisterDuckNotification</a> method. If the <b>UnregisterDuckNotification</b> method succeeds, it calls the <b>Release</b> method on the application's <b>IAudioVolumeDuckNotification</b> interface.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK.
+     *           If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {IAudioVolumeDuckNotification} duckNotification 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionmanager2-unregisterducknotification
+     * <table>
+     * <tr>
+     * <th>Return value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt>E_POINTER</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>duckNotification</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionmanager2-unregisterducknotification
      */
     UnregisterDuckNotification(duckNotification) {
         result := ComCall(9, this, "ptr", duckNotification, "HRESULT")

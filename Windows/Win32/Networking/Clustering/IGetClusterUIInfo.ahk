@@ -70,11 +70,62 @@ class IGetClusterUIInfo extends IUnknown{
     static VTableNames => ["GetClusterName", "GetLocale", "GetFont", "GetIcon"]
 
     /**
+     * Returns the name of the cluster.
+     * @param {BSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the cluster, or 
+     *        <b>NULL</b> to indicate that the caller is requesting only the length of the name. Although 
+     *        declared as a <b>BSTR</b>, this parameter is implemented as an 
+     *        <b>LPWSTR</b>.
+     * @param {Pointer<Integer>} pcchName On input, pointer to the count of characters in the buffer pointed to by the 
+     *        <i>lpszName</i> parameter. On output, pointer to the total number of characters in the 
+     *        buffer including the <b>NULL</b>-terminating character.
+     * @returns {HRESULT} If <b>GetClusterName</b> is not 
+     *        successful, it can return other <b>HRESULT</b> values.
      * 
-     * @param {BSTR} lpszName 
-     * @param {Pointer<Integer>} pcchName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusteruiinfo-getclustername
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NOERROR</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt>0x80070057</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * <dt>0x800700ea</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by <i>lpszName</i> is too small to hold the requested name. 
+     *          <a href="/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusteruiinfo-getclustername">GetClusterName</a> returns the 
+     *          required number of characters in the content of <i>pcchName</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusteruiinfo-getclustername
      */
     GetClusterName(lpszName, pcchName) {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName
@@ -86,9 +137,10 @@ class IGetClusterUIInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusteruiinfo-getlocale
+     * Returns the locale identifier to be used with property and wizard pages.
+     * @returns {Integer} <b>GetLocale</b> always returns the locale 
+     *        identifier for the cluster.
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusteruiinfo-getlocale
      */
     GetLocale() {
         result := ComCall(4, this, "uint")
@@ -96,9 +148,10 @@ class IGetClusterUIInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HFONT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusteruiinfo-getfont
+     * Returns a handle to the font to be displayed on property and wizard pages.
+     * @returns {HFONT} If <b>GetFont</b> is successful, it returns a 
+     *        font handle.
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusteruiinfo-getfont
      */
     GetFont() {
         result := ComCall(5, this, "ptr")
@@ -106,9 +159,10 @@ class IGetClusterUIInfo extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HICON} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusteruiinfo-geticon
+     * Returns a handle to the icon to use in the upper-left corner of property and wizard pages.
+     * @returns {HICON} <b>GetIcon</b> always returns a handle to an 
+     *        icon.
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusteruiinfo-geticon
      */
     GetIcon() {
         result := ComCall(6, this, "ptr")

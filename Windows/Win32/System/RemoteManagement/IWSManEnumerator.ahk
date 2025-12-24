@@ -41,9 +41,23 @@ class IWSManEnumerator extends IDispatch{
     static VTableNames => ["ReadItem", "get_AtEndOfStream", "get_Error"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-readitem
+     * @type {VARIANT_BOOL} 
+     */
+    AtEndOfStream {
+        get => this.get_AtEndOfStream()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Error {
+        get => this.get_Error()
+    }
+
+    /**
+     * Retrieves an item from the resource and returns an XML representation of the item.
+     * @returns {BSTR} The XML representation of the item.
+     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanenumerator-readitem
      */
     ReadItem() {
         resource := BSTR()
@@ -52,9 +66,9 @@ class IWSManEnumerator extends IDispatch{
     }
 
     /**
-     * 
+     * Indicates that the end of items in the IWSManEnumerator object has been reached by calls to IWSManEnumerator::ReadItem.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-get_atendofstream
+     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanenumerator-get_atendofstream
      */
     get_AtEndOfStream() {
         result := ComCall(8, this, "short*", &eos := 0, "HRESULT")
@@ -62,9 +76,9 @@ class IWSManEnumerator extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an XML representation of additional error information.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsmanenumerator-get_error
+     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsmanenumerator-get_error
      */
     get_Error() {
         value := BSTR()

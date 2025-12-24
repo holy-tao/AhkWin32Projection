@@ -35,6 +35,89 @@ class ISpeechRecoContext extends IDispatch{
     static VTableNames => ["get_Recognizer", "get_AudioInputInterferenceStatus", "get_RequestedUIType", "putref_Voice", "get_Voice", "put_AllowVoiceFormatMatchingOnNextSet", "get_AllowVoiceFormatMatchingOnNextSet", "put_VoicePurgeEvent", "get_VoicePurgeEvent", "put_EventInterests", "get_EventInterests", "put_CmdMaxAlternates", "get_CmdMaxAlternates", "put_State", "get_State", "put_RetainedAudio", "get_RetainedAudio", "putref_RetainedAudioFormat", "get_RetainedAudioFormat", "Pause", "Resume", "CreateGrammar", "CreateResultFromMemory", "Bookmark", "SetAdaptationData"]
 
     /**
+     * @type {ISpeechRecognizer} 
+     */
+    Recognizer {
+        get => this.get_Recognizer()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AudioInputInterferenceStatus {
+        get => this.get_AudioInputInterferenceStatus()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RequestedUIType {
+        get => this.get_RequestedUIType()
+    }
+
+    /**
+     * @type {ISpeechVoice} 
+     */
+    Voice {
+        get => this.get_Voice()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AllowVoiceFormatMatchingOnNextSet {
+        get => this.get_AllowVoiceFormatMatchingOnNextSet()
+        set => this.put_AllowVoiceFormatMatchingOnNextSet(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VoicePurgeEvent {
+        get => this.get_VoicePurgeEvent()
+        set => this.put_VoicePurgeEvent(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EventInterests {
+        get => this.get_EventInterests()
+        set => this.put_EventInterests(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CmdMaxAlternates {
+        get => this.get_CmdMaxAlternates()
+        set => this.put_CmdMaxAlternates(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+        set => this.put_State(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RetainedAudio {
+        get => this.get_RetainedAudio()
+        set => this.put_RetainedAudio(value)
+    }
+
+    /**
+     * @type {ISpeechAudioFormat} 
+     */
+    RetainedAudioFormat {
+        get => this.get_RetainedAudioFormat()
+    }
+
+    /**
      * 
      * @returns {ISpeechRecognizer} 
      */

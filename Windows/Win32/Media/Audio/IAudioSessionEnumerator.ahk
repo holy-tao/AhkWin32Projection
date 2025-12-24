@@ -57,9 +57,9 @@ class IAudioSessionEnumerator extends IUnknown{
     static VTableNames => ["GetCount", "GetSession"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getcount
+     * The GetCount method gets the total number of audio sessions that are open on the audio device.
+     * @returns {Integer} Receives the total number of audio sessions.
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getcount
      */
     GetCount() {
         result := ComCall(3, this, "int*", &SessionCount := 0, "HRESULT")
@@ -67,10 +67,10 @@ class IAudioSessionEnumerator extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} SessionCount 
-     * @returns {IAudioSessionControl} 
-     * @see https://learn.microsoft.com/windows/win32/api/audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getsession
+     * The GetSession method gets the audio session specified by an audio session number.
+     * @param {Integer} SessionCount The session number. If there are <i>n</i> sessions, the sessions are numbered from 0 to <i>n</i> – 1. To get the number of sessions, call the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getcount">IAudioSessionEnumerator::GetCount</a> method.
+     * @returns {IAudioSessionControl} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessioncontrol">IAudioSessionControl</a> interface of the session object in the collection that is maintained by the session enumerator. The caller must release the interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//audiopolicy/nf-audiopolicy-iaudiosessionenumerator-getsession
      */
     GetSession(SessionCount) {
         result := ComCall(4, this, "int", SessionCount, "ptr*", &Session := 0, "HRESULT")

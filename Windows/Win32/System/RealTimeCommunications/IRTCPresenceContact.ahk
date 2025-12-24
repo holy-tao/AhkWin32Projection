@@ -30,6 +30,38 @@ class IRTCPresenceContact extends IUnknown{
     static VTableNames => ["get_PresentityURI", "put_PresentityURI", "get_Name", "put_Name", "get_Data", "put_Data", "get_Persistent", "put_Persistent"]
 
     /**
+     * @type {BSTR} 
+     */
+    PresentityURI {
+        get => this.get_PresentityURI()
+        set => this.put_PresentityURI(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+        set => this.put_Name(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Data {
+        get => this.get_Data()
+        set => this.put_Data(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Persistent {
+        get => this.get_Persistent()
+        set => this.put_Persistent(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

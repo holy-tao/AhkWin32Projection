@@ -31,13 +31,13 @@ class ICreateWithLocalTransaction extends IUnknown{
     static VTableNames => ["CreateInstanceWithSysTx"]
 
     /**
-     * 
-     * @param {IUnknown} pTransaction 
-     * @param {Pointer<Guid>} rclsid 
-     * @param {Pointer<Guid>} riid 
-     * @param {Pointer<Pointer<Void>>} pObject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icreatewithlocaltransaction-createinstancewithsystx
+     * Creates a COM+ object that executes within the scope of the specified local transaction.
+     * @param {IUnknown} pTransaction The transaction in which the requested object participates.
+     * @param {Pointer<Guid>} rclsid The CLSID of the class from which to create the requested object.
+     * @param {Pointer<Guid>} riid A reference to the interface identifier (IID) of the interface that is used to communicate with the request object.
+     * @param {Pointer<Pointer<Void>>} pObject The address of the pointer variable that receives the interface pointer specified with <i>riid</i>.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icreatewithlocaltransaction-createinstancewithsystx
      */
     CreateInstanceWithSysTx(pTransaction, rclsid, riid, pObject) {
         pObjectMarshal := pObject is VarRef ? "ptr*" : "ptr"

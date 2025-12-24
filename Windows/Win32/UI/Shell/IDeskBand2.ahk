@@ -48,9 +48,11 @@ class IDeskBand2 extends IDeskBand{
     static VTableNames => ["CanRenderComposited", "SetCompositionState", "GetCompositionState"]
 
     /**
+     * Indicates the deskband's ability to be displayed as translucent.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ideskband2-canrendercomposited
+     * When this method returns, contains a <b>BOOL</b> indicating ability.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ideskband2-canrendercomposited
      */
     CanRenderComposited() {
         result := ComCall(9, this, "int*", &pfCanRenderComposited := 0, "HRESULT")
@@ -58,10 +60,14 @@ class IDeskBand2 extends IDeskBand{
     }
 
     /**
+     * Sets the composition state.
+     * @param {BOOL} fCompositionEnabled Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fCompositionEnabled 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ideskband2-setcompositionstate
+     * <b>TRUE</b> to enable the composition state; otherwise, <b>FALSE</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ideskband2-setcompositionstate
      */
     SetCompositionState(fCompositionEnabled) {
         result := ComCall(10, this, "int", fCompositionEnabled, "HRESULT")
@@ -69,9 +75,11 @@ class IDeskBand2 extends IDeskBand{
     }
 
     /**
+     * Gets the composition state.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ideskband2-getcompositionstate
+     * When this method returns, contains a <b>BOOL</b> that indicates state.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ideskband2-getcompositionstate
      */
     GetCompositionState() {
         result := ComCall(11, this, "int*", &pfCompositionEnabled := 0, "HRESULT")

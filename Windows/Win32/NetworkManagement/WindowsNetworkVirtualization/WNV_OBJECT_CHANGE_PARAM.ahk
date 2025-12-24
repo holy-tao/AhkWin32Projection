@@ -19,13 +19,13 @@
  */
 class WNV_OBJECT_CHANGE_PARAM extends Win32Struct
 {
-    static sizeof => 64
+    static sizeof => 88
 
-    static packingSize => 4
+    static packingSize => 8
 
     class _ObjectParam_e__Union extends Win32Struct {
-        static sizeof => 60
-        static packingSize => 4
+        static sizeof => 80
+        static packingSize => 8
 
         /**
          * @type {WNV_PROVIDER_ADDRESS_CHANGE_PARAM}
@@ -69,7 +69,7 @@ class WNV_OBJECT_CHANGE_PARAM extends Win32Struct
     ObjectParam{
         get {
             if(!this.HasProp("__ObjectParam"))
-                this.__ObjectParam := %this.__Class%._ObjectParam_e__Union(4, this)
+                this.__ObjectParam := %this.__Class%._ObjectParam_e__Union(8, this)
             return this.__ObjectParam
         }
     }

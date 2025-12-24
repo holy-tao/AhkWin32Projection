@@ -40,9 +40,31 @@ class ITAddressEvent extends IDispatch{
     static VTableNames => ["get_Address", "get_Event", "get_Terminal"]
 
     /**
-     * 
-     * @returns {ITAddress} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressevent-get_address
+     * @type {ITAddress} 
+     */
+    Address {
+        get => this.get_Address()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Event {
+        get => this.get_Event()
+    }
+
+    /**
+     * @type {ITTerminal} 
+     */
+    Terminal {
+        get => this.get_Terminal()
+    }
+
+    /**
+     * The get_Address method gets a pointer to the ITAddress object involved in an event.
+     * @returns {ITAddress} Pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddress">ITAddress</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddressevent-get_address
      */
     get_Address() {
         result := ComCall(7, this, "ptr*", &ppAddress := 0, "HRESULT")
@@ -50,9 +72,10 @@ class ITAddressEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressevent-get_event
+     * The get_Event method gets the ADDRESS_EVENT descriptor of an event.
+     * @returns {Integer} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-address_event">ADDRESS_EVENT</a> descriptor of an event.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddressevent-get_event
      */
     get_Event() {
         result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")
@@ -60,9 +83,10 @@ class ITAddressEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {ITTerminal} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddressevent-get_terminal
+     * The get_Terminal method gets a pointer to the ITTerminal interface associated with the event.
+     * @returns {ITTerminal} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface, or <b>NULL</b> if the event does not refer to a terminal.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddressevent-get_terminal
      */
     get_Terminal() {
         result := ComCall(9, this, "ptr*", &ppTerminal := 0, "HRESULT")

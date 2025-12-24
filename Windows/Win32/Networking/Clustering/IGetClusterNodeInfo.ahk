@@ -61,10 +61,17 @@ class IGetClusterNodeInfo extends IUnknown{
     static VTableNames => ["GetNodeHandle"]
 
     /**
+     * Returns a handle to a node.
+     * @param {Integer} lObjIndex A number representing the zero-based index of the target node. <i>lObjIndex</i> is 
+     *        restricted to the number that can be retrieved by calling 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount">IGetClusterDataInfo::GetObjectCount</a>.
+     * @returns {HNODE} If <b>GetNodeHandle</b> is successful, 
+     *        it returns a handle for the node represented by <i>lObjIndex</i>.
      * 
-     * @param {Integer} lObjIndex 
-     * @returns {HNODE} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusternodeinfo-getnodehandle
+     * If <b>GetNodeHandle</b> is not 
+     *        successful, it returns <b>NULL</b>. For more information about the error, call the function 
+     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusternodeinfo-getnodehandle
      */
     GetNodeHandle(lObjIndex) {
         result := ComCall(3, this, "int", lObjIndex, "ptr")

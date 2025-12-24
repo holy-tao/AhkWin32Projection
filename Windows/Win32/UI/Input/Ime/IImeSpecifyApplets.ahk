@@ -31,11 +31,11 @@ class IImeSpecifyApplets extends IUnknown{
     static VTableNames => ["GetAppletIIDList"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} refiid 
-     * @param {Pointer<APPLETIDLIST>} lpIIDList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimespecifyapplets-getappletiidlist
+     * Called from the IImePad interface to enumerate the IImePadApplet interfaces that are implemented.
+     * @param {Pointer<Guid>} refiid IID of the <a href="https://docs.microsoft.com/windows/desktop/api/imepad/nn-imepad-iimepadapplet">IImePadApplet</a> interface. This IID is defined in Imepad.h as <b>IID_IImePadApplet</b>. This is for <b>IImePadApplet</b>'s future enhancement
+     * @param {Pointer<APPLETIDLIST>} lpIIDList Pointer to a APPLETIIDLIST structure. Sets the applet's IID list and count.
+     * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//imepad/nf-imepad-iimespecifyapplets-getappletiidlist
      */
     GetAppletIIDList(refiid, lpIIDList) {
         result := ComCall(3, this, "ptr", refiid, "ptr", lpIIDList, "HRESULT")

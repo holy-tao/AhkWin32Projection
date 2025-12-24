@@ -43,10 +43,25 @@ class IAzBizRuleContext extends IDispatch{
     static VTableNames => ["put_BusinessRuleResult", "put_BusinessRuleString", "get_BusinessRuleString", "GetParameter"]
 
     /**
-     * 
+     * @type {HRESULT} 
+     */
+    BusinessRuleResult {
+        set => this.put_BusinessRuleResult(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    BusinessRuleString {
+        get => this.get_BusinessRuleString()
+        set => this.put_BusinessRuleString(value)
+    }
+
+    /**
+     * Sets a value that indicates whether the Business Rule (BizRule) allows the user to perform the requested task.
      * @param {BOOL} bResult 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizrulecontext-put_businessruleresult
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazbizrulecontext-put_businessruleresult
      */
     put_BusinessRuleResult(bResult) {
         result := ComCall(7, this, "int", bResult, "HRESULT")
@@ -54,10 +69,16 @@ class IAzBizRuleContext extends IDispatch{
     }
 
     /**
+     * Sets or retrieves an application-specific string for the Business Rule (BizRule).
+     * @remarks
+     * 
+     * This property is returned to the application that called the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">IAzClientContext::AccessCheck</a> method. One possible use of this property is to explain the reason that the BizRule denied access to the user.
+     * 
+     * The maximum length of this property is 65,536 characters.
      * 
      * @param {BSTR} bstrBusinessRuleString 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizrulecontext-put_businessrulestring
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazbizrulecontext-put_businessrulestring
      */
     put_BusinessRuleString(bstrBusinessRuleString) {
         bstrBusinessRuleString := bstrBusinessRuleString is String ? BSTR.Alloc(bstrBusinessRuleString).Value : bstrBusinessRuleString
@@ -67,9 +88,15 @@ class IAzBizRuleContext extends IDispatch{
     }
 
     /**
+     * Sets or retrieves an application-specific string for the Business Rule (BizRule).
+     * @remarks
+     * 
+     * This property is returned to the application that called the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">IAzClientContext::AccessCheck</a> method. One possible use of this property is to explain the reason that the BizRule denied access to the user.
+     * 
+     * The maximum length of this property is 65,536 characters.
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizrulecontext-get_businessrulestring
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazbizrulecontext-get_businessrulestring
      */
     get_BusinessRuleString() {
         pbstrBusinessRuleString := BSTR()
@@ -78,10 +105,13 @@ class IAzBizRuleContext extends IDispatch{
     }
 
     /**
+     * Gets the specified value from the varParameterValues parameter of the IAzClientContext::AccessCheck method.
+     * @param {BSTR} bstrParameterName Name of the value to return. The name must match the name in one of the elements in the array passed into the <i>varParameterNames</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">AccessCheck</a> method. 
      * 
-     * @param {BSTR} bstrParameterName 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazbizrulecontext-getparameter
+     * <div class="alert"><b>Important</b>  Users of VBScript must be aware that the comparison between this parameter and the names in the <i>varParameterNames</i> parameter is case sensitive.</div>
+     * <div> </div>
+     * @returns {VARIANT} Parameter value from the <i>varParameterValues</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazclientcontext-accesscheck">AccessCheck</a> method that corresponds to the name specified by the <i>bstrParameterName</i> parameter, if found; otherwise, <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazbizrulecontext-getparameter
      */
     GetParameter(bstrParameterName) {
         bstrParameterName := bstrParameterName is String ? BSTR.Alloc(bstrParameterName).Value : bstrParameterName

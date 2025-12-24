@@ -35,6 +35,38 @@ class ISVGPathSegCurvetoCubicSmoothRel extends IDispatch{
     static VTableNames => ["put_x", "get_x", "put_y", "get_y", "put_x2", "get_x2", "put_y2", "get_y2"]
 
     /**
+     * @type {Float} 
+     */
+    x {
+        get => this.get_x()
+        set => this.put_x(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    y {
+        get => this.get_y()
+        set => this.put_y(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    x2 {
+        get => this.get_x2()
+        set => this.put_x2(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    y2 {
+        get => this.get_y2()
+        set => this.put_y2(value)
+    }
+
+    /**
      * 
      * @param {Float} v 
      * @returns {HRESULT} 

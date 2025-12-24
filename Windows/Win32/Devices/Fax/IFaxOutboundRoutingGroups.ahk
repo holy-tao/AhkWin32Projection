@@ -44,9 +44,25 @@ class IFaxOutboundRoutingGroups extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "Add", "Remove"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * The IFaxOutboundRoutingGroups::get__NewEnum method returns a reference to an enumerator object that you can use to iterate through the FaxOutboundRoutingGroups collection.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-get__newenum
+     * Receives an indirect pointer to the enumerator object's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for this collection.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -54,10 +70,20 @@ class IFaxOutboundRoutingGroups extends IDispatch{
     }
 
     /**
+     * The IFaxOutboundRoutingGroups::get_Item method returns a IFaxOutboundRoutingGroup interface from the collection.
+     * @param {VARIANT} vIndex Type: <b>VARIANT</b>
      * 
-     * @param {VARIANT} vIndex 
-     * @returns {IFaxOutboundRoutingGroup} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-get_item
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">Variant</a> that specifies the item to retrieve from the collection. 
+     * 
+     * 
+     * 
+     * 
+     * If this parameter is type VT_I2 or VT_I4, the parameter specifies the index of the item to retrieve from the collection. The index is 1-based. If this parameter is type VT_BSTR, the parameter is a unique name that identifies the outbound routing group to retrieve. Other types are not supported.
+     * @returns {IFaxOutboundRoutingGroup} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutinggroup">IFaxOutboundRoutingGroup</a>**</b>
+     * 
+     * An address of a pointer that receives the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutinggroup">IFaxOutboundRoutingGroup</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-get_item
      */
     get_Item(vIndex) {
         result := ComCall(8, this, "ptr", vIndex, "ptr*", &pFaxOutboundRoutingGroup := 0, "HRESULT")
@@ -65,9 +91,9 @@ class IFaxOutboundRoutingGroups extends IDispatch{
     }
 
     /**
-     * 
+     * The Count property represents the number of objects in the FaxOutboundRoutingGroups collection. This is the total number of outbound routing groups associated with the fax server.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &plCount := 0, "HRESULT")
@@ -75,10 +101,14 @@ class IFaxOutboundRoutingGroups extends IDispatch{
     }
 
     /**
+     * The IFaxOutboundRoutingGroups::Add method adds an outbound routing group to the collection represented by the IFaxOutboundRoutingGroups interface.
+     * @param {BSTR} bstrName Type: <b>BSTR</b>
      * 
-     * @param {BSTR} bstrName 
-     * @returns {IFaxOutboundRoutingGroup} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-add
+     * Null-terminated string that indicates the name of the group to add. Note that you cannot add the special <b>All Devices</b> routing group.
+     * @returns {IFaxOutboundRoutingGroup} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutinggroup">IFaxOutboundRoutingGroup</a>**</b>
+     * 
+     * Address of a pointer that receives a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxoutboundroutinggroup">IFaxOutboundRoutingGroup</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-add
      */
     Add(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -88,10 +118,20 @@ class IFaxOutboundRoutingGroups extends IDispatch{
     }
 
     /**
+     * The Remove method removes an item from the FaxOutboundRoutingGroups collection.
+     * @param {VARIANT} vIndex Type: <b>VARIANT</b>
      * 
-     * @param {VARIANT} vIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-remove
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">Variant</a> that specifies the item to remove from the collection.
+     * 				
+     * 
+     * 
+     * 
+     * If this parameter is type VT_I2 or VT_I4, it specifies the index of the item to remove from the collection. Valid values for this parameter are in the range from 1 to n, where n is the number of objects returned by a call to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxoutboundroutinggroups-count-vb">IFaxOutboundRoutingGroups::get_Count</a> method. The index is 1-based. If this parameter is type VT_BSTR, the parameter is a unique name that identifies the outbound routing group to remove. Other types are not supported.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxoutboundroutinggroups-remove
      */
     Remove(vIndex) {
         result := ComCall(11, this, "ptr", vIndex, "HRESULT")

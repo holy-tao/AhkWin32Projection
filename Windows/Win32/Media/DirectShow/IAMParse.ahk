@@ -31,9 +31,9 @@ class IAMParse extends IUnknown{
     static VTableNames => ["GetParseTime", "SetParseTime", "Flush"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/amparse/nf-amparse-iamparse-getparsetime
+     * The GetParseTime method retrieves the current stream parse time. For MPEG-2, this corresponds to the system clock time computed for the current stream position.
+     * @returns {Integer} Pointer to the current parse time.
+     * @see https://docs.microsoft.com/windows/win32/api//amparse/nf-amparse-iamparse-getparsetime
      */
     GetParseTime() {
         result := ComCall(3, this, "int64*", &prtCurrent := 0, "HRESULT")
@@ -41,10 +41,39 @@ class IAMParse extends IUnknown{
     }
 
     /**
+     * The SetParseTime method sets the current stream parse time. For MPEG-2, this corresponds to the system clock time computed for the current stream position.
+     * @param {Integer} rtCurrent Current stream parse time.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} rtCurrent 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amparse/nf-amparse-iamparse-setparsetime
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_NOT_CONNECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parse time is not available, because the input pin is not connected
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//amparse/nf-amparse-iamparse-setparsetime
      */
     SetParseTime(rtCurrent) {
         result := ComCall(4, this, "int64", rtCurrent, "HRESULT")
@@ -52,9 +81,9 @@ class IAMParse extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/amparse/nf-amparse-iamparse-flush
+     * The Flush method clears the current file data to allow for a more rapid switch to a new file.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//amparse/nf-amparse-iamparse-flush
      */
     Flush() {
         result := ComCall(5, this, "HRESULT")

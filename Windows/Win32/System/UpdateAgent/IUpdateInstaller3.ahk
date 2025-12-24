@@ -31,9 +31,17 @@ class IUpdateInstaller3 extends IUpdateInstaller2{
     static VTableNames => ["get_AttemptCloseAppsIfNecessary", "put_AttemptCloseAppsIfNecessary"]
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller3-get_attemptcloseappsifnecessary
+     * @type {VARIANT_BOOL} 
+     */
+    AttemptCloseAppsIfNecessary {
+        get => this.get_AttemptCloseAppsIfNecessary()
+        set => this.put_AttemptCloseAppsIfNecessary(value)
+    }
+
+    /**
+     * Gets a value indicating whether the update installer will attempt to close applications, blocking immediate installation of updates.
+     * @returns {VARIANT_BOOL} True if the installer will attempt to close applications.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstaller3-get_attemptcloseappsifnecessary
      */
     get_AttemptCloseAppsIfNecessary() {
         result := ComCall(30, this, "short*", &retval := 0, "HRESULT")
@@ -41,10 +49,10 @@ class IUpdateInstaller3 extends IUpdateInstaller2{
     }
 
     /**
-     * 
-     * @param {VARIANT_BOOL} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller3-put_attemptcloseappsifnecessary
+     * Sets a value indicating whether the update installer will attempt to close applications, blocking immediate installation of updates.
+     * @param {VARIANT_BOOL} value Set to True if the installer should attempt to close applications.
+     * @returns {HRESULT} Returns S_OK on success.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstaller3-put_attemptcloseappsifnecessary
      */
     put_AttemptCloseAppsIfNecessary(value) {
         result := ComCall(31, this, "short", value, "HRESULT")

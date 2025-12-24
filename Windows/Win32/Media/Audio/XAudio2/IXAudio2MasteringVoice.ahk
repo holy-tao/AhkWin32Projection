@@ -32,9 +32,9 @@ class IXAudio2MasteringVoice extends IXAudio2Voice{
     static VTableNames => ["GetChannelMask"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xaudio2/nf-xaudio2-ixaudio2masteringvoice-getchannelmask
+     * Returns the channel mask for this voice.
+     * @returns {Integer} Returns the channel mask for this voice. This corresponds to the <b>dwChannelMask</b> member of the  <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/ksmedia/ns-ksmedia-waveformatextensible">WAVEFORMATEXTENSIBLE</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//xaudio2/nf-xaudio2-ixaudio2masteringvoice-getchannelmask
      */
     GetChannelMask() {
         result := ComCall(19, this, "uint*", &pChannelmask := 0, "HRESULT")

@@ -31,12 +31,13 @@ class IAppxEncryptedPackageWriter extends IUnknown{
     static VTableNames => ["AddPayloadFileEncrypted", "Close"]
 
     /**
-     * 
-     * @param {PWSTR} fileName 
-     * @param {Integer} compressionOption 
-     * @param {IStream} inputStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptedpackagewriter-addpayloadfileencrypted
+     * Adds a new encrypted payload file to the appx package.
+     * @param {PWSTR} fileName The name of the payload file. The file name path must be relative to the root of the package.
+     * @param {Integer} compressionOption The type of compression to use  to store <i>fileName</i> in the package.
+     * @param {IStream} inputStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> providing the contents of <i>fileName</i>.
+     *           The stream must support <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">Seek</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a>.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptedpackagewriter-addpayloadfileencrypted
      */
     AddPayloadFileEncrypted(fileName, compressionOption, inputStream) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
@@ -46,9 +47,9 @@ class IAppxEncryptedPackageWriter extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxencryptedpackagewriter-close
+     * Closes and finalizes the written package stream.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxencryptedpackagewriter-close
      */
     Close() {
         result := ComCall(4, this, "HRESULT")

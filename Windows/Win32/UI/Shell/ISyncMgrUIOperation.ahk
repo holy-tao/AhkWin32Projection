@@ -61,10 +61,14 @@ class ISyncMgrUIOperation extends IUnknown{
     static VTableNames => ["Run"]
 
     /**
+     * Performs the actual display of UI for a handler or sync item when requested to do so by Sync Center.
+     * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
-     * @param {HWND} hwndOwner 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgruioperation-run
+     * A handle to the window used to display the UI.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or an error value otherwise. Returns S_FALSE or another error code if this method is called to confirm an operation, such as activating a handler or disabling a sync item, but that operation should not be executed.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgruioperation-run
      */
     Run(hwndOwner) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner

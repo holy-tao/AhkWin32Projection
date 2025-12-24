@@ -38,9 +38,11 @@ class IDataObjectProvider extends IUnknown{
     static VTableNames => ["GetDataObject", "SetDataObject"]
 
     /**
+     * Gets an IDataObject representation of the current DataPackage object.
+     * @returns {IDataObject} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a>**</b>
      * 
-     * @returns {IDataObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idataobjectprovider-getdataobject
+     * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface pointer that, when this method returns successfully, points to the <b>IDataObject</b> representation of the <a href="https://docs.microsoft.com/uwp/api/Windows.ApplicationModel.DataTransfer.DataPackage">DataPackage</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idataobjectprovider-getdataobject
      */
     GetDataObject() {
         result := ComCall(3, this, "ptr*", &dataObject := 0, "HRESULT")
@@ -48,10 +50,10 @@ class IDataObjectProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IDataObject} dataObject 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idataobjectprovider-setdataobject
+     * Wraps an IDataObject instance as a Windows Runtime DataPackage.
+     * @param {IDataObject} dataObject An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface pointer to the data object from which to build the DataPackage object.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idataobjectprovider-setdataobject
      */
     SetDataObject(dataObject) {
         result := ComCall(4, this, "ptr", dataObject, "HRESULT")

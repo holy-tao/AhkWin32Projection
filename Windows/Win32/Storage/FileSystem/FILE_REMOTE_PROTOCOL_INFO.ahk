@@ -13,9 +13,9 @@
  */
 class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
 {
-    static sizeof => 116
+    static sizeof => 120
 
-    static packingSize => 4
+    static packingSize => 8
 
     class _GenericReserved extends Win32Struct {
         static sizeof => 32
@@ -36,11 +36,11 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
 
     class _ProtocolSpecific_e__Union extends Win32Struct {
         static sizeof => 64
-        static packingSize => 4
+        static packingSize => 8
 
         class _Smb2 extends Win32Struct {
-            static sizeof => 12
-            static packingSize => 4
+            static sizeof => 16
+            static packingSize => 8
     
             class _Server extends Win32Struct {
                 static sizeof => 4
@@ -95,7 +95,7 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
             Share{
                 get {
                     if(!this.HasProp("__Share"))
-                        this.__Share := %this.__Class%._Share(4, this)
+                        this.__Share := %this.__Class%._Share(8, this)
                     return this.__Share
                 }
             }
@@ -292,7 +292,7 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
     GenericReserved{
         get {
             if(!this.HasProp("__GenericReserved"))
-                this.__GenericReserved := %this.__Class%._GenericReserved(20, this)
+                this.__GenericReserved := %this.__Class%._GenericReserved(24, this)
             return this.__GenericReserved
         }
     }
@@ -304,7 +304,7 @@ class FILE_REMOTE_PROTOCOL_INFO extends Win32Struct
     ProtocolSpecific{
         get {
             if(!this.HasProp("__ProtocolSpecific"))
-                this.__ProtocolSpecific := %this.__Class%._ProtocolSpecific_e__Union(52, this)
+                this.__ProtocolSpecific := %this.__Class%._ProtocolSpecific_e__Union(56, this)
             return this.__ProtocolSpecific
         }
     }

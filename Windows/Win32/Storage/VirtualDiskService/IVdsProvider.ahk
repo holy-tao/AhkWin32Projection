@@ -32,9 +32,12 @@ class IVdsProvider extends IUnknown{
     static VTableNames => ["GetProperties"]
 
     /**
-     * 
-     * @returns {VDS_PROVIDER_PROP} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsprovider-getproperties
+     * Returns the properties of a provider.
+     * @returns {VDS_PROVIDER_PROP} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_provider_prop">VDS_PROVIDER_PROP</a> 
+     *       structure allocated and passed in by the caller. VDS allocates memory for the 
+     *       <b>pwszName</b> and <b>pwszVersion</b> member strings. Callers must free 
+     *       the strings by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>function.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsprovider-getproperties
      */
     GetProperties() {
         pProviderProp := VDS_PROVIDER_PROP()

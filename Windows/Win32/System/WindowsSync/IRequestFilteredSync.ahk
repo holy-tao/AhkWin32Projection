@@ -36,10 +36,36 @@ class IRequestFilteredSync extends IUnknown{
     static VTableNames => ["SpecifyFilter"]
 
     /**
+     * When implemented by a derived class, negotiates which filter is used by the source provider during change enumeration.
+     * @param {IFilterRequestCallback} pCallback The callback interface that is used by the destination provider to request that a filter be used by the source provider during change enumeration.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {IFilterRequestCallback} pCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irequestfilteredsync-specifyfilter
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Provider-determined error codes.</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irequestfilteredsync-specifyfilter
      */
     SpecifyFilter(pCallback) {
         result := ComCall(3, this, "ptr", pCallback, "HRESULT")

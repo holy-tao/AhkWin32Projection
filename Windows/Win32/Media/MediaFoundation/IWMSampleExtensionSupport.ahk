@@ -31,10 +31,28 @@ class IWMSampleExtensionSupport extends IUnknown{
     static VTableNames => ["SetUseSampleExtensions"]
 
     /**
+     * Configures whether the codec supports sample extensions.
+     * @param {BOOL} fUseExtensions Flag, true indicating to use extensions.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BOOL} fUseExtensions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmsampleextensionsupport-setusesampleextensions
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmsampleextensionsupport-setusesampleextensions
      */
     SetUseSampleExtensions(fUseExtensions) {
         result := ComCall(3, this, "int", fUseExtensions, "HRESULT")

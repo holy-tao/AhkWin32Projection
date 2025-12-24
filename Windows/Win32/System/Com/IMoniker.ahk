@@ -146,12 +146,12 @@ class IMoniker extends IPersistStream{
     static VTableNames => ["BindToObject", "BindToStorage", "Reduce", "ComposeWith", "Enum", "IsEqual", "Hash", "IsRunning", "GetTimeOfLastChange", "Inverse", "CommonPrefixWith", "RelativePathTo", "GetDisplayName", "ParseDisplayName", "IsSystemMoniker"]
 
     /**
-     * 
-     * @param {IBindCtx} pbc 
-     * @param {IMoniker} pmkToLeft 
-     * @param {Pointer<Guid>} riidResult 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-bindtoobject
+     * Binds to the specified object. The binding process involves finding the object, putting it into the running state if necessary, and providing the caller with a pointer to a specified interface on the identified object.
+     * @param {IBindCtx} pbc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on the bind context object, which is used in this binding operation. The bind context caches objects bound during the binding process, contains parameters that apply to all operations using the bind context, and provides the means by which the moniker implementation should retrieve information about its environment.
+     * @param {IMoniker} pmkToLeft If the moniker is part of a composite moniker, pointer to the moniker to the left of this moniker. This parameter is primarily used by moniker implementers to enable cooperation between the various components of a composite moniker. Moniker clients should use <b>NULL</b>.
+     * @param {Pointer<Guid>} riidResult The IID of the interface the client wishes to use to communicate with the object that the moniker identifies.
+     * @returns {Pointer<Void>} The address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppvResult</i> contains the requested interface pointer to the object the moniker identifies. When successful, the implementation must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the moniker. It is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, *<i>ppvResult</i> should be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-bindtoobject
      */
     BindToObject(pbc, pmkToLeft, riidResult) {
         result := ComCall(8, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riidResult, "ptr*", &ppvResult := 0, "HRESULT")
@@ -159,12 +159,12 @@ class IMoniker extends IPersistStream{
     }
 
     /**
-     * 
-     * @param {IBindCtx} pbc 
-     * @param {IMoniker} pmkToLeft 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-bindtostorage
+     * Binds to the storage for the specified object. Unlike the IMoniker::BindToObject method, this method does not activate the object identified by the moniker.
+     * @param {IBindCtx} pbc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on the bind context object, which is used in this binding operation. The bind context caches objects bound during the binding process, contains parameters that apply to all operations using the bind context, and provides the means by which the moniker implementation should retrieve information about its environment.
+     * @param {IMoniker} pmkToLeft If the moniker is part of a composite moniker, pointer to the moniker to the left of this moniker. This parameter is primarily used by moniker implementers to enable cooperation between the various components of a composite moniker. Moniker clients should use <b>NULL</b>.
+     * @param {Pointer<Guid>} riid A reference to the identifier of the storage interface requested, whose pointer will be returned in <i>ppvObj</i>. Storage interfaces commonly requested include <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ilockbytes">ILockBytes</a>.
+     * @returns {Pointer<Void>} The address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppvObj</i> contains the requested interface pointer to the storage of the object the moniker identifies. When successful, the implementation must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the storage. It is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, *<i>ppvObj</i> should be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-bindtostorage
      */
     BindToStorage(pbc, pmkToLeft, riid) {
         result := ComCall(9, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", riid, "ptr*", &ppvObj := 0, "HRESULT")
@@ -172,12 +172,14 @@ class IMoniker extends IPersistStream{
     }
 
     /**
+     * Reduces a moniker to its simplest form.
+     * @param {IBindCtx} pbc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on the bind context to be used in this binding operation. The bind context caches objects bound during the binding process, contains parameters that apply to all operations using the bind context, and provides the means by which the moniker implementation should retrieve information about its environment.
+     * @param {Integer} dwReduceHowFar Specifies how far this moniker should be reduced. This parameter must be one of the values from the <a href="https://docs.microsoft.com/windows/win32/api/objidl/ne-objidl-mkrreduce">MKRREDUCE</a> enumeration.
+     * @param {Pointer<IMoniker>} ppmkToLeft On entry, a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> pointer variable that contains the interface pointer to moniker to the left of this moniker. This parameter is used primarily by moniker implementers to enable cooperation between the various components of a composite moniker; moniker clients can usually pass <b>NULL</b>.
      * 
-     * @param {IBindCtx} pbc 
-     * @param {Integer} dwReduceHowFar 
-     * @param {Pointer<IMoniker>} ppmkToLeft 
-     * @returns {IMoniker} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-reduce
+     * On return, *<i>ppmkToLeft</i> is usually set to <b>NULL</b>, indicating no change in the original moniker to the left. In rare situations, *<i>ppmkToLeft</i> indicates a moniker, indicating that the previous moniker to the left should be disregarded and the moniker returned through *<i>ppmkToLeft</i> is the replacement. In such a situation, the implementation must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the old moniker to the left of this moniker and must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the new returned moniker; the caller must release it later. If an error occurs, the implementation can either leave the interface pointer unchanged or set it to <b>NULL</b>.
+     * @returns {IMoniker} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> pointer variable that receives the interface pointer to the reduced form of this moniker, which can be <b>NULL</b> if an error occurs or if this moniker is reduced to nothing. If this moniker cannot be reduced, *<i>ppmkReduced</i> is simply set to this moniker and the return value is MK_S_REDUCED_TO_SELF. If *<i>ppmkReduced</i> is non-<b>NULL</b>, the implementation must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the new moniker; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. (This is true even if *<i>ppmkReduced</i> is set to this moniker.)
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-reduce
      */
     Reduce(pbc, dwReduceHowFar, ppmkToLeft) {
         result := ComCall(10, this, "ptr", pbc, "uint", dwReduceHowFar, "ptr*", ppmkToLeft, "ptr*", &ppmkReduced := 0, "HRESULT")
@@ -185,11 +187,11 @@ class IMoniker extends IPersistStream{
     }
 
     /**
-     * 
-     * @param {IMoniker} pmkRight 
-     * @param {BOOL} fOnlyIfNotGeneric 
-     * @returns {IMoniker} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-composewith
+     * Creates a new composite moniker by combining the current moniker with the specified moniker.
+     * @param {IMoniker} pmkRight A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker to compose onto the end of this moniker.
+     * @param {BOOL} fOnlyIfNotGeneric If <b>TRUE</b>, the caller requires a nongeneric composition, so the operation should proceed only if <i>pmkRight</i> is a moniker class that this moniker can compose with in some way other than forming a generic composite. If <b>FALSE</b>, the method can create a generic composite if necessary. Most callers should set this parameter to <b>FALSE</b>.
+     * @returns {IMoniker} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> pointer variable that receives the composite moniker pointer. When successful, the implementation must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the resulting moniker; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs or if the monikers compose to nothing (for example, composing an anti-moniker with an item moniker or a file moniker), *<i>ppmkComposite</i> should be set to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-composewith
      */
     ComposeWith(pmkRight, fOnlyIfNotGeneric) {
         result := ComCall(11, this, "ptr", pmkRight, "int", fOnlyIfNotGeneric, "ptr*", &ppmkComposite := 0, "HRESULT")
@@ -197,10 +199,10 @@ class IMoniker extends IPersistStream{
     }
 
     /**
-     * 
-     * @param {BOOL} fForward 
-     * @returns {IEnumMoniker} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-enum
+     * Retrieves a pointer to an enumerator for the components of a composite moniker.
+     * @param {BOOL} fForward If <b>TRUE</b>, enumerates the monikers from left to right. If <b>FALSE</b>, enumerates from right to left.
+     * @returns {IEnumMoniker} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienummoniker">IEnumMoniker</a> pointer variable that receives the interface pointer to the enumerator object for the moniker. When successful, the implementation must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the enumerator object. It is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs or if the moniker has no enumerable components, the implementation sets *<i>ppenumMoniker</i> to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-enum
      */
     Enum(fForward) {
         result := ComCall(12, this, "int", fForward, "ptr*", &ppenumMoniker := 0, "HRESULT")
@@ -208,10 +210,10 @@ class IMoniker extends IPersistStream{
     }
 
     /**
-     * 
-     * @param {IMoniker} pmkOtherMoniker 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-isequal
+     * Determines whether this moniker is identical to the specified moniker.
+     * @param {IMoniker} pmkOtherMoniker A  pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker to be used for comparison with this one (the one from which this method is called).
+     * @returns {HRESULT} This method returns S_OK to indicate that the two monikers are identical, and S_FALSE otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-isequal
      */
     IsEqual(pmkOtherMoniker) {
         result := ComCall(13, this, "ptr", pmkOtherMoniker, "int")
@@ -219,9 +221,9 @@ class IMoniker extends IPersistStream{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-hash
+     * Creates a hash value using the internal state of the moniker.
+     * @returns {Integer} A pointer to a variable that receives the hash value.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-hash
      */
     Hash() {
         result := ComCall(14, this, "uint*", &pdwHash := 0, "HRESULT")
@@ -229,12 +231,41 @@ class IMoniker extends IPersistStream{
     }
 
     /**
+     * Determines whether the object identified by this moniker is currently loaded and running.
+     * @param {IBindCtx} pbc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on the bind context to be used in this binding operation. The bind context caches objects bound during the binding process, contains parameters that apply to all operations using the bind context, and provides the means by which the moniker implementation should retrieve information about its environment.
+     * @param {IMoniker} pmkToLeft A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker to the left of this moniker if this moniker is part of a composite. This parameter is used primarily by moniker implementers to enable cooperation between the various components of a composite moniker; moniker clients can usually pass <b>NULL</b>.
+     * @param {IMoniker} pmkNewlyRunning A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker most recently added to the running object table (ROT). This can be <b>NULL</b>. If non-<b>NULL</b>, the implementation can return the results of calling <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imoniker-isequal">IMoniker::IsEqual</a> on the <i>pmkNewlyRunning</i> parameter, passing the current moniker. This parameter is intended to enable <b>IsRunning</b> implementations that are more efficient than just searching the ROT, but the implementation can choose to ignore <i>pmkNewlyRunning</i> without causing any harm.
+     * @returns {HRESULT} This method can return the standard return values E_UNEXPECTED, as well as the following values.
      * 
-     * @param {IBindCtx} pbc 
-     * @param {IMoniker} pmkToLeft 
-     * @param {IMoniker} pmkNewlyRunning 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-isrunning
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The moniker is running.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The moniker is not running.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-isrunning
      */
     IsRunning(pbc, pmkToLeft, pmkNewlyRunning) {
         result := ComCall(15, this, "ptr", pbc, "ptr", pmkToLeft, "ptr", pmkNewlyRunning, "HRESULT")
@@ -242,11 +273,11 @@ class IMoniker extends IPersistStream{
     }
 
     /**
-     * 
-     * @param {IBindCtx} pbc 
-     * @param {IMoniker} pmkToLeft 
-     * @returns {FILETIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-gettimeoflastchange
+     * Retrieves the time at which the object identified by this moniker was last changed.
+     * @param {IBindCtx} pbc A pointer to the bind context to be used in this binding operation. The bind context caches objects bound during the binding process, contains parameters that apply to all operations using the bind context, and provides the means by which the moniker implementation should retrieve information about its environment. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>.
+     * @param {IMoniker} pmkToLeft If the moniker is part of a composite moniker, pointer to the moniker to the left of this moniker. This parameter is primarily used by moniker implementers to enable cooperation between the various components of a composite moniker. Moniker clients should pass <b>NULL</b>.
+     * @returns {FILETIME} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure that receives the time of last change. A value of {0xFFFFFFFF,0x7FFFFFFF} indicates an error (for example, exceeded time limit, information not available).
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-gettimeoflastchange
      */
     GetTimeOfLastChange(pbc, pmkToLeft) {
         pFileTime := FILETIME()
@@ -255,9 +286,9 @@ class IMoniker extends IPersistStream{
     }
 
     /**
-     * 
-     * @returns {IMoniker} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-inverse
+     * Creates a moniker that is the inverse of this moniker. When composed to the right of this moniker or one of similar structure, the moniker will compose to nothing.
+     * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> pointer variable that receives the interface pointer to a moniker that is the inverse of this moniker. When successful, the implementation must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the new inverse moniker. It is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the implementation should set *<i>ppmk</i> to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-inverse
      */
     Inverse() {
         result := ComCall(17, this, "ptr*", &ppmk := 0, "HRESULT")
@@ -265,10 +296,10 @@ class IMoniker extends IPersistStream{
     }
 
     /**
-     * 
-     * @param {IMoniker} pmkOther 
-     * @returns {IMoniker} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-commonprefixwith
+     * Creates a new moniker based on the prefix that this moniker has in common with the specified moniker.
+     * @param {IMoniker} pmkOther A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on another moniker to be compared with this one to determine whether there is a common prefix.
+     * @returns {IMoniker} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a>* pointer variable that receives the interface pointer to the moniker that is the common prefix of this moniker and pmkOther. When successful, the implementation must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the resulting moniker; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs or if there is no common prefix, the implementation should set *<i>ppmkPrefix</i> to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-commonprefixwith
      */
     CommonPrefixWith(pmkOther) {
         result := ComCall(18, this, "ptr", pmkOther, "ptr*", &ppmkPrefix := 0, "HRESULT")
@@ -276,10 +307,10 @@ class IMoniker extends IPersistStream{
     }
 
     /**
-     * 
-     * @param {IMoniker} pmkOther 
-     * @returns {IMoniker} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-relativepathto
+     * Creates a relative moniker between this moniker and the specified moniker.
+     * @param {IMoniker} pmkOther A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker to which a relative path should be taken.
+     * @returns {IMoniker} A pointer to an  <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> pointer variable that receives the interface pointer to the relative moniker. When successful, the implementation must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the new moniker; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the implementation sets *<i>ppmkRelPath</i> to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-relativepathto
      */
     RelativePathTo(pmkOther) {
         result := ComCall(19, this, "ptr", pmkOther, "ptr*", &ppmkRelPath := 0, "HRESULT")
@@ -287,11 +318,11 @@ class IMoniker extends IPersistStream{
     }
 
     /**
-     * 
-     * @param {IBindCtx} pbc 
-     * @param {IMoniker} pmkToLeft 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-getdisplayname
+     * Retrieves the display name for the moniker.
+     * @param {IBindCtx} pbc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on the bind context to be used in this operation. The bind context caches objects bound during the binding process, contains parameters that apply to all operations using the bind context, and provides the means by which the moniker implementation should retrieve information about its environment.
+     * @param {IMoniker} pmkToLeft If the moniker is part of a composite moniker, pointer to the moniker to the left of this moniker. This parameter is used primarily by moniker implementers to enable cooperation between the various components of a composite moniker. Moniker clients should pass <b>NULL</b>.
+     * @returns {PWSTR} The address of a pointer variable that receives a pointer to the display name string for the moniker. The implementation must use <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imalloc-alloc">IMalloc::Alloc</a> to allocate the string returned in <i>ppszDisplayName</i>, and the caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-imalloc-free">IMalloc::Free</a> to free it. Both the caller and the implementation of this method use the COM task allocator returned by <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetmalloc">CoGetMalloc</a>. If an error occurs, the implementation must set *<i>ppszDisplayName</i> should be set to <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-getdisplayname
      */
     GetDisplayName(pbc, pmkToLeft) {
         result := ComCall(20, this, "ptr", pbc, "ptr", pmkToLeft, "ptr*", &ppszDisplayName := 0, "HRESULT")
@@ -299,14 +330,46 @@ class IMoniker extends IPersistStream{
     }
 
     /**
+     * Converts a display name into a moniker.
+     * @param {IBindCtx} pbc A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on the bind context to be used in this binding operation. The bind context caches objects bound during the binding process, contains parameters that apply to all operations using the bind context, and provides the means by which the moniker implementation should retrieve information about its environment.
+     * @param {IMoniker} pmkToLeft A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> interface on the moniker that has been built out of the display name up to this point.
+     * @param {PWSTR} pszDisplayName The remaining display name to be parsed.
+     * @param {Pointer<Integer>} pchEaten A pointer to a variable that receives the number of characters in <i>pszDisplayName</i> that were consumed in this step.
+     * @param {Pointer<IMoniker>} ppmkOut A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-imoniker">IMoniker</a> pointer variable that receives the interface pointer to the moniker that was built from <i>pszDisplayName</i>. When successful, the implementation must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the new moniker; it is the caller's responsibility to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a>. If an error occurs, the implementation sets *<i>ppmkOut</i> to <b>NULL</b>.
+     * @returns {HRESULT} This method can return the standard return valuesE_OUTOFMEMORY and E_UNEXPECTED, as well as the following values.
      * 
-     * @param {IBindCtx} pbc 
-     * @param {IMoniker} pmkToLeft 
-     * @param {PWSTR} pszDisplayName 
-     * @param {Pointer<Integer>} pchEaten 
-     * @param {Pointer<IMoniker>} ppmkOut 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-parsedisplayname
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The parsing operation was completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MK_E_SYNTAX</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An error in the syntax of the input components (<i>pmkToLeft</i>, this moniker, and <i>pszDisplayName</i>). For example, a file moniker returns this error if <i>pmkToLeft</i> is non-<b>NULL</b>, and an item moniker returns it if <i>pmkToLeft</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This method can also return the errors associated with the <a href="/windows/desktop/api/objidl/nf-objidl-imoniker-bindtoobject">IMoniker::BindToObject</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-parsedisplayname
      */
     ParseDisplayName(pbc, pmkToLeft, pszDisplayName, pchEaten, ppmkOut) {
         pszDisplayName := pszDisplayName is String ? StrPtr(pszDisplayName) : pszDisplayName
@@ -318,9 +381,9 @@ class IMoniker extends IPersistStream{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-imoniker-issystemmoniker
+     * Determines whether this moniker is one of the system-provided moniker classes.
+     * @returns {Integer} A pointer to a variables that receives one of the values from the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ne-objidl-mksys">MKSYS</a> enumeration and refers to one of the COM moniker classes. This parameter cannot be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imoniker-issystemmoniker
      */
     IsSystemMoniker() {
         result := ComCall(22, this, "uint*", &pdwMksys := 0, "HRESULT")

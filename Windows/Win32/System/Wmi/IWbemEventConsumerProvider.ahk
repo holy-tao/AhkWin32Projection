@@ -32,10 +32,10 @@ class IWbemEventConsumerProvider extends IUnknown{
     static VTableNames => ["FindConsumer"]
 
     /**
-     * 
-     * @param {IWbemClassObject} pLogicalConsumer 
-     * @returns {IWbemUnboundObjectSink} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventconsumerprovider-findconsumer
+     * The FindConsumer function locates and returns sink objects to which WMI can send events.
+     * @param {IWbemClassObject} pLogicalConsumer Pointer to the logical consumer object to which the event objects are to be delivered.
+     * @returns {IWbemUnboundObjectSink} Returns an event object sink to Windows Management. Windows Management calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> for this pointer and deliver the events associated with the logical consumer to this sink. Eventually, after a suitable time-out, Windows Management calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> for the pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventconsumerprovider-findconsumer
      */
     FindConsumer(pLogicalConsumer) {
         result := ComCall(3, this, "ptr", pLogicalConsumer, "ptr*", &ppConsumer := 0, "HRESULT")

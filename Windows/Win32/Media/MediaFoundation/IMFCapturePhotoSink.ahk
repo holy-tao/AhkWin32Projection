@@ -45,10 +45,10 @@ class IMFCapturePhotoSink extends IMFCaptureSink{
     static VTableNames => ["SetOutputFileName", "SetSampleCallback", "SetOutputByteStream"]
 
     /**
-     * 
-     * @param {PWSTR} fileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturephotosink-setoutputfilename
+     * Specifies the name of the output file for the still image.
+     * @param {PWSTR} fileName A null-terminated string that contains the URL of the output file.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturephotosink-setoutputfilename
      */
     SetOutputFileName(fileName) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
@@ -58,10 +58,10 @@ class IMFCapturePhotoSink extends IMFCaptureSink{
     }
 
     /**
-     * 
-     * @param {IMFCaptureEngineOnSampleCallback} pCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturephotosink-setsamplecallback
+     * Sets a callback to receive the still-image data.
+     * @param {IMFCaptureEngineOnSampleCallback} pCallback A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfcaptureengine/nn-mfcaptureengine-imfcaptureengineonsamplecallback">IMFCaptureEngineOnSampleCallback</a> interface. The caller must implement this interface.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturephotosink-setsamplecallback
      */
     SetSampleCallback(pCallback) {
         result := ComCall(9, this, "ptr", pCallback, "HRESULT")
@@ -69,10 +69,10 @@ class IMFCapturePhotoSink extends IMFCaptureSink{
     }
 
     /**
-     * 
-     * @param {IMFByteStream} pByteStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturephotosink-setoutputbytestream
+     * Specifies a byte stream that will receive the still image data.
+     * @param {IMFByteStream} pByteStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of a byte stream. The byte stream must be writable.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturephotosink-setoutputbytestream
      */
     SetOutputByteStream(pByteStream) {
         result := ComCall(10, this, "ptr", pByteStream, "HRESULT")

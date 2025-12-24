@@ -33,11 +33,12 @@ class IEnumBitsPeers extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone", "GetCount"]
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {IBitsPeer} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ienumbitspeers-next
+     * Retrieves a specified number of items in the enumeration sequence. If there are fewer than the requested number of elements left in the sequence, it retrieves the remaining elements.
+     * @param {Integer} celt Number of elements requested.
+     * @param {Pointer<Integer>} pceltFetched Number of elements returned in <i>rgelt</i>. You can set <i>pceltFetched</i> to <b>NULL</b> if <i>celt</i> is one. Otherwise, initialize the value of <i>pceltFetched</i> to 0 before calling this method.
+     * @returns {IBitsPeer} Array of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits3_0/nn-bits3_0-ibitspeer">IBitsPeer</a> objects. You must release each object in <i>rgelt</i> when done.
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ienumbitspeers-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +48,39 @@ class IEnumBitsPeers extends IUnknown{
     }
 
     /**
+     * Skips the next specified number of elements in the enumeration sequence. If there are fewer elements left in the sequence than the requested number of elements to skip, it skips past the last element in the sequence.
+     * @param {Integer} celt Number of elements to skip.
+     * @returns {HRESULT} This method returns the following <b>HRESULT</b> values, as well as others.
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ienumbitspeers-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>S_OK</b></b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Successfully skipped the number of requested elements.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Skipped less than the number of requested elements.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ienumbitspeers-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -58,9 +88,9 @@ class IEnumBitsPeers extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ienumbitspeers-reset
+     * Resets the enumeration sequence to the beginning.
+     * @returns {HRESULT} This method returns <b>S_OK</b> on success or one of the standard COM <b>HRESULT</b> values on error.
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ienumbitspeers-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +98,9 @@ class IEnumBitsPeers extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumBitsPeers} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ienumbitspeers-clone
+     * Creates another IEnumBitsPeers enumerator that contains the same enumeration state as the current one.
+     * @returns {IEnumBitsPeers} Receives the interface pointer to the enumeration object. If the method is unsuccessful, the value of this output variable is undefined. You must release <i>ppEnum</i> when done.
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ienumbitspeers-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
@@ -78,9 +108,9 @@ class IEnumBitsPeers extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ienumbitspeers-getcount
+     * Retrieves a count of the number of peers in the enumeration.
+     * @returns {Integer} Number of peers in the enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ienumbitspeers-getcount
      */
     GetCount() {
         result := ComCall(7, this, "uint*", &puCount := 0, "HRESULT")

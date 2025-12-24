@@ -42,9 +42,11 @@ class IWICMetadataBlockReader extends IUnknown{
     static VTableNames => ["GetContainerFormat", "GetCount", "GetReaderByIndex", "GetEnumerator"]
 
     /**
+     * Retrieves the container format of the decoder.
+     * @returns {Guid} Type: <b>GUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getcontainerformat
+     * The container format of the decoder. The native container format GUIDs are listed in <a href="https://docs.microsoft.com/windows/desktop/wic/-wic-guids-clsids">WIC GUIDs and CLSIDs</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getcontainerformat
      */
     GetContainerFormat() {
         pguidContainerFormat := Guid()
@@ -53,9 +55,11 @@ class IWICMetadataBlockReader extends IUnknown{
     }
 
     /**
+     * Retrieves the number of top level metadata blocks.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getcount
+     * When this method returns, contains the number of top level metadata blocks.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getcount
      */
     GetCount() {
         result := ComCall(4, this, "uint*", &pcCount := 0, "HRESULT")
@@ -63,10 +67,14 @@ class IWICMetadataBlockReader extends IUnknown{
     }
 
     /**
+     * Retrieves an IWICMetadataReader for a specified top level metadata block.
+     * @param {Integer} nIndex Type: <b>UINT</b>
      * 
-     * @param {Integer} nIndex 
-     * @returns {IWICMetadataReader} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getreaderbyindex
+     * The index of the desired top level metadata block to retrieve.
+     * @returns {IWICMetadataReader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatareader">IWICMetadataReader</a>**</b>
+     * 
+     * When this method returns, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatareader">IWICMetadataReader</a> specified by <i>nIndex</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getreaderbyindex
      */
     GetReaderByIndex(nIndex) {
         result := ComCall(5, this, "uint", nIndex, "ptr*", &ppIMetadataReader := 0, "HRESULT")
@@ -74,9 +82,11 @@ class IWICMetadataBlockReader extends IUnknown{
     }
 
     /**
+     * Retrieves an enumeration of IWICMetadataReader objects representing each of the top level metadata blocks.
+     * @returns {IEnumUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumunknown">IEnumUnknown</a>**</b>
      * 
-     * @returns {IEnumUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getenumerator
+     * When this method returns, contains a pointer to an enumeration of <a href="https://docs.microsoft.com/windows/desktop/api/wincodecsdk/nn-wincodecsdk-iwicmetadatareader">IWICMetadataReader</a> objects.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodecsdk/nf-wincodecsdk-iwicmetadatablockreader-getenumerator
      */
     GetEnumerator() {
         result := ComCall(6, this, "ptr*", &ppIEnumMetadata := 0, "HRESULT")

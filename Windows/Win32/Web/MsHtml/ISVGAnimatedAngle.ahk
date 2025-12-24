@@ -36,6 +36,20 @@ class ISVGAnimatedAngle extends IDispatch{
     static VTableNames => ["putref_baseVal", "get_baseVal", "putref_animVal", "get_animVal"]
 
     /**
+     * @type {ISVGAngle} 
+     */
+    baseVal {
+        get => this.get_baseVal()
+    }
+
+    /**
+     * @type {ISVGAngle} 
+     */
+    animVal {
+        get => this.get_animVal()
+    }
+
+    /**
      * 
      * @param {ISVGAngle} v 
      * @returns {HRESULT} 

@@ -32,14 +32,14 @@ class IWorkspace3 extends IWorkspace2{
     static VTableNames => ["GetClaimsToken2", "SetClaimsToken"]
 
     /**
-     * 
-     * @param {BSTR} bstrClaimsHint 
-     * @param {BSTR} bstrUserHint 
-     * @param {Integer} claimCookie 
-     * @param {Integer} hwndCredUiParent 
-     * @param {RECT} rectCredUiParent 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspace3-getclaimstoken2
+     * Retrieves a claims token.
+     * @param {BSTR} bstrClaimsHint String containing the claims hint.
+     * @param {BSTR} bstrUserHint String containing the user hint.
+     * @param {Integer} claimCookie The claim cookie.
+     * @param {Integer} hwndCredUiParent Handle of the parent UI element the request came from.
+     * @param {RECT} rectCredUiParent Pointer to a RECT structure that contains the X and Y coordinates of the parent UI.
+     * @returns {BSTR} On success, return a pointer to a string containing the access token.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspace3-getclaimstoken2
      */
     GetClaimsToken2(bstrClaimsHint, bstrUserHint, claimCookie, hwndCredUiParent, rectCredUiParent) {
         bstrClaimsHint := bstrClaimsHint is String ? BSTR.Alloc(bstrClaimsHint).Value : bstrClaimsHint
@@ -51,12 +51,12 @@ class IWorkspace3 extends IWorkspace2{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrAccessToken 
-     * @param {Integer} ullAccessTokenExpiration 
-     * @param {BSTR} bstrRefreshToken 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/workspaceruntime/nf-workspaceruntime-iworkspace3-setclaimstoken
+     * Sets the claims token.
+     * @param {BSTR} bstrAccessToken A string containing the access token.
+     * @param {Integer} ullAccessTokenExpiration The time, in milliseconds, until the access token expires.
+     * @param {BSTR} bstrRefreshToken A string containing the refresh token.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//workspaceruntime/nf-workspaceruntime-iworkspace3-setclaimstoken
      */
     SetClaimsToken(bstrAccessToken, ullAccessTokenExpiration, bstrRefreshToken) {
         bstrAccessToken := bstrAccessToken is String ? BSTR.Alloc(bstrAccessToken).Value : bstrAccessToken

@@ -39,6 +39,27 @@ class ISWbemObjectSet extends IDispatch{
     static VTableNames => ["get__NewEnum", "Item", "get_Count", "get_Security_", "ItemIndex"]
 
     /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {ISWbemSecurity} 
+     */
+    Security_ {
+        get => this.get_Security_()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      */

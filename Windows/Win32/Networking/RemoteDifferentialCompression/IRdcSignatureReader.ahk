@@ -37,9 +37,10 @@ class IRdcSignatureReader extends IUnknown{
     static VTableNames => ["ReadHeader", "ReadSignatures"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsignaturereader-readheader
+     * Reads the signature header and returns a copy of the parameters used to generate the signatures.
+     * @returns {Integer} Address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode">RDC_ErrorCode</a> enumeration that will 
+     *       receive any RDC-specific error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcsignaturereader-readheader
      */
     ReadHeader() {
         result := ComCall(3, this, "int*", &rdc_ErrorCode := 0, "HRESULT")
@@ -47,10 +48,17 @@ class IRdcSignatureReader extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<RdcSignaturePointer>} rdcSignaturePointer 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsignaturereader-readsignatures
+     * Reads a block of signatures from the current position.
+     * @param {Pointer<RdcSignaturePointer>} rdcSignaturePointer Address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcsignaturepointer">RdcSignaturePointer</a> structure. On 
+     *       input the <b>m_Size</b> member of this structure must contain the number of 
+     *       <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcsignature">RdcSignature</a> structures in the array pointed to by the 
+     *       <b>m_Data</b> member, and the <b>m_Used</b> member must be zero. On 
+     *       output the <b>m_Used</b> member will contain the number of 
+     *       <b>RdcSignature</b> structures in the array pointed to by the 
+     *       <b>m_Data</b> member.
+     * @returns {BOOL} Address of a <b>BOOL</b> that is set to <b>TRUE</b> if the end of 
+     *       the signatures has been read.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcsignaturereader-readsignatures
      */
     ReadSignatures(rdcSignaturePointer) {
         result := ComCall(4, this, "ptr", rdcSignaturePointer, "int*", &endOfOutput := 0, "HRESULT")

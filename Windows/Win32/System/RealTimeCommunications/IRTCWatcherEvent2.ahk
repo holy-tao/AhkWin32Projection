@@ -29,6 +29,20 @@ class IRTCWatcherEvent2 extends IRTCWatcherEvent{
     static VTableNames => ["get_EventType", "get_StatusCode"]
 
     /**
+     * @type {Integer} 
+     */
+    EventType {
+        get => this.get_EventType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -37,6 +37,337 @@ class IHTMLElement2 extends IDispatch{
     static VTableNames => ["get_scopeName", "setCapture", "releaseCapture", "put_onlosecapture", "get_onlosecapture", "componentFromPoint", "doScroll", "put_onscroll", "get_onscroll", "put_ondrag", "get_ondrag", "put_ondragend", "get_ondragend", "put_ondragenter", "get_ondragenter", "put_ondragover", "get_ondragover", "put_ondragleave", "get_ondragleave", "put_ondrop", "get_ondrop", "put_onbeforecut", "get_onbeforecut", "put_oncut", "get_oncut", "put_onbeforecopy", "get_onbeforecopy", "put_oncopy", "get_oncopy", "put_onbeforepaste", "get_onbeforepaste", "put_onpaste", "get_onpaste", "get_currentStyle", "put_onpropertychange", "get_onpropertychange", "getClientRects", "getBoundingClientRect", "setExpression", "getExpression", "removeExpression", "put_tabIndex", "get_tabIndex", "focus", "put_accessKey", "get_accessKey", "put_onblur", "get_onblur", "put_onfocus", "get_onfocus", "put_onresize", "get_onresize", "blur", "addFilter", "removeFilter", "get_clientHeight", "get_clientWidth", "get_clientTop", "get_clientLeft", "attachEvent", "detachEvent", "get_readyState", "put_onreadystatechange", "get_onreadystatechange", "put_onrowsdelete", "get_onrowsdelete", "put_onrowsinserted", "get_onrowsinserted", "put_oncellchange", "get_oncellchange", "put_dir", "get_dir", "createControlRange", "get_scrollHeight", "get_scrollWidth", "put_scrollTop", "get_scrollTop", "put_scrollLeft", "get_scrollLeft", "clearAttributes", "mergeAttributes", "put_oncontextmenu", "get_oncontextmenu", "insertAdjacentElement", "applyElement", "getAdjacentText", "replaceAdjacentText", "get_canHaveChildren", "addBehavior", "removeBehavior", "get_runtimeStyle", "get_behaviorUrns", "put_tagUrn", "get_tagUrn", "put_onbeforeeditfocus", "get_onbeforeeditfocus", "get_readyStateValue", "getElementsByTagName"]
 
     /**
+     * @type {BSTR} 
+     */
+    scopeName {
+        get => this.get_scopeName()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onlosecapture {
+        get => this.get_onlosecapture()
+        set => this.put_onlosecapture(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onscroll {
+        get => this.get_onscroll()
+        set => this.put_onscroll(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondrag {
+        get => this.get_ondrag()
+        set => this.put_ondrag(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondragend {
+        get => this.get_ondragend()
+        set => this.put_ondragend(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondragenter {
+        get => this.get_ondragenter()
+        set => this.put_ondragenter(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondragover {
+        get => this.get_ondragover()
+        set => this.put_ondragover(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondragleave {
+        get => this.get_ondragleave()
+        set => this.put_ondragleave(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondrop {
+        get => this.get_ondrop()
+        set => this.put_ondrop(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforecut {
+        get => this.get_onbeforecut()
+        set => this.put_onbeforecut(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncut {
+        get => this.get_oncut()
+        set => this.put_oncut(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforecopy {
+        get => this.get_onbeforecopy()
+        set => this.put_onbeforecopy(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncopy {
+        get => this.get_oncopy()
+        set => this.put_oncopy(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforepaste {
+        get => this.get_onbeforepaste()
+        set => this.put_onbeforepaste(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onpaste {
+        get => this.get_onpaste()
+        set => this.put_onpaste(value)
+    }
+
+    /**
+     * @type {IHTMLCurrentStyle} 
+     */
+    currentStyle {
+        get => this.get_currentStyle()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onpropertychange {
+        get => this.get_onpropertychange()
+        set => this.put_onpropertychange(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    tabIndex {
+        get => this.get_tabIndex()
+        set => this.put_tabIndex(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    accessKey {
+        get => this.get_accessKey()
+        set => this.put_accessKey(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onblur {
+        get => this.get_onblur()
+        set => this.put_onblur(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfocus {
+        get => this.get_onfocus()
+        set => this.put_onfocus(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onresize {
+        get => this.get_onresize()
+        set => this.put_onresize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientHeight {
+        get => this.get_clientHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientWidth {
+        get => this.get_clientWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientTop {
+        get => this.get_clientTop()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientLeft {
+        get => this.get_clientLeft()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreadystatechange {
+        get => this.get_onreadystatechange()
+        set => this.put_onreadystatechange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onrowsdelete {
+        get => this.get_onrowsdelete()
+        set => this.put_onrowsdelete(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onrowsinserted {
+        get => this.get_onrowsinserted()
+        set => this.put_onrowsinserted(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncellchange {
+        get => this.get_oncellchange()
+        set => this.put_oncellchange(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dir {
+        get => this.get_dir()
+        set => this.put_dir(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    scrollHeight {
+        get => this.get_scrollHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    scrollWidth {
+        get => this.get_scrollWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    scrollTop {
+        get => this.get_scrollTop()
+        set => this.put_scrollTop(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    scrollLeft {
+        get => this.get_scrollLeft()
+        set => this.put_scrollLeft(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    oncontextmenu {
+        get => this.get_oncontextmenu()
+        set => this.put_oncontextmenu(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    canHaveChildren {
+        get => this.get_canHaveChildren()
+    }
+
+    /**
+     * @type {IHTMLStyle} 
+     */
+    runtimeStyle {
+        get => this.get_runtimeStyle()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    behaviorUrns {
+        get => this.get_behaviorUrns()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    tagUrn {
+        get => this.get_tagUrn()
+        set => this.put_tagUrn(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforeeditfocus {
+        get => this.get_onbeforeeditfocus()
+        set => this.put_onbeforeeditfocus(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    readyStateValue {
+        get => this.get_readyStateValue()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

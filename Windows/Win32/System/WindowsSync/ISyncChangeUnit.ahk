@@ -32,9 +32,9 @@ class ISyncChangeUnit extends IUnknown{
     static VTableNames => ["GetItemChange", "GetChangeUnitId", "GetChangeUnitVersion"]
 
     /**
-     * 
-     * @returns {ISyncChange} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangeunit-getitemchange
+     * Gets the item change that contains this change unit change.
+     * @returns {ISyncChange} Returns the item change that contains this change unit change.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangeunit-getitemchange
      */
     GetItemChange() {
         result := ComCall(3, this, "ptr*", &ppSyncChange := 0, "HRESULT")
@@ -42,11 +42,51 @@ class ISyncChangeUnit extends IUnknown{
     }
 
     /**
+     * Retrieves the ID for this change unit.
+     * @param {Pointer<Integer>} pbChangeUnitId Returns the ID of the change unit.
+     * @param {Pointer<Integer>} pcbIdSize Specifies the number of bytes in <i>pbChangeUnitId</i>. Returns the number of bytes required to retrieve the ID if <i>pbChangeUnitId</i> is too small, or returns the number of bytes written.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pbChangeUnitId 
-     * @param {Pointer<Integer>} pcbIdSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangeunit-getchangeunitid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pbChangeUnitId</i> is too small. In this case, the required number of bytes is returned in <i>pcbIdSize</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangeunit-getchangeunitid
      */
     GetChangeUnitId(pbChangeUnitId, pcbIdSize) {
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
@@ -57,11 +97,51 @@ class ISyncChangeUnit extends IUnknown{
     }
 
     /**
+     * Gets the version for the change unit change.
+     * @param {Pointer<Integer>} pbCurrentReplicaId The ID of the replica that originated the change to retrieve.
+     * @param {Pointer<SYNC_VERSION>} pVersion Returns the version of the change.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pbCurrentReplicaId 
-     * @param {Pointer<SYNC_VERSION>} pVersion 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangeunit-getchangeunitversion
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pbCurrentReplicaId</i> is not the correct replica ID.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangeunit-getchangeunitversion
      */
     GetChangeUnitVersion(pbCurrentReplicaId, pVersion) {
         pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"

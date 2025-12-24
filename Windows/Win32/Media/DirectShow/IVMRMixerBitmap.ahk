@@ -32,10 +32,61 @@ class IVMRMixerBitmap extends IUnknown{
     static VTableNames => ["SetAlphaBitmap", "UpdateAlphaBitmapParameters", "GetAlphaBitmapParameters"]
 
     /**
+     * The SetAlphaBitmap method specifies a new bitmap image and the source location of the bitmap and how and where it should be rendered on the destination rectangle.
+     * @param {Pointer<VMRALPHABITMAP>} pBmpParms A oointer to a [VMRALPHABITMAP](/windows/desktop/api/strmif/ns-strmif-vmralphabitmap) structure that contains information about the bitmap.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
      * 
-     * @param {Pointer<VMRALPHABITMAP>} pBmpParms 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixerbitmap-setalphabitmap
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pBmpParms</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument. See Remarks.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Could not create a destination DC or DIBSection for the bitmap.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * BitBlt to bitmap surface failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrmixerbitmap-setalphabitmap
      */
     SetAlphaBitmap(pBmpParms) {
         result := ComCall(3, this, "ptr", pBmpParms, "HRESULT")
@@ -43,10 +94,10 @@ class IVMRMixerBitmap extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<VMRALPHABITMAP>} pBmpParms 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixerbitmap-updatealphabitmapparameters
+     * The UpdateAlphaBitmapParameters method changes the bitmap location, size and blending value.
+     * @param {Pointer<VMRALPHABITMAP>} pBmpParms A pointer to a [VMRALPHABITMAP](/windows/desktop/api/strmif/ns-strmif-vmralphabitmap) structure.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrmixerbitmap-updatealphabitmapparameters
      */
     UpdateAlphaBitmapParameters(pBmpParms) {
         result := ComCall(4, this, "ptr", pBmpParms, "HRESULT")
@@ -54,9 +105,9 @@ class IVMRMixerBitmap extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {VMRALPHABITMAP} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrmixerbitmap-getalphabitmapparameters
+     * The GetAlphaBitmapParameters method retrieves a copy of the current image and related blending parameters.
+     * @returns {VMRALPHABITMAP} A pointer to a [VMRALPHABITMAP](/windows/desktop/api/strmif/ns-strmif-vmralphabitmap) structure that receives the bitmap, information about the blending values, and the location to blend it.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrmixerbitmap-getalphabitmapparameters
      */
     GetAlphaBitmapParameters() {
         pBmpParms := VMRALPHABITMAP()

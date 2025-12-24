@@ -32,13 +32,149 @@ class IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferentialSoftwareSnap
     static VTableNames => ["ChangeDiffAreaMaximumSizeEx", "MigrateDiffAreas", "QueryMigrationStatus", "SetSnapshotPriority"]
 
     /**
+     * Updates the shadow copy storage area maximum size for a certain volume. This may not have an immediate effect. If the bVolatile parameter is FALSE, the change continues even if the computer is rebooted.
+     * @param {Pointer<Integer>} pwszVolumeName The name of the volume that is the source of shadow copies. This volume is associated with a shadow copy storage area 
+     *       on the <i>pwszDiffAreaVolumeName</i> volume.
+     *       
      * 
-     * @param {Pointer<Integer>} pwszVolumeName 
-     * @param {Pointer<Integer>} pwszDiffAreaVolumeName 
-     * @param {Integer} llMaximumDiffSpace 
-     * @param {BOOL} bVolatile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-changediffareamaximumsizeex
+     * The name of the volume must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder, for example, Y:\MountX\</li>
+     * <li>A drive letter, for example, 
+     *          D:\</li>
+     * <li>A volume GUID path of the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @param {Pointer<Integer>} pwszDiffAreaVolumeName The name of the volume that contains the  shadow copy storage  area that is associated with the 
+     *       <i>pwszVolumeName</i> volume.
+     *       
+     * 
+     * The name of the volume must be in one of the following formats and must include a trailing backslash (\\):
+     *        <ul>
+     * <li>The path of a mounted folder</li>
+     * <li>A drive letter with, for example, 
+     *          D:\</li>
+     * <li>A volume GUID path of the form \\?&#92;<i>Volume</i>{<i>GUID</i>}\ (where <i>GUID</i> identifies the volume)</li>
+     * </ul>
+     * @param {Integer} llMaximumDiffSpace Specifies the maximum size, in bytes, for the shadow copy storage area to use for the volume. If this value is zero, 
+     *       the shadow copy storage area will be deleted. If this value is –1, the maximum size is unlimited.
+     * @param {BOOL} bVolatile TRUE to indicate that the effect of calling the <b>ChangeDiffAreaMaximumSizeEx</b> method should not continue if the computer is rebooted; otherwise, <b>FALSE</b>.
+     * 
+     * The default value is <b>FALSE</b>.
+     * 
+     * If the <i>llMaximumDiffSpace</i> parameter is zero, the <i>bVolatile</i> parameter must be <b>FALSE</b>.
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The shadow copy storage area maximum size was successfully changed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller does not have sufficient backup privileges or is not an administrator.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameter values is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The caller is out of memory or other system resources.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_INSUFFICIENT_STORAGE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pwszDiffAreaVolumeName</i> volume does not have sufficient free space.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_OBJECT_NOT_FOUND</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The association between the <i>pwszVolumeName</i> and 
+     *         <i>pwszDiffAreaVolumeName</i> volumes was not found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_PROVIDER_VETO</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An expected provider error has occurred. The error code is logged in the event log. For more information, see 
+     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unexpected error. The error code is logged in the error log file. For more information, see 
+     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VSS_E_VOLUME_IN_USE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A shadow copy is currently using the shadow copy storage area.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-changediffareamaximumsizeex
      */
     ChangeDiffAreaMaximumSizeEx(pwszVolumeName, pwszDiffAreaVolumeName, llMaximumDiffSpace, bVolatile) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
@@ -49,12 +185,12 @@ class IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferentialSoftwareSnap
     }
 
     /**
-     * 
+     * This method is reserved for future use.
      * @param {Pointer<Integer>} pwszVolumeName 
      * @param {Pointer<Integer>} pwszDiffAreaVolumeName 
      * @param {Pointer<Integer>} pwszNewDiffAreaVolumeName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-migratediffareas
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-migratediffareas
      */
     MigrateDiffAreas(pwszVolumeName, pwszDiffAreaVolumeName, pwszNewDiffAreaVolumeName) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
@@ -66,11 +202,11 @@ class IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferentialSoftwareSnap
     }
 
     /**
-     * 
+     * This method is reserved for future use.
      * @param {Pointer<Integer>} pwszVolumeName 
      * @param {Pointer<Integer>} pwszDiffAreaVolumeName 
      * @returns {IVssAsync} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-querymigrationstatus
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-querymigrationstatus
      */
     QueryMigrationStatus(pwszVolumeName, pwszDiffAreaVolumeName) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"
@@ -81,11 +217,11 @@ class IVssDifferentialSoftwareSnapshotMgmt2 extends IVssDifferentialSoftwareSnap
     }
 
     /**
-     * 
+     * This method is reserved for future use.
      * @param {Guid} idSnapshot 
      * @param {Integer} priority 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-setsnapshotpriority
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt2-setsnapshotpriority
      */
     SetSnapshotPriority(idSnapshot, priority) {
         result := ComCall(12, this, "ptr", idSnapshot, "char", priority, "HRESULT")

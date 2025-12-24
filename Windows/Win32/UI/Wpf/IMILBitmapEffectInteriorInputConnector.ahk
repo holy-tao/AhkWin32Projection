@@ -32,9 +32,11 @@ class IMILBitmapEffectInteriorInputConnector extends IUnknown{
     static VTableNames => ["GetInputConnector"]
 
     /**
+     * Gets the IMILBitmapEffectInputConnector associated with the interior connector.
+     * @returns {IMILBitmapEffectInputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>**</b>
      * 
-     * @returns {IMILBitmapEffectInputConnector} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectinteriorinputconnector-getinputconnector
+     * A pointer that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectinteriorinputconnector-getinputconnector
      */
     GetInputConnector() {
         result := ComCall(3, this, "ptr*", &pInputConnector := 0, "HRESULT")

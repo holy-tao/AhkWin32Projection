@@ -32,9 +32,9 @@ class ITfInputScope2 extends ITfInputScope{
     static VTableNames => ["EnumWordList"]
 
     /**
-     * 
-     * @returns {IEnumString} 
-     * @see https://learn.microsoft.com/windows/win32/api/inputscope/nf-inputscope-itfinputscope2-enumwordlist
+     * ITfInputScope2::EnumWordList method
+     * @returns {IEnumString} A pointer to obtain the IEnumString interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope2-enumwordlist
      */
     EnumWordList() {
         result := ComCall(8, this, "ptr*", &ppEnumString := 0, "HRESULT")

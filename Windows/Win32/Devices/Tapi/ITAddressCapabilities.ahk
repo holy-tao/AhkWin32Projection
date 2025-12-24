@@ -34,10 +34,31 @@ class ITAddressCapabilities extends IDispatch{
     static VTableNames => ["get_AddressCapability", "get_AddressCapabilityString", "get_CallTreatments", "EnumerateCallTreatments", "get_CompletionMessages", "EnumerateCompletionMessages", "get_DeviceClasses", "EnumerateDeviceClasses"]
 
     /**
-     * 
-     * @param {Integer} AddressCap 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapability
+     * @type {VARIANT} 
+     */
+    CallTreatments {
+        get => this.get_CallTreatments()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CompletionMessages {
+        get => this.get_CompletionMessages()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    DeviceClasses {
+        get => this.get_DeviceClasses()
+    }
+
+    /**
+     * The get_AddressCapability method gets the capability value for a given ADDRESS_CAPABILITY.
+     * @param {Integer} AddressCap Descriptor for desired address capability.
+     * @returns {Integer} Value of address capability.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapability
      */
     get_AddressCapability(AddressCap) {
         result := ComCall(7, this, "int", AddressCap, "int*", &plCapability := 0, "HRESULT")
@@ -45,10 +66,10 @@ class ITAddressCapabilities extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} AddressCapString 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapabilitystring
+     * The get_AddressCapabilityString method gets the capability string for a given ADDRESS_CAPABILITY_STRING.
+     * @param {Integer} AddressCapString Descriptor for desired address capability string.
+     * @returns {BSTR} Pointer to <b>BSTR</b> value of address capability. <b>NULL</b> is a possible return value if the TSP does not provide a value for <i>AddressCapString</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapabilitystring
      */
     get_AddressCapabilityString(AddressCapString) {
         ppCapabilityString := BSTR()
@@ -57,9 +78,10 @@ class ITAddressCapabilities extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_calltreatments
+     * The get_CallTreatments method gets call treatments. This method is provided for Automation client applications, such as those written in Visual Basic and scripting languages.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> containing an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of call treatments.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresscapabilities-get_calltreatments
      */
     get_CallTreatments() {
         pVariant := VARIANT()
@@ -68,9 +90,9 @@ class ITAddressCapabilities extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumBstr} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-enumeratecalltreatments
+     * The EnumerateCallTreatments method gets call treatments. This method is provided for applications written in C/C++ and Java.
+     * @returns {IEnumBstr} Pointer to call treatment enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresscapabilities-enumeratecalltreatments
      */
     EnumerateCallTreatments() {
         result := ComCall(10, this, "ptr*", &ppEnumCallTreatment := 0, "HRESULT")
@@ -78,9 +100,9 @@ class ITAddressCapabilities extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_completionmessages
+     * The get_CompletionMessages gets completion messages. This method is provided for Automation client applications, such as those written in Visual Basic and scripting languages.
+     * @returns {VARIANT} Pointer to <b>VARIANT</b> containing completion messages.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresscapabilities-get_completionmessages
      */
     get_CompletionMessages() {
         pVariant := VARIANT()
@@ -89,9 +111,9 @@ class ITAddressCapabilities extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumBstr} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-enumeratecompletionmessages
+     * The EnumerateCompletionMessages method gets completion messages. This method is provided for applications written in C/C++ and Java.
+     * @returns {IEnumBstr} Pointer to enumeration of completion messages.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresscapabilities-enumeratecompletionmessages
      */
     EnumerateCompletionMessages() {
         result := ComCall(12, this, "ptr*", &ppEnumCompletionMessage := 0, "HRESULT")
@@ -99,9 +121,10 @@ class ITAddressCapabilities extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_deviceclasses
+     * The get_DeviceClasses method gets device classes. This method is provided for Automation client applications, such as those written in Visual Basic and scripting languages.
+     * @returns {VARIANT} Pointer to <b>VARIANT</b> containing 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapi-device-classes">device classes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresscapabilities-get_deviceclasses
      */
     get_DeviceClasses() {
         pVariant := VARIANT()
@@ -110,9 +133,10 @@ class ITAddressCapabilities extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumBstr} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddresscapabilities-enumeratedeviceclasses
+     * The EnumerateDeviceClasses method gets device classes. This method is provided for applications written in C/C++ and Java.
+     * @returns {IEnumBstr} Pointer to enumeration of 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapi-device-classes">device classes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresscapabilities-enumeratedeviceclasses
      */
     EnumerateDeviceClasses() {
         result := ComCall(14, this, "ptr*", &ppEnumDeviceClass := 0, "HRESULT")

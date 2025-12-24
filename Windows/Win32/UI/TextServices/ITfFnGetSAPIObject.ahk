@@ -32,10 +32,10 @@ class ITfFnGetSAPIObject extends ITfFunction{
     static VTableNames => ["Get"]
 
     /**
-     * 
-     * @param {Integer} sObj 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffngetsapiobject-get
+     * ITfFnGetSAPIObject::Get method
+     * @param {Integer} sObj Contains a <a href="https://docs.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfsapiobject">TfSapiObject</a> value that specifies the SAPI object to obtain.
+     * @returns {IUnknown} Pointer to an <b>IUnknown</b> interface pointer that receives the requested SAPI object. The caller must release this interface when it is no longer required.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffngetsapiobject-get
      */
     Get(sObj) {
         result := ComCall(4, this, "int", sObj, "ptr*", &ppunk := 0, "HRESULT")

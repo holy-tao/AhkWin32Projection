@@ -37,6 +37,13 @@ class IHTMLStyleSheetRulesAppliedCollection extends IDispatch{
     static VTableNames => ["item", "get_length", "propertyAppliedBy", "propertyAppliedTrace", "propertyAppliedTraceLength"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
      * 
      * @param {Integer} index 
      * @returns {IHTMLStyleSheetRule} 

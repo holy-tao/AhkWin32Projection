@@ -38,9 +38,23 @@ class IWdsTransportCollection extends IDispatch{
     static VTableNames => ["get_Count", "get_Item", "get__NewEnum"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * Receives the number of objects in this collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_count
      */
     get_Count() {
         result := ComCall(7, this, "uint*", &pulCount := 0, "HRESULT")
@@ -48,10 +62,10 @@ class IWdsTransportCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Receives a pointer to the object that matches the specified index.
      * @param {Integer} ulIndex 
      * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_item
      */
     get_Item(ulIndex) {
         result := ComCall(8, this, "uint", ulIndex, "ptr*", &ppVal := 0, "HRESULT")
@@ -59,9 +73,9 @@ class IWdsTransportCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Receives a pointer to an enumerator that can be used to iterate over the objects in this collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppVal := 0, "HRESULT")

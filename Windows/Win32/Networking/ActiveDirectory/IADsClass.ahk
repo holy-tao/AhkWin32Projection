@@ -40,6 +40,125 @@ class IADsClass extends IADs{
     static VTableNames => ["get_PrimaryInterface", "get_CLSID", "put_CLSID", "get_OID", "put_OID", "get_Abstract", "put_Abstract", "get_Auxiliary", "put_Auxiliary", "get_MandatoryProperties", "put_MandatoryProperties", "get_OptionalProperties", "put_OptionalProperties", "get_NamingProperties", "put_NamingProperties", "get_DerivedFrom", "put_DerivedFrom", "get_AuxDerivedFrom", "put_AuxDerivedFrom", "get_PossibleSuperiors", "put_PossibleSuperiors", "get_Containment", "put_Containment", "get_Container", "put_Container", "get_HelpFileName", "put_HelpFileName", "get_HelpFileContext", "put_HelpFileContext", "Qualifiers"]
 
     /**
+     * @type {BSTR} 
+     */
+    PrimaryInterface {
+        get => this.get_PrimaryInterface()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CLSID {
+        get => this.get_CLSID()
+        set => this.put_CLSID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OID {
+        get => this.get_OID()
+        set => this.put_OID(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Abstract {
+        get => this.get_Abstract()
+        set => this.put_Abstract(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Auxiliary {
+        get => this.get_Auxiliary()
+        set => this.put_Auxiliary(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    MandatoryProperties {
+        get => this.get_MandatoryProperties()
+        set => this.put_MandatoryProperties(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    OptionalProperties {
+        get => this.get_OptionalProperties()
+        set => this.put_OptionalProperties(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    NamingProperties {
+        get => this.get_NamingProperties()
+        set => this.put_NamingProperties(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    DerivedFrom {
+        get => this.get_DerivedFrom()
+        set => this.put_DerivedFrom(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    AuxDerivedFrom {
+        get => this.get_AuxDerivedFrom()
+        set => this.put_AuxDerivedFrom(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PossibleSuperiors {
+        get => this.get_PossibleSuperiors()
+        set => this.put_PossibleSuperiors(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Containment {
+        get => this.get_Containment()
+        set => this.put_Containment(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Container {
+        get => this.get_Container()
+        set => this.put_Container(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    HelpFileName {
+        get => this.get_HelpFileName()
+        set => this.put_HelpFileName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    HelpFileContext {
+        get => this.get_HelpFileContext()
+        set => this.put_HelpFileContext(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */
@@ -332,9 +451,9 @@ class IADsClass extends IADs{
     }
 
     /**
-     * 
-     * @returns {IADsCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsclass-qualifiers
+     * Returns a collection of ADSI objects that describe additional qualifiers for this schema class.
+     * @returns {IADsCollection} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> pointer variable that receives the interface pointer to the ADSI collection object that represents additional limits for this schema class.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsclass-qualifiers
      */
     Qualifiers() {
         result := ComCall(49, this, "ptr*", &ppQualifiers := 0, "HRESULT")

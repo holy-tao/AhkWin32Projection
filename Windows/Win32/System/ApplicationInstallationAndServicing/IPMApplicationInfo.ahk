@@ -31,6 +31,332 @@ class IPMApplicationInfo extends IUnknown{
     static VTableNames => ["get_ProductID", "get_InstanceID", "get_OfferID", "get_DefaultTask", "get_AppTitle", "get_IconPath", "get_NotificationState", "get_AppInstallType", "get_State", "get_IsRevoked", "get_UpdateAvailable", "get_InstallDate", "get_IsUninstallable", "get_IsThemable", "get_IsTrial", "get_InstallPath", "get_DataRoot", "get_Genre", "get_Publisher", "get_Author", "get_Description", "get_Version", "get_InvocationInfo", "get_AppPlatMajorVersion", "get_AppPlatMinorVersion", "get_PublisherID", "get_IsMultiCore", "get_SID", "get_AppPlatMajorVersionLightUp", "get_AppPlatMinorVersionLightUp", "set_UpdateAvailable", "set_NotificationState", "set_IconPath", "set_UninstallableState", "get_IsPinableOnKidZone", "get_IsOriginallyPreInstalled", "get_IsInstallOnSD", "get_IsOptoutOnSD", "get_IsOptoutBackupRestore", "set_EnterpriseDisabled", "set_EnterpriseUninstallable", "get_EnterpriseDisabled", "get_EnterpriseUninstallable", "get_IsVisibleOnAppList", "get_IsInboxApp", "get_StorageID", "get_StartAppBlob", "get_IsMovable", "get_DeploymentAppEnumerationHubFilter", "get_ModifiedDate", "get_IsOriginallyRestored", "get_ShouldDeferMdilBind", "get_IsFullyPreInstall", "set_IsMdilMaintenanceNeeded", "set_Title"]
 
     /**
+     * @type {Guid} 
+     */
+    ProductID {
+        get => this.get_ProductID()
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    InstanceID {
+        get => this.get_InstanceID()
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    OfferID {
+        get => this.get_OfferID()
+    }
+
+    /**
+     */
+    DefaultTask {
+        get => this.get_DefaultTask()
+    }
+
+    /**
+     */
+    AppTitle {
+        get => this.get_AppTitle()
+    }
+
+    /**
+     */
+    IconPath {
+        get => this.get_IconPath()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    NotificationState {
+        get => this.get_NotificationState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AppInstallType {
+        get => this.get_AppInstallType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsRevoked {
+        get => this.get_IsRevoked()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    UpdateAvailable {
+        get => this.get_UpdateAvailable()
+    }
+
+    /**
+     * @type {FILETIME} 
+     */
+    InstallDate {
+        get => this.get_InstallDate()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsUninstallable {
+        get => this.get_IsUninstallable()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsThemable {
+        get => this.get_IsThemable()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsTrial {
+        get => this.get_IsTrial()
+    }
+
+    /**
+     */
+    InstallPath {
+        get => this.get_InstallPath()
+    }
+
+    /**
+     */
+    DataRoot {
+        get => this.get_DataRoot()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Genre {
+        get => this.get_Genre()
+    }
+
+    /**
+     */
+    Publisher {
+        get => this.get_Publisher()
+    }
+
+    /**
+     */
+    Author {
+        get => this.get_Author()
+    }
+
+    /**
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     */
+    Version {
+        get => this.get_Version()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AppPlatMajorVersion {
+        get => this.get_AppPlatMajorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AppPlatMinorVersion {
+        get => this.get_AppPlatMinorVersion()
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    PublisherID {
+        get => this.get_PublisherID()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsMultiCore {
+        get => this.get_IsMultiCore()
+    }
+
+    /**
+     */
+    SID {
+        get => this.get_SID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AppPlatMajorVersionLightUp {
+        get => this.get_AppPlatMajorVersionLightUp()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AppPlatMinorVersionLightUp {
+        get => this.get_AppPlatMinorVersionLightUp()
+    }
+
+    /**
+     */
+    UninstallableState {
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsPinableOnKidZone {
+        get => this.get_IsPinableOnKidZone()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsOriginallyPreInstalled {
+        get => this.get_IsOriginallyPreInstalled()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsInstallOnSD {
+        get => this.get_IsInstallOnSD()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsOptoutOnSD {
+        get => this.get_IsOptoutOnSD()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsOptoutBackupRestore {
+        get => this.get_IsOptoutBackupRestore()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    EnterpriseDisabled {
+        get => this.get_EnterpriseDisabled()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    EnterpriseUninstallable {
+        get => this.get_EnterpriseUninstallable()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsVisibleOnAppList {
+        get => this.get_IsVisibleOnAppList()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsInboxApp {
+        get => this.get_IsInboxApp()
+    }
+
+    /**
+     * @type {Guid} 
+     */
+    StorageID {
+        get => this.get_StorageID()
+    }
+
+    /**
+     */
+    StartAppBlob {
+        get => this.get_StartAppBlob()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsMovable {
+        get => this.get_IsMovable()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DeploymentAppEnumerationHubFilter {
+        get => this.get_DeploymentAppEnumerationHubFilter()
+    }
+
+    /**
+     * @type {FILETIME} 
+     */
+    ModifiedDate {
+        get => this.get_ModifiedDate()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsOriginallyRestored {
+        get => this.get_IsOriginallyRestored()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    ShouldDeferMdilBind {
+        get => this.get_ShouldDeferMdilBind()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsFullyPreInstall {
+        get => this.get_IsFullyPreInstall()
+    }
+
+    /**
+     */
+    IsMdilMaintenanceNeeded {
+    }
+
+    /**
+     */
+    Title {
+    }
+
+    /**
      * 
      * @returns {Guid} 
      */

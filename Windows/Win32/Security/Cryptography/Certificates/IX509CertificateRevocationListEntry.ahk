@@ -32,6 +32,35 @@ class IX509CertificateRevocationListEntry extends IDispatch{
     static VTableNames => ["Initialize", "get_SerialNumber", "get_RevocationDate", "get_RevocationReason", "put_RevocationReason", "get_X509Extensions", "get_CriticalExtensions"]
 
     /**
+     * @type {Float} 
+     */
+    RevocationDate {
+        get => this.get_RevocationDate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RevocationReason {
+        get => this.get_RevocationReason()
+        set => this.put_RevocationReason(value)
+    }
+
+    /**
+     * @type {IX509Extensions} 
+     */
+    X509Extensions {
+        get => this.get_X509Extensions()
+    }
+
+    /**
+     * @type {IObjectIds} 
+     */
+    CriticalExtensions {
+        get => this.get_CriticalExtensions()
+    }
+
+    /**
      * Initializes a thread to use Windows Runtime APIs.
      * @param {Integer} Encoding 
      * @param {BSTR} SerialNumber 

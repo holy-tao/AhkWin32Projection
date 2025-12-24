@@ -35,9 +35,113 @@ class IEventSubscription extends IDispatch{
     static VTableNames => ["get_SubscriptionID", "put_SubscriptionID", "get_SubscriptionName", "put_SubscriptionName", "get_PublisherID", "put_PublisherID", "get_EventClassID", "put_EventClassID", "get_MethodName", "put_MethodName", "get_SubscriberCLSID", "put_SubscriberCLSID", "get_SubscriberInterface", "put_SubscriberInterface", "get_PerUser", "put_PerUser", "get_OwnerSID", "put_OwnerSID", "get_Enabled", "put_Enabled", "get_Description", "put_Description", "get_MachineName", "put_MachineName", "GetPublisherProperty", "PutPublisherProperty", "RemovePublisherProperty", "GetPublisherPropertyCollection", "GetSubscriberProperty", "PutSubscriberProperty", "RemoveSubscriberProperty", "GetSubscriberPropertyCollection", "get_InterfaceID", "put_InterfaceID"]
 
     /**
-     * 
+     * @type {BSTR} 
+     */
+    SubscriptionID {
+        get => this.get_SubscriptionID()
+        set => this.put_SubscriptionID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SubscriptionName {
+        get => this.get_SubscriptionName()
+        set => this.put_SubscriptionName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PublisherID {
+        get => this.get_PublisherID()
+        set => this.put_PublisherID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    EventClassID {
+        get => this.get_EventClassID()
+        set => this.put_EventClassID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MethodName {
+        get => this.get_MethodName()
+        set => this.put_MethodName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SubscriberCLSID {
+        get => this.get_SubscriberCLSID()
+        set => this.put_SubscriberCLSID(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    SubscriberInterface {
+        get => this.get_SubscriberInterface()
+        set => this.put_SubscriberInterface(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    PerUser {
+        get => this.get_PerUser()
+        set => this.put_PerUser(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OwnerSID {
+        get => this.get_OwnerSID()
+        set => this.put_OwnerSID(value)
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MachineName {
+        get => this.get_MachineName()
+        set => this.put_MachineName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InterfaceID {
+        get => this.get_InterfaceID()
+        set => this.put_InterfaceID(value)
+    }
+
+    /**
+     * The unique ID for the subscription object.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriptionid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_subscriptionid
      */
     get_SubscriptionID() {
         pbstrSubscriptionID := BSTR()
@@ -46,10 +150,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * The unique ID for the subscription object.
      * @param {BSTR} bstrSubscriptionID 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_subscriptionid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_subscriptionid
      */
     put_SubscriptionID(bstrSubscriptionID) {
         bstrSubscriptionID := bstrSubscriptionID is String ? BSTR.Alloc(bstrSubscriptionID).Value : bstrSubscriptionID
@@ -59,9 +163,9 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * A displayable name for the subscription object.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriptionname
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_subscriptionname
      */
     get_SubscriptionName() {
         pbstrSubscriptionName := BSTR()
@@ -70,10 +174,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * A displayable name for the subscription object.
      * @param {BSTR} bstrSubscriptionName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_subscriptionname
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_subscriptionname
      */
     put_SubscriptionName(bstrSubscriptionName) {
         bstrSubscriptionName := bstrSubscriptionName is String ? BSTR.Alloc(bstrSubscriptionName).Value : bstrSubscriptionName
@@ -83,9 +187,14 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
+     * The unique ID of the event publisher.
+     * @remarks
+     * 
+     * Specifying a <b>PublisherID</b> property does not guarantee that a subscriber will not receive events fired by other publishers.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_publisherid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_publisherid
      */
     get_PublisherID() {
         pbstrPublisherID := BSTR()
@@ -94,10 +203,15 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
+     * The unique ID of the event publisher.
+     * @remarks
+     * 
+     * Specifying a <b>PublisherID</b> property does not guarantee that a subscriber will not receive events fired by other publishers.
+     * 
      * 
      * @param {BSTR} bstrPublisherID 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_publisherid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_publisherid
      */
     put_PublisherID(bstrPublisherID) {
         bstrPublisherID := bstrPublisherID is String ? BSTR.Alloc(bstrPublisherID).Value : bstrPublisherID
@@ -107,9 +221,9 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * The unique ID of the event class associated with the subscription.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_eventclassid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_eventclassid
      */
     get_EventClassID() {
         pbstrEventClassID := BSTR()
@@ -118,10 +232,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * The unique ID of the event class associated with the subscription.
      * @param {BSTR} bstrEventClassID 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_eventclassid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_eventclassid
      */
     put_EventClassID(bstrEventClassID) {
         bstrEventClassID := bstrEventClassID is String ? BSTR.Alloc(bstrEventClassID).Value : bstrEventClassID
@@ -131,9 +245,9 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * The name of the event method.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_methodname
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_methodname
      */
     get_MethodName() {
         pbstrMethodName := BSTR()
@@ -142,10 +256,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * The name of the event method.
      * @param {BSTR} bstrMethodName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_methodname
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_methodname
      */
     put_MethodName(bstrMethodName) {
         bstrMethodName := bstrMethodName is String ? BSTR.Alloc(bstrMethodName).Value : bstrMethodName
@@ -155,9 +269,14 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
+     * The CLSID of the subscriber component (for a persistent subscription).
+     * @remarks
+     * 
+     * If not empty, the subscription is persistent and the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberinterface">SubscriberInterface</a> property must be <b>NULL</b>. This property works in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-get_machinename">MachineName</a> property in a persistent subscription.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberclsid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_subscriberclsid
      */
     get_SubscriberCLSID() {
         pbstrSubscriberCLSID := BSTR()
@@ -166,10 +285,15 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
+     * The CLSID of the subscriber component (for a persistent subscription).
+     * @remarks
+     * 
+     * If not empty, the subscription is persistent and the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberinterface">SubscriberInterface</a> property must be <b>NULL</b>. This property works in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-get_machinename">MachineName</a> property in a persistent subscription.
+     * 
      * 
      * @param {BSTR} bstrSubscriberCLSID 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_subscriberclsid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_subscriberclsid
      */
     put_SubscriberCLSID(bstrSubscriberCLSID) {
         bstrSubscriberCLSID := bstrSubscriberCLSID is String ? BSTR.Alloc(bstrSubscriberCLSID).Value : bstrSubscriberCLSID
@@ -179,9 +303,14 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
+     * A marshaled pointer to the event interface on the subscriber (for a transient subscription).
+     * @remarks
+     * 
+     * If not <b>NULL</b>, the subscription is transient and the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberclsid">SubscriberCLSID</a> property must be empty.
+     * 
      * 
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberinterface
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_subscriberinterface
      */
     get_SubscriberInterface() {
         result := ComCall(19, this, "ptr*", &ppSubscriberInterface := 0, "HRESULT")
@@ -189,10 +318,15 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
+     * A marshaled pointer to the event interface on the subscriber (for a transient subscription).
+     * @remarks
+     * 
+     * If not <b>NULL</b>, the subscription is transient and the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberclsid">SubscriberCLSID</a> property must be empty.
+     * 
      * 
      * @param {IUnknown} pSubscriberInterface 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_subscriberinterface
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_subscriberinterface
      */
     put_SubscriberInterface(pSubscriberInterface) {
         result := ComCall(20, this, "ptr", pSubscriberInterface, "HRESULT")
@@ -200,9 +334,9 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * Indicates whether the subscription receives the event only if the owner of the subscription is logged on to the same computer as the publisher.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_peruser
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_peruser
      */
     get_PerUser() {
         result := ComCall(21, this, "int*", &pfPerUser := 0, "HRESULT")
@@ -210,10 +344,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * Indicates whether the subscription receives the event only if the owner of the subscription is logged on to the same computer as the publisher.
      * @param {BOOL} fPerUser 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_peruser
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_peruser
      */
     put_PerUser(fPerUser) {
         result := ComCall(22, this, "int", fPerUser, "HRESULT")
@@ -221,9 +355,9 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * The security ID of the subscription's creator.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_ownersid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_ownersid
      */
     get_OwnerSID() {
         pbstrOwnerSID := BSTR()
@@ -232,10 +366,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * The security ID of the subscription's creator.
      * @param {BSTR} bstrOwnerSID 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_ownersid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_ownersid
      */
     put_OwnerSID(bstrOwnerSID) {
         bstrOwnerSID := bstrOwnerSID is String ? BSTR.Alloc(bstrOwnerSID).Value : bstrOwnerSID
@@ -245,9 +379,14 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
+     * Indicates whether the subscription is enabled.
+     * @remarks
+     * 
+     * If a subscription is not enabled, it still appears in collections and can be queried, but events fired by the publisher do not reach the subscriber.
+     * 
      * 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_enabled
      */
     get_Enabled() {
         result := ComCall(25, this, "int*", &pfEnabled := 0, "HRESULT")
@@ -255,10 +394,15 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
+     * Indicates whether the subscription is enabled.
+     * @remarks
+     * 
+     * If a subscription is not enabled, it still appears in collections and can be queried, but events fired by the publisher do not reach the subscriber.
+     * 
      * 
      * @param {BOOL} fEnabled 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_enabled
      */
     put_Enabled(fEnabled) {
         result := ComCall(26, this, "int", fEnabled, "HRESULT")
@@ -266,9 +410,9 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * A displayable text description of the subscription.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_description
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_description
      */
     get_Description() {
         pbstrDescription := BSTR()
@@ -277,10 +421,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * A displayable text description of the subscription.
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_description
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_description
      */
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
@@ -290,9 +434,14 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
+     * The name of the computer on which the subscriber should be activated (for a persistent subscription).
+     * @remarks
+     * 
+     * This information is only meaningful if the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberclsid">SubscriberCLSID</a> property is not empty. This property has no effect on transient subscriptions.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_machinename
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_machinename
      */
     get_MachineName() {
         pbstrMachineName := BSTR()
@@ -301,10 +450,15 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
+     * The name of the computer on which the subscriber should be activated (for a persistent subscription).
+     * @remarks
+     * 
+     * This information is only meaningful if the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsubscription-get_subscriberclsid">SubscriberCLSID</a> property is not empty. This property has no effect on transient subscriptions.
+     * 
      * 
      * @param {BSTR} bstrMachineName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_machinename
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_machinename
      */
     put_MachineName(bstrMachineName) {
         bstrMachineName := bstrMachineName is String ? BSTR.Alloc(bstrMachineName).Value : bstrMachineName
@@ -314,10 +468,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPropertyName 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getpublisherproperty
+     * Retrieves the value of a property stored in the property bag to define publisher context.
+     * @param {BSTR} bstrPropertyName The name of the requested property.
+     * @returns {VARIANT} The value of the requested property.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-getpublisherproperty
      */
     GetPublisherProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
@@ -328,11 +482,11 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPropertyName 
-     * @param {Pointer<VARIANT>} propertyValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-putpublisherproperty
+     * Writes a property and its value to the property bag to define publisher context.
+     * @param {BSTR} bstrPropertyName The name of the property whose value is to be written to the property bag. If the property is not in the property bag, this method adds it.
+     * @param {Pointer<VARIANT>} propertyValue The value of the property to be written to the property bag. If the property is already in the property bag, this method overwrites the current value.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-putpublisherproperty
      */
     PutPublisherProperty(bstrPropertyName, propertyValue) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
@@ -342,10 +496,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPropertyName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-removepublisherproperty
+     * Removes a property and its value from the property bag that defines publisher context.
+     * @param {BSTR} bstrPropertyName The name of the property whose value is to be removed from the property bag.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-removepublisherproperty
      */
     RemovePublisherProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
@@ -355,9 +509,9 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEventObjectCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getpublisherpropertycollection
+     * Retrieves a collection of properties and values stored in the publisher property bag.
+     * @returns {IEventObjectCollection} Address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventobjectcollection">IEventObjectCollection</a> interface on an event object collection. This parameter cannot be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-getpublisherpropertycollection
      */
     GetPublisherPropertyCollection() {
         result := ComCall(34, this, "ptr*", &collection := 0, "HRESULT")
@@ -365,10 +519,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPropertyName 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getsubscriberproperty
+     * Retrieves the value of a property stored in the property bag to define subscriber context.
+     * @param {BSTR} bstrPropertyName The name of the requested property.
+     * @returns {VARIANT} The value of the requested property.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-getsubscriberproperty
      */
     GetSubscriberProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
@@ -379,11 +533,11 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPropertyName 
-     * @param {Pointer<VARIANT>} propertyValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-putsubscriberproperty
+     * Writes a property and its value to the property bag to define subscriber context.
+     * @param {BSTR} bstrPropertyName The name of the property whose value is to be written to the property bag. If the property is not in the property bag, this method adds it.
+     * @param {Pointer<VARIANT>} propertyValue The value of the property to be written to the property bag. If the property is already in the property bag, this method overwrites the current value.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-putsubscriberproperty
      */
     PutSubscriberProperty(bstrPropertyName, propertyValue) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
@@ -393,10 +547,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPropertyName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-removesubscriberproperty
+     * Removes a property and its value from the property bag that defines subscriber context.
+     * @param {BSTR} bstrPropertyName The name of the property whose value is to be removed from the property bag.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-removesubscriberproperty
      */
     RemoveSubscriberProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
@@ -406,9 +560,9 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEventObjectCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-getsubscriberpropertycollection
+     * Retrieves a collection of properties and values stored in the subscriber property bag.
+     * @returns {IEventObjectCollection} Address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventobjectcollection">IEventObjectCollection</a> interface on an event object collection. This parameter cannot be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-getsubscriberpropertycollection
      */
     GetSubscriberPropertyCollection() {
         result := ComCall(38, this, "ptr*", &collection := 0, "HRESULT")
@@ -416,9 +570,9 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * The identifier for a particular interface for which the subscriber wants to receive events.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-get_interfaceid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-get_interfaceid
      */
     get_InterfaceID() {
         pbstrInterfaceID := BSTR()
@@ -427,10 +581,10 @@ class IEventSubscription extends IDispatch{
     }
 
     /**
-     * 
+     * The identifier for a particular interface for which the subscriber wants to receive events.
      * @param {BSTR} bstrInterfaceID 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventsubscription-put_interfaceid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventsubscription-put_interfaceid
      */
     put_InterfaceID(bstrInterfaceID) {
         bstrInterfaceID := bstrInterfaceID is String ? BSTR.Alloc(bstrInterfaceID).Value : bstrInterfaceID

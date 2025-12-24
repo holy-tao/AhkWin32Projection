@@ -55,9 +55,9 @@ class IOpcFactory extends IUnknown{
     static VTableNames => ["CreatePackageRootUri", "CreatePartUri", "CreateStreamOnFile", "CreatePackage", "ReadPackageFromStream", "WritePackageToStream", "CreateDigitalSignatureManager"]
 
     /**
-     * 
-     * @returns {IOpcUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-createpackagerooturi
+     * Creates an OPC URI object that represents the root of a package.
+     * @returns {IOpcUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcuri">IOpcUri</a> interface of the OPC URI object that represents the URI of the root of a package.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-createpackagerooturi
      */
     CreatePackageRootUri() {
         result := ComCall(3, this, "ptr*", &rootUri := 0, "HRESULT")
@@ -65,10 +65,12 @@ class IOpcFactory extends IUnknown{
     }
 
     /**
+     * Creates a part URI object that represents a part name.
+     * @param {PWSTR} pwzUri A  URI that represents the location of a part relative to the root of the package that contains it.
+     * @returns {IOpcPartUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface of the part URI object. This object represents the  part name derived from the URI passed in <i>pwzUri</i>.
      * 
-     * @param {PWSTR} pwzUri 
-     * @returns {IOpcPartUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-createparturi
+     * Part names must conform to the syntax specified in the <i>OPC</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-createparturi
      */
     CreatePartUri(pwzUri) {
         pwzUri := pwzUri is String ? StrPtr(pwzUri) : pwzUri
@@ -78,13 +80,15 @@ class IOpcFactory extends IUnknown{
     }
 
     /**
+     * Creates a stream over a file.
+     * @param {PWSTR} filename The name of the file over which the stream is created.
+     * @param {Integer} ioMode The value that describes the read/write status of the stream to be created.
+     * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes For information about the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure in this parameter, see the <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a> function.
+     * @param {Integer} dwFlagsAndAttributes The settings and attributes of the file. For most files, <b>FILE_ATTRIBUTE_NORMAL</b> can be used.
      * 
-     * @param {PWSTR} filename 
-     * @param {Integer} ioMode 
-     * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes 
-     * @param {Integer} dwFlagsAndAttributes 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-createstreamonfile
+     * For more information about this parameter, see <a href="https://docs.microsoft.com/windows/desktop/api/fileapi/nf-fileapi-createfilea">CreateFile</a>.
+     * @returns {IStream} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-createstreamonfile
      */
     CreateStreamOnFile(filename, ioMode, securityAttributes, dwFlagsAndAttributes) {
         filename := filename is String ? StrPtr(filename) : filename
@@ -94,9 +98,9 @@ class IOpcFactory extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcPackage} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-createpackage
+     * Creates a package object that represents an empty package.
+     * @returns {IOpcPackage} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpackage">IOpcPackage</a> interface of the package object that represents an empty package.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-createpackage
      */
     CreatePackage() {
         result := ComCall(6, this, "ptr*", &package := 0, "HRESULT")
@@ -104,11 +108,13 @@ class IOpcFactory extends IUnknown{
     }
 
     /**
+     * Deserializes package data from a stream and creates a package object to represent the package being read.
+     * @param {IStream} stream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream.
      * 
-     * @param {IStream} stream 
-     * @param {Integer} flags 
-     * @returns {IOpcPackage} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-readpackagefromstream
+     * The stream must be readable, seekable, have size,   and must contain package data. Additionally, if the stream is not clonable, it will be buffered and read sequentially, incurring overhead.
+     * @param {Integer} flags The value that specifies the read settings for caching package components and validating them against <i>OPC</i> conformance requirements.
+     * @returns {IOpcPackage} A pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpackage">IOpcPackage</a> interface of the package object that represents the package being read through the stream.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-readpackagefromstream
      */
     ReadPackageFromStream(stream, flags) {
         result := ComCall(7, this, "ptr", stream, "int", flags, "ptr*", &package := 0, "HRESULT")
@@ -116,12 +122,96 @@ class IOpcFactory extends IUnknown{
     }
 
     /**
+     * Serializes a package that is represented by a package object.
+     * @param {IOpcPackage} package A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpackage">IOpcPackage</a> interface  of the package object that contains data to be serialized.
+     * @param {Integer} flags The value that describes the encoding method  used in serialization.
+     * @param {IStream} stream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the stream where the package object  data will be written.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IOpcPackage} package 
-     * @param {Integer} flags 
-     * @param {IStream} stream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-writepackagetostream
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value passed in the <i>flags</i> parameter is not a valid <a href="/windows/win32/api/msopc/ne-msopc-opc_write_flags">OPC_WRITE_FLAGS</a> enumeration value.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This method is not implemented for this version of Windows.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one of the <i>stream</i> and <i>package</i> parameters is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>IStream</b> interface error</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An <b>HRESULT</b> error code from the <a href="/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Package Consumption error</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An <b>HRESULT</b> error code from the <a href="/previous-versions/windows/desktop/opc/package-consumption-error-group">Package Consumption Error Group</a>. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>Part URI error</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An <b>HRESULT</b> error code from the <a href="/previous-versions/windows/desktop/opc/part-uri-error-group">Part URI Error Group</a>. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-writepackagetostream
      */
     WritePackageToStream(package, flags, stream) {
         result := ComCall(8, this, "ptr", package, "int", flags, "ptr", stream, "HRESULT")
@@ -129,10 +219,12 @@ class IOpcFactory extends IUnknown{
     }
 
     /**
+     * Creates a digital signature manager object for a package object.
+     * @param {IOpcPackage} package A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcpackage">IOpcPackage</a> interface of the package object to associate with the digital signature manager object.
+     * @returns {IOpcDigitalSignatureManager} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcdigitalsignaturemanager">IOpcDigitalSignatureManager</a> interface of the digital signature manager object that is created for use with the package object.
      * 
-     * @param {IOpcPackage} package 
-     * @returns {IOpcDigitalSignatureManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcfactory-createdigitalsignaturemanager
+     * A digital signature manager object provides access to the Packaging API's digital signature interfaces and methods. These can be used to sign the package represented by the package object or to validate the signatures in a package that has already been signed.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcfactory-createdigitalsignaturemanager
      */
     CreateDigitalSignatureManager(package) {
         result := ComCall(9, this, "ptr", package, "ptr*", &signatureManager := 0, "HRESULT")

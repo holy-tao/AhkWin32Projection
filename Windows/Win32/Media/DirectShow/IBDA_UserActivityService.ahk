@@ -35,10 +35,10 @@ class IBDA_UserActivityService extends IUnknown{
     static VTableNames => ["SetCurrentTunerUseReason", "GetUserActivityInterval", "UserActivityDetected"]
 
     /**
-     * 
+     * Specifies the current tuner use reason for a Media Sink Device (MSD) in a Protected Broadcast Driver Architecture (PBDA) media graph.
      * @param {Integer} dwUseReason 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_useractivityservice-setcurrenttunerusereason
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_useractivityservice-setcurrenttunerusereason
      */
     SetCurrentTunerUseReason(dwUseReason) {
         result := ComCall(3, this, "uint", dwUseReason, "HRESULT")
@@ -46,9 +46,9 @@ class IBDA_UserActivityService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_useractivityservice-getuseractivityinterval
+     * Gets the interval that a Media Sink Device (MSD) in a Protected Broadcast Driver Architecture (PBDA) media graph waits before calling the UserActivityDetected method after the MSD detects user activity.
+     * @returns {Integer} Gets the user activity interval, in seconds.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_useractivityservice-getuseractivityinterval
      */
     GetUserActivityInterval() {
         result := ComCall(4, this, "uint*", &pdwActivityInterval := 0, "HRESULT")
@@ -56,9 +56,38 @@ class IBDA_UserActivityService extends IUnknown{
     }
 
     /**
+     * Indicates that a Media Sink Device (MSD) in a Protected Broadcast Driver Architecture (PBDA) media graph has detected user activity and is informing a Media Transfer Device (MTD) of this activity.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_useractivityservice-useractivitydetected
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOINTERFACE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * User activity service failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_useractivityservice-useractivitydetected
      */
     UserActivityDetected() {
         result := ComCall(5, this, "HRESULT")

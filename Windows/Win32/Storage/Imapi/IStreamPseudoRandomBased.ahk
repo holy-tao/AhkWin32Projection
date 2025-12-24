@@ -36,10 +36,18 @@ class IStreamPseudoRandomBased extends IStream{
     static VTableNames => ["put_Seed", "get_Seed", "put_ExtendedSeed", "get_ExtendedSeed"]
 
     /**
-     * 
-     * @param {Integer} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-put_seed
+     * @type {Integer} 
+     */
+    Seed {
+        get => this.get_Seed()
+        set => this.put_Seed(value)
+    }
+
+    /**
+     * Sets the seed value used by the random number generator and seeks to the start of stream.
+     * @param {Integer} value Seed value for the random number generator.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreampseudorandombased-put_seed
      */
     put_Seed(value) {
         result := ComCall(14, this, "uint", value, "HRESULT")
@@ -47,9 +55,9 @@ class IStreamPseudoRandomBased extends IStream{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-get_seed
+     * Retrieves the seed value used by the random number generator.
+     * @returns {Integer} Seed value for the random number generator.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreampseudorandombased-get_seed
      */
     get_Seed() {
         result := ComCall(15, this, "uint*", &value := 0, "HRESULT")
@@ -57,11 +65,31 @@ class IStreamPseudoRandomBased extends IStream{
     }
 
     /**
+     * Sets a list of seed values for the random number generator and seeks to the start of stream.
+     * @param {Pointer<Integer>} values Array of seed values used by the random number generator.
+     * @param {Integer} eCount Number of seed values in the <i>values</i> array.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
-     * @param {Pointer<Integer>} values 
-     * @param {Integer} eCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-put_extendedseed
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * Value: 0x80004001
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreampseudorandombased-put_extendedseed
      */
     put_ExtendedSeed(values, eCount) {
         valuesMarshal := values is VarRef ? "uint*" : "ptr"
@@ -71,11 +99,31 @@ class IStreamPseudoRandomBased extends IStream{
     }
 
     /**
+     * Retrieves an array of seed values used by the random number generator.
+     * @param {Pointer<Pointer<Integer>>} values Array of seed values used by the random number generator.
+     * @param {Pointer<Integer>} eCount Number of seed values in the <i>values</i> array.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
-     * @param {Pointer<Pointer<Integer>>} values 
-     * @param {Pointer<Integer>} eCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-get_extendedseed
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * Value: 0x80004001
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreampseudorandombased-get_extendedseed
      */
     get_ExtendedSeed(values, eCount) {
         valuesMarshal := values is VarRef ? "ptr*" : "ptr"

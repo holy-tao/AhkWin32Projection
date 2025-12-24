@@ -36,13 +36,23 @@ class IShellMenuCallback extends IUnknown{
     static VTableNames => ["CallbackSM"]
 
     /**
+     * Receives messages from a menu band object.
+     * @param {Pointer<SMDATA>} psmd Type: <b>LPSMDATA</b>
      * 
-     * @param {Pointer<SMDATA>} psmd 
-     * @param {Integer} uMsg 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenucallback-callbacksm
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-smdata">SMDATA</a> structure that contains information about the menu.
+     * @param {Integer} uMsg Type: <b>UINT</b>
+     * 
+     * A message ID. This will be one of the SMC_XXX values. See <a href="https://docs.microsoft.com/windows/desktop/shell/control-panel-applications">Shell Messages and Notifications</a> for a complete list.
+     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * 
+     * A WPARAM value that contains additional information. See the specific SMC_XXX message reference for details.
+     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * 
+     * An LPARAM value that contains additional information. See the specific SMC_XXX message reference for details.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellmenucallback-callbacksm
      */
     CallbackSM(psmd, uMsg, wParam, lParam) {
         result := ComCall(3, this, "ptr", psmd, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")

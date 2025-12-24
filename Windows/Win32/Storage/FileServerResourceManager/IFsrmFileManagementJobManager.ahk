@@ -50,9 +50,28 @@ class IFsrmFileManagementJobManager extends IDispatch{
     static VTableNames => ["get_ActionVariables", "get_ActionVariableDescriptions", "EnumFileManagementJobs", "CreateFileManagementJob", "GetFileManagementJob"]
 
     /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ActionVariables {
+        get => this.get_ActionVariables()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    ActionVariableDescriptions {
+        get => this.get_ActionVariableDescriptions()
+    }
+
+    /**
+     * Retrieves a list of macros that you can specify in action property values.
+     * @remarks
+     * 
+     * FSRM parses the action property for the macros and substitutes the macro string with the values that are specific to the event and computer on which the action occurred.
+     * 
      * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariables
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariables
      */
     get_ActionVariables() {
         result := ComCall(7, this, "ptr*", &variables := 0, "HRESULT")
@@ -60,9 +79,9 @@ class IFsrmFileManagementJobManager extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the descriptions for the macros contained in the IFsrmFileManagementJobManager::ActionVariables property.
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariabledescriptions
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariabledescriptions
      */
     get_ActionVariableDescriptions() {
         result := ComCall(8, this, "ptr*", &descriptions := 0, "HRESULT")
@@ -70,10 +89,13 @@ class IFsrmFileManagementJobManager extends IDispatch{
     }
 
     /**
+     * Enumerates the list of existing file management jobs.
+     * @param {Integer} options One or more options to use when enumerating the management jobs. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmenumoptions">FsrmEnumOptions</a> enumeration.
      * 
-     * @param {Integer} options 
-     * @returns {IFsrmCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-enumfilemanagementjobs
+     * <div class="alert"><b>Note</b>  This parameter must be set to either <b>FsrmEnumOptions_IncludeClusterNodes</b> or <b>FsrmEnumOptions_None</b> for this method.</div>
+     * <div> </div>
+     * @returns {IFsrmCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcollection">IFsrmCollection</a> interface that contains a collection of file management jobs.  The variant type of each item in the collection is <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member of the variant to get an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nn-fsrmreports-ifsrmfilemanagementjob">IFsrmFileManagementJob</a> interface to the job.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-enumfilemanagementjobs
      */
     EnumFileManagementJobs(options) {
         result := ComCall(9, this, "int", options, "ptr*", &fileManagementJobs := 0, "HRESULT")
@@ -81,9 +103,9 @@ class IFsrmFileManagementJobManager extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IFsrmFileManagementJob} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-createfilemanagementjob
+     * Creates a file management job.
+     * @returns {IFsrmFileManagementJob} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nn-fsrmreports-ifsrmfilemanagementjob">IFsrmFileManagementJob</a> interface that you use to define the new file management job.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-createfilemanagementjob
      */
     CreateFileManagementJob() {
         result := ComCall(10, this, "ptr*", &fileManagementJob := 0, "HRESULT")
@@ -91,10 +113,10 @@ class IFsrmFileManagementJobManager extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @returns {IFsrmFileManagementJob} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-getfilemanagementjob
+     * Gets the specified file management job.
+     * @param {BSTR} name The name of the file management job to retrieve.
+     * @returns {IFsrmFileManagementJob} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nn-fsrmreports-ifsrmfilemanagementjob">IFsrmFileManagementJob</a> interface to the specified file management job.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-getfilemanagementjob
      */
     GetFileManagementJob(name) {
         name := name is String ? BSTR.Alloc(name).Value : name

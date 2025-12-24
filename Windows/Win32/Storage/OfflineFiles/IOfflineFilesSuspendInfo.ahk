@@ -31,11 +31,11 @@ class IOfflineFilesSuspendInfo extends IUnknown{
     static VTableNames => ["IsSuspended"]
 
     /**
-     * 
-     * @param {Pointer<BOOL>} pbSuspended 
-     * @param {Pointer<BOOL>} pbSuspendedRoot 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessuspendinfo-issuspended
+     * Determines whether an item is suspended.
+     * @param {Pointer<BOOL>} pbSuspended Receives <b>TRUE</b> if the item is suspended, or <b>FALSE</b> otherwise.
+     * @param {Pointer<BOOL>} pbSuspendedRoot Receives <b>TRUE</b> if the item is a suspended root, or <b>FALSE</b> otherwise.  If the item is not suspended, this value is always <b>FALSE</b>.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessuspendinfo-issuspended
      */
     IsSuspended(pbSuspended, pbSuspendedRoot) {
         pbSuspendedMarshal := pbSuspended is VarRef ? "int*" : "ptr"

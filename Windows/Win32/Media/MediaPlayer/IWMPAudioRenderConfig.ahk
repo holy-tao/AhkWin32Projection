@@ -32,10 +32,35 @@ class IWMPAudioRenderConfig extends IUnknown{
     static VTableNames => ["get_audioOutputDevice", "put_audioOutputDevice"]
 
     /**
+     */
+    audioOutputDevice {
+        get => this.get_audioOutputDevice()
+        set => this.put_audioOutputDevice(value)
+    }
+
+    /**
+     * The get_audioOutputDevice method retrieves the current audio output device used by the Windows Media Player ActiveX control.
+     * @param {Pointer<BSTR>} pbstrOutputDevice An MMDeviceAPI device ID that represents the currently configured audio output device.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrOutputDevice 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nf-wmprealestate-iwmpaudiorenderconfig-get_audiooutputdevice
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmprealestate/nf-wmprealestate-iwmpaudiorenderconfig-get_audiooutputdevice
      */
     get_audioOutputDevice(pbstrOutputDevice) {
         result := ComCall(3, this, "ptr", pbstrOutputDevice, "HRESULT")
@@ -43,10 +68,28 @@ class IWMPAudioRenderConfig extends IUnknown{
     }
 
     /**
+     * The put_audioOutputDevice sets the current audio output device for the Windows Media Player ActiveX control.
+     * @param {BSTR} bstrOutputDevice An MMDeviceAPI device ID that represents the device. If you pass <b>NULL</b> or an empty <b>BSTR</b> to this method, the Windows Media Player ActiveX control reverts to the default audio output device.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrOutputDevice 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nf-wmprealestate-iwmpaudiorenderconfig-put_audiooutputdevice
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmprealestate/nf-wmprealestate-iwmpaudiorenderconfig-put_audiooutputdevice
      */
     put_audioOutputDevice(bstrOutputDevice) {
         bstrOutputDevice := bstrOutputDevice is String ? BSTR.Alloc(bstrOutputDevice).Value : bstrOutputDevice

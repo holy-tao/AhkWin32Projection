@@ -32,9 +32,11 @@ class IAppxBundleManifestPackageInfoEnumerator extends IUnknown{
     static VTableNames => ["GetCurrent", "GetHasCurrent", "MoveNext"]
 
     /**
+     * Gets the &lt;Package&gt; element at the current position of the enumerator.
+     * @returns {IAppxBundleManifestPackageInfo} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nn-appxpackaging-iappxbundlemanifestpackageinfo">IAppxBundleManifestPackageInfo</a>**</b>
      * 
-     * @returns {IAppxBundleManifestPackageInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-getcurrent
+     * The current &lt;Package&gt; element.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-getcurrent
      */
     GetCurrent() {
         result := ComCall(3, this, "ptr*", &packageInfo := 0, "HRESULT")
@@ -42,9 +44,11 @@ class IAppxBundleManifestPackageInfoEnumerator extends IUnknown{
     }
 
     /**
+     * Determines whether there are more elements in the enumerator.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-gethascurrent
+     * <b>TRUE</b> if the enumerator's current position references an item; <b>FALSE</b> if the enumerator has passed the last item in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-gethascurrent
      */
     GetHasCurrent() {
         result := ComCall(4, this, "int*", &hasCurrent := 0, "HRESULT")
@@ -52,9 +56,13 @@ class IAppxBundleManifestPackageInfoEnumerator extends IUnknown{
     }
 
     /**
+     * Advances the position of the enumerator to the next &lt;Package&gt; element.
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-movenext
+     * <b>TRUE</b> if the enumerator successfully advances
+     * 
+     * <b>FALSE</b> if the enumerator has passed the end of the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlemanifestpackageinfoenumerator-movenext
      */
     MoveNext() {
         result := ComCall(5, this, "int*", &hasNext := 0, "HRESULT")

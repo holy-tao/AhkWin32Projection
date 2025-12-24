@@ -40,9 +40,11 @@ class IBrowserService extends IUnknown{
     static VTableNames => ["GetParentSite", "SetTitle", "GetTitle", "GetOleObject", "GetTravelLog", "ShowControlWindow", "IsControlWindowShown", "IEGetDisplayName", "IEParseDisplayName", "DisplayParseError", "NavigateToPidl", "SetNavigateState", "GetNavigateState", "NotifyRedirect", "UpdateWindowList", "UpdateBackForwardState", "SetFlags", "GetFlags", "CanNavigateNow", "GetPidl", "SetReferrer", "GetBrowserIndex", "GetBrowserByIndex", "GetHistoryObject", "SetHistoryObject", "CacheOLEServer", "GetSetCodePage", "OnHttpEquiv", "GetPalette", "RegisterWindow"]
 
     /**
+     * Deprecated. Retrieves the browser parent's in-place client site.
+     * @returns {IOleInPlaceSite} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplacesite">IOleInPlaceSite</a>**</b>
      * 
-     * @returns {IOleInPlaceSite} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getparentsite
+     * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplacesite">IOleInPlaceSite</a> that indicates the browser parent's in-place client site.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-getparentsite
      */
     GetParentSite() {
         result := ComCall(3, this, "ptr*", &ppipsite := 0, "HRESULT")
@@ -50,11 +52,17 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Sets the title of a browser window.
+     * @param {IShellView} psv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
-     * @param {IShellView} psv 
-     * @param {PWSTR} pszName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-settitle
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> that represents the browser's view. The view must be either the browser's current view or the pending view.
+     * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer containing the browser window's title as a Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-settitle
      */
     SetTitle(psv, pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -64,12 +72,20 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Retrieves the title of a browser window.
+     * @param {IShellView} psv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
-     * @param {IShellView} psv 
-     * @param {PWSTR} pszName 
-     * @param {Integer} cchName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-gettitle
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> that represents the browser's current view.
+     * @param {PWSTR} pszName Type: <b>LPWSTR</b>
+     * 
+     * A pointer to a buffer that receives the title.
+     * @param {Integer} cchName Type: <b>DWORD</b>
+     * 
+     * The size, in characters, of the buffer pointed to by <i>pszName</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-gettitle
      */
     GetTitle(psv, pszName, cchName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -79,9 +95,11 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Retrieves an IOleObject for the browser.
+     * @returns {IOleObject} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>**</b>
      * 
-     * @returns {IOleObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getoleobject
+     * The address that receives a pointer to the retrieved <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-getoleobject
      */
     GetOleObject() {
         result := ComCall(6, this, "ptr*", &ppobjv := 0, "HRESULT")
@@ -89,9 +107,11 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Retrieves the browser's ITravelLog.
+     * @returns {ITravelLog} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravellog">ITravelLog</a>**</b>
      * 
-     * @returns {ITravelLog} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-gettravellog
+     * The address that receives a pointer to the browser's <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravellog">ITravelLog</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-gettravellog
      */
     GetTravelLog() {
         result := ComCall(7, this, "ptr*", &pptl := 0, "HRESULT")
@@ -99,11 +119,15 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Shows or hides various frame controls.
+     * @param {Integer} id Type: <b>UINT</b>
+     * @param {BOOL} fShow Type: <b>BOOL</b>
      * 
-     * @param {Integer} id 
-     * @param {BOOL} fShow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-showcontrolwindow
+     * A value that indicates whether to show or hide the frame control.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-showcontrolwindow
      */
     ShowControlWindow(id, fShow) {
         result := ComCall(8, this, "uint", id, "int", fShow, "HRESULT")
@@ -111,10 +135,17 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Retrieves a value that indicates whether a specified frame control is currently visible.
+     * @param {Integer} id Type: <b>UINT</b>
      * 
-     * @param {Integer} id 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-iscontrolwindowshown
+     * The frame control to check.
+     * 
+     * <div class="alert"><b>Note</b>  These frame controls may not be supported in future versions of Windows.</div>
+     * <div> </div>
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * A value of type <b>BOOL</b> that indicates whether the specified frame control is visible.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-iscontrolwindowshown
      */
     IsControlWindowShown(id) {
         result := ComCall(9, this, "uint", id, "int*", &pfShown := 0, "HRESULT")
@@ -122,12 +153,18 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Retrieves the URL that corresponds to a pointer to an item identifier list (PIDL).
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>LPCITEMIDLIST</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {PWSTR} pwszName 
-     * @param {Integer} uFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-iegetdisplayname
+     * The PIDL for which to get the corresponding URL.
+     * @param {PWSTR} pwszName Type: <b>LPWSTR</b>
+     * 
+     * A pointer to a buffer of at least INTERNET_MAX_URL_LENGTH characters to receive the URL.
+     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-iegetdisplayname
      */
     IEGetDisplayName(pidl, pwszName, uFlags) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -137,11 +174,17 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Parses a URL into a pointer to an item identifier list (PIDL).
+     * @param {Integer} uiCP Type: <b>UINT</b>
      * 
-     * @param {Integer} uiCP 
-     * @param {PWSTR} pwszPath 
-     * @returns {Pointer<ITEMIDLIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-ieparsedisplayname
+     * A value of type <b>UINT</b> that indicates the code page (for example, CP_ACP, the system default code page) to use in the parsing.
+     * @param {PWSTR} pwszPath Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer containing the URL as a Unicode string.
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>LPITEMIDLIST*</b>
+     * 
+     * The PIDL created from the parsed URL.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-ieparsedisplayname
      */
     IEParseDisplayName(uiCP, pwszPath) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
@@ -151,11 +194,17 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Displays a URL that failed to be successfully parsed by IBrowserService::IEParseDisplayName.
+     * @param {HRESULT} hres Type: <b>HRESULT</b>
      * 
-     * @param {HRESULT} hres 
-     * @param {PWSTR} pwszPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-displayparseerror
+     * An <b>HRESULT</b> returned by <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nf-shdeprecated-ibrowserservice-ieparsedisplayname">IBrowserService::IEParseDisplayName</a>. If this parameter is a success code, E_OUTOFMEMORY, or HRESULT_FROM_WIN32(ERROR_CANCELLED), this method does nothing.
+     * @param {PWSTR} pwszPath Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer containing the URL that failed to parse. This method displays the failed URL in an error dialog box.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-displayparseerror
      */
     DisplayParseError(hres, pwszPath) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath
@@ -165,11 +214,17 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Navigates the browser to the location indicated by a pointer to an item identifier list (PIDL).
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>LPCITEMIDLIST</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Integer} grfHLNF 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-navigatetopidl
+     * The PIDL of the location.
+     * @param {Integer} grfHLNF Type: <b>DWORD</b>
+     * 
+     * One or more of the following flags.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-navigatetopidl
      */
     NavigateToPidl(pidl, grfHLNF) {
         result := ComCall(13, this, "ptr", pidl, "uint", grfHLNF, "HRESULT")
@@ -177,10 +232,14 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Sets the current navigation state. This method affects the cursor and animation.
+     * @param {Integer} bnstate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ne-shdeprecated-bnstate">BNSTATE</a></b>
      * 
-     * @param {Integer} bnstate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-setnavigatestate
+     * The value from the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ne-shdeprecated-bnstate">BNSTATE</a> enumeration that indicates the navigation state.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-setnavigatestate
      */
     SetNavigateState(bnstate) {
         result := ComCall(14, this, "int", bnstate, "HRESULT")
@@ -188,9 +247,11 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Retrieves the browser's current navigation state.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ne-shdeprecated-bnstate">BNSTATE</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getnavigatestate
+     * A pointer to a value from the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/ne-shdeprecated-bnstate">BNSTATE</a> enumeration indicating the current navigation state.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-getnavigatestate
      */
     GetNavigateState() {
         result := ComCall(15, this, "int*", &pbnstate := 0, "HRESULT")
@@ -198,11 +259,17 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Updates the browser to the specified pointer to an item identifier list (PIDL), navigating if necessary. This method is called when a page is redirected.
+     * @param {IShellView} psv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
-     * @param {IShellView} psv 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-notifyredirect
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> that indicates the browser's view. The view must be either the browser's current view or the pending view.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>LPCITEMIDLIST</b>
+     * 
+     * The PIDL to use in the update.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * Optional. A pointer to a value of type <b>BOOL</b> that indicates whether navigation occurred.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-notifyredirect
      */
     NotifyRedirect(psv, pidl) {
         result := ComCall(16, this, "ptr", psv, "ptr", pidl, "int*", &pfDidBrowse := 0, "HRESULT")
@@ -210,9 +277,11 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Instructs the browser to update the pointer to an item identifier list (PIDL) in the window list. This method is called after navigation.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-updatewindowlist
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-updatewindowlist
      */
     UpdateWindowList() {
         result := ComCall(17, this, "HRESULT")
@@ -220,9 +289,11 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Updates the state of the browser's Back and Forward buttons.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-updatebackforwardstate
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-updatebackforwardstate
      */
     UpdateBackForwardState() {
         result := ComCall(18, this, "HRESULT")
@@ -230,165 +301,15 @@ class IBrowserService extends IUnknown{
     }
 
     /**
-     * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
-     * @param {Integer} dwFlags The following table lists the flags that you may set to specify how the recognizer interprets the ink and determines the result string. Use the <b>OR</b> operator (|) to combine flags as appropriate.
+     * Deprecated. Sets flags that indicate browser status.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
+     * A bitmask used in conjunction with the flags indicated in <i>dwFlagMask</i>. For each <i>dwFlagMask</i> bit, the corresponding bit in this value sets (1) or disables (0) that state.
+     * @param {Integer} dwFlagMask Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Bit flag</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_AUTOSPACE"></a><a id="recoflag_autospace"></a><dl>
-     * <dt><b>RECOFLAG_AUTOSPACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer uses smart spacing based on language model rules.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_COERCE"></a><a id="recoflag_coerce"></a><dl>
-     * <dt><b>RECOFLAG_COERCE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer coerces the result based on the factoid you specify for the context. For example, if you specify a phone number factoid and the user enters the word "hello", the recognizer may return a random phone number or an empty string. If you do not specify this flag, the recognizer returns "hello" as the result.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_PREFIXOK"></a><a id="recoflag_prefixok"></a><dl>
-     * <dt><b>RECOFLAG_PREFIXOK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer supports the recognition of any prefix part of the strings that are defined in the default or specified (factoid) language model.
-     * 
-     * For example, without this flag, the user writes "handw" and the recognizer returns suggestions (such as "hander" or "handed") that are words that exist in the recognizer lexicon. With the flag, the recognizer may return "handw" as one of the suggestions since it is a valid prefix of the word "handwriting" that exists in the recognizer lexicon.
-     * 
-     * The Tablet PC Input Panel sets this flag in most cases, except when the input scope is IS_DEFAULT (or no input scope) or when there is no user word list or regular expression.
-     * 
-     * Recognizers of East Asian characters should return E_INVALIDARG when a caller passes in this flag.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_LINEMODE"></a><a id="recoflag_linemode"></a><dl>
-     * <dt><b>RECOFLAG_LINEMODE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not split lines but must still do character and word separation. This is the same as lined mode, except that there is no guide, and all ink is assumed to be in a single line. When this flag is set, a guide, if set, is ignored.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_SINGLESEG"></a><a id="recoflag_singleseg"></a><dl>
-     * <dt><b>RECOFLAG_SINGLESEG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Disables multiple segmentation. By default, the recognizer returns multiple segmentations (alternates) for the ink.
-     * 
-     * For example, if you write "together" as separate strokes, the recognizer may segment the ink as "to get her", "to gather", or "together". Set this flag if you do not need multiple segmentations of the ink when you query for alternates. This improves performance and reduces memory usage.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_WORDMODE"></a><a id="recoflag_wordmode"></a><dl>
-     * <dt><b>RECOFLAG_WORDMODE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer treats the ink as a single word. For example, if the context contains "to get her", the recognizer returns "together".
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @param {Integer} dwFlagMask 
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>HRESULT value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The flag is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not support this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unable to allocate memory to complete the operation.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context is invalid or one of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-setflags
      */
     SetFlags(dwFlags, dwFlagMask) {
         result := ComCall(19, this, "uint", dwFlags, "uint", dwFlagMask, "HRESULT")
@@ -396,9 +317,9 @@ class IBrowserService extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getflags
+     * Deprecated. Retrieves the current set of browser flags.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-getflags
      */
     GetFlags() {
         result := ComCall(20, this, "uint*", &pdwFlags := 0, "HRESULT")
@@ -406,9 +327,11 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Returns a value that indicates whether navigation is currently allowed.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-cannavigatenow
+     * Returns S_OK if navigation is allowed, or S_FALSE if the browser is busy.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-cannavigatenow
      */
     CanNavigateNow() {
         result := ComCall(21, this, "HRESULT")
@@ -416,9 +339,11 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Retrieves a copy of the current pointer to an item identifier list (PIDL).
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>LPITEMIDLIST*</b>
      * 
-     * @returns {Pointer<ITEMIDLIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getpidl
+     * A pointer to the current PIDL.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-getpidl
      */
     GetPidl() {
         result := ComCall(22, this, "ptr*", &ppidl := 0, "HRESULT")
@@ -426,10 +351,14 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Sets the pointer to an item identifier list (PIDL) used for zone checking when creating a new window.
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>LPITEMIDLIST</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-setreferrer
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure (PIDL) used for zone checking.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-setreferrer
      */
     SetReferrer(pidl) {
         result := ComCall(23, this, "ptr", pidl, "HRESULT")
@@ -437,9 +366,11 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Retrieves the index of the browser in the window hierarchy.
+     * @returns {Integer} Type: <b>DWORD</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getbrowserindex
+     * The index of the browser. A value of -1 indicates the top frame browser.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-getbrowserindex
      */
     GetBrowserIndex() {
         result := ComCall(24, this, "uint")
@@ -447,10 +378,14 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Retrieves the browser with the given index.
+     * @param {Integer} dwID Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwID 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getbrowserbyindex
+     * A value of type <b>DWORD</b> that indicates the index of the browser.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
+     * 
+     * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> that indicates the browser with the given index. The calling application must release this resource when it is no longer needed.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-getbrowserbyindex
      */
     GetBrowserByIndex(dwID) {
         result := ComCall(25, this, "uint", dwID, "ptr*", &ppunk := 0, "HRESULT")
@@ -458,12 +393,20 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Retrieves an IOleObject that represents the browser's history object.
+     * @param {Pointer<IOleObject>} ppole Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>**</b>
      * 
-     * @param {Pointer<IOleObject>} ppole 
-     * @param {Pointer<IStream>} pstm 
-     * @param {Pointer<IBindCtx>} ppbc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-gethistoryobject
+     * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> that represents the browser's history object.
+     * @param {Pointer<IStream>} pstm Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
+     * 
+     * The address of a pointer to the history object's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>. This parameter may be <b>NULL</b>.
+     * @param {Pointer<IBindCtx>} ppbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>**</b>
+     * 
+     * The address of a pointer to the history object stream's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>. This parameter may be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-gethistoryobject
      */
     GetHistoryObject(ppole, pstm, ppbc) {
         result := ComCall(26, this, "ptr*", ppole, "ptr*", pstm, "ptr*", ppbc, "HRESULT")
@@ -471,11 +414,17 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Sets the browser's history object.
+     * @param {IOleObject} pole Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>*</b>
      * 
-     * @param {IOleObject} pole 
-     * @param {BOOL} fIsLocalAnchor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-sethistoryobject
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> that represents the history object to set.
+     * @param {BOOL} fIsLocalAnchor Type: <b>BOOL</b>
+     * 
+     * A value that specifies whether the new entry is a local or a remote file. Used in the case of the reuse of an inner object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-sethistoryobject
      */
     SetHistoryObject(pole, fIsLocalAnchor) {
         result := ComCall(27, this, "ptr", pole, "int", fIsLocalAnchor, "HRESULT")
@@ -483,10 +432,14 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Caches a reference to an external object to avoid reloading the server on reuse.
+     * @param {IOleObject} pole Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a>*</b>
      * 
-     * @param {IOleObject} pole 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-cacheoleserver
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleobject">IOleObject</a> interface that represents the external object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-cacheoleserver
      */
     CacheOLEServer(pole) {
         result := ComCall(28, this, "ptr", pole, "HRESULT")
@@ -494,10 +447,14 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Sets a new character code page and retrieves a pointer to the previous code page.
+     * @param {Pointer<VARIANT>} pvarIn Type: <b>VARIANT*</b>
      * 
-     * @param {Pointer<VARIANT>} pvarIn 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getsetcodepage
+     * A pointer to a <b>VARIANT</b> that represents the new character code page. Only VT_I4 is supported. This parameter can be <b>NULL</b>.
+     * @returns {VARIANT} Type: <b>VARIANT*</b>
+     * 
+     * A pointer to a <b>VARIANT</b> that represents the previous character code page. Only VT_I4 is supported. This parameter can be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-getsetcodepage
      */
     GetSetCodePage(pvarIn) {
         pvarOut := VARIANT()
@@ -506,12 +463,20 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Called when the document object responds to an HTTP-EQUIV metatag by issuing either the OLECMDID_HTTPEQUIV or OLECMDID_HTTPEQUIV_DONE command through IOleCommandTarget::Exec.
+     * @param {IShellView} psv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
-     * @param {IShellView} psv 
-     * @param {BOOL} fDone 
-     * @param {Pointer<VARIANT>} pvarargIn 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-onhttpequiv
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a> that indicates the browser's view. The view must be either the browser's current view or the pending view.
+     * @param {BOOL} fDone Type: <b>BOOL</b>
+     * 
+     * A value of type <b>BOOL</b> that indicates which command to issue.
+     * @param {Pointer<VARIANT>} pvarargIn Type: <b>VARIANT*</b>
+     * 
+     * =A pointer to an object of type <b>VARIANT</b>. This is the equivalent of the <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-exec">IOleCommandTarget::Exec</a> parameter <i>pvaIn</i>.
+     * @returns {VARIANT} Type: <b>VARIANT*</b>
+     * 
+     * A pointer to an object of type <b>VARIANT</b>. This is the equivalent of the <a href="https://docs.microsoft.com/windows/desktop/api/docobj/nf-docobj-iolecommandtarget-exec">IOleCommandTarget::Exec</a> parameter <i>pvaOut</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-onhttpequiv
      */
     OnHttpEquiv(psv, fDone, pvarargIn) {
         pvarargOut := VARIANT()
@@ -520,9 +485,11 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Retrieves the browser's palette.
+     * @returns {HPALETTE} Type: <b>HPALETTE*</b>
      * 
-     * @returns {HPALETTE} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-getpalette
+     * A pointer to the browser's palette handle, if one exists.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-getpalette
      */
     GetPalette() {
         hpal := HPALETTE()
@@ -531,11 +498,17 @@ class IBrowserService extends IUnknown{
     }
 
     /**
+     * Deprecated. Registers the browser in the list of browser windows.
+     * @param {BOOL} fForceRegister Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fForceRegister 
-     * @param {Integer} swc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice-registerwindow
+     * A value of type <b>BOOL</b> that indicates whether to reregister the browser window if it was previously registered. If set to <b>TRUE</b> and the window was previously registered, this method will unregister and reregister the browser window.
+     * @param {Integer} swc Type: <b>int</b>
+     * 
+     * One of the <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowtypeconstants">ShellWindowTypeConstants</a> values to indicate the nature of the window. Note that these values are defined in Expdisp.h.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice-registerwindow
      */
     RegisterWindow(fForceRegister, swc) {
         result := ComCall(32, this, "int", fForceRegister, "int", swc, "HRESULT")

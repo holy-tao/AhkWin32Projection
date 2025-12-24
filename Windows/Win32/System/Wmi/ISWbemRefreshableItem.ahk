@@ -38,6 +38,41 @@ class ISWbemRefreshableItem extends IDispatch{
     static VTableNames => ["get_Index", "get_Refresher", "get_IsSet", "get_Object", "get_ObjectSet", "Remove"]
 
     /**
+     * @type {Integer} 
+     */
+    Index {
+        get => this.get_Index()
+    }
+
+    /**
+     * @type {ISWbemRefresher} 
+     */
+    Refresher {
+        get => this.get_Refresher()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsSet {
+        get => this.get_IsSet()
+    }
+
+    /**
+     * @type {ISWbemObjectEx} 
+     */
+    Object {
+        get => this.get_Object()
+    }
+
+    /**
+     * @type {ISWbemObjectSet} 
+     */
+    ObjectSet {
+        get => this.get_ObjectSet()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

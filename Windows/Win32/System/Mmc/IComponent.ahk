@@ -37,20 +37,11 @@ class IComponent extends IUnknown{
     static VTableNames => ["Initialize", "Notify", "Destroy", "QueryDataObject", "GetResultViewType", "GetDisplayInfo", "CompareObjects"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IConsole} lpConsole 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The IComponent::Initialize method provides an entry point to the console.
+     * @param {IConsole} lpConsole A pointer to the console 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iconsole2">IConsole</a> interface.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponent-initialize
      */
     Initialize(lpConsole) {
         result := ComCall(3, this, "ptr", lpConsole, "HRESULT")
@@ -58,13 +49,112 @@ class IComponent extends IUnknown{
     }
 
     /**
+     * The IComponent::Notify method notifies the snap-in of actions taken by the user.
+     * @param {IDataObject} lpDataObject A pointer to the data object of the currently selected item.
+     * @param {Integer} event Identifies an action taken by a user. <b>IComponent::Notify</b> can receive the following notifications:
      * 
-     * @param {IDataObject} lpDataObject 
-     * @param {Integer} event 
-     * @param {LPARAM} arg 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-activate">MMCN_ACTIVATE</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-add-images">MMCN_ADD_IMAGES</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-btn-click">MMCN_BTN_CLICK</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-column-click">MMCN_COLUMN_CLICK</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-columns-changed">MMCN_COLUMNS_CHANGED</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-contexthelp">MMCN_CONTEXTHELP</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-dblclick">MMCN_DBLCLICK</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-delete">MMCN_DELETE</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-deselect-all">MMCN_DESELECT_ALL</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-filterbtn-click">MMCN_FILTERBTN_CLICK</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-filter-change">MMCN_FILTER_CHANGE</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-initocx">MMCN_INITOCX</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-listpad">MMCN_LISTPAD</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-minimized">MMCN_MINIMIZED</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-paste">MMCN_PASTE</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-print">MMCN_PRINT</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-property-change">MMCN_PROPERTY_CHANGE</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-query-paste">MMCN_QUERY_PASTE</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-refresh">MMCN_REFRESH</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-rename">MMCN_RENAME</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-restore-view">MMCN_RESTORE_VIEW</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-select">MMCN_SELECT</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-show">MMCN_SHOW</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-snapinhelp">MMCN_SNAPINHELP</a>
+     * 
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmcn-view-change">MMCN_VIEW_CHANGE</a>
+     * @param {LPARAM} arg Depends on the notification type.
      * @param {LPARAM} param3 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent-notify
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponent-notify
      */
     Notify(lpDataObject, event, arg, param3) {
         result := ComCall(4, this, "ptr", lpDataObject, "int", event, "ptr", arg, "ptr", param3, "HRESULT")
@@ -72,10 +162,10 @@ class IComponent extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} cookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent-destroy
+     * The IComponent::Destroy method releases all references to the console that are held by this component.
+     * @param {Pointer} cookie Reserved for future use.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponent-destroy
      */
     Destroy(cookie) {
         result := ComCall(5, this, "ptr", cookie, "HRESULT")
@@ -83,11 +173,11 @@ class IComponent extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} cookie 
-     * @param {Integer} type 
-     * @returns {IDataObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent-querydataobject
+     * The IComponent::QueryDataObject method returns a data object that can be used to retrieve context information for the specified cookie.
+     * @param {Pointer} cookie A value that specifies the unique identifier for which the data object is required. When called for virtual list items, which do not have cookies, this parameter is set to the item list index.
+     * @param {Integer} type A value that specifies the data object as one of the following.
+     * @returns {IDataObject} A pointer to the address of the returned data object.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponent-querydataobject
      */
     QueryDataObject(cookie, type) {
         result := ComCall(6, this, "ptr", cookie, "int", type, "ptr*", &ppDataObject := 0, "HRESULT")
@@ -95,12 +185,19 @@ class IComponent extends IUnknown{
     }
 
     /**
+     * The IComponent::GetResultViewType method determines what the result pane view should be.
+     * @param {Pointer} cookie A value that specifies the snapin-provided unique identifier for the scope item. For more details about 
+     *       cookies in MMC, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/cookies">Cookies</a>.
+     * @param {Pointer<PWSTR>} ppViewType A pointer to the address of a string that specifies the view to display for the specified 
+     *       <i>cookie</i>. The callee (snap-in) allocates the view type string using the COM API function 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a> and the caller (MMC) frees it using 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * 
-     * @param {Pointer} cookie 
-     * @param {Pointer<PWSTR>} ppViewType 
-     * @param {Pointer<Integer>} pViewOptions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent-getresultviewtype
+     * The string that is returned depends on the view type:
+     * @param {Pointer<Integer>} pViewOptions A pointer to the value that provides the console with options specified by the owning snap-in. This value 
+     *       can be a combination of the following:
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponent-getresultviewtype
      */
     GetResultViewType(cookie, ppViewType, pViewOptions) {
         ppViewTypeMarshal := ppViewType is VarRef ? "ptr*" : "ptr"
@@ -111,10 +208,11 @@ class IComponent extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<RESULTDATAITEM>} pResultDataItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent-getdisplayinfo
+     * The IComponent::GetDisplayInfo method retrieves display information for an item in the result pane.
+     * @param {Pointer<RESULTDATAITEM>} pResultDataItem A pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-resultdataitem">RESULTDATAITEM</a> structure. On input, the mask member specifies the type of data required and the lParam member identifies the item of interest. When called for a virtual list, the nIndex member identifies the desired virtual item and the lParam member is zero.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponent-getdisplayinfo
      */
     GetDisplayInfo(pResultDataItem) {
         result := ComCall(8, this, "ptr", pResultDataItem, "HRESULT")
@@ -122,11 +220,11 @@ class IComponent extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IDataObject} lpDataObjectA 
-     * @param {IDataObject} lpDataObjectB 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icomponent-compareobjects
+     * The IComponent::CompareObjects method enables a snap-in to compare two data objects acquired through IComponent::QueryDataObject. Be aware that data objects can be acquired from two different instances of IComponent.
+     * @param {IDataObject} lpDataObjectA A pointer to the first object exposing an IDataObject interface that is to be compared.
+     * @param {IDataObject} lpDataObjectB A pointer to the second object exposing an IDataObject interface that is to be compared.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icomponent-compareobjects
      */
     CompareObjects(lpDataObjectA, lpDataObjectB) {
         result := ComCall(9, this, "ptr", lpDataObjectA, "ptr", lpDataObjectB, "HRESULT")

@@ -45,9 +45,37 @@ class IFaxAccountFolders extends IDispatch{
     static VTableNames => ["get_OutgoingQueue", "get_IncomingQueue", "get_IncomingArchive", "get_OutgoingArchive"]
 
     /**
-     * 
+     * @type {IFaxAccountOutgoingQueue} 
+     */
+    OutgoingQueue {
+        get => this.get_OutgoingQueue()
+    }
+
+    /**
+     * @type {IFaxAccountIncomingQueue} 
+     */
+    IncomingQueue {
+        get => this.get_IncomingQueue()
+    }
+
+    /**
+     * @type {IFaxAccountIncomingArchive} 
+     */
+    IncomingArchive {
+        get => this.get_IncomingArchive()
+    }
+
+    /**
+     * @type {IFaxAccountOutgoingArchive} 
+     */
+    OutgoingArchive {
+        get => this.get_OutgoingArchive()
+    }
+
+    /**
+     * Represents the queue of outgoing faxes for a particular fax account. These are the faxes that have not yet been sent.
      * @returns {IFaxAccountOutgoingQueue} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountfolders-get_outgoingqueue
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccountfolders-get_outgoingqueue
      */
     get_OutgoingQueue() {
         result := ComCall(7, this, "ptr*", &pFaxOutgoingQueue := 0, "HRESULT")
@@ -55,9 +83,9 @@ class IFaxAccountFolders extends IDispatch{
     }
 
     /**
-     * 
+     * Represents the queue of incoming faxes for a particular fax account. These are the incoming faxes that have not yet been fully processed.
      * @returns {IFaxAccountIncomingQueue} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountfolders-get_incomingqueue
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccountfolders-get_incomingqueue
      */
     get_IncomingQueue() {
         result := ComCall(8, this, "ptr*", &pFaxIncomingQueue := 0, "HRESULT")
@@ -65,9 +93,9 @@ class IFaxAccountFolders extends IDispatch{
     }
 
     /**
-     * 
+     * Represents the archive of incoming faxes for a particular fax account. These are the faxes that have been received.
      * @returns {IFaxAccountIncomingArchive} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountfolders-get_incomingarchive
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccountfolders-get_incomingarchive
      */
     get_IncomingArchive() {
         result := ComCall(9, this, "ptr*", &pFaxIncomingArchive := 0, "HRESULT")
@@ -75,9 +103,9 @@ class IFaxAccountFolders extends IDispatch{
     }
 
     /**
-     * 
+     * Represents the archive of outgoing faxes for a particular fax account that have been sent.
      * @returns {IFaxAccountOutgoingArchive} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxaccountfolders-get_outgoingarchive
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxaccountfolders-get_outgoingarchive
      */
     get_OutgoingArchive() {
         result := ComCall(10, this, "ptr*", &pFaxOutgoingArchive := 0, "HRESULT")

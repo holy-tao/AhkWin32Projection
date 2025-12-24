@@ -39,6 +39,20 @@ class IHTMLPerformance extends IDispatch{
     static VTableNames => ["get_navigation", "get_timing", "toString", "toJSON"]
 
     /**
+     * @type {IHTMLPerformanceNavigation} 
+     */
+    navigation {
+        get => this.get_navigation()
+    }
+
+    /**
+     * @type {IHTMLPerformanceTiming} 
+     */
+    timing {
+        get => this.get_timing()
+    }
+
+    /**
      * 
      * @returns {IHTMLPerformanceNavigation} 
      */

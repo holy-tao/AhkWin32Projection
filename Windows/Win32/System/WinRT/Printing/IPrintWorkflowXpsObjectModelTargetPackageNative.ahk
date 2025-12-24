@@ -30,6 +30,13 @@ class IPrintWorkflowXpsObjectModelTargetPackageNative extends IUnknown{
     static VTableNames => ["get_DocumentPackageTarget"]
 
     /**
+     * @type {IXpsDocumentPackageTarget} 
+     */
+    DocumentPackageTarget {
+        get => this.get_DocumentPackageTarget()
+    }
+
+    /**
      * 
      * @returns {IXpsDocumentPackageTarget} 
      */

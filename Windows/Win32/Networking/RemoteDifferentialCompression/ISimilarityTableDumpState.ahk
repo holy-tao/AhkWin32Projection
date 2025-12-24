@@ -37,13 +37,13 @@ class ISimilarityTableDumpState extends IUnknown{
     static VTableNames => ["GetNextData"]
 
     /**
-     * 
-     * @param {Integer} resultsSize 
-     * @param {Pointer<Integer>} resultsUsed 
-     * @param {Pointer<BOOL>} eof 
-     * @param {Pointer<SimilarityDumpData>} results 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-isimilaritytabledumpstate-getnextdata
+     * Retrieves one or more SimilarityDumpData structures from the similarity traits list that was returned by the ISimilarityTraitsTable::BeginDump method.
+     * @param {Integer} resultsSize The number of <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydumpdata">SimilarityDumpData</a> structures that can be stored in the buffer that the <i>results</i> parameter points to.
+     * @param {Pointer<Integer>} resultsUsed A pointer to a variable that receives the number of <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydumpdata">SimilarityDumpData</a> structures that were returned in the buffer that the <i>results</i> parameter points to.
+     * @param {Pointer<BOOL>} eof A pointer to a variable that receives <b>TRUE</b> if the end of the file is reached; otherwise, <b>FALSE</b>.
+     * @param {Pointer<SimilarityDumpData>} results A pointer to a buffer that receives the <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-similaritydumpdata">SimilarityDumpData</a> structures.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-isimilaritytabledumpstate-getnextdata
      */
     GetNextData(resultsSize, resultsUsed, eof, results) {
         resultsUsedMarshal := resultsUsed is VarRef ? "uint*" : "ptr"

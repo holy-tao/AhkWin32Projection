@@ -38,9 +38,22 @@ class IUpdateServiceManager2 extends IUpdateServiceManager{
     static VTableNames => ["get_ClientApplicationID", "put_ClientApplicationID", "QueryServiceRegistration", "AddService2"]
 
     /**
+     * @type {BSTR} 
+     */
+    ClientApplicationID {
+        get => this.get_ClientApplicationID()
+        set => this.put_ClientApplicationID(value)
+    }
+
+    /**
+     * Gets and sets the identifier of the current client application.
+     * @remarks
+     * 
+     * Returns the Unknown value if the client application has not set the property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager2-get_clientapplicationid
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicemanager2-get_clientapplicationid
      */
     get_ClientApplicationID() {
         retval := BSTR()
@@ -49,10 +62,15 @@ class IUpdateServiceManager2 extends IUpdateServiceManager{
     }
 
     /**
+     * Gets and sets the identifier of the current client application.
+     * @remarks
+     * 
+     * Returns the Unknown value if the client application has not set the property.
+     * 
      * 
      * @param {BSTR} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager2-put_clientapplicationid
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicemanager2-put_clientapplicationid
      */
     put_ClientApplicationID(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -62,10 +80,10 @@ class IUpdateServiceManager2 extends IUpdateServiceManager{
     }
 
     /**
-     * 
-     * @param {BSTR} serviceID 
-     * @returns {IUpdateServiceRegistration} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager2-queryserviceregistration
+     * Returns a pointer to an IUpdateServiceRegistration interface.
+     * @param {BSTR} serviceID An identifier for the service to be registered.
+     * @returns {IUpdateServiceRegistration} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateserviceregistration">IUpdateServiceRegistration</a> interface that represents an added service.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicemanager2-queryserviceregistration
      */
     QueryServiceRegistration(serviceID) {
         serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID
@@ -75,12 +93,12 @@ class IUpdateServiceManager2 extends IUpdateServiceManager{
     }
 
     /**
-     * 
-     * @param {BSTR} serviceID 
-     * @param {Integer} flags 
-     * @param {BSTR} authorizationCabPath 
-     * @returns {IUpdateServiceRegistration} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicemanager2-addservice2
+     * Registers a service with Windows Update Agent (WUA) without requiring an authorization cabinet file (.cab). This method also returns a pointer to an IUpdateServiceRegistration interface.
+     * @param {BSTR} serviceID An identifier for the service to be registered.
+     * @param {Integer} flags A combination of <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/ne-wuapi-addserviceflag">AddServiceFlag</a> values that are combined by using a bitwise OR operation. The resulting value specifies options for service registration. For more info, see Remarks.
+     * @param {BSTR} authorizationCabPath The path of the Microsoft signed local cabinet file (.cab) that has the information that is required for a service registration.  If empty, the update agent searches for the authorization cabinet file (.cab) during service registration when a network connection is available.
+     * @returns {IUpdateServiceRegistration} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateserviceregistration">IUpdateServiceRegistration</a> interface that represents an added service.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicemanager2-addservice2
      */
     AddService2(serviceID, flags, authorizationCabPath) {
         serviceID := serviceID is String ? BSTR.Alloc(serviceID).Value : serviceID

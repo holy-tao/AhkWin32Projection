@@ -40,6 +40,27 @@ class IGPMSitesContainer extends IDispatch{
     static VTableNames => ["get_DomainController", "get_Domain", "get_Forest", "GetSite", "SearchSites"]
 
     /**
+     * @type {BSTR} 
+     */
+    DomainController {
+        get => this.get_DomainController()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Domain {
+        get => this.get_Domain()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Forest {
+        get => this.get_Forest()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */
@@ -70,10 +91,11 @@ class IGPMSitesContainer extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrSiteName 
-     * @returns {IGPMSOM} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsitescontainer-getsite
+     * Returns the scope of management (SOM) object that corresponds to the site.
+     * @param {BSTR} bstrSiteName Required. The site of interest; for example, Default-first-site-name. Use null-terminated string.
+     * @returns {IGPMSOM} Address of a pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsom">IGPMSOM</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsitescontainer-getsite
      */
     GetSite(bstrSiteName) {
         bstrSiteName := bstrSiteName is String ? BSTR.Alloc(bstrSiteName).Value : bstrSiteName
@@ -83,10 +105,11 @@ class IGPMSitesContainer extends IDispatch{
     }
 
     /**
-     * 
-     * @param {IGPMSearchCriteria} pIGPMSearchCriteria 
-     * @returns {IGPMSOMCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsitescontainer-searchsites
+     * Retrieves a collection of scope of management (SOM) objects based on the specified search criteria. This method returns only site objects.
+     * @param {IGPMSearchCriteria} pIGPMSearchCriteria Pointer to criteria to supply to the search. Valid criteria for the search include the following.
+     * @returns {IGPMSOMCollection} Address of a pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsomcollection">IGPMSOMCollection</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsitescontainer-searchsites
      */
     SearchSites(pIGPMSearchCriteria) {
         result := ComCall(11, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMSOMCollection := 0, "HRESULT")

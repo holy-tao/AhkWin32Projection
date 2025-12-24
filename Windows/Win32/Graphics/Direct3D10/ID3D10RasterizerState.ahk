@@ -36,10 +36,12 @@ class ID3D10RasterizerState extends ID3D10DeviceChild{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Get the properties of a rasterizer-state object.
+     * @param {Pointer<D3D10_RASTERIZER_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_rasterizer_desc">D3D10_RASTERIZER_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D10_RASTERIZER_DESC>} pDesc 
+     * Pointer to a rasterizer-state description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_rasterizer_desc">D3D10_RASTERIZER_DESC</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10rasterizerstate-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10rasterizerstate-getdesc
      */
     GetDesc(pDesc) {
         ComCall(7, this, "ptr", pDesc)

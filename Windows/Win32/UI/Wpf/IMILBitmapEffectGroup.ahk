@@ -33,10 +33,14 @@ class IMILBitmapEffectGroup extends IUnknown{
     static VTableNames => ["GetInteriorInputConnector", "GetInteriorOutputConnector", "Add"]
 
     /**
+     * Retrieves the input connector for an effect at the given index.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @returns {IMILBitmapEffectOutputConnector} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectgroup-getinteriorinputconnector
+     * The index of the effect to retrieve the connector.
+     * @returns {IMILBitmapEffectOutputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector">IMILBitmapEffectOutputConnector</a>**</b>
+     * 
+     * A pointer that receives a pointer to the desired effects input connector.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectgroup-getinteriorinputconnector
      */
     GetInteriorInputConnector(uiIndex) {
         result := ComCall(3, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
@@ -44,10 +48,14 @@ class IMILBitmapEffectGroup extends IUnknown{
     }
 
     /**
+     * Retrieves the output connector for an effect at the given index.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @returns {IMILBitmapEffectInputConnector} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectgroup-getinterioroutputconnector
+     * The index of the effect to retrieve the connector.
+     * @returns {IMILBitmapEffectInputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>**</b>
+     * 
+     * A pointer that receives a pointer to the desired effects output connector.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectgroup-getinterioroutputconnector
      */
     GetInteriorOutputConnector(uiIndex) {
         result := ComCall(4, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
@@ -55,10 +63,14 @@ class IMILBitmapEffectGroup extends IUnknown{
     }
 
     /**
+     * Adds an effect to the IMILBitmapEffectGroup.
+     * @param {IMILBitmapEffect} pEffect Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>*</b>
      * 
-     * @param {IMILBitmapEffect} pEffect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectgroup-add
+     * A pointer to the effect to add to the group.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectgroup-add
      */
     Add(pEffect) {
         result := ComCall(5, this, "ptr", pEffect, "HRESULT")

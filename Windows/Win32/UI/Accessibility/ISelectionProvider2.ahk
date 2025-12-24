@@ -58,9 +58,37 @@ class ISelectionProvider2 extends ISelectionProvider{
     static VTableNames => ["get_FirstSelectedItem", "get_LastSelectedItem", "get_CurrentSelectedItem", "get_ItemCount"]
 
     /**
-     * 
+     * @type {IRawElementProviderSimple} 
+     */
+    FirstSelectedItem {
+        get => this.get_FirstSelectedItem()
+    }
+
+    /**
+     * @type {IRawElementProviderSimple} 
+     */
+    LastSelectedItem {
+        get => this.get_LastSelectedItem()
+    }
+
+    /**
+     * @type {IRawElementProviderSimple} 
+     */
+    CurrentSelectedItem {
+        get => this.get_CurrentSelectedItem()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ItemCount {
+        get => this.get_ItemCount()
+    }
+
+    /**
+     * Gets the first item in a group of selected items.
      * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_firstselecteditem
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_firstselecteditem
      */
     get_FirstSelectedItem() {
         result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")
@@ -68,9 +96,9 @@ class ISelectionProvider2 extends ISelectionProvider{
     }
 
     /**
-     * 
+     * Gets the last item in a group of selected items.
      * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_lastselecteditem
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_lastselecteditem
      */
     get_LastSelectedItem() {
         result := ComCall(7, this, "ptr*", &retVal := 0, "HRESULT")
@@ -78,9 +106,9 @@ class ISelectionProvider2 extends ISelectionProvider{
     }
 
     /**
-     * 
+     * Gets the currently selected item.
      * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_currentselecteditem
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_currentselecteditem
      */
     get_CurrentSelectedItem() {
         result := ComCall(8, this, "ptr*", &retVal := 0, "HRESULT")
@@ -88,9 +116,9 @@ class ISelectionProvider2 extends ISelectionProvider{
     }
 
     /**
-     * 
+     * Gets the number of selected items.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_itemcount
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_itemcount
      */
     get_ItemCount() {
         result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")

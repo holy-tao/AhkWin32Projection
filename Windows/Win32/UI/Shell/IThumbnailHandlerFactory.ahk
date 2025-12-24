@@ -31,12 +31,20 @@ class IThumbnailHandlerFactory extends IUnknown{
     static VTableNames => ["GetThumbnailHandler"]
 
     /**
+     * Gets the requested thumbnail handler for the thumbnail of a given item.
+     * @param {Pointer<ITEMIDLIST>} pidlChild Type: <b>PCUITEMID_CHILD</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidlChild 
-     * @param {IBindCtx} pbc 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ithumbnailhandlerfactory-getthumbnailhandler
+     * The item within the namespace for which the thumbnail handler is being retrieved.
+     * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> to be used during the moniker binding operation of this process.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to the IID of the interface requested. This is usually <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nn-thumbcache-ithumbnailprovider">IThumbnailProvider</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iextractimage">IExtractImage</a>.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the requested thumbnail handler. If this method fails, this value is <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ithumbnailhandlerfactory-getthumbnailhandler
      */
     GetThumbnailHandler(pidlChild, pbc, riid) {
         result := ComCall(3, this, "ptr", pidlChild, "ptr", pbc, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

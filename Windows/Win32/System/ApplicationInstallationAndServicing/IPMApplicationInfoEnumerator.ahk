@@ -30,6 +30,13 @@ class IPMApplicationInfoEnumerator extends IUnknown{
     static VTableNames => ["get_Next"]
 
     /**
+     * @type {IPMApplicationInfo} 
+     */
+    Next {
+        get => this.get_Next()
+    }
+
+    /**
      * 
      * @returns {IPMApplicationInfo} 
      */

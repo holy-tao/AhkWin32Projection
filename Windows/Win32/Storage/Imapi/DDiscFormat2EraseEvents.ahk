@@ -37,12 +37,14 @@ class DDiscFormat2EraseEvents extends IDispatch{
     static VTableNames => ["Update"]
 
     /**
+     * Implement this method to receive progress notification of the current erase operation.
+     * @param {IDispatch} object The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2erase">IDiscFormat2Erase</a> interface that initiated the erase operation. 
      * 
-     * @param {IDispatch} object 
-     * @param {Integer} elapsedSeconds 
-     * @param {Integer} estimatedTotalSeconds 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscformat2eraseevents-update
+     * This parameter is a <b>MsftDiscFormat2Erase</b> object in script.
+     * @param {Integer} elapsedSeconds Elapsed time, in seconds, of the erase operation.
+     * @param {Integer} estimatedTotalSeconds Estimated time, in seconds, to complete the erase operation.
+     * @returns {HRESULT} Return values are ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-ddiscformat2eraseevents-update
      */
     Update(object, elapsedSeconds, estimatedTotalSeconds) {
         result := ComCall(7, this, "ptr", object, "int", elapsedSeconds, "int", estimatedTotalSeconds, "HRESULT")

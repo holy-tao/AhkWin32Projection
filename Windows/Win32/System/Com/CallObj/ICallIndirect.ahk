@@ -36,13 +36,42 @@ class ICallIndirect extends IUnknown{
     static VTableNames => ["CallIndirect", "GetMethodInfo", "GetStackSize", "GetIID"]
 
     /**
+     * Invokes one of the methods in the interface with an indirect reference to the arguments of the invocation.
+     * @param {Pointer<HRESULT>} phrReturn The value returned from the invocation of the method.
+     * @param {Integer} iMethod The method number to be invoked.
+     * @param {Pointer<Void>} pvArgs A pointer to the stack frame with which to make the invocation. Details of the exact representation of this stack frame are processor-architecture specific.
+     * @param {Pointer<Integer>} cbArgs The number of bytes to be popped from the stack to clear the stack of arguments to this invocation.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Pointer<HRESULT>} phrReturn 
-     * @param {Integer} iMethod 
-     * @param {Pointer<Void>} pvArgs 
-     * @param {Pointer<Integer>} cbArgs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-callindirect
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallindirect-callindirect
      */
     CallIndirect(phrReturn, iMethod, pvArgs, cbArgs) {
         phrReturnMarshal := phrReturn is VarRef ? "int*" : "ptr"
@@ -54,12 +83,41 @@ class ICallIndirect extends IUnknown{
     }
 
     /**
+     * Retrieves information about the interface method from the call frame.
+     * @param {Integer} iMethod The method number.
+     * @param {Pointer<CALLFRAMEINFO>} pInfo A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/callobj/ns-callobj-callframeinfo">CALLFRAMEINFO</a> structure containing information about the specified method.
+     * @param {Pointer<PWSTR>} pwszMethod The method name. This parameter is optional.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Integer} iMethod 
-     * @param {Pointer<CALLFRAMEINFO>} pInfo 
-     * @param {Pointer<PWSTR>} pwszMethod 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-getmethodinfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallindirect-getmethodinfo
      */
     GetMethodInfo(iMethod, pInfo, pwszMethod) {
         pwszMethodMarshal := pwszMethod is VarRef ? "ptr*" : "ptr"
@@ -69,10 +127,10 @@ class ICallIndirect extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} iMethod 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-getstacksize
+     * Retrieves the number of bytes that should be popped from the stack in order to return from an invocation of the method.
+     * @param {Integer} iMethod The method number.
+     * @returns {Integer} The number of bytes to be popped from the stack to clear the stack of arguments to an invocation.
+     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallindirect-getstacksize
      */
     GetStackSize(iMethod) {
         result := ComCall(5, this, "uint", iMethod, "uint*", &cbArgs := 0, "HRESULT")
@@ -80,13 +138,42 @@ class ICallIndirect extends IUnknown{
     }
 
     /**
+     * Retrieves the interface id supported by this ICallIndirect implementation.
+     * @param {Pointer<Guid>} piid A pointer to the interface. This parameter is optional.
+     * @param {Pointer<BOOL>} pfDerivesFromIDispatch Indicates whether the interface is derived from <b>IDispatch</b>. This parameter is optional.
+     * @param {Pointer<Integer>} pcMethod Receives the number of methods in the inferface.
+     * @param {Pointer<PWSTR>} pwszInterface Receives the interface name if it is available.
+     * @returns {HRESULT} This method can return the following values.
      * 
-     * @param {Pointer<Guid>} piid 
-     * @param {Pointer<BOOL>} pfDerivesFromIDispatch 
-     * @param {Pointer<Integer>} pcMethod 
-     * @param {Pointer<PWSTR>} pwszInterface 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/callobj/nf-callobj-icallindirect-getiid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unexpected error has occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//callobj/nf-callobj-icallindirect-getiid
      */
     GetIID(piid, pfDerivesFromIDispatch, pcMethod, pwszInterface) {
         pfDerivesFromIDispatchMarshal := pfDerivesFromIDispatch is VarRef ? "int*" : "ptr"

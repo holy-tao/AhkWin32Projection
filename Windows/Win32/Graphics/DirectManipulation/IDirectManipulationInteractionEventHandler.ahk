@@ -31,11 +31,11 @@ class IDirectManipulationInteractionEventHandler extends IUnknown{
     static VTableNames => ["OnInteraction"]
 
     /**
-     * 
-     * @param {IDirectManipulationViewport2} viewport 
-     * @param {Integer} interaction 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationinteractioneventhandler-oninteraction
+     * Called when an interaction is detected.
+     * @param {IDirectManipulationViewport2} viewport The viewport on which the interaction was detected.
+     * @param {Integer} interaction One of the values from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/ne-directmanipulation-directmanipulation_interaction_type">DIRECTMANIPULATION_INTERACTION_TYPE</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationinteractioneventhandler-oninteraction
      */
     OnInteraction(viewport, interaction) {
         result := ComCall(3, this, "ptr", viewport, "int", interaction, "HRESULT")

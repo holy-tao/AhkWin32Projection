@@ -36,10 +36,28 @@ class IStreamBufferSource extends IUnknown{
     static VTableNames => ["SetStreamSink"]
 
     /**
+     * The SetStreamSink method sets a pointer to the Stream Buffer Sink filter, so that the Stream Buffer Source filter can stream data from the sink filter.
+     * @param {IStreamBufferSink} pIStreamBufferSink Pointer to the Stream Buffer Sink filter's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambuffersink">IStreamBufferSink Interface</a> interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IStreamBufferSink} pIStreamBufferSink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambuffersource-setstreamsink
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambuffersource-setstreamsink
      */
     SetStreamSink(pIStreamBufferSink) {
         result := ComCall(3, this, "ptr", pIStreamBufferSink, "HRESULT")

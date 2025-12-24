@@ -30,6 +30,34 @@ class IRTCMediaRequestEvent extends IDispatch{
     static VTableNames => ["get_Session", "get_ProposedMedia", "get_CurrentMedia", "Accept", "get_RemotePreferredSecurityLevel", "Reject", "get_State"]
 
     /**
+     * @type {IRTCSession2} 
+     */
+    Session {
+        get => this.get_Session()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ProposedMedia {
+        get => this.get_ProposedMedia()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentMedia {
+        get => this.get_CurrentMedia()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
      * 
      * @returns {IRTCSession2} 
      */

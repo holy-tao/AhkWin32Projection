@@ -37,10 +37,14 @@ class IDXGIDeviceSubObject extends IDXGIObject{
     static VTableNames => ["GetDevice"]
 
     /**
+     * Retrieves the device.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgidevicesubobject-getdevice
+     * The reference id for the device.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * The address of a pointer to the device.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgidevicesubobject-getdevice
      */
     GetDevice(riid) {
         result := ComCall(7, this, "ptr", riid, "ptr*", &ppDevice := 0, "HRESULT")

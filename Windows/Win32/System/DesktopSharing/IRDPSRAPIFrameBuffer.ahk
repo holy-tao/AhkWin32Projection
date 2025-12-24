@@ -37,9 +37,30 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
     static VTableNames => ["get_Width", "get_Height", "get_Bpp", "GetFrameBufferBits"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    Width {
+        get => this.get_Width()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Height {
+        get => this.get_Height()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Bpp {
+        get => this.get_Bpp()
+    }
+
+    /**
+     * Width, in pixels, of the frame buffer.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_width
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_width
      */
     get_Width() {
         result := ComCall(7, this, "int*", &plWidth := 0, "HRESULT")
@@ -47,9 +68,9 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
     }
 
     /**
-     * 
+     * Height, in pixels, of the frame buffer.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_height
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_height
      */
     get_Height() {
         result := ComCall(8, this, "int*", &plHeight := 0, "HRESULT")
@@ -57,9 +78,9 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
     }
 
     /**
-     * 
+     * The bits per pixel for the frame buffer.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_bpp
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-get_bpp
      */
     get_Bpp() {
         result := ComCall(9, this, "int*", &plBpp := 0, "HRESULT")
@@ -67,13 +88,13 @@ class IRDPSRAPIFrameBuffer extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} x 
-     * @param {Integer} y 
-     * @param {Integer} Width 
-     * @param {Integer} Heigth 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-getframebufferbits
+     * Gets the bits in a specified area of the frame.
+     * @param {Integer} x The x coordinate of the requested area of the frame.
+     * @param {Integer} y The y coordinate of the requested area of the frame.
+     * @param {Integer} Width The width of the requested area of the frame.
+     * @param {Integer} Heigth The height of the requested area of the frame.
+     * @returns {Pointer<SAFEARRAY>} The contents of the frame buffer in the specified area.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiframebuffer-getframebufferbits
      */
     GetFrameBufferBits(x, y, Width, Heigth) {
         result := ComCall(10, this, "int", x, "int", y, "int", Width, "int", Heigth, "ptr*", &ppBits := 0, "HRESULT")

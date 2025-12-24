@@ -30,6 +30,13 @@ class INavigatorGeolocation extends IDispatch{
     static VTableNames => ["get_geolocation"]
 
     /**
+     * @type {IWebGeolocation} 
+     */
+    geolocation {
+        get => this.get_geolocation()
+    }
+
+    /**
      * 
      * @returns {IWebGeolocation} 
      */

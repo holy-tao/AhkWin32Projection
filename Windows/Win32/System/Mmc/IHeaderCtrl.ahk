@@ -31,13 +31,13 @@ class IHeaderCtrl extends IUnknown{
     static VTableNames => ["InsertColumn", "DeleteColumn", "SetColumnText", "GetColumnText", "SetColumnWidth", "GetColumnWidth"]
 
     /**
-     * 
-     * @param {Integer} nCol 
-     * @param {PWSTR} title 
-     * @param {Integer} nFormat 
-     * @param {Integer} nWidth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-insertcolumn
+     * Adds a column to a default result pane.
+     * @param {Integer} nCol A zero-based index of the column being inserted.
+     * @param {PWSTR} title A value that specifies the string that represents the title of the column being inserted. This string can have  a maximum length of <b>MAX_PATH</b> characters.
+     * @param {Integer} nFormat A value that specifies the position of text within the column. For column zero, <i>nFormat</i> must be <b>LVCFMT_LEFT</b>. This value must be one of the following:
+     * @param {Integer} nWidth A value that specifies the width of the column in pixels. This value must be one of the following:
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl-insertcolumn
      */
     InsertColumn(nCol, title, nFormat, nWidth) {
         title := title is String ? StrPtr(title) : title
@@ -47,10 +47,10 @@ class IHeaderCtrl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nCol 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-deletecolumn
+     * Removes a column from the header of the result view.
+     * @param {Integer} nCol A zero-based index that identifies the column to be removed.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl-deletecolumn
      */
     DeleteColumn(nCol) {
         result := ComCall(4, this, "int", nCol, "HRESULT")
@@ -58,11 +58,11 @@ class IHeaderCtrl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nCol 
-     * @param {PWSTR} title 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-setcolumntext
+     * Sets the text of the title in a specific column.
+     * @param {Integer} nCol A zero-based index that specifies the location of the column.
+     * @param {PWSTR} title A pointer to the string that represents the title of the column being inserted. This string can have  a maximum length of MAX_PATH characters.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl-setcolumntext
      */
     SetColumnText(nCol, title) {
         title := title is String ? StrPtr(title) : title
@@ -72,10 +72,11 @@ class IHeaderCtrl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nCol 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-getcolumntext
+     * Retrieves text from a specified column.
+     * @param {Integer} nCol A zero-based index that identifies the column from which the text is to be retrieved.
+     * @returns {PWSTR} A pointer to the address of the text to be retrieved. This pointer must not be <b>NULL</b>. The user must call 
+     * <b>CoTaskMemFree</b> on the returned text.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl-getcolumntext
      */
     GetColumnText(nCol) {
         result := ComCall(6, this, "int", nCol, "ptr*", &pText := 0, "HRESULT")
@@ -83,11 +84,11 @@ class IHeaderCtrl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nCol 
-     * @param {Integer} nWidth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-setcolumnwidth
+     * Sets the width, in pixels, of a specific column.
+     * @param {Integer} nCol A zero-based index that specifies the location of the column relative to other columns in the result pane.
+     * @param {Integer} nWidth A value that specifies the width of the column. This value must be in pixels, or it can be the following value:
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl-setcolumnwidth
      */
     SetColumnWidth(nCol, nWidth) {
         result := ComCall(7, this, "int", nCol, "int", nWidth, "HRESULT")
@@ -95,10 +96,10 @@ class IHeaderCtrl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nCol 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iheaderctrl-getcolumnwidth
+     * Retrieves the width, in pixels, of the column.
+     * @param {Integer} nCol A zero-based index of the column from which the width is to be retrieved.
+     * @returns {Integer} A pointer to width, in pixels, of the column. This parameter must not be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iheaderctrl-getcolumnwidth
      */
     GetColumnWidth(nCol) {
         result := ComCall(8, this, "int", nCol, "int*", &pWidth := 0, "HRESULT")

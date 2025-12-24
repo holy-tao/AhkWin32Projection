@@ -31,6 +31,126 @@ class IHTMLRuleStyle3 extends IDispatch{
     static VTableNames => ["put_layoutFlow", "get_layoutFlow", "put_zoom", "get_zoom", "put_wordWrap", "get_wordWrap", "put_textUnderlinePosition", "get_textUnderlinePosition", "put_scrollbarBaseColor", "get_scrollbarBaseColor", "put_scrollbarFaceColor", "get_scrollbarFaceColor", "put_scrollbar3dLightColor", "get_scrollbar3dLightColor", "put_scrollbarShadowColor", "get_scrollbarShadowColor", "put_scrollbarHighlightColor", "get_scrollbarHighlightColor", "put_scrollbarDarkShadowColor", "get_scrollbarDarkShadowColor", "put_scrollbarArrowColor", "get_scrollbarArrowColor", "put_scrollbarTrackColor", "get_scrollbarTrackColor", "put_writingMode", "get_writingMode", "put_textAlignLast", "get_textAlignLast", "put_textKashidaSpace", "get_textKashidaSpace"]
 
     /**
+     * @type {BSTR} 
+     */
+    layoutFlow {
+        get => this.get_layoutFlow()
+        set => this.put_layoutFlow(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    zoom {
+        get => this.get_zoom()
+        set => this.put_zoom(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    wordWrap {
+        get => this.get_wordWrap()
+        set => this.put_wordWrap(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textUnderlinePosition {
+        get => this.get_textUnderlinePosition()
+        set => this.put_textUnderlinePosition(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarBaseColor {
+        get => this.get_scrollbarBaseColor()
+        set => this.put_scrollbarBaseColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarFaceColor {
+        get => this.get_scrollbarFaceColor()
+        set => this.put_scrollbarFaceColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbar3dLightColor {
+        get => this.get_scrollbar3dLightColor()
+        set => this.put_scrollbar3dLightColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarShadowColor {
+        get => this.get_scrollbarShadowColor()
+        set => this.put_scrollbarShadowColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarHighlightColor {
+        get => this.get_scrollbarHighlightColor()
+        set => this.put_scrollbarHighlightColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarDarkShadowColor {
+        get => this.get_scrollbarDarkShadowColor()
+        set => this.put_scrollbarDarkShadowColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarArrowColor {
+        get => this.get_scrollbarArrowColor()
+        set => this.put_scrollbarArrowColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    scrollbarTrackColor {
+        get => this.get_scrollbarTrackColor()
+        set => this.put_scrollbarTrackColor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    writingMode {
+        get => this.get_writingMode()
+        set => this.put_writingMode(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    textAlignLast {
+        get => this.get_textAlignLast()
+        set => this.put_textAlignLast(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    textKashidaSpace {
+        get => this.get_textKashidaSpace()
+        set => this.put_textKashidaSpace(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

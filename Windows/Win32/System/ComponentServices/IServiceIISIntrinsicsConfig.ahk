@@ -31,10 +31,10 @@ class IServiceIISIntrinsicsConfig extends IUnknown{
     static VTableNames => ["IISIntrinsicsConfig"]
 
     /**
-     * 
-     * @param {Integer} iisIntrinsicsConfig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iserviceiisintrinsicsconfig-iisintrinsicsconfig
+     * Configures the IIS intrinsics for the enclosed work.
+     * @param {Integer} iisIntrinsicsConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_iisintrinsicsconfig">CSC_IISIntrinsicsConfig</a> enumeration.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iserviceiisintrinsicsconfig-iisintrinsicsconfig
      */
     IISIntrinsicsConfig(iisIntrinsicsConfig) {
         result := ComCall(3, this, "int", iisIntrinsicsConfig, "HRESULT")

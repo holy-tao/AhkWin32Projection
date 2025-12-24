@@ -37,12 +37,12 @@ class IProofOfPossessionCookieInfoManager extends IUnknown{
     static VTableNames => ["GetCookieInfoForUri"]
 
     /**
-     * 
-     * @param {PWSTR} uri 
-     * @param {Pointer<Integer>} cookieInfoCount 
-     * @param {Pointer<Pointer<ProofOfPossessionCookieInfo>>} cookieInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager-getcookieinfoforuri
+     * Gets cookie information for the supplied URI to be used for proof of possession cookies.
+     * @param {PWSTR} uri The URI to get cookie information for. The URI is case-sensitive.
+     * @param {Pointer<Integer>} cookieInfoCount The number of cookies found for the <i>uri</i>.
+     * @param {Pointer<Pointer<ProofOfPossessionCookieInfo>>} cookieInfo The cookie information for the <i>uri</i>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager-getcookieinfoforuri
      */
     GetCookieInfoForUri(uri, cookieInfoCount, cookieInfo) {
         uri := uri is String ? StrPtr(uri) : uri

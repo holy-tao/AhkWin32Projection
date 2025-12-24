@@ -37,10 +37,14 @@ class IAccessibleEx extends IUnknown{
     static VTableNames => ["GetObjectForChild", "GetIAccessiblePair", "GetRuntimeId", "ConvertReturnedElement"]
 
     /**
+     * Retrieves an IAccessibleEx interface representing the specified child of this element.
+     * @param {Integer} idChild Type: <b>long</b>
      * 
-     * @param {Integer} idChild 
-     * @returns {IAccessibleEx} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessibleex-getobjectforchild
+     * The identifier of the child element.
+     * @returns {IAccessibleEx} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iaccessibleex">IAccessibleEx</a>**</b>
+     * 
+     * Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iaccessibleex">IAccessibleEx</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iaccessibleex-getobjectforchild
      */
     GetObjectForChild(idChild) {
         result := ComCall(3, this, "int", idChild, "ptr*", &pRetVal := 0, "HRESULT")
@@ -48,11 +52,17 @@ class IAccessibleEx extends IUnknown{
     }
 
     /**
+     * Retrieves the IAccessible interface and child ID for this item.
+     * @param {Pointer<IAccessible>} ppAcc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a>**</b>
      * 
-     * @param {Pointer<IAccessible>} ppAcc 
-     * @param {Pointer<Integer>} pidChild 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessibleex-getiaccessiblepair
+     * Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface for this object, or the parent object if this is a child element.
+     * @param {Pointer<Integer>} pidChild Type: <b>long*</b>
+     * 
+     * Receives the child ID, or CHILDID_SELF if this is not a child element.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iaccessibleex-getiaccessiblepair
      */
     GetIAccessiblePair(ppAcc, pidChild) {
         pidChildMarshal := pidChild is VarRef ? "int*" : "ptr"
@@ -62,9 +72,11 @@ class IAccessibleEx extends IUnknown{
     }
 
     /**
+     * Retrieves the runtime identifier of this element.
+     * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessibleex-getruntimeid
+     * Receives a pointer to the runtime identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iaccessibleex-getruntimeid
      */
     GetRuntimeId() {
         result := ComCall(5, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -72,10 +84,14 @@ class IAccessibleEx extends IUnknown{
     }
 
     /**
+     * Retrieves the IAccessibleEx interface of an element returned as a property value.
+     * @param {IRawElementProviderSimple} pIn Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>*</b>
      * 
-     * @param {IRawElementProviderSimple} pIn 
-     * @returns {IAccessibleEx} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iaccessibleex-convertreturnedelement
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interface that was retrieved as a property.
+     * @returns {IAccessibleEx} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iaccessibleex">IAccessibleEx</a>**</b>
+     * 
+     * Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iaccessibleex">IAccessibleEx</a>  interface of the element.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iaccessibleex-convertreturnedelement
      */
     ConvertReturnedElement(pIn) {
         result := ComCall(6, this, "ptr", pIn, "ptr*", &ppRetValOut := 0, "HRESULT")

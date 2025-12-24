@@ -31,20 +31,10 @@ class ISnapinProperties extends IUnknown{
     static VTableNames => ["Initialize", "QueryPropertyNames", "PropertiesChanged"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Properties} pProperties 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The Initialize method initializes a snap-in.
+     * @param {Properties} pProperties <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/properties-collection">Properties</a> collection that can be used by the snap-in for initialization.
+     * @returns {HRESULT} If successful, the return value is S_OK; otherwise, the return value is E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//mmcobj/nf-mmcobj-isnapinproperties-initialize
      */
     Initialize(pProperties) {
         result := ComCall(3, this, "ptr", pProperties, "HRESULT")
@@ -52,10 +42,12 @@ class ISnapinProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ISnapinPropertiesCallback} pCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmcobj/nf-mmcobj-isnapinproperties-querypropertynames
+     * The QueryPropertyNames method returns the names of the properties used for the snap-in's configuration.
+     * @param {ISnapinPropertiesCallback} pCallback A pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmcobj/nn-mmcobj-isnapinpropertiescallback">ISnapinPropertiesCallback</a> interface; the snap-in can call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmcobj/nf-mmcobj-isnapinpropertiescallback-addpropertyname">ISnapinPropertiesCallback::AddPropertyName</a> to add the properties.
+     * @returns {HRESULT} If successful, the return value is S_OK; otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mmcobj/nf-mmcobj-isnapinproperties-querypropertynames
      */
     QueryPropertyNames(pCallback) {
         result := ComCall(4, this, "ptr", pCallback, "HRESULT")
@@ -63,11 +55,13 @@ class ISnapinProperties extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} cProperties 
-     * @param {Pointer<MMC_SNAPIN_PROPERTY>} pProperties 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmcobj/nf-mmcobj-isnapinproperties-propertieschanged
+     * Called when a property is added, changed, or deleted.
+     * @param {Integer} cProperties The number of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmcobj/ns-mmcobj-mmc_snapin_property">MMC_SNAPIN_PROPERTY</a> structures provided by <i>pProperties</i>.
+     * @param {Pointer<MMC_SNAPIN_PROPERTY>} pProperties An array of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmcobj/ns-mmcobj-mmc_snapin_property">MMC_SNAPIN_PROPERTY</a> structures.
+     * @returns {HRESULT} If successful, the return value is <b>S_OK</b>; a snap-in can prevent a change or deletion from occurring by returning <b>E_FAIL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mmcobj/nf-mmcobj-isnapinproperties-propertieschanged
      */
     PropertiesChanged(cProperties, pProperties) {
         result := ComCall(5, this, "int", cProperties, "ptr", pProperties, "HRESULT")

@@ -58,10 +58,14 @@ class IACList extends IUnknown{
     static VTableNames => ["Expand"]
 
     /**
+     * Requests that the autocompletion client generate candidate strings associated with a specified item in its namespace.
+     * @param {PWSTR} pszExpand Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} pszExpand 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iaclist-expand
+     * A pointer to a null-terminated, Unicode string to be expanded by the autocomplete object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iaclist-expand
      */
     Expand(pszExpand) {
         pszExpand := pszExpand is String ? StrPtr(pszExpand) : pszExpand

@@ -31,6 +31,14 @@ class IADsSyntax extends IADs{
     static VTableNames => ["get_OleAutoDataType", "put_OleAutoDataType"]
 
     /**
+     * @type {Integer} 
+     */
+    OleAutoDataType {
+        get => this.get_OleAutoDataType()
+        set => this.put_OleAutoDataType(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

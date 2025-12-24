@@ -36,9 +36,11 @@ class ID3D11CommandList extends ID3D11DeviceChild{
     static VTableNames => ["GetContextFlags"]
 
     /**
+     * Gets the initialization flags associated with the deferred context that created the command list.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11commandlist-getcontextflags
+     * The context flag is reserved for future use and is always 0.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11commandlist-getcontextflags
      */
     GetContextFlags() {
         result := ComCall(7, this, "uint")

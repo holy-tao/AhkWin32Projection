@@ -31,9 +31,9 @@ class IIsdbCAServiceDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetCASystemId", "GetCABroadcasterGroupId", "GetMessageControl", "GetServiceIds"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-gettag
+     * Gets the tag that identifies a conditional access (CA) service descriptor.
+     * @returns {Integer} Receives the tag value. For conditional access service descriptors, this value is 0xCC.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IIsdbCAServiceDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-getlength
+     * Gets the body length of conditional access (CA) service descriptor, in bytes.
+     * @returns {Integer} Receives the descriptor length.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -51,9 +51,9 @@ class IIsdbCAServiceDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-getcasystemid
+     * Gets the conditional access (CA) system identifier from a CA service descriptor.
+     * @returns {Integer} Receives the conditional access system identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-getcasystemid
      */
     GetCASystemId() {
         result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -61,9 +61,9 @@ class IIsdbCAServiceDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-getcabroadcastergroupid
+     * Gets the conditional access (CA) broadcaster group identifier from a CA service descriptor.
+     * @returns {Integer} Receives the conditional access broadcaster group identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-getcabroadcastergroupid
      */
     GetCABroadcasterGroupId() {
         result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
@@ -71,9 +71,10 @@ class IIsdbCAServiceDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-getmessagecontrol
+     * Gets the delay time, in days, before the automatic entitlement management message (EMM) is displayed from a conditional access (CA) service descriptor.
+     * @returns {Integer} Receives the number of days before the EMM message is displayed. A value of 0xFF indicates that the delay time is
+     * disabled (that the start of the delay time has been put on hold).
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-getmessagecontrol
      */
     GetMessageControl() {
         result := ComCall(7, this, "char*", &pbVal := 0, "HRESULT")
@@ -81,10 +82,10 @@ class IIsdbCAServiceDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pbNumServiceIds 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-getserviceids
+     * Gets the service identifier (ID) records from a conditional access (CA) service descriptor.
+     * @param {Pointer<Integer>} pbNumServiceIds On input specifies the expected number of service ID records. On output returns the actual number of records.
+     * @returns {Integer} Receives the service ID records.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcaservicedescriptor-getserviceids
      */
     GetServiceIds(pbNumServiceIds) {
         pbNumServiceIdsMarshal := pbNumServiceIds is VarRef ? "char*" : "ptr"

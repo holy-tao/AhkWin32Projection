@@ -40,9 +40,23 @@ class ISecurityCallContext extends IDispatch{
     static VTableNames => ["get_Count", "get_Item", "get__NewEnum", "IsCallerInRole", "IsSecurityEnabled", "IsUserInRole"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-get_count
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * Retrieves the number of properties in the security context collection.
+     * @returns {Integer} The number of named security call context properties.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallcontext-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
@@ -50,10 +64,10 @@ class ISecurityCallContext extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-get_item
+     * Retrieves a specified property in the security call context collection.
+     * @param {BSTR} name The name of the property item to be retrieved. See Remarks for information about the available items.
+     * @returns {VARIANT} A reference to the retrieved property.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallcontext-get_item
      */
     get_Item(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -64,9 +78,9 @@ class ISecurityCallContext extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-get__newenum
+     * Retrieves an enumerator for the security call context collection.
+     * @returns {IUnknown} A reference to the returned <a href="https://docs.microsoft.com/windows/win32/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallcontext-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -74,10 +88,10 @@ class ISecurityCallContext extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrRole 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-iscallerinrole
+     * Determines whether the direct caller is in the specified role.
+     * @param {BSTR} bstrRole The name of the role.
+     * @returns {VARIANT_BOOL} <b>TRUE</b> if the caller is in the specified role; <b>FALSE</b> if not. If the specified role is not defined for the application, <b>FALSE</b> is returned. This parameter is set to <b>TRUE</b> if role-based security is not enabled.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallcontext-iscallerinrole
      */
     IsCallerInRole(bstrRole) {
         bstrRole := bstrRole is String ? BSTR.Alloc(bstrRole).Value : bstrRole
@@ -87,9 +101,9 @@ class ISecurityCallContext extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-issecurityenabled
+     * Determines whether security is enabled for the object.
+     * @returns {VARIANT_BOOL} <b>TRUE</b> if the application uses role-based security and role checking is currently enabled for the object; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallcontext-issecurityenabled
      */
     IsSecurityEnabled() {
         result := ComCall(11, this, "short*", &pfIsEnabled := 0, "HRESULT")
@@ -97,11 +111,11 @@ class ISecurityCallContext extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} pUser 
-     * @param {BSTR} bstrRole 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isecuritycallcontext-isuserinrole
+     * Determines whether the specified user is in the specified role.
+     * @param {Pointer<VARIANT>} pUser A pointer to value holding the User ID of the user whose role membership is to be checked. If you intend to pass the security identifier (SID) to <b>IsUserInRole</b>, this parameter should meet the following requirements: <c>V_VT(pUser) == (VT_ARRAY|VT_UI1) &amp;&amp; V_ARRAY(pUser)-&gt;cDims == 1</c>.
+     * @param {BSTR} bstrRole The name of the role.
+     * @returns {VARIANT_BOOL} <b>TRUE</b> if the user is in the specified role; <b>FALSE</b> if not. If the specified role is not defined for the application, <b>FALSE</b> is returned. This parameter is set to <b>TRUE</b> if role-based security is not enabled.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isecuritycallcontext-isuserinrole
      */
     IsUserInRole(pUser, bstrRole) {
         bstrRole := bstrRole is String ? BSTR.Alloc(bstrRole).Value : bstrRole

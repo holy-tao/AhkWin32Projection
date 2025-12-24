@@ -32,9 +32,9 @@ class IMFMediaEngineWebSupport extends IUnknown{
     static VTableNames => ["ShouldDelayTheLoadEvent", "ConnectWebAudio", "DisconnectWebAudio"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginewebsupport-shoulddelaytheloadevent
+     * Gets a value indicating if the connecting to Web audio should delay the page's load event.
+     * @returns {BOOL} True if connection to Web audio should delay the page's load event; otherwise, false.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaenginewebsupport-shoulddelaytheloadevent
      */
     ShouldDelayTheLoadEvent() {
         result := ComCall(3, this, "int")
@@ -42,10 +42,10 @@ class IMFMediaEngineWebSupport extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwSampleRate 
-     * @returns {IAudioSourceProvider} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginewebsupport-connectwebaudio
+     * Connects web audio to Media Engine using the specified sample rate.
+     * @param {Integer} dwSampleRate The sample rate of the web audio.
+     * @returns {IAudioSourceProvider} The sample rate of the web audio.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaenginewebsupport-connectwebaudio
      */
     ConnectWebAudio(dwSampleRate) {
         result := ComCall(4, this, "uint", dwSampleRate, "ptr*", &ppSourceProvider := 0, "HRESULT")
@@ -53,9 +53,9 @@ class IMFMediaEngineWebSupport extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaenginewebsupport-disconnectwebaudio
+     * Disconnects web audio from the Media Engine.
+     * @returns {HRESULT} Returns S_OK on successful completion.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaenginewebsupport-disconnectwebaudio
      */
     DisconnectWebAudio() {
         result := ComCall(5, this, "HRESULT")

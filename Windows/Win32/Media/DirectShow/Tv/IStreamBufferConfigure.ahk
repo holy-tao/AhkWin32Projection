@@ -36,10 +36,39 @@ class IStreamBufferConfigure extends IUnknown{
     static VTableNames => ["SetDirectory", "GetDirectory", "SetBackingFileCount", "GetBackingFileCount", "SetBackingFileDuration", "GetBackingFileDuration"]
 
     /**
+     * The SetDirectory method sets the directory where backing files are saved.
+     * @param {PWSTR} pszDirectoryName Pointer to a null-terminated string containing the fully qualified directory name. If the specified directory does not exist, it will be created.
+     * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {PWSTR} pszDirectoryName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-setdirectory
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="/previous-versions/windows/desktop/mstv/streambufferconfig-object">StreamBufferConfig</a> object was not initialized.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferconfigure-setdirectory
      */
     SetDirectory(pszDirectoryName) {
         pszDirectoryName := pszDirectoryName is String ? StrPtr(pszDirectoryName) : pszDirectoryName
@@ -49,9 +78,9 @@ class IStreamBufferConfigure extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-getdirectory
+     * The GetDirectory method retrieves the directory where backing files are saved.
+     * @returns {PWSTR} Pointer to a variable that receives the fully qualified directory name.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferconfigure-getdirectory
      */
     GetDirectory() {
         result := ComCall(4, this, "ptr*", &ppszDirectoryName := 0, "HRESULT")
@@ -59,11 +88,40 @@ class IStreamBufferConfigure extends IUnknown{
     }
 
     /**
+     * The SetBackingFileCount method sets the maximum and minimum number of backing files.
+     * @param {Integer} dwMin Specifies the backing file minimum. The valid range is from 4 to 100.
+     * @param {Integer} dwMax Specifies the backing file maximum. The valid range is from 6 to 102, and the value must be at least 2 greater than <i>dwMin</i>.
+     * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Integer} dwMin 
-     * @param {Integer} dwMax 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-setbackingfilecount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="/previous-versions/windows/desktop/mstv/streambufferconfig-object">StreamBufferConfig</a> object was not initialized.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferconfigure-setbackingfilecount
      */
     SetBackingFileCount(dwMin, dwMax) {
         result := ComCall(5, this, "uint", dwMin, "uint", dwMax, "HRESULT")
@@ -71,11 +129,29 @@ class IStreamBufferConfigure extends IUnknown{
     }
 
     /**
+     * The GetBackingFileCount method retrieves the maximum and minimum number of backing files.
+     * @param {Pointer<Integer>} pdwMin Pointer to a variable that receives the backing file minimum.
+     * @param {Pointer<Integer>} pdwMax Pointer to a variable that receives the backing file maximum.
+     * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Pointer<Integer>} pdwMin 
-     * @param {Pointer<Integer>} pdwMax 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-getbackingfilecount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferconfigure-getbackingfilecount
      */
     GetBackingFileCount(pdwMin, pdwMax) {
         pdwMinMarshal := pdwMin is VarRef ? "uint*" : "ptr"
@@ -86,10 +162,39 @@ class IStreamBufferConfigure extends IUnknown{
     }
 
     /**
+     * The SetBackingFileDuration method sets the duration of all backing files.
+     * @param {Integer} dwSeconds Specifies the file duration, in seconds. The minimum value is 15.
+     * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Integer} dwSeconds 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-setbackingfileduration
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <a href="/previous-versions/windows/desktop/mstv/streambufferconfig-object">StreamBufferConfig</a> object was not initialized.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferconfigure-setbackingfileduration
      */
     SetBackingFileDuration(dwSeconds) {
         result := ComCall(7, this, "uint", dwSeconds, "HRESULT")
@@ -97,9 +202,9 @@ class IStreamBufferConfigure extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferconfigure-getbackingfileduration
+     * The GetBackingFileDuration method retrieves the duration of each backing file.
+     * @returns {Integer} Pointer to a variable that receives the file duration, in seconds.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferconfigure-getbackingfileduration
      */
     GetBackingFileDuration() {
         result := ComCall(8, this, "uint*", &pdwSeconds := 0, "HRESULT")

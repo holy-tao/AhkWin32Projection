@@ -33,6 +33,20 @@ class IShellDispatch extends IDispatch{
     static VTableNames => ["get_Application", "get_Parent", "NameSpace", "BrowseForFolder", "Windows", "Open", "Explore", "MinimizeAll", "UndoMinimizeALL", "FileRun", "CascadeWindows", "TileVertically", "TileHorizontally", "ShutdownWindows", "Suspend", "EjectPC", "SetTime", "TrayProperties", "Help", "FindFiles", "FindComputer", "RefreshMenu", "ControlPanelItem"]
 
     /**
+     * @type {IDispatch} 
+     */
+    Application {
+        get => this.get_Application()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */
@@ -140,13 +154,9 @@ class IShellDispatch extends IDispatch{
     }
 
     /**
-     * Cascades the specified child windows of the specified parent window.
-     * @returns {HRESULT} Type: <b>WORD</b>
      * 
-     * If the function succeeds, the return value is the number of windows arranged.
-     * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-cascadewindows
+     * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch-cascadewindows
      */
     CascadeWindows() {
         result := ComCall(17, this, "HRESULT")

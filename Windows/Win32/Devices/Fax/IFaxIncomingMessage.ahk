@@ -43,9 +43,91 @@ class IFaxIncomingMessage extends IDispatch{
     static VTableNames => ["get_Id", "get_Pages", "get_Size", "get_DeviceName", "get_Retries", "get_TransmissionStart", "get_TransmissionEnd", "get_CSID", "get_TSID", "get_CallerId", "get_RoutingInformation", "CopyTiff", "Delete"]
 
     /**
+     * @type {BSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Pages {
+        get => this.get_Pages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Size {
+        get => this.get_Size()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DeviceName {
+        get => this.get_DeviceName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Retries {
+        get => this.get_Retries()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TransmissionStart {
+        get => this.get_TransmissionStart()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TransmissionEnd {
+        get => this.get_TransmissionEnd()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CSID {
+        get => this.get_CSID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TSID {
+        get => this.get_TSID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CallerId {
+        get => this.get_CallerId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RoutingInformation {
+        get => this.get_RoutingInformation()
+    }
+
+    /**
+     * The Id property is a null-terminated string that contains a unique ID for the inbound fax message.
+     * @remarks
+     * 
+     * Note that this is the same value that identified the associated fax job when the job was in the job queue.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_id
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-get_id
      */
     get_Id() {
         pbstrId := BSTR()
@@ -54,9 +136,9 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
-     * 
+     * The Pages property is a value that indicates the total number of pages in the inbound fax message.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_pages
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-get_pages
      */
     get_Pages() {
         result := ComCall(8, this, "int*", &plPages := 0, "HRESULT")
@@ -64,9 +146,9 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
-     * 
+     * The Size property is a value that indicates the size of the Tagged Image File Format Class F (TIFF Class F) file associated with the inbound fax message.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_size
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-get_size
      */
     get_Size() {
         result := ComCall(9, this, "int*", &plSize := 0, "HRESULT")
@@ -74,9 +156,14 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
+     * The DeviceName property is a null-terminated string that contains the name of the device on which the inbound fax message was received.
+     * @remarks
+     * 
+     * This method returns the name of the fax device rather than the device ID. This is useful because an administrator may remove the device ID after completion of the fax job and before the client's query of the archive of inbound fax messages.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_devicename
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-get_devicename
      */
     get_DeviceName() {
         pbstrDeviceName := BSTR()
@@ -85,9 +172,9 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
-     * 
+     * The Retries property is a value that indicates the number of times that the fax service attempted to route an inbound fax message after the initial routing attempt failed.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_retries
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-get_retries
      */
     get_Retries() {
         result := ComCall(11, this, "int*", &plRetries := 0, "HRESULT")
@@ -95,9 +182,9 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
-     * 
+     * The TransmissionStart property indicates the time that the inbound fax message began transmitting.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_transmissionstart
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-get_transmissionstart
      */
     get_TransmissionStart() {
         result := ComCall(12, this, "double*", &pdateTransmissionStart := 0, "HRESULT")
@@ -105,9 +192,9 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
-     * 
+     * The TransmissionEnd property indicates the time that the inbound fax message completed transmission.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_transmissionend
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-get_transmissionend
      */
     get_TransmissionEnd() {
         result := ComCall(13, this, "double*", &pdateTransmissionEnd := 0, "HRESULT")
@@ -115,9 +202,9 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
-     * 
+     * The CSID property is a null-terminated string that contains the called station identifier (CSID) for the inbound fax message.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_csid
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-get_csid
      */
     get_CSID() {
         pbstrCSID := BSTR()
@@ -126,9 +213,9 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
-     * 
+     * The TSID property is a null-terminated string that contains the transmitting station identifier (TSID) associated with the inbound fax message.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_tsid
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-get_tsid
      */
     get_TSID() {
         pbstrTSID := BSTR()
@@ -137,9 +224,9 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
-     * 
+     * The CallerId property is a null-terminated string that identifies the calling device associated with the inbound fax message.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_callerid
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-get_callerid
      */
     get_CallerId() {
         pbstrCallerId := BSTR()
@@ -148,9 +235,14 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
+     * The RoutingInformation property is a null-terminated string that indicates inbound routing information for the fax message.
+     * @remarks
+     * 
+     * For more information about routing information, see the <a href="https://docs.microsoft.com/windows/desktop/api/faxdev/ns-faxdev-fax_dev_status">RoutingInfo</a> member of the <b>FAX_DEV_STATUS</b> structure.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-get_routinginformation
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-get_routinginformation
      */
     get_RoutingInformation() {
         pbstrRoutingInformation := BSTR()
@@ -159,10 +251,14 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
+     * The CopyTiff method copies the Tagged Image File Format Class F (TIFF Class F) file associated with the inbound fax message to a file on the local computer.
+     * @param {BSTR} bstrTiffPath Type: <b>BSTR</b>
      * 
-     * @param {BSTR} bstrTiffPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-copytiff
+     * Null-terminated <b>BSTR</b> that specifies a fully qualified path and file name on the local computer. The fax service will copy the TIFF Class F file associated with the inbound fax message to the specified file.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-copytiff
      */
     CopyTiff(bstrTiffPath) {
         bstrTiffPath := bstrTiffPath is String ? BSTR.Alloc(bstrTiffPath).Value : bstrTiffPath
@@ -172,9 +268,11 @@ class IFaxIncomingMessage extends IDispatch{
     }
 
     /**
+     * The Delete method deletes the specified fax message from the inbound fax archive.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxincomingmessage-delete
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxincomingmessage-delete
      */
     Delete() {
         result := ComCall(19, this, "HRESULT")

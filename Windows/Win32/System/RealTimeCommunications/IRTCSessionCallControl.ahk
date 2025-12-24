@@ -30,6 +30,29 @@ class IRTCSessionCallControl extends IUnknown{
     static VTableNames => ["Hold", "UnHold", "Forward", "Refer", "put_ReferredByURI", "get_ReferredByURI", "put_ReferCookie", "get_ReferCookie", "get_IsReferred"]
 
     /**
+     * @type {BSTR} 
+     */
+    ReferredByURI {
+        get => this.get_ReferredByURI()
+        set => this.put_ReferredByURI(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReferCookie {
+        get => this.get_ReferCookie()
+        set => this.put_ReferCookie(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsReferred {
+        get => this.get_IsReferred()
+    }
+
+    /**
      * 
      * @param {Pointer} lCookie 
      * @returns {HRESULT} 

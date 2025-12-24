@@ -31,11 +31,13 @@ class IIdentityAdvise extends IUnknown{
     static VTableNames => ["IdentityUpdated"]
 
     /**
-     * 
+     * Is called by an identity provider to notify a calling application that an identity event occurred.
      * @param {Integer} dwIdentityUpdateEvents 
-     * @param {PWSTR} lpszUniqueID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iidentityadvise-identityupdated
+     * @param {PWSTR} lpszUniqueID The identity associated with the events that occurred.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
+     * 
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iidentityadvise-identityupdated
      */
     IdentityUpdated(dwIdentityUpdateEvents, lpszUniqueID) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID

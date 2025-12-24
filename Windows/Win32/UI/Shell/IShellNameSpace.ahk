@@ -38,6 +38,77 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
     static VTableNames => ["get_EnumOptions", "put_EnumOptions", "get_SelectedItem", "put_SelectedItem", "get_Root", "put_Root", "get_Depth", "put_Depth", "get_Mode", "put_Mode", "get_Flags", "put_Flags", "put_TVFlags", "get_TVFlags", "get_Columns", "put_Columns", "get_CountViewTypes", "SetViewType", "SelectedItems", "Expand", "UnselectAll"]
 
     /**
+     * @type {Integer} 
+     */
+    EnumOptions {
+        get => this.get_EnumOptions()
+        set => this.put_EnumOptions(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    SelectedItem {
+        get => this.get_SelectedItem()
+        set => this.put_SelectedItem(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Root {
+        get => this.get_Root()
+        set => this.put_Root(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Depth {
+        get => this.get_Depth()
+        set => this.put_Depth(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Mode {
+        get => this.get_Mode()
+        set => this.put_Mode(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+        set => this.put_Flags(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TVFlags {
+        get => this.get_TVFlags()
+        set => this.put_TVFlags(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Columns {
+        get => this.get_Columns()
+        set => this.put_Columns(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CountViewTypes {
+        get => this.get_CountViewTypes()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

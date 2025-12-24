@@ -45,10 +45,14 @@ class IFileDialogCustomize extends IUnknown{
     static VTableNames => ["EnableOpenDropDown", "AddMenu", "AddPushButton", "AddComboBox", "AddRadioButtonList", "AddCheckButton", "AddEditBox", "AddSeparator", "AddText", "SetControlLabel", "GetControlState", "SetControlState", "GetEditBoxText", "SetEditBoxText", "GetCheckButtonState", "SetCheckButtonState", "AddControlItem", "RemoveControlItem", "RemoveAllControlItems", "GetControlItemState", "SetControlItemState", "GetSelectedControlItem", "SetSelectedControlItem", "StartVisualGroup", "EndVisualGroup", "MakeProminent", "SetControlItemText"]
 
     /**
+     * Enables a drop-down list on the Open or Save button in the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-enableopendropdown
+     * The ID of the drop-down list.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-enableopendropdown
      */
     EnableOpenDropDown(dwIDCtl) {
         result := ComCall(3, this, "uint", dwIDCtl, "HRESULT")
@@ -56,11 +60,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Adds a menu to the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {PWSTR} pszLabel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addmenu
+     * The ID of the menu to add.
+     * @param {PWSTR} pszLabel Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the menu name as a null-terminated Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addmenu
      */
     AddMenu(dwIDCtl, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
@@ -70,11 +80,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Adds a button to the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {PWSTR} pszLabel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addpushbutton
+     * The ID of the button to add.
+     * @param {PWSTR} pszLabel Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the button text as a null-terminated Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addpushbutton
      */
     AddPushButton(dwIDCtl, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
@@ -84,10 +100,14 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Adds a combo box to the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addcombobox
+     * The ID of the combo box to add.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addcombobox
      */
     AddComboBox(dwIDCtl) {
         result := ComCall(6, this, "uint", dwIDCtl, "HRESULT")
@@ -95,10 +115,14 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Adds an option button (also known as radio button) group to the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addradiobuttonlist
+     * The ID of the option button group to add.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addradiobuttonlist
      */
     AddRadioButtonList(dwIDCtl) {
         result := ComCall(7, this, "uint", dwIDCtl, "HRESULT")
@@ -106,12 +130,20 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Adds a check button (check box) to the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {PWSTR} pszLabel 
-     * @param {BOOL} bChecked 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addcheckbutton
+     * The ID of the check button to add.
+     * @param {PWSTR} pszLabel Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the button text as a null-terminated Unicode string.
+     * @param {BOOL} bChecked Type: <b>BOOL</b>
+     * 
+     * A <b>BOOL</b> indicating the current state of the check button. <b>TRUE</b> if checked; <b>FALSE</b> otherwise.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addcheckbutton
      */
     AddCheckButton(dwIDCtl, pszLabel, bChecked) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
@@ -121,11 +153,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Adds an edit box control to the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {PWSTR} pszText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addeditbox
+     * The ID of the edit box to add.
+     * @param {PWSTR} pszText Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a null-terminated Unicode string that provides the default text displayed in the edit box.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addeditbox
      */
     AddEditBox(dwIDCtl, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
@@ -135,10 +173,14 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Adds a separator to the dialog, allowing a visual separation of controls.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addseparator
+     * The control ID of the separator.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addseparator
      */
     AddSeparator(dwIDCtl) {
         result := ComCall(10, this, "uint", dwIDCtl, "HRESULT")
@@ -146,11 +188,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Adds text content to the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {PWSTR} pszText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addtext
+     * The ID of the text to add.
+     * @param {PWSTR} pszText Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the text as a null-terminated Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addtext
      */
     AddText(dwIDCtl, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
@@ -160,11 +208,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Sets the text associated with a control, such as button text or an edit box label.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {PWSTR} pszLabel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrollabel
+     * The ID of the control whose text is to be changed.
+     * @param {PWSTR} pszLabel Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the text as a null-terminated Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrollabel
      */
     SetControlLabel(dwIDCtl, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
@@ -174,10 +228,14 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Gets the current visibility and enabled states of a given control.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcontrolstate
+     * The ID of the control in question.
+     * @returns {Integer} Type: <b>CDCONTROLSTATEF*</b>
+     * 
+     * A pointer to a variable that receives one or more values from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762483(v=vs.85)">CDCONTROLSTATE</a> enumeration that indicate the current state of the control.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcontrolstate
      */
     GetControlState(dwIDCtl) {
         result := ComCall(13, this, "uint", dwIDCtl, "int*", &pdwState := 0, "HRESULT")
@@ -185,11 +243,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Sets the current visibility and enabled states of a given control.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {Integer} dwState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrolstate
+     * The ID of the control in question.
+     * @param {Integer} dwState Type: <b>CDCONTROLSTATEF</b>
+     * 
+     * One or more values from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762483(v=vs.85)">CDCONTROLSTATE</a> enumeration that indicate the current state of the control.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrolstate
      */
     SetControlState(dwIDCtl, dwState) {
         result := ComCall(14, this, "uint", dwIDCtl, "int", dwState, "HRESULT")
@@ -197,10 +261,14 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Gets the current text in an edit box control.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @returns {Pointer<Integer>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-geteditboxtext
+     * The ID of the edit box.
+     * @returns {Pointer<Integer>} Type: <b>WCHAR**</b>
+     * 
+     * The address of a pointer to a buffer that receives the text as a null-terminated Unicode string.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-geteditboxtext
      */
     GetEditBoxText(dwIDCtl) {
         result := ComCall(15, this, "uint", dwIDCtl, "ptr*", &ppszText := 0, "HRESULT")
@@ -208,11 +276,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Sets the text in an edit box control found in the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {PWSTR} pszText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-seteditboxtext
+     * The ID of the edit box.
+     * @param {PWSTR} pszText Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the text as a null-terminated Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-seteditboxtext
      */
     SetEditBoxText(dwIDCtl, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
@@ -222,10 +296,14 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Gets the current state of a check button (check box) in the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcheckbuttonstate
+     * The ID of the check box.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * The address of a <b>BOOL</b> value that indicates whether the box is checked. <b>TRUE</b> means checked; <b>FALSE</b>, unchecked.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcheckbuttonstate
      */
     GetCheckButtonState(dwIDCtl) {
         result := ComCall(17, this, "uint", dwIDCtl, "int*", &pbChecked := 0, "HRESULT")
@@ -233,11 +311,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Sets the state of a check button (check box) in the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {BOOL} bChecked 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcheckbuttonstate
+     * The ID of the check box.
+     * @param {BOOL} bChecked Type: <b>BOOL</b>
+     * 
+     * A <b>BOOL</b> value that indicates whether the box is checked. <b>TRUE</b> means checked; <b>FALSE</b>, unchecked.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcheckbuttonstate
      */
     SetCheckButtonState(dwIDCtl, bChecked) {
         result := ComCall(18, this, "uint", dwIDCtl, "int", bChecked, "HRESULT")
@@ -245,12 +329,20 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Adds an item to a container control in the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {Integer} dwIDItem 
-     * @param {PWSTR} pszLabel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addcontrolitem
+     *  The ID of the container control to which the item is to be added.
+     * @param {Integer} dwIDItem Type: <b>DWORD</b>
+     * 
+     * The ID of the item.
+     * @param {PWSTR} pszLabel Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains the item's text, which can be either a label or, in the case of a drop-down list, the item itself. This text is a null-terminated Unicode string.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-addcontrolitem
      */
     AddControlItem(dwIDCtl, dwIDItem, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
@@ -260,11 +352,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Removes an item from a container control in the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {Integer} dwIDItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-removecontrolitem
+     * The ID of the container control from which the item is to be removed.
+     * @param {Integer} dwIDItem Type: <b>DWORD</b>
+     * 
+     * The ID of the item.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-removecontrolitem
      */
     RemoveControlItem(dwIDCtl, dwIDItem) {
         result := ComCall(20, this, "uint", dwIDCtl, "uint", dwIDItem, "HRESULT")
@@ -272,10 +370,14 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Not implemented.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-removeallcontrolitems
+     * The ID of the container control from which to remove the items.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-removeallcontrolitems
      */
     RemoveAllControlItems(dwIDCtl) {
         result := ComCall(21, this, "uint", dwIDCtl, "HRESULT")
@@ -283,11 +385,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Gets the current state of an item in a container control found in the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {Integer} dwIDItem 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcontrolitemstate
+     * The ID of the container control.
+     * @param {Integer} dwIDItem Type: <b>DWORD</b>
+     * 
+     * The ID of the item.
+     * @returns {Integer} Type: <b>CDCONTROLSTATEF*</b>
+     * 
+     * A pointer to a variable that receives one of more values from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762483(v=vs.85)">CDCONTROLSTATE</a> enumeration that indicate the current state of the control.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getcontrolitemstate
      */
     GetControlItemState(dwIDCtl, dwIDItem) {
         result := ComCall(22, this, "uint", dwIDCtl, "uint", dwIDItem, "int*", &pdwState := 0, "HRESULT")
@@ -295,12 +403,20 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Sets the current state of an item in a container control found in the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {Integer} dwIDItem 
-     * @param {Integer} dwState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrolitemstate
+     * The ID of the container control.
+     * @param {Integer} dwIDItem Type: <b>DWORD</b>
+     * 
+     * The ID of the item.
+     * @param {Integer} dwState Type: <b>CDCONTROLSTATEF</b>
+     * 
+     * One or more values from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/bb762483(v=vs.85)">CDCONTROLSTATE</a> enumeration that indicate the new state of the control.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrolitemstate
      */
     SetControlItemState(dwIDCtl, dwIDItem, dwState) {
         result := ComCall(23, this, "uint", dwIDCtl, "uint", dwIDItem, "int", dwState, "HRESULT")
@@ -308,10 +424,14 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Gets a particular item from specified container controls in the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getselectedcontrolitem
+     * The ID of the container control.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     *  The ID of the item that the user selected in the control.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-getselectedcontrolitem
      */
     GetSelectedControlItem(dwIDCtl) {
         result := ComCall(24, this, "uint", dwIDCtl, "uint*", &pdwIDItem := 0, "HRESULT")
@@ -319,11 +439,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Sets the selected state of a particular item in an option button group or a combo box found in the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {Integer} dwIDItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setselectedcontrolitem
+     * The ID of the container control.
+     * @param {Integer} dwIDItem Type: <b>DWORD</b>
+     * 
+     * The ID of the item to display as selected in the control.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setselectedcontrolitem
      */
     SetSelectedControlItem(dwIDCtl, dwIDItem) {
         result := ComCall(25, this, "uint", dwIDCtl, "uint", dwIDItem, "HRESULT")
@@ -331,11 +457,17 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Declares a visual group in the dialog. Subsequent calls to any &quot;add&quot; method add those elements to this group.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {PWSTR} pszLabel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-startvisualgroup
+     * The ID of the visual group.
+     * @param {PWSTR} pszLabel Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a buffer that contains text, as a null-terminated Unicode string, that appears next to the visual group.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-startvisualgroup
      */
     StartVisualGroup(dwIDCtl, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel
@@ -345,9 +477,11 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Stops the addition of elements to a visual group in the dialog.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-endvisualgroup
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-endvisualgroup
      */
     EndVisualGroup() {
         result := ComCall(27, this, "HRESULT")
@@ -355,10 +489,14 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Places a control in the dialog so that it stands out compared to other added controls.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-makeprominent
+     * The ID of the control.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-makeprominent
      */
     MakeProminent(dwIDCtl) {
         result := ComCall(28, this, "uint", dwIDCtl, "HRESULT")
@@ -366,12 +504,20 @@ class IFileDialogCustomize extends IUnknown{
     }
 
     /**
+     * Sets the text of a control item. For example, the text that accompanies a radio button or an item in a menu.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwIDCtl 
-     * @param {Integer} dwIDItem 
-     * @param {PWSTR} pszLabel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrolitemtext
+     * The ID of the container control.
+     * @param {Integer} dwIDItem Type: <b>DWORD</b>
+     * 
+     * The ID of the item.
+     * @param {PWSTR} pszLabel Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a null-terminated buffer that contains a Unicode string with the text.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifiledialogcustomize-setcontrolitemtext
      */
     SetControlItemText(dwIDCtl, dwIDItem, pszLabel) {
         pszLabel := pszLabel is String ? StrPtr(pszLabel) : pszLabel

@@ -55,9 +55,9 @@ class IOpcSigningOptions extends IUnknown{
     static VTableNames => ["GetSignatureId", "SetSignatureId", "GetSignatureMethod", "SetSignatureMethod", "GetDefaultDigestMethod", "SetDefaultDigestMethod", "GetCertificateEmbeddingOption", "SetCertificateEmbeddingOption", "GetTimeFormat", "SetTimeFormat", "GetSignaturePartReferenceSet", "GetSignatureRelationshipReferenceSet", "GetCustomObjectSet", "GetCustomReferenceSet", "GetCertificateSet", "GetSignaturePartName", "SetSignaturePartName"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignatureid
+     * Gets the value of the Id attribute from the Signature element.
+     * @returns {PWSTR} A pointer to the value of the <b>Id</b> attribute, or the empty string "" if there is no <b>Id</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-getsignatureid
      */
     GetSignatureId() {
         result := ComCall(3, this, "ptr*", &signatureId := 0, "HRESULT")
@@ -65,10 +65,39 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
+     * Sets the value of the Id attribute of the Signature element.
+     * @param {PWSTR} signatureId The value of the <b>Id</b> attribute.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} signatureId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-setsignatureid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>signatureId</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-setsignatureid
      */
     SetSignatureId(signatureId) {
         signatureId := signatureId is String ? StrPtr(signatureId) : signatureId
@@ -78,9 +107,9 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignaturemethod
+     * Gets the signature method to use to calculate and encrypt the hash value of the SignedInfo element, which will be serialized as the SignatureValue element of the signature.
+     * @returns {PWSTR} A pointer to the signature method to use, or the empty string "" if no method has been set using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setsignaturemethod">SetSignatureMethod</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-getsignaturemethod
      */
     GetSignatureMethod() {
         result := ComCall(5, this, "ptr*", &signatureMethod := 0, "HRESULT")
@@ -88,10 +117,39 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
+     * Sets the signature method to use to calculate and encrypt the hash value of the SignedInfo element, which will be contained in the SignatureValue element of the signature.
+     * @param {PWSTR} signatureMethod The signature method to use.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} signatureMethod 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-setsignaturemethod
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>signatureMethod</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-setsignaturemethod
      */
     SetSignatureMethod(signatureMethod) {
         signatureMethod := signatureMethod is String ? StrPtr(signatureMethod) : signatureMethod
@@ -101,9 +159,9 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getdefaultdigestmethod
+     * Gets the default digest method that will be used to compute digest values for objects to be signed.
+     * @returns {PWSTR} A pointer to the default digest method, or the empty string "" if a default has not been set using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setdefaultdigestmethod">SetDefaultDigestMethod</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-getdefaultdigestmethod
      */
     GetDefaultDigestMethod() {
         result := ComCall(7, this, "ptr*", &digestMethod := 0, "HRESULT")
@@ -111,10 +169,39 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
+     * Sets the default digest method that will be used to compute digest values for objects to be signed.
+     * @param {PWSTR} digestMethod The default digest method.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} digestMethod 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-setdefaultdigestmethod
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>digestMethod</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-setdefaultdigestmethod
      */
     SetDefaultDigestMethod(digestMethod) {
         digestMethod := digestMethod is String ? StrPtr(digestMethod) : digestMethod
@@ -124,9 +211,9 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getcertificateembeddingoption
+     * Gets a value that specifies the storage location in the package of the certificate to be used for the signature.
+     * @returns {Integer} A value that specifies the location of the certificate.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-getcertificateembeddingoption
      */
     GetCertificateEmbeddingOption() {
         result := ComCall(9, this, "int*", &embeddingOption := 0, "HRESULT")
@@ -134,10 +221,39 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
+     * Set the storage location of the certificate to be used for the signature.
+     * @param {Integer} embeddingOption The <a href="https://docs.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_certificate_embedding_option">OPC_CERTIFICATE_EMBEDDING_OPTION</a> value that describes the location of the certificate.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} embeddingOption 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-setcertificateembeddingoption
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>embeddingOption</i> parameter is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-setcertificateembeddingoption
      */
     SetCertificateEmbeddingOption(embeddingOption) {
         result := ComCall(10, this, "int", embeddingOption, "HRESULT")
@@ -145,9 +261,9 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-gettimeformat
+     * Gets the format of the string retrieved by the IOpcDigitalSignature::GetSigningTime method.
+     * @returns {Integer} The value that describes the format of the <i>signingTime</i> parameter of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getsigningtime">GetSigningTime</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-gettimeformat
      */
     GetTimeFormat() {
         result := ComCall(11, this, "int*", &timeFormat := 0, "HRESULT")
@@ -155,10 +271,39 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
+     * Sets the format of the string retrieved by the IOpcDigitalSignature::GetSigningTime method.
+     * @param {Integer} timeFormat The value that describes the format of the string retrieved by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignature-getsigningtime">IOpcDigitalSignature::GetSigningTime</a> method.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} timeFormat 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-settimeformat
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value passed in the <i>timeFormat</i> parameter is not a valid <a href="/windows/win32/api/msopc/ne-msopc-opc_signature_time_format">OPC_SIGNATURE_TIME_FORMAT</a> enumeration value.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-settimeformat
      */
     SetTimeFormat(timeFormat) {
         result := ComCall(12, this, "int", timeFormat, "HRESULT")
@@ -166,9 +311,9 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcSignaturePartReferenceSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignaturepartreferenceset
+     * Gets an IOpcSignaturePartReferenceSet interface.
+     * @returns {IOpcSignaturePartReferenceSet} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturepartreferenceset">IOpcSignaturePartReferenceSet</a> interface pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-getsignaturepartreferenceset
      */
     GetSignaturePartReferenceSet() {
         result := ComCall(13, this, "ptr*", &partReferenceSet := 0, "HRESULT")
@@ -176,9 +321,9 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcSignatureRelationshipReferenceSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignaturerelationshipreferenceset
+     * Gets an IOpcSignatureRelationshipReferenceSet interface pointer.
+     * @returns {IOpcSignatureRelationshipReferenceSet} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturerelationshipreferenceset">IOpcSignatureRelationshipReferenceSet</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-getsignaturerelationshipreferenceset
      */
     GetSignatureRelationshipReferenceSet() {
         result := ComCall(14, this, "ptr*", &relationshipReferenceSet := 0, "HRESULT")
@@ -186,9 +331,9 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcSignatureCustomObjectSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getcustomobjectset
+     * Gets an IOpcSignatureCustomObjectSet interface.
+     * @returns {IOpcSignatureCustomObjectSet} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturecustomobjectset">IOpcSignatureCustomObjectSet</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-getcustomobjectset
      */
     GetCustomObjectSet() {
         result := ComCall(15, this, "ptr*", &customObjectSet := 0, "HRESULT")
@@ -196,9 +341,9 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcSignatureReferenceSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getcustomreferenceset
+     * Gets an IOpcSignatureReferenceSet interface pointer.
+     * @returns {IOpcSignatureReferenceSet} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcsignaturereferenceset">IOpcSignatureReferenceSet</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-getcustomreferenceset
      */
     GetCustomReferenceSet() {
         result := ComCall(16, this, "ptr*", &customReferenceSet := 0, "HRESULT")
@@ -206,9 +351,9 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcCertificateSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getcertificateset
+     * Gets an IOpcCertificateSet interface pointer.
+     * @returns {IOpcCertificateSet} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopccertificateset">IOpcCertificateSet</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-getcertificateset
      */
     GetCertificateSet() {
         result := ComCall(17, this, "ptr*", &certificateSet := 0, "HRESULT")
@@ -216,9 +361,9 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IOpcPartUri} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-getsignaturepartname
+     * Gets the part name of the signature part where the signature markup will be stored.
+     * @returns {IOpcPartUri} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface pointer that represents the part name of the part where the signature markup is stored,  or <b>NULL</b> if the part name  has not been set by a call to  the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-setsignaturepartname">SetSignaturePartName</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-getsignaturepartname
      */
     GetSignaturePartName() {
         result := ComCall(18, this, "ptr*", &signaturePartName := 0, "HRESULT")
@@ -226,10 +371,28 @@ class IOpcSigningOptions extends IUnknown{
     }
 
     /**
+     * Sets the part name of the signature part where the signature markup will be stored.
+     * @param {IOpcPartUri} signaturePartName An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface pointer that represents the part name of the part where the signature markup is stored,  or <b>NULL</b> to generate a part name when the signature is created.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IOpcPartUri} signaturePartName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsigningoptions-setsignaturepartname
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsigningoptions-setsignaturepartname
      */
     SetSignaturePartName(signaturePartName) {
         result := ComCall(19, this, "ptr", signaturePartName, "HRESULT")

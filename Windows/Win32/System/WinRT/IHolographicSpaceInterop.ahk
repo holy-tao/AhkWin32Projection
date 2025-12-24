@@ -31,11 +31,19 @@ class IHolographicSpaceInterop extends IInspectable{
     static VTableNames => ["CreateForWindow"]
 
     /**
+     * Instantiates a HolographicSpace object and binds it to the current application.
+     * @param {HWND} window Type: [HWND](/windows/desktop/winprog/windows-data-types)
      * 
-     * @param {HWND} window 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/holographicspaceinterop/nf-holographicspaceinterop-iholographicspaceinterop-createforwindow
+     * Handle to the window of the active application.
+     * @param {Pointer<Guid>} riid Type: **REFIID**
+     * 
+     * The RUID for the resource interface.
+     * 
+     * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example, __uuidof(IRadialController) will get the GUID of the interface to a buffer resource.
+     * @returns {Pointer<Void>} Type: **void\*\***
+     * 
+     * Address of a pointer to a [HolographicSpace](/uwp/api/windows.graphics.holographic.holographicspace) object.
+     * @see https://docs.microsoft.com/windows/win32/api//holographicspaceinterop/nf-holographicspaceinterop-iholographicspaceinterop-createforwindow
      */
     CreateForWindow(window, riid) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window

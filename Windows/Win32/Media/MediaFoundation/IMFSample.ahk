@@ -48,9 +48,9 @@ class IMFSample extends IMFAttributes{
     static VTableNames => ["GetSampleFlags", "SetSampleFlags", "GetSampleTime", "SetSampleTime", "GetSampleDuration", "SetSampleDuration", "GetBufferCount", "GetBufferByIndex", "ConvertToContiguousBuffer", "AddBuffer", "RemoveBufferByIndex", "RemoveAllBuffers", "GetTotalLength", "CopyToBuffer"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getsampleflags
+     * Retrieves flags associated with the sample.Currently no flags are defined.
+     * @returns {Integer} Receives the value zero.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-getsampleflags
      */
     GetSampleFlags() {
         result := ComCall(33, this, "uint*", &pdwSampleFlags := 0, "HRESULT")
@@ -58,10 +58,28 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
+     * Sets flags associated with the sample.Currently no flags are defined.
+     * @param {Integer} dwSampleFlags Reserved; must be zero.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwSampleFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-setsampleflags
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-setsampleflags
      */
     SetSampleFlags(dwSampleFlags) {
         result := ComCall(34, this, "uint", dwSampleFlags, "HRESULT")
@@ -69,9 +87,9 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getsampletime
+     * Retrieves the presentation time of the sample.
+     * @returns {Integer} Receives the presentation time, in 100-nanosecond units.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-getsampletime
      */
     GetSampleTime() {
         result := ComCall(35, this, "int64*", &phnsSampleTime := 0, "HRESULT")
@@ -79,10 +97,28 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
+     * Sets the presentation time of the sample.
+     * @param {Integer} hnsSampleTime The presentation time, in 100-nanosecond units.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} hnsSampleTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-setsampletime
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-setsampletime
      */
     SetSampleTime(hnsSampleTime) {
         result := ComCall(36, this, "int64", hnsSampleTime, "HRESULT")
@@ -90,9 +126,9 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getsampleduration
+     * Retrieves the duration of the sample.
+     * @returns {Integer} Receives the duration, in 100-nanosecond units.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-getsampleduration
      */
     GetSampleDuration() {
         result := ComCall(37, this, "int64*", &phnsSampleDuration := 0, "HRESULT")
@@ -100,10 +136,10 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
-     * 
-     * @param {Integer} hnsSampleDuration 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-setsampleduration
+     * Sets the duration of the sample.
+     * @param {Integer} hnsSampleDuration Duration of the sample, in 100-nanosecond units.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-setsampleduration
      */
     SetSampleDuration(hnsSampleDuration) {
         result := ComCall(38, this, "int64", hnsSampleDuration, "HRESULT")
@@ -111,9 +147,9 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getbuffercount
+     * Retrieves the number of buffers in the sample.
+     * @returns {Integer} Receives the number of buffers in the sample. A sample might contain zero buffers.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-getbuffercount
      */
     GetBufferCount() {
         result := ComCall(39, this, "uint*", &pdwBufferCount := 0, "HRESULT")
@@ -121,10 +157,10 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
-     * 
-     * @param {Integer} dwIndex 
-     * @returns {IMFMediaBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-getbufferbyindex
+     * Gets a buffer from the sample, by index.
+     * @param {Integer} dwIndex Index of the buffer. To find the number of buffers in the sample, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfsample-getbuffercount">IMFSample::GetBufferCount</a>. Buffers are indexed from zero.
+     * @returns {IMFMediaBuffer} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-getbufferbyindex
      */
     GetBufferByIndex(dwIndex) {
         result := ComCall(40, this, "uint", dwIndex, "ptr*", &ppBuffer := 0, "HRESULT")
@@ -132,9 +168,9 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
-     * 
-     * @returns {IMFMediaBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-converttocontiguousbuffer
+     * Converts a sample with multiple buffers into a sample with a single buffer.
+     * @returns {IMFMediaBuffer} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-converttocontiguousbuffer
      */
     ConvertToContiguousBuffer() {
         result := ComCall(41, this, "ptr*", &ppBuffer := 0, "HRESULT")
@@ -142,10 +178,39 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
+     * Adds a buffer to the end of the list of buffers in the sample.
+     * @param {IMFMediaBuffer} pBuffer Pointer to the buffer's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFMediaBuffer} pBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-addbuffer
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * NULL pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-addbuffer
      */
     AddBuffer(pBuffer) {
         result := ComCall(42, this, "ptr", pBuffer, "HRESULT")
@@ -153,10 +218,28 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
+     * Removes a buffer at a specified index from the sample.
+     * @param {Integer} dwIndex Index of the buffer. To find the number of buffers in the sample, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfsample-getbuffercount">IMFSample::GetBufferCount</a>. Buffers are indexed from zero.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} dwIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-removebufferbyindex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-removebufferbyindex
      */
     RemoveBufferByIndex(dwIndex) {
         result := ComCall(43, this, "uint", dwIndex, "HRESULT")
@@ -164,9 +247,27 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
+     * Removes all of the buffers from the sample.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-removeallbuffers
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-removeallbuffers
      */
     RemoveAllBuffers() {
         result := ComCall(44, this, "HRESULT")
@@ -174,9 +275,9 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-gettotallength
+     * Retrieves the total length of the valid data in all of the buffers in the sample. The length is calculated as the sum of the values retrieved by the IMFMediaBuffer::GetCurrentLength method.
+     * @returns {Integer} Receives the total length of the valid data, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-gettotallength
      */
     GetTotalLength() {
         result := ComCall(45, this, "uint*", &pcbTotalLength := 0, "HRESULT")
@@ -184,10 +285,50 @@ class IMFSample extends IMFAttributes{
     }
 
     /**
+     * Copies the sample data to a buffer. This method concatenates the valid data from all of the buffers of the sample, in order.
+     * @param {IMFMediaBuffer} pBuffer Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface of the destination buffer. The buffer must be large enough to hold the valid data in the sample. To get the size of the data in the sample, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfsample-gettotallength">IMFSample::GetTotalLength</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFMediaBuffer} pBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfsample-copytobuffer
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * NULL pointer argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_BUFFERTOOSMALL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer is not large enough to contain the data.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfsample-copytobuffer
      */
     CopyToBuffer(pBuffer) {
         result := ComCall(46, this, "ptr", pBuffer, "HRESULT")

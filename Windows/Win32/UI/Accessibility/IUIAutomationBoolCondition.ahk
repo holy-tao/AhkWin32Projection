@@ -31,9 +31,16 @@ class IUIAutomationBoolCondition extends IUIAutomationCondition{
     static VTableNames => ["get_BooleanValue"]
 
     /**
-     * 
+     * @type {BOOL} 
+     */
+    BooleanValue {
+        get => this.get_BooleanValue()
+    }
+
+    /**
+     * Retrieves the value of the condition:\_either TRUE or FALSE.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationboolcondition-get_booleanvalue
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationboolcondition-get_booleanvalue
      */
     get_BooleanValue() {
         result := ComCall(3, this, "int*", &boolVal := 0, "HRESULT")

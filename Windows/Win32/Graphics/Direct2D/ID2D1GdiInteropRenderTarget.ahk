@@ -43,10 +43,14 @@ class ID2D1GdiInteropRenderTarget extends IUnknown{
     static VTableNames => ["GetDC", "ReleaseDC"]
 
     /**
-     * The GetDC function retrieves a handle to a device context (DC) for the client area of a specified window or for the entire screen.
-     * @param {Integer} mode 
-     * @returns {HDC} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getdc
+     * Retrieves the device context associated with this render target.
+     * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_dc_initialize_mode">D2D1_DC_INITIALIZE_MODE</a></b>
+     * 
+     * A value that specifies whether the device context should be cleared.
+     * @returns {HDC} Type: <b>HDC*</b>
+     * 
+     * When this method returns, contains the device context associated with this render target. You must allocate storage for this parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1gdiinteroprendertarget-getdc
      */
     GetDC(mode) {
         hdc := HDC()
@@ -55,12 +59,14 @@ class ID2D1GdiInteropRenderTarget extends IUnknown{
     }
 
     /**
-     * The ReleaseDC function releases a device context (DC), freeing it for use by other applications. The effect of the ReleaseDC function depends on the type of DC. It frees only common and window DCs. It has no effect on class or private DCs.
-     * @param {Pointer<RECT>} update 
-     * @returns {HRESULT} The return value indicates whether the DC was released. If the DC was released, the return value is 1.
+     * Indicates that drawing with the device context retrieved using the GetDC method is finished.
+     * @param {Pointer<RECT>} update Type: <b><a href="https://docs.microsoft.com/windows/win32/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
-     * If the DC was not released, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-releasedc
+     * The modified region of the device context, or <b>NULL</b> to specify the entire render target.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1gdiinteroprendertarget-releasedc
      */
     ReleaseDC(update) {
         result := ComCall(4, this, "ptr", update, "HRESULT")

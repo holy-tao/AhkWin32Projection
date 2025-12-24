@@ -45,9 +45,41 @@ class IComponent extends IDispatch{
     static VTableNames => ["get_Type", "put_Type", "get_DescLangID", "put_DescLangID", "get_Status", "put_Status", "get_Description", "put_Description", "Clone"]
 
     /**
-     * 
-     * @returns {IComponentType} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_type
+     * @type {IComponentType} 
+     */
+    Type {
+        get => this.get_Type()
+        set => this.put_Type(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DescLangID {
+        get => this.get_DescLangID()
+        set => this.put_DescLangID(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+        set => this.put_Status(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * The get_Type method retrieves an IComponentType interface describing the general characteristics of the component.
+     * @returns {IComponentType} Address of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttype">IComponentType</a> interface pointer that will be set to the retrieved component.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponent-get_type
      */
     get_Type() {
         result := ComCall(7, this, "ptr*", &CT := 0, "HRESULT")
@@ -55,10 +87,10 @@ class IComponent extends IDispatch{
     }
 
     /**
-     * 
-     * @param {IComponentType} CT 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-put_type
+     * The put_Type method sets an IComponentType object describing the general characteristics of the component.
+     * @param {IComponentType} CT Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponenttype">IComponentType</a> object that specifies the new values for the component.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponent-put_type
      */
     put_Type(CT) {
         result := ComCall(8, this, "ptr", CT, "HRESULT")
@@ -66,9 +98,9 @@ class IComponent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_desclangid
+     * The get_DescLangID method retrieves the language identifier for the description property.
+     * @returns {Integer} Receives the language identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponent-get_desclangid
      */
     get_DescLangID() {
         result := ComCall(9, this, "int*", &LangID := 0, "HRESULT")
@@ -76,10 +108,10 @@ class IComponent extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} LangID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-put_desclangid
+     * The put_DescLangID method sets the language for presentation of the description.
+     * @param {Integer} LangID Specifies the language ID.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponent-put_desclangid
      */
     put_DescLangID(LangID) {
         result := ComCall(10, this, "int", LangID, "HRESULT")
@@ -87,9 +119,9 @@ class IComponent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_status
+     * The get_Status method retrieves the requested or actual status of the component.
+     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentstatus">ComponentStatus</a> enumeration that receives the status value.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponent-get_status
      */
     get_Status() {
         result := ComCall(11, this, "int*", &Status := 0, "HRESULT")
@@ -97,10 +129,10 @@ class IComponent extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} Status 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-put_status
+     * The put_Status method sets the requested or actual status of the component.
+     * @param {Integer} Status A variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/componentstatus">ComponentStatus</a> that specifies the status value.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponent-put_status
      */
     put_Status(Status) {
         result := ComCall(12, this, "int", Status, "HRESULT")
@@ -108,9 +140,9 @@ class IComponent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-get_description
+     * The get_Description method retrieves the description of the component.
+     * @returns {BSTR} Pointer to a variable that receives the description.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponent-get_description
      */
     get_Description() {
         Description := BSTR()
@@ -119,10 +151,10 @@ class IComponent extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} Description 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-put_description
+     * The put_Description method sets the description of the component.
+     * @param {BSTR} Description Variable of type <b>BSTR</b> that contains the new description.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponent-put_description
      */
     put_Description(Description) {
         Description := Description is String ? BSTR.Alloc(Description).Value : Description
@@ -132,9 +164,9 @@ class IComponent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IComponent} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-icomponent-clone
+     * The Clone method creates a copy of the component.
+     * @returns {IComponent} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponent">IComponent</a> interface pointer. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-icomponent-clone
      */
     Clone() {
         result := ComCall(15, this, "ptr*", &NewComponent := 0, "HRESULT")

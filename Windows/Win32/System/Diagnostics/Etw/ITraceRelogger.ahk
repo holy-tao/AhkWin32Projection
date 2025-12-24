@@ -38,11 +38,15 @@ class ITraceRelogger extends IUnknown{
     static VTableNames => ["AddLogfileTraceStream", "AddRealtimeTraceStream", "RegisterCallback", "Inject", "CreateEventInstance", "ProcessTrace", "SetOutputFilename", "SetCompressionMode", "Cancel"]
 
     /**
+     * Adds a new logfile-based ETW trace stream to the relogger.
+     * @param {BSTR} LogfileName Type: <b>BSTR</b>
      * 
-     * @param {BSTR} LogfileName 
-     * @param {Pointer<Void>} UserContext 
+     * The file that contains the events to be relogged.
+     * @param {Pointer<Void>} UserContext Type: <b>void*</b>
+     * 
+     * The user context under which to relog these events.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-addlogfiletracestream
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itracerelogger-addlogfiletracestream
      */
     AddLogfileTraceStream(LogfileName, UserContext) {
         LogfileName := LogfileName is String ? BSTR.Alloc(LogfileName).Value : LogfileName
@@ -54,11 +58,15 @@ class ITraceRelogger extends IUnknown{
     }
 
     /**
+     * Adds a new real-time ETW trace stream to the relogger.
+     * @param {BSTR} LoggerName Type: <b>BSTR</b>
      * 
-     * @param {BSTR} LoggerName 
-     * @param {Pointer<Void>} UserContext 
+     * The real-time logger generating the events to relog
+     * @param {Pointer<Void>} UserContext Type: <b>void*</b>
+     * 
+     * The user context under which to relog these events.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-addrealtimetracestream
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itracerelogger-addrealtimetracestream
      */
     AddRealtimeTraceStream(LoggerName, UserContext) {
         LoggerName := LoggerName is String ? BSTR.Alloc(LoggerName).Value : LoggerName
@@ -70,10 +78,14 @@ class ITraceRelogger extends IUnknown{
     }
 
     /**
+     * Registers an implementation of IEventCallback with the relogger in order to signal trace activity (starting, stopping, and logging new events).
+     * @param {ITraceEventCallback} Callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/relogger/nn-relogger-itraceeventcallback">IEventCallback</a>*</b>
      * 
-     * @param {ITraceEventCallback} Callback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-registercallback
+     * The trace activity information.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itracerelogger-registercallback
      */
     RegisterCallback(Callback) {
         result := ComCall(5, this, "ptr", Callback, "HRESULT")
@@ -81,10 +93,14 @@ class ITraceRelogger extends IUnknown{
     }
 
     /**
+     * Injects a non-system-generated event into the event stream being written to the output trace logfile.
+     * @param {ITraceEvent} Event Type: <b>IEvent*</b>
      * 
-     * @param {ITraceEvent} Event 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-inject
+     * The event to be injected into the stream.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itracerelogger-inject
      */
     Inject(Event) {
         result := ComCall(6, this, "ptr", Event, "HRESULT")
@@ -92,11 +108,15 @@ class ITraceRelogger extends IUnknown{
     }
 
     /**
-     * 
+     * Generates a new event.
      * @param {Integer} TraceStreamId 
-     * @param {Integer} Flags 
-     * @returns {ITraceEvent} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-createeventinstance
+     * @param {Integer} Flags Type: <b>ULONG</b>
+     * 
+     * Indicates whether the event is classic or crimson.
+     * @returns {ITraceEvent} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/relogger/nn-relogger-itraceevent">ITraceEvent</a>**</b>
+     * 
+     * The newly generated event.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itracerelogger-createeventinstance
      */
     CreateEventInstance(TraceStreamId, Flags) {
         result := ComCall(7, this, "uint", TraceStreamId, "uint", Flags, "ptr*", &Event := 0, "HRESULT")
@@ -104,112 +124,11 @@ class ITraceRelogger extends IUnknown{
     }
 
     /**
-     * The ProcessTrace function delivers events from one or more event tracing sessions to the consumer.
-     * @returns {HRESULT} If the function succeeds, the return value is ERROR_SUCCESS.
+     * Delivers events from the associated trace streams to the consumer.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If the function fails, the return value is one of the 
-     *        <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>. The following table includes some 
-     *        common errors and their causes.
-     * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_BAD_LENGTH</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>HandleCount</i> is not valid or the number of handles is greater than 64.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_HANDLE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An element of <i>HandleArray</i> is not a valid event tracing session handle.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_TIME</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>EndTime</i> is less than <i>StartTime</i>.
-     *        
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * <i>HandleArray</i> is <b>NULL</b>.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_NOACCESS</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An exception occurred in one of the callback functions that receives the events.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_CANCELLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Indicates the consumer canceled processing by returning <b>FALSE</b> in their 
-     *         <a href="/windows/desktop/ETW/buffercallback">BufferCallback</a> function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_WMI_INSTANCE_NOT_FOUND</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The session from which you are trying to consume events in real time is not running or does not have the 
-     *         real-time trace mode enabled.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>ERROR_WMI_ALREADY_ENABLED</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The <i>HandleArray</i> parameter contains the handle to more than one real-time 
-     *         session.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evntrace/nf-evntrace-processtrace
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itracerelogger-processtrace
      */
     ProcessTrace() {
         result := ComCall(8, this, "HRESULT")
@@ -217,10 +136,14 @@ class ITraceRelogger extends IUnknown{
     }
 
     /**
+     * Indicates the file to which ETW should write the new, relogged trace.
+     * @param {BSTR} LogfileName Type: <b>BSTR</b>
      * 
-     * @param {BSTR} LogfileName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-setoutputfilename
+     * The new filename.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itracerelogger-setoutputfilename
      */
     SetOutputFilename(LogfileName) {
         LogfileName := LogfileName is String ? BSTR.Alloc(LogfileName).Value : LogfileName
@@ -230,10 +153,14 @@ class ITraceRelogger extends IUnknown{
     }
 
     /**
+     * Enables or disables compression on the relogged trace.
+     * @param {BOOLEAN} CompressionMode Type: <b>BOOLEAN</b>
      * 
-     * @param {BOOLEAN} CompressionMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-setcompressionmode
+     * True if compression is enabled; otherwise, false.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itracerelogger-setcompressionmode
      */
     SetCompressionMode(CompressionMode) {
         result := ComCall(10, this, "char", CompressionMode, "HRESULT")
@@ -241,9 +168,11 @@ class ITraceRelogger extends IUnknown{
     }
 
     /**
+     * Terminates the relogging process.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itracerelogger-cancel
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itracerelogger-cancel
      */
     Cancel() {
         result := ComCall(11, this, "HRESULT")

@@ -30,6 +30,13 @@ class IHTMLTable2 extends IDispatch{
     static VTableNames => ["firstPage", "lastPage", "get_cells", "moveRow"]
 
     /**
+     * @type {IHTMLElementCollection} 
+     */
+    cells {
+        get => this.get_cells()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

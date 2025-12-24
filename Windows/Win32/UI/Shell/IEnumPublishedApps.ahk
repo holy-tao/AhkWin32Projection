@@ -37,9 +37,11 @@ class IEnumPublishedApps extends IUnknown{
     static VTableNames => ["Next", "Reset"]
 
     /**
+     * Gets the next IPublishedApp object in the enumeration.
+     * @returns {IPublishedApp} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ipublishedapp">IPublishedApp</a>**</b>
      * 
-     * @returns {IPublishedApp} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ienumpublishedapps-next
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ipublishedapp">IPublishedApp</a> interface reference variable that returns the next application object. Note that the category of the application object returned must match that passed into <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-iapppublisher-enumapps">EnumApps</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ienumpublishedapps-next
      */
     Next() {
         result := ComCall(3, this, "ptr*", &pia := 0, "HRESULT")
@@ -47,9 +49,29 @@ class IEnumPublishedApps extends IUnknown{
     }
 
     /**
+     * Resets the enumeration of IPublishedApp objects to the first item.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ienumpublishedapps-reset
+     * Returns the following value.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This method only returns S_OK.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ienumpublishedapps-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")

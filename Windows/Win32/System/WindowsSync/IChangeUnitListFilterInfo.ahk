@@ -36,21 +36,61 @@ class IChangeUnitListFilterInfo extends ISyncFilterInfo{
     static VTableNames => ["Initialize", "GetChangeUnitIdCount", "GetChangeUnitId"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Pointer<Pointer<Integer>>} ppbChangeUnitIds 
-     * @param {Integer} dwChangeUnitCount 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes a new instance of the IChangeUnitListFilterInfo class that contains the specified array of change unit IDs.
+     * @param {Pointer<Pointer<Integer>>} ppbChangeUnitIds The array of change unit IDs that indicate which change units are included by this filter.
+     * @param {Integer} dwChangeUnitCount The number of change unit IDs that are contained in <i>ppbChangeUnitIds</i>.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>dwChangeUnitCount</i> is 0, or any ID that is contained in <i>ppbChangeUnitIds</i> is not valid.
+     * 
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitlistfilterinfo-initialize
      */
     Initialize(ppbChangeUnitIds, dwChangeUnitCount) {
         ppbChangeUnitIdsMarshal := ppbChangeUnitIds is VarRef ? "ptr*" : "ptr"
@@ -60,10 +100,39 @@ class IChangeUnitListFilterInfo extends ISyncFilterInfo{
     }
 
     /**
+     * Gets the number of change unit IDs that define the filter.
+     * @param {Pointer<Integer>} pdwChangeUnitIdCount Returns the number of change unit IDs that define the filter.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Pointer<Integer>} pdwChangeUnitIdCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitidcount
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitidcount
      */
     GetChangeUnitIdCount(pdwChangeUnitIdCount) {
         pdwChangeUnitIdCountMarshal := pdwChangeUnitIdCount is VarRef ? "uint*" : "ptr"
@@ -73,12 +142,75 @@ class IChangeUnitListFilterInfo extends ISyncFilterInfo{
     }
 
     /**
+     * Gets the change unit ID that is stored at the specified index in the array of change unit IDs that define the filter.
+     * @param {Integer} dwChangeUnitIdIndex The index of the change unit ID to look up.
+     * @param {Pointer<Integer>} pbChangeUnitId Returns the change unit ID that is stored at the index that is specified by <i>dwChangeUnitIdIndex</i>.
+     * @param {Pointer<Integer>} pcbIdSize Specifies the number of bytes in <i>pbChangeUnitId</i>. Returns the number of bytes that are required to retrieve the ID when <i>pbChangeUnitId</i> is too small, or the number of bytes written.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} dwChangeUnitIdIndex 
-     * @param {Pointer<Integer>} pbChangeUnitId 
-     * @param {Pointer<Integer>} pcbIdSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No filter is defined, or  <i>dwChangeUnitIdIndex</i> is larger than the number of change unit IDs that are stored in this object.
+     * 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pbChangeUnitId</i> is too small. In this case, the required number of bytes is returned in <i>pcbIdSize</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_ID_FORMAT_MISMATCH</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The change unit ID to be returned is not valid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ichangeunitlistfilterinfo-getchangeunitid
      */
     GetChangeUnitId(dwChangeUnitIdIndex, pbChangeUnitId, pcbIdSize) {
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"

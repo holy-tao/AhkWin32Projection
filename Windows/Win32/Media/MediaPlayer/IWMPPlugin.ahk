@@ -31,10 +31,10 @@ class IWMPPlugin extends IUnknown{
     static VTableNames => ["Init", "Shutdown", "GetID", "GetCaps", "AdviseWMPServices", "UnAdviseWMPServices"]
 
     /**
-     * 
-     * @param {Pointer} dwPlaybackContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpplugin-init
+     * The IWMPPlugin::Init method is called when Windows Media Player initializes the plug-in.
+     * @param {Pointer} dwPlaybackContext DWORD value that indicates the particular Windows Media Player playback engine to which the plug-in belongs.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpplugin-init
      */
     Init(dwPlaybackContext) {
         result := ComCall(3, this, "ptr", dwPlaybackContext, "HRESULT")
@@ -42,9 +42,9 @@ class IWMPPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpplugin-shutdown
+     * The IWMPPlugin::Shutdown method is called when Windows Media Player shuts down the plug-in.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpplugin-shutdown
      */
     Shutdown() {
         result := ComCall(4, this, "HRESULT")
@@ -52,10 +52,10 @@ class IWMPPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} pGUID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpplugin-getid
+     * The IWMPPlugin::GetID method returns the class id of the plug-in.
+     * @param {Pointer<Guid>} pGUID Pointer to a <b>GUID</b> that represents the class id of the plug-in.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpplugin-getid
      */
     GetID(pGUID) {
         result := ComCall(5, this, "ptr", pGUID, "HRESULT")
@@ -63,10 +63,10 @@ class IWMPPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pdwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpplugin-getcaps
+     * The IWMPPlugin::GetCaps method returns a flag that specifies whether the plug-in can convert between an input format and an output format.
+     * @param {Pointer<Integer>} pdwFlags Pointer to a variable that specifies whether the plug-in can convert formats. The specified value is a bitwise combination of zero or more flags from the <b>WMPPlugin_Caps</b> enumeration.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpplugin-getcaps
      */
     GetCaps(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
@@ -76,10 +76,10 @@ class IWMPPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IWMPServices} pWMPServices 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpplugin-advisewmpservices
+     * The IWMPPlugin::AdviseWMPServices method is implemented by the plug-in.
+     * @param {IWMPServices} pWMPServices Pointer to an <b>IWMPServices</b> interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpplugin-advisewmpservices
      */
     AdviseWMPServices(pWMPServices) {
         result := ComCall(7, this, "ptr", pWMPServices, "HRESULT")
@@ -87,9 +87,9 @@ class IWMPPlugin extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpplugin-unadvisewmpservices
+     * The IWMPPlugin::UnAdviseWMPServices method is used to release the pointer provided by AdviseWMPServices.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpplugin-unadvisewmpservices
      */
     UnAdviseWMPServices() {
         result := ComCall(8, this, "HRESULT")

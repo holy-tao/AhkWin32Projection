@@ -56,10 +56,14 @@ class IDWriteFontSetBuilder extends IUnknown{
     }
 
     /**
+     * Appends an existing font set to the one being built, allowing one to aggregate two sets or to essentially extend an existing one.
+     * @param {IDWriteFontSet} fontSet Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>*</b>
      * 
-     * @param {IDWriteFontSet} fontSet 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontsetbuilder-addfontset
+     * Font set to append font face references from.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontsetbuilder-addfontset
      */
     AddFontSet(fontSet) {
         result := ComCall(5, this, "ptr", fontSet, "HRESULT")
@@ -67,9 +71,11 @@ class IDWriteFontSetBuilder extends IUnknown{
     }
 
     /**
+     * Creates a font set from all the font face references added so far with AddFontFaceReference.
+     * @returns {IDWriteFontSet} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset">IDWriteFontSet</a>**</b>
      * 
-     * @returns {IDWriteFontSet} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontsetbuilder-createfontset
+     * Contains the newly created font set object, or nullptr in case of failure.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontsetbuilder-createfontset
      */
     CreateFontSet() {
         result := ComCall(6, this, "ptr*", &fontSet := 0, "HRESULT")

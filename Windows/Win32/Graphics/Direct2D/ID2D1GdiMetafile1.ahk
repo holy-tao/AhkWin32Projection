@@ -32,11 +32,17 @@ class ID2D1GdiMetafile1 extends ID2D1GdiMetafile{
     static VTableNames => ["GetDpi", "GetSourceBounds"]
 
     /**
+     * Gets the DPI reported by the metafile.
+     * @param {Pointer<Float>} dpiX Type: <b>FLOAT*</b>
      * 
-     * @param {Pointer<Float>} dpiX 
-     * @param {Pointer<Float>} dpiY 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gdimetafile1-getdpi
+     * Receives the horizontal DPI reported by the metafile.
+     * @param {Pointer<Float>} dpiY Type: <b>FLOAT*</b>
+     * 
+     * Receives the vertical DPI reported by the metafile.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1gdimetafile1-getdpi
      */
     GetDpi(dpiX, dpiY) {
         dpiXMarshal := dpiX is VarRef ? "float*" : "ptr"
@@ -47,9 +53,11 @@ class ID2D1GdiMetafile1 extends ID2D1GdiMetafile{
     }
 
     /**
+     * Gets the bounds of the metafile in source space in DIPs. This corresponds to the frame rect in an EMF/EMF+.
+     * @returns {D2D_RECT_F} Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
      * 
-     * @returns {D2D_RECT_F} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gdimetafile1-getsourcebounds
+     * The bounds, in DIPs, of the metafile.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1gdimetafile1-getsourcebounds
      */
     GetSourceBounds() {
         bounds := D2D_RECT_F()

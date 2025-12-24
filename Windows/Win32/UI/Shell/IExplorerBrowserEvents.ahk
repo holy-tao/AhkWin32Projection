@@ -42,10 +42,14 @@ class IExplorerBrowserEvents extends IUnknown{
     static VTableNames => ["OnNavigationPending", "OnViewCreated", "OnNavigationComplete", "OnNavigationFailed"]
 
     /**
+     * Notifies clients of a pending Explorer browser navigation to a Shell folder.
+     * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidlFolder 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowserevents-onnavigationpending
+     * A PIDL that specifies the folder.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowserevents-onnavigationpending
      */
     OnNavigationPending(pidlFolder) {
         result := ComCall(3, this, "ptr", pidlFolder, "HRESULT")
@@ -53,10 +57,14 @@ class IExplorerBrowserEvents extends IUnknown{
     }
 
     /**
+     * Notifies clients that the view of the Explorer browser has been created and can be modified.
+     * @param {IShellView} psv Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>*</b>
      * 
-     * @param {IShellView} psv 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowserevents-onviewcreated
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowserevents-onviewcreated
      */
     OnViewCreated(psv) {
         result := ComCall(4, this, "ptr", psv, "HRESULT")
@@ -64,10 +72,14 @@ class IExplorerBrowserEvents extends IUnknown{
     }
 
     /**
+     * Notifies clients that the Explorer browser has successfully navigated to a Shell folder.
+     * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidlFolder 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowserevents-onnavigationcomplete
+     * A PIDL that specifies the folder.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowserevents-onnavigationcomplete
      */
     OnNavigationComplete(pidlFolder) {
         result := ComCall(5, this, "ptr", pidlFolder, "HRESULT")
@@ -75,10 +87,14 @@ class IExplorerBrowserEvents extends IUnknown{
     }
 
     /**
+     * Notifies clients that the Explorer browser has failed to navigate to a Shell folder.
+     * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidlFolder 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowserevents-onnavigationfailed
+     * A PIDL that specifies the folder.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowserevents-onnavigationfailed
      */
     OnNavigationFailed(pidlFolder) {
         result := ComCall(6, this, "ptr", pidlFolder, "HRESULT")

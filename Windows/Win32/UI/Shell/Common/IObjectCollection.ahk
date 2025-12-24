@@ -36,10 +36,14 @@ class IObjectCollection extends IObjectArray{
     static VTableNames => ["AddObject", "AddFromArray", "RemoveObjectAt", "Clear"]
 
     /**
+     * Adds a single object to the collection.
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectcollection-addobject
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the object to be added to the collection.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectcollection-addobject
      */
     AddObject(punk) {
         result := ComCall(5, this, "ptr", punk, "HRESULT")
@@ -47,10 +51,14 @@ class IObjectCollection extends IObjectArray{
     }
 
     /**
+     * Adds the objects contained in an IObjectArray to the collection.
+     * @param {IObjectArray} poaSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objectarray/nn-objectarray-iobjectarray">IObjectArray</a>*</b>
      * 
-     * @param {IObjectArray} poaSource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectcollection-addfromarray
+     * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objectarray/nn-objectarray-iobjectarray">IObjectArray</a> whose contents are to be added to the collection.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectcollection-addfromarray
      */
     AddFromArray(poaSource) {
         result := ComCall(6, this, "ptr", poaSource, "HRESULT")
@@ -58,10 +66,14 @@ class IObjectCollection extends IObjectArray{
     }
 
     /**
+     * Removes a single, specified object from the collection.
+     * @param {Integer} uiIndex Type: <b>UINT*</b>
      * 
-     * @param {Integer} uiIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectcollection-removeobjectat
+     * A pointer to the index of the object within the collection.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectcollection-removeobjectat
      */
     RemoveObjectAt(uiIndex) {
         result := ComCall(7, this, "uint", uiIndex, "HRESULT")
@@ -69,9 +81,11 @@ class IObjectCollection extends IObjectArray{
     }
 
     /**
+     * Removes all objects from the collection.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectcollection-clear
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectcollection-clear
      */
     Clear() {
         result := ComCall(8, this, "HRESULT")

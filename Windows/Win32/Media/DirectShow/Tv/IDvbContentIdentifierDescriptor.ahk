@@ -31,9 +31,9 @@ class IDvbContentIdentifierDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetCountOfRecords", "GetRecordCrid"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-gettag
+     * Gets the tag for a Digital Video Broadcast (DVB) content identifier descriptor.
+     * @returns {Integer} Receives the content identifier descriptor tag. For content identifier descriptors, this tag value is "0x76".
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IDvbContentIdentifierDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getlength
+     * Gets the body length of a Digital Video Broadcast (DVB) content identifier descriptor.
+     * @returns {Integer} Gets the descriptor body length.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -51,9 +51,9 @@ class IDvbContentIdentifierDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getcountofrecords
+     * Gets the number of service records in a Digital Video Broadcast (DVB) content identifier descriptor.
+     * @returns {Integer} Receives the number of service records.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -61,14 +61,14 @@ class IDvbContentIdentifierDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @param {Pointer<Integer>} pbType 
-     * @param {Pointer<Integer>} pbLocation 
-     * @param {Pointer<Integer>} pbLength 
-     * @param {Pointer<Pointer<Integer>>} ppbBytes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getrecordcrid
+     * Gets the content reference identifier (CRID) from a Digital Video Broadcast (DVB) content identifier descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the service record to return. To get the number of service records in the descriptor, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getcountofrecords">IDvbContentIdentifierDescriptor::GetCountOfRecords</a> method.
+     * @param {Pointer<Integer>} pbType Receives the type of the CRID.
+     * @param {Pointer<Integer>} pbLocation Gets the location of the CRID.
+     * @param {Pointer<Integer>} pbLength Gets the number of bytes required to return the CRID.
+     * @param {Pointer<Pointer<Integer>>} ppbBytes Pointer to a buffer that receives the CRID. The caller is responsible for freeing this memory.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbcontentidentifierdescriptor-getrecordcrid
      */
     GetRecordCrid(bRecordIndex, pbType, pbLocation, pbLength, ppbBytes) {
         pbTypeMarshal := pbType is VarRef ? "char*" : "ptr"

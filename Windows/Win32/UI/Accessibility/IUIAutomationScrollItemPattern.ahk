@@ -31,9 +31,11 @@ class IUIAutomationScrollItemPattern extends IUnknown{
     static VTableNames => ["ScrollIntoView"]
 
     /**
+     * Scrolls the content area of a container object to display the UI Automation element within the visible region (viewport) of the container.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationscrollitempattern-scrollintoview
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationscrollitempattern-scrollintoview
      */
     ScrollIntoView() {
         result := ComCall(3, this, "HRESULT")

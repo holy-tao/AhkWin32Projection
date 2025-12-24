@@ -34,6 +34,46 @@ class IEventPublisher extends IDispatch{
     static VTableNames => ["get_PublisherID", "put_PublisherID", "get_PublisherName", "put_PublisherName", "get_PublisherType", "put_PublisherType", "get_OwnerSID", "put_OwnerSID", "get_Description", "put_Description", "GetDefaultProperty", "PutDefaultProperty", "RemoveDefaultProperty", "GetDefaultPropertyCollection"]
 
     /**
+     * @type {BSTR} 
+     */
+    PublisherID {
+        get => this.get_PublisherID()
+        set => this.put_PublisherID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PublisherName {
+        get => this.get_PublisherName()
+        set => this.put_PublisherName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PublisherType {
+        get => this.get_PublisherType()
+        set => this.put_PublisherType(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OwnerSID {
+        get => this.get_OwnerSID()
+        set => this.put_OwnerSID(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */
@@ -44,10 +84,10 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
+     * The identifier for the event publisher.
      * @param {BSTR} bstrPublisherID 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-put_publisherid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-put_publisherid
      */
     put_PublisherID(bstrPublisherID) {
         bstrPublisherID := bstrPublisherID is String ? BSTR.Alloc(bstrPublisherID).Value : bstrPublisherID
@@ -57,9 +97,9 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
+     * The display name for the event publisher.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_publishername
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-get_publishername
      */
     get_PublisherName() {
         pbstrPublisherName := BSTR()
@@ -68,10 +108,10 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
+     * The display name for the event publisher.
      * @param {BSTR} bstrPublisherName 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-put_publishername
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-put_publishername
      */
     put_PublisherName(bstrPublisherName) {
         bstrPublisherName := bstrPublisherName is String ? BSTR.Alloc(bstrPublisherName).Value : bstrPublisherName
@@ -81,9 +121,9 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
+     * The optional administrative group for the event publisher.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_publishertype
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-get_publishertype
      */
     get_PublisherType() {
         pbstrPublisherType := BSTR()
@@ -92,10 +132,10 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
+     * The optional administrative group for the event publisher.
      * @param {BSTR} bstrPublisherType 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-put_publishertype
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-put_publishertype
      */
     put_PublisherType(bstrPublisherType) {
         bstrPublisherType := bstrPublisherType is String ? BSTR.Alloc(bstrPublisherType).Value : bstrPublisherType
@@ -105,9 +145,9 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
+     * The security identifier of the creator of the event publisher.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_ownersid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-get_ownersid
      */
     get_OwnerSID() {
         pbstrOwnerSID := BSTR()
@@ -116,10 +156,10 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
+     * The security identifier of the creator of the event publisher.
      * @param {BSTR} bstrOwnerSID 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-put_ownersid
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-put_ownersid
      */
     put_OwnerSID(bstrOwnerSID) {
         bstrOwnerSID := bstrOwnerSID is String ? BSTR.Alloc(bstrOwnerSID).Value : bstrOwnerSID
@@ -129,9 +169,9 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
+     * The display text for the event publisher.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-get_description
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-get_description
      */
     get_Description() {
         pbstrDescription := BSTR()
@@ -140,10 +180,10 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
+     * The display text for the event publisher.
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-put_description
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-put_description
      */
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
@@ -153,10 +193,10 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPropertyName 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-getdefaultproperty
+     * Retrieves a named property and its value from the property bag associated with the event publisher.
+     * @param {BSTR} bstrPropertyName The name of the property whose value is to be retrieved.
+     * @returns {VARIANT} A pointer to the variable that receives the property.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-getdefaultproperty
      */
     GetDefaultProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
@@ -167,11 +207,11 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPropertyName 
-     * @param {Pointer<VARIANT>} propertyValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-putdefaultproperty
+     * Writes a named property and its value to the property bag associated with the event publisher.
+     * @param {BSTR} bstrPropertyName The name of the property whose value is to be set.
+     * @param {Pointer<VARIANT>} propertyValue The new value for the property.
+     * @returns {HRESULT} The possible return values include E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-putdefaultproperty
      */
     PutDefaultProperty(bstrPropertyName, propertyValue) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
@@ -181,10 +221,10 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrPropertyName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-removedefaultproperty
+     * Removes a named property and its value from the property bag associated with the event publisher object.
+     * @param {BSTR} bstrPropertyName The name of the property to be removed.
+     * @returns {HRESULT} The possible return values include E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-removedefaultproperty
      */
     RemoveDefaultProperty(bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
@@ -194,9 +234,9 @@ class IEventPublisher extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEventObjectCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ieventpublisher-getdefaultpropertycollection
+     * Creates a collection object that enumerates the properties contained in the property bag associated with the event publisher object.
+     * @returns {IEventObjectCollection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventobjectcollection">IEventObjectCollection</a> interface pointer on an event object collection. This parameter cannot be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ieventpublisher-getdefaultpropertycollection
      */
     GetDefaultPropertyCollection() {
         result := ComCall(20, this, "ptr*", &collection := 0, "HRESULT")

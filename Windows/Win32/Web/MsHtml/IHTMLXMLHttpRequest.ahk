@@ -37,6 +37,56 @@ class IHTMLXMLHttpRequest extends IDispatch{
     static VTableNames => ["get_readyState", "get_responseBody", "get_responseText", "get_responseXML", "get_status", "get_statusText", "put_onreadystatechange", "get_onreadystatechange", "abort", "open", "send", "getAllResponseHeaders", "getResponseHeader", "setRequestHeader"]
 
     /**
+     * @type {Integer} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    responseBody {
+        get => this.get_responseBody()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    responseText {
+        get => this.get_responseText()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    responseXML {
+        get => this.get_responseXML()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    status {
+        get => this.get_status()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    statusText {
+        get => this.get_statusText()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreadystatechange {
+        get => this.get_onreadystatechange()
+        set => this.put_onreadystatechange(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

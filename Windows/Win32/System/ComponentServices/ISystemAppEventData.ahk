@@ -32,9 +32,9 @@ class ISystemAppEventData extends IUnknown{
     static VTableNames => ["Startup", "OnDataChanged"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isystemappeventdata-startup
+     * Invoked when a COM+ application instance is created.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isystemappeventdata-startup
      */
     Startup() {
         result := ComCall(3, this, "HRESULT")
@@ -42,15 +42,15 @@ class ISystemAppEventData extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwPID 
-     * @param {Integer} dwMask 
-     * @param {Integer} dwNumberSinks 
-     * @param {BSTR} bstrDwMethodMask 
-     * @param {Integer} dwReason 
-     * @param {Integer} u64TraceHandle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-isystemappeventdata-ondatachanged
+     * Generated when the configuration of a COM+ application instance is changed.
+     * @param {Integer} dwPID The process identifier of the application instance for which the configuration was changed.
+     * @param {Integer} dwMask The event mask used to determine which tracing event fires.
+     * @param {Integer} dwNumberSinks Always set equal to SinkType::NUMBER_SINKS.
+     * @param {BSTR} bstrDwMethodMask The event mask used to determine to which events the user has subscribed.
+     * @param {Integer} dwReason Always set equal to INFO_MASKCHANGED.
+     * @param {Integer} u64TraceHandle A handle to the relevant tracing session.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-isystemappeventdata-ondatachanged
      */
     OnDataChanged(dwPID, dwMask, dwNumberSinks, bstrDwMethodMask, dwReason, u64TraceHandle) {
         bstrDwMethodMask := bstrDwMethodMask is String ? BSTR.Alloc(bstrDwMethodMask).Value : bstrDwMethodMask

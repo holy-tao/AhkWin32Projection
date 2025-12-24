@@ -33,9 +33,9 @@ class IMediaStream extends IUnknown{
     static VTableNames => ["GetMultiMediaStream", "GetInformation", "SetSameFormat", "AllocateSample", "CreateSharedSample", "SendEndOfStream"]
 
     /**
-     * 
-     * @returns {IMultiMediaStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-getmultimediastream
+     * Note  This interface is deprecated. New applications should not use it. Retrieves a pointer to the multimedia stream that contains the specified media stream.
+     * @returns {IMultiMediaStream} Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mmstream/nn-mmstream-imultimediastream">IMultiMediaStream</a> interface object that will point to the multimedia stream from which the current media stream was created.
+     * @see https://docs.microsoft.com/windows/win32/api//mmstream/nf-mmstream-imediastream-getmultimediastream
      */
     GetMultiMediaStream() {
         result := ComCall(3, this, "ptr*", &ppMultiMediaStream := 0, "HRESULT")
@@ -43,11 +43,11 @@ class IMediaStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} pPurposeId 
-     * @param {Pointer<Integer>} pType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-getinformation
+     * Note  This interface is deprecated. New applications should not use it. Retrieves the stream's purpose ID and media type.
+     * @param {Pointer<Guid>} pPurposeId Pointer to an <b>MSPID</b> value that will contain the stream's purpose ID (see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/multimedia-streaming-data-types">Multimedia Streaming Data Types</a>). If this parameter is <b>NULL</b> on entry, the method won't retrieve the purpose ID.
+     * @param {Pointer<Integer>} pType Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mmstream/ne-mmstream-stream_type">STREAM_TYPE</a> enumerated data type value that will contain the stream's media type. If this parameter is <b>NULL</b> on entry, the method won't retrieve the media type.
+     * @returns {HRESULT} Returns S_OK if successful or E_POINTER if one of the parameters is invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//mmstream/nf-mmstream-imediastream-getinformation
      */
     GetInformation(pPurposeId, pType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"
@@ -57,11 +57,11 @@ class IMediaStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMediaStream} pStreamThatHasDesiredFormat 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-setsameformat
+     * Note  This interface is deprecated. New applications should not use it. Sets the media stream to the same format as a previous stream.
+     * @param {IMediaStream} pStreamThatHasDesiredFormat Pointer to a media stream object that has the same format.
+     * @param {Integer} dwFlags Reserved for flag data. Must be zero.
+     * @returns {HRESULT} Returns S_OK if successful or E_POINTER if one of the parameters is invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//mmstream/nf-mmstream-imediastream-setsameformat
      */
     SetSameFormat(pStreamThatHasDesiredFormat, dwFlags) {
         result := ComCall(5, this, "ptr", pStreamThatHasDesiredFormat, "uint", dwFlags, "HRESULT")
@@ -69,10 +69,10 @@ class IMediaStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwFlags 
-     * @returns {IStreamSample} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-allocatesample
+     * Note  This interface is deprecated. New applications should not use it. Allocates a new stream sample object for the current media stream.
+     * @param {Integer} dwFlags Flags. Must be zero.
+     * @returns {IStreamSample} Address of a pointer to the newly created stream sample's <a href="https://docs.microsoft.com/windows/desktop/api/mmstream/nn-mmstream-istreamsample">IStreamSample</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mmstream/nf-mmstream-imediastream-allocatesample
      */
     AllocateSample(dwFlags) {
         result := ComCall(6, this, "uint", dwFlags, "ptr*", &ppSample := 0, "HRESULT")
@@ -80,11 +80,11 @@ class IMediaStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IStreamSample} pExistingSample 
-     * @param {Integer} dwFlags 
-     * @returns {IStreamSample} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-createsharedsample
+     * Note  This interface is deprecated. New applications should not use it. Creates a new stream sample that shares the same backing object as the existing sample.
+     * @param {IStreamSample} pExistingSample Pointer to the existing sample.
+     * @param {Integer} dwFlags Reserved for flag data. Must be zero.
+     * @returns {IStreamSample} Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mmstream/nn-mmstream-istreamsample">IStreamSample</a> interface that will point to the newly created shared sample.
+     * @see https://docs.microsoft.com/windows/win32/api//mmstream/nf-mmstream-imediastream-createsharedsample
      */
     CreateSharedSample(pExistingSample, dwFlags) {
         result := ComCall(7, this, "ptr", pExistingSample, "uint", dwFlags, "ptr*", &ppNewSample := 0, "HRESULT")
@@ -92,10 +92,10 @@ class IMediaStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmstream/nf-mmstream-imediastream-sendendofstream
+     * Note  This interface is deprecated. New applications should not use it. Forces the current stream to end. If the current stream isn't writable, this method does nothing.
+     * @param {Integer} dwFlags Reserved for flag data. Must be zero.
+     * @returns {HRESULT} Returns S_OK if successful or MS_E_INCOMPATIBLE if the existing sample isn't compatible with the current media stream.
+     * @see https://docs.microsoft.com/windows/win32/api//mmstream/nf-mmstream-imediastream-sendendofstream
      */
     SendEndOfStream(dwFlags) {
         result := ComCall(8, this, "uint", dwFlags, "HRESULT")

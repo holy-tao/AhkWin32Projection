@@ -31,9 +31,9 @@ class IRequiredExtensions extends IUnknown{
     static VTableNames => ["EnableAllExtensions", "GetFirstExtension", "GetNextExtension"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-irequiredextensions-enableallextensions
+     * The IRequiredExtensions::EnableAllExtensions method enables the snap-in to specify that all extension snap-ins registered for the snap-in are required.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-irequiredextensions-enableallextensions
      */
     EnableAllExtensions() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +41,9 @@ class IRequiredExtensions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-irequiredextensions-getfirstextension
+     * Enables the snap-in to specify the first extension snap-in its list of required extension snap-ins.
+     * @returns {Guid} A pointer to the CLSID of the first snap-in in the list of required extension snap-ins.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-irequiredextensions-getfirstextension
      */
     GetFirstExtension() {
         pExtCLSID := Guid()
@@ -52,9 +52,9 @@ class IRequiredExtensions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-irequiredextensions-getnextextension
+     * Enables the snap-in to specify the next extension snap-in in its list of required extension snap-ins.
+     * @returns {Guid} A pointer to the CLSID of the next snap-in in the list of required extension snap-ins.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-irequiredextensions-getnextextension
      */
     GetNextExtension() {
         pExtCLSID := Guid()

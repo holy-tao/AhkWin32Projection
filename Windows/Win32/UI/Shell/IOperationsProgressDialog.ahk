@@ -31,11 +31,15 @@ class IOperationsProgressDialog extends IUnknown{
     static VTableNames => ["StartProgressDialog", "StopProgressDialog", "SetOperation", "SetMode", "UpdateProgress", "UpdateLocations", "ResetTimer", "PauseTimer", "ResumeTimer", "GetMilliseconds", "GetOperationStatus"]
 
     /**
+     * Starts the specified progress dialog.
+     * @param {HWND} hwndOwner Type: <b>HWND</b>
      * 
-     * @param {HWND} hwndOwner 
-     * @param {Integer} flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-startprogressdialog
+     * A handle to the parent window.
+     * @param {Integer} flags Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-startprogressdialog
      */
     StartProgressDialog(hwndOwner, flags) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -45,9 +49,11 @@ class IOperationsProgressDialog extends IUnknown{
     }
 
     /**
+     * Stops current progress dialog.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-stopprogressdialog
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-stopprogressdialog
      */
     StopProgressDialog() {
         result := ComCall(4, this, "HRESULT")
@@ -55,10 +61,14 @@ class IOperationsProgressDialog extends IUnknown{
     }
 
     /**
+     * Sets which progress dialog operation is occurring, and whether we are in pre-flight or undo mode.
+     * @param {Integer} action Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-spaction">SPACTION</a></b>
      * 
-     * @param {Integer} action 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-setoperation
+     * Specifies operation. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-spaction">SPACTION</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-setoperation
      */
     SetOperation(action) {
         result := ComCall(5, this, "int", action, "HRESULT")
@@ -66,10 +76,14 @@ class IOperationsProgressDialog extends IUnknown{
     }
 
     /**
+     * Sets progress dialog operations mode.
+     * @param {Integer} mode Type: <b>PDMODE</b>
      * 
-     * @param {Integer} mode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-setmode
+     * Specifies the operation mode. The following are valid values.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-setmode
      */
     SetMode(mode) {
         result := ComCall(6, this, "uint", mode, "HRESULT")
@@ -77,15 +91,29 @@ class IOperationsProgressDialog extends IUnknown{
     }
 
     /**
+     * Updates the current progress dialog, as specified.
+     * @param {Integer} ullPointsCurrent Type: <b>ULONGLONG</b>
      * 
-     * @param {Integer} ullPointsCurrent 
-     * @param {Integer} ullPointsTotal 
-     * @param {Integer} ullSizeCurrent 
-     * @param {Integer} ullSizeTotal 
-     * @param {Integer} ullItemsCurrent 
-     * @param {Integer} ullItemsTotal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-updateprogress
+     * Current points, used for showing progress in points.
+     * @param {Integer} ullPointsTotal Type: <b>ULONGLONG</b>
+     * 
+     * Total points, used for showing progress in points.
+     * @param {Integer} ullSizeCurrent Type: <b>ULONGLONG</b>
+     * 
+     * Current size in bytes, used for showing progress in bytes.
+     * @param {Integer} ullSizeTotal Type: <b>ULONGLONG</b>
+     * 
+     * Total size in bytes, used for showing progress in bytes.
+     * @param {Integer} ullItemsCurrent Type: <b>ULONGLONG</b>
+     * 
+     * Current items, used for showing progress in items.
+     * @param {Integer} ullItemsTotal Type: <b>ULONGLONG</b>
+     * 
+     * Specifies total items, used for showing progress in items.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-updateprogress
      */
     UpdateProgress(ullPointsCurrent, ullPointsTotal, ullSizeCurrent, ullSizeTotal, ullItemsCurrent, ullItemsTotal) {
         result := ComCall(7, this, "uint", ullPointsCurrent, "uint", ullPointsTotal, "uint", ullSizeCurrent, "uint", ullSizeTotal, "uint", ullItemsCurrent, "uint", ullItemsTotal, "HRESULT")
@@ -93,12 +121,20 @@ class IOperationsProgressDialog extends IUnknown{
     }
 
     /**
+     * Called to specify the text elements stating the source and target in the current progress dialog.
+     * @param {IShellItem} psiSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psiSource 
-     * @param {IShellItem} psiTarget 
-     * @param {IShellItem} psiItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-updatelocations
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the source Shell item.
+     * @param {IShellItem} psiTarget Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the target Shell item.
+     * @param {IShellItem} psiItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that represents the item currently being operated on by the operation engine. This parameter is only used in Windows 7 and later. In earlier versions, this parameter should be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-updatelocations
      */
     UpdateLocations(psiSource, psiTarget, psiItem) {
         result := ComCall(8, this, "ptr", psiSource, "ptr", psiTarget, "ptr", psiItem, "HRESULT")
@@ -106,9 +142,11 @@ class IOperationsProgressDialog extends IUnknown{
     }
 
     /**
+     * Resets progress dialog timer to 0.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-resettimer
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-resettimer
      */
     ResetTimer() {
         result := ComCall(9, this, "HRESULT")
@@ -116,9 +154,11 @@ class IOperationsProgressDialog extends IUnknown{
     }
 
     /**
+     * Pauses progress dialog timer.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-pausetimer
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-pausetimer
      */
     PauseTimer() {
         result := ComCall(10, this, "HRESULT")
@@ -126,9 +166,11 @@ class IOperationsProgressDialog extends IUnknown{
     }
 
     /**
+     * Resumes progress dialog timer.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-resumetimer
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-resumetimer
      */
     ResumeTimer() {
         result := ComCall(11, this, "HRESULT")
@@ -136,11 +178,17 @@ class IOperationsProgressDialog extends IUnknown{
     }
 
     /**
+     * Gets elapsed and remaining time for progress dialog.
+     * @param {Pointer<Integer>} pullElapsed Type: <b>ULONGLONG*</b>
      * 
-     * @param {Pointer<Integer>} pullElapsed 
-     * @param {Pointer<Integer>} pullRemaining 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-getmilliseconds
+     * A pointer to the elapsed time in milliseconds.
+     * @param {Pointer<Integer>} pullRemaining Type: <b>ULONGLONG*</b>
+     * 
+     * A pointer to the remaining time in milliseconds.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-getmilliseconds
      */
     GetMilliseconds(pullElapsed, pullRemaining) {
         pullElapsedMarshal := pullElapsed is VarRef ? "uint*" : "ptr"
@@ -151,9 +199,11 @@ class IOperationsProgressDialog extends IUnknown{
     }
 
     /**
+     * Gets operation status for progress dialog.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-pdopstatus">PDOPSTATUS</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-getoperationstatus
+     * Contains pointer to the operation status. See <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-pdopstatus">PDOPSTATUS</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ioperationsprogressdialog-getoperationstatus
      */
     GetOperationStatus() {
         result := ComCall(13, this, "int*", &popstatus := 0, "HRESULT")

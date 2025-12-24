@@ -31,9 +31,19 @@ class ID2D1ImageSource extends ID2D1Image{
     static VTableNames => ["OfferResources", "TryReclaimResources"]
 
     /**
+     * Allows the operating system to free the video memory of resources by discarding their content.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1imagesource-offerresources
+     * <b>OfferResources</b> returns:
+     *             
+     * 
+     * <ul>
+     * <li><b>S_OK</b> if resources were successfully offered
+     *               </li>
+     * <li><b>E_INVALIDARG</b> if a resource in the array or the priority is invalid
+     *               </li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1imagesource-offerresources
      */
     OfferResources() {
         result := ComCall(4, this, "HRESULT")
@@ -41,9 +51,12 @@ class ID2D1ImageSource extends ID2D1Image{
     }
 
     /**
+     * Restores access to resources that were previously offered by calling OfferResources.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1imagesource-tryreclaimresources
+     * Returns with TRUE if the corresponding resource’s content was discarded and is now undefined, or FALSE if the corresponding resource’s old content is still intact.
+     *             The caller can pass in NULL, if the caller intends to fill the resources with new content regardless of whether the old content was discarded.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1imagesource-tryreclaimresources
      */
     TryReclaimResources() {
         result := ComCall(5, this, "int*", &resourcesDiscarded := 0, "HRESULT")

@@ -32,9 +32,11 @@ class IOpLockStatus extends IUnknown{
     static VTableNames => ["IsOplockValid", "IsOplockBroken", "GetOplockEventHandle"]
 
     /**
+     * Checks the status of the opportunistic lock (OpLock) on the item being indexed.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ioplockstatus-isoplockvalid
+     * Receives a pointer to a <b>BOOL</b> value that indicates whether the OpLock is successfully taken.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-ioplockstatus-isoplockvalid
      */
     IsOplockValid() {
         result := ComCall(3, this, "int*", &pfIsOplockValid := 0, "HRESULT")
@@ -42,9 +44,11 @@ class IOpLockStatus extends IUnknown{
     }
 
     /**
+     * Checks the status of the opportunistic lock (OpLock) on the item being indexed.
+     * @returns {BOOL} Type: <b>BOOL*</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ioplockstatus-isoplockbroken
+     * Receives a pointer to a <b>BOOL</b> value that indicates whether the OpLock is broken: <b>TRUE</b> if OpLock was taken and then broken, <b>FALSE</b> otherwise (including the case when OpLock was not taken).
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-ioplockstatus-isoplockbroken
      */
     IsOplockBroken() {
         result := ComCall(4, this, "int*", &pfIsOplockBroken := 0, "HRESULT")
@@ -52,9 +56,11 @@ class IOpLockStatus extends IUnknown{
     }
 
     /**
+     * Gets the event handle of the opportunistic lock (OpLock). The event object is set to the signaled state when the OpLock is broken, enabling the indexer to stop all operations on the underlying IUrlAccessor object.
+     * @returns {HANDLE} Type: <b>HANDLE*</b>
      * 
-     * @returns {HANDLE} 
-     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-ioplockstatus-getoplockeventhandle
+     * Receives a pointer to the handle of the event associated with the OpLock, or <b>NULL</b> if no OpLock was taken.
+     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-ioplockstatus-getoplockeventhandle
      */
     GetOplockEventHandle() {
         phOplockEv := HANDLE()

@@ -36,10 +36,10 @@ class IBDA_EthernetFilter extends IUnknown{
     static VTableNames => ["GetMulticastListSize", "PutMulticastList", "GetMulticastList", "PutMulticastMode", "GetMulticastMode"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulcbAddresses 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ethernetfilter-getmulticastlistsize
+     * The GetMulticastListSize method retrieves the number of addresses currently in the list.
+     * @param {Pointer<Integer>} pulcbAddresses Pointer that receives the number of addresses currently in the Network Provider's list.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ethernetfilter-getmulticastlistsize
      */
     GetMulticastListSize(pulcbAddresses) {
         pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
@@ -49,11 +49,11 @@ class IBDA_EthernetFilter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulcbAddresses 
-     * @param {Pointer<Integer>} pAddressList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ethernetfilter-putmulticastlist
+     * The PutMulticastList method sets the list of multicast addresses on the Network Provider.
+     * @param {Integer} ulcbAddresses Specifies the number of addresses in the list, multiplied by the number of bytes per address.
+     * @param {Pointer<Integer>} pAddressList Pointer to an array of addresses whose size in bytes is equal to <i>ulcbAddresses</i>.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ethernetfilter-putmulticastlist
      */
     PutMulticastList(ulcbAddresses, pAddressList) {
         pAddressListMarshal := pAddressList is VarRef ? "char*" : "ptr"
@@ -63,11 +63,11 @@ class IBDA_EthernetFilter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pulcbAddresses 
-     * @param {Pointer<Integer>} pAddressList 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ethernetfilter-getmulticastlist
+     * The GetMulticastList method retrieves the list of multicast addresses on the Network Provider.
+     * @param {Pointer<Integer>} pulcbAddresses On input, specifies the maximum number of addresses to retrieve, multiplied by the number of bytes per address. On output, receives the actual number of bytes retrieved.
+     * @param {Pointer<Integer>} pAddressList Pointer that receives an array of addresses whose size in bytes is equal to <i>ulcbAddresses</i>. See Remarks.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ethernetfilter-getmulticastlist
      */
     GetMulticastList(pulcbAddresses, pAddressList) {
         pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
@@ -78,10 +78,10 @@ class IBDA_EthernetFilter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} ulModeMask 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ethernetfilter-putmulticastmode
+     * The PutMulticastMode method sets the multicast mode.
+     * @param {Integer} ulModeMask Specifies the multicast mode.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ethernetfilter-putmulticastmode
      */
     PutMulticastMode(ulModeMask) {
         result := ComCall(6, this, "uint", ulModeMask, "HRESULT")
@@ -89,9 +89,9 @@ class IBDA_EthernetFilter extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ethernetfilter-getmulticastmode
+     * The GetMulticastMode method retrieves the multicast mode.
+     * @returns {Integer} Pointer that receives the multicast mode.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ethernetfilter-getmulticastmode
      */
     GetMulticastMode() {
         result := ComCall(7, this, "uint*", &pulModeMask := 0, "HRESULT")

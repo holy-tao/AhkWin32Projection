@@ -32,13 +32,23 @@ class IWICBitmapDecoderInfo extends IWICBitmapCodecInfo{
     static VTableNames => ["GetPatterns", "MatchesPattern", "CreateInstance"]
 
     /**
+     * Retrieves the file pattern signatures supported by the decoder.
+     * @param {Integer} cbSizePatterns Type: <b>UINT</b>
      * 
-     * @param {Integer} cbSizePatterns 
-     * @param {Pointer} pPatterns 
-     * @param {Pointer<Integer>} pcPatterns 
-     * @param {Pointer<Integer>} pcbPatternsActual 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoderinfo-getpatterns
+     * The array size of the <i>pPatterns</i> array.
+     * @param {Pointer} pPatterns Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicbitmappattern">WICBitmapPattern</a>*</b>
+     * 
+     * Receives a list of <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicbitmappattern">WICBitmapPattern</a> objects supported by the decoder.
+     * @param {Pointer<Integer>} pcPatterns Type: <b>UINT*</b>
+     * 
+     * Receives the number of patterns the decoder supports.
+     * @param {Pointer<Integer>} pcbPatternsActual Type: <b>UINT*</b>
+     * 
+     * Receives the actual buffer size needed to retrieve all pattern signatures supported by the decoder.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoderinfo-getpatterns
      */
     GetPatterns(cbSizePatterns, pPatterns, pcPatterns, pcbPatternsActual) {
         pcPatternsMarshal := pcPatterns is VarRef ? "uint*" : "ptr"
@@ -49,10 +59,14 @@ class IWICBitmapDecoderInfo extends IWICBitmapCodecInfo{
     }
 
     /**
+     * Retrieves a value that indicates whether the codec recognizes the pattern within a specified stream.
+     * @param {IStream} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
-     * @param {IStream} pIStream 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoderinfo-matchespattern
+     * The stream to pattern match within.
+     * @returns {BOOL} Type: <b>BOOL*</b>
+     * 
+     * A pointer that receives <b>TRUE</b> if the patterns match; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoderinfo-matchespattern
      */
     MatchesPattern(pIStream) {
         result := ComCall(24, this, "ptr", pIStream, "int*", &pfMatches := 0, "HRESULT")
@@ -60,9 +74,11 @@ class IWICBitmapDecoderInfo extends IWICBitmapCodecInfo{
     }
 
     /**
+     * Creates a new IWICBitmapDecoder instance.
+     * @returns {IWICBitmapDecoder} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>**</b>
      * 
-     * @returns {IWICBitmapDecoder} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoderinfo-createinstance
+     * A pointer that receives a pointer to a new instance of the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoder">IWICBitmapDecoder</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoderinfo-createinstance
      */
     CreateInstance() {
         result := ComCall(25, this, "ptr*", &ppIBitmapDecoder := 0, "HRESULT")

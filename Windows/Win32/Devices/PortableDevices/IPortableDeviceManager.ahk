@@ -37,11 +37,51 @@ class IPortableDeviceManager extends IUnknown{
     static VTableNames => ["GetDevices", "RefreshDeviceList", "GetDeviceFriendlyName", "GetDeviceDescription", "GetDeviceManufacturer", "GetDeviceProperty", "GetPrivateDevices"]
 
     /**
+     * Retrieves a list of portable devices connected to the computer.
+     * @param {Pointer<PWSTR>} pPnPDeviceIDs A caller-allocated array of string pointers that holds the Plug and Play names of all of the connected devices. To learn the required size for this parameter, first call this method with this parameter set to <b>NULL</b> and <i>pcPnPDeviceIDs</i> set to zero, and then allocate a buffer according to the value retrieved by <i>pcPnPDeviceIDs</i>. These names can be used by <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-open">IPortableDevice::Open</a> to create a connection to a device.
+     * @param {Pointer<Integer>} pcPnPDeviceIDs On input, the number of values that <i>pPnPDeviceIDs</i> can hold. On output, a pointer to the number of devices actually written to <i>pPnPDeviceIDs</i>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<PWSTR>} pPnPDeviceIDs 
-     * @param {Pointer<Integer>} pcPnPDeviceIDs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one of the required arguments was a <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pPnPDeviceIDs</i> buffer is too small to hold all the values requested, but <i>pcPnPDeviceIDs</i> values have been written to <i>pPnPDeviceIDs</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices
      */
     GetDevices(pPnPDeviceIDs, pcPnPDeviceIDs) {
         pPnPDeviceIDsMarshal := pPnPDeviceIDs is VarRef ? "ptr*" : "ptr"
@@ -52,9 +92,27 @@ class IPortableDeviceManager extends IUnknown{
     }
 
     /**
+     * The RefreshDeviceList method refreshes the list of devices that are connected to the computer.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-refreshdevicelist
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-refreshdevicelist
      */
     RefreshDeviceList() {
         result := ComCall(4, this, "HRESULT")
@@ -62,12 +120,63 @@ class IPortableDeviceManager extends IUnknown{
     }
 
     /**
+     * Retrieves the user-friendly name for the device.
+     * @param {PWSTR} pszPnPDeviceID Pointer to a null-terminated string that contains the device's Plug and Play ID. You can retrieve a list of Plug and Play names of all devices that are connected to the computer by calling <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices">GetDevices</a>.
+     * @param {PWSTR} pDeviceFriendlyName A caller-allocated buffer that is used to hold the user-friendly name for the device. To learn the required size for this parameter, first call this method with this parameter set to <b>NULL</b> and <i>pcchDeviceFriendlyName</i> set to <b>0</b>; the method will succeed and set <i>pcchDeviceFriendlyName</i> to the required buffer size to hold the device-friendly name, including the termination character.
+     * @param {Pointer<Integer>} pcchDeviceFriendlyName On input, the maximum number of characters that <i>pDeviceFriendlyName</i> can hold, not including the termination character. On output, the number of characters that is returned by <i>pDeviceFriendlyName</i>, not including the termination character.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pszPnPDeviceID 
-     * @param {PWSTR} pDeviceFriendlyName 
-     * @param {Pointer<Integer>} pcchDeviceFriendlyName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicefriendlyname
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The supplied buffer is not large enough to hold the device description. (Refer to the value returned in <i>pcchDeviceDescription</i> for the required size.)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_INVALID_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device description could not be found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one of the required arguments was a <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicefriendlyname
      */
     GetDeviceFriendlyName(pszPnPDeviceID, pDeviceFriendlyName, pcchDeviceFriendlyName) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
@@ -80,12 +189,63 @@ class IPortableDeviceManager extends IUnknown{
     }
 
     /**
+     * Retrieves the description of a device.
+     * @param {PWSTR} pszPnPDeviceID Pointer to a null-terminated string that contains the device's Plug and Play ID. You can retrieve a list of Plug and Play names of devices that are currently connected by calling <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices">GetDevices</a>.
+     * @param {PWSTR} pDeviceDescription A caller-allocated buffer to hold the user-description name of the device. The caller must allocate the memory for this parameter. To learn the required size for this parameter, first call this method with this parameter set to <b>NULL</b> and <i>pcchDeviceDescription</i> set to <b>0</b>; the method will succeed and set <i>pcchDeviceDescription</i> to the required buffer size to hold the device-friendly name, including the termination character.
+     * @param {Pointer<Integer>} pcchDeviceDescription The number of characters (not including the termination character) in <i>pDeviceDescription</i>. On input, the maximum length of <i>pDeviceDescription</i>; on output, the length of the returned string in <i>pDeviceDescription</i>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pszPnPDeviceID 
-     * @param {PWSTR} pDeviceDescription 
-     * @param {Pointer<Integer>} pcchDeviceDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicedescription
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The supplied buffer is not large enough to hold the device description. (Refer to the value returned in <i>pcchDeviceDescription</i> for the required size.)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_INVALID_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device description could not be found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one of the required arguments was a <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicedescription
      */
     GetDeviceDescription(pszPnPDeviceID, pDeviceDescription, pcchDeviceDescription) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
@@ -98,12 +258,63 @@ class IPortableDeviceManager extends IUnknown{
     }
 
     /**
+     * Retrieves the name of the device manufacturer.
+     * @param {PWSTR} pszPnPDeviceID Pointer to a null-terminated string that contains the device's Plug and Play ID. You can retrieve a list of Plug and Play names of all devices that are connected to the computer by calling <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices">GetDevices</a>.
+     * @param {PWSTR} pDeviceManufacturer A caller-allocated buffer that holds the name of the device manufacturer. To learn the required size for this parameter, first call this method with this parameter set to <b>NULL</b> and <i>pcchDeviceManufacturer</i> set to <b>0</b>; the method will succeed and set <i>pcchDeviceManufacturer</i> to the required buffer size to hold the device-friendly name, including the termination character.
+     * @param {Pointer<Integer>} pcchDeviceManufacturer On input, the maximum number of characters that <i>pDeviceManufacturer</i> can hold, not including the termination character. On output, the number of characters returned by <i>pDeviceManufacturer</i>, not including the termination character.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pszPnPDeviceID 
-     * @param {PWSTR} pDeviceManufacturer 
-     * @param {Pointer<Integer>} pcchDeviceManufacturer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicemanufacturer
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The supplied buffer is not large enough to hold the device description. (Refer to the value returned in <i>pcchDeviceDescription</i> for the required size.)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_INVALID_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The device description could not be found.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one of the required arguments was a <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevicemanufacturer
      */
     GetDeviceManufacturer(pszPnPDeviceID, pDeviceManufacturer, pcchDeviceManufacturer) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
@@ -116,14 +327,54 @@ class IPortableDeviceManager extends IUnknown{
     }
 
     /**
+     * Retrieves a property value stored by the device on the computer. (These are not standard properties that are defined by Windows Portable Devices.).
+     * @param {PWSTR} pszPnPDeviceID Pointer to a null-terminated string that contains the device's Plug and Play ID. You can retrieve a list of Plug and Play names of all devices that are connected to the computer by calling <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices">GetDevices</a>.
+     * @param {PWSTR} pszDevicePropertyName Pointer to a null-terminated string that contains the name of the property to request. These are custom property names defined by a device manufacturer.
+     * @param {Pointer<Integer>} pData A caller-allocated buffer to hold the retrieved data. To get the size required, call this method with this parameter set to <b>NULL</b> and <i>pcbData</i> set to zero, and the required size will be retrieved in <i>pcbData</i>. This call will also return an error that can be ignored. See Return Values.
+     * @param {Pointer<Integer>} pcbData The size of the buffer allocated or returned by <i>pData</i>, in bytes.
+     * @param {Pointer<Integer>} pdwType A constant describing the type of data returned in <i>pData</i>. The values for this parameter are the same types used to describe the <i>lpType</i> parameter of the Platform SDK function <b>RegQueryValueEx</b>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {PWSTR} pszPnPDeviceID 
-     * @param {PWSTR} pszDevicePropertyName 
-     * @param {Pointer<Integer>} pData 
-     * @param {Pointer<Integer>} pcbData 
-     * @param {Pointer<Integer>} pdwType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdeviceproperty
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The supplied buffer is not large enough to hold the requested data. (This result is always returned when <i>pData</i> is <b>NULL</b>. You can ignore this result if you are calling the method to retrieve the required buffer size. See the description of the <i>pData</i> parameter.)
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one of the required arguments was a <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdeviceproperty
      */
     GetDeviceProperty(pszPnPDeviceID, pszDevicePropertyName, pData, pcbData, pdwType) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
@@ -138,11 +389,51 @@ class IPortableDeviceManager extends IUnknown{
     }
 
     /**
+     * The GetPrivateDevices method retrieves a list of private portable devices connected to the computer. These private devices are only accessible through an application that is designed for these particular devices.
+     * @param {Pointer<PWSTR>} pPnPDeviceIDs A caller-allocated array of string pointers that holds the Plug and Play names of all of the connected devices. To learn the required size for this parameter, first call this method with this parameter set to <b>NULL</b> and <i>pcPnPDeviceIDs</i> set to zero, and then allocate a buffer according to the value retrieved by <i>pcPnPDeviceIDs</i>. These names can be used by <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-open">IPortableDevice::Open</a> to create a connection to a device.
+     * @param {Pointer<Integer>} pcPnPDeviceIDs On input, the number of values that <i>pPnPDeviceIDs</i> can hold. On output, a pointer to the number of devices actually written to <i>pPnPDeviceIDs</i>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<PWSTR>} pPnPDeviceIDs 
-     * @param {Pointer<Integer>} pcPnPDeviceIDs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getprivatedevices
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * At least one of the required arguments was a <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pPnPDeviceIDs</i> buffer is too small to hold all the values requested, but <i>pcPnPDeviceIDs</i> values have been written to <i>pPnPDeviceIDs</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getprivatedevices
      */
     GetPrivateDevices(pPnPDeviceIDs, pcPnPDeviceIDs) {
         pPnPDeviceIDsMarshal := pPnPDeviceIDs is VarRef ? "ptr*" : "ptr"

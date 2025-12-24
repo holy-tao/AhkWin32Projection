@@ -29,6 +29,52 @@ class IHTMLMediaElement2 extends IDispatch{
     static VTableNames => ["put_currentTimeDouble", "get_currentTimeDouble", "get_initialTimeDouble", "get_durationDouble", "put_defaultPlaybackRateDouble", "get_defaultPlaybackRateDouble", "put_playbackRateDouble", "get_playbackRateDouble", "put_volumeDouble", "get_volumeDouble"]
 
     /**
+     * @type {Float} 
+     */
+    currentTimeDouble {
+        get => this.get_currentTimeDouble()
+        set => this.put_currentTimeDouble(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    initialTimeDouble {
+        get => this.get_initialTimeDouble()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    durationDouble {
+        get => this.get_durationDouble()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    defaultPlaybackRateDouble {
+        get => this.get_defaultPlaybackRateDouble()
+        set => this.put_defaultPlaybackRateDouble(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    playbackRateDouble {
+        get => this.get_playbackRateDouble()
+        set => this.put_playbackRateDouble(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    volumeDouble {
+        get => this.get_volumeDouble()
+        set => this.put_volumeDouble(value)
+    }
+
+    /**
      * 
      * @param {Float} v 
      * @returns {HRESULT} 

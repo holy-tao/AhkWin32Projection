@@ -31,12 +31,41 @@ class ITfFnAdviseText extends ITfFunction{
     static VTableNames => ["OnTextUpdate", "OnLatticeUpdate"]
 
     /**
+     * ITfFnAdviseText::OnTextUpdate method
+     * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that represents the range of text that has changed.
+     * @param {PWSTR} pchText Pointer to a <b>WCHAR</b> buffer that contains the new text for the range.
+     * @param {Integer} cch Specifies the number of characters contained in <i>pchText</i>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {ITfRange} pRange 
-     * @param {PWSTR} pchText 
-     * @param {Integer} cch 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnadvisetext-ontextupdate
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnadvisetext-ontextupdate
      */
     OnTextUpdate(pRange, pchText, cch) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
@@ -46,11 +75,40 @@ class ITfFnAdviseText extends ITfFunction{
     }
 
     /**
+     * ITfFnAdviseText::OnLatticeUpdate method
+     * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that represents the range of text that changed.
+     * @param {ITfLMLattice} pLattice Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-itflmlattice">ITfLMLattice</a> object that represents the new lattice element.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {ITfRange} pRange 
-     * @param {ITfLMLattice} pLattice 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnadvisetext-onlatticeupdate
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnadvisetext-onlatticeupdate
      */
     OnLatticeUpdate(pRange, pLattice) {
         result := ComCall(5, this, "ptr", pRange, "ptr", pLattice, "HRESULT")

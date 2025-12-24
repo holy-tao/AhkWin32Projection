@@ -31,19 +31,19 @@ class IComSecurityEvents extends IUnknown{
     static VTableNames => ["OnAuthenticate", "OnAuthenticateFail"]
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidActivity 
-     * @param {Integer} ObjectID 
-     * @param {Pointer<Guid>} guidIID 
-     * @param {Integer} iMeth 
-     * @param {Integer} cbByteOrig 
-     * @param {Pointer<Integer>} pSidOriginalUser 
-     * @param {Integer} cbByteCur 
-     * @param {Pointer<Integer>} pSidCurrentUser 
-     * @param {BOOL} bCurrentUserInpersonatingInProc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomsecurityevents-onauthenticate
+     * Generated when a method call level authentication succeeds.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidActivity The identifier of the activity in which the object is created.
+     * @param {Integer} ObjectID The just-in-time activated object.
+     * @param {Pointer<Guid>} guidIID The IID of the method.
+     * @param {Integer} iMeth The v-table index of the method.
+     * @param {Integer} cbByteOrig The number of bytes in the security identifier for the original caller.
+     * @param {Pointer<Integer>} pSidOriginalUser The security identifier for the original caller.
+     * @param {Integer} cbByteCur The number of bytes in the security identifier for the current caller.
+     * @param {Pointer<Integer>} pSidCurrentUser The security identifier for the current caller.
+     * @param {BOOL} bCurrentUserInpersonatingInProc Indicates whether the current user is impersonating.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomsecurityevents-onauthenticate
      */
     OnAuthenticate(pInfo, guidActivity, ObjectID, guidIID, iMeth, cbByteOrig, pSidOriginalUser, cbByteCur, pSidCurrentUser, bCurrentUserInpersonatingInProc) {
         pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : "ptr"
@@ -54,19 +54,19 @@ class IComSecurityEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidActivity 
-     * @param {Integer} ObjectID 
-     * @param {Pointer<Guid>} guidIID 
-     * @param {Integer} iMeth 
-     * @param {Integer} cbByteOrig 
-     * @param {Pointer<Integer>} pSidOriginalUser 
-     * @param {Integer} cbByteCur 
-     * @param {Pointer<Integer>} pSidCurrentUser 
-     * @param {BOOL} bCurrentUserInpersonatingInProc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomsecurityevents-onauthenticatefail
+     * Generated when a method call level authentication fails.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidActivity The identifier of the activity in which the object is created.
+     * @param {Integer} ObjectID The just-in-time activated object.
+     * @param {Pointer<Guid>} guidIID The IID of the method.
+     * @param {Integer} iMeth The v-table index of the method.
+     * @param {Integer} cbByteOrig The number of bytes in the security identifier for the original caller.
+     * @param {Pointer<Integer>} pSidOriginalUser The security identifier for the original caller.
+     * @param {Integer} cbByteCur The number of bytes in the security identifier for the current caller.
+     * @param {Pointer<Integer>} pSidCurrentUser The security identifier for the current caller.
+     * @param {BOOL} bCurrentUserInpersonatingInProc Indicates whether the current user is impersonating.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomsecurityevents-onauthenticatefail
      */
     OnAuthenticateFail(pInfo, guidActivity, ObjectID, guidIID, iMeth, cbByteOrig, pSidOriginalUser, cbByteCur, pSidCurrentUser, bCurrentUserInpersonatingInProc) {
         pSidOriginalUserMarshal := pSidOriginalUser is VarRef ? "char*" : "ptr"

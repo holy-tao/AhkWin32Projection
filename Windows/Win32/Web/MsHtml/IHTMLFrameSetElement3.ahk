@@ -30,6 +30,46 @@ class IHTMLFrameSetElement3 extends IDispatch{
     static VTableNames => ["put_onhashchange", "get_onhashchange", "put_onmessage", "get_onmessage", "put_onoffline", "get_onoffline", "put_ononline", "get_ononline", "put_onstorage", "get_onstorage"]
 
     /**
+     * @type {VARIANT} 
+     */
+    onhashchange {
+        get => this.get_onhashchange()
+        set => this.put_onhashchange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmessage {
+        get => this.get_onmessage()
+        set => this.put_onmessage(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onoffline {
+        get => this.get_onoffline()
+        set => this.put_onoffline(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ononline {
+        get => this.get_ononline()
+        set => this.put_ononline(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onstorage {
+        get => this.get_onstorage()
+        set => this.put_onstorage(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

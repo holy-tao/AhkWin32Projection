@@ -31,6 +31,41 @@ class IRTCParticipant extends IUnknown{
     static VTableNames => ["get_UserURI", "get_Name", "get_Removable", "get_State", "get_Session"]
 
     /**
+     * @type {BSTR} 
+     */
+    UserURI {
+        get => this.get_UserURI()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Removable {
+        get => this.get_Removable()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {IRTCSession} 
+     */
+    Session {
+        get => this.get_Session()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

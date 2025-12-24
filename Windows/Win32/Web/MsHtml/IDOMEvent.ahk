@@ -38,6 +38,84 @@ class IDOMEvent extends IDispatch{
     static VTableNames => ["get_bubbles", "get_cancelable", "get_currentTarget", "get_defaultPrevented", "get_eventPhase", "get_target", "get_timeStamp", "get_type", "initEvent", "preventDefault", "stopPropagation", "stopImmediatePropagation", "get_isTrusted", "put_cancelBubble", "get_cancelBubble", "get_srcElement"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    bubbles {
+        get => this.get_bubbles()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    cancelable {
+        get => this.get_cancelable()
+    }
+
+    /**
+     * @type {IEventTarget} 
+     */
+    currentTarget {
+        get => this.get_currentTarget()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    defaultPrevented {
+        get => this.get_defaultPrevented()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    eventPhase {
+        get => this.get_eventPhase()
+    }
+
+    /**
+     * @type {IEventTarget} 
+     */
+    target {
+        get => this.get_target()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    timeStamp {
+        get => this.get_timeStamp()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    isTrusted {
+        get => this.get_isTrusted()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    cancelBubble {
+        get => this.get_cancelBubble()
+        set => this.put_cancelBubble(value)
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    srcElement {
+        get => this.get_srcElement()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

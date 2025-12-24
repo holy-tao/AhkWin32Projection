@@ -31,11 +31,13 @@ class ISecurityInformation4 extends IUnknown{
     static VTableNames => ["GetSecondarySecurity"]
 
     /**
+     * Returns additional security contexts that may impact access to the resource.
+     * @param {Pointer<Pointer<SECURITY_OBJECT>>} pSecurityObjects An array of <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ns-aclui-security_object">SECURITY_OBJECT</a> structures that contain the secondary security objects associated with the resources that are set on success. The array is owned by the caller and is freed by using the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function. The <b>pwszName</b> member is also freed by using <b>LocalFree</b>. If the <b>cbData</b> or <b>cbData2</b> members of the <b>SECURITY_OBJECT</b> structure are not zero, then the caller must free the corresponding <b>pData</b> or <b>pData2</b> by using <b>LocalFree</b>. If either of those members are zero, then the corresponding <b>pData</b> and <b>pData2</b> members are owned by the resource manager and must remain valid until the <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-editsecurity">EditSecurity</a> function returns
+     * @param {Pointer<Integer>} pSecurityObjectCount The number of security objects in the <i>pSecurityObjects</i> parameter that are set on success.
+     * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * @param {Pointer<Pointer<SECURITY_OBJECT>>} pSecurityObjects 
-     * @param {Pointer<Integer>} pSecurityObjectCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation4-getsecondarysecurity
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-isecurityinformation4-getsecondarysecurity
      */
     GetSecondarySecurity(pSecurityObjects, pSecurityObjectCount) {
         pSecurityObjectsMarshal := pSecurityObjects is VarRef ? "ptr*" : "ptr"

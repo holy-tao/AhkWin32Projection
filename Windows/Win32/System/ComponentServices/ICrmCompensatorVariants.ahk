@@ -36,10 +36,10 @@ class ICrmCompensatorVariants extends IUnknown{
     static VTableNames => ["SetLogControlVariants", "BeginPrepareVariants", "PrepareRecordVariants", "EndPrepareVariants", "BeginCommitVariants", "CommitRecordVariants", "EndCommitVariants", "BeginAbortVariants", "AbortRecordVariants", "EndAbortVariants"]
 
     /**
-     * 
-     * @param {ICrmLogControl} pLogControl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-setlogcontrolvariants
+     * Delivers an ICrmLogControl interface to the CRM Compensator.
+     * @param {ICrmLogControl} pLogControl A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-icrmlogcontrol">ICrmLogControl</a> interface of the CRM clerk.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmcompensatorvariants-setlogcontrolvariants
      */
     SetLogControlVariants(pLogControl) {
         result := ComCall(3, this, "ptr", pLogControl, "HRESULT")
@@ -47,9 +47,9 @@ class ICrmCompensatorVariants extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-beginpreparevariants
+     * Notifies the CRM Compensator of the prepare phase of the transaction completion and that records are about to be delivered.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmcompensatorvariants-beginpreparevariants
      */
     BeginPrepareVariants() {
         result := ComCall(4, this, "HRESULT")
@@ -57,10 +57,10 @@ class ICrmCompensatorVariants extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} pLogRecord 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-preparerecordvariants
+     * Delivers a log record to the CRM Compensator during the prepare phase.
+     * @param {Pointer<VARIANT>} pLogRecord The log record (as a <b>Variant</b> array of <b>Variants</b>).
+     * @returns {VARIANT_BOOL} Indicates whether the delivered record should be forgotten.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmcompensatorvariants-preparerecordvariants
      */
     PrepareRecordVariants(pLogRecord) {
         result := ComCall(5, this, "ptr", pLogRecord, "short*", &pbForget := 0, "HRESULT")
@@ -68,9 +68,9 @@ class ICrmCompensatorVariants extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-endpreparevariants
+     * Notifies the CRM Compensator that it has had all the log records available during the prepare phase.
+     * @returns {VARIANT_BOOL} Indicates whether the prepare phase succeeded, in which case it is OK to commit this transaction.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmcompensatorvariants-endpreparevariants
      */
     EndPrepareVariants() {
         result := ComCall(6, this, "short*", &pbOkToPrepare := 0, "HRESULT")
@@ -78,10 +78,10 @@ class ICrmCompensatorVariants extends IUnknown{
     }
 
     /**
-     * 
-     * @param {VARIANT_BOOL} bRecovery 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-begincommitvariants
+     * Notifies the CRM Compensator of the commit phase (phase two) of the transaction completion and that records are about to be delivered.
+     * @param {VARIANT_BOOL} bRecovery Indicates whether this method is being called during recovery.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmcompensatorvariants-begincommitvariants
      */
     BeginCommitVariants(bRecovery) {
         result := ComCall(7, this, "short", bRecovery, "HRESULT")
@@ -89,10 +89,10 @@ class ICrmCompensatorVariants extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} pLogRecord 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-commitrecordvariants
+     * Delivers a log record to the CRM Compensator during the commit phase.
+     * @param {Pointer<VARIANT>} pLogRecord The log record (as a Variant array of Variants).
+     * @returns {VARIANT_BOOL} Indicates whether the delivered record should be forgotten.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmcompensatorvariants-commitrecordvariants
      */
     CommitRecordVariants(pLogRecord) {
         result := ComCall(8, this, "ptr", pLogRecord, "short*", &pbForget := 0, "HRESULT")
@@ -100,9 +100,9 @@ class ICrmCompensatorVariants extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-endcommitvariants
+     * Notifies the CRM Compensator that it has delivered all the log records available during the commit phase.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmcompensatorvariants-endcommitvariants
      */
     EndCommitVariants() {
         result := ComCall(9, this, "HRESULT")
@@ -110,10 +110,10 @@ class ICrmCompensatorVariants extends IUnknown{
     }
 
     /**
-     * 
-     * @param {VARIANT_BOOL} bRecovery 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-beginabortvariants
+     * Notifies the CRM Compensator of the abort phase of the transaction completion and that records are about to be delivered.
+     * @param {VARIANT_BOOL} bRecovery Indicates whether this method is being called during recovery.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmcompensatorvariants-beginabortvariants
      */
     BeginAbortVariants(bRecovery) {
         result := ComCall(10, this, "short", bRecovery, "HRESULT")
@@ -121,10 +121,10 @@ class ICrmCompensatorVariants extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} pLogRecord 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-abortrecordvariants
+     * Delivers a log record to the CRM Compensator during the abort phase.
+     * @param {Pointer<VARIANT>} pLogRecord The log record (as a <b>Variant</b> array of <b>Variants</b>).
+     * @returns {VARIANT_BOOL} Indicates whether the delivered record should be forgotten.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmcompensatorvariants-abortrecordvariants
      */
     AbortRecordVariants(pLogRecord) {
         result := ComCall(11, this, "ptr", pLogRecord, "short*", &pbForget := 0, "HRESULT")
@@ -132,9 +132,9 @@ class ICrmCompensatorVariants extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icrmcompensatorvariants-endabortvariants
+     * Notifies the CRM Compensator that it has received all the log records available during the abort phase.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icrmcompensatorvariants-endabortvariants
      */
     EndAbortVariants() {
         result := ComCall(12, this, "HRESULT")

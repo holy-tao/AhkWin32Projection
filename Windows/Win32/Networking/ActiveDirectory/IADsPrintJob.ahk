@@ -40,6 +40,96 @@ class IADsPrintJob extends IADs{
     static VTableNames => ["get_HostPrintQueue", "get_User", "get_UserPath", "get_TimeSubmitted", "get_TotalPages", "get_Size", "get_Description", "put_Description", "get_Priority", "put_Priority", "get_StartTime", "put_StartTime", "get_UntilTime", "put_UntilTime", "get_Notify", "put_Notify", "get_NotifyPath", "put_NotifyPath"]
 
     /**
+     * @type {BSTR} 
+     */
+    HostPrintQueue {
+        get => this.get_HostPrintQueue()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    User {
+        get => this.get_User()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserPath {
+        get => this.get_UserPath()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    TimeSubmitted {
+        get => this.get_TimeSubmitted()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalPages {
+        get => this.get_TotalPages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Size {
+        get => this.get_Size()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Priority {
+        get => this.get_Priority()
+        set => this.put_Priority(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    StartTime {
+        get => this.get_StartTime()
+        set => this.put_StartTime(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    UntilTime {
+        get => this.get_UntilTime()
+        set => this.put_UntilTime(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Notify {
+        get => this.get_Notify()
+        set => this.put_Notify(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    NotifyPath {
+        get => this.get_NotifyPath()
+        set => this.put_NotifyPath(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

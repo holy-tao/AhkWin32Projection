@@ -29,6 +29,13 @@ class IExecAction2 extends IExecAction{
     static VTableNames => ["get_HideAppWindow", "put_HideAppWindow"]
 
     /**
+     */
+    HideAppWindow {
+        get => this.get_HideAppWindow()
+        set => this.put_HideAppWindow(value)
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT_BOOL>} pHideAppWindow 
      * @returns {HRESULT} 

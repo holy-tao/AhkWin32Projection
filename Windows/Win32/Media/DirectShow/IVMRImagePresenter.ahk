@@ -31,10 +31,10 @@ class IVMRImagePresenter extends IUnknown{
     static VTableNames => ["StartPresenting", "StopPresenting", "PresentImage"]
 
     /**
-     * 
-     * @param {Pointer} dwUserID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagepresenter-startpresenting
+     * The StartPresenting method is called just before the video starts playing. The allocator-presenter should perform any necessary configuration in this method.
+     * @param {Pointer} dwUserID An application-defined <b>DWORD_PTR</b> cookie that uniquely identifies this instance of the VMR for use in scenarios when one instance of the allocator-presenter is used with multiple VMR instances.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrimagepresenter-startpresenting
      */
     StartPresenting(dwUserID) {
         result := ComCall(3, this, "ptr", dwUserID, "HRESULT")
@@ -42,10 +42,10 @@ class IVMRImagePresenter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} dwUserID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagepresenter-stoppresenting
+     * The StopPresenting method is called just after the video stops playing. The allocator-presenter should perform any necessary cleanup in this method.
+     * @param {Pointer} dwUserID An application-defined <b>DWORD_PTR</b> cookie that uniquely identifies this instance of the VMR for use in scenarios when one instance of the allocator-presenter is used with multiple VMR instances.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrimagepresenter-stoppresenting
      */
     StopPresenting(dwUserID) {
         result := ComCall(4, this, "ptr", dwUserID, "HRESULT")
@@ -53,11 +53,11 @@ class IVMRImagePresenter extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} dwUserID 
-     * @param {Pointer<VMRPRESENTATIONINFO>} lpPresInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagepresenter-presentimage
+     * The PresentImage method is called at precisely the moment this video frame should be presented.
+     * @param {Pointer} dwUserID An application-defined DWORD_PTR that uniquely identifies this instance of the VMR in scenarios when multiple instances of the VMR are being used with a single instance of an Allocator-Presenter. See Remarks
+     * @param {Pointer<VMRPRESENTATIONINFO>} lpPresInfo Specifies the [VMRPRESENTATIONINFO](/windows/desktop/api/strmif/ns-strmif-vmrpresentationinfo) structure.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrimagepresenter-presentimage
      */
     PresentImage(dwUserID, lpPresInfo) {
         result := ComCall(5, this, "ptr", dwUserID, "ptr", lpPresInfo, "HRESULT")

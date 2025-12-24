@@ -30,6 +30,46 @@ class IHTMLAppBehavior2 extends IDispatch{
     static VTableNames => ["put_contextMenu", "get_contextMenu", "put_innerBorder", "get_innerBorder", "put_scroll", "get_scroll", "put_scrollFlat", "get_scrollFlat", "put_selection", "get_selection"]
 
     /**
+     * @type {BSTR} 
+     */
+    contextMenu {
+        get => this.get_contextMenu()
+        set => this.put_contextMenu(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    innerBorder {
+        get => this.get_innerBorder()
+        set => this.put_innerBorder(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    scroll {
+        get => this.get_scroll()
+        set => this.put_scroll(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    scrollFlat {
+        get => this.get_scrollFlat()
+        set => this.put_scrollFlat(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    selection {
+        get => this.get_selection()
+        set => this.put_selection(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

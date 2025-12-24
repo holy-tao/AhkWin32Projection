@@ -31,9 +31,9 @@ class IAMFilterMiscFlags extends IUnknown{
     static VTableNames => ["GetMiscFlags"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamfiltermiscflags-getmiscflags
+     * The GetMiscFlags method returns the filter's type, either source or renderer.
+     * @returns {Integer} This method returns a member of the <a href="/windows/desktop/api/strmif/ne-strmif-_am_filter_misc_flags">_AM_FILTER_MISC_FLAGS</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamfiltermiscflags-getmiscflags
      */
     GetMiscFlags() {
         result := ComCall(3, this, "uint")

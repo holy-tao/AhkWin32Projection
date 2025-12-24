@@ -31,9 +31,30 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2{
     static VTableNames => ["get_NonAdministratorsElevated", "put_NonAdministratorsElevated", "get_FeaturedUpdatesEnabled", "put_FeaturedUpdatesEnabled"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    NonAdministratorsElevated {
+        get => this.get_NonAdministratorsElevated()
+        set => this.put_NonAdministratorsElevated(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    FeaturedUpdatesEnabled {
+        get => this.get_FeaturedUpdatesEnabled()
+        set => this.put_FeaturedUpdatesEnabled(value)
+    }
+
+    /**
+     * Gets and sets a Boolean value that indicates whether non-administrators can perform some update-related actions without administrator approval.
+     * @remarks
+     * 
+     * The NonAdministratorsElevated property controls whether non-administrative users are allowed to perform some additional actions without elevation. It is equivalent to the “Allow all users to install updates on this computer” check box in the Windows Update settings dialog.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings3-get_nonadministratorselevated
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings3-get_nonadministratorselevated
      */
     get_NonAdministratorsElevated() {
         result := ComCall(20, this, "short*", &retval := 0, "HRESULT")
@@ -41,10 +62,15 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2{
     }
 
     /**
+     * Gets and sets a Boolean value that indicates whether non-administrators can perform some update-related actions without administrator approval.
+     * @remarks
+     * 
+     * The NonAdministratorsElevated property controls whether non-administrative users are allowed to perform some additional actions without elevation. It is equivalent to the “Allow all users to install updates on this computer” check box in the Windows Update settings dialog.
+     * 
      * 
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings3-put_nonadministratorselevated
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings3-put_nonadministratorselevated
      */
     put_NonAdministratorsElevated(value) {
         result := ComCall(21, this, "short", value, "HRESULT")
@@ -52,9 +78,9 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2{
     }
 
     /**
-     * 
+     * Not supported.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings3-get_featuredupdatesenabled
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings3-get_featuredupdatesenabled
      */
     get_FeaturedUpdatesEnabled() {
         result := ComCall(22, this, "short*", &retval := 0, "HRESULT")
@@ -62,10 +88,10 @@ class IAutomaticUpdatesSettings3 extends IAutomaticUpdatesSettings2{
     }
 
     /**
-     * 
+     * Not supported.
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iautomaticupdatessettings3-put_featuredupdatesenabled
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iautomaticupdatessettings3-put_featuredupdatesenabled
      */
     put_FeaturedUpdatesEnabled(value) {
         result := ComCall(23, this, "short", value, "HRESULT")

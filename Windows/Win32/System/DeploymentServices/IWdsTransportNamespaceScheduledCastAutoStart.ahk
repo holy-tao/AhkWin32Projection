@@ -37,9 +37,25 @@ class IWdsTransportNamespaceScheduledCastAutoStart extends IWdsTransportNamespac
     static VTableNames => ["get_MinimumClients", "put_MinimumClients", "get_StartTime", "put_StartTime"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    MinimumClients {
+        get => this.get_MinimumClients()
+        set => this.put_MinimumClients(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    StartTime {
+        get => this.get_StartTime()
+        set => this.put_StartTime(value)
+    }
+
+    /**
+     * Retrieves or sets a condition that starts transmission automatically. Transmission starts if the number of applications that have joined sessions reaches the value of this property.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-get_minimumclients
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-get_minimumclients
      */
     get_MinimumClients() {
         result := ComCall(29, this, "uint*", &pulMinimumClients := 0, "HRESULT")
@@ -47,10 +63,10 @@ class IWdsTransportNamespaceScheduledCastAutoStart extends IWdsTransportNamespac
     }
 
     /**
-     * 
+     * Retrieves or sets a condition that starts transmission automatically. Transmission starts if the number of applications that have joined sessions reaches the value of this property.
      * @param {Integer} ulMinimumClients 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-put_minimumclients
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-put_minimumclients
      */
     put_MinimumClients(ulMinimumClients) {
         result := ComCall(30, this, "uint", ulMinimumClients, "HRESULT")
@@ -58,9 +74,9 @@ class IWdsTransportNamespaceScheduledCastAutoStart extends IWdsTransportNamespac
     }
 
     /**
-     * 
+     * Retrieves or sets a condition that starts transmission automatically. Transmission starts when the UTC time reaches the value of this property.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-get_starttime
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-get_starttime
      */
     get_StartTime() {
         result := ComCall(31, this, "double*", &pStartTime := 0, "HRESULT")
@@ -68,10 +84,10 @@ class IWdsTransportNamespaceScheduledCastAutoStart extends IWdsTransportNamespac
     }
 
     /**
-     * 
+     * Retrieves or sets a condition that starts transmission automatically. Transmission starts when the UTC time reaches the value of this property.
      * @param {Float} StartTime 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-put_starttime
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportnamespacescheduledcastautostart-put_starttime
      */
     put_StartTime(StartTime) {
         result := ComCall(32, this, "double", StartTime, "HRESULT")

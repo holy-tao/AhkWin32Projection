@@ -31,26 +31,32 @@ class IWICPlanarFormatConverter extends IWICBitmapSource{
     static VTableNames => ["Initialize", "CanConvert"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Pointer<IWICBitmapSource>} ppPlanes 
-     * @param {Integer} cPlanes 
-     * @param {Pointer<Guid>} dstFormat 
-     * @param {Integer} dither 
-     * @param {IWICPalette} pIPalette 
-     * @param {Float} alphaThresholdPercent 
-     * @param {Integer} paletteTranslate 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes a format converter with a planar source, and specifies the interleaved output pixel format.
+     * @param {Pointer<IWICBitmapSource>} ppPlanes Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>**</b>
+     * 
+     * An array of <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> that represents image planes.
+     * @param {Integer} cPlanes Type: <b>UINT</b>
+     * 
+     * The number of component planes specified by the planes parameter.
+     * @param {Pointer<Guid>} dstFormat Type: <b>REFWICPixelFormatGUID </b>
+     * 
+     * The destination interleaved pixel format.
+     * @param {Integer} dither Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapdithertype">WICBitmapDitherType</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapdithertype">WICBitmapDitherType</a> used for conversion.
+     * @param {IWICPalette} pIPalette Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a>*</b>
+     * 
+     * The palette to use for conversion.
+     * @param {Float} alphaThresholdPercent Type: <b>double</b>
+     * 
+     * The alpha threshold to use for conversion.
+     * @param {Integer} paletteTranslate Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmappalettetype">WICBitmapPaletteType</a></b>
+     * 
+     * The palette translation type to use for conversion.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicplanarformatconverter-initialize
      */
     Initialize(ppPlanes, cPlanes, dstFormat, dither, pIPalette, alphaThresholdPercent, paletteTranslate) {
         result := ComCall(8, this, "ptr*", ppPlanes, "uint", cPlanes, "ptr", dstFormat, "int", dither, "ptr", pIPalette, "double", alphaThresholdPercent, "int", paletteTranslate, "HRESULT")
@@ -58,12 +64,12 @@ class IWICPlanarFormatConverter extends IWICBitmapSource{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} pSrcPixelFormats 
-     * @param {Integer} cSrcPlanes 
-     * @param {Pointer<Guid>} dstPixelFormat 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicplanarformatconverter-canconvert
+     * Query if the format converter can convert from one format to another.
+     * @param {Pointer<Guid>} pSrcPixelFormats An array of WIC pixel formats that represents source image planes.
+     * @param {Integer} cSrcPlanes The number of source pixel formats specified by the <i>pSrcFormats</i> parameter.
+     * @param {Pointer<Guid>} dstPixelFormat The destination interleaved pixel format.
+     * @returns {BOOL} True if the conversion is supported.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicplanarformatconverter-canconvert
      */
     CanConvert(pSrcPixelFormats, cSrcPlanes, dstPixelFormat) {
         result := ComCall(9, this, "ptr", pSrcPixelFormats, "uint", cSrcPlanes, "ptr", dstPixelFormat, "int*", &pfCanConvert := 0, "HRESULT")

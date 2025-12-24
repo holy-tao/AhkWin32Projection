@@ -32,9 +32,51 @@ class ITTerminal extends IDispatch{
     static VTableNames => ["get_Name", "get_State", "get_TerminalType", "get_TerminalClass", "get_MediaType", "get_Direction"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_name
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TerminalType {
+        get => this.get_TerminalType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TerminalClass {
+        get => this.get_TerminalClass()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MediaType {
+        get => this.get_MediaType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Direction {
+        get => this.get_Direction()
+    }
+
+    /**
+     * The get_Name method gets a descriptive name of the terminal. The name must be usable to the user.
+     * @returns {BSTR} Pointer to <b>BSTR</b> containing the name of the terminal.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itterminal-get_name
      */
     get_Name() {
         ppName := BSTR()
@@ -43,9 +85,10 @@ class ITTerminal extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_state
+     * The get_State method gets the current state of the terminal.
+     * @returns {Integer} Pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_state">TERMINAL_STATE</a> enum member.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itterminal-get_state
      */
     get_State() {
         result := ComCall(8, this, "int*", &pTerminalState := 0, "HRESULT")
@@ -53,9 +96,10 @@ class ITTerminal extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_terminaltype
+     * The get_TerminalType method gets the TERMINAL_TYPE of the terminal.
+     * @returns {Integer} Pointer to a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_type">TERMINAL_TYPE</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itterminal-get_terminaltype
      */
     get_TerminalType() {
         result := ComCall(9, this, "int*", &pType := 0, "HRESULT")
@@ -63,9 +107,10 @@ class ITTerminal extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_terminalclass
+     * The get_TerminalClass method gets the Terminal Class of the terminal.
+     * @returns {BSTR} Pointer to <b>BSTR</b> representation of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/terminal-class">Terminal Class</a> of the terminal.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itterminal-get_terminalclass
      */
     get_TerminalClass() {
         ppTerminalClass := BSTR()
@@ -74,9 +119,10 @@ class ITTerminal extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_mediatype
+     * The get_MediaType method determines the media that this terminal supports.
+     * @returns {Integer} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itterminal-get_mediatype
      */
     get_MediaType() {
         result := ComCall(11, this, "int*", &plMediaType := 0, "HRESULT")
@@ -84,9 +130,9 @@ class ITTerminal extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itterminal-get_direction
+     * The get_Direction method gets a TERMINAL_DIRECTION descriptor of the media stream direction for the terminal.
+     * @returns {Integer} <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-terminal_direction">TERMINAL_DIRECTION</a> descriptor of the media stream direction for the terminal.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itterminal-get_direction
      */
     get_Direction() {
         result := ComCall(12, this, "int*", &pDirection := 0, "HRESULT")

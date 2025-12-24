@@ -37,6 +37,46 @@ class IHTMLHRElement extends IDispatch{
     static VTableNames => ["put_align", "get_align", "put_color", "get_color", "put_noShade", "get_noShade", "put_width", "get_width", "put_size", "get_size"]
 
     /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    color {
+        get => this.get_color()
+        set => this.put_color(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    noShade {
+        get => this.get_noShade()
+        set => this.put_noShade(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    size {
+        get => this.get_size()
+        set => this.put_size(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

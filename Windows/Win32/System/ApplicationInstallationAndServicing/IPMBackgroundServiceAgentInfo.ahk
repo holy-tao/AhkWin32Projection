@@ -29,6 +29,84 @@ class IPMBackgroundServiceAgentInfo extends IUnknown{
     static VTableNames => ["get_ProductID", "get_TaskID", "get_BSAID", "get_BGSpecifier", "get_BGName", "get_BGSource", "get_BGType", "get_IsPeriodic", "get_IsScheduled", "get_IsScheduleAllowed", "get_Description", "get_IsLaunchOnBoot", "set_IsScheduled", "set_IsScheduleAllowed"]
 
     /**
+     * @type {Guid} 
+     */
+    ProductID {
+        get => this.get_ProductID()
+    }
+
+    /**
+     */
+    TaskID {
+        get => this.get_TaskID()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    BSAID {
+        get => this.get_BSAID()
+    }
+
+    /**
+     */
+    BGSpecifier {
+        get => this.get_BGSpecifier()
+    }
+
+    /**
+     */
+    BGName {
+        get => this.get_BGName()
+    }
+
+    /**
+     */
+    BGSource {
+        get => this.get_BGSource()
+    }
+
+    /**
+     */
+    BGType {
+        get => this.get_BGType()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsPeriodic {
+        get => this.get_IsPeriodic()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsScheduled {
+        get => this.get_IsScheduled()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsScheduleAllowed {
+        get => this.get_IsScheduleAllowed()
+    }
+
+    /**
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    IsLaunchOnBoot {
+        get => this.get_IsLaunchOnBoot()
+    }
+
+    /**
      * 
      * @returns {Guid} 
      */

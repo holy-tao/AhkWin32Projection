@@ -41,6 +41,35 @@ class IGPMSOM extends IDispatch{
     static VTableNames => ["get_GPOInheritanceBlocked", "put_GPOInheritanceBlocked", "get_Name", "get_Path", "CreateGPOLink", "get_Type", "GetGPOLinks", "GetInheritedGPOLinks", "GetSecurityInfo", "SetSecurityInfo"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    GPOInheritanceBlocked {
+        get => this.get_GPOInheritanceBlocked()
+        set => this.put_GPOInheritanceBlocked(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */
@@ -80,11 +109,12 @@ class IGPMSOM extends IDispatch{
     }
 
     /**
-     * The CreateGPOLink function creates a link between the specified GPO and the specified site, domain, or organizational unit.
-     * @param {Integer} lLinkPos 
-     * @param {IGPMGPO} pGPO 
-     * @returns {IGPMGPOLink} 
-     * @see https://docs.microsoft.com/windows/win32/api//gpedit/nf-gpedit-creategpolink
+     * Links the specified GPO to the specified position in the list of GPOs that are linked to a particular SOM.
+     * @param {Integer} lLinkPos Position in which the GPO should be linked. The position is 1-based. If this parameter is – 1, the GPO is appended to the end of the list. If the position specified is greater than the current number of GPO links, the method fails and returns <b>E_INVALIDARG</b>.
+     * @param {IGPMGPO} pGPO GPO to link.
+     * @returns {IGPMGPOLink} Address of a pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpolink">IGPMGPOLink</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsom-creategpolink
      */
     CreateGPOLink(lLinkPos, pGPO) {
         result := ComCall(11, this, "int", lLinkPos, "ptr", pGPO, "ptr*", &ppNewGPOLink := 0, "HRESULT")
@@ -101,9 +131,10 @@ class IGPMSOM extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IGPMGPOLinksCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsom-getgpolinks
+     * Returns a GPMGPOLinksCollection object that contains the GPO links for the scope of management (SOM). The collection is sorted in the SOM link order and contains both enabled and disabled links. See IGPMGPOLink for the definition of SOM link order.
+     * @returns {IGPMGPOLinksCollection} Address of a pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpolinkscollection">IGPMGPOLinksCollection</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsom-getgpolinks
      */
     GetGPOLinks() {
         result := ComCall(13, this, "ptr*", &ppGPOLinks := 0, "HRESULT")
@@ -111,9 +142,10 @@ class IGPMSOM extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IGPMGPOLinksCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsom-getinheritedgpolinks
+     * Returns a GPOLinksCollection object that contains the GPO links that are applied to the scope of management (SOM), including links inherited from parent containers (OUs and domains).
+     * @returns {IGPMGPOLinksCollection} Address of a pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpolinkscollection">IGPMGPOLinksCollection</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsom-getinheritedgpolinks
      */
     GetInheritedGPOLinks() {
         result := ComCall(14, this, "ptr*", &ppGPOLinks := 0, "HRESULT")
@@ -121,9 +153,10 @@ class IGPMSOM extends IDispatch{
     }
 
     /**
-     * Retrieves a copy of the security descriptor for an object specified by a handle.
-     * @returns {IGPMSecurityInfo} 
-     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getsecurityinfo
+     * Returns an object that represents the collection of GPMPermission objects for the scope of management (SOM).
+     * @returns {IGPMSecurityInfo} Address of a pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsecurityinfo">IGPMSecurityInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsom-getsecurityinfo
      */
     GetSecurityInfo() {
         result := ComCall(15, this, "ptr*", &ppSecurityInfo := 0, "HRESULT")
@@ -131,12 +164,15 @@ class IGPMSOM extends IDispatch{
     }
 
     /**
-     * Sets specified security information in the security descriptor of a specified object. The caller identifies the object by a handle.
-     * @param {IGPMSecurityInfo} pSecurityInfo 
-     * @returns {HRESULT} If the function succeeds, the function returns ERROR_SUCCESS.
+     * Sets the list of permissions for the scope of management (SOM) to that of the specified object.
+     * @param {IGPMSecurityInfo} pSecurityInfo Pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsecurityinfo">IGPMSecurityInfo</a> interface.
+     * @returns {HRESULT} <h3>JScript</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
-     * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-setsecurityinfo
+     * <h3>VB</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsom-setsecurityinfo
      */
     SetSecurityInfo(pSecurityInfo) {
         result := ComCall(16, this, "ptr", pSecurityInfo, "HRESULT")

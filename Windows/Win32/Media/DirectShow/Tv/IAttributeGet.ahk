@@ -36,9 +36,9 @@ class IAttributeGet extends IUnknown{
     static VTableNames => ["GetCount", "GetAttribIndexed", "GetAttrib"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getcount
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives the number of attributes.
+     * @see https://docs.microsoft.com/windows/win32/api//dsattrib/nf-dsattrib-iattributeget-getcount
      */
     GetCount() {
         result := ComCall(3, this, "int*", &plCount := 0, "HRESULT")
@@ -46,12 +46,12 @@ class IAttributeGet extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lIndex 
-     * @param {Pointer<Integer>} pbAttribute 
-     * @param {Pointer<Integer>} pdwAttributeLength 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getattribindexed
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @param {Integer} lIndex Zero-based index of the attribute. To get the number of attributes, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dsattrib/nf-dsattrib-iattributeget-getcount">IAttributeGet::GetCount</a>.
+     * @param {Pointer<Integer>} pbAttribute Pointer to a buffer that receives the attribute value. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pdwAttributeLength If <i>pbAttribute</i> is <b>NULL</b>, this parameter receives the size of the attribute data, in bytes. If <i>pbAttribute</i> is non-<b>NULL</b>, this parameter specifies the size of the <i>pbAttribute</i> buffer, in bytes.
+     * @returns {Guid} Receives the <b>GUID</b> for this attribute.
+     * @see https://docs.microsoft.com/windows/win32/api//dsattrib/nf-dsattrib-iattributeget-getattribindexed
      */
     GetAttribIndexed(lIndex, pbAttribute, pdwAttributeLength) {
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"
@@ -63,12 +63,52 @@ class IAttributeGet extends IUnknown{
     }
 
     /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @param {Guid} guidAttribute <b>GUID</b> that specifies the attribute to retrieve.
+     * @param {Pointer<Integer>} pbAttribute Pointer to a buffer that receives the attribute value. This parameter can be <b>NULL</b>.
+     * @param {Pointer<Integer>} pdwAttributeLength If <i>pbAttribute</i> is <b>NULL</b>, this parameter receives the size of the attribute data, in bytes. If <i>pbAttribute</i> is non-<b>NULL</b>, this parameter specifies the size of the <i>pbAttribute</i> buffer, in bytes.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Guid} guidAttribute 
-     * @param {Pointer<Integer>} pbAttribute 
-     * @param {Pointer<Integer>} pdwAttributeLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dsattrib/nf-dsattrib-iattributeget-getattrib
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer value.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_UNSUPPORTED_PROPERTY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified <b>GUID</b> does not match any attribute on this object.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//dsattrib/nf-dsattrib-iattributeget-getattrib
      */
     GetAttrib(guidAttribute, pbAttribute, pdwAttributeLength) {
         pbAttributeMarshal := pbAttribute is VarRef ? "char*" : "ptr"

@@ -160,9 +160,23 @@ class INetwork extends IDispatch{
     static VTableNames => ["GetName", "SetName", "GetDescription", "SetDescription", "GetNetworkId", "GetDomainType", "GetNetworkConnections", "GetTimeCreatedAndConnected", "get_IsConnectedToInternet", "get_IsConnected", "GetConnectivity", "GetCategory", "SetCategory"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getname
+     * @type {VARIANT_BOOL} 
+     */
+    IsConnectedToInternet {
+        get => this.get_IsConnectedToInternet()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsConnected {
+        get => this.get_IsConnected()
+    }
+
+    /**
+     * The GetName method returns the name of a network.
+     * @returns {BSTR} Pointer to the name of the network.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-getname
      */
     GetName() {
         pszNetworkName := BSTR()
@@ -171,10 +185,39 @@ class INetwork extends IDispatch{
     }
 
     /**
+     * The SetName method sets or renames a network.
+     * @param {BSTR} szNetworkNewName Zero-terminated string that contains the new name of the network.
+     * @returns {HRESULT} Returns S_OK if the method succeeds. Otherwise, the method returns one of the following values.
      * 
-     * @param {BSTR} szNetworkNewName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-setname
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>szNetworkNewName</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_FILENAME_EXCED_RANGE)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The name provided is too long. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-setname
      */
     SetName(szNetworkNewName) {
         szNetworkNewName := szNetworkNewName is String ? BSTR.Alloc(szNetworkNewName).Value : szNetworkNewName
@@ -184,9 +227,9 @@ class INetwork extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getdescription
+     * The GetDescription method returns a description string for the network.
+     * @returns {BSTR} Pointer to a string that specifies the text description of the network. This value must be freed using the SysFreeString API.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-getdescription
      */
     GetDescription() {
         pszDescription := BSTR()
@@ -195,10 +238,39 @@ class INetwork extends IDispatch{
     }
 
     /**
+     * The SetDescription method sets or replaces the description for a network.
+     * @param {BSTR} szDescription Zero-terminated string that contains the description of the network.
+     * @returns {HRESULT} Returns S_OK if the method succeeds. Otherwise, the method returns one of the following values.
      * 
-     * @param {BSTR} szDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-setdescription
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>szDescription</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_FILENAME_EXCED_RANGE)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The given name is too long. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-setdescription
      */
     SetDescription(szDescription) {
         szDescription := szDescription is String ? BSTR.Alloc(szDescription).Value : szDescription
@@ -208,9 +280,9 @@ class INetwork extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getnetworkid
+     * The GetNetworkId method returns the unique identifier of a network.
+     * @returns {Guid} Pointer to a GUID that specifies the network ID.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-getnetworkid
      */
     GetNetworkId() {
         pgdGuidNetworkId := Guid()
@@ -219,9 +291,9 @@ class INetwork extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getdomaintype
+     * The GetDomainType method returns the domain type of a network.
+     * @returns {Integer} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_domain_type">NLM_DOMAIN_TYPE</a> enumeration value that specifies the domain type of the network.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-getdomaintype
      */
     GetDomainType() {
         result := ComCall(12, this, "int*", &pNetworkType := 0, "HRESULT")
@@ -229,9 +301,9 @@ class INetwork extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumNetworkConnections} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getnetworkconnections
+     * The GetNetworkConnections method returns an enumeration of all network connections for a network. A network can have multiple connections to it from different interfaces or different links from the same interface.
+     * @returns {IEnumNetworkConnections} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/nn-netlistmgr-ienumnetworkconnections">IEnumNetworkConnections</a> interface instance that enumerates the list of local connections to this network.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-getnetworkconnections
      */
     GetNetworkConnections() {
         result := ComCall(13, this, "ptr*", &ppEnumNetworkConnection := 0, "HRESULT")
@@ -239,13 +311,31 @@ class INetwork extends IDispatch{
     }
 
     /**
+     * The GetTimeCreatedAndConnected method returns the local date and time when the network was created and connected.
+     * @param {Pointer<Integer>} pdwLowDateTimeCreated Pointer to a datetime when  the network was created. Specifically, it contains the  low DWORD of <b>FILETIME.dwLowDateTime</b>.
+     * @param {Pointer<Integer>} pdwHighDateTimeCreated Pointer to a datetime when  the network was created. Specifically, it contains the  high DWORD of <b>FILETIME.dwLowDateTime</b>.
+     * @param {Pointer<Integer>} pdwLowDateTimeConnected Pointer to a datetime when the network was last connected to. Specifically, it contains the  low DWORD of <b>FILETIME.dwLowDateTime</b>.
+     * @param {Pointer<Integer>} pdwHighDateTimeConnected Pointer to a datetime when the network was last connected to. Specifically, it contains the  high DWORD of <b>FILETIME.dwLowDateTime</b>.
+     * @returns {HRESULT} Returns S_OK if the method succeeds. Otherwise, the method returns one of the following values.
      * 
-     * @param {Pointer<Integer>} pdwLowDateTimeCreated 
-     * @param {Pointer<Integer>} pdwHighDateTimeCreated 
-     * @param {Pointer<Integer>} pdwLowDateTimeConnected 
-     * @param {Pointer<Integer>} pdwHighDateTimeConnected 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-gettimecreatedandconnected
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The pointer passed is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-gettimecreatedandconnected
      */
     GetTimeCreatedAndConnected(pdwLowDateTimeCreated, pdwHighDateTimeCreated, pdwLowDateTimeConnected, pdwHighDateTimeConnected) {
         pdwLowDateTimeCreatedMarshal := pdwLowDateTimeCreated is VarRef ? "uint*" : "ptr"
@@ -258,9 +348,9 @@ class INetwork extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-get_isconnectedtointernet
+     * The get_IsConnectedToInternet property specifies if the network has internet connectivity.
+     * @returns {VARIANT_BOOL} If <b>TRUE</b>, this network has connectivity to the internet; if <b>FALSE</b>, it does not.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-get_isconnectedtointernet
      */
     get_IsConnectedToInternet() {
         result := ComCall(15, this, "short*", &pbIsConnected := 0, "HRESULT")
@@ -268,9 +358,9 @@ class INetwork extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-get_isconnected
+     * The get_IsConnected property specifies if the network has any network connectivity.
+     * @returns {VARIANT_BOOL} If <b>TRUE</b>, this network is connected; if <b>FALSE</b>, it is not.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-get_isconnected
      */
     get_IsConnected() {
         result := ComCall(16, this, "short*", &pbIsConnected := 0, "HRESULT")
@@ -278,9 +368,9 @@ class INetwork extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getconnectivity
+     * The GetConnectivity method returns the connectivity state of the network.
+     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that contains a bitmask  that specifies the connectivity state of this network.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-getconnectivity
      */
     GetConnectivity() {
         result := ComCall(17, this, "int*", &pConnectivity := 0, "HRESULT")
@@ -288,9 +378,9 @@ class INetwork extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-getcategory
+     * The GetCategory method returns the category of a network.
+     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_network_category">NLM_NETWORK_CATEGORY</a> enumeration value that specifies the category information for the network.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-getcategory
      */
     GetCategory() {
         result := ComCall(18, this, "int*", &pCategory := 0, "HRESULT")
@@ -298,10 +388,10 @@ class INetwork extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} NewCategory 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetwork-setcategory
+     * The SetCategory method sets the category of a network. Changes made take effect immediately. Callers of this API must be members of the Administrators group.
+     * @param {Integer} NewCategory Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_network_category">NLM_NETWORK_CATEGORY</a> enumeration value that specifies the new category of the network.
+     * @returns {HRESULT} Returns S_OK if the method succeeds.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetwork-setcategory
      */
     SetCategory(NewCategory) {
         result := ComCall(19, this, "int", NewCategory, "HRESULT")

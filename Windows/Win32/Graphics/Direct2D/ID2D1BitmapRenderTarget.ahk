@@ -46,9 +46,11 @@ class ID2D1BitmapRenderTarget extends ID2D1RenderTarget{
     static VTableNames => ["GetBitmap"]
 
     /**
+     * Retrieves the bitmap for this render target. The returned bitmap can be used for drawing operations.
+     * @returns {ID2D1Bitmap} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1bitmap">ID2D1Bitmap</a>**</b>
      * 
-     * @returns {ID2D1Bitmap} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1bitmaprendertarget-getbitmap
+     * When this method returns, contains the address of a pointer to the bitmap for this render target. This bitmap can be used for drawing operations.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1bitmaprendertarget-getbitmap
      */
     GetBitmap() {
         result := ComCall(57, this, "ptr*", &bitmap := 0, "HRESULT")

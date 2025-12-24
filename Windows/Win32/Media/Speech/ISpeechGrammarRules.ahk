@@ -32,6 +32,27 @@ class ISpeechGrammarRules extends IDispatch{
     static VTableNames => ["get_Count", "FindRule", "Item", "get__NewEnum", "get_Dynamic", "Add", "Commit", "CommitAndSave"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Dynamic {
+        get => this.get_Dynamic()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

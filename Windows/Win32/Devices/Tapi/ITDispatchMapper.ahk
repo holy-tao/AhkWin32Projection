@@ -32,11 +32,11 @@ class ITDispatchMapper extends IDispatch{
     static VTableNames => ["QueryDispatchInterface"]
 
     /**
-     * 
-     * @param {BSTR} pIID 
-     * @param {IDispatch} pInterfaceToMap 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdispatchmapper-querydispatchinterface
+     * The QueryDispatchInterface method returns a dispatch pointer to a different interface on an object given its GUID and the dispatch pointer of another interface on the object.
+     * @param {BSTR} pIID Pointer to <b>BSTR</b> representation of GUID for needed interface.
+     * @param {IDispatch} pInterfaceToMap <b>IDispatch</b> pointer of starting interface.
+     * @returns {IDispatch} <b>IDispatch</b> pointer of interface corresponding the GUID contained in <i>pIID</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdispatchmapper-querydispatchinterface
      */
     QueryDispatchInterface(pIID, pInterfaceToMap) {
         pIID := pIID is String ? BSTR.Alloc(pIID).Value : pIID

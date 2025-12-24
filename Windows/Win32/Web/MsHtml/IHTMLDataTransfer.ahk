@@ -31,6 +31,22 @@ class IHTMLDataTransfer extends IDispatch{
     static VTableNames => ["setData", "getData", "clearData", "put_dropEffect", "get_dropEffect", "put_effectAllowed", "get_effectAllowed"]
 
     /**
+     * @type {BSTR} 
+     */
+    dropEffect {
+        get => this.get_dropEffect()
+        set => this.put_dropEffect(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    effectAllowed {
+        get => this.get_effectAllowed()
+        set => this.put_effectAllowed(value)
+    }
+
+    /**
      * 
      * @param {BSTR} format 
      * @param {Pointer<VARIANT>} data 

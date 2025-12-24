@@ -36,10 +36,10 @@ class IVPNotify2 extends IVPNotify{
     static VTableNames => ["SetVPSyncMaster", "GetVPSyncMaster"]
 
     /**
-     * 
-     * @param {BOOL} bVPSyncMaster 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify2-setvpsyncmaster
+     * The SetVPSyncMaster method sets whether the video port controls vertical synchronization of the VGA.
+     * @param {BOOL} bVPSyncMaster Value specifying whether the video port controls the vertical synchronization of the VGA monitor. <b>TRUE</b> if the port controls the monitor's synchronization; <b>FALSE</b> otherwise.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nf-vpnotify-ivpnotify2-setvpsyncmaster
      */
     SetVPSyncMaster(bVPSyncMaster) {
         result := ComCall(6, this, "int", bVPSyncMaster, "HRESULT")
@@ -47,10 +47,10 @@ class IVPNotify2 extends IVPNotify{
     }
 
     /**
-     * 
-     * @param {Pointer<BOOL>} pbVPSyncMaster 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vpnotify/nf-vpnotify-ivpnotify2-getvpsyncmaster
+     * The GetVPSyncMaster method checks whether the video port controls the synchronization of the VGA.
+     * @param {Pointer<BOOL>} pbVPSyncMaster Pointer to a value indicating whether the video port controls the vertical synchronization of the VGA monitor. <b>TRUE</b> if the port controls the monitor's synchronization; <b>FALSE</b> otherwise.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value.
+     * @see https://docs.microsoft.com/windows/win32/api//vpnotify/nf-vpnotify-ivpnotify2-getvpsyncmaster
      */
     GetVPSyncMaster(pbVPSyncMaster) {
         pbVPSyncMasterMarshal := pbVPSyncMaster is VarRef ? "int*" : "ptr"

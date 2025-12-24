@@ -34,10 +34,10 @@ class IMDSPDevice3 extends IMDSPDevice2{
     static VTableNames => ["GetProperty", "SetProperty", "GetFormatCapability", "DeviceIoControl", "FindStorage"]
 
     /**
-     * 
-     * @param {PWSTR} pwszPropName 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice3-getproperty
+     * The GetProperty method retrieves a specific device property.
+     * @param {PWSTR} pwszPropName Name of property being retrieved from the device.
+     * @returns {PROPVARIANT} Returned value for the property.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice3-getproperty
      */
     GetProperty(pwszPropName) {
         pwszPropName := pwszPropName is String ? StrPtr(pwszPropName) : pwszPropName
@@ -48,11 +48,18 @@ class IMDSPDevice3 extends IMDSPDevice2{
     }
 
     /**
+     * The SetProperty method sets a specific device property that is writable.
+     * @param {PWSTR} pwszPropName Name of device property being set.
+     * @param {Pointer<PROPVARIANT>} pValue Value of device property being set.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {PWSTR} pwszPropName 
-     * @param {Pointer<PROPVARIANT>} pValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice3-setproperty
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice3-setproperty
      */
     SetProperty(pwszPropName, pValue) {
         pwszPropName := pwszPropName is String ? StrPtr(pwszPropName) : pwszPropName
@@ -62,10 +69,13 @@ class IMDSPDevice3 extends IMDSPDevice2{
     }
 
     /**
+     * The GetFormatCapability method retrieves information from a device about the values or ranges of values supported by the device for each aspect of a particular object format.
+     * @param {Integer} format <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-formatcode">WMDM_FORMATCODE</a>
      * 
-     * @param {Integer} format 
-     * @returns {WMDM_FORMAT_CAPABILITY} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice3-getformatcapability
+     * 
+     * Enumerated value representing inquired format.
+     * @returns {WMDM_FORMAT_CAPABILITY} Returned <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-format-capability">WMDM_FORMAT_CAPABILITY</a> structure containing the values or ranges of values supported for each aspect of a particular object format.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice3-getformatcapability
      */
     GetFormatCapability(format) {
         pFormatSupport := WMDM_FORMAT_CAPABILITY()
@@ -74,26 +84,13 @@ class IMDSPDevice3 extends IMDSPDevice2{
     }
 
     /**
-     * Sends a control code directly to a specified device driver, causing the corresponding device to perform the corresponding operation.
-     * @param {Integer} dwIoControlCode The control code for the operation. This value identifies the specific operation to be performed and the 
-     *        type of device on which to perform it.
-     * 
-     * For a list of the control codes, see Remarks. The documentation for each control code provides usage details 
-     *        for the <i>lpInBuffer</i>, <i>nInBufferSize</i>, 
-     *        <i>lpOutBuffer</i>, and <i>nOutBufferSize</i> parameters.
-     * @param {Pointer<Integer>} lpInBuffer A pointer to the input buffer that contains the data required to perform the operation. The format of this 
-     *        data depends on the value of the <i>dwIoControlCode</i> parameter.
-     * 
-     * This parameter can be <b>NULL</b> if <i>dwIoControlCode</i> specifies 
-     *        an operation that does not require input data.
-     * @param {Integer} nInBufferSize The size of the input buffer, in bytes.
-     * @param {Pointer<Integer>} pnOutBufferSize 
-     * @returns {Integer} A pointer to the output buffer that is to receive the data returned by the operation. The format of this 
-     *        data depends on the value of the <i>dwIoControlCode</i> parameter.
-     * 
-     * This parameter can be <b>NULL</b> if <i>dwIoControlCode</i> specifies 
-     *        an operation that does not return data.
-     * @see https://docs.microsoft.com/windows/win32/api//ioapiset/nf-ioapiset-deviceiocontrol
+     * The DeviceIoControl method calls the device I/O control.
+     * @param {Integer} dwIoControlCode I/O control code being sent to the device.
+     * @param {Pointer<Integer>} lpInBuffer Input buffer supplied by the calling application. This can be <b>NULL</b> if <i>nInBufferSize</i> is zero.
+     * @param {Integer} nInBufferSize Size of <i>lpInBuffer</i>, in bytes.
+     * @param {Pointer<Integer>} pnOutBufferSize Size of <i>lpOutBuffer</i>, in bytes.
+     * @returns {Integer} Output buffer, supplied by the calling application.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice3-deviceiocontrol
      */
     DeviceIoControl(dwIoControlCode, lpInBuffer, nInBufferSize, pnOutBufferSize) {
         lpInBufferMarshal := lpInBuffer is VarRef ? "char*" : "ptr"
@@ -104,11 +101,11 @@ class IMDSPDevice3 extends IMDSPDevice2{
     }
 
     /**
-     * 
+     * The FindStorage method finds a storage with the given persistent unique identifier. The persistent unique identifier of a storage is described by the g_wszWMDMPersistentUniqueID property of that storage.
      * @param {Integer} findScope 
-     * @param {PWSTR} pwszUniqueID 
-     * @returns {IMDSPStorage} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspdevice3-findstorage
+     * @param {PWSTR} pwszUniqueID Persistent unique identifier of the storage.
+     * @returns {IMDSPStorage} Pointer to the returned storage specified by the <i>pwszUniqueID</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspdevice3-findstorage
      */
     FindStorage(findScope, pwszUniqueID) {
         pwszUniqueID := pwszUniqueID is String ? StrPtr(pwszUniqueID) : pwszUniqueID

@@ -29,6 +29,13 @@ class IWscProduct3 extends IWscProduct2{
     static VTableNames => ["get_AntivirusDaysUntilExpired"]
 
     /**
+     * @type {Integer} 
+     */
+    AntivirusDaysUntilExpired {
+        get => this.get_AntivirusDaysUntilExpired()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

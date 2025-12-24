@@ -32,9 +32,16 @@ class IMFMediaEngineEME extends IUnknown{
     static VTableNames => ["get_Keys", "SetMediaKeys"]
 
     /**
-     * 
-     * @returns {IMFMediaKeys} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineeme-get_keys
+     * @type {IMFMediaKeys} 
+     */
+    Keys {
+        get => this.get_Keys()
+    }
+
+    /**
+     * Gets the media keys object associated with the media engine or null if there is not a media keys object.
+     * @returns {IMFMediaKeys} The media keys object associated with the media engine or <b>null</b> if there is not a media keys object.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineeme-get_keys
      */
     get_Keys() {
         result := ComCall(3, this, "ptr*", &keys := 0, "HRESULT")
@@ -42,10 +49,10 @@ class IMFMediaEngineEME extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFMediaKeys} keys 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineeme-setmediakeys
+     * Sets the media keys object to use with the media engine.
+     * @param {IMFMediaKeys} keys The media keys.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineeme-setmediakeys
      */
     SetMediaKeys(keys) {
         result := ComCall(4, this, "ptr", keys, "HRESULT")

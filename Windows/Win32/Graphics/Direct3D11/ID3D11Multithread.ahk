@@ -41,28 +41,46 @@ class ID3D11Multithread extends IUnknown{
     static VTableNames => ["Enter", "Leave", "SetMultithreadProtected", "GetMultithreadProtected"]
 
     /**
+     * Enter a device's critical section.
+     * @remarks
+     * 
+     * If <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_4/nf-d3d11_4-id3d11multithread-setmultithreadprotected">SetMultithreadProtected</a> is set to true, then entering a device's critical section prevents other threads from simultaneously calling that device's methods, calling DXGI methods, and calling the methods of all resource, view, shader, state, and asynchronous interfaces.
+     * 
+     * This function should be used in multithreaded applications when there is a series of graphics commands that must happen in order. This function is typically called at the beginning of the series of graphics commands, and <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_4/nf-d3d11_4-id3d11multithread-leave">Leave</a> is typically called after those graphics commands.
+     * 
      * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11multithread-enter
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/nf-d3d11_4-id3d11multithread-enter
      */
     Enter() {
         ComCall(3, this)
     }
 
     /**
+     * Leave a device's critical section.
+     * @remarks
+     * 
+     * This function is typically used in multithreaded applications when there is a series of graphics commands 
+     * 		  that must happen in order. <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_4/nf-d3d11_4-id3d11multithread-enter">Enter</a> is typically called at the beginning of a series of graphics commands, and this function is typically 
+     * 		  called after those graphics commands.
+     * 
      * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11multithread-leave
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/nf-d3d11_4-id3d11multithread-leave
      */
     Leave() {
         ComCall(4, this)
     }
 
     /**
+     * Turns multithread protection on or off.
+     * @param {BOOL} bMTProtect Type: <b>BOOL</b>
      * 
-     * @param {BOOL} bMTProtect 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11multithread-setmultithreadprotected
+     * Set to true to turn multithread protection on, false to turn it off.
+     * @returns {BOOL} Type: <b>BOOL</b>
+     * 
+     * True if multithread protection was already turned on prior to calling this method, false otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/nf-d3d11_4-id3d11multithread-setmultithreadprotected
      */
     SetMultithreadProtected(bMTProtect) {
         result := ComCall(5, this, "int", bMTProtect, "int")
@@ -70,9 +88,11 @@ class ID3D11Multithread extends IUnknown{
     }
 
     /**
+     * Find out if multithread protection is turned on or not.
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11multithread-getmultithreadprotected
+     * Returns true if multithread protection is turned on, false otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/nf-d3d11_4-id3d11multithread-getmultithreadprotected
      */
     GetMultithreadProtected() {
         result := ComCall(6, this, "int")

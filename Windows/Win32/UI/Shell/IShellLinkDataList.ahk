@@ -84,10 +84,14 @@ class IShellLinkDataList extends IUnknown{
     static VTableNames => ["AddDataBlock", "CopyDataBlock", "RemoveDataBlock", "GetFlags", "SetFlags"]
 
     /**
+     * Adds a data block to a link.
+     * @param {Pointer<Void>} pDataBlock Type: <b>VOID*</b>
      * 
-     * @param {Pointer<Void>} pDataBlock 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-adddatablock
+     * The data block structure. For a list of supported structures, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinkdatalist">IShellLinkDataList</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-adddatablock
      */
     AddDataBlock(pDataBlock) {
         pDataBlockMarshal := pDataBlock is VarRef ? "ptr" : "ptr"
@@ -97,10 +101,14 @@ class IShellLinkDataList extends IUnknown{
     }
 
     /**
+     * Retrieves a copy of a link's data block.
+     * @param {Integer} dwSig Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwSig 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-copydatablock
+     * The data block's signature. The signature value for a particular type of data block can be found in its structure reference. For a list of supported data block types and their associated structures, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinkdatalist">IShellLinkDataList</a>.
+     * @returns {Pointer<Void>} Type: <b>VOID**</b>
+     * 
+     * The address of a pointer to a copy of the data block structure. If <b>IShellLinkDataList::CopyDataBlock</b> returns a successful result, the calling application must free the memory when it is no longer needed by calling <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-copydatablock
      */
     CopyDataBlock(dwSig) {
         result := ComCall(4, this, "uint", dwSig, "ptr*", &ppDataBlock := 0, "HRESULT")
@@ -108,10 +116,14 @@ class IShellLinkDataList extends IUnknown{
     }
 
     /**
+     * Removes a data block from a link.
+     * @param {Integer} dwSig Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwSig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-removedatablock
+     * The data block's signature. The signature value for a particular type of data block can be found in its structure reference. For a list of supported data block types and their associated structures, see <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinkdatalist">IShellLinkDataList</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a COM error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-removedatablock
      */
     RemoveDataBlock(dwSig) {
         result := ComCall(5, this, "uint", dwSig, "HRESULT")
@@ -119,9 +131,11 @@ class IShellLinkDataList extends IUnknown{
     }
 
     /**
+     * Gets the current option settings.
+     * @returns {Integer} Type: <b>DWORD*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-getflags
+     * Pointer to one or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-shell_link_data_flags">SHELL_LINK_DATA_FLAGS</a> that indicate the current option settings.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-getflags
      */
     GetFlags() {
         result := ComCall(6, this, "uint*", &pdwFlags := 0, "HRESULT")
@@ -129,164 +143,14 @@ class IShellLinkDataList extends IUnknown{
     }
 
     /**
-     * Specifies how the recognizer interprets the ink and determines the result string.Call this function before processing the ink for the first time. Therefore, call the SetFlags function before calling the Process function.
-     * @param {Integer} dwFlags The following table lists the flags that you may set to specify how the recognizer interprets the ink and determines the result string. Use the <b>OR</b> operator (|) to combine flags as appropriate.
+     * Sets the current option settings.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
+     * One or more of the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/ne-shlobj_core-shell_link_data_flags">SHELL_LINK_DATA_FLAGS</a> that indicate the option settings.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * 
-     * <table>
-     * <tr>
-     * <th>Bit flag</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_AUTOSPACE"></a><a id="recoflag_autospace"></a><dl>
-     * <dt><b>RECOFLAG_AUTOSPACE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer uses smart spacing based on language model rules.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_COERCE"></a><a id="recoflag_coerce"></a><dl>
-     * <dt><b>RECOFLAG_COERCE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer coerces the result based on the factoid you specify for the context. For example, if you specify a phone number factoid and the user enters the word "hello", the recognizer may return a random phone number or an empty string. If you do not specify this flag, the recognizer returns "hello" as the result.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_PREFIXOK"></a><a id="recoflag_prefixok"></a><dl>
-     * <dt><b>RECOFLAG_PREFIXOK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer supports the recognition of any prefix part of the strings that are defined in the default or specified (factoid) language model.
-     * 
-     * For example, without this flag, the user writes "handw" and the recognizer returns suggestions (such as "hander" or "handed") that are words that exist in the recognizer lexicon. With the flag, the recognizer may return "handw" as one of the suggestions since it is a valid prefix of the word "handwriting" that exists in the recognizer lexicon.
-     * 
-     * The Tablet PC Input Panel sets this flag in most cases, except when the input scope is IS_DEFAULT (or no input scope) or when there is no user word list or regular expression.
-     * 
-     * Recognizers of East Asian characters should return E_INVALIDARG when a caller passes in this flag.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_LINEMODE"></a><a id="recoflag_linemode"></a><dl>
-     * <dt><b>RECOFLAG_LINEMODE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not split lines but must still do character and word separation. This is the same as lined mode, except that there is no guide, and all ink is assumed to be in a single line. When this flag is set, a guide, if set, is ignored.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_SINGLESEG"></a><a id="recoflag_singleseg"></a><dl>
-     * <dt><b>RECOFLAG_SINGLESEG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Disables multiple segmentation. By default, the recognizer returns multiple segmentations (alternates) for the ink.
-     * 
-     * For example, if you write "together" as separate strokes, the recognizer may segment the ink as "to get her", "to gather", or "together". Set this flag if you do not need multiple segmentations of the ink when you query for alternates. This improves performance and reduces memory usage.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%"><a id="RECOFLAG_WORDMODE"></a><a id="recoflag_wordmode"></a><dl>
-     * <dt><b>RECOFLAG_WORDMODE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Recognizer treats the ink as a single word. For example, if the context contains "to get her", the recognizer returns "together".
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @returns {HRESULT} This function can return one of these values.
-     * 
-     * <table>
-     * <tr>
-     * <th>HRESULT value</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_INVALIDARG</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The flag is invalid.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_NOTIMPL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The recognizer does not support this function.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_OUTOFMEMORY</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Unable to allocate memory to complete the operation.
-     * 
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_FAIL</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * An unspecified error occurred.
-     * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_POINTER</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The context is invalid or one of the parameters is an invalid pointer.
-     * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//recapis/nf-recapis-setflags
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishelllinkdatalist-setflags
      */
     SetFlags(dwFlags) {
         result := ComCall(7, this, "uint", dwFlags, "HRESULT")

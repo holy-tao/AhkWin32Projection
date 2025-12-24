@@ -31,9 +31,9 @@ class IDvbDefaultAuthorityDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetDefaultAuthority"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdefaultauthoritydescriptor-gettag
+     * Gets the tag from the default authority descriptor for a Digital Video Broadcast (DVB) content reference identifier (CRID).
+     * @returns {Integer} Receives the content descriptor tag. For default authority descriptors, this tag value is "0x73".
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbdefaultauthoritydescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IDvbDefaultAuthorityDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdefaultauthoritydescriptor-getlength
+     * Gets the body length of a default authority descriptor from a Digital Video Broadcast (DVB) content reference identifier (CRID).
+     * @returns {Integer} Receives the number of bytes in the descriptor.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbdefaultauthoritydescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -51,11 +51,11 @@ class IDvbDefaultAuthorityDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pbLength 
-     * @param {Pointer<Pointer<Integer>>} ppbBytes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbdefaultauthoritydescriptor-getdefaultauthority
+     * Gets the string identifying the default authority from a Digital Video Broadcast (DVB) content reference identifier (CRID).
+     * @param {Pointer<Integer>} pbLength Receives the length of the default authority string in bytes.
+     * @param {Pointer<Pointer<Integer>>} ppbBytes Pointer to a buffer that receives the default authority string. The caller is responsible for releasing this memory.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbdefaultauthoritydescriptor-getdefaultauthority
      */
     GetDefaultAuthority(pbLength, ppbBytes) {
         pbLengthMarshal := pbLength is VarRef ? "char*" : "ptr"

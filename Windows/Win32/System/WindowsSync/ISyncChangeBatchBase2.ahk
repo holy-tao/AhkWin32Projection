@@ -36,13 +36,94 @@ class ISyncChangeBatchBase2 extends ISyncChangeBatchBase{
     static VTableNames => ["SerializeWithOptions"]
 
     /**
+     * Serializes the change batch object data to a byte array, based on the specified version and serialization options.
+     * @param {Integer} targetFormatVersion The serialized change batch is compatible with this version.
+     * @param {Integer} dwFlags Reserved. Must be zero.
+     * @param {Pointer<Integer>} pbBuffer The serialized change batch object data is serialized to this buffer.
+     * @param {Pointer<Integer>} pdwSerializedSize The number of bytes in <i>pbBuffer</i>. Returns either the number of bytes that are required to serialize the change batch data when <i>pbBuffer</i> is too small, or the number of bytes written.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} targetFormatVersion 
-     * @param {Integer} dwFlags 
-     * @param {Pointer<Integer>} pbBuffer 
-     * @param {Pointer<Integer>} pdwSerializedSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchbase2-serializewithoptions
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>dwFlags</i> is not zero, or the version that is specified by <i>targetFormatVersion</i> is incompatible with the change batch object data.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pBuffer</i> is too small. In this situation, the required number of bytes is returned in <i>pdwSerializedSize</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INVALID_OPERATION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The change batch contains a group that was started but not ended.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SYNC_E_INVALID_VERSION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The value of <i>targetFormatVersion</i> is higher than the version of the object, or the object contains elements that are not compatible with <i>targetFormatVersion</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchbase2-serializewithoptions
      */
     SerializeWithOptions(targetFormatVersion, dwFlags, pbBuffer, pdwSerializedSize) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"

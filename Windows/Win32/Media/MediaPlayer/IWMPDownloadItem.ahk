@@ -29,6 +29,36 @@ class IWMPDownloadItem extends IDispatch{
     static VTableNames => ["get_sourceURL", "get_size", "get_type", "get_progress", "get_downloadState", "pause", "resume", "cancel"]
 
     /**
+     */
+    sourceURL {
+        get => this.get_sourceURL()
+    }
+
+    /**
+     */
+    size {
+        get => this.get_size()
+    }
+
+    /**
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     */
+    progress {
+        get => this.get_progress()
+    }
+
+    /**
+     */
+    downloadState {
+        get => this.get_downloadState()
+    }
+
+    /**
      * 
      * @param {Pointer<BSTR>} pbstrURL 
      * @returns {HRESULT} 

@@ -36,10 +36,10 @@ class IMFPluginControl2 extends IMFPluginControl{
     static VTableNames => ["SetPolicy"]
 
     /**
-     * 
-     * @param {Integer} policy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfplugincontrol2-setpolicy
+     * Sets the policy for which media sources and transforms are enumerated.
+     * @param {Integer} policy A value from the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf_plugin_control_policy">MF_PLUGIN_CONTROL_POLICY</a> enumeration that specifies the policy.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfplugincontrol2-setpolicy
      */
     SetPolicy(policy) {
         result := ComCall(9, this, "int", policy, "HRESULT")

@@ -35,6 +35,13 @@ class IMSMQTransaction extends IDispatch{
     static VTableNames => ["get_Transaction", "Commit", "Abort"]
 
     /**
+     * @type {Integer} 
+     */
+    Transaction {
+        get => this.get_Transaction()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

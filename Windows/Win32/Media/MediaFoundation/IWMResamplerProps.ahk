@@ -31,10 +31,28 @@ class IWMResamplerProps extends IUnknown{
     static VTableNames => ["SetHalfFilterLength", "SetUserChannelMtx"]
 
     /**
+     * Specifies the quality of the output.
+     * @param {Integer} lhalfFilterLen Specifies the quality of the output. The valid range is 1 to 60, inclusive.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lhalfFilterLen 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresamplerprops-sethalffilterlength
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresamplerprops-sethalffilterlength
      */
     SetHalfFilterLength(lhalfFilterLen) {
         result := ComCall(3, this, "int", lhalfFilterLen, "HRESULT")
@@ -42,10 +60,28 @@ class IWMResamplerProps extends IUnknown{
     }
 
     /**
+     * Specifies the channel matrix.
+     * @param {Pointer<Float>} userChannelMtx Pointer to an array of floating-point values that represents a channel conversion matrix.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Float>} userChannelMtx 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmresamplerprops-setuserchannelmtx
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmresamplerprops-setuserchannelmtx
      */
     SetUserChannelMtx(userChannelMtx) {
         userChannelMtxMarshal := userChannelMtx is VarRef ? "float*" : "ptr"

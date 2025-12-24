@@ -33,12 +33,27 @@ class IUIAutomationProxyFactory extends IUnknown{
     static VTableNames => ["CreateProvider", "get_ProxyFactoryId"]
 
     /**
+     * @type {BSTR} 
+     */
+    ProxyFactoryId {
+        get => this.get_ProxyFactoryId()
+    }
+
+    /**
+     * Creates a proxy object that provides Microsoft UI Automation support for a UI element.
+     * @param {HWND} hwnd Type: <b>UIA_HWND</b>
      * 
-     * @param {HWND} hwnd 
-     * @param {Integer} idObject 
-     * @param {Integer} idChild 
-     * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-createprovider
+     * The window handle of the UI element.
+     * @param {Integer} idObject Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
+     * 
+     * The object ID. See Remarks.
+     * @param {Integer} idChild Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
+     * 
+     * The child ID. See Remarks.
+     * @returns {IRawElementProviderSimple} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a>**</b>
+     * 
+     * Receives a pointer to the proxy object.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-createprovider
      */
     CreateProvider(hwnd, idObject, idChild) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -48,9 +63,9 @@ class IUIAutomationProxyFactory extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the identifier of the proxy factory.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-get_proxyfactoryid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationproxyfactory-get_proxyfactoryid
      */
     get_ProxyFactoryId() {
         factoryId := BSTR()

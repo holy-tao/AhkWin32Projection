@@ -36,6 +36,18 @@ class ICatalog extends IDispatch{
     static VTableNames => ["GetCollection", "Connect", "get_MajorVersion", "get_MinorVersion"]
 
     /**
+     */
+    MajorVersion {
+        get => this.get_MajorVersion()
+    }
+
+    /**
+     */
+    MinorVersion {
+        get => this.get_MinorVersion()
+    }
+
+    /**
      * 
      * @param {BSTR} bstrCollName 
      * @returns {IDispatch} 

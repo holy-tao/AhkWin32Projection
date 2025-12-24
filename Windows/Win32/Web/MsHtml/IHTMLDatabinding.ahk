@@ -30,6 +30,30 @@ class IHTMLDatabinding extends IDispatch{
     static VTableNames => ["put_dataFld", "get_dataFld", "put_dataSrc", "get_dataSrc", "put_dataFormatAs", "get_dataFormatAs"]
 
     /**
+     * @type {BSTR} 
+     */
+    dataFld {
+        get => this.get_dataFld()
+        set => this.put_dataFld(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dataSrc {
+        get => this.get_dataSrc()
+        set => this.put_dataSrc(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dataFormatAs {
+        get => this.get_dataFormatAs()
+        set => this.put_dataFormatAs(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

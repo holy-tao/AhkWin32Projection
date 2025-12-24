@@ -31,10 +31,43 @@ class IAppxManifestApplication extends IUnknown{
     static VTableNames => ["GetStringValue", "GetAppUserModelId"]
 
     /**
+     * Gets the value of a string element in the application metadata section of the manifest.
+     * @param {PWSTR} name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
-     * @param {PWSTR} name 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplication-getstringvalue
+     * The name of the element or attribute value to get from the application metadata. Supported names include:
+     * 
+     * * AppListEntry
+     * * BackgroundColor
+     * * DefaultSize
+     * * Description
+     * * DisplayName
+     * * EntryPoint
+     * * Executable
+     * * ForegroundText
+     * * ID
+     * * LockScreenLogo
+     * * LockScreenNotification
+     * * Logo
+     * * MinWidth
+     * * ShortName
+     * * SmallLogo
+     * * Square150x150Logo
+     * * Square30x30Logo
+     * * Square310x310Logo
+     * * Square44x44Logo
+     * * Square70x70Logo
+     * * Square71x71Logo
+     * * StartPage
+     * * Tall150x310Logo
+     * * VisualGroup
+     * * WideLogo
+     * * Wide310x150Logo
+     * 
+     * Refer to the [schema](/uwp/schemas/appxpackage/uapmanifestschema/schema-root) to determine where these values are being read from in the manifest.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
+     * 
+     * The value of the requested element or attribute.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestapplication-getstringvalue
      */
     GetStringValue(name) {
         name := name is String ? StrPtr(name) : name
@@ -44,9 +77,11 @@ class IAppxManifestApplication extends IUnknown{
     }
 
     /**
+     * Gets the application user model identifier.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplication-getappusermodelid
+     * The user model identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestapplication-getappusermodelid
      */
     GetAppUserModelId() {
         result := ComCall(4, this, "ptr*", &appUserModelId := 0, "HRESULT")

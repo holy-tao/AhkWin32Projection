@@ -32,12 +32,12 @@ class IVMRSurfaceAllocator extends IUnknown{
     static VTableNames => ["AllocateSurface", "FreeSurface", "PrepareSurface", "AdviseNotify"]
 
     /**
-     * 
-     * @param {Pointer} dwUserID 
-     * @param {Pointer<VMRALLOCATIONINFO>} lpAllocInfo 
-     * @param {Pointer<Integer>} lpdwActualBuffers 
-     * @returns {IDirectDrawSurface7} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocator-allocatesurface
+     * The AllocateSurface method allocates a DirectDraw surface.
+     * @param {Pointer} dwUserID An application-defined DWORD_PTR cookie that uniquely identifies this instance of the VMR for use in scenarios when one instance of the allocator-presenter is used with multiple VMR instances.
+     * @param {Pointer<VMRALLOCATIONINFO>} lpAllocInfo Specifies the [VMRALLOCATIONINFO](/windows/desktop/api/strmif/ns-strmif-vmrallocationinfo) structure. See Remarks.
+     * @param {Pointer<Integer>} lpdwActualBuffers [out] On input this parameter is used to request the number of buffers desired. On output it receives the actual number of buffers created.
+     * @returns {IDirectDrawSurface7} Address of a pointer that receives the Direct3D surface.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrsurfaceallocator-allocatesurface
      */
     AllocateSurface(dwUserID, lpAllocInfo, lpdwActualBuffers) {
         lpdwActualBuffersMarshal := lpdwActualBuffers is VarRef ? "uint*" : "ptr"
@@ -47,10 +47,10 @@ class IVMRSurfaceAllocator extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} dwID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocator-freesurface
+     * The FreeSurface method frees the allocated DirectDraw surface.
+     * @param {Pointer} dwID An application-defined DWORD_PTR cookie that uniquely identifies this instance of the VMR for use in scenarios when one instance of the allocator-presenter is used with multiple VMR instances.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrsurfaceallocator-freesurface
      */
     FreeSurface(dwID) {
         result := ComCall(4, this, "ptr", dwID, "HRESULT")
@@ -58,12 +58,12 @@ class IVMRSurfaceAllocator extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} dwUserID 
-     * @param {IDirectDrawSurface7} lpSurface 
-     * @param {Integer} dwSurfaceFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocator-preparesurface
+     * The PrepareSurface method prepares the DirectDraw surface to have the next video frame decoded into it.
+     * @param {Pointer} dwUserID An application-defined DWORD_PTR cookie that uniquely identifies this instance of the VMR for use in scenarios when one instance of the allocator-presenter is used with multiple VMR instances.
+     * @param {IDirectDrawSurface7} lpSurface Specifies the DirectDraw surface
+     * @param {Integer} dwSurfaceFlags Double word containing the surface flags. See Remarks.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrsurfaceallocator-preparesurface
      */
     PrepareSurface(dwUserID, lpSurface, dwSurfaceFlags) {
         result := ComCall(5, this, "ptr", dwUserID, "ptr", lpSurface, "uint", dwSurfaceFlags, "HRESULT")
@@ -71,10 +71,10 @@ class IVMRSurfaceAllocator extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IVMRSurfaceAllocatorNotify} lpIVMRSurfAllocNotify 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrsurfaceallocator-advisenotify
+     * The AdviseNotify method provides the allocator-presenter with the VMR-7 filter's interface for notification callbacks.
+     * @param {IVMRSurfaceAllocatorNotify} lpIVMRSurfAllocNotify Specifies the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ivmrsurfaceallocatornotify">IVMRSurfaceAllocatorNotify</a> interface pointer that the allocator-presenter will use to pass notifications back to the VMR.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrsurfaceallocator-advisenotify
      */
     AdviseNotify(lpIVMRSurfAllocNotify) {
         result := ComCall(6, this, "ptr", lpIVMRSurfAllocNotify, "HRESULT")

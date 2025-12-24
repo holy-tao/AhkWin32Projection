@@ -31,10 +31,11 @@ class IExtendControlbar extends IUnknown{
     static VTableNames => ["SetControlbar", "ControlbarNotify"]
 
     /**
-     * 
-     * @param {IControlbar} pControlbar 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendcontrolbar-setcontrolbar
+     * The IExtendControlbar::SetControlbar method attaches or detaches a control bar.
+     * @param {IControlbar} pControlbar A pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-icontrolbar">IControlbar</a> interface on the control bar object to be set. A non-<b>NULL</b> value attaches a control bar; a <b>NULL</b> value detaches a control bar.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendcontrolbar-setcontrolbar
      */
     SetControlbar(pControlbar) {
         result := ComCall(3, this, "ptr", pControlbar, "HRESULT")
@@ -42,12 +43,13 @@ class IExtendControlbar extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} event 
-     * @param {LPARAM} arg 
+     * The IExtendControlbar::ControlbarNotify method specifies the notification sent to the snap-in from the console as a result of user action.
+     * @param {Integer} event A value that specifies one of the following:
+     * @param {LPARAM} arg Depends on the event parameter. For more information, see 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/mmc-notifications">MMC Notifications</a>.
      * @param {LPARAM} param2 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendcontrolbar-controlbarnotify
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendcontrolbar-controlbarnotify
      */
     ControlbarNotify(event, arg, param2) {
         result := ComCall(4, this, "int", event, "ptr", arg, "ptr", param2, "HRESULT")

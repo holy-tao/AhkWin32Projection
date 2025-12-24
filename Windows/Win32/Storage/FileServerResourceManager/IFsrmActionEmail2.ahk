@@ -31,9 +31,23 @@ class IFsrmActionEmail2 extends IFsrmActionEmail{
     static VTableNames => ["get_AttachmentFileListSize", "put_AttachmentFileListSize"]
 
     /**
+     * @type {Integer} 
+     */
+    AttachmentFileListSize {
+        get => this.get_AttachmentFileListSize()
+        set => this.put_AttachmentFileListSize(value)
+    }
+
+    /**
+     * The maximum number of files to include in the list.
+     * @remarks
+     * 
+     * The attached file is a plain text file. The file contains a line for each file up to the maximum list size. 
+     *     Each line is in the form, [Source File Path],[Source File Remote Paths].
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail2-get_attachmentfilelistsize
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail2-get_attachmentfilelistsize
      */
     get_AttachmentFileListSize() {
         result := ComCall(26, this, "int*", &attachmentFileListSize := 0, "HRESULT")
@@ -41,10 +55,16 @@ class IFsrmActionEmail2 extends IFsrmActionEmail{
     }
 
     /**
+     * The maximum number of files to include in the list.
+     * @remarks
+     * 
+     * The attached file is a plain text file. The file contains a line for each file up to the maximum list size. 
+     *     Each line is in the form, [Source File Path],[Source File Remote Paths].
+     * 
      * 
      * @param {Integer} attachmentFileListSize 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactionemail2-put_attachmentfilelistsize
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactionemail2-put_attachmentfilelistsize
      */
     put_AttachmentFileListSize(attachmentFileListSize) {
         result := ComCall(27, this, "int", attachmentFileListSize, "HRESULT")

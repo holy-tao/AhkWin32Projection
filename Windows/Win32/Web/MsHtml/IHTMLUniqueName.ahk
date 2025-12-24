@@ -30,6 +30,20 @@ class IHTMLUniqueName extends IDispatch{
     static VTableNames => ["get_uniqueNumber", "get_uniqueID"]
 
     /**
+     * @type {Integer} 
+     */
+    uniqueNumber {
+        get => this.get_uniqueNumber()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    uniqueID {
+        get => this.get_uniqueID()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

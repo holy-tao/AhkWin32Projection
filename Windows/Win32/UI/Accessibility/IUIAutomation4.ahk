@@ -31,15 +31,27 @@ class IUIAutomation4 extends IUIAutomation3{
     static VTableNames => ["AddChangesEventHandler", "RemoveChangesEventHandler"]
 
     /**
+     * Registers a method that handles change events.Note  Before implementing an event handler, you should be familiar with the threading issues described in Understanding Threading Issues.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
+     * A pointer to the UI Automation element associated with the event handler.
      * @param {Integer} scope 
-     * @param {Pointer<Integer>} changeTypes 
-     * @param {Integer} changesCount 
-     * @param {IUIAutomationCacheRequest} pCacheRequest 
-     * @param {IUIAutomationChangesEventHandler} handler 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation4-addchangeseventhandler
+     * @param {Pointer<Integer>} changeTypes Type: <b>int*</b>
+     * 
+     * A pointer to a list of integers that indicate the change types the event represents.
+     * @param {Integer} changesCount Type: <b>int</b>
+     * 
+     * The number of changes that occurred in this event.
+     * @param {IUIAutomationCacheRequest} pCacheRequest Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationcacherequest">IUIAutomationCacheRequest</a>*</b>
+     * 
+     * A pointer to a cache request, or <b>NULL</b> if no caching is wanted.
+     * @param {IUIAutomationChangesEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationchangeseventhandler">IUIAutomationChangesEventHandler</a>*</b>
+     * 
+     * A pointer to the object that handles the changes event.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation4-addchangeseventhandler
      */
     AddChangesEventHandler(element, scope, changeTypes, changesCount, pCacheRequest, handler) {
         changeTypesMarshal := changeTypes is VarRef ? "int*" : "ptr"
@@ -49,11 +61,17 @@ class IUIAutomation4 extends IUIAutomation3{
     }
 
     /**
+     * Removes a changes event handler.
+     * @param {IUIAutomationElement} element Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
-     * @param {IUIAutomationElement} element 
-     * @param {IUIAutomationChangesEventHandler} handler 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomation4-removechangeseventhandler
+     * A pointer to the UI Automation element from which to remove the handler.
+     * @param {IUIAutomationChangesEventHandler} handler Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationchangeseventhandler">IUIAutomationChangesEventHandler</a>*</b>
+     * 
+     * A pointer to the  interface that was passed to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation4-addchangeseventhandler">AddChangesEventHandler</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomation4-removechangeseventhandler
      */
     RemoveChangesEventHandler(element, handler) {
         result := ComCall(67, this, "ptr", element, "ptr", handler, "HRESULT")

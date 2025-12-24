@@ -31,10 +31,35 @@ class IWMPVideoRenderConfig extends IUnknown{
     static VTableNames => ["put_presenterActivate"]
 
     /**
+     * @type {HRESULT} 
+     */
+    presenterActivate {
+        set => this.put_presenterActivate(value)
+    }
+
+    /**
+     * The put_presenterActivate method provides Windows Media Player with an activation object for a custom video presenter.
+     * @param {IMFActivate} pActivate A pointer to an <b>IMFActivate</b> interface that Windows Media Player or another Windows component will use to activate the custom video presenter.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFActivate} pActivate 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmprealestate/nf-wmprealestate-iwmpvideorenderconfig-put_presenteractivate
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmprealestate/nf-wmprealestate-iwmpvideorenderconfig-put_presenteractivate
      */
     put_presenterActivate(pActivate) {
         result := ComCall(3, this, "ptr", pActivate, "HRESULT")

@@ -37,6 +37,14 @@ class IWebWizardHost extends IDispatch{
     static VTableNames => ["FinalBack", "FinalNext", "Cancel", "put_Caption", "get_Caption", "put_Property", "get_Property", "SetWizardButtons", "SetHeaderText"]
 
     /**
+     * @type {BSTR} 
+     */
+    Caption {
+        get => this.get_Caption()
+        set => this.put_Caption(value)
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

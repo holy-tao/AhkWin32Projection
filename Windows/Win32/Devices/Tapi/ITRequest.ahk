@@ -32,13 +32,75 @@ class ITRequest extends IDispatch{
     static VTableNames => ["MakeCall"]
 
     /**
+     * The MakeCall method makes a call to the designated party.
+     * @param {BSTR} pDestAddress Pointer to a <b>BSTR</b> containing the destination address for the call.
+     * @param {BSTR} pAppName Pointer to a <b>BSTR</b> containing the name of the application.
+     * @param {BSTR} pCalledParty Pointer to a <b>BSTR</b> containing the called party name.
+     * @param {BSTR} pComment Pointer to a <b>BSTR</b> containing a comment.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BSTR} pDestAddress 
-     * @param {BSTR} pAppName 
-     * @param {BSTR} pCalledParty 
-     * @param {BSTR} pComment 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itrequest-makecall
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory exists to perform the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TAPIERR_NOREQUESTRECIPIENT</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No application exists that can handle the assisted telephony request.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TAPIERR_INVALDESTADDRESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The destination address is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TAPIERR_REQUESTQUEUEFULL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The TAPI Server request queue is full and cannot handle another assisted telephony request.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itrequest-makecall
      */
     MakeCall(pDestAddress, pAppName, pCalledParty, pComment) {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress

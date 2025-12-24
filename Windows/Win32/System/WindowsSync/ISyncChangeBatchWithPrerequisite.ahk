@@ -38,10 +38,39 @@ class ISyncChangeBatchWithPrerequisite extends ISyncChangeBatchBase{
     static VTableNames => ["SetPrerequisiteKnowledge", "GetLearnedKnowledgeWithPrerequisite", "GetLearnedForgottenKnowledge"]
 
     /**
+     * Sets the minimum knowledge that a destination provider is required to have to process this change batch.
+     * @param {ISyncKnowledge} pPrerequisiteKnowledge The minimum knowledge that a destination provider is required to have to process this change batch.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {ISyncKnowledge} pPrerequisiteKnowledge 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchwithprerequisite-setprerequisiteknowledge
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchwithprerequisite-setprerequisiteknowledge
      */
     SetPrerequisiteKnowledge(pPrerequisiteKnowledge) {
         result := ComCall(17, this, "ptr", pPrerequisiteKnowledge, "HRESULT")
@@ -49,10 +78,10 @@ class ISyncChangeBatchWithPrerequisite extends ISyncChangeBatchBase{
     }
 
     /**
-     * 
-     * @param {ISyncKnowledge} pDestinationKnowledge 
-     * @returns {ISyncKnowledge} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchwithprerequisite-getlearnedknowledgewithprerequisite
+     * Gets the knowledge that the destination replica learns when the destination provider applies all the changes in this change batch, based on the prerequisite knowledge of the change batch.
+     * @param {ISyncKnowledge} pDestinationKnowledge A knowledge fragment is added to the returned learned knowledge only if <i>pDestinationKnowledge</i> contains the prerequisite knowledge for that fragment.
+     * @returns {ISyncKnowledge} The knowledge that the destination replica learns when the destination provider applies all the changes in this change batch, based on the prerequisite knowledge of the change batch.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchwithprerequisite-getlearnedknowledgewithprerequisite
      */
     GetLearnedKnowledgeWithPrerequisite(pDestinationKnowledge) {
         result := ComCall(18, this, "ptr", pDestinationKnowledge, "ptr*", &ppLearnedWithPrerequisiteKnowledge := 0, "HRESULT")
@@ -60,9 +89,9 @@ class ISyncChangeBatchWithPrerequisite extends ISyncChangeBatchBase{
     }
 
     /**
-     * 
-     * @returns {IForgottenKnowledge} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangebatchwithprerequisite-getlearnedforgottenknowledge
+     * Gets the forgotten knowledge that the destination replica learns when the destination provider applies all the changes in this change batch during recovery synchronization.
+     * @returns {IForgottenKnowledge} Returns the forgotten knowledge that the destination replica learns when the destination provider applies all the changes in this change batch during recovery synchronization.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangebatchwithprerequisite-getlearnedforgottenknowledge
      */
     GetLearnedForgottenKnowledge() {
         result := ComCall(19, this, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")

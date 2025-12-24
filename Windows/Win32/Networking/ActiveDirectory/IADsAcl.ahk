@@ -32,6 +32,30 @@ class IADsAcl extends IDispatch{
     static VTableNames => ["get_ProtectedAttrName", "put_ProtectedAttrName", "get_SubjectName", "put_SubjectName", "get_Privileges", "put_Privileges", "CopyAcl"]
 
     /**
+     * @type {BSTR} 
+     */
+    ProtectedAttrName {
+        get => this.get_ProtectedAttrName()
+        set => this.put_ProtectedAttrName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    SubjectName {
+        get => this.get_SubjectName()
+        set => this.put_SubjectName(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Privileges {
+        get => this.get_Privileges()
+        set => this.put_Privileges(value)
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */
@@ -95,9 +119,9 @@ class IADsAcl extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsacl-copyacl
+     * The IADsAcl::CopyAcl method makes a copy of the existing ACL.
+     * @returns {IDispatch} Pointer to the newly created copy of the existing ACL.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsacl-copyacl
      */
     CopyAcl() {
         result := ComCall(13, this, "ptr*", &ppAcl := 0, "HRESULT")

@@ -33,11 +33,11 @@ class IEnumSingleItemExceptions extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * 
-     * @param {Integer} cExceptions 
-     * @param {Pointer<Integer>} pcFetched 
-     * @returns {ISingleItemException} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-next
+     * Returns the next elements in the single-item exception set, if they are available.
+     * @param {Integer} cExceptions The number of single-item exceptions to retrieve in the range from zero to 1000.
+     * @param {Pointer<Integer>} pcFetched Returns the number of single-item exceptions returned. This value can be <b>NULL</b> only if <i>cExceptions</i> is 1.
+     * @returns {ISingleItemException} Returns the next <i>pcFetched</i> single-item exceptions.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsingleitemexceptions-next
      */
     Next(cExceptions, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -47,10 +47,47 @@ class IEnumSingleItemExceptions extends IUnknown{
     }
 
     /**
+     * Skips the specified number of single-item exceptions.
+     * @param {Integer} cExceptions The number of single-item exceptions to skip.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {Integer} cExceptions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The enumerator reaches the end of the list before it can skip <i>cExceptions</i> single-item exceptions. In this case, the enumerator skips as many elements as possible.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%"></td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsingleitemexceptions-skip
      */
     Skip(cExceptions) {
         result := ComCall(4, this, "uint", cExceptions, "HRESULT")
@@ -58,9 +95,27 @@ class IEnumSingleItemExceptions extends IUnknown{
     }
 
     /**
+     * Resets the enumerator to the beginning of the single-item exception set.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsingleitemexceptions-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -68,9 +123,9 @@ class IEnumSingleItemExceptions extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumSingleItemExceptions} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsingleitemexceptions-clone
+     * Clones the enumerator and returns a new enumerator that is in the same state as the current one.
+     * @returns {IEnumSingleItemExceptions} Returns the newly cloned enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsingleitemexceptions-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

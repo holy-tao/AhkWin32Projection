@@ -32,6 +32,48 @@ class IRTCMessagingEvent extends IDispatch{
     static VTableNames => ["get_Session", "get_Participant", "get_EventType", "get_Message", "get_MessageHeader", "get_UserStatus"]
 
     /**
+     * @type {IRTCSession} 
+     */
+    Session {
+        get => this.get_Session()
+    }
+
+    /**
+     * @type {IRTCParticipant} 
+     */
+    Participant {
+        get => this.get_Participant()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    EventType {
+        get => this.get_EventType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Message {
+        get => this.get_Message()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MessageHeader {
+        get => this.get_MessageHeader()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UserStatus {
+        get => this.get_UserStatus()
+    }
+
+    /**
      * 
      * @returns {IRTCSession} 
      */

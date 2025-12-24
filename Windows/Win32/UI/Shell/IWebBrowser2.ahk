@@ -31,6 +31,69 @@ class IWebBrowser2 extends IWebBrowserApp{
     static VTableNames => ["Navigate2", "QueryStatusWB", "ExecWB", "ShowBrowserBar", "get_ReadyState", "get_Offline", "put_Offline", "get_Silent", "put_Silent", "get_RegisterAsBrowser", "put_RegisterAsBrowser", "get_RegisterAsDropTarget", "put_RegisterAsDropTarget", "get_TheaterMode", "put_TheaterMode", "get_AddressBar", "put_AddressBar", "get_Resizable", "put_Resizable"]
 
     /**
+     * @type {Integer} 
+     */
+    ReadyState {
+        get => this.get_ReadyState()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Offline {
+        get => this.get_Offline()
+        set => this.put_Offline(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Silent {
+        get => this.get_Silent()
+        set => this.put_Silent(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RegisterAsBrowser {
+        get => this.get_RegisterAsBrowser()
+        set => this.put_RegisterAsBrowser(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    RegisterAsDropTarget {
+        get => this.get_RegisterAsDropTarget()
+        set => this.put_RegisterAsDropTarget(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    TheaterMode {
+        get => this.get_TheaterMode()
+        set => this.put_TheaterMode(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    AddressBar {
+        get => this.get_AddressBar()
+        set => this.put_AddressBar(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Resizable {
+        get => this.get_Resizable()
+        set => this.put_Resizable(value)
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT>} URL 
      * @param {Pointer<VARIANT>} Flags 
@@ -165,9 +228,18 @@ class IWebBrowser2 extends IWebBrowserApp{
     }
 
     /**
+     * Sets or gets whether the object is in theater mode.
+     * @remarks
+     * 
+     * In theater mode, the object's main window fills the entire screen and displays a toolbar that has a minimal set of navigational buttons. A status bar is also provided in the upper-right corner of the screen. Explorer bars, such as  History  and Favorites , are displayed as an autohide pane on the left edge of the screen in theater mode. 
+     * 
+     * Setting TheaterMode (even to VARIANT_FALSE) resets the values of the IWebBrowser2::AddressBar and IWebBrowser2::ToolBar properties to VARIANT_TRUE. Disable the address bar and toolbars after you set the TheaterMode property. 
+     * 
+     * The WebBrowser object saves the value of this property, but otherwise ignores it.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowser2-get_theatermode
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowser2-get_theatermode
      */
     get_TheaterMode() {
         result := ComCall(65, this, "short*", &pbRegister := 0, "HRESULT")
@@ -175,10 +247,19 @@ class IWebBrowser2 extends IWebBrowserApp{
     }
 
     /**
+     * Sets or gets whether the object is in theater mode.
+     * @remarks
+     * 
+     * In theater mode, the object's main window fills the entire screen and displays a toolbar that has a minimal set of navigational buttons. A status bar is also provided in the upper-right corner of the screen. Explorer bars, such as  History  and Favorites , are displayed as an autohide pane on the left edge of the screen in theater mode. 
+     * 
+     * Setting TheaterMode (even to VARIANT_FALSE) resets the values of the IWebBrowser2::AddressBar and IWebBrowser2::ToolBar properties to VARIANT_TRUE. Disable the address bar and toolbars after you set the TheaterMode property. 
+     * 
+     * The WebBrowser object saves the value of this property, but otherwise ignores it.
+     * 
      * 
      * @param {VARIANT_BOOL} bRegister 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-iwebbrowser2-put_theatermode
+     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-iwebbrowser2-put_theatermode
      */
     put_TheaterMode(bRegister) {
         result := ComCall(66, this, "short", bRegister, "HRESULT")

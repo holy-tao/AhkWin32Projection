@@ -31,10 +31,14 @@ class ID3D11Device4 extends ID3D11Device3{
     static VTableNames => ["RegisterDeviceRemovedEvent", "UnregisterDeviceRemoved"]
 
     /**
+     * Registers the &quot;device removed&quot; event and indicates when a Direct3D device has become removed for any reason, using an asynchronous notification mechanism.
+     * @param {HANDLE} hEvent Type: <b>HANDLE</b>
      * 
-     * @param {HANDLE} hEvent 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11device4-registerdeviceremovedevent
+     * The handle to the "device removed" event.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * A pointer to information about the "device removed" event, which can be used in <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_4/nf-d3d11_4-id3d11device4-unregisterdeviceremoved">UnregisterDeviceRemoved</a> to unregister the event.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/nf-d3d11_4-id3d11device4-registerdeviceremovedevent
      */
     RegisterDeviceRemovedEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
@@ -44,10 +48,18 @@ class ID3D11Device4 extends ID3D11Device3{
     }
 
     /**
+     * Unregisters the &quot;device removed&quot; event.
+     * @remarks
      * 
-     * @param {Integer} dwCookie 
+     * See <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_4/nf-d3d11_4-id3d11device4-registerdeviceremovedevent">RegisterDeviceRemovedEvent</a>.
+     * 
+     * 
+     * @param {Integer} dwCookie Type: <b>DWORD</b>
+     * 
+     * Information about the "device removed" event,
+     *           retrieved during a successful <a href="https://docs.microsoft.com/windows/desktop/api/d3d11_4/nf-d3d11_4-id3d11device4-registerdeviceremovedevent">RegisterDeviceRemovedEvent</a> call.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11_4/nf-d3d11_4-id3d11device4-unregisterdeviceremoved
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11_4/nf-d3d11_4-id3d11device4-unregisterdeviceremoved
      */
     UnregisterDeviceRemoved(dwCookie) {
         ComCall(66, this, "uint", dwCookie)

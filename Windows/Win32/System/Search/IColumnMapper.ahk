@@ -31,13 +31,13 @@ class IColumnMapper extends IUnknown{
     static VTableNames => ["GetPropInfoFromName", "GetPropInfoFromId", "EnumPropInfo", "IsMapUpToDate"]
 
     /**
-     * 
-     * @param {PWSTR} wcsPropName 
-     * @param {Pointer<Pointer<DBID>>} ppPropId 
-     * @param {Pointer<Integer>} pPropType 
-     * @param {Pointer<Integer>} puiWidth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-getpropinfofromname
+     * Gets property information from a name. This will return a DBID pointer in parameter ppPropId which now has to be freed by the caller and not by the callee (this class).
+     * @param {PWSTR} wcsPropName The property name to look up.
+     * @param {Pointer<Pointer<DBID>>} ppPropId The return Id of the property.
+     * @param {Pointer<Integer>} pPropType The return type of the property.
+     * @param {Pointer<Integer>} puiWidth The return property width.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-icolumnmapper-getpropinfofromname
      */
     GetPropInfoFromName(wcsPropName, ppPropId, pPropType, puiWidth) {
         wcsPropName := wcsPropName is String ? StrPtr(wcsPropName) : wcsPropName
@@ -51,13 +51,13 @@ class IColumnMapper extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<DBID>} pPropId 
-     * @param {Pointer<Pointer<Integer>>} pwcsName 
-     * @param {Pointer<Integer>} pPropType 
-     * @param {Pointer<Integer>} puiWidth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-getpropinfofromid
+     * Gets the property information from the DBID.
+     * @param {Pointer<DBID>} pPropId Pointer to the property to look up.
+     * @param {Pointer<Pointer<Integer>>} pwcsName The return property name.
+     * @param {Pointer<Integer>} pPropType The return type of the property.
+     * @param {Pointer<Integer>} puiWidth The return property width.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-icolumnmapper-getpropinfofromid
      */
     GetPropInfoFromId(pPropId, pwcsName, pPropType, puiWidth) {
         pwcsNameMarshal := pwcsName is VarRef ? "ptr*" : "ptr"
@@ -69,14 +69,14 @@ class IColumnMapper extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} iEntry 
-     * @param {Pointer<Pointer<Integer>>} pwcsName 
-     * @param {Pointer<Pointer<DBID>>} ppPropId 
-     * @param {Pointer<Integer>} pPropType 
-     * @param {Pointer<Integer>} puiWidth 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-enumpropinfo
+     * Gets the i-th entry from the list of properties.
+     * @param {Integer} iEntry i-th entry to retrieve. Note that the entries are 0-based.
+     * @param {Pointer<Pointer<Integer>>} pwcsName The return property name.
+     * @param {Pointer<Pointer<DBID>>} ppPropId The Id of the property.
+     * @param {Pointer<Integer>} pPropType The return type of the property.
+     * @param {Pointer<Integer>} puiWidth The return property width.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-icolumnmapper-enumpropinfo
      */
     EnumPropInfo(iEntry, pwcsName, ppPropId, pPropType, puiWidth) {
         pwcsNameMarshal := pwcsName is VarRef ? "ptr*" : "ptr"
@@ -89,9 +89,9 @@ class IColumnMapper extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmapper-ismapuptodate
+     * Determines if the map is up to date.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-icolumnmapper-ismapuptodate
      */
     IsMapUpToDate() {
         result := ComCall(6, this, "HRESULT")

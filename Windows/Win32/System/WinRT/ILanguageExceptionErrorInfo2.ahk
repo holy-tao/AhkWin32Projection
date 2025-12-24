@@ -32,9 +32,9 @@ class ILanguageExceptionErrorInfo2 extends ILanguageExceptionErrorInfo{
     static VTableNames => ["GetPreviousLanguageExceptionErrorInfo", "CapturePropagationContext", "GetPropagationContextHead"]
 
     /**
-     * 
-     * @returns {ILanguageExceptionErrorInfo2} 
-     * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo2-getpreviouslanguageexceptionerrorinfo
+     * Retrieves the previous language exception error information object.
+     * @returns {ILanguageExceptionErrorInfo2} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionerrorinfo2">ILanguageExceptionErrorInfo2</a> object that contains the previous error information object.
+     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo2-getpreviouslanguageexceptionerrorinfo
      */
     GetPreviousLanguageExceptionErrorInfo() {
         result := ComCall(4, this, "ptr*", &previousLanguageExceptionErrorInfo := 0, "HRESULT")
@@ -42,10 +42,10 @@ class ILanguageExceptionErrorInfo2 extends ILanguageExceptionErrorInfo{
     }
 
     /**
-     * 
-     * @param {IUnknown} languageException 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo2-capturepropagationcontext
+     * Captures the context of an exception across a language boundary and across threads.
+     * @param {IUnknown} languageException An error object that's apartment-agile, in-proc, and marshal-by-value across processes.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo2-capturepropagationcontext
      */
     CapturePropagationContext(languageException) {
         result := ComCall(5, this, "ptr", languageException, "HRESULT")
@@ -53,9 +53,9 @@ class ILanguageExceptionErrorInfo2 extends ILanguageExceptionErrorInfo{
     }
 
     /**
-     * 
-     * @returns {ILanguageExceptionErrorInfo2} 
-     * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo2-getpropagationcontexthead
+     * Retrieves the propagation context head.
+     * @returns {ILanguageExceptionErrorInfo2} On success, returns an <a href="https://docs.microsoft.com/windows/desktop/api/restrictederrorinfo/nn-restrictederrorinfo-ilanguageexceptionerrorinfo2">ILanguageExceptionErrorInfo2</a> object that represents the head of the propagation context.
+     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo2-getpropagationcontexthead
      */
     GetPropagationContextHead() {
         result := ComCall(6, this, "ptr*", &propagatedLanguageExceptionErrorInfoHead := 0, "HRESULT")

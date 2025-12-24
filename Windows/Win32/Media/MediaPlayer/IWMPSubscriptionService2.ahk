@@ -32,9 +32,27 @@ class IWMPSubscriptionService2 extends IWMPSubscriptionService{
     static VTableNames => ["stopBackgroundProcessing", "serviceEvent", "deviceAvailable", "prepareForSync"]
 
     /**
+     * Note  This section describes functionality designed for use by online stores.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice2-stopbackgroundprocessing
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice2-stopbackgroundprocessing
      */
     stopBackgroundProcessing() {
         result := ComCall(7, this, "HRESULT")
@@ -42,10 +60,28 @@ class IWMPSubscriptionService2 extends IWMPSubscriptionService{
     }
 
     /**
+     * Note  This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The serviceEvent method is called when the online store is activated or deactivated.
+     * @param {Integer} event A <a href="https://docs.microsoft.com/windows/desktop/api/subscriptionservices/ne-subscriptionservices-wmpsubscriptionserviceevent">WMPSubscriptionServiceEvent</a> enumeration value indicating whether the service is activated or deactivated.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} event 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice2-serviceevent
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice2-serviceevent
      */
     serviceEvent(event) {
         result := ComCall(8, this, "int", event, "HRESULT")
@@ -53,11 +89,29 @@ class IWMPSubscriptionService2 extends IWMPSubscriptionService{
     }
 
     /**
+     * Note  This section describes functionality designed for use by online stores.
+     * @param {BSTR} bstrDeviceName String containing the device name.
+     * @param {IWMPSubscriptionServiceCallback} pCB Pointer to an <b>IWMPSubscriptionServiceCallback</b> interface. The online store uses this pointer to notify Windows Media Player that device-specific processing is complete.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrDeviceName 
-     * @param {IWMPSubscriptionServiceCallback} pCB 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice2-deviceavailable
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice2-deviceavailable
      */
     deviceAvailable(bstrDeviceName, pCB) {
         bstrDeviceName := bstrDeviceName is String ? BSTR.Alloc(bstrDeviceName).Value : bstrDeviceName
@@ -67,12 +121,30 @@ class IWMPSubscriptionService2 extends IWMPSubscriptionService{
     }
 
     /**
+     * Note  This section describes functionality designed for use by online stores.
+     * @param {BSTR} bstrFilename String containing the name of the digital media file being synchronized.
+     * @param {BSTR} bstrDeviceName String containing the canonical name of the device.
+     * @param {IWMPSubscriptionServiceCallback} pCB Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/subscriptionservices/nn-subscriptionservices-iwmpsubscriptionservicecallback">IWMPSubscriptionServiceCallback</a> interface. The online store uses this pointer to notify Windows Media Player that preparation for synchronization is complete.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrFilename 
-     * @param {BSTR} bstrDeviceName 
-     * @param {IWMPSubscriptionServiceCallback} pCB 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice2-prepareforsync
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//subscriptionservices/nf-subscriptionservices-iwmpsubscriptionservice2-prepareforsync
      */
     prepareForSync(bstrFilename, bstrDeviceName, pCB) {
         bstrFilename := bstrFilename is String ? BSTR.Alloc(bstrFilename).Value : bstrFilename

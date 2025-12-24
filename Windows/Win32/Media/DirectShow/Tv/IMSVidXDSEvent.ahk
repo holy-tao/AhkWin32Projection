@@ -36,15 +36,15 @@ class IMSVidXDSEvent extends IMSVidFeatureEvent{
     static VTableNames => ["RatingChange"]
 
     /**
-     * 
-     * @param {Integer} PrevRatingSystem 
-     * @param {Integer} PrevLevel 
-     * @param {Integer} PrevAttributes 
-     * @param {Integer} NewRatingSystem 
-     * @param {Integer} NewLevel 
-     * @param {Integer} NewAttributes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidxdsevent-ratingchange
+     * The RatingChange method is called when the current rating changes.
+     * @param {Integer} PrevRatingSystem The previous rating system, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-entvrat_system">EnTvRat_System</a> enumeration type.
+     * @param {Integer} PrevLevel The previous rating level, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-entvrat_genericlevel">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
+     * @param {Integer} PrevAttributes The previous rating attributes. This value is a bitwise OR of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-bfentvrat_genericattributes">BfEnTvRat_GenericAttributes</a> enumeration. These flags specify content attributes, such as violence or adult language. Content attributes do not apply to all rating systems.
+     * @param {Integer} NewRatingSystem The new rating system, as an <b>EnTvRat_System</b> enumeration type.
+     * @param {Integer} NewLevel The new rating level, as an <b>EnTvRat_GenericLevel</b> enumeration type.
+     * @param {Integer} NewAttributes Specifies the new rating attributes. This value is a bitwise OR of flags from the <b>BfEnTvRat_GenericAttributes</b> enumeration.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidxdsevent-ratingchange
      */
     RatingChange(PrevRatingSystem, PrevLevel, PrevAttributes, NewRatingSystem, NewLevel, NewAttributes) {
         result := ComCall(8, this, "int", PrevRatingSystem, "int", PrevLevel, "int", PrevAttributes, "int", NewRatingSystem, "int", NewLevel, "int", NewAttributes, "HRESULT")

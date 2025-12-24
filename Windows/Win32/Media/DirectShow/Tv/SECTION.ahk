@@ -31,9 +31,9 @@
  */
 class SECTION extends Win32Struct
 {
-    static sizeof => 4
+    static sizeof => 6
 
-    static packingSize => 1
+    static packingSize => 2
 
     class _Header_e__Union extends Win32Struct {
         static sizeof => 2
@@ -76,7 +76,7 @@ class SECTION extends Win32Struct
     Header{
         get {
             if(!this.HasProp("__Header"))
-                this.__Header := %this.__Class%._Header_e__Union(1, this)
+                this.__Header := %this.__Class%._Header_e__Union(2, this)
             return this.__Header
         }
     }
@@ -88,7 +88,7 @@ class SECTION extends Win32Struct
     SectionData{
         get {
             if(!this.HasProp("__SectionDataProxyArray"))
-                this.__SectionDataProxyArray := Win32FixedArray(this.ptr + 3, 1, Primitive, "char")
+                this.__SectionDataProxyArray := Win32FixedArray(this.ptr + 4, 1, Primitive, "char")
             return this.__SectionDataProxyArray
         }
     }

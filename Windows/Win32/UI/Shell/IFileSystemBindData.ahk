@@ -50,10 +50,14 @@ class IFileSystemBindData extends IUnknown{
     static VTableNames => ["SetFindData", "GetFindData"]
 
     /**
+     * Stores file system information in a WIN32_FIND_DATA structure. This information is used by ParseDisplayName.
+     * @param {Pointer<WIN32_FIND_DATAW>} pfd Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a>*</b>
      * 
-     * @param {Pointer<WIN32_FIND_DATAW>} pfd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata-setfinddata
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that specifies the data you want to store.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Always returns <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesystembinddata-setfinddata
      */
     SetFindData(pfd) {
         result := ComCall(3, this, "ptr", pfd, "HRESULT")
@@ -61,9 +65,11 @@ class IFileSystemBindData extends IUnknown{
     }
 
     /**
+     * Gets the file system information stored in the WIN32_FIND_DATA structure.
+     * @returns {WIN32_FIND_DATAW} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a>*</b>
      * 
-     * @returns {WIN32_FIND_DATAW} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifilesystembinddata-getfinddata
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-win32_find_dataa">WIN32_FIND_DATA</a> structure that receives the data.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifilesystembinddata-getfinddata
      */
     GetFindData() {
         pfd := WIN32_FIND_DATAW()

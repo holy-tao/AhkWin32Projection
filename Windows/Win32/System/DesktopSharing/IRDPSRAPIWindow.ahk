@@ -39,9 +39,45 @@ class IRDPSRAPIWindow extends IDispatch{
     static VTableNames => ["get_Id", "get_Application", "get_Shared", "put_Shared", "get_Name", "Show", "get_Flags"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {IRDPSRAPIApplication} 
+     */
+    Application {
+        get => this.get_Application()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Shared {
+        get => this.get_Shared()
+        set => this.put_Shared(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+    }
+
+    /**
+     * Returns the ID of a window.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_id
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_id
      */
     get_Id() {
         result := ComCall(7, this, "int*", &pRetVal := 0, "HRESULT")
@@ -49,9 +85,9 @@ class IRDPSRAPIWindow extends IDispatch{
     }
 
     /**
-     * 
+     * Returns a pointer to the application object that the window belongs to.
      * @returns {IRDPSRAPIApplication} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_application
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_application
      */
     get_Application() {
         result := ComCall(8, this, "ptr*", &pApplication := 0, "HRESULT")
@@ -59,9 +95,9 @@ class IRDPSRAPIWindow extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets the sharing property for a window.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_shared
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_shared
      */
     get_Shared() {
         result := ComCall(9, this, "short*", &pRetVal := 0, "HRESULT")
@@ -69,10 +105,10 @@ class IRDPSRAPIWindow extends IDispatch{
     }
 
     /**
-     * 
+     * Gets or sets the sharing property for a window.
      * @param {VARIANT_BOOL} NewVal 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-put_shared
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-put_shared
      */
     put_Shared(NewVal) {
         result := ComCall(10, this, "short", NewVal, "HRESULT")
@@ -80,9 +116,9 @@ class IRDPSRAPIWindow extends IDispatch{
     }
 
     /**
-     * 
+     * Returns the name for the window object.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_name
      */
     get_Name() {
         pRetVal := BSTR()
@@ -91,9 +127,9 @@ class IRDPSRAPIWindow extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-show
+     * Brings the current window to the foreground.
+     * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-show
      */
     Show() {
         result := ComCall(12, this, "HRESULT")
@@ -101,9 +137,9 @@ class IRDPSRAPIWindow extends IDispatch{
     }
 
     /**
-     * 
+     * Returns the flags on the current window.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_flags
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiwindow-get_flags
      */
     get_Flags() {
         result := ComCall(13, this, "uint*", &pdwFlags := 0, "HRESULT")

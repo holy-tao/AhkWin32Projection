@@ -41,12 +41,42 @@ class IAMExtDevice extends IUnknown{
     static VTableNames => ["GetCapability", "get_ExternalDeviceID", "get_ExternalDeviceVersion", "put_DevicePower", "get_DevicePower", "Calibrate", "put_DevicePort", "get_DevicePort"]
 
     /**
-     * 
-     * @param {Integer} Capability 
-     * @param {Pointer<Integer>} pValue 
-     * @param {Pointer<Float>} pdblValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-getcapability
+     * @type {PWSTR} 
+     */
+    ExternalDeviceID {
+        get => this.get_ExternalDeviceID()
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    ExternalDeviceVersion {
+        get => this.get_ExternalDeviceVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DevicePower {
+        get => this.get_DevicePower()
+        set => this.put_DevicePower(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DevicePort {
+        get => this.get_DevicePort()
+        set => this.put_DevicePort(value)
+    }
+
+    /**
+     * The GetCapability method retrieves the capabilities of the external device.
+     * @param {Integer} Capability Specifies the capability to check. See Remarks for more information.
+     * @param {Pointer<Integer>} pValue Pointer to a variable that receives a <b>long</b> integer. See Remarks for more information.
+     * @param {Pointer<Float>} pdblValue Pointer to a variable that receives a <b>double</b>. See Remarks for more information.
+     * @returns {HRESULT} When this method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamextdevice-getcapability
      */
     GetCapability(Capability, pValue, pdblValue) {
         pValueMarshal := pValue is VarRef ? "int*" : "ptr"
@@ -57,9 +87,9 @@ class IAMExtDevice extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_externaldeviceid
+     * The get_ExternalDeviceID method retrieves the model number of the external device.
+     * @returns {PWSTR} Pointer to an <b>LPOLESTR</b> that receives the manufacturer-specific identification as a string. The caller must release the string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamextdevice-get_externaldeviceid
      */
     get_ExternalDeviceID() {
         result := ComCall(4, this, "ptr*", &ppszData := 0, "HRESULT")
@@ -67,9 +97,9 @@ class IAMExtDevice extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_externaldeviceversion
+     * The get_ExternalDeviceVersion retrieves the version number of the external device's operating software.
+     * @returns {PWSTR} Pointer to an <b>LPOLESTR</b> that receives the manufacturer-specific operating software version number as a string. The caller must release the string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamextdevice-get_externaldeviceversion
      */
     get_ExternalDeviceVersion() {
         result := ComCall(5, this, "ptr*", &ppszData := 0, "HRESULT")
@@ -77,10 +107,10 @@ class IAMExtDevice extends IUnknown{
     }
 
     /**
-     * 
+     * The put_DevicePower method assigns the external device's power mode to either on, off, or standby.
      * @param {Integer} PowerMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-put_devicepower
+     * @returns {HRESULT} When this method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamextdevice-put_devicepower
      */
     put_DevicePower(PowerMode) {
         result := ComCall(6, this, "int", PowerMode, "HRESULT")
@@ -88,9 +118,9 @@ class IAMExtDevice extends IUnknown{
     }
 
     /**
-     * 
+     * The get_DevicePower method retrieves the external device's power mode.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_devicepower
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamextdevice-get_devicepower
      */
     get_DevicePower() {
         result := ComCall(7, this, "int*", &pPowerMode := 0, "HRESULT")
@@ -98,11 +128,32 @@ class IAMExtDevice extends IUnknown{
     }
 
     /**
+     * The Calibrate method calibrates an external device's transport mechanism.
+     * @param {Pointer} hEvent Handle to an event. The event is signaled when the action is complete.
+     * @param {Integer} Mode Specifies a value that activates or deactivates the calibration process:
      * 
-     * @param {Pointer} hEvent 
-     * @param {Integer} Mode 
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>ED_ACTIVE</td>
+     * <td>Activates the calibration process.</td>
+     * </tr>
+     * <tr>
+     * <td>ED_INACTIVE</td>
+     * <td>Deactivates the calibration process.</td>
+     * </tr>
+     * <tr>
+     * <td><b>NULL</b></td>
+     * <td>No action; return the calibration status in <i>pStatus</i>.</td>
+     * </tr>
+     * </table>
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-calibrate
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamextdevice-calibrate
      */
     Calibrate(hEvent, Mode) {
         result := ComCall(8, this, "ptr", hEvent, "int", Mode, "int*", &pStatus := 0, "HRESULT")
@@ -110,10 +161,10 @@ class IAMExtDevice extends IUnknown{
     }
 
     /**
-     * 
+     * The put_DevicePort method assigns the communication port to which the external device is connected.
      * @param {Integer} DevicePort 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-put_deviceport
+     * @returns {HRESULT} When this method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamextdevice-put_deviceport
      */
     put_DevicePort(DevicePort) {
         result := ComCall(9, this, "int", DevicePort, "HRESULT")
@@ -121,9 +172,9 @@ class IAMExtDevice extends IUnknown{
     }
 
     /**
-     * 
+     * The get_DevicePort method retrieves the communication port to which the external device is connected.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamextdevice-get_deviceport
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamextdevice-get_deviceport
      */
     get_DevicePort() {
         result := ComCall(10, this, "int*", &pDevicePort := 0, "HRESULT")

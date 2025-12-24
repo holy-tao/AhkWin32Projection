@@ -39,9 +39,11 @@ class ITextStoryRanges extends IDispatch{
     static VTableNames => ["_NewEnum", "Item", "GetCount"]
 
     /**
+     * Retrieves an IEnumVARIANT enumerator interface for this collection of stories.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges-_newenum
+     * The pointer to the enumerator interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstoryranges-_newenum
      */
     _NewEnum() {
         result := ComCall(7, this, "ptr*", &ppunkEnum := 0, "HRESULT")
@@ -49,10 +51,15 @@ class ITextStoryRanges extends IDispatch{
     }
 
     /**
+     * Retrieves an ITextRange object for the Indexth story in this story collection.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ITextRange} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges-item
+     * Index of story range that is retrieved. The default value is 1, which indicates the first story in the collection. <i>Count</i>, given by <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextstoryranges-getcount">ITextStoryRanges::GetCount</a>, indicates the last story in the collection. If <i>Index</i> is less than zero, the stories are counted from last to first, with -1 being the index of the last story in the collection, and 
+     * 					<i>Index</i> = - <i>Count</i> indicating the first story in the collection.
+     * @returns {ITextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>**</b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstoryranges-item
      */
     Item(Index) {
         result := ComCall(8, this, "int", Index, "ptr*", &ppRange := 0, "HRESULT")
@@ -60,9 +67,11 @@ class ITextStoryRanges extends IDispatch{
     }
 
     /**
+     * Retrieves the number of stories in the specified stories collection.
+     * @returns {Integer} Type: <b>long*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges-getcount
+     * The count of stories.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstoryranges-getcount
      */
     GetCount() {
         result := ComCall(9, this, "int*", &pCount := 0, "HRESULT")

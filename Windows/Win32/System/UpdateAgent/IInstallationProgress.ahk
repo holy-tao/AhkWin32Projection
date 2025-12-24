@@ -32,9 +32,30 @@ class IInstallationProgress extends IDispatch{
     static VTableNames => ["get_CurrentUpdateIndex", "get_CurrentUpdatePercentComplete", "get_PercentComplete", "GetUpdateResult"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    CurrentUpdateIndex {
+        get => this.get_CurrentUpdateIndex()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentUpdatePercentComplete {
+        get => this.get_CurrentUpdatePercentComplete()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PercentComplete {
+        get => this.get_PercentComplete()
+    }
+
+    /**
+     * Gets a zero-based index value. This value specifies the update that is currently being installed or uninstalled when multiple updates have been selected.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationprogress-get_currentupdateindex
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationprogress-get_currentupdateindex
      */
     get_CurrentUpdateIndex() {
         result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
@@ -42,9 +63,9 @@ class IInstallationProgress extends IDispatch{
     }
 
     /**
-     * 
+     * Gets how far the installation or uninstallation process for the current update has progressed, as a percentage.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationprogress-get_currentupdatepercentcomplete
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationprogress-get_currentupdatepercentcomplete
      */
     get_CurrentUpdatePercentComplete() {
         result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
@@ -52,9 +73,9 @@ class IInstallationProgress extends IDispatch{
     }
 
     /**
-     * 
+     * Gets how far the overall installation or uninstallation process has progressed, as a percentage.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationprogress-get_percentcomplete
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationprogress-get_percentcomplete
      */
     get_PercentComplete() {
         result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
@@ -62,10 +83,10 @@ class IInstallationProgress extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} updateIndex 
-     * @returns {IUpdateInstallationResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationprogress-getupdateresult
+     * Returns the result of the installation or uninstallation of a specified update.
+     * @param {Integer} updateIndex A zero-based index value that specifies an update.
+     * @returns {IUpdateInstallationResult} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateinstallationresult">IUpdateInstallationResult</a> interface that contains information about a specified update.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationprogress-getupdateresult
      */
     GetUpdateResult(updateIndex) {
         result := ComCall(10, this, "int", updateIndex, "ptr*", &retval := 0, "HRESULT")

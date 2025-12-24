@@ -31,15 +31,15 @@ class ITfInputProcessorProfilesEx extends ITfInputProcessorProfiles{
     static VTableNames => ["SetLanguageProfileDisplayName"]
 
     /**
-     * 
+     * Redistributable:\_Requires TSF 1.0 on Windows 2000.
      * @param {Pointer<Guid>} rclsid 
      * @param {Integer} langid 
      * @param {Pointer<Guid>} guidProfile 
      * @param {PWSTR} pchFile 
      * @param {Integer} cchFile 
      * @param {Integer} uResId 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofilesex-setlanguageprofiledisplayname
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofilesex-setlanguageprofiledisplayname
      */
     SetLanguageProfileDisplayName(rclsid, langid, guidProfile, pchFile, cchFile, uResId) {
         pchFile := pchFile is String ? StrPtr(pchFile) : pchFile

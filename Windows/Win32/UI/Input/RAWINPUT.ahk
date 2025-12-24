@@ -24,13 +24,13 @@
  */
 class RAWINPUT extends Win32Struct
 {
-    static sizeof => 48
+    static sizeof => 56
 
     static packingSize => 8
 
     class _data_e__Union extends Win32Struct {
-        static sizeof => 24
-        static packingSize => 4
+        static sizeof => 28
+        static packingSize => 8
 
         /**
          * @type {RAWMOUSE}

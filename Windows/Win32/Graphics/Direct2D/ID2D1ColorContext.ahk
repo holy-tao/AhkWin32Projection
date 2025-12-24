@@ -31,11 +31,11 @@ class ID2D1ColorContext extends ID2D1Resource{
     static VTableNames => ["GetColorSpace", "GetProfileSize", "GetProfile"]
 
     /**
-     * The GetColorSpace function retrieves the handle to the input color space from a specified device context.
-     * @returns {Integer} If the function succeeds, the return value is the current input color space handle.
+     * Gets the color space of the color context.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
      * 
-     * If this function fails, the return value is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getcolorspace
+     * This method returns the color space of the contained ICC profile.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1colorcontext-getcolorspace
      */
     GetColorSpace() {
         result := ComCall(4, this, "int")
@@ -43,9 +43,11 @@ class ID2D1ColorContext extends ID2D1Resource{
     }
 
     /**
+     * Gets the size of the color profile associated with the bitmap.
+     * @returns {Integer} Type: <b>UINT32</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1colorcontext-getprofilesize
+     * This method returns the  size of the profile in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1colorcontext-getprofilesize
      */
     GetProfileSize() {
         result := ComCall(5, this, "uint")
@@ -53,10 +55,14 @@ class ID2D1ColorContext extends ID2D1Resource{
     }
 
     /**
+     * Gets the color profile bytes for an ID2D1ColorContext.
+     * @param {Integer} profileSize Type: <b>UINT32</b>
      * 
-     * @param {Integer} profileSize 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1colorcontext-getprofile
+     * The size of the <i>profile</i> buffer.
+     * @returns {Integer} Type: <b>BYTE*</b>
+     * 
+     * When this method returns, contains the color profile.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1colorcontext-getprofile
      */
     GetProfile(profileSize) {
         result := ComCall(6, this, "char*", &profile := 0, "uint", profileSize, "HRESULT")

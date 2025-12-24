@@ -38,6 +38,27 @@ class Folder2 extends Folder{
     static VTableNames => ["get_Self", "get_OfflineStatus", "Synchronize", "get_HaveToShowWebViewBarricade", "DismissedWebViewBarricade"]
 
     /**
+     * @type {FolderItem} 
+     */
+    Self {
+        get => this.get_Self()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    OfflineStatus {
+        get => this.get_OfflineStatus()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    HaveToShowWebViewBarricade {
+        get => this.get_HaveToShowWebViewBarricade()
+    }
+
+    /**
      * 
      * @returns {FolderItem} 
      */

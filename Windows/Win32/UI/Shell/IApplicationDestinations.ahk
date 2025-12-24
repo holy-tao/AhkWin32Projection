@@ -62,10 +62,14 @@ class IApplicationDestinations extends IUnknown{
     static VTableNames => ["SetAppID", "RemoveDestination", "RemoveAllDestinations"]
 
     /**
+     * Specifies a unique Application User Model ID (AppUserModelID) for the application from whose taskbar button's Jump List the methods of this interface will remove destinations. This method is optional.
+     * @param {PWSTR} pszAppID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszAppID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdestinations-setappid
+     * Pointer to the AppUserModelID of the process whose taskbar button representation receives the Jump List.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdestinations-setappid
      */
     SetAppID(pszAppID) {
         pszAppID := pszAppID is String ? StrPtr(pszAppID) : pszAppID
@@ -75,10 +79,14 @@ class IApplicationDestinations extends IUnknown{
     }
 
     /**
+     * Removes a single destination from the Recent and Frequent categories in a Jump List.
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdestinations-removedestination
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a> that represents the destination to remove.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if successful, or a standard COM error value otherwise. If the object pointed to by <i>punk</i> is not an <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> or <a href="/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishelllinka">IShellLink</a>, the method returns E_INVALIDARG.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdestinations-removedestination
      */
     RemoveDestination(punk) {
         result := ComCall(4, this, "ptr", punk, "HRESULT")
@@ -86,9 +94,11 @@ class IApplicationDestinations extends IUnknown{
     }
 
     /**
+     * Clears all destination entries from the Recent and Frequent categories in an application's Jump List.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iapplicationdestinations-removealldestinations
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iapplicationdestinations-removealldestinations
      */
     RemoveAllDestinations() {
         result := ComCall(5, this, "HRESULT")

@@ -37,10 +37,14 @@ class IUPnPHttpHeaderControl extends IUnknown{
     static VTableNames => ["AddRequestHeaders"]
 
     /**
+     * Adds the supplied HTTP header to an HTTP request.
+     * @param {BSTR} bstrHttpHeaders String value that contains the HTTP header to attach to the request. For example, "User-Agent: DLNADOC/1.50\r\n".
      * 
-     * @param {BSTR} bstrHttpHeaders 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnphttpheadercontrol-addrequestheaders
+     * 
+     * <div class="alert"><b>Note</b>  For Windows 7 and Windows Server 2008 R2, only the User Agent HTTP header is supported.</div>
+     * <div> </div>
+     * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, the method returns one of the COM error codes defined in WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnphttpheadercontrol-addrequestheaders
      */
     AddRequestHeaders(bstrHttpHeaders) {
         bstrHttpHeaders := bstrHttpHeaders is String ? BSTR.Alloc(bstrHttpHeaders).Value : bstrHttpHeaders

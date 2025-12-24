@@ -31,10 +31,14 @@ class IDCompositionVisual3 extends IDCompositionVisualDebug{
     static VTableNames => ["SetDepthMode", "SetOffsetZ", "SetOffsetZ1", "SetOpacity", "SetOpacity1", "SetTransform", "SetTransform1", "SetVisible"]
 
     /**
+     * Sets the depth mode property associated with this visual.
+     * @param {Integer} mode Type: <b>DCOMPOSITION_DEPTH_MODE</b>
      * 
-     * @param {Integer} mode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual3-setdepthmode
+     * The new depth mode.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual3-setdepthmode
      */
     SetDepthMode(mode) {
         result := ComCall(26, this, "int", mode, "HRESULT")
@@ -108,10 +112,14 @@ class IDCompositionVisual3 extends IDCompositionVisualDebug{
     }
 
     /**
+     * Changes the value of the visual's Visible property.
+     * @param {BOOL} visible Type: <b>BOOL</b>
      * 
-     * @param {BOOL} visible 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionvisual3-setvisible
+     * The new value for the visible property.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionvisual3-setvisible
      */
     SetVisible(visible) {
         result := ComCall(33, this, "int", visible, "HRESULT")

@@ -37,10 +37,10 @@ class ISyncProviderConfigUIInfo extends IPropertyStore{
     static VTableNames => ["GetSyncProviderConfigUI"]
 
     /**
-     * 
-     * @param {Integer} dwClsContext 
-     * @returns {ISyncProviderConfigUI} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncregistration/nf-syncregistration-isyncproviderconfiguiinfo-getsyncproviderconfigui
+     * Creates an instance of a synchronization provider configuration UI.
+     * @param {Integer} dwClsContext The context in which the code that manages the newly created object will run. The only context supported is <b>CLSCTX_INPROC_SERVER</b>.
+     * @returns {ISyncProviderConfigUI} The instance of the synchronization provider configuration UI.
+     * @see https://docs.microsoft.com/windows/win32/api//syncregistration/nf-syncregistration-isyncproviderconfiguiinfo-getsyncproviderconfigui
      */
     GetSyncProviderConfigUI(dwClsContext) {
         result := ComCall(8, this, "uint", dwClsContext, "ptr*", &ppSyncProviderConfigUI := 0, "HRESULT")

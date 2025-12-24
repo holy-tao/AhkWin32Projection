@@ -51,9 +51,30 @@ class IFsiNamedStreams extends IDispatch{
     static VTableNames => ["get__NewEnum", "get_Item", "get_Count", "get_EnumNamedStreams"]
 
     /**
-     * 
-     * @returns {IEnumVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsinamedstreams-get__newenum
+     * @type {IEnumVARIANT} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IEnumFsiItems} 
+     */
+    EnumNamedStreams {
+        get => this.get_EnumNamedStreams()
+    }
+
+    /**
+     * Retrieves an IEnumVARIANT list of the named streams associated with a file in the file system image.
+     * @returns {IEnumVARIANT} Pointer to a pointer to an <b>IEnumVariant</b> interface that is used to enumerate the named streams associated with a file. The items of the enumeration are variants whose type is <b>VT_BSTR</b>. Use the <b>bstrVal</b> member to retrieve the path to the named stream.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsinamedstreams-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &NewEnum := 0, "HRESULT")
@@ -61,10 +82,11 @@ class IFsiNamedStreams extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} index 
-     * @returns {IFsiFileItem2} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsinamedstreams-get_item
+     * Retrieves a single named stream associated with a file in the file system image.
+     * @param {Integer} index This value indicates the position of the named stream within the  collection.
+     * 	The index number is zero-based, i.e. the first item is at location 0 of the collection.
+     * @returns {IFsiFileItem2} Pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ifsifileitem2">IFsiFileItem2</a> object representing the named stream at the  position specified by <i>index</i>. This parameter is set to <b>NULL</b> if the specified index is not within the collection boundary.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsinamedstreams-get_item
      */
     get_Item(index) {
         result := ComCall(8, this, "int", index, "ptr*", &item := 0, "HRESULT")
@@ -72,9 +94,9 @@ class IFsiNamedStreams extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsinamedstreams-get_count
+     * Returns the number of the named streams associated with a file in the file system image.
+     * @returns {Integer} Pointer to a value indicating the total number of named streams in the collection.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsinamedstreams-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &count := 0, "HRESULT")
@@ -82,9 +104,9 @@ class IFsiNamedStreams extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumFsiItems} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ifsinamedstreams-get_enumnamedstreams
+     * Creates a non-variant enumerator for the collection of the named streams associated with a file in the file system image.
+     * @returns {IEnumFsiItems} Pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-ienumfsiitems">IEnumFsiItems</a> object representing a collection of named streams associated with a file.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ifsinamedstreams-get_enumnamedstreams
      */
     get_EnumNamedStreams() {
         result := ComCall(10, this, "ptr*", &NewEnum := 0, "HRESULT")

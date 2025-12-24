@@ -32,10 +32,10 @@ class IOfflineFilesItemContainer extends IUnknown{
     static VTableNames => ["EnumItems", "EnumItemsEx"]
 
     /**
-     * 
-     * @param {Integer} dwQueryFlags 
-     * @returns {IEnumOfflineFilesItems} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemcontainer-enumitems
+     * Returns an enumerator of child items for the cache item implementing this method.
+     * @param {Integer} dwQueryFlags Flags affecting the amount of query activity at the time of enumeration.  The parameter may contain one or more of the following bit flags.
+     * @returns {IEnumOfflineFilesItems} Enumerator of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nn-cscobj-iofflinefilesitem">IOfflineFilesItem</a> interface pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesitemcontainer-enumitems
      */
     EnumItems(dwQueryFlags) {
         result := ComCall(3, this, "uint", dwQueryFlags, "ptr*", &ppenum := 0, "HRESULT")
@@ -43,15 +43,15 @@ class IOfflineFilesItemContainer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IOfflineFilesItemFilter} pIncludeFileFilter 
-     * @param {IOfflineFilesItemFilter} pIncludeDirFilter 
-     * @param {IOfflineFilesItemFilter} pExcludeFileFilter 
-     * @param {IOfflineFilesItemFilter} pExcludeDirFilter 
-     * @param {Integer} dwEnumFlags 
-     * @param {Integer} dwQueryFlags 
-     * @returns {IEnumOfflineFilesItems} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesitemcontainer-enumitemsex
+     * Returns an enumerator of child items for the cache item implementing this method.
+     * @param {IOfflineFilesItemFilter} pIncludeFileFilter If provided, references the filter applied to the decision to include files.  This parameter is optional and can be <b>NULL</b>.
+     * @param {IOfflineFilesItemFilter} pIncludeDirFilter If provided, references the filter applied to the decision to include directories.  This parameter is optional and can be <b>NULL</b>.
+     * @param {IOfflineFilesItemFilter} pExcludeFileFilter If provided, references the filter applied to the decision to exclude files.  This parameter is optional and can be <b>NULL</b>.
+     * @param {IOfflineFilesItemFilter} pExcludeDirFilter If provided, references the filter applied to the decision to exclude directories.  This parameter is optional and can be <b>NULL</b>.
+     * @param {Integer} dwEnumFlags Flags affecting the type of enumeration performed.  The parameter may contain one or more of the following flag bits.
+     * @param {Integer} dwQueryFlags Flags affecting the amount of query activity at the time of enumeration.  The parameter can contain one or more of the following bit flags.
+     * @returns {IEnumOfflineFilesItems} Enumerator of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nn-cscobj-iofflinefilesitem">IOfflineFilesItem</a> interface pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesitemcontainer-enumitemsex
      */
     EnumItemsEx(pIncludeFileFilter, pIncludeDirFilter, pExcludeFileFilter, pExcludeDirFilter, dwEnumFlags, dwQueryFlags) {
         result := ComCall(4, this, "ptr", pIncludeFileFilter, "ptr", pIncludeDirFilter, "ptr", pExcludeFileFilter, "ptr", pExcludeDirFilter, "uint", dwEnumFlags, "uint", dwQueryFlags, "ptr*", &ppenum := 0, "HRESULT")

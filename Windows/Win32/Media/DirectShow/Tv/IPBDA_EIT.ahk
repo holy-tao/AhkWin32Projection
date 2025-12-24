@@ -34,21 +34,11 @@ class IPBDA_EIT extends IUnknown{
     static VTableNames => ["Initialize", "GetTableId", "GetVersionNumber", "GetServiceIdx", "GetCountOfRecords", "GetRecordEventId", "GetRecordStartTime", "GetRecordDuration", "GetRecordCountOfDescriptors", "GetRecordDescriptorByIndex", "GetRecordDescriptorByTag"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Integer} size 
-     * @param {Pointer<Integer>} pBuffer 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes an object that gets data from an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @param {Integer} size Specifies the buffer size for data used to initialize each section.
+     * @param {Pointer<Integer>} pBuffer Specifies the buffer used to initialize each section.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_eit-initialize
      */
     Initialize(size, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
@@ -58,9 +48,9 @@ class IPBDA_EIT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-gettableid
+     * Gets the table identifier from an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @returns {Integer} Receives the table identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_eit-gettableid
      */
     GetTableId() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -68,9 +58,9 @@ class IPBDA_EIT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getversionnumber
+     * Gets the version number from an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @returns {Integer} Receives the version number.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_eit-getversionnumber
      */
     GetVersionNumber() {
         result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -78,9 +68,9 @@ class IPBDA_EIT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getserviceidx
+     * Gets the service identifier from an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream. The service identifier identifies the service that contains the events.
+     * @returns {Integer} Receives the service identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_eit-getserviceidx
      */
     GetServiceIdx() {
         result := ComCall(6, this, "uint*", &plwVal := 0, "HRESULT")
@@ -88,9 +78,9 @@ class IPBDA_EIT extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getcountofrecords
+     * Receives the number of event records from an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @returns {Integer} Receives the number of records.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_eit-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(7, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -98,10 +88,11 @@ class IPBDA_EIT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordeventid
+     * Receives the unique identifier from an event record in an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @param {Integer} dwRecordIndex Specifies the service record number, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getcountofrecords">IPBDA_EIT::GetCountOfRecords</a> method to get the number of records in the EIT.
+     * @returns {Integer} Receives the event identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordeventid
      */
     GetRecordEventId(dwRecordIndex) {
         result := ComCall(8, this, "uint", dwRecordIndex, "uint*", &plwVal := 0, "HRESULT")
@@ -109,10 +100,11 @@ class IPBDA_EIT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {MPEG_DATE_AND_TIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordstarttime
+     * Gets the start time from an event record in an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @param {Integer} dwRecordIndex Specifies the service record number, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getcountofrecords">IPBDA_EIT::GetCountOfRecords</a> method to get the number of records in the EIT.
+     * @returns {MPEG_DATE_AND_TIME} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-mpeg_date_and_time">MPEG_DATE_AND_TIME</a> structure that receives the start time from the event record.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordstarttime
      */
     GetRecordStartTime(dwRecordIndex) {
         pmdtVal := MPEG_DATE_AND_TIME()
@@ -121,10 +113,11 @@ class IPBDA_EIT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {MPEG_TIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordduration
+     * Gets the duration from an event record in an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @param {Integer} dwRecordIndex Specifies the service record number, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getcountofrecords">IPBDA_EIT::GetCountOfRecords</a> method to get the number of records in the EIT.
+     * @returns {MPEG_TIME} Receives the event duration.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordduration
      */
     GetRecordDuration(dwRecordIndex) {
         pmdVal := MPEG_TIME()
@@ -133,10 +126,11 @@ class IPBDA_EIT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordcountofdescriptors
+     * Gets the number of event records from an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @param {Integer} dwRecordIndex Specifies the service record number, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getcountofrecords">IPBDA_EIT::GetCountOfRecords</a> method to get the number of records in the EIT.
+     * @returns {Integer} Receives the number of descriptors.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordcountofdescriptors
      */
     GetRecordCountOfDescriptors(dwRecordIndex) {
         result := ComCall(11, this, "uint", dwRecordIndex, "uint*", &pdwVal := 0, "HRESULT")
@@ -144,11 +138,12 @@ class IPBDA_EIT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @param {Integer} dwIndex 
-     * @returns {IGenericDescriptor} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecorddescriptorbyindex
+     * Retrieves a descriptor for a specified record in an event information table (EIT) in a Protected Broadcast Device Architecture (PBDA) transport stream.
+     * @param {Integer} dwRecordIndex Specifies the service record number, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getcountofrecords">IPBDA_EIT::GetCountOfRecords</a> method to get the number of records in the EIT.
+     * @param {Integer} dwIndex Specifies the descriptor to retrieve, indexed from zero. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecordcountofdescriptors">IPBDA_EIT::GetRecordCountOfDescriptors</a> method to get the number of descriptors for a particular record.
+     * @returns {IGenericDescriptor} Address of a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface pointer. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecorddescriptorbyindex
      */
     GetRecordDescriptorByIndex(dwRecordIndex, dwIndex) {
         result := ComCall(12, this, "uint", dwRecordIndex, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
@@ -156,12 +151,13 @@ class IPBDA_EIT extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} dwRecordIndex 
-     * @param {Integer} bTag 
-     * @param {Pointer<Integer>} pdwCookie 
-     * @returns {IGenericDescriptor} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecorddescriptorbytag
+     * Searches a record in an event information table (EIT) from a Protected Broadcast Device Architecture (PBDA) transport stream for a descriptor with a specified descriptor tag.
+     * @param {Integer} dwRecordIndex Specifies the service record number, indexed from zero.
+     *   Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-ipbda_eit-getcountofrecords">IPBDA_EIT::GetCountOfRecords</a> method to get the number of records in the EIT.
+     * @param {Integer} bTag Specifies the descriptor tag for which to search.
+     * @param {Pointer<Integer>} pdwCookie Pointer to a variable that specifies the start position in the descriptor list. This parameter is optional. If the value of *<i>pdwCookie</i> is <b>NULL</b>, the search starts from the first descriptor in the list. Otherwise, the search starts from the position given in *<i>pdwCookie</i>. When the method returns, the *<i>pdwCookie</i> parameter contains the position of the next matching descriptor, if any. You can use this parameter to iterate through the descriptor list, looking for every instance of a particular descriptor tag.
+     * @returns {IGenericDescriptor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-ipbda_eit-getrecorddescriptorbytag
      */
     GetRecordDescriptorByTag(dwRecordIndex, bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"

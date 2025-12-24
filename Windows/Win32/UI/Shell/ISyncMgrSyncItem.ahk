@@ -38,9 +38,11 @@ class ISyncMgrSyncItem extends IUnknown{
     static VTableNames => ["GetItemID", "GetName", "GetItemInfo", "GetObject", "GetCapabilities", "GetPolicies", "Enable", "Delete"]
 
     /**
+     * Gets the unique ID of a sync item.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getitemid
+     * When this method returns, contains a pointer to a buffer containing the item's ID. This string is of maximum length MAX_SYNCMGR_ID including the terminating <b>null</b> character.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncitem-getitemid
      */
     GetItemID() {
         result := ComCall(3, this, "ptr*", &ppszItemID := 0, "HRESULT")
@@ -48,9 +50,11 @@ class ISyncMgrSyncItem extends IUnknown{
     }
 
     /**
+     * Gets the UI display name of the sync item.
+     * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getname
+     * When this method returns, contains a pointer to a buffer containing the item's display name. This string is of maximum length MAX_SYNCMGR_NAME including the terminating <b>null</b> character. Longer strings are truncated.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncitem-getname
      */
     GetName() {
         result := ComCall(4, this, "ptr*", &ppszName := 0, "HRESULT")
@@ -58,9 +62,11 @@ class ISyncMgrSyncItem extends IUnknown{
     }
 
     /**
+     * Gets the properties of a sync item.
+     * @returns {ISyncMgrSyncItemInfo} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsynciteminfo">ISyncMgrSyncItemInfo</a>*</b>
      * 
-     * @returns {ISyncMgrSyncItemInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getiteminfo
+     * When this method returns, contains the address of a pointer to an instance of the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsynciteminfo">ISyncMgrSyncItemInfo</a> interface, representing the item.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncitem-getiteminfo
      */
     GetItemInfo() {
         result := ComCall(5, this, "ptr*", &ppItemInfo := 0, "HRESULT")
@@ -68,11 +74,15 @@ class ISyncMgrSyncItem extends IUnknown{
     }
 
     /**
-     * The GetObject function retrieves information for the specified graphics object.
-     * @param {Pointer<Guid>} rguidObjectID 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
+     * Creates a specific type of object related to the item.
+     * @param {Pointer<Guid>} rguidObjectID Type: <b>REFGUID</b>
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * The IID of the requested interface. This is dependent on the object type named in <i>rguidObjectID</i>.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the requested interface.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncitem-getobject
      */
     GetObject(rguidObjectID, riid) {
         result := ComCall(6, this, "ptr", rguidObjectID, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -80,9 +90,11 @@ class ISyncMgrSyncItem extends IUnknown{
     }
 
     /**
+     * Gets a set of flags describing the item's defined capabilities.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_capabilities">SYNCMGR_ITEM_CAPABILITIES</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getcapabilities
+     * When this method returns, contains a pointer to a bitwise combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_capabilities">SYNCMGR_ITEM_CAPABILITIES</a> enumeration that defines the capabilities of the item.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncitem-getcapabilities
      */
     GetCapabilities() {
         result := ComCall(7, this, "int*", &pmCapabilities := 0, "HRESULT")
@@ -90,9 +102,11 @@ class ISyncMgrSyncItem extends IUnknown{
     }
 
     /**
+     * Gets a set of flags describing the policies set by the item.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_policies">SYNCMGR_ITEM_POLICIES</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-getpolicies
+     * When this method returns, contains a pointer to a bitwise combination of values from the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ne-syncmgr-syncmgr_item_policies">SYNCMGR_ITEM_POLICIES</a> enumeration that defines the item's policies.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncitem-getpolicies
      */
     GetPolicies() {
         result := ComCall(8, this, "int*", &pmPolicies := 0, "HRESULT")
@@ -100,10 +114,14 @@ class ISyncMgrSyncItem extends IUnknown{
     }
 
     /**
+     * Enables or disables the sync item.
+     * @param {BOOL} fEnable Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-enable
+     * <b>TRUE</b> to enable; <b>FALSE</b> to disable.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncitem-enable
      */
     Enable(fEnable) {
         result := ComCall(9, this, "int", fEnable, "HRESULT")
@@ -111,9 +129,11 @@ class ISyncMgrSyncItem extends IUnknown{
     }
 
     /**
+     * Deletes a sync item.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrsyncitem-delete
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncitem-delete
      */
     Delete() {
         result := ComCall(10, this, "HRESULT")

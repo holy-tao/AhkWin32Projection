@@ -37,12 +37,16 @@ class IGPMSearchCriteria extends IDispatch{
     static VTableNames => ["Add"]
 
     /**
+     * Adds a criterion for search operations.
+     * @param {Integer} searchProperty The search property to evaluate. For a valid combination of search properties, search operations, and values, see the  Remarks section.
+     * @param {Integer} searchOperation The operation to use to evaluate <i>searchProperty</i> using the value specified by <i>varValue</i>.
+     * @param {VARIANT} varValue The value to evaluate <i>searchProperty</i> against.
+     * @returns {HRESULT} <h3>JScript</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
      * 
-     * @param {Integer} searchProperty 
-     * @param {Integer} searchOperation 
-     * @param {VARIANT} varValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmsearchcriteria-add
+     * <h3>VB</h3>
+     * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsearchcriteria-add
      */
     Add(searchProperty, searchOperation, varValue) {
         result := ComCall(7, this, "int", searchProperty, "int", searchOperation, "ptr", varValue, "HRESULT")

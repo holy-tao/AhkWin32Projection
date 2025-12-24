@@ -35,9 +35,10 @@ class IVdsIscsiPortalGroup extends IUnknown{
     static VTableNames => ["GetProperties", "GetTarget", "QueryAssociatedPortals", "AddPortal", "RemovePortal", "Delete"]
 
     /**
-     * 
-     * @returns {VDS_ISCSI_PORTALGROUP_PROP} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-getproperties
+     * Returns the properties of a portal group.
+     * @returns {VDS_ISCSI_PORTALGROUP_PROP} The address of a <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_iscsi_portalgroup_prop">VDS_ISCSI_PORTALGROUP_PROP</a> 
+     *       structure allocated and passed in by the caller.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiportalgroup-getproperties
      */
     GetProperties() {
         pPortalGroupProp := VDS_ISCSI_PORTALGROUP_PROP()
@@ -46,9 +47,10 @@ class IVdsIscsiPortalGroup extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IVdsIscsiTarget} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-gettarget
+     * Returns the target to which the portal group belongs.
+     * @returns {IVdsIscsiTarget} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsiscsitarget">IVdsIscsiTarget</a>. VDS initializes the 
+     *       interface on return. Callers must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiportalgroup-gettarget
      */
     GetTarget() {
         result := ComCall(4, this, "ptr*", &ppTarget := 0, "HRESULT")
@@ -56,9 +58,9 @@ class IVdsIscsiPortalGroup extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumVdsObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-queryassociatedportals
+     * Returns an enumeration of the portals with which the portal group is associated.
+     * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the portals  as <a href="https://docs.microsoft.com/windows/desktop/VDS/portal-object">portal objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the portal  objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiportalgroup-queryassociatedportals
      */
     QueryAssociatedPortals() {
         result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -66,10 +68,14 @@ class IVdsIscsiPortalGroup extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} portalId 
-     * @returns {IVdsAsync} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-addportal
+     * Adds a portal to a portal group.
+     * @param {Guid} portalId The <b>VDS_OBJECT_ID</b> of the portal to be added to the portal group.
+     * @returns {IVdsAsync} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface pointer. VDS 
+     *       initializes the interface on return. Callers must release the interface. Use this interface to cancel, wait for, 
+     *       or query the status of the operation. If 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> is called and a success HRESULT value is returned, the interfaces returned in 
+     *       the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> structure must be released by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on each interface pointer. However, if <b>Wait</b> returns a failure HRESULT value, or if the <i>pHrResult</i> parameter of <b>Wait</b> receives a failure HRESULT value, the interface pointers in the <b>VDS_ASYNC_OUTPUT</b> structure are <b>NULL</b> and do not need to be released. You can test for success or failure HRESULT values by using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-failed">FAILED</a> macros defined in Winerror.h.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiportalgroup-addportal
      */
     AddPortal(portalId) {
         result := ComCall(6, this, "ptr", portalId, "ptr*", &ppAsync := 0, "HRESULT")
@@ -77,10 +83,15 @@ class IVdsIscsiPortalGroup extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} portalId 
-     * @returns {IVdsAsync} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-removeportal
+     * Removes a portal from a portal group.
+     * @param {Guid} portalId The <b>VDS_OBJECT_ID</b> of the portal to be removed from the portal group.
+     * @returns {IVdsAsync} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface pointer. VDS 
+     *       initializes the interface on return. Callers must release the interface. Use this interface to cancel, wait for, 
+     *       or query the status of the operation. If 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> is called and a success HRESULT value is returned, the interfaces returned in 
+     *       the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> structure must be released by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on each interface pointer.
+     *      However, if <b>Wait</b> returns a failure HRESULT value, or if the <i>pHrResult</i> parameter of <b>Wait</b> receives a failure HRESULT value, the interface pointers in the <b>VDS_ASYNC_OUTPUT</b> structure are <b>NULL</b> and do not need to be released. You can test for success or failure HRESULT values by using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-failed">FAILED</a> macros defined in Winerror.h.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiportalgroup-removeportal
      */
     RemovePortal(portalId) {
         result := ComCall(7, this, "ptr", portalId, "ptr*", &ppAsync := 0, "HRESULT")
@@ -88,9 +99,14 @@ class IVdsIscsiPortalGroup extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IVdsAsync} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsiscsiportalgroup-delete
+     * Deletes the portal group.
+     * @returns {IVdsAsync} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface pointer. VDS 
+     *       initializes the interface on return. Callers must release the interface. Use this interface to cancel, wait for, 
+     *       or query the status of the operation. If 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> is called and a success HRESULT value is returned, the interfaces returned in 
+     *       the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> structure must be released by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on each interface pointer.
+     *      However, if <b>Wait</b> returns a failure HRESULT value, or if the <i>pHrResult</i> parameter of <b>Wait</b> receives a failure HRESULT value, the interface pointers in the <b>VDS_ASYNC_OUTPUT</b> structure are <b>NULL</b> and do not need to be released. You can test for success or failure HRESULT values by using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-failed">FAILED</a> macros defined in Winerror.h.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsiscsiportalgroup-delete
      */
     Delete() {
         result := ComCall(8, this, "ptr*", &ppAsync := 0, "HRESULT")

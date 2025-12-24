@@ -81,6 +81,36 @@ class IADsContainer extends IDispatch{
     static VTableNames => ["get_Count", "get__NewEnum", "get_Filter", "put_Filter", "get_Hints", "put_Hints", "GetObject", "Create", "Delete", "CopyHere", "MoveHere"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Filter {
+        get => this.get_Filter()
+        set => this.put_Filter(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Hints {
+        get => this.get_Hints()
+        set => this.put_Hints(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */
@@ -90,9 +120,9 @@ class IADsContainer extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscontainer-get__newenum
+     * Retrieves an enumerator object for the container.
+     * @returns {IUnknown} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer that receives the enumerator object. The caller must release this interface when it is no longer required.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscontainer-get__newenum
      */
     get__NewEnum() {
         result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
@@ -140,11 +170,11 @@ class IADsContainer extends IDispatch{
     }
 
     /**
-     * The GetObject function retrieves information for the specified graphics object.
-     * @param {BSTR} ClassName 
-     * @param {BSTR} RelativeName 
-     * @returns {IDispatch} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobject
+     * Retrieves an interface for a directory object in the container.
+     * @param {BSTR} ClassName A <b>BSTR</b> that specifies the name of the object class as of the object to retrieve. If this parameter is <b>NULL</b>, the provider returns the first item found in the container.
+     * @param {BSTR} RelativeName A <b>BSTR</b> that specifies the relative distinguished name of the object to retrieve.
+     * @returns {IDispatch} A pointer to a pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface on the specified object.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscontainer-getobject
      */
     GetObject(ClassName, RelativeName) {
         ClassName := ClassName is String ? BSTR.Alloc(ClassName).Value : ClassName
@@ -155,11 +185,11 @@ class IADsContainer extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} ClassName 
-     * @param {BSTR} RelativeName 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscontainer-create
+     * Sets up a request to create a directory object of the specified schema class and a given name in the container.
+     * @param {BSTR} ClassName Name of the schema class object to be created. The name is that returned from the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iads">IADs::get_Schema</a> property method.
+     * @param {BSTR} RelativeName Relative name of the object as it is known in the underlying directory and identical to the one retrieved through the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iads">IADs::get_Name</a> property method.
+     * @returns {IDispatch} Indirect pointer to the  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface on the newly created object.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscontainer-create
      */
     Create(ClassName, RelativeName) {
         ClassName := ClassName is String ? BSTR.Alloc(ClassName).Value : ClassName
@@ -170,11 +200,11 @@ class IADsContainer extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrClassName 
-     * @param {BSTR} bstrRelativeName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscontainer-delete
+     * Deletes a specified directory object from this container.
+     * @param {BSTR} bstrClassName The schema class object to delete. The name is that returned from the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iads">IADs::get_Class</a> method. Also, <b>NULL</b> is a valid option for this parameter.   Providing <b>NULL</b> for this parameter is the only way to deal with defunct schema classes. If an instance was created before the class became defunct, the only way to  delete the instance of the defunct class is to call <b>IADsContainer::Delete</b> and provide <b>NULL</b> for this parameter.
+     * @param {BSTR} bstrRelativeName Name of the object as it is known in the underlying directory and identical to the name retrieved with the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iads">IADs::get_Name</a> method.
+     * @returns {HRESULT} This method supports the standard return values, including S_OK for a successful operation. For more information about error codes, see  <a href="/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscontainer-delete
      */
     Delete(bstrClassName, bstrRelativeName) {
         bstrClassName := bstrClassName is String ? BSTR.Alloc(bstrClassName).Value : bstrClassName
@@ -185,11 +215,11 @@ class IADsContainer extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} SourceName 
-     * @param {BSTR} NewName 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscontainer-copyhere
+     * The IADsContainer::CopyHere method creates a copy of the specified directory object in this container.
+     * @param {BSTR} SourceName The ADsPath of the object to copy.
+     * @param {BSTR} NewName Optional name of the new object within the container. If a new name is not specified  for the object, set to <b>NULL</b>; the new object will have the same name as the source object.
+     * @returns {IDispatch} Indirect pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iads">IADs</a> interface on the copied object.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscontainer-copyhere
      */
     CopyHere(SourceName, NewName) {
         SourceName := SourceName is String ? BSTR.Alloc(SourceName).Value : SourceName
@@ -200,11 +230,15 @@ class IADsContainer extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} SourceName 
-     * @param {BSTR} NewName 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadscontainer-movehere
+     * Moves a specified object to the container that implements this interface.
+     * @param {BSTR} SourceName The null-terminated Unicode string that specifies the <b>ADsPath</b> of the object to be moved.
+     * @param {BSTR} NewName The null-terminated Unicode string that specifies the relative name of the new object within the container. This can be
+     *     <b>NULL</b>, in which case the object is moved. If it is not <b>NULL</b>, the object is
+     *     renamed accordingly in the process.
+     * @returns {IDispatch} Pointer to a pointer to the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface on the moved
+     *     object.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadscontainer-movehere
      */
     MoveHere(SourceName, NewName) {
         SourceName := SourceName is String ? BSTR.Alloc(SourceName).Value : SourceName

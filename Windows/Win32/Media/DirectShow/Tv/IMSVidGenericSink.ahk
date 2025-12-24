@@ -43,10 +43,36 @@ class IMSVidGenericSink extends IMSVidOutputDevice{
     static VTableNames => ["SetSinkFilter", "get_SinkStreams", "put_SinkStreams"]
 
     /**
+     * @type {Integer} 
+     */
+    SinkStreams {
+        get => this.get_SinkStreams()
+        set => this.put_SinkStreams(value)
+    }
+
+    /**
+     * The SetSinkFilter method sets the filter for the sink.
+     * @param {BSTR} bstrName <b>BSTR</b> that contains the CLSID of the sink filter. The <b>BSTR</b> must use the following format: <c>{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}</c>.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {BSTR} bstrName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgenericsink-setsinkfilter
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidgenericsink-setsinkfilter
      */
     SetSinkFilter(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -56,9 +82,9 @@ class IMSVidGenericSink extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgenericsink-get_sinkstreams
+     * The get_SinkStreams method retrieves the streams that are required to be rendered down to the sink. Not implemented.
+     * @returns {Integer} Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidgenericsink-get_sinkstreams
      */
     get_SinkStreams() {
         result := ComCall(17, this, "int*", &pStreams := 0, "HRESULT")
@@ -66,10 +92,10 @@ class IMSVidGenericSink extends IMSVidOutputDevice{
     }
 
     /**
-     * 
-     * @param {Integer} Streams 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgenericsink-put_sinkstreams
+     * The put_SinkStreams method sets the streams that are required to be rendered down to the sink. Not implemented.
+     * @param {Integer} Streams Reserved.
+     * @returns {HRESULT} Returns E_NOTIMPL.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidgenericsink-put_sinkstreams
      */
     put_SinkStreams(Streams) {
         result := ComCall(18, this, "int", Streams, "HRESULT")

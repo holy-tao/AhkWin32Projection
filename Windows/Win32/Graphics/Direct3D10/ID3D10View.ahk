@@ -49,10 +49,17 @@ class ID3D10View extends ID3D10DeviceChild{
     static VTableNames => ["GetResource"]
 
     /**
+     * Get the resource that is accessed through this view.
+     * @remarks
      * 
-     * @param {Pointer<ID3D10Resource>} ppResource 
+     * This function increments the reference count of the resource by one, so it is necessary to call Release on the returned pointer when the application is done with it. Destroying (or losing) the returned pointer before Release is called will result in a memory leak.
+     * 
+     * 
+     * @param {Pointer<ID3D10Resource>} ppResource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>**</b>
+     * 
+     * Address of a pointer to the resource that is accessed through this view. (See <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource</a>.)
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10view-getresource
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10view-getresource
      */
     GetResource(ppResource) {
         ComCall(7, this, "ptr*", ppResource)

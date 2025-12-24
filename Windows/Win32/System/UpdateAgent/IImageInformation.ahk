@@ -32,9 +32,37 @@ class IImageInformation extends IDispatch{
     static VTableNames => ["get_AltText", "get_Height", "get_Source", "get_Width"]
 
     /**
-     * 
+     * @type {BSTR} 
+     */
+    AltText {
+        get => this.get_AltText()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Height {
+        get => this.get_Height()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Source {
+        get => this.get_Source()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Width {
+        get => this.get_Width()
+    }
+
+    /**
+     * Gets the alternate text for the image.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_alttext
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iimageinformation-get_alttext
      */
     get_AltText() {
         retval := BSTR()
@@ -43,9 +71,9 @@ class IImageInformation extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the height of the image, in pixels.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_height
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iimageinformation-get_height
      */
     get_Height() {
         result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
@@ -53,9 +81,9 @@ class IImageInformation extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the source location of the image.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_source
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iimageinformation-get_source
      */
     get_Source() {
         retval := BSTR()
@@ -64,9 +92,9 @@ class IImageInformation extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the width of the image, in pixels.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iimageinformation-get_width
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iimageinformation-get_width
      */
     get_Width() {
         result := ComCall(10, this, "int*", &retval := 0, "HRESULT")

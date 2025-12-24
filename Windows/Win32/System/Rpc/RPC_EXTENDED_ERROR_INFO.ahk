@@ -25,7 +25,7 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
 
     class _u_e__Union extends Win32Struct {
         static sizeof => 16
-        static packingSize => 4
+        static packingSize => 8
 
         /**
          * @type {SYSTEMTIME}
@@ -85,7 +85,7 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
     u{
         get {
             if(!this.HasProp("__u"))
-                this.__u := %this.__Class%._u_e__Union(20, this)
+                this.__u := %this.__Class%._u_e__Union(24, this)
             return this.__u
         }
     }
@@ -95,8 +95,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     GeneratingComponent {
-        get => NumGet(this, 36, "uint")
-        set => NumPut("uint", value, this, 36)
+        get => NumGet(this, 40, "uint")
+        set => NumPut("uint", value, this, 40)
     }
 
     /**
@@ -104,8 +104,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     Status {
-        get => NumGet(this, 40, "uint")
-        set => NumPut("uint", value, this, 40)
+        get => NumGet(this, 44, "uint")
+        set => NumPut("uint", value, this, 44)
     }
 
     /**
@@ -114,8 +114,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     DetectionLocation {
-        get => NumGet(this, 44, "ushort")
-        set => NumPut("ushort", value, this, 44)
+        get => NumGet(this, 48, "ushort")
+        set => NumPut("ushort", value, this, 48)
     }
 
     /**
@@ -128,8 +128,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     Flags {
-        get => NumGet(this, 46, "ushort")
-        set => NumPut("ushort", value, this, 46)
+        get => NumGet(this, 50, "ushort")
+        set => NumPut("ushort", value, this, 50)
     }
 
     /**
@@ -137,8 +137,8 @@ class RPC_EXTENDED_ERROR_INFO extends Win32Struct
      * @type {Integer}
      */
     NumberOfParameters {
-        get => NumGet(this, 48, "int")
-        set => NumPut("int", value, this, 48)
+        get => NumGet(this, 52, "int")
+        set => NumPut("int", value, this, 52)
     }
 
     /**

@@ -31,9 +31,9 @@ class IDvbTeletextDescriptor extends IUnknown{
     static VTableNames => ["GetTag", "GetLength", "GetCountOfRecords", "GetRecordLangId", "GetRecordTeletextType", "GetRecordMagazineNumber", "GetRecordPageNumber"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-gettag
+     * Gets the tag that idenfities a Digital Video Broadcast (DVB) teletext descriptor.
+     * @returns {Integer} Gets the tag for the teletext descriptor. For teletext descriptors, this value is 0x56.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -41,9 +41,9 @@ class IDvbTeletextDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getlength
+     * Gets the body length of a Digital Video Broadcast (DVB) teletext descriptor.
+     * @returns {Integer} Receives the length of the teletext descriptor, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -51,9 +51,9 @@ class IDvbTeletextDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getcountofrecords
+     * Gets the number of service records in a Digital Video Broadcast (DVB) teletext descriptor.
+     * @returns {Integer} Receives the number of records in the teletext descriptor.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -61,10 +61,11 @@ class IDvbTeletextDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordlangid
+     * Gets the three-character ISO 639 language code from a Digital Video Broadcast (DVB) teletext descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the descriptor to return. To get the number of descriptors, 
+     *   call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getcountofrecords">IDvbTeletextDescriptor::GetCountOfRecords</a>.
+     * @returns {Integer} Pointer to a 24-bit buffer that receives the language code.  For a list of language codes, refer to <a href="http://www.sil.org/ISO639-3/codes.asp">this document</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordlangid
      */
     GetRecordLangId(bRecordIndex) {
         result := ComCall(6, this, "char", bRecordIndex, "uint*", &pulVal := 0, "HRESULT")
@@ -72,10 +73,10 @@ class IDvbTeletextDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
+     * Gets the teletext type code from from a Digital Video Broadcast (DVB) teletext descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the descriptor to return. To get the number of descriptors, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getcountofrecords">IDvbTeletextDescriptor::GetCountOfRecords</a>
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordteletexttype
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordteletexttype
      */
     GetRecordTeletextType(bRecordIndex) {
         result := ComCall(7, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
@@ -83,10 +84,12 @@ class IDvbTeletextDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordmagazinenumber
+     * Gets the magazine number from a Digital Video Broadcast (DVB) teletext descriptor.
+     * @param {Integer} bRecordIndex Zero-based index of the descriptor to return. To get the number of descriptors, call 
+     *   <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getcountofrecords">IDvbTeletextDescriptor::GetCountOfRecords
+     * </a>.
+     * @returns {Integer} Receives the magazine number.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordmagazinenumber
      */
     GetRecordMagazineNumber(bRecordIndex) {
         result := ComCall(8, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
@@ -94,10 +97,11 @@ class IDvbTeletextDescriptor extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} bRecordIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordpagenumber
+     * Gets the page number a Digital Video Broadcast (DVB) teletext descriptor. The page number identifies the page of teletext that is broadcast.
+     * @param {Integer} bRecordIndex Zero-based index of the descriptor to return. To get the number of descriptors, 
+     *   call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getcountofrecords">IDvbTeletextDescriptor::GetCountOfRecords</a>
+     * @returns {Integer} Receives the page number.
+     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbteletextdescriptor-getrecordpagenumber
      */
     GetRecordPageNumber(bRecordIndex) {
         result := ComCall(9, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")

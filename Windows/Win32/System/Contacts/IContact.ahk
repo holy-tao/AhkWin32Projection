@@ -61,12 +61,49 @@ class IContact extends IUnknown{
     static VTableNames => ["GetContactID", "GetPath", "CommitChanges"]
 
     /**
+     * Retrieves the local computer unique contact ID.
+     * @param {PWSTR} pszContactID Type: <b>LPWSTR</b>
      * 
-     * @param {PWSTR} pszContactID 
-     * @param {Integer} cchContactID 
-     * @param {Pointer<Integer>} pdwcchContactIDRequired 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontact-getcontactid
+     * User allocated buffer to store the contact ID.
+     * @param {Integer} cchContactID Type: <b>DWORD</b>
+     * 
+     * Specifies allocated buffer size.
+     * @param {Pointer<Integer>} pdwcchContactIDRequired Type: <b>DWORD*</b>
+     * 
+     * Upon failure due to insufficient buffer, contains the required size for <i>pszContactID</i>. May be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success. <i>pszContactID</i> contains a null-terminated ContactID. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Macro HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) returned when <i>pszContactID</i> was not large enough to store the value. The required buffer size is stored in <i>pdwcchContactIDRequired</i>. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontact-getcontactid
      */
     GetContactID(pszContactID, cchContactID, pdwcchContactIDRequired) {
         pszContactID := pszContactID is String ? StrPtr(pszContactID) : pszContactID
@@ -78,12 +115,60 @@ class IContact extends IUnknown{
     }
 
     /**
-     * The GetPath function retrieves the coordinates defining the endpoints of lines and the control points of curves found in the path that is selected into the specified device context.
-     * @param {PWSTR} pszPath 
-     * @param {Integer} cchPath 
-     * @param {Pointer<Integer>} pdwcchPathRequired 
-     * @returns {HRESULT} If the <i>nSize</i> parameter is nonzero, the return value is the number of points enumerated. If <i>nSize</i> is 0, the return value is the total number of points in the path (and <b>GetPath</b> writes nothing to the buffers). If <i>nSize</i> is nonzero and is less than the number of points in the path, the return value is 1.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getpath
+     * Retrieves the file system path used to load this contact.
+     * @param {PWSTR} pszPath Type: <b>LPWSTR</b>
+     * 
+     * User-allocated buffer to store the contact ID.
+     * @param {Integer} cchPath Type: <b>DWORD</b>
+     * 
+     * Specifies the allocated buffer size in characters.
+     * @param {Pointer<Integer>} pdwcchPathRequired Type: <b>DWORD*</b>
+     * 
+     * Upon failure due to insufficient buffer, contains the required size for <i>pszPath</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success. <i>pszPath</i> contains the path. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Contact ID was not loaded from a file path. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Macro HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER) returned when <i>pszPath</i> was not large enough to store the value. The required buffer size is stored in <i>pdwcchPathRequired</i>. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontact-getpath
      */
     GetPath(pszPath, cchPath, pdwcchPathRequired) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
@@ -95,10 +180,55 @@ class IContact extends IUnknown{
     }
 
     /**
+     * Saves changes made to this contact to the contact file.
+     * @param {Integer} dwCommitFlags Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwCommitFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontact-commitchanges
+     * Reserved parameter. Must be 0.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Changes written to disk successfully. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Contact not loaded from a file path. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_SHARING_VIOLATION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Another process modified the file in a way incompatible with 
+     * 					changes to this contact. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontact-commitchanges
      */
     CommitChanges(dwCommitFlags) {
         result := ComCall(5, this, "uint", dwCommitFlags, "HRESULT")

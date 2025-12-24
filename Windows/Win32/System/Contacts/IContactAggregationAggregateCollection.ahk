@@ -30,6 +30,13 @@ class IContactAggregationAggregateCollection extends IUnknown{
     static VTableNames => ["FindFirst", "FindFirstByAntiLinkId", "FindNext", "get_Count"]
 
     /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
      * 
      * @returns {IContactAggregationAggregate} 
      */

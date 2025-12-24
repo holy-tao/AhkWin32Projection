@@ -32,9 +32,9 @@ class IDirectDrawMediaSampleAllocator extends IUnknown{
     static VTableNames => ["GetDirectDraw"]
 
     /**
-     * 
-     * @returns {IDirectDraw} 
-     * @see https://learn.microsoft.com/windows/win32/api/amstream/nf-amstream-idirectdrawmediasampleallocator-getdirectdraw
+     * The GetDirectDraw method retrieves a pointer to the DirectDraw instance used to allocate surfaces.
+     * @returns {IDirectDraw} Address of a pointer that receives the DirectDraw object's <b>IDirectDraw</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//amstream/nf-amstream-idirectdrawmediasampleallocator-getdirectdraw
      */
     GetDirectDraw() {
         result := ComCall(3, this, "ptr*", &ppDirectDraw := 0, "HRESULT")

@@ -36,6 +36,20 @@ class ISVGAnimatedTransformList extends IDispatch{
     static VTableNames => ["putref_baseVal", "get_baseVal", "putref_animVal", "get_animVal"]
 
     /**
+     * @type {ISVGTransformList} 
+     */
+    baseVal {
+        get => this.get_baseVal()
+    }
+
+    /**
+     * @type {ISVGTransformList} 
+     */
+    animVal {
+        get => this.get_animVal()
+    }
+
+    /**
      * 
      * @param {ISVGTransformList} v 
      * @returns {HRESULT} 

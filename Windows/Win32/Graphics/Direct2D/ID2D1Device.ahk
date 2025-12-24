@@ -33,10 +33,14 @@ class ID2D1Device extends ID2D1Resource{
     static VTableNames => ["CreateDeviceContext", "CreatePrintControl", "SetMaximumTextureMemory", "GetMaximumTextureMemory", "ClearResources"]
 
     /**
+     * Creates a new device context from a Direct2D device.
+     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_device_context_options">D2D1_DEVICE_CONTEXT_OPTIONS</a></b>
      * 
-     * @param {Integer} options 
-     * @returns {ID2D1DeviceContext} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1device-createdevicecontext
+     * The options to be applied to the created device context.
+     * @returns {ID2D1DeviceContext} Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1devicecontext">ID2D1DeviceContext</a>**</b>
+     * 
+     * When this method returns, contains the address of a pointer to the new device context.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1device-createdevicecontext
      */
     CreateDeviceContext(options) {
         result := ComCall(4, this, "int", options, "ptr*", &deviceContext := 0, "HRESULT")
@@ -57,19 +61,29 @@ class ID2D1Device extends ID2D1Resource{
     }
 
     /**
+     * Sets the maximum amount of texture memory Direct2D accumulates before it purges the image caches and cached texture allocations.
+     * @remarks
      * 
-     * @param {Integer} maximumInBytes 
+     * <div class="alert"><b>Note</b>  Direct2D may exceed the  maximum texture memory you set with this method for a single frame if necessary to render the frame.</div>
+     * <div> </div>
+     * 
+     * 
+     * @param {Integer} maximumInBytes Type: <b>UINT64</b>
+     * 
+     * The new maximum texture memory in bytes.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1device-setmaximumtexturememory
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1device-setmaximumtexturememory
      */
     SetMaximumTextureMemory(maximumInBytes) {
         ComCall(6, this, "uint", maximumInBytes)
     }
 
     /**
+     * Sets the maximum amount of texture memory Direct2D accumulates before it purges the image caches and cached texture allocations.
+     * @returns {Integer} Type: <b>UINT64</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1device-getmaximumtexturememory
+     * The maximum amount of texture memory in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1device-getmaximumtexturememory
      */
     GetMaximumTextureMemory() {
         result := ComCall(7, this, "uint")
@@ -77,10 +91,12 @@ class ID2D1Device extends ID2D1Resource{
     }
 
     /**
+     * Clears all of the rendering resources used by Direct2D.
+     * @param {Integer} millisecondsSinceUse Type: <b>UINT</b>
      * 
-     * @param {Integer} millisecondsSinceUse 
+     * Discards only resources that haven't been used for greater than the specified time in milliseconds. The default is 0 milliseconds.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1device-clearresources
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1device-clearresources
      */
     ClearResources(millisecondsSinceUse) {
         ComCall(8, this, "uint", millisecondsSinceUse)

@@ -31,9 +31,17 @@ class IIPDVDec extends IUnknown{
     static VTableNames => ["get_IPDisplay", "put_IPDisplay"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iipdvdec-get_ipdisplay
+     * @type {Integer} 
+     */
+    IPDisplay {
+        get => this.get_IPDisplay()
+        set => this.put_IPDisplay(value)
+    }
+
+    /**
+     * The get_IPDisplay method gets the decoding resolution.
+     * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-_dvresolution">DVDECODERRESOLUTION</a> enumerated type, specifying the decoding resolution.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iipdvdec-get_ipdisplay
      */
     get_IPDisplay() {
         result := ComCall(3, this, "int*", &displayPix := 0, "HRESULT")
@@ -41,10 +49,10 @@ class IIPDVDec extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} displayPix 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iipdvdec-put_ipdisplay
+     * The put_IPDisplay method sets the decoding resolution.
+     * @param {Integer} displayPix Member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-_dvresolution">DVDECODERRESOLUTION</a> enumerated type, specifying the decoding resolution. The meaning of this value depends on whether the current format is NTSC or PAL. The filter determines at run time which format applies, based on the media type.
+     * @returns {HRESULT} Returns S_OK if successful; otherwise, returns E_FAIL or another error code.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iipdvdec-put_ipdisplay
      */
     put_IPDisplay(displayPix) {
         result := ComCall(4, this, "int", displayPix, "HRESULT")

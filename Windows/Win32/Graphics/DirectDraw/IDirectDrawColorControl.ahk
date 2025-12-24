@@ -44,10 +44,20 @@ class IDirectDrawColorControl extends IUnknown{
     static VTableNames => ["GetColorControls", "SetColorControls"]
 
     /**
-     * 
+     * Retrieves the current color-control settings that are associated with an overlay or a primary surface.
      * @param {Pointer<DDCOLORCONTROL>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawcolorcontrol-getcolorcontrols
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * 
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawcolorcontrol-getcolorcontrols
      */
     GetColorControls(param0) {
         result := ComCall(3, this, "ptr", param0, "HRESULT")
@@ -55,10 +65,18 @@ class IDirectDrawColorControl extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the color-control options for an overlay or a primary surface.
      * @param {Pointer<DDCOLORCONTROL>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawcolorcontrol-setcolorcontrols
+     * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
+     * 
+     * If it fails, the method can return one of the following error values:
+     * 
+     * <ul>
+     * <li>DDERR_INVALIDOBJECT</li>
+     * <li>DDERR_INVALIDPARAMS</li>
+     * <li>DDERR_UNSUPPORTED</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawcolorcontrol-setcolorcontrols
      */
     SetColorControls(param0) {
         result := ComCall(4, this, "ptr", param0, "HRESULT")

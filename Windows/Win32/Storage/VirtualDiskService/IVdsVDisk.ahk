@@ -34,12 +34,12 @@ class IVdsVDisk extends IUnknown{
     static VTableNames => ["Open", "GetProperties", "GetHostVolume", "GetDeviceName"]
 
     /**
-     * 
-     * @param {Integer} AccessMask 
-     * @param {Integer} Flags 
-     * @param {Integer} ReadWriteDepth 
-     * @returns {IVdsOpenVDisk} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-open
+     * Opens a handle to the specified virtual disk file and returns an IVdsOpenVDisk interface pointer to the object that represents the opened handle.
+     * @param {Integer} AccessMask A bitmask of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-virtual_disk_access_mask-r1">VIRTUAL_DISK_ACCESS_MASK</a> flags specifying the access rights to be applied to the opened virtual disk.
+     * @param {Integer} Flags A bitmask of <a href="https://docs.microsoft.com/windows/win32/api/virtdisk/ne-virtdisk-open_virtual_disk_flag">OPEN_VIRTUAL_DISK_FLAG</a> flags specifying how the virtual disk is to be opened.
+     * @param {Integer} ReadWriteDepth The number of stores (backing files), beginning with the child, of the backing store chain to open read/write. The remaining stores in the differencing chain will be opened read-only. (This is necessary for merge operations to succeed.)
+     * @returns {IVdsOpenVDisk} A pointer to a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/vds/nn-vds-ivdsopenvdisk">IVdsOpenVDisk</a> interface pointer to the newly created object that represents the handle opened to the virtual disk object. Callers must release the interface pointer when it is no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsvdisk-open
      */
     Open(AccessMask, Flags, ReadWriteDepth) {
         result := ComCall(3, this, "int", AccessMask, "int", Flags, "uint", ReadWriteDepth, "ptr*", &ppOpenVDisk := 0, "HRESULT")
@@ -47,9 +47,9 @@ class IVdsVDisk extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {VDS_VDISK_PROPERTIES} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-getproperties
+     * Returns disk property information for the volume where the virtual disk resides.
+     * @returns {VDS_VDISK_PROPERTIES} Receives a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_vdisk_properties">VDS_VDISK_PROPERTIES</a> structure containing the disk property information.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsvdisk-getproperties
      */
     GetProperties() {
         pDiskProperties := VDS_VDISK_PROPERTIES()
@@ -58,9 +58,9 @@ class IVdsVDisk extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IVdsVolume} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-gethostvolume
+     * Returns an interface pointer to the volume object for the volume where the virtual disk resides.
+     * @returns {IVdsVolume} A pointer to a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/vds/nn-vds-ivdsvolume">IVdsVolume</a> interface pointer for the volume. Callers must release the interface pointer when it is no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsvdisk-gethostvolume
      */
     GetHostVolume() {
         result := ComCall(5, this, "ptr*", &ppVolume := 0, "HRESULT")
@@ -68,9 +68,9 @@ class IVdsVDisk extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsvdisk-getdevicename
+     * Returns the device name for the volume where the virtual disk resides.
+     * @returns {PWSTR} A pointer to a variable that receives a string that contains the device name for the volume.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsvdisk-getdevicename
      */
     GetDeviceName() {
         result := ComCall(6, this, "ptr*", &ppDeviceName := 0, "HRESULT")

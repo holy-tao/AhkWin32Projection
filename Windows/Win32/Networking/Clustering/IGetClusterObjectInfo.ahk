@@ -68,12 +68,67 @@ class IGetClusterObjectInfo extends IUnknown{
     static VTableNames => ["GetObjectName", "GetObjectType"]
 
     /**
+     * Returns the name of a cluster object.
+     * @param {Integer} lObjIndex A number representing the zero-based index of the target object. <i>lObjIndex</i> is 
+     *        restricted to the number that can be retrieved by calling 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount">IGetClusterDataInfo::GetObjectCount</a>.
+     * @param {BSTR} lpszName Pointer to a null-terminated Unicode string containing the name of the object associated with 
+     *        <i>lObjIndex</i>. The <i>lpszName</i> parameter can be 
+     *        <b>NULL</b>, indicating that the caller is requesting only the name length. Although 
+     *        declared as a <b>BSTR</b>, this parameter is implemented as an 
+     *        <b>LPWSTR</b>.
+     * @param {Pointer<Integer>} pcchName On input, pointer to the count of characters in the buffer pointed to by the 
+     *        <i>lpszName</i> parameter. The <i>pcchName</i> parameter cannot be 
+     *        <b>NULL</b>. On output, pointer to the count of characters in the name stored in the content 
+     *        of <i>lpszName</i>, including the <b>NULL</b>-terminating character.
+     * @returns {HRESULT} If <b>GetObjectName</b> is not 
+     *        successful, it can return other <b>HRESULT</b> values.
      * 
-     * @param {Integer} lObjIndex 
-     * @param {BSTR} lpszName 
-     * @param {Pointer<Integer>} pcchName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjectname
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NOERROR</b></dt>
+     * <dt>0</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * <dt>0x80070057</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more of the parameters are invalid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>HRESULT_FROM_WIN32(ERROR_MORE_DATA)</b></dt>
+     * <dt>0x800700ea</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The buffer pointed to by <i>lpszName</i> is too small to hold the requested name. 
+     *          <a href="/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjectname">GetObjectName</a> returns the 
+     *          required number of characters in the content of <i>pcchName</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjectname
      */
     GetObjectName(lObjIndex, lpszName, pcchName) {
         lpszName := lpszName is String ? BSTR.Alloc(lpszName).Value : lpszName
@@ -85,76 +140,20 @@ class IGetClusterObjectInfo extends IUnknown{
     }
 
     /**
-     * The GetObjectType retrieves the type of the specified object.
-     * @param {Integer} lObjIndex 
-     * @returns {Integer} If the function succeeds, the return value identifies the object. This value can be one of the following.
+     * Returns the type of a cluster object.
+     * @param {Integer} lObjIndex A number representing the zero-based index of the target object. This parameter is restricted to the number 
+     *        that can be retrieved by calling 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterdatainfo-getobjectcount">IGetClusterDataInfo::GetObjectCount</a>.
+     * @returns {Integer} If <a href="/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjecttype">GetObjectType</a> is 
+     *         successful, it returns one of the following values enumerated by the 
+     *         <b>CLUADMEX_OBJECT_TYPE</b> enumeration representing the object types:
      * 
-     * <table>
-     * <tr>
-     * <th>Value</th>
-     * <th>Meaning</th>
-     * </tr>
-     * <tr>
-     * <td>OBJ_BITMAP</td>
-     * <td>Bitmap</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_BRUSH</td>
-     * <td>Brush</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_COLORSPACE</td>
-     * <td>Color space</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_DC</td>
-     * <td>Device context</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_ENHMETADC</td>
-     * <td>Enhanced metafile DC</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_ENHMETAFILE</td>
-     * <td>Enhanced metafile</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_EXTPEN</td>
-     * <td>Extended pen</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_FONT</td>
-     * <td>Font</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_MEMDC</td>
-     * <td>Memory DC</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_METAFILE</td>
-     * <td>Metafile</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_METADC</td>
-     * <td>Metafile DC</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_PAL</td>
-     * <td>Palette</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_PEN</td>
-     * <td>Pen</td>
-     * </tr>
-     * <tr>
-     * <td>OBJ_REGION</td>
-     * <td>Region</td>
-     * </tr>
-     * </table>
-     *  
      * 
-     * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getobjecttype
+     * 
+     * If <b>GetObjectType</b> is not 
+     *        successful, it returns –1. For more information, call 
+     *        <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterobjectinfo-getobjecttype
      */
     GetObjectType(lObjIndex) {
         result := ComCall(4, this, "int", lObjIndex, "int")

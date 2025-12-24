@@ -36,9 +36,9 @@ class IMFOutputSchema extends IMFAttributes{
     static VTableNames => ["GetSchemaType", "GetConfigurationData", "GetOriginatorID"]
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputschema-getschematype
+     * Retrieves the output protection system that is represented by this object. Output protection systems are identified by GUID value.
+     * @returns {Guid} Receives the GUID that identifies the output protection system.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfoutputschema-getschematype
      */
     GetSchemaType() {
         pguidSchemaType := Guid()
@@ -47,9 +47,9 @@ class IMFOutputSchema extends IMFAttributes{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputschema-getconfigurationdata
+     * Returns configuration data for the output protection system. The configuration data is used to enable or disable the protection system, and to set the protection levels.
+     * @returns {Integer} Receives the configuration data. The meaning of this data depends on the output protection system.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfoutputschema-getconfigurationdata
      */
     GetConfigurationData() {
         result := ComCall(34, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -57,9 +57,9 @@ class IMFOutputSchema extends IMFAttributes{
     }
 
     /**
-     * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputschema-getoriginatorid
+     * Retrieves a GUID identifying the input trust authority (ITA) that generated this output schema object.
+     * @returns {Guid} Receives a GUID that identifies the originating ITA.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfoutputschema-getoriginatorid
      */
     GetOriginatorID() {
         pguidOriginatorID := Guid()

@@ -31,11 +31,11 @@ class INetworkConnectionEvents extends IUnknown{
     static VTableNames => ["NetworkConnectionConnectivityChanged", "NetworkConnectionPropertyChanged"]
 
     /**
-     * 
-     * @param {Guid} connectionId 
-     * @param {Integer} newConnectivity 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnectionevents-networkconnectionconnectivitychanged
+     * The NetworkConnectionConnectivityChanged method notifies a client when connectivity change events occur on a network connection level.
+     * @param {Guid} connectionId A GUID that identifies the network connection  on which the event occurred.
+     * @param {Integer} newConnectivity <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connectivity">NLM_CONNECTIVITY</a> enumeration value that specifies the new connectivity for this network connection.
+     * @returns {HRESULT} Returns S_OK if the method succeeds.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnectionevents-networkconnectionconnectivitychanged
      */
     NetworkConnectionConnectivityChanged(connectionId, newConnectivity) {
         result := ComCall(3, this, "ptr", connectionId, "int", newConnectivity, "HRESULT")
@@ -43,11 +43,11 @@ class INetworkConnectionEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Guid} connectionId 
-     * @param {Integer} flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-inetworkconnectionevents-networkconnectionpropertychanged
+     * The NetworkConnectionPropertyChanged method notifies a client when property change events related to a specific network connection occur.
+     * @param {Guid} connectionId A GUID that identifies the network connection  on which the event occurred.
+     * @param {Integer} flags The <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/ne-netlistmgr-nlm_connection_property_change">NLM_CONNECTION_PROPERTY_CHANGE</a> flags for this connection.
+     * @returns {HRESULT} Returns S_OK if the method succeeds.
+     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-inetworkconnectionevents-networkconnectionpropertychanged
      */
     NetworkConnectionPropertyChanged(connectionId, flags) {
         result := ComCall(4, this, "ptr", connectionId, "int", flags, "HRESULT")

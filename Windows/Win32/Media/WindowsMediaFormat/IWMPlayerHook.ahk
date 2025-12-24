@@ -36,9 +36,9 @@ class IWMPlayerHook extends IUnknown{
     static VTableNames => ["PreDecode"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmplayerhook-predecode
+     * The PreDecode method is called by the reader object before a sample from the output to which the IWMPlayerHook interface is assigned is passed to the video processor for decoding.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. You should return S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmplayerhook-predecode
      */
     PreDecode() {
         result := ComCall(3, this, "HRESULT")

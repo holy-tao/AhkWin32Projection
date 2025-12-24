@@ -32,10 +32,40 @@ class IWMPSettings2 extends IWMPSettings{
     static VTableNames => ["get_defaultAudioLanguage", "get_mediaAccessRights", "requestMediaAccessRights"]
 
     /**
+     */
+    defaultAudioLanguage {
+        get => this.get_defaultAudioLanguage()
+    }
+
+    /**
+     */
+    mediaAccessRights {
+        get => this.get_mediaAccessRights()
+    }
+
+    /**
+     * The get_defaultAudioLanguage method retrieves the LCID of the default audio language specified in Windows Media Player.
+     * @param {Pointer<Integer>} plLangID Pointer to a <b>long</b> containing the LCID.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Integer>} plLangID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings2-get_defaultaudiolanguage
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsettings2-get_defaultaudiolanguage
      */
     get_defaultAudioLanguage(plLangID) {
         plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
@@ -45,10 +75,28 @@ class IWMPSettings2 extends IWMPSettings{
     }
 
     /**
-     * 
+     * The get_mediaAccessRights method retrieves a value indicating the permissions currently granted for library access.
      * @param {Pointer<BSTR>} pbstrRights 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings2-get_mediaaccessrights
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsettings2-get_mediaaccessrights
      */
     get_mediaAccessRights(pbstrRights) {
         result := ComCall(31, this, "ptr", pbstrRights, "HRESULT")
@@ -56,11 +104,29 @@ class IWMPSettings2 extends IWMPSettings{
     }
 
     /**
-     * 
+     * The requestMediaAccessRights method requests a specified level of access to the library.
      * @param {BSTR} bstrDesiredAccess 
-     * @param {Pointer<VARIANT_BOOL>} pvbAccepted 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsettings2-requestmediaaccessrights
+     * @param {Pointer<VARIANT_BOOL>} pvbAccepted Pointer to a <b>VARIANT_BOOL</b> indicating whether the requested access rights were granted.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsettings2-requestmediaaccessrights
      */
     requestMediaAccessRights(bstrDesiredAccess, pvbAccepted) {
         bstrDesiredAccess := bstrDesiredAccess is String ? BSTR.Alloc(bstrDesiredAccess).Value : bstrDesiredAccess

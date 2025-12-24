@@ -38,6 +38,41 @@ class ISWbemMethod extends IDispatch{
     static VTableNames => ["get_Name", "get_Origin", "get_InParameters", "get_OutParameters", "get_Qualifiers_"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Origin {
+        get => this.get_Origin()
+    }
+
+    /**
+     * @type {ISWbemObject} 
+     */
+    InParameters {
+        get => this.get_InParameters()
+    }
+
+    /**
+     * @type {ISWbemObject} 
+     */
+    OutParameters {
+        get => this.get_OutParameters()
+    }
+
+    /**
+     * @type {ISWbemQualifierSet} 
+     */
+    Qualifiers_ {
+        get => this.get_Qualifiers_()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

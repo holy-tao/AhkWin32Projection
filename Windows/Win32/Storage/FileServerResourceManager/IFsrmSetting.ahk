@@ -44,9 +44,56 @@ class IFsrmSetting extends IDispatch{
     static VTableNames => ["get_SmtpServer", "put_SmtpServer", "get_MailFrom", "put_MailFrom", "get_AdminEmail", "put_AdminEmail", "get_DisableCommandLine", "put_DisableCommandLine", "get_EnableScreeningAudit", "put_EnableScreeningAudit", "EmailTest", "SetActionRunLimitInterval", "GetActionRunLimitInterval"]
 
     /**
+     * @type {BSTR} 
+     */
+    SmtpServer {
+        get => this.get_SmtpServer()
+        set => this.put_SmtpServer(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    MailFrom {
+        get => this.get_MailFrom()
+        set => this.put_MailFrom(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    AdminEmail {
+        get => this.get_AdminEmail()
+        set => this.put_AdminEmail(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    DisableCommandLine {
+        get => this.get_DisableCommandLine()
+        set => this.put_DisableCommandLine(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    EnableScreeningAudit {
+        get => this.get_EnableScreeningAudit()
+        set => this.put_EnableScreeningAudit(value)
+    }
+
+    /**
+     * Retrieves or sets the SMTP server that FSRM uses to send email.
+     * @remarks
+     * 
+     * This property must be set in order for FSRM to send email. To verify settings, call the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-emailtest">IFsrmSetting::EmailTest</a> method.
+     * 
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_smtpserver
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-get_smtpserver
      */
     get_SmtpServer() {
         smtpServer := BSTR()
@@ -55,10 +102,17 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the SMTP server that FSRM uses to send email.
+     * @remarks
+     * 
+     * This property must be set in order for FSRM to send email. To verify settings, call the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-emailtest">IFsrmSetting::EmailTest</a> method.
+     * 
+     * 
      * 
      * @param {BSTR} smtpServer 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-put_smtpserver
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-put_smtpserver
      */
     put_SmtpServer(smtpServer) {
         smtpServer := smtpServer is String ? BSTR.Alloc(smtpServer).Value : smtpServer
@@ -68,9 +122,16 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the default email address from which email messages are sent.
+     * @remarks
+     * 
+     * The default is" FSRM@<i>local machine name</i>". You cannot set this to 
+     *     "[Admin Email]".
+     * 
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_mailfrom
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-get_mailfrom
      */
     get_MailFrom() {
         mailFrom := BSTR()
@@ -79,10 +140,17 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the default email address from which email messages are sent.
+     * @remarks
+     * 
+     * The default is" FSRM@<i>local machine name</i>". You cannot set this to 
+     *     "[Admin Email]".
+     * 
+     * 
      * 
      * @param {BSTR} mailFrom 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-put_mailfrom
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-put_mailfrom
      */
     put_MailFrom(mailFrom) {
         mailFrom := mailFrom is String ? BSTR.Alloc(mailFrom).Value : mailFrom
@@ -92,9 +160,15 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the email address for the administrator.
+     * @remarks
+     * 
+     * The address is used if a configured email address contains the string "[Admin Email]".
+     * 
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_adminemail
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-get_adminemail
      */
     get_AdminEmail() {
         adminEmail := BSTR()
@@ -103,10 +177,16 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
+     * Retrieves or sets the email address for the administrator.
+     * @remarks
+     * 
+     * The address is used if a configured email address contains the string "[Admin Email]".
+     * 
+     * 
      * 
      * @param {BSTR} adminEmail 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-put_adminemail
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-put_adminemail
      */
     put_AdminEmail(adminEmail) {
         adminEmail := adminEmail is String ? BSTR.Alloc(adminEmail).Value : adminEmail
@@ -116,9 +196,9 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets a value that determines whether FSRM prevents command line actions from running.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_disablecommandline
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-get_disablecommandline
      */
     get_DisableCommandLine() {
         result := ComCall(13, this, "short*", &disableCommandLine := 0, "HRESULT")
@@ -126,10 +206,10 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves or sets a value that determines whether FSRM prevents command line actions from running.
      * @param {VARIANT_BOOL} disableCommandLine 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-put_disablecommandline
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-put_disablecommandline
      */
     put_DisableCommandLine(disableCommandLine) {
         result := ComCall(14, this, "short", disableCommandLine, "HRESULT")
@@ -137,9 +217,30 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a value that determines whether FSRM keeps audit records of the file screen violations.
+     * @remarks
+     * 
+     * The records are included in a File Screen Audit report. An audit record contains the following items:
+     * 
+     * <ul>
+     * <li>Folder path</li>
+     * <li>Id</li>
+     * <li>Blocked file group name</li>
+     * <li>File screen mode</li>
+     * <li>Time stamp of when the violation occurred</li>
+     * <li>The name of the process image that generated the prohibited IO, if available</li>
+     * <li>The SID of the user principal that issued the prohibited IO, if available</li>
+     * <li>The full path of the prohibited file</li>
+     * <li>The server name</li>
+     * </ul>
+     * If this property is false and a report specifies the 
+     *     <b>FsrmReportType_FileScreenAudit</b> report type, the report will succeed but will not 
+     *     contain any audit information (or will contain audits that were done before auditing was disabled).
+     * 
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-get_enablescreeningaudit
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-get_enablescreeningaudit
      */
     get_EnableScreeningAudit() {
         result := ComCall(15, this, "short*", &enableScreeningAudit := 0, "HRESULT")
@@ -147,10 +248,31 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
+     * Retrieves or sets a value that determines whether FSRM keeps audit records of the file screen violations.
+     * @remarks
+     * 
+     * The records are included in a File Screen Audit report. An audit record contains the following items:
+     * 
+     * <ul>
+     * <li>Folder path</li>
+     * <li>Id</li>
+     * <li>Blocked file group name</li>
+     * <li>File screen mode</li>
+     * <li>Time stamp of when the violation occurred</li>
+     * <li>The name of the process image that generated the prohibited IO, if available</li>
+     * <li>The SID of the user principal that issued the prohibited IO, if available</li>
+     * <li>The full path of the prohibited file</li>
+     * <li>The server name</li>
+     * </ul>
+     * If this property is false and a report specifies the 
+     *     <b>FsrmReportType_FileScreenAudit</b> report type, the report will succeed but will not 
+     *     contain any audit information (or will contain audits that were done before auditing was disabled).
+     * 
+     * 
      * 
      * @param {VARIANT_BOOL} enableScreeningAudit 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-put_enablescreeningaudit
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-put_enablescreeningaudit
      */
     put_EnableScreeningAudit(enableScreeningAudit) {
         result := ComCall(16, this, "short", enableScreeningAudit, "HRESULT")
@@ -158,10 +280,10 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} mailTo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-emailtest
+     * Send an email message to the specified email address.
+     * @param {BSTR} mailTo The email address. The string is limited to 255 characters.
+     * @returns {HRESULT} The method returns the following return codes:
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-emailtest
      */
     EmailTest(mailTo) {
         mailTo := mailTo is String ? BSTR.Alloc(mailTo).Value : mailTo
@@ -171,11 +293,11 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} actionType 
-     * @param {Integer} delayTimeMinutes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-setactionrunlimitinterval
+     * Sets the time that an action that uses the global run limit interval must wait before the action is run again.
+     * @param {Integer} actionType The action type to limit. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
+     * @param {Integer} delayTimeMinutes The run limit interval, in minutes, to use for the action. The default is 60 minutes.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-setactionrunlimitinterval
      */
     SetActionRunLimitInterval(actionType, delayTimeMinutes) {
         result := ComCall(18, this, "int", actionType, "int", delayTimeMinutes, "HRESULT")
@@ -183,10 +305,10 @@ class IFsrmSetting extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} actionType 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmsetting-getactionrunlimitinterval
+     * Gets the time that an action that uses the global run limit interval must wait before the action is run again.
+     * @param {Integer} actionType The action type to limit. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
+     * @returns {Integer} The run limit interval, in minutes, that is used for the action.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmsetting-getactionrunlimitinterval
      */
     GetActionRunLimitInterval(actionType) {
         result := ComCall(19, this, "int", actionType, "int*", &delayTimeMinutes := 0, "HRESULT")

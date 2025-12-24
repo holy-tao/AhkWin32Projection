@@ -33,24 +33,16 @@ class IGamutMapModelPlugIn extends IUnknown{
     static VTableNames => ["Initialize", "SourceToDestinationAppearanceColors"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {BSTR} bstrXml 
-     * @param {IDeviceModelPlugIn} pSrcPlugIn 
-     * @param {IDeviceModelPlugIn} pDestPlugIn 
-     * @param {Pointer<GamutBoundaryDescription>} pSrcGBD 
-     * @param {Pointer<GamutBoundaryDescription>} pDestGBD 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes a gamut map model profile (GMMP) by using the specified source and destination gamut boundary descriptions and optional source and destination device model plug-ins.
+     * @param {BSTR} bstrXml A string that contains the BSTR XML GMMP profile. This is little-endian Unicode XML, but without the leading bytes to tag it as such. Also, the encoding keyword in the XML may not reflect this format.
+     * @param {IDeviceModelPlugIn} pSrcPlugIn A pointer to a source <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcsplugin/nn-wcsplugin-idevicemodelplugin">IDeviceModelPlugIn</a>. If <b>NULL</b>, it indicates the source device model profile is not a plug-in profile.
+     * @param {IDeviceModelPlugIn} pDestPlugIn A pointer to a destination <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcsplugin/nn-wcsplugin-idevicemodelplugin">IDeviceModelPlugIn</a>. If <b>NULL</b>, it indicates the destination device model profile is not a plug-in profile.
+     * @param {Pointer<GamutBoundaryDescription>} pSrcGBD A pointer to a source <a href="https://docs.microsoft.com/windows/desktop/api/wcsplugin/ns-wcsplugin-gamutboundarydescription">GamutBoundaryDescription</a>.
+     * @param {Pointer<GamutBoundaryDescription>} pDestGBD A pointer to a destination <a href="https://docs.microsoft.com/windows/desktop/api/wcsplugin/ns-wcsplugin-gamutboundarydescription">GamutBoundaryDescription</a>.
+     * @returns {HRESULT} If this function succeeds, the return value is S_OK.
+     * 
+     * If this function fails, the return value is E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/nf-wcsplugin-igamutmapmodelplugin-initialize
      */
     Initialize(bstrXml, pSrcPlugIn, pDestPlugIn, pSrcGBD, pDestGBD) {
         bstrXml := bstrXml is String ? BSTR.Alloc(bstrXml).Value : bstrXml
@@ -60,11 +52,11 @@ class IGamutMapModelPlugIn extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} cColors 
-     * @param {Pointer<JChColorF>} pInputColors 
-     * @returns {JChColorF} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-igamutmapmodelplugin-sourcetodestinationappearancecolors
+     * Returns the appropriate gamut-mapped appearance colors in response to the specified number of colors and the CIEJCh colors.
+     * @param {Integer} cColors The number of colors in the <i>pXYZColors</i> and <i>pDeviceValues</i> arrays.
+     * @param {Pointer<JChColorF>} pInputColors A pointer to the array of incoming colors to be gamut mapped.
+     * @returns {JChColorF} A pointer to the array of outgoing colors.
+     * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/nf-wcsplugin-igamutmapmodelplugin-sourcetodestinationappearancecolors
      */
     SourceToDestinationAppearanceColors(cColors, pInputColors) {
         pOutputColors := JChColorF()

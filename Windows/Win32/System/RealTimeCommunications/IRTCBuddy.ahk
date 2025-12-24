@@ -30,6 +30,20 @@ class IRTCBuddy extends IRTCPresenceContact{
     static VTableNames => ["get_Status", "get_Notes"]
 
     /**
+     * @type {Integer} 
+     */
+    Status {
+        get => this.get_Status()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Notes {
+        get => this.get_Notes()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

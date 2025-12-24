@@ -36,6 +36,20 @@ class IDOMMSAnimationEvent extends IDispatch{
     static VTableNames => ["get_animationName", "get_elapsedTime", "initMSAnimationEvent"]
 
     /**
+     * @type {BSTR} 
+     */
+    animationName {
+        get => this.get_animationName()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    elapsedTime {
+        get => this.get_elapsedTime()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -36,9 +36,47 @@ class IMSVidAnalogTuner extends IMSVidTuner{
     static VTableNames => ["get_Channel", "put_Channel", "get_VideoFrequency", "get_AudioFrequency", "get_CountryCode", "put_CountryCode", "get_SAP", "put_SAP", "ChannelAvailable"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_channel
+     * @type {Integer} 
+     */
+    Channel {
+        get => this.get_Channel()
+        set => this.put_Channel(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VideoFrequency {
+        get => this.get_VideoFrequency()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AudioFrequency {
+        get => this.get_AudioFrequency()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CountryCode {
+        get => this.get_CountryCode()
+        set => this.put_CountryCode(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    SAP {
+        get => this.get_SAP()
+        set => this.put_SAP(value)
+    }
+
+    /**
+     * The get_Channel method retrieves the tuner's current channel.
+     * @returns {Integer} Pointer to a variable that receives the channel.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner-get_channel
      */
     get_Channel() {
         result := ComCall(22, this, "int*", &Channel := 0, "HRESULT")
@@ -46,10 +84,10 @@ class IMSVidAnalogTuner extends IMSVidTuner{
     }
 
     /**
-     * 
-     * @param {Integer} Channel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-put_channel
+     * The put_Channel method specifies the tuner's channel.
+     * @param {Integer} Channel Specifies the channel.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner-put_channel
      */
     put_Channel(Channel) {
         result := ComCall(23, this, "int", Channel, "HRESULT")
@@ -57,9 +95,9 @@ class IMSVidAnalogTuner extends IMSVidTuner{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_videofrequency
+     * The get_VideoFrequency method retrieves the tuner's video frequency for testing purposes.
+     * @returns {Integer} Pointer to a variable that receives the video frequency, in hertz (Hz).
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner-get_videofrequency
      */
     get_VideoFrequency() {
         result := ComCall(24, this, "int*", &lcc := 0, "HRESULT")
@@ -67,9 +105,9 @@ class IMSVidAnalogTuner extends IMSVidTuner{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_audiofrequency
+     * The get_AudioFrequency method retrieves the tuner's audio frequency.
+     * @returns {Integer} Pointer to a variable that receives the audio frequency, in hertz (Hz).
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner-get_audiofrequency
      */
     get_AudioFrequency() {
         result := ComCall(25, this, "int*", &lcc := 0, "HRESULT")
@@ -77,9 +115,9 @@ class IMSVidAnalogTuner extends IMSVidTuner{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_countrycode
+     * The get_CountryCode method retrieves the tuner's country/region code.
+     * @returns {Integer} Pointer to a variable that receives the country/region code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner-get_countrycode
      */
     get_CountryCode() {
         result := ComCall(26, this, "int*", &lcc := 0, "HRESULT")
@@ -87,10 +125,10 @@ class IMSVidAnalogTuner extends IMSVidTuner{
     }
 
     /**
-     * 
-     * @param {Integer} lcc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-put_countrycode
+     * The put_CountryCode method specifies the tuner's country/region code.
+     * @param {Integer} lcc Specifies the international country/region code.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner-put_countrycode
      */
     put_CountryCode(lcc) {
         result := ComCall(27, this, "int", lcc, "HRESULT")
@@ -98,9 +136,9 @@ class IMSVidAnalogTuner extends IMSVidTuner{
     }
 
     /**
-     * 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-get_sap
+     * The get_SAP method retrieves the tuner's SAP setting to enable secondary audio components.
+     * @returns {VARIANT_BOOL} Pointer to a flag indicating whether SAP is on.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner-get_sap
      */
     get_SAP() {
         result := ComCall(28, this, "short*", &pfSapOn := 0, "HRESULT")
@@ -108,10 +146,10 @@ class IMSVidAnalogTuner extends IMSVidTuner{
     }
 
     /**
-     * 
-     * @param {VARIANT_BOOL} fSapOn 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-put_sap
+     * The put_SAP method specifies the tuner's SAP setting to enable secondary audio components.
+     * @param {VARIANT_BOOL} fSapOn Flag indicating whether to enable or disable SAP.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner-put_sap
      */
     put_SAP(fSapOn) {
         result := ComCall(29, this, "short", fSapOn, "HRESULT")
@@ -119,11 +157,11 @@ class IMSVidAnalogTuner extends IMSVidTuner{
     }
 
     /**
-     * 
-     * @param {Integer} nChannel 
-     * @param {Pointer<Integer>} SignalStrength 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidanalogtuner-channelavailable
+     * The ChannelAvailable method queries whether a specified channel is available for viewing.
+     * @param {Integer} nChannel Integer containing the channel.
+     * @param {Pointer<Integer>} SignalStrength Pointer to a <b>long</b> value that specifies the signal strength.
+     * @returns {VARIANT_BOOL} Receives a <b>VARIANT_BOOL</b> that indicates whether a signal is present.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidanalogtuner-channelavailable
      */
     ChannelAvailable(nChannel, SignalStrength) {
         SignalStrengthMarshal := SignalStrength is VarRef ? "int*" : "ptr"

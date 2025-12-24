@@ -40,6 +40,95 @@ class IHTMLStyleSheet extends IDispatch{
     static VTableNames => ["put_title", "get_title", "get_parentStyleSheet", "get_owningElement", "put_disabled", "get_disabled", "get_readOnly", "get_imports", "put_href", "get_href", "get_type", "get_id", "addImport", "addRule", "removeImport", "removeRule", "put_media", "get_media", "put_cssText", "get_cssText", "get_rules"]
 
     /**
+     * @type {BSTR} 
+     */
+    title {
+        get => this.get_title()
+        set => this.put_title(value)
+    }
+
+    /**
+     * @type {IHTMLStyleSheet} 
+     */
+    parentStyleSheet {
+        get => this.get_parentStyleSheet()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    owningElement {
+        get => this.get_owningElement()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    disabled {
+        get => this.get_disabled()
+        set => this.put_disabled(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    readOnly {
+        get => this.get_readOnly()
+    }
+
+    /**
+     * @type {IHTMLStyleSheetsCollection} 
+     */
+    imports {
+        get => this.get_imports()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    href {
+        get => this.get_href()
+        set => this.put_href(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    id {
+        get => this.get_id()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    media {
+        get => this.get_media()
+        set => this.put_media(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    cssText {
+        get => this.get_cssText()
+        set => this.put_cssText(value)
+    }
+
+    /**
+     * @type {IHTMLStyleSheetRulesCollection} 
+     */
+    rules {
+        get => this.get_rules()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

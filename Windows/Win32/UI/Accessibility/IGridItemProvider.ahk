@@ -41,9 +41,44 @@ class IGridItemProvider extends IUnknown{
     static VTableNames => ["get_Row", "get_Column", "get_RowSpan", "get_ColumnSpan", "get_ContainingGrid"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    Row {
+        get => this.get_Row()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Column {
+        get => this.get_Column()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RowSpan {
+        get => this.get_RowSpan()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ColumnSpan {
+        get => this.get_ColumnSpan()
+    }
+
+    /**
+     * @type {IRawElementProviderSimple} 
+     */
+    ContainingGrid {
+        get => this.get_ContainingGrid()
+    }
+
+    /**
+     * Specifies the ordinal number of the row that contains this cell or item.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igriditemprovider-get_row
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-igriditemprovider-get_row
      */
     get_Row() {
         result := ComCall(3, this, "int*", &pRetVal := 0, "HRESULT")
@@ -51,9 +86,9 @@ class IGridItemProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the ordinal number of the column that contains this cell or item.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igriditemprovider-get_column
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-igriditemprovider-get_column
      */
     get_Column() {
         result := ComCall(4, this, "int*", &pRetVal := 0, "HRESULT")
@@ -61,9 +96,9 @@ class IGridItemProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the number of rows spanned by this cell or item.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igriditemprovider-get_rowspan
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-igriditemprovider-get_rowspan
      */
     get_RowSpan() {
         result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")
@@ -71,9 +106,9 @@ class IGridItemProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the number of columns spanned by this cell or item.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igriditemprovider-get_columnspan
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-igriditemprovider-get_columnspan
      */
     get_ColumnSpan() {
         result := ComCall(6, this, "int*", &pRetVal := 0, "HRESULT")
@@ -81,9 +116,9 @@ class IGridItemProvider extends IUnknown{
     }
 
     /**
-     * 
+     * Specifies the UI Automation provider that implements IGridProvider and represents the container of this cell or item.
      * @returns {IRawElementProviderSimple} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igriditemprovider-get_containinggrid
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-igriditemprovider-get_containinggrid
      */
     get_ContainingGrid() {
         result := ComCall(7, this, "ptr*", &pRetVal := 0, "HRESULT")

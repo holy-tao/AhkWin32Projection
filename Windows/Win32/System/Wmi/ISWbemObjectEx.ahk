@@ -37,6 +37,13 @@ class ISWbemObjectEx extends ISWbemObject{
     static VTableNames => ["Refresh_", "get_SystemProperties_", "GetText_", "SetFromText_"]
 
     /**
+     * @type {ISWbemPropertySet} 
+     */
+    SystemProperties_ {
+        get => this.get_SystemProperties_()
+    }
+
+    /**
      * 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 

@@ -36,6 +36,22 @@ class IHTMLLabelElement extends IDispatch{
     static VTableNames => ["put_htmlFor", "get_htmlFor", "put_accessKey", "get_accessKey"]
 
     /**
+     * @type {BSTR} 
+     */
+    htmlFor {
+        get => this.get_htmlFor()
+        set => this.put_htmlFor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    accessKey {
+        get => this.get_accessKey()
+        set => this.put_accessKey(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

@@ -31,11 +31,95 @@ class IWinSATInitiateEvents extends IUnknown{
     static VTableNames => ["WinSATComplete", "WinSATUpdate"]
 
     /**
+     * Receives notification when an assessment succeeds, fails, or is canceled.
+     * @param {HRESULT} hresult The return value of the assessment. The following are the possible return values of the assessment.
      * 
-     * @param {HRESULT} hresult 
-     * @param {PWSTR} strDescription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatcomplete
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WINSAT_STATUS_COMPLETED_SUCCESS"></a><a id="winsat_status_completed_success"></a><dl>
+     * <dt><b>WINSAT_STATUS_COMPLETED_SUCCESS</b></dt>
+     * <dt>0x40033</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The assessment completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WINSAT_ERROR_ASSESSMENT_INTERFERENCE"></a><a id="winsat_error_assessment_interference"></a><dl>
+     * <dt><b>WINSAT_ERROR_ASSESSMENT_INTERFERENCE</b></dt>
+     * <dt>0x80040034</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The assessment could not complete due to system activity.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WINSAT_ERROR_COMPLETED_ERROR"></a><a id="winsat_error_completed_error"></a><dl>
+     * <dt><b>WINSAT_ERROR_COMPLETED_ERROR</b></dt>
+     * <dt>0x80040035</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The assessment could not complete due to an internal or system error.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WINSAT_ERROR_WINSAT_CANCELED"></a><a id="winsat_error_winsat_canceled"></a><dl>
+     * <dt><b>WINSAT_ERROR_WINSAT_CANCELED</b></dt>
+     * <dt>0x80040036</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The assessment was canceled.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WINSAT_ERROR_COMMAND_LINE_INVALID"></a><a id="winsat_error_command_line_invalid"></a><dl>
+     * <dt><b>WINSAT_ERROR_COMMAND_LINE_INVALID</b></dt>
+     * <dt>0x80040037</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The command line passed to WinSAT was not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WINSAT_ERROR_ACCESS_DENIED"></a><a id="winsat_error_access_denied"></a><dl>
+     * <dt><b>WINSAT_ERROR_ACCESS_DENIED</b></dt>
+     * <dt>0x80040038</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user does not have sufficient privileges to run WinSAT. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="WINSAT_ERROR_WINSAT_ALREADY_RUNNING"></a><a id="winsat_error_winsat_already_running"></a><dl>
+     * <dt><b>WINSAT_ERROR_WINSAT_ALREADY_RUNNING</b></dt>
+     * <dt>0x80040039</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Another copy of WinSAT.exe is already running; only one instance of WinSAT.exe can run on the computer at one time.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @param {PWSTR} strDescription The description of the completion status. This string is valid during the life of this callback. Copy the string if you need it after the callback returns.
+     * @returns {HRESULT} This method should return  S_OK; the value is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatcomplete
      */
     WinSATComplete(hresult, strDescription) {
         strDescription := strDescription is String ? StrPtr(strDescription) : strDescription
@@ -45,12 +129,12 @@ class IWinSATInitiateEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} uCurrentTick 
-     * @param {Integer} uTickTotal 
-     * @param {PWSTR} strCurrentState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatupdate
+     * Receives notification when an assessment is making progress.
+     * @param {Integer} uCurrentTick The current progress tick of the assessment.
+     * @param {Integer} uTickTotal The total number of progress ticks for the assessment.
+     * @param {PWSTR} strCurrentState A string that contains the current state of the assessment. This string is valid during the life of this callback. Copy the string if you need it after the callback returns.
+     * @returns {HRESULT} This method should return  S_OK; the value is ignored.
+     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatupdate
      */
     WinSATUpdate(uCurrentTick, uTickTotal, strCurrentState) {
         strCurrentState := strCurrentState is String ? StrPtr(strCurrentState) : strCurrentState

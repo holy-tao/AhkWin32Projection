@@ -32,10 +32,16 @@ class IFsrmCommittableCollection extends IFsrmMutableCollection{
     static VTableNames => ["Commit"]
 
     /**
+     * Commits all the objects of the collection and returns the commit results for each object.
+     * @param {Integer} options One or more options to use when committing the collection of objects. For possible values, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmcommitoptions">FsrmCommitOptions</a> enumeration.
+     * @returns {IFsrmCollection} A collection of <b>HRESULT</b> values that correspond directly to the objects in the 
+     *        collection. The <b>HRESULT</b> value indicates the success or failure of committing the 
+     *        object.
      * 
-     * @param {Integer} options 
-     * @returns {IFsrmCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmcommittablecollection-commit
+     * If the method returns <b>FSRM_S_PARTIAL_BATCH</b> or 
+     *        <b>FSRM_E_FAIL_BATCH</b>, check the results.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmcommittablecollection-commit
      */
     Commit(options) {
         result := ComCall(18, this, "int", options, "ptr*", &results := 0, "HRESULT")

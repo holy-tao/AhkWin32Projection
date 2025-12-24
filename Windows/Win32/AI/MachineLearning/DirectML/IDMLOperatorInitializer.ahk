@@ -45,11 +45,17 @@ class IDMLOperatorInitializer extends IDMLDispatchable{
     static VTableNames => ["Reset"]
 
     /**
+     * Resets the initializer to handle initialization of a new set of operators.
+     * @param {Integer} operatorCount Type: <b>UINT</b>
      * 
-     * @param {Integer} operatorCount 
-     * @param {Pointer<IDMLCompiledOperator>} operators 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-idmloperatorinitializer-reset
+     * This parameter determines the number of elements in the array passed in the  <i>operators</i> parameter.
+     * @param {Pointer<IDMLCompiledOperator>} operators Type: <b>[IDMLCompiledOperator](/windows/win32/api/directml/nn-directml-idmlcompiledoperator)*</b>
+     * 
+     * An optional pointer to a constant array of [IDMLCompiledOperator](/windows/win32/api/directml/nn-directml-idmlcompiledoperator) pointers containing the operators that the initializer should initialize.
+     * @returns {HRESULT} Type: [**HRESULT**](/windows/desktop/winprog/windows-data-types)
+     * 
+     * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directml/nf-directml-idmloperatorinitializer-reset
      */
     Reset(operatorCount, operators) {
         result := ComCall(9, this, "uint", operatorCount, "ptr*", operators, "HRESULT")

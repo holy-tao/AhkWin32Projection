@@ -87,9 +87,9 @@ class IXpsOMImageResource extends IXpsOMResource{
     static VTableNames => ["GetStream", "SetContent", "GetImageType"]
 
     /**
-     * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getstream
+     * Gets a new, read-only copy of the stream that is associated with this resource.
+     * @returns {IStream} A new, read-only copy of the stream that is associated with this resource.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getstream
      */
     GetStream() {
         result := ComCall(5, this, "ptr*", &readerStream := 0, "HRESULT")
@@ -97,12 +97,12 @@ class IXpsOMImageResource extends IXpsOMResource{
     }
 
     /**
-     * 
-     * @param {IStream} sourceStream 
-     * @param {Integer} imageType 
-     * @param {IOpcPartUri} partName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-setcontent
+     * Sets the read-only stream to be associated with this resource.
+     * @param {IStream} sourceStream The read-only stream to be associated with this resource.
+     * @param {Integer} imageType The  <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_image_type">XPS_IMAGE_TYPE</a> value that describes the type of image in the stream.
+     * @param {IOpcPartUri} partName The part name to be assigned to this resource.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-setcontent
      */
     SetContent(sourceStream, imageType, partName) {
         result := ComCall(6, this, "ptr", sourceStream, "int", imageType, "ptr", partName, "HRESULT")
@@ -110,9 +110,9 @@ class IXpsOMImageResource extends IXpsOMResource{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getimagetype
+     * Gets the type of image resource.
+     * @returns {Integer} The  <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_image_type">XPS_IMAGE_TYPE</a> value that describes the image type in the stream.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomimageresource-getimagetype
      */
     GetImageType() {
         result := ComCall(7, this, "int*", &imageType := 0, "HRESULT")

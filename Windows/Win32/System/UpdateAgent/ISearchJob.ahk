@@ -32,9 +32,23 @@ class ISearchJob extends IDispatch{
     static VTableNames => ["get_AsyncState", "get_IsCompleted", "CleanUp", "RequestAbort"]
 
     /**
-     * 
+     * @type {VARIANT} 
+     */
+    AsyncState {
+        get => this.get_AsyncState()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsCompleted {
+        get => this.get_IsCompleted()
+    }
+
+    /**
+     * Gets the caller-specific state object that is passed to the IUpdateSearch.BeginSearch method.
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchjob-get_asyncstate
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchjob-get_asyncstate
      */
     get_AsyncState() {
         retval := VARIANT()
@@ -43,9 +57,9 @@ class ISearchJob extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether the call to the IUpdateSearch.BeginSearch method is completely processed.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchjob-get_iscompleted
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchjob-get_iscompleted
      */
     get_IsCompleted() {
         result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
@@ -53,9 +67,9 @@ class ISearchJob extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchjob-cleanup
+     * Waits for an asynchronous operation to complete and then releases all the callbacks.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchjob-cleanup
      */
     CleanUp() {
         result := ComCall(9, this, "HRESULT")
@@ -63,9 +77,9 @@ class ISearchJob extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchjob-requestabort
+     * Makes a request to cancel the asynchronous search.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns  a COM or Windows error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchjob-requestabort
      */
     RequestAbort() {
         result := ComCall(10, this, "HRESULT")

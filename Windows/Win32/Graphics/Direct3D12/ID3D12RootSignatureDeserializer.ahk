@@ -36,9 +36,11 @@ class ID3D12RootSignatureDeserializer extends IUnknown{
     static VTableNames => ["GetRootSignatureDesc"]
 
     /**
+     * Gets the layout of the root signature.
+     * @returns {Pointer<D3D12_ROOT_SIGNATURE_DESC>} Type: <b><a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a></b>
      * 
-     * @returns {Pointer<D3D12_ROOT_SIGNATURE_DESC>} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12rootsignaturedeserializer-getrootsignaturedesc
+     * This method returns a deserialized root signature in a <a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_root_signature_desc">D3D12_ROOT_SIGNATURE_DESC</a> structure that describes the layout of the root signature.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12rootsignaturedeserializer-getrootsignaturedesc
      */
     GetRootSignatureDesc() {
         result := ComCall(3, this, "ptr")

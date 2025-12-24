@@ -32,9 +32,9 @@ class IEnumSpellingError extends IUnknown{
     static VTableNames => ["Next"]
 
     /**
-     * 
-     * @returns {ISpellingError} 
-     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ienumspellingerror-next
+     * Gets the next spelling error.
+     * @returns {ISpellingError} The spelling error (<a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ispellingerror">ISpellingError</a>) returned.
+     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ienumspellingerror-next
      */
     Next() {
         result := ComCall(3, this, "ptr*", &value := 0, "int")

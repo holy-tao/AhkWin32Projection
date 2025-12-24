@@ -32,9 +32,17 @@ class ITTAPIObjectEvent2 extends ITTAPIObjectEvent{
     static VTableNames => ["get_Phone"]
 
     /**
-     * 
-     * @returns {ITPhone} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapiobjectevent2-get_phone
+     * @type {ITPhone} 
+     */
+    Phone {
+        get => this.get_Phone()
+    }
+
+    /**
+     * The get_Phone method returns a pointer to the ITPhone interface on the phone object that caused this TAPI object event to be fired.
+     * @returns {ITPhone} Pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapiobjectevent2-get_phone
      */
     get_Phone() {
         result := ComCall(11, this, "ptr*", &ppPhone := 0, "HRESULT")

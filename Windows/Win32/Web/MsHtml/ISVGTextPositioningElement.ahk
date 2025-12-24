@@ -37,6 +37,41 @@ class ISVGTextPositioningElement extends IDispatch{
     static VTableNames => ["putref_x", "get_x", "putref_y", "get_y", "putref_dx", "get_dx", "putref_dy", "get_dy", "putref_rotate", "get_rotate"]
 
     /**
+     * @type {ISVGAnimatedLengthList} 
+     */
+    x {
+        get => this.get_x()
+    }
+
+    /**
+     * @type {ISVGAnimatedLengthList} 
+     */
+    y {
+        get => this.get_y()
+    }
+
+    /**
+     * @type {ISVGAnimatedLengthList} 
+     */
+    dx {
+        get => this.get_dx()
+    }
+
+    /**
+     * @type {ISVGAnimatedLengthList} 
+     */
+    dy {
+        get => this.get_dy()
+    }
+
+    /**
+     * @type {ISVGAnimatedNumberList} 
+     */
+    rotate {
+        get => this.get_rotate()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedLengthList} v 
      * @returns {HRESULT} 

@@ -42,11 +42,17 @@ class ISyncMgrConflictStore extends IUnknown{
     static VTableNames => ["EnumConflicts", "BindToConflict", "RemoveConflicts", "GetCount"]
 
     /**
+     * Enumerates conflicts scoped to the provided sync handler and sync item.
+     * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszHandlerID 
-     * @param {PWSTR} pszItemID 
-     * @returns {IEnumSyncMgrConflict} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictstore-enumconflicts
+     * A pointer to the sync handler ID as a Unicode string.
+     * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to the sync item ID as a Unicode string.
+     * @returns {IEnumSyncMgrConflict} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-ienumsyncmgrconflict">IEnumSyncMgrConflict</a>**</b>
+     * 
+     * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-ienumsyncmgrconflict">IEnumSyncMgrConflict</a> interface pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictstore-enumconflicts
      */
     EnumConflicts(pszHandlerID, pszItemID) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID
@@ -57,11 +63,17 @@ class ISyncMgrConflictStore extends IUnknown{
     }
 
     /**
+     * Binds to a particular conflict specified by IID.
+     * @param {Pointer<SYNCMGR_CONFLICT_ID_INFO>} pConflictIdInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-syncmgr_conflict_id_info">SYNCMGR_CONFLICT_ID_INFO</a>*</b>
      * 
-     * @param {Pointer<SYNCMGR_CONFLICT_ID_INFO>} pConflictIdInfo 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictstore-bindtoconflict
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-syncmgr_conflict_id_info">SYNCMGR_CONFLICT_ID_INFO</a> structure.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * A reference to a desired conflict IID.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns, contains the interface pointer requested in <i>riid</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictstore-bindtoconflict
      */
     BindToConflict(pConflictIdInfo, riid) {
         result := ComCall(4, this, "ptr", pConflictIdInfo, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -69,11 +81,17 @@ class ISyncMgrConflictStore extends IUnknown{
     }
 
     /**
+     * Deletes a set of conflicts, specified by conflict ID, from the store.
+     * @param {Pointer<SYNCMGR_CONFLICT_ID_INFO>} rgConflictIdInfo Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-syncmgr_conflict_id_info">SYNCMGR_CONFLICT_ID_INFO</a>*</b>
      * 
-     * @param {Pointer<SYNCMGR_CONFLICT_ID_INFO>} rgConflictIdInfo 
-     * @param {Integer} cConflicts 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictstore-removeconflicts
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-syncmgr_conflict_id_info">SYNCMGR_CONFLICT_ID_INFO</a> structure.
+     * @param {Integer} cConflicts Type: <b>DWORD</b>
+     * 
+     * The conflict set.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictstore-removeconflicts
      */
     RemoveConflicts(rgConflictIdInfo, cConflicts) {
         result := ComCall(5, this, "ptr", rgConflictIdInfo, "uint", cConflicts, "HRESULT")
@@ -81,11 +99,17 @@ class ISyncMgrConflictStore extends IUnknown{
     }
 
     /**
+     * Gets the number of conflicts in the store.
+     * @param {PWSTR} pszHandlerID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszHandlerID 
-     * @param {PWSTR} pszItemID 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictstore-getcount
+     * A pointer to a sync handler ID as a Unicode string.
+     * @param {PWSTR} pszItemID Type: <b>LPCWSTR</b>
+     * 
+     * A pointer to a sync item ID as a Unicode string.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * When this method returns, contains the conflict count.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictstore-getcount
      */
     GetCount(pszHandlerID, pszItemID) {
         pszHandlerID := pszHandlerID is String ? StrPtr(pszHandlerID) : pszHandlerID

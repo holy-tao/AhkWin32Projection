@@ -37,11 +37,45 @@ class IUIAutomationGridPattern extends IUnknown{
     static VTableNames => ["GetItem", "get_CurrentRowCount", "get_CurrentColumnCount", "get_CachedRowCount", "get_CachedColumnCount"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentRowCount {
+        get => this.get_CurrentRowCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentColumnCount {
+        get => this.get_CurrentColumnCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedRowCount {
+        get => this.get_CachedRowCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedColumnCount {
+        get => this.get_CachedColumnCount()
+    }
+
+    /**
+     * Retrieves a UI Automation element representing an item in the grid.
+     * @param {Integer} row Type: <b>int</b>
      * 
-     * @param {Integer} row 
-     * @param {Integer} column 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-getitem
+     * The zero-based index of the row.
+     * @param {Integer} column Type: <b>int</b>
+     * 
+     * The zero-based index of the column.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives a pointer to the element representing the grid item.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-getitem
      */
     GetItem(row, column) {
         result := ComCall(3, this, "int", row, "int", column, "ptr*", &element := 0, "HRESULT")
@@ -49,9 +83,14 @@ class IUIAutomationGridPattern extends IUnknown{
     }
 
     /**
+     * Retrieves the number of rows in the grid.
+     * @remarks
+     * 
+     * Hidden rows and columns, depending on the provider implementation, may be loaded in the Microsoft UI Automation tree and will therefore be reflected in the row count and column count properties. If the hidden rows and columns have not yet been loaded they are not counted.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_currentrowcount
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_currentrowcount
      */
     get_CurrentRowCount() {
         result := ComCall(4, this, "int*", &retVal := 0, "HRESULT")
@@ -59,9 +98,14 @@ class IUIAutomationGridPattern extends IUnknown{
     }
 
     /**
+     * The number of columns in the grid.
+     * @remarks
+     * 
+     * Hidden rows and columns, depending on the provider implementation, may be loaded in the Microsoft UI Automation tree and will therefore be reflected in the row count and column count properties. If the hidden rows and columns have not yet been loaded they are not counted.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_currentcolumncount
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_currentcolumncount
      */
     get_CurrentColumnCount() {
         result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
@@ -69,9 +113,14 @@ class IUIAutomationGridPattern extends IUnknown{
     }
 
     /**
+     * Retrieves the cached number of rows in the grid.
+     * @remarks
+     * 
+     * Hidden rows and columns, depending on the provider implementation, may be loaded in the Microsoft UI Automation tree and will therefore be reflected in the row count and column count properties. If the hidden rows and columns have not yet been loaded they are not counted.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_cachedrowcount
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_cachedrowcount
      */
     get_CachedRowCount() {
         result := ComCall(6, this, "int*", &retVal := 0, "HRESULT")
@@ -79,9 +128,14 @@ class IUIAutomationGridPattern extends IUnknown{
     }
 
     /**
+     * Retrieves the cached number of columns in the grid.
+     * @remarks
+     * 
+     * Hidden rows and columns, depending on the provider implementation, may be loaded in the Microsoft UI Automation tree and will therefore be reflected in the row count and column count properties. If the hidden rows and columns have not yet been loaded they are not counted.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_cachedcolumncount
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationgridpattern-get_cachedcolumncount
      */
     get_CachedColumnCount() {
         result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")

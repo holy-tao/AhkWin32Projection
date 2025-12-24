@@ -44,10 +44,10 @@ class IMbnConnectionProfileEvents extends IUnknown{
     static VTableNames => ["OnProfileUpdate"]
 
     /**
-     * 
-     * @param {IMbnConnectionProfile} newProfile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnconnectionprofileevents-onprofileupdate
+     * A notification method that indicates that profile update operation has completed.
+     * @param {IMbnConnectionProfile} newProfile An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnectionprofile">IMbnConnectionProfile</a> interface that represents the profile that has changed.
+     * @returns {HRESULT} This method must return <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionprofileevents-onprofileupdate
      */
     OnProfileUpdate(newProfile) {
         result := ComCall(3, this, "ptr", newProfile, "HRESULT")

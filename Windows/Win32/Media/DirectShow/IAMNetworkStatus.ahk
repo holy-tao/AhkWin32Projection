@@ -37,10 +37,52 @@ class IAMNetworkStatus extends IDispatch{
     static VTableNames => ["get_ReceivedPackets", "get_RecoveredPackets", "get_LostPackets", "get_ReceptionQuality", "get_BufferingCount", "get_IsBroadcast", "get_BufferingProgress"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pReceivedPackets 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_receivedpackets
+     */
+    ReceivedPackets {
+        get => this.get_ReceivedPackets()
+    }
+
+    /**
+     */
+    RecoveredPackets {
+        get => this.get_RecoveredPackets()
+    }
+
+    /**
+     */
+    LostPackets {
+        get => this.get_LostPackets()
+    }
+
+    /**
+     */
+    ReceptionQuality {
+        get => this.get_ReceptionQuality()
+    }
+
+    /**
+     */
+    BufferingCount {
+        get => this.get_BufferingCount()
+    }
+
+    /**
+     */
+    IsBroadcast {
+        get => this.get_IsBroadcast()
+    }
+
+    /**
+     */
+    BufferingProgress {
+        get => this.get_BufferingProgress()
+    }
+
+    /**
+     * The get_ReceivedPackets method retrieves the number of packets that have been received.
+     * @param {Pointer<Integer>} pReceivedPackets Pointer to a variable that receives the number of received packets.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_receivedpackets
      */
     get_ReceivedPackets(pReceivedPackets) {
         pReceivedPacketsMarshal := pReceivedPackets is VarRef ? "int*" : "ptr"
@@ -50,10 +92,10 @@ class IAMNetworkStatus extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pRecoveredPackets 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_recoveredpackets
+     * The get_RecoveredPackets method retrieves the number of recovered packets.
+     * @param {Pointer<Integer>} pRecoveredPackets Pointer to a variable that receives the number of recovered packets.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_recoveredpackets
      */
     get_RecoveredPackets(pRecoveredPackets) {
         pRecoveredPacketsMarshal := pRecoveredPackets is VarRef ? "int*" : "ptr"
@@ -63,10 +105,10 @@ class IAMNetworkStatus extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pLostPackets 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_lostpackets
+     * The get_LostPackets method retrieves the number of packets that have been lost.
+     * @param {Pointer<Integer>} pLostPackets Pointer to a variable that receives the number of lost packets.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_lostpackets
      */
     get_LostPackets(pLostPackets) {
         pLostPacketsMarshal := pLostPackets is VarRef ? "int*" : "ptr"
@@ -76,10 +118,10 @@ class IAMNetworkStatus extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pReceptionQuality 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_receptionquality
+     * The get_ReceptionQuality method retrieves a value indicating the reception quality.
+     * @param {Pointer<Integer>} pReceptionQuality Pointer to a variable that receives a value from 0 to 100, indicating the reception quality. This value is percentage of packets that the filter received without requiring resending or error correction.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_receptionquality
      */
     get_ReceptionQuality(pReceptionQuality) {
         pReceptionQualityMarshal := pReceptionQuality is VarRef ? "int*" : "ptr"
@@ -89,10 +131,10 @@ class IAMNetworkStatus extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pBufferingCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingcount
+     * The get_BufferingCount method retrieves the number of times the network source has buffered the data.
+     * @param {Pointer<Integer>} pBufferingCount Pointer to a variable that receives the buffering count.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingcount
      */
     get_BufferingCount(pBufferingCount) {
         pBufferingCountMarshal := pBufferingCount is VarRef ? "int*" : "ptr"
@@ -102,10 +144,10 @@ class IAMNetworkStatus extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT_BOOL>} pIsBroadcast 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_isbroadcast
+     * The get_IsBroadcast method retrieves a value indicating whether the current stream is a broadcast stream.
+     * @param {Pointer<VARIANT_BOOL>} pIsBroadcast Pointer to a variable that receives a Boolean value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_isbroadcast
      */
     get_IsBroadcast(pIsBroadcast) {
         pIsBroadcastMarshal := pIsBroadcast is VarRef ? "short*" : "ptr"
@@ -115,10 +157,10 @@ class IAMNetworkStatus extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pBufferingProgress 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingprogress
+     * The get_BufferingProgress method retrieves a value indicating the buffering progress.
+     * @param {Pointer<Integer>} pBufferingProgress Pointer to a variable that receives a value from 0 to 100, indicating what percentage has completed.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingprogress
      */
     get_BufferingProgress(pBufferingProgress) {
         pBufferingProgressMarshal := pBufferingProgress is VarRef ? "int*" : "ptr"

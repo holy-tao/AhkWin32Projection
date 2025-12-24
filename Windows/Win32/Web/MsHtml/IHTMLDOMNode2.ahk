@@ -29,6 +29,13 @@ class IHTMLDOMNode2 extends IDispatch{
     static VTableNames => ["get_ownerDocument"]
 
     /**
+     * @type {IDispatch} 
+     */
+    ownerDocument {
+        get => this.get_ownerDocument()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

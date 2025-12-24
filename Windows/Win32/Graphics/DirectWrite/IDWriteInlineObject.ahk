@@ -33,16 +33,32 @@ class IDWriteInlineObject extends IUnknown{
     static VTableNames => ["Draw", "GetMetrics", "GetOverhangMetrics", "GetBreakConditions"]
 
     /**
+     * The application implemented rendering callback (IDWriteTextRenderer::DrawInlineObject) can use this to draw the inline object without needing to cast or query the object type. The text layout does not call this method directly.
+     * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
-     * @param {Pointer<Void>} clientDrawingContext 
-     * @param {IDWriteTextRenderer} renderer 
-     * @param {Float} originX 
-     * @param {Float} originY 
-     * @param {BOOL} isSideways 
-     * @param {BOOL} isRightToLeft 
-     * @param {IUnknown} clientDrawingEffect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteinlineobject-draw
+     * The drawing context passed to <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-draw">IDWriteTextLayout::Draw</a>.  This parameter may be <b>NULL</b>.
+     * @param {IDWriteTextRenderer} renderer Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextrenderer">IDWriteTextRenderer</a>*</b>
+     * 
+     * The same renderer passed to <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-draw">IDWriteTextLayout::Draw</a> as the object's containing parent.  This is useful if the inline object is recursive such as a nested layout.
+     * @param {Float} originX Type: <b>FLOAT</b>
+     * 
+     * The x-coordinate at the upper-left corner of the inline object.
+     * @param {Float} originY Type: <b>FLOAT</b>
+     * 
+     * The y-coordinate at the upper-left corner of the inline object.
+     * @param {BOOL} isSideways Type: <b>BOOL</b>
+     * 
+     * A Boolean flag that indicates whether the object's baseline runs alongside the baseline axis of the line.
+     * @param {BOOL} isRightToLeft Type: <b>BOOL</b>
+     * 
+     * A Boolean flag that indicates whether the object is in a right-to-left context and should be drawn flipped.
+     * @param {IUnknown} clientDrawingEffect Type: <b>IUnknown*</b>
+     * 
+     * The drawing effect set in <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setdrawingeffect">IDWriteTextLayout::SetDrawingEffect</a>.  Usually this effect is a foreground brush that  is used in glyph drawing.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriteinlineobject-draw
      */
     Draw(clientDrawingContext, renderer, originX, originY, isSideways, isRightToLeft, clientDrawingEffect) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
@@ -52,9 +68,12 @@ class IDWriteInlineObject extends IUnknown{
     }
 
     /**
+     * IDWriteTextLayout calls this callback function to get the measurement of the inline object.
+     * @returns {DWRITE_INLINE_OBJECT_METRICS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_inline_object_metrics">DWRITE_INLINE_OBJECT_METRICS</a>*</b>
      * 
-     * @returns {DWRITE_INLINE_OBJECT_METRICS} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteinlineobject-getmetrics
+     * When this method returns, contains a structure describing the geometric measurement of an
+     * application-defined inline object.  These metrics are in relation to the baseline of the adjacent text.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriteinlineobject-getmetrics
      */
     GetMetrics() {
         metrics := DWRITE_INLINE_OBJECT_METRICS()
@@ -63,9 +82,11 @@ class IDWriteInlineObject extends IUnknown{
     }
 
     /**
+     * IDWriteTextLayout calls this callback function to get the visible extents (in DIPs) of the inline object. In the case of a simple bitmap, with no padding and no overhang, all the overhangs will simply be zeroes.
+     * @returns {DWRITE_OVERHANG_METRICS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_overhang_metrics">DWRITE_OVERHANG_METRICS</a>*</b>
      * 
-     * @returns {DWRITE_OVERHANG_METRICS} 
-     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwriteinlineobject-getoverhangmetrics
+     * Overshoot of visible extents (in DIPs) outside the object.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriteinlineobject-getoverhangmetrics
      */
     GetOverhangMetrics() {
         overhangs := DWRITE_OVERHANG_METRICS()
@@ -74,11 +95,17 @@ class IDWriteInlineObject extends IUnknown{
     }
 
     /**
+     * Layout uses this to determine the line-breaking behavior of the inline object among the text.
+     * @param {Pointer<Integer>} breakConditionBefore Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_break_condition">DWRITE_BREAK_CONDITION</a>*</b>
      * 
-     * @param {Pointer<Integer>} breakConditionBefore 
-     * @param {Pointer<Integer>} breakConditionAfter 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteinlineobject-getbreakconditions
+     * When this method returns, contains a value which indicates the line-breaking condition between the object and the content immediately preceding it.
+     * @param {Pointer<Integer>} breakConditionAfter Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_break_condition">DWRITE_BREAK_CONDITION</a>*</b>
+     * 
+     * When this method returns, contains a value which indicates the line-breaking condition between the object and the content immediately following it.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriteinlineobject-getbreakconditions
      */
     GetBreakConditions(breakConditionBefore, breakConditionAfter) {
         breakConditionBeforeMarshal := breakConditionBefore is VarRef ? "int*" : "ptr"

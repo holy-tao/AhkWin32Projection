@@ -31,14 +31,26 @@ class IAccPropServer extends IUnknown{
     static VTableNames => ["GetPropValue"]
 
     /**
+     * Retrieves a property value for an accessible element.
+     * @param {Pointer<Integer>} pIDString Type: <b>const  BYTE*</b>
      * 
-     * @param {Pointer<Integer>} pIDString 
-     * @param {Integer} dwIDStringLen 
-     * @param {Guid} idProp 
-     * @param {Pointer<VARIANT>} pvarValue 
-     * @param {Pointer<BOOL>} pfHasProp 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccpropserver-getpropvalue
+     * Contains a string that identifies the property  being requested.
+     * @param {Integer} dwIDStringLen Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * 
+     * Specifies the length of the identity string specified by the <i>pIDString</i> parameter.
+     * @param {Guid} idProp Type: <b>MSAAPROPID</b>
+     * 
+     * Specifies a GUID indicating the desired property.
+     * @param {Pointer<VARIANT>} pvarValue Type: <b>VARIANT*</b>
+     * 
+     * Specifies the value of the overridden property. This parameter is valid only if <i>pfHasProp</i> is <b>TRUE</b>. The server must set this to VT_EMPTY if <i>pfHasProp</i> is set to <b>FALSE</b>.
+     * @param {Pointer<BOOL>} pfHasProp Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
+     * 
+     * Indicates whether the server is supplying a value for the requested property. The server should set this to <b>TRUE</b> if it is returning an overriding property or to <b>FALSE</b> if it is not returning a property (in which case it should also set <i>pvarValue</i> to VT_EMPTY).
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * Return S_OK, except under exceptional error conditions such as low memory. If the specified property is not overridden, then <i>pfHasProp</i> should be set to <b>FALSE</b> and <i>pvarValue</i> should be set to VT_EMPTY by the server.
+     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-iaccpropserver-getpropvalue
      */
     GetPropValue(pIDString, dwIDStringLen, idProp, pvarValue, pfHasProp) {
         pIDStringMarshal := pIDString is VarRef ? "char*" : "ptr"

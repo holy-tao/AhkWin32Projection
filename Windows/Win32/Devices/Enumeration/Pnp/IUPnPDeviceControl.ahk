@@ -33,22 +33,15 @@ class IUPnPDeviceControl extends IUnknown{
     static VTableNames => ["Initialize", "GetServiceObject"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {BSTR} bstrXMLDesc 
-     * @param {BSTR} bstrDeviceIdentifier 
-     * @param {BSTR} bstrInitString 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The Initialize method is used to initialize the device. The device host invokes this method.
+     * @param {BSTR} bstrXMLDesc Specifies the full XML device description, as published by the device host. The device description is based on the template provided by the device.
+     * @param {BSTR} bstrDeviceIdentifier Identifies the device to initialize. This is the same identifier returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-registerdevice">IUPnPRegistrar::RegisterDevice</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-registerrunningdevice">IUPnPRegistrar::RegisterRunningDevice</a>. It is also used to retrieve the UDN of the device using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnphost/nf-upnphost-iupnpregistrar-getuniquedevicename">IUPnPRegistrar::GetUniqueDeviceName</a>.
+     * @param {BSTR} bstrInitString Specifies the initialization string used when this device was registered.
+     * @returns {HRESULT} When implementing this method, return S_OK if the method succeeds. Otherwise, return one of the COM error codes defined in WinError.h.
+     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpdevicecontrol-initialize
      */
     Initialize(bstrXMLDesc, bstrDeviceIdentifier, bstrInitString) {
         bstrXMLDesc := bstrXMLDesc is String ? BSTR.Alloc(bstrXMLDesc).Value : bstrXMLDesc
@@ -60,11 +53,11 @@ class IUPnPDeviceControl extends IUnknown{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrUDN 
-     * @param {BSTR} bstrServiceId 
-     * @returns {IDispatch} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnphost/nf-upnphost-iupnpdevicecontrol-getserviceobject
+     * The GetServiceObject method is used to obtain the IDispatch pointer to a specific service object. The device host invokes this method once per service, the first time it receives a request for a service.
+     * @param {BSTR} bstrUDN Specifies the UDN of the device.
+     * @param {BSTR} bstrServiceId Specifies the Service ID of the service for which to obtain the pointer.
+     * @returns {IDispatch} Receives the <b>IDispatch</b> pointer to the service object.
+     * @see https://docs.microsoft.com/windows/win32/api//upnphost/nf-upnphost-iupnpdevicecontrol-getserviceobject
      */
     GetServiceObject(bstrUDN, bstrServiceId) {
         bstrUDN := bstrUDN is String ? BSTR.Alloc(bstrUDN).Value : bstrUDN

@@ -31,10 +31,10 @@ class IFiringControl extends IDispatch{
     static VTableNames => ["FireSubscription"]
 
     /**
-     * 
-     * @param {IEventSubscription} subscription 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ifiringcontrol-firesubscription
+     * Fires an event to a single subscriber.
+     * @param {IEventSubscription} subscription A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventsubscription">IEventSubscription</a> interface on a subscription object.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ifiringcontrol-firesubscription
      */
     FireSubscription(subscription) {
         result := ComCall(7, this, "ptr", subscription, "HRESULT")

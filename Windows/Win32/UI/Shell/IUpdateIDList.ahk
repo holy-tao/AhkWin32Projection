@@ -36,11 +36,17 @@ class IUpdateIDList extends IUnknown{
     static VTableNames => ["Update"]
 
     /**
+     * Updates the provided child ITEMIDLIST based on the parameters specified by the provided IBindCtx.
+     * @param {IBindCtx} pbc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a>*</b>
      * 
-     * @param {IBindCtx} pbc 
-     * @param {Pointer<ITEMIDLIST>} pidlIn 
-     * @returns {Pointer<ITEMIDLIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iupdateidlist-update
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface on a bind context object. Used to specify parameters for updating the child <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>. This value can be <b>NULL</b>.
+     * @param {Pointer<ITEMIDLIST>} pidlIn Type: <b>PCUITEMID_CHILD</b>
+     * 
+     * The child <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a>.
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>PITEMID_CHILD*</b>
+     * 
+     * A pointer to the child <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> relative to the parent folder.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iupdateidlist-update
      */
     Update(pbc, pidlIn) {
         result := ComCall(3, this, "ptr", pbc, "ptr", pidlIn, "ptr*", &ppidlOut := 0, "HRESULT")

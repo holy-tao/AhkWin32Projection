@@ -37,9 +37,9 @@ class IEnhancedStorageSiloAction extends IUnknown{
     static VTableNames => ["GetName", "GetDescription", "Invoke"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-getname
+     * Returns a string for the name of the action specified by the IEnhancedStorageSiloAction object.
+     * @returns {PWSTR} Pointer to a string that represents the silo action by name.
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-getname
      */
     GetName() {
         result := ComCall(3, this, "ptr*", &ppwszActionName := 0, "HRESULT")
@@ -47,9 +47,9 @@ class IEnhancedStorageSiloAction extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-getdescription
+     * Returns a descriptive string for the action specified by the IEnhancedStorageSiloAction object.
+     * @returns {PWSTR} Pointer to a string that describes the silo action.
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-getdescription
      */
     GetDescription() {
         result := ComCall(4, this, "ptr*", &ppwszActionDescription := 0, "HRESULT")
@@ -57,9 +57,27 @@ class IEnhancedStorageSiloAction extends IUnknown{
     }
 
     /**
+     * Performs the action specified by an IEnhancedStorageSiloAction object.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-invoke
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The action was invoked successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienhancedstoragesiloaction-invoke
      */
     Invoke() {
         result := ComCall(5, this, "HRESULT")

@@ -33,6 +33,21 @@ class IXMLDOMSelection extends IXMLDOMNodeList{
     static VTableNames => ["get_expr", "put_expr", "get_context", "putref_context", "peekNode", "matches", "removeNext", "removeAll", "clone", "getProperty", "setProperty"]
 
     /**
+     * @type {BSTR} 
+     */
+    expr {
+        get => this.get_expr()
+        set => this.put_expr(value)
+    }
+
+    /**
+     * @type {IXMLDOMNode} 
+     */
+    context {
+        get => this.get_context()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

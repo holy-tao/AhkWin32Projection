@@ -32,10 +32,14 @@ class IPropertyChange extends IObjectWithPropertyKey{
     static VTableNames => ["ApplyToPropVariant"]
 
     /**
+     * Applies a change to a property value.
+     * @param {Pointer<PROPVARIANT>} propvarIn Type: <b>REFPROPVARIANT</b>
      * 
-     * @param {Pointer<PROPVARIANT>} propvarIn 
-     * @returns {PROPVARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipropertychange-applytopropvariant
+     * A reference to a source <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
+     * @returns {PROPVARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
+     * 
+     * A pointer to a changed <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipropertychange-applytopropvariant
      */
     ApplyToPropVariant(propvarIn) {
         ppropvarOut := PROPVARIANT()

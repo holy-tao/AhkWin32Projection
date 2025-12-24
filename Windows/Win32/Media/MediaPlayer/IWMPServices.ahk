@@ -31,10 +31,10 @@ class IWMPServices extends IUnknown{
     static VTableNames => ["GetStreamTime", "GetStreamState"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} prt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpservices-getstreamtime
+     * The IWMPServices::GetStreamTime method retrieves a structure indicating the current stream time.
+     * @param {Pointer<Integer>} prt Pointer to a <b>REFERENCE_TIME</b> structure.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpservices-getstreamtime
      */
     GetStreamTime(prt) {
         prtMarshal := prt is VarRef ? "int64*" : "ptr"
@@ -44,10 +44,10 @@ class IWMPServices extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpservices-getstreamstate
+     * The IWMPServices::GetStreamState method retrieves information about the current play state of the stream.
+     * @param {Pointer<Integer>} pState A pointer to a <b>WMPServices_StreamState</b> enumeration value.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpservices-getstreamstate
      */
     GetStreamState(pState) {
         pStateMarshal := pState is VarRef ? "int*" : "ptr"

@@ -39,11 +39,17 @@ class IInputObjectSite extends IUnknown{
     static VTableNames => ["OnFocusChangeIS"]
 
     /**
+     * Informs the browser that the focus has changed.
+     * @param {IUnknown} punkObj Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punkObj 
-     * @param {BOOL} fSetFocus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iinputobjectsite-onfocuschangeis
+     * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the object gaining or losing the focus.
+     * @param {BOOL} fSetFocus Type: <b>BOOL</b>
+     * 
+     * Indicates if the object has gained or lost the focus. If this value is nonzero, the object has gained the focus. If this value is zero, the object has lost the focus.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if the method was successful, or a COM-defined error code otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iinputobjectsite-onfocuschangeis
      */
     OnFocusChangeIS(punkObj, fSetFocus) {
         result := ComCall(3, this, "ptr", punkObj, "int", fSetFocus, "HRESULT")

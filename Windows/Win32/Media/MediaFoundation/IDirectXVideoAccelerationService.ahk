@@ -44,17 +44,17 @@ class IDirectXVideoAccelerationService extends IUnknown{
     static VTableNames => ["CreateSurface"]
 
     /**
-     * 
-     * @param {Integer} Width 
-     * @param {Integer} Height 
-     * @param {Integer} BackBuffers 
-     * @param {Integer} Format 
-     * @param {Integer} Pool 
-     * @param {Integer} Usage 
+     * Creates a DirectX Video Acceleration (DXVA) video processor or DXVA decoder render target.
+     * @param {Integer} Width The width of the surface, in pixels.
+     * @param {Integer} Height The height of the surface, in pixels.
+     * @param {Integer} BackBuffers The number of back buffers. The method creates <i>BackBuffers</i> + 1 surfaces.
+     * @param {Integer} Format The pixel format, specified as a <b>D3DFORMAT</b> value or FOURCC code. For more information, see the Direct3D documentation.
+     * @param {Integer} Pool The memory pool in which to create the surface, specified as a <b>D3DPOOL</b> value. For more information, see the Direct3D documentation. Decoders should generally use the value D3DPOOL_DEFAULT.
+     * @param {Integer} Usage Reserved. Set this value to zero.
      * @param {Integer} DxvaType 
-     * @param {Pointer<HANDLE>} pSharedHandle 
-     * @returns {IDirect3DSurface9} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxva2api/nf-dxva2api-idirectxvideoaccelerationservice-createsurface
+     * @param {Pointer<HANDLE>} pSharedHandle A pointer to a handle that is used to share the surfaces between Direct3D devices. Set this parameter to <b>NULL</b>.
+     * @returns {IDirect3DSurface9} The address of an array of <b>IDirect3DSurface9</b> pointers allocated by the caller. The size of the array must be 1 + <i>BackBuffers</i> (enough for the back buffers plus one front buffer). The method fills the array with <b>IDirect3DSurface9</b> pointers. The caller must release all of the interface pointers. In addition, the front buffer holds a reference count on each of the back buffers. Therefore, the back buffers are never deleted until the front buffer is deleted.
+     * @see https://docs.microsoft.com/windows/win32/api//dxva2api/nf-dxva2api-idirectxvideoaccelerationservice-createsurface
      */
     CreateSurface(Width, Height, BackBuffers, Format, Pool, Usage, DxvaType, pSharedHandle) {
         result := ComCall(3, this, "uint", Width, "uint", Height, "uint", BackBuffers, "uint", Format, "int", Pool, "uint", Usage, "uint", DxvaType, "ptr*", &ppSurface := 0, "ptr", pSharedHandle, "HRESULT")

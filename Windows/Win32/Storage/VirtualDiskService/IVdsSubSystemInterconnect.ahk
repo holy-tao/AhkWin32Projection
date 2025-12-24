@@ -31,9 +31,9 @@ class IVdsSubSystemInterconnect extends IUnknown{
     static VTableNames => ["GetSupportedInterconnects"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsysteminterconnect-getsupportedinterconnects
+     * Returns the interconnect types that the subsystem supports.
+     * @returns {Integer} A pointer to a caller-allocated <b>ULONG</b> value that receives a bitmask of <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_interconnect_flag">VDS_INTERCONNECT_FLAG</a> flags, one for each interconnect type that the subsystem supports. This parameter is required and cannot be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsysteminterconnect-getsupportedinterconnects
      */
     GetSupportedInterconnects() {
         result := ComCall(3, this, "uint*", &pulSupportedInterconnectsFlag := 0, "HRESULT")

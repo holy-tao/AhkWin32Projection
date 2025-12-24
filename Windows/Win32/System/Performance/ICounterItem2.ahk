@@ -36,6 +36,22 @@ class ICounterItem2 extends ICounterItem{
     static VTableNames => ["put_Selected", "get_Selected", "put_Visible", "get_Visible", "GetDataAt"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    Selected {
+        get => this.get_Selected()
+        set => this.put_Selected(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Visible {
+        get => this.get_Visible()
+        set => this.put_Visible(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} bState 
      * @returns {HRESULT} 

@@ -35,9 +35,9 @@ class IESValueUpdatedEvent extends IESEvent{
     static VTableNames => ["GetValueNames"]
 
     /**
-     * 
-     * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iesvalueupdatedevent-getvaluenames
+     * For a name-value pair in the PBDA General Purpose Name-Value Service, gets the name for the value that has been updated.
+     * @returns {Pointer<SAFEARRAY>} Pointer to a buffer that gets the name that has been updated. The caller is responsible for freeing this memory.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesvalueupdatedevent-getvaluenames
      */
     GetValueNames() {
         result := ComCall(8, this, "ptr*", &pbstrNames := 0, "HRESULT")

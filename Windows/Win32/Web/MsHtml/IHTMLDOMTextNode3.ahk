@@ -31,6 +31,13 @@ class IHTMLDOMTextNode3 extends IDispatch{
     static VTableNames => ["substringData", "insertData", "deleteData", "replaceData", "splitText", "get_wholeText", "replaceWholeText", "hasAttributes", "normalize"]
 
     /**
+     * @type {BSTR} 
+     */
+    wholeText {
+        get => this.get_wholeText()
+    }
+
+    /**
      * 
      * @param {Integer} offset 
      * @param {Integer} Count 

@@ -43,21 +43,57 @@ class IStreamConcatenate extends IStream{
     static VTableNames => ["Initialize", "Initialize2", "Append", "Append2"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IStream} stream1 
-     * @param {IStream} stream2 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes this stream from two input streams.
+     * @param {IStream} stream1 An <b>IStream</b> interface of the first stream to add to this stream.
+     * @param {IStream} stream2 An <b>IStream</b> interface of the second stream to add to this stream.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Pointer is not valid.
+     * 
+     * Value: 0x80004003
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failed to allocate the required memory.
+     * 
+     * Value: 0x8007000E
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One or more arguments are not valid.
+     * 
+     * Value: 0x80070057
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreamconcatenate-initialize
      */
     Initialize(stream1, stream2) {
         result := ComCall(14, this, "ptr", stream1, "ptr", stream2, "HRESULT")
@@ -65,11 +101,57 @@ class IStreamConcatenate extends IStream{
     }
 
     /**
+     * Initializes this stream from an array of input streams.
+     * @param {Pointer<IStream>} streams Array of  <b>IStream</b> interfaces of the streams to add to this stream.
+     * @param {Integer} streamCount Number of streams in <i>streams</i>.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
-     * @param {Pointer<IStream>} streams 
-     * @param {Integer} streamCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreamconcatenate-initialize2
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Pointer is not valid.
+     * 
+     * Value: 0x80004003
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Failed to allocate the required memory.
+     * 
+     * Value: 0x8007000E
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This stream has already been initialized.
+     * 
+     * Value: 0x80070057
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreamconcatenate-initialize2
      */
     Initialize2(streams, streamCount) {
         result := ComCall(15, this, "ptr*", streams, "uint", streamCount, "HRESULT")
@@ -77,10 +159,30 @@ class IStreamConcatenate extends IStream{
     }
 
     /**
+     * Appends a stream to this stream.
+     * @param {IStream} stream An <b>IStream</b> interface of the stream to append to this stream.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
-     * @param {IStream} stream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreamconcatenate-append
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * Value: 0x80004001
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreamconcatenate-append
      */
     Append(stream) {
         result := ComCall(16, this, "ptr", stream, "HRESULT")
@@ -88,11 +190,31 @@ class IStreamConcatenate extends IStream{
     }
 
     /**
+     * Appends an array of streams to this stream.
+     * @param {Pointer<IStream>} streams Array of  <b>IStream</b> interfaces of the streams to append to this stream.
+     * @param {Integer} streamCount Number of streams in <i>streams</i>.
+     * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
-     * @param {Pointer<IStream>} streams 
-     * @param {Integer} streamCount 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreamconcatenate-append2
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not implemented.
+     * 
+     * Value: 0x80004001
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreamconcatenate-append2
      */
     Append2(streams, streamCount) {
         result := ComCall(17, this, "ptr*", streams, "uint", streamCount, "HRESULT")

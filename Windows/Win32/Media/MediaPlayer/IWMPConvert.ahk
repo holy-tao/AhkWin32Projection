@@ -37,12 +37,103 @@ class IWMPConvert extends IUnknown{
     static VTableNames => ["ConvertFile", "GetErrorURL"]
 
     /**
+     * The ConvertFile method is implemented by a conversion plug-in and called by Windows Media Player to enable a conversion plug-in to convert a digital media file into ASF.
+     * @param {BSTR} bstrInputFile <b>BSTR</b> containing the path to the file to be converted.
+     * @param {BSTR} bstrDestinationFolder <b>BSTR</b> containing that path to the folder where the converted file must be copied.
+     * @param {Pointer<BSTR>} pbstrOutputFile Pointer to a <b>BSTR</b> that receives the path to the converted file.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. The following table lists recommended return codes.
      * 
-     * @param {BSTR} bstrInputFile 
-     * @param {BSTR} bstrDestinationFolder 
-     * @param {Pointer<BSTR>} pbstrOutputFile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpconvert-convertfile
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_WMP_CONVERT_FILE_FAILED</b></dt>
+     * <dt>0xC00D1158</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Unspecified failure while converting the file.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_WMP_CONVERT_NO_RIGHTS_ERRORURL</b></dt>
+     * <dt>0xC00D1159</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The license prohibits file conversion. <b>IWMPConvert::GetErrorURL</b> must return the URL of the webpage that describes the issue.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_WMP_CONVERT_NO_RIGHTS_NOERRORURL</b></dt>
+     * <dt>0xC00D115A</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The license prohibits file conversion. There is no error URL available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_WMP_CONVERT_FILE_CORRUPT</b></dt>
+     * <dt>0xC00D115B</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified file is corrupted.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_WMP_CONVERT_PLUGIN_UNAVAILABLE_ERRORURL</b></dt>
+     * <dt>0xC00D115C</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is an unspecified problem with the plug-in. <b>IWMPConvert::GetErrorURL</b> must return the URL of the webpage where the user can reinstall the plug-in.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_WMP_CONVERT_PLUGIN_UNAVAILABLE_NOERRORURL</b></dt>
+     * <dt>0xC00D115D</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There is an unspecified problem with the plug-in. There is no error URL available.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>NS_E_WMP_CONVERT_PLUGIN_UNKNOWN_FILE_OWNER</b></dt>
+     * <dt>0xC00D115E</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This conversion plug-in is not the correct one to convert the current file.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpconvert-convertfile
      */
     ConvertFile(bstrInputFile, bstrDestinationFolder, pbstrOutputFile) {
         bstrInputFile := bstrInputFile is String ? BSTR.Alloc(bstrInputFile).Value : bstrInputFile
@@ -53,10 +144,10 @@ class IWMPConvert extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrURL 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmpservices/nf-wmpservices-iwmpconvert-geterrorurl
+     * The GetErrorURL method is implemented by a conversion plug-in and called by Windows Media Player to retrieve the URL of a webpage that displays information to help the user correct the condition that caused an error.
+     * @param {Pointer<BSTR>} pbstrURL Pointer to a <b>BSTR</b> that receives the URL of the webpage that displays the error information.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//wmpservices/nf-wmpservices-iwmpconvert-geterrorurl
      */
     GetErrorURL(pbstrURL) {
         result := ComCall(4, this, "ptr", pbstrURL, "HRESULT")

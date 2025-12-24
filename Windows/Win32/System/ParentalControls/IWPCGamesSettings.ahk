@@ -31,10 +31,10 @@ class IWPCGamesSettings extends IWPCSettings{
     static VTableNames => ["IsBlocked"]
 
     /**
-     * 
-     * @param {Guid} guidAppID 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcgamessettings-isblocked
+     * Determines whether the specified game is blocked from execution.
+     * @param {Guid} guidAppID The GUID associated with the game during install or game scan detection.
+     * @returns {Integer} The reason code. For a list of values, see the <a href="https://docs.microsoft.com/windows/desktop/api/wpcevent/ne-wpcevent-wpcflag_isblocked">WPCFLAG_ISBLOCKED</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcgamessettings-isblocked
      */
     IsBlocked(guidAppID) {
         result := ComCall(6, this, "ptr", guidAppID, "uint*", &pdwReasons := 0, "HRESULT")

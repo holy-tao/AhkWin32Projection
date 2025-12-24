@@ -32,9 +32,9 @@ class IVdsControllerControllerPort extends IUnknown{
     static VTableNames => ["QueryControllerPorts"]
 
     /**
-     * 
-     * @returns {IEnumVdsObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdscontrollercontrollerport-querycontrollerports
+     * Returns an IEnumVdsObject object that enumerates the ports of the controller.
+     * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the controller ports  as <a href="https://docs.microsoft.com/windows/desktop/VDS/controller-port-object">controller port objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the controller port objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
+     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdscontrollercontrollerport-querycontrollerports
      */
     QueryControllerPorts() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")

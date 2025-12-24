@@ -41,10 +41,14 @@ class ID3D10EffectRasterizerVariable extends ID3D10EffectVariable{
     static VTableNames => ["GetRasterizerState", "GetBackingStore"]
 
     /**
+     * Get a pointer to a rasterizer interface.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {ID3D10RasterizerState} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectrasterizervariable-getrasterizerstate
+     * Index into an array of rasterizer interfaces. If there is only one rasterizer interface, use 0.
+     * @returns {ID3D10RasterizerState} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10rasterizerstate">ID3D10RasterizerState</a>**</b>
+     * 
+     * The address of a pointer to a rasterizer interface (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10rasterizerstate">ID3D10RasterizerState Interface</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectrasterizervariable-getrasterizerstate
      */
     GetRasterizerState(Index) {
         result := ComCall(25, this, "uint", Index, "ptr*", &ppRasterizerState := 0, "HRESULT")
@@ -52,10 +56,14 @@ class ID3D10EffectRasterizerVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get a pointer to a variable that contains rasteriser state.
+     * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Index 
-     * @returns {D3D10_RASTERIZER_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectrasterizervariable-getbackingstore
+     * Index into an array of rasteriser-state descriptions. If there is only one rasteriser variable in the effect, use 0.
+     * @returns {D3D10_RASTERIZER_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_rasterizer_desc">D3D10_RASTERIZER_DESC</a>*</b>
+     * 
+     * A pointer to a rasteriser-state description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ns-d3d10-d3d10_rasterizer_desc">D3D10_RASTERIZER_DESC</a>).
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectrasterizervariable-getbackingstore
      */
     GetBackingStore(Index) {
         pRasterizerDesc := D3D10_RASTERIZER_DESC()

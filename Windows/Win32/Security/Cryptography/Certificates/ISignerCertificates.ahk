@@ -33,10 +33,24 @@ class ISignerCertificates extends IDispatch{
     static VTableNames => ["get_ItemByIndex", "get_Count", "get__NewEnum", "Add", "Remove", "Clear", "Find"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * Retrieves an ISignerCertificate object from the collection by index number.
      * @param {Integer} Index 
      * @returns {ISignerCertificate} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificates-get_itembyindex
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificates-get_itembyindex
      */
     get_ItemByIndex(Index) {
         result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
@@ -44,9 +58,9 @@ class ISignerCertificates extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the number of ISignerCertificate objects in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificates-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificates-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -54,9 +68,9 @@ class ISignerCertificates extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the enumerator for the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificates-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificates-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
@@ -64,10 +78,12 @@ class ISignerCertificates extends IDispatch{
     }
 
     /**
+     * Adds an ISignerCertificate object to the collection.
+     * @param {ISignerCertificate} pVal Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-isignercertificate">ISignerCertificate</a> object to add to the collection.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {ISignerCertificate} pVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificates-add
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificates-add
      */
     Add(pVal) {
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
@@ -75,10 +91,12 @@ class ISignerCertificates extends IDispatch{
     }
 
     /**
+     * Removes an ISignerCertificate object from the collection by index number.
+     * @param {Integer} Index A <b>LONG</b> variable that contains the index of the object to remove.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {Integer} Index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificates-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificates-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")
@@ -86,9 +104,11 @@ class ISignerCertificates extends IDispatch{
     }
 
     /**
+     * Removes all ISignerCertificate objects from the collection.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificates-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificates-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -96,10 +116,10 @@ class ISignerCertificates extends IDispatch{
     }
 
     /**
-     * 
-     * @param {ISignerCertificate} pSignerCert 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-isignercertificates-find
+     * Retrieves the index number of an ISignerCertificate object.
+     * @param {ISignerCertificate} pSignerCert Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-isignercertificate">ISignerCertificate</a> interface.
+     * @returns {Integer} Pointer to a <b>LONG</b> variable that receives the index number.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-isignercertificates-find
      */
     Find(pSignerCert) {
         result := ComCall(13, this, "ptr", pSignerCert, "int*", &piSignerCert := 0, "HRESULT")

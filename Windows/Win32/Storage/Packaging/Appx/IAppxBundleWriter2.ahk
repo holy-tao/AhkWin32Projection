@@ -31,11 +31,12 @@ class IAppxBundleWriter2 extends IUnknown{
     static VTableNames => ["AddExternalPackageReference"]
 
     /**
-     * 
-     * @param {PWSTR} fileName 
-     * @param {IStream} inputStream 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxbundlewriter2-addexternalpackagereference
+     * Adds a reference to an external package to the package bundle.
+     * @param {PWSTR} fileName The name of the payload file. The file name path must be relative to the root of the package.
+     * @param {IStream} inputStream An <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> that provides the contents of <i>fileName</i>.
+     *           The stream must support <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-isequentialstream-read">Read</a>, <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">Seek</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-stat">Stat</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxbundlewriter2-addexternalpackagereference
      */
     AddExternalPackageReference(fileName, inputStream) {
         fileName := fileName is String ? StrPtr(fileName) : fileName

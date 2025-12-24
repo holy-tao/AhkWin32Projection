@@ -13,9 +13,9 @@
  */
 class AsnAny extends Win32Struct
 {
-    static sizeof => 20
+    static sizeof => 24
 
-    static packingSize => 4
+    static packingSize => 8
 
     class _asnValue_e__Union extends Win32Struct {
         static sizeof => 16
@@ -153,7 +153,7 @@ class AsnAny extends Win32Struct
     asnValue{
         get {
             if(!this.HasProp("__asnValue"))
-                this.__asnValue := %this.__Class%._asnValue_e__Union(4, this)
+                this.__asnValue := %this.__Class%._asnValue_e__Union(8, this)
             return this.__asnValue
         }
     }

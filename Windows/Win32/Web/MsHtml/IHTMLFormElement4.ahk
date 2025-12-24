@@ -30,6 +30,14 @@ class IHTMLFormElement4 extends IDispatch{
     static VTableNames => ["put_action", "get_action"]
 
     /**
+     * @type {BSTR} 
+     */
+    action {
+        get => this.get_action()
+        set => this.put_action(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

@@ -39,10 +39,94 @@ class IAMStreamConfig extends IUnknown{
     static VTableNames => ["SetFormat", "GetFormat", "GetNumberOfCapabilities", "GetStreamCaps"]
 
     /**
+     * The SetFormat method sets the output format on the pin.
+     * @param {Pointer<AM_MEDIA_TYPE>} pmt Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that specifies the new format.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Pointer<AM_MEDIA_TYPE>} pmt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamconfig-setformat
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer value.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_INVALIDMEDIATYPE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This media type is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_NOT_CONNECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The input pin is not connected.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_NOT_STOPPED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Cannot set the type; the filter is not stopped.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_WRONG_STATE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Cannot set the type; the filter is not stopped.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamstreamconfig-setformat
      */
     SetFormat(pmt) {
         result := ComCall(3, this, "ptr", pmt, "HRESULT")
@@ -50,9 +134,9 @@ class IAMStreamConfig extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Pointer<AM_MEDIA_TYPE>} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamconfig-getformat
+     * The GetFormat method retrieves the current or preferred output format.
+     * @returns {Pointer<AM_MEDIA_TYPE>} Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamstreamconfig-getformat
      */
     GetFormat() {
         result := ComCall(4, this, "ptr*", &ppmt := 0, "HRESULT")
@@ -60,11 +144,51 @@ class IAMStreamConfig extends IUnknown{
     }
 
     /**
+     * The GetNumberOfCapabilities method retrieves the number of format capabilities that this pin supports.
+     * @param {Pointer<Integer>} piCount Pointer to a variable that receives the number of format capabilities.
+     * @param {Pointer<Integer>} piSize Pointer to a variable that receives the size of the configuration structure in bytes. See Remarks for more information.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Pointer<Integer>} piCount 
-     * @param {Pointer<Integer>} piSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamconfig-getnumberofcapabilities
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer value.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_NOT_CONNECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The input pin is not connected.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamstreamconfig-getnumberofcapabilities
      */
     GetNumberOfCapabilities(piCount, piSize) {
         piCountMarshal := piCount is VarRef ? "int*" : "ptr"
@@ -75,12 +199,85 @@ class IAMStreamConfig extends IUnknown{
     }
 
     /**
+     * The GetStreamCaps method retrieves a set of format capabilities.
+     * @param {Integer} iIndex Specifies the format capability to retrieve, indexed from zero. To determine the number of capabilities that the pin supports, call the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamstreamconfig-getnumberofcapabilities">IAMStreamConfig::GetNumberOfCapabilities</a> method.
+     * @param {Pointer<Pointer<AM_MEDIA_TYPE>>} ppmt Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure. The method allocates the structure and fills it with a media type.
+     * @param {Pointer<Integer>} pSCC Pointer to a byte array allocated by the caller. For video, use the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-video_stream_config_caps">VIDEO_STREAM_CONFIG_CAPS</a> structure (see Remarks). For audio, use the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-audio_stream_config_caps">AUDIO_STREAM_CONFIG_CAPS</a> structure. To determine the required size of the array, call the <b>GetNumberOfCapabilities</b> method. The size is returned in the <i>piSize</i> parameter.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
-     * @param {Integer} iIndex 
-     * @param {Pointer<Pointer<AM_MEDIA_TYPE>>} ppmt 
-     * @param {Pointer<Integer>} pSCC 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamstreamconfig-getstreamcaps
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Specified index is too high.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid index.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <b>NULL</b> pointer value.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_NOT_CONNECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The input pin is not connected.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamstreamconfig-getstreamcaps
      */
     GetStreamCaps(iIndex, ppmt, pSCC) {
         ppmtMarshal := ppmt is VarRef ? "ptr*" : "ptr"

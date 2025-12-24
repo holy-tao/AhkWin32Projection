@@ -30,6 +30,20 @@ class ISchemaParticle extends ISchemaItem{
     static VTableNames => ["get_minOccurs", "get_maxOccurs"]
 
     /**
+     * @type {VARIANT} 
+     */
+    minOccurs {
+        get => this.get_minOccurs()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    maxOccurs {
+        get => this.get_maxOccurs()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

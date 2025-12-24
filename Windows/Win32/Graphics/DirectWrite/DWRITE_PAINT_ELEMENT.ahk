@@ -11,13 +11,13 @@
  */
 class DWRITE_PAINT_ELEMENT extends Win32Struct
 {
-    static sizeof => 208
+    static sizeof => 240
 
-    static packingSize => 4
+    static packingSize => 8
 
     class PAINT_UNION extends Win32Struct {
-        static sizeof => 204
-        static packingSize => 4
+        static sizeof => 232
+        static packingSize => 8
 
         class PAINT_LAYERS extends Win32Struct {
             static sizeof => 4
@@ -34,8 +34,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_SOLID_GLYPH extends Win32Struct {
-            static sizeof => 32
-            static packingSize => 4
+            static sizeof => 40
+            static packingSize => 8
     
             /**
              * @type {Integer}
@@ -51,7 +51,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
             color{
                 get {
                     if(!this.HasProp("__color"))
-                        this.__color := DWRITE_PAINT_COLOR(4, this)
+                        this.__color := DWRITE_PAINT_COLOR(8, this)
                     return this.__color
                 }
             }
@@ -267,8 +267,8 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
         }
     
         class PAINT_COLOR_GLYPH extends Win32Struct {
-            static sizeof => 20
-            static packingSize => 4
+            static sizeof => 24
+            static packingSize => 8
     
             /**
              * @type {Integer}
@@ -284,7 +284,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
             clipBox{
                 get {
                     if(!this.HasProp("__clipBox"))
-                        this.__clipBox := D2D_RECT_F(4, this)
+                        this.__clipBox := D2D_RECT_F(8, this)
                     return this.__clipBox
                 }
             }
@@ -431,7 +431,7 @@ class DWRITE_PAINT_ELEMENT extends Win32Struct
     paint{
         get {
             if(!this.HasProp("__paint"))
-                this.__paint := %this.__Class%.PAINT_UNION(4, this)
+                this.__paint := %this.__Class%.PAINT_UNION(8, this)
             return this.__paint
         }
     }

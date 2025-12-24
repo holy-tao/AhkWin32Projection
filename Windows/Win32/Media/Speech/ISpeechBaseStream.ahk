@@ -31,6 +31,13 @@ class ISpeechBaseStream extends IDispatch{
     static VTableNames => ["get_Format", "putref_Format", "Read", "Write", "Seek"]
 
     /**
+     * @type {ISpeechAudioFormat} 
+     */
+    Format {
+        get => this.get_Format()
+    }
+
+    /**
      * 
      * @returns {ISpeechAudioFormat} 
      */

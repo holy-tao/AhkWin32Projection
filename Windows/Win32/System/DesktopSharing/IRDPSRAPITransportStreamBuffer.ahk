@@ -31,6 +31,52 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
     static VTableNames => ["get_Storage", "get_StorageSize", "get_PayloadSize", "put_PayloadSize", "get_PayloadOffset", "put_PayloadOffset", "get_Flags", "put_Flags", "get_Context", "put_Context"]
 
     /**
+     * @type {Pointer<Integer>} 
+     */
+    Storage {
+        get => this.get_Storage()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StorageSize {
+        get => this.get_StorageSize()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PayloadSize {
+        get => this.get_PayloadSize()
+        set => this.put_PayloadSize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PayloadOffset {
+        get => this.get_PayloadOffset()
+        set => this.put_PayloadOffset(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Flags {
+        get => this.get_Flags()
+        set => this.put_Flags(value)
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    Context {
+        get => this.get_Context()
+        set => this.put_Context(value)
+    }
+
+    /**
      * 
      * @returns {Pointer<Integer>} 
      */
@@ -106,9 +152,9 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
     }
 
     /**
-     * 
+     * This property is reserved for use by the Remote Desktop Protocol (RDP) stack. Do not modify it.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-get_context
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-get_context
      */
     get_Context() {
         result := ComCall(11, this, "ptr*", &ppContext := 0, "HRESULT")
@@ -116,10 +162,10 @@ class IRDPSRAPITransportStreamBuffer extends IUnknown{
     }
 
     /**
-     * 
+     * This property is reserved for use by the Remote Desktop Protocol (RDP) stack. Do not modify it.
      * @param {IUnknown} pContext 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-put_context
+     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstreambuffer-put_context
      */
     put_Context(pContext) {
         result := ComCall(12, this, "ptr", pContext, "HRESULT")

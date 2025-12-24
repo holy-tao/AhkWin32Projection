@@ -32,10 +32,28 @@ class IWSDUdpMessageParameters extends IWSDMessageParameters{
     static VTableNames => ["SetRetransmitParams", "GetRetransmitParams"]
 
     /**
+     * Sets the values that WSD uses to determine how often to repeat the message transmission.
+     * @param {Pointer<WSDUdpRetransmitParams>} pParams Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsdudpretransmitparams">WSDUdpRetransmitParams</a> structure. The structure contains values that determine how often WSD repeats the message transmission.
+     * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
-     * @param {Pointer<WSDUdpRetransmitParams>} pParams 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpmessageparameters-setretransmitparams
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpmessageparameters-setretransmitparams
      */
     SetRetransmitParams(pParams) {
         result := ComCall(8, this, "ptr", pParams, "HRESULT")
@@ -43,9 +61,9 @@ class IWSDUdpMessageParameters extends IWSDMessageParameters{
     }
 
     /**
-     * 
-     * @returns {WSDUdpRetransmitParams} 
-     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdudpmessageparameters-getretransmitparams
+     * Retrieves the values that WSD uses to determine how often to repeat the message transmission.
+     * @returns {WSDUdpRetransmitParams} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdbase/ns-wsdbase-wsdudpretransmitparams">WSDUdpRetransmitParams</a> structure. The structure contains values that determine how often WSD repeats the message transmission.
+     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdudpmessageparameters-getretransmitparams
      */
     GetRetransmitParams() {
         pParams := WSDUdpRetransmitParams()

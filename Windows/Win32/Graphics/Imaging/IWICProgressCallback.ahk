@@ -31,12 +31,20 @@ class IWICProgressCallback extends IUnknown{
     static VTableNames => ["Notify"]
 
     /**
+     * Notify method is documented only for compliance; its use is not recommended and may be altered or unavailable in the future. Instead, and use RegisterProgressNotification.
+     * @param {Integer} uFrameNum Type: <b>ULONG</b>
      * 
-     * @param {Integer} uFrameNum 
-     * @param {Integer} operation 
-     * @param {Float} dblProgress 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicprogresscallback-notify
+     * The current frame number.
+     * @param {Integer} operation Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicprogressoperation">WICProgressOperation</a></b>
+     * 
+     * The operation on which progress is being reported.
+     * @param {Float} dblProgress Type: <b>double</b>
+     * 
+     * The progress value ranging from is 0.0 to 1.0. 0.0 indicates the beginning of the operation. 1.0 indicates the end of the operation.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicprogresscallback-notify
      */
     Notify(uFrameNum, operation, dblProgress) {
         result := ComCall(3, this, "uint", uFrameNum, "int", operation, "double", dblProgress, "HRESULT")

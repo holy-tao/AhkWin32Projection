@@ -31,6 +31,13 @@ class IHTMLPersistDataOM extends IDispatch{
     static VTableNames => ["get_XMLDocument", "getAttribute", "setAttribute", "removeAttribute"]
 
     /**
+     * @type {IDispatch} 
+     */
+    XMLDocument {
+        get => this.get_XMLDocument()
+    }
+
+    /**
      * 
      * @returns {IDispatch} 
      */

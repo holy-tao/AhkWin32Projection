@@ -38,6 +38,34 @@ class IADsResource extends IADs{
     static VTableNames => ["get_User", "get_UserPath", "get_Path", "get_LockCount"]
 
     /**
+     * @type {BSTR} 
+     */
+    User {
+        get => this.get_User()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserPath {
+        get => this.get_UserPath()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    LockCount {
+        get => this.get_LockCount()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

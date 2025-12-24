@@ -36,9 +36,18 @@ class ITRendezvous extends IDispatch{
     static VTableNames => ["get_DefaultDirectories", "EnumerateDefaultDirectories", "CreateDirectory", "CreateDirectoryObject"]
 
     /**
-     * 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itrendezvous-get_defaultdirectories
+     * @type {VARIANT} 
+     */
+    DefaultDirectories {
+        get => this.get_DefaultDirectories()
+    }
+
+    /**
+     * The get_DefaultDirectories method enumerates all configured default directories. This method is similar to EnumerateDefaultDirectories but is provided for use by Visual Basic and other scripting languages.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> that will receive an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-itdirectory">ITDirectory</a> interface pointers.
+     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itrendezvous-get_defaultdirectories
      */
     get_DefaultDirectories() {
         pVariant := VARIANT()
@@ -47,9 +56,10 @@ class ITRendezvous extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IEnumDirectory} 
-     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itrendezvous-enumeratedefaultdirectories
+     * The EnumerateDefaultDirectories method enumerates all configured default directories. This method is similar to get_DefaultDirectories but is designed for C/C++.
+     * @returns {IEnumDirectory} Pointer to receive 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-ienumdirectory">IEnumDirectory</a> enumerator listing default directories.
+     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itrendezvous-enumeratedefaultdirectories
      */
     EnumerateDefaultDirectories() {
         result := ComCall(8, this, "ptr*", &ppEnumDirectory := 0, "HRESULT")
@@ -57,11 +67,13 @@ class ITRendezvous extends IDispatch{
     }
 
     /**
-     * Creates a new directory.
-     * @param {Integer} DirectoryType 
-     * @param {BSTR} pName 
-     * @returns {ITDirectory} 
-     * @see https://docs.microsoft.com/windows/win32/api//winbase/nf-winbase-createdirectory
+     * The CreateDirectory method creates an ITDirectory object corresponding to a directory of the given type and name.
+     * @param {Integer} DirectoryType The type of the directory. See 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/ne-rend-directory_type">DIRECTORY_TYPE</a>.
+     * @param {BSTR} pName Pointer to a <b>BSTR</b> containing the name of the directory to be created.
+     * @returns {ITDirectory} Pointer to receive an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-itdirectory">ITDirectory</a> object of the type specified above.
+     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itrendezvous-createdirectory
      */
     CreateDirectory(DirectoryType, pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName
@@ -71,11 +83,13 @@ class ITRendezvous extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} DirectoryObjectType 
-     * @param {BSTR} pName 
-     * @returns {ITDirectoryObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itrendezvous-createdirectoryobject
+     * The CreateDirectoryObject method creates a new ITDirectoryObject object.
+     * @param {Integer} DirectoryObjectType The type of the object. See 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/ne-rend-directory_object_type">DIRECTORY_OBJECT_TYPE</a>.
+     * @param {BSTR} pName Pointer to a <b>BSTR</b> containing the name of the object.
+     * @returns {ITDirectoryObject} Pointer to receive the interface pointer for the newly created 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-itdirectoryobject">ITDirectoryObject</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itrendezvous-createdirectoryobject
      */
     CreateDirectoryObject(DirectoryObjectType, pName) {
         pName := pName is String ? BSTR.Alloc(pName).Value : pName

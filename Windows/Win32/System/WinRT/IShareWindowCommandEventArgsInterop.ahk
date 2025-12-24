@@ -32,9 +32,9 @@ class IShareWindowCommandEventArgsInterop extends IUnknown{
     static VTableNames => ["GetWindow"]
 
     /**
-     * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
+     * 
      * @returns {HWND} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
+     * @see https://learn.microsoft.com/windows/win32/api/sharewindowcommandsourceinterop/nf-sharewindowcommandsourceinterop-isharewindowcommandeventargsinterop-getwindow
      */
     GetWindow() {
         value := HWND()

@@ -30,6 +30,34 @@ class ISClusScsiAddress extends IDispatch{
     static VTableNames => ["get_PortNumber", "get_PathId", "get_TargetId", "get_Lun"]
 
     /**
+     * @type {VARIANT} 
+     */
+    PortNumber {
+        get => this.get_PortNumber()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PathId {
+        get => this.get_PathId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    TargetId {
+        get => this.get_TargetId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Lun {
+        get => this.get_Lun()
+    }
+
+    /**
      * 
      * @returns {VARIANT} 
      */

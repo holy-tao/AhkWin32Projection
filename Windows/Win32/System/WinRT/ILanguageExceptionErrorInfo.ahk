@@ -31,9 +31,9 @@ class ILanguageExceptionErrorInfo extends IUnknown{
     static VTableNames => ["GetLanguageException"]
 
     /**
-     * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo-getlanguageexception
+     * Gets the stored IUnknown object from the error object.
+     * @returns {IUnknown} The stored <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> object from the error object.
+     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-ilanguageexceptionerrorinfo-getlanguageexception
      */
     GetLanguageException() {
         result := ComCall(3, this, "ptr*", &languageException := 0, "HRESULT")

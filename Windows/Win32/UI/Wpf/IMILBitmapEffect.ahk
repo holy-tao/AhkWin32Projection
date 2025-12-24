@@ -38,11 +38,17 @@ class IMILBitmapEffect extends IUnknown{
     static VTableNames => ["GetOutput", "GetParentEffect", "SetInputSource"]
 
     /**
+     * Gets the output of the effect.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @param {IMILBitmapEffectRenderContext} pContext 
-     * @returns {IWICBitmapSource} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffect-getoutput
+     * The output index.
+     * @param {IMILBitmapEffectRenderContext} pContext Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectrendercontext">IMILBitmapEffectRenderContext</a>*</b>
+     * 
+     * A pointer to the render context of the effect.
+     * @returns {IWICBitmapSource} Type: <b>IWICBitmapSource**</b>
+     * 
+     * A pointer that receives a pointer to the effect's output.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffect-getoutput
      */
     GetOutput(uiIndex, pContext) {
         result := ComCall(3, this, "uint", uiIndex, "ptr", pContext, "ptr*", &ppBitmapSource := 0, "HRESULT")
@@ -50,9 +56,11 @@ class IMILBitmapEffect extends IUnknown{
     }
 
     /**
+     * Gets a parent of the effect.
+     * @returns {IMILBitmapEffectGroup} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectgroup">IMILBitmapEffectGroup</a>**</b>
      * 
-     * @returns {IMILBitmapEffectGroup} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffect-getparenteffect
+     * A pointer that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectgroup">IMILBitmapEffectGroup</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffect-getparenteffect
      */
     GetParentEffect() {
         result := ComCall(4, this, "ptr*", &ppParentEffect := 0, "HRESULT")
@@ -60,11 +68,17 @@ class IMILBitmapEffect extends IUnknown{
     }
 
     /**
+     * Sets the effect input source.
+     * @param {Integer} uiIndex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uiIndex 
-     * @param {IWICBitmapSource} pBitmapSource 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffect-setinputsource
+     * The input index.
+     * @param {IWICBitmapSource} pBitmapSource Type: <b>IWICBitmapSource*</b>
+     * 
+     * A pointer to the effect's bitmap source.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffect-setinputsource
      */
     SetInputSource(uiIndex, pBitmapSource) {
         result := ComCall(5, this, "uint", uiIndex, "ptr", pBitmapSource, "HRESULT")

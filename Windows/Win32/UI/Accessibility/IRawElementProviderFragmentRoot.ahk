@@ -38,11 +38,17 @@ class IRawElementProviderFragmentRoot extends IUnknown{
     static VTableNames => ["ElementProviderFromPoint", "GetFocus"]
 
     /**
+     * Retrieves the provider of the element that is at the specified point in this fragment.
+     * @param {Float} x Type: <b>double</b>
      * 
-     * @param {Float} x 
-     * @param {Float} y 
-     * @returns {IRawElementProviderFragment} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementproviderfragmentroot-elementproviderfrompoint
+     * The horizontal screen coordinate.
+     * @param {Float} y Type: <b>double</b>
+     * 
+     * The vertical screen coordinate.
+     * @returns {IRawElementProviderFragment} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a>**</b>
+     * 
+     * Receives a pointer to the provider of the element at (x, y),	or <b>NULL</b> if none exists. This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderfragmentroot-elementproviderfrompoint
      */
     ElementProviderFromPoint(x, y) {
         result := ComCall(3, this, "double", x, "double", y, "ptr*", &pRetVal := 0, "HRESULT")
@@ -50,9 +56,14 @@ class IRawElementProviderFragmentRoot extends IUnknown{
     }
 
     /**
-     * Retrieves the handle to the window that has the keyboard focus, if the window is attached to the calling thread's message queue.
-     * @returns {IRawElementProviderFragment} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getfocus
+     * Retrieves the element in this fragment that has the input focus.
+     * @returns {IRawElementProviderFragment} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a>**</b>
+     * 
+     * Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a> 
+     *                 interface of the
+     * 				element in this fragment that has the input focus, if any; otherwise <b>NULL</b>. 
+     * 				This parameter is passed uninitialized.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementproviderfragmentroot-getfocus
      */
     GetFocus() {
         result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")

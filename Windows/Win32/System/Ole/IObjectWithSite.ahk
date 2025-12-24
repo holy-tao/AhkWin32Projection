@@ -31,10 +31,10 @@ class IObjectWithSite extends IUnknown{
     static VTableNames => ["SetSite", "GetSite"]
 
     /**
-     * 
-     * @param {IUnknown} pUnkSite 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iobjectwithsite-setsite
+     * Enables a container to pass an object a pointer to the interface for its site.
+     * @param {IUnknown} pUnkSite A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer of the site managing this object. If <b>NULL</b>, the object should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on any existing site at which point the object no longer knows its site.
+     * @returns {HRESULT} This method returns S_OK on success.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iobjectwithsite-setsite
      */
     SetSite(pUnkSite) {
         result := ComCall(3, this, "ptr", pUnkSite, "HRESULT")
@@ -42,10 +42,10 @@ class IObjectWithSite extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iobjectwithsite-getsite
+     * Retrieves the latest site passed using SetSite.
+     * @param {Pointer<Guid>} riid The IID of the interface pointer that should be returned in <i>ppvSite</i>.
+     * @returns {Pointer<Void>} Address of pointer variable that receives the interface pointer requested in <i>riid</i>. Upon successful return, *<i>ppvSite</i> contains the requested interface pointer to the site last seen in <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iobjectwithsite-setsite">SetSite</a>. The specific interface returned depends on the <i>riid</i> argument. In essence, the two arguments act identically to those in <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a>. If the appropriate interface pointer is available, the object must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on that pointer before returning successfully. If no site is available, or the requested interface is not supported, this method must *<i>ppvSite</i> to <b>NULL</b> and return a failure code.
+     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-iobjectwithsite-getsite
      */
     GetSite(riid) {
         result := ComCall(4, this, "ptr", riid, "ptr*", &ppvSite := 0, "HRESULT")

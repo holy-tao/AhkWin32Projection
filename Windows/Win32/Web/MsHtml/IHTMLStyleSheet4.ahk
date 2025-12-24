@@ -34,6 +34,55 @@ class IHTMLStyleSheet4 extends IDispatch{
     static VTableNames => ["get_type", "get_href", "get_title", "get_ownerNode", "get_ownerRule", "get_cssRules", "get_media", "insertRule", "deleteRule"]
 
     /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    href {
+        get => this.get_href()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    title {
+        get => this.get_title()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    ownerNode {
+        get => this.get_ownerNode()
+    }
+
+    /**
+     * @type {IHTMLCSSRule} 
+     */
+    ownerRule {
+        get => this.get_ownerRule()
+    }
+
+    /**
+     * @type {IHTMLStyleSheetRulesCollection} 
+     */
+    cssRules {
+        get => this.get_cssRules()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    media {
+        get => this.get_media()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

@@ -30,6 +30,14 @@ class IHTMLOptionElement4 extends IDispatch{
     static VTableNames => ["put_value", "get_value"]
 
     /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

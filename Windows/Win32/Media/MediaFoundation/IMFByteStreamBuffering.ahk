@@ -67,10 +67,28 @@ class IMFByteStreamBuffering extends IUnknown{
     static VTableNames => ["SetBufferingParams", "EnableBuffering", "StopBuffering"]
 
     /**
+     * Sets the buffering parameters.
+     * @param {Pointer<MFBYTESTREAM_BUFFERING_PARAMS>} pParams Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ns-mfidl-mfbytestream_buffering_params">MFBYTESTREAM_BUFFERING_PARAMS</a> structure that contains the buffering parameters. The byte stream uses this information to calculate how much data to buffer from the network.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<MFBYTESTREAM_BUFFERING_PARAMS>} pParams 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreambuffering-setbufferingparams
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreambuffering-setbufferingparams
      */
     SetBufferingParams(pParams) {
         result := ComCall(3, this, "ptr", pParams, "HRESULT")
@@ -78,10 +96,28 @@ class IMFByteStreamBuffering extends IUnknown{
     }
 
     /**
+     * Enables or disables buffering.
+     * @param {BOOL} fEnable Specifies whether the byte stream buffers data. If <b>TRUE</b>, buffering is enabled. If <b>FALSE</b>, buffering is disabled.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BOOL} fEnable 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreambuffering-enablebuffering
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreambuffering-enablebuffering
      */
     EnableBuffering(fEnable) {
         result := ComCall(4, this, "int", fEnable, "HRESULT")
@@ -89,9 +125,38 @@ class IMFByteStreamBuffering extends IUnknown{
     }
 
     /**
+     * Stops any buffering that is in progress.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfbytestreambuffering-stopbuffering
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The byte stream successfully stopped buffering.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * No buffering was in progress.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfbytestreambuffering-stopbuffering
      */
     StopBuffering() {
         result := ComCall(5, this, "HRESULT")

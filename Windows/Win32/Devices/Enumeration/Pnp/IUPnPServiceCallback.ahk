@@ -31,12 +31,13 @@ class IUPnPServiceCallback extends IUnknown{
     static VTableNames => ["StateVariableChanged", "ServiceInstanceDied"]
 
     /**
-     * 
-     * @param {IUPnPService} pus 
-     * @param {PWSTR} pcwszStateVarName 
-     * @param {VARIANT} vaValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservicecallback-statevariablechanged
+     * The StateVariableChanged method is invoked when a state variable has changed.
+     * @param {IUPnPService} pus Reference to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpservice">IUPnPService</a> object that specifies the service about which the UPnP framework is sending the notification.
+     * @param {PWSTR} pcwszStateVarName Reference to a string that specifies the name of the state variable that has changed.
+     * @param {VARIANT} vaValue Specifies the new value. The type of the data returned depends on the data type of the state variable for which the notification is sent.
+     * @returns {HRESULT} The application should return S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpservicecallback-statevariablechanged
      */
     StateVariableChanged(pus, pcwszStateVarName, vaValue) {
         pcwszStateVarName := pcwszStateVarName is String ? StrPtr(pcwszStateVarName) : pcwszStateVarName
@@ -46,10 +47,11 @@ class IUPnPServiceCallback extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IUPnPService} pus 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpservicecallback-serviceinstancedied
+     * The ServiceInstanceDied method is invoked when a service is no longer sending events.
+     * @param {IUPnPService} pus Reference to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpservice">IUPnPService</a> object that specifies the service about which the UPnP framework is sending the notification.
+     * @returns {HRESULT} The application should return S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpservicecallback-serviceinstancedied
      */
     ServiceInstanceDied(pus) {
         result := ComCall(4, this, "ptr", pus, "HRESULT")

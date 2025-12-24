@@ -37,11 +37,13 @@ class ITSGAccountingEngine extends IUnknown{
     static VTableNames => ["DoAccounting"]
 
     /**
-     * 
-     * @param {Integer} accountingDataType 
-     * @param {AAAccountingData} accountingData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgaccountingengine-doaccounting
+     * Provides information about the creation or closing of sessions for a connection.
+     * @param {Integer} accountingDataType A value of the <a href="https://docs.microsoft.com/windows/win32/api/tsgpolicyengine/ns-tsgpolicyengine-aaaccountingdata">AAAccountingDataType</a> 
+     *       enumeration type that specifies the type of event that occurred.
+     * @param {AAAccountingData} accountingData An <a href="https://docs.microsoft.com/windows/win32/api/tsgpolicyengine/ns-tsgpolicyengine-aaaccountingdata">AAAccountingData</a> structure that contains 
+     *        information about the event that occurred.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/nf-tsgpolicyengine-itsgaccountingengine-doaccounting
      */
     DoAccounting(accountingDataType, accountingData) {
         result := ComCall(3, this, "int", accountingDataType, "ptr", accountingData, "HRESULT")

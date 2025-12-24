@@ -31,10 +31,28 @@ class IWMPControls2 extends IWMPControls{
     static VTableNames => ["step"]
 
     /**
+     * The step method causes the current video media item to freeze playback on the next frame or the previous frame.
+     * @param {Integer} lStep <b>long</b> indicating how many frames to step before freezing. Must be set to 1 or -1.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lStep 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcontrols2-step
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcontrols2-step
      */
     step(lStep) {
         result := ComCall(23, this, "int", lStep, "HRESULT")

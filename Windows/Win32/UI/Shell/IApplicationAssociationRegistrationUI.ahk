@@ -42,10 +42,14 @@ class IApplicationAssociationRegistrationUI extends IUnknown{
     static VTableNames => ["LaunchAdvancedAssociationUI"]
 
     /**
+     * Launches an advanced association dialog box through which the user can customize the associations for the application specified in pszAppRegName.
+     * @param {PWSTR} pszAppRegistryName Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszAppRegistryName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iapplicationassociationregistrationui-launchadvancedassociationui
+     * A pointer to a null-terminated Unicode string that specifies the registered name of the application. This value is only valid if it matches one of the application strings registered under <b>HKCU\Software\RegisteredApplications</b> or under <b>HKLM\Software\RegisteredApplications</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iapplicationassociationregistrationui-launchadvancedassociationui
      */
     LaunchAdvancedAssociationUI(pszAppRegistryName) {
         pszAppRegistryName := pszAppRegistryName is String ? StrPtr(pszAppRegistryName) : pszAppRegistryName

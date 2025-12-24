@@ -41,14 +41,15 @@ class IPhraseSink extends IUnknown{
     static VTableNames => ["PutSmallPhrase", "PutPhrase"]
 
     /**
-     * 
-     * @param {PWSTR} pwcNoun 
-     * @param {Integer} cwcNoun 
-     * @param {PWSTR} pwcModifier 
-     * @param {Integer} cwcModifier 
-     * @param {Integer} ulAttachmentType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-iphrasesink-putsmallphrase
+     * Puts a small query-time phrase in the IPhraseSink object for WordBreaker.
+     * @param {PWSTR} pwcNoun A pointer to a buffer that contains a word being modified.
+     * @param {Integer} cwcNoun The number of characters in <i>pwcNoun</i>. There is no limit on the size of a query-time phrase.
+     * @param {PWSTR} pwcModifier A pointer to the word modifying <i>pwcNoun</i>.
+     * @param {Integer} cwcModifier The number of characters in <i>pwcModifier</i>. There is no limit on the size of a query-time phrase.
+     * @param {Integer} ulAttachmentType A wordbreaker-specific value which a 
+     *  wordbreaker can use to store additional information about the method of composition.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-iphrasesink-putsmallphrase
      */
     PutSmallPhrase(pwcNoun, cwcNoun, pwcModifier, cwcModifier, ulAttachmentType) {
         pwcNoun := pwcNoun is String ? StrPtr(pwcNoun) : pwcNoun
@@ -59,11 +60,41 @@ class IPhraseSink extends IUnknown{
     }
 
     /**
+     * Puts a query-time phrase in the IPhraseSink object.
+     * @param {PWSTR} pwcPhrase A pointer to a buffer that contains a phrase.
+     * @param {Integer} cwcPhrase The number of characters in <i>pwcPhrase</i>. There is no limit on the size of a query-time phrase.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {PWSTR} pwcPhrase 
-     * @param {Integer} cwcPhrase 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-iphrasesink-putphrase
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation was completed successfully. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>PSINK_E_QUERY_ONLY </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="/windows/desktop/api/indexsrv/nf-indexsrv-iphrasesink-putphrase">PutPhrase</a> was called at index time instead of query time.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-iphrasesink-putphrase
      */
     PutPhrase(pwcPhrase, cwcPhrase) {
         pwcPhrase := pwcPhrase is String ? StrPtr(pwcPhrase) : pwcPhrase

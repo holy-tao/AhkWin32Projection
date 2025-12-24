@@ -31,9 +31,9 @@ class IXpsOMBrush extends IXpsOMShareable{
     static VTableNames => ["GetOpacity", "SetOpacity"]
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsombrush-getopacity
+     * Gets the opacity of the brush.
+     * @returns {Float} The opacity value of the brush.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsombrush-getopacity
      */
     GetOpacity() {
         result := ComCall(5, this, "float*", &opacity := 0, "HRESULT")
@@ -41,10 +41,39 @@ class IXpsOMBrush extends IXpsOMShareable{
     }
 
     /**
+     * Sets the opacity of the brush.
+     * @param {Float} opacity The opacity value of the brush.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
-     * @param {Float} opacity 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsombrush-setopacity
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>opacity</i> is not a valid value. See the Remarks section.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsombrush-setopacity
      */
     SetOpacity(opacity) {
         result := ComCall(6, this, "float", opacity, "HRESULT")

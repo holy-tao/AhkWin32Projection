@@ -31,6 +31,34 @@ class IRTCSessionReferredEvent extends IDispatch{
     static VTableNames => ["get_Session", "get_ReferredByURI", "get_ReferToURI", "get_ReferCookie", "Accept", "Reject", "SetReferredSessionState"]
 
     /**
+     * @type {IRTCSession2} 
+     */
+    Session {
+        get => this.get_Session()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReferredByURI {
+        get => this.get_ReferredByURI()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReferToURI {
+        get => this.get_ReferToURI()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ReferCookie {
+        get => this.get_ReferCookie()
+    }
+
+    /**
      * 
      * @returns {IRTCSession2} 
      */

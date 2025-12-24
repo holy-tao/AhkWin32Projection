@@ -31,11 +31,29 @@ class IMFObjectReferenceStream extends IUnknown{
     static VTableNames => ["SaveReference", "LoadReference"]
 
     /**
+     * Stores the data needed to marshal an interface across a process boundary.
+     * @param {Pointer<Guid>} riid Interface identifier of the interface to marshal.
+     * @param {IUnknown} pUnk Pointer to the <b>IUnknown</b> interface.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Guid>} riid 
-     * @param {IUnknown} pUnk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfobjectreferencestream-savereference
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfobjectreferencestream-savereference
      */
     SaveReference(riid, pUnk) {
         result := ComCall(3, this, "ptr", riid, "ptr", pUnk, "HRESULT")
@@ -43,10 +61,10 @@ class IMFObjectReferenceStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfobjectreferencestream-loadreference
+     * Marshals an interface from data stored in the stream.
+     * @param {Pointer<Guid>} riid Interface identifier of the interface to marshal.
+     * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfobjectreferencestream-loadreference
      */
     LoadReference(riid) {
         result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

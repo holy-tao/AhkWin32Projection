@@ -38,9 +38,11 @@ class IPersistFolder2 extends IPersistFolder{
     static VTableNames => ["GetCurFolder"]
 
     /**
+     * Gets the ITEMIDLIST for the folder object.
+     * @returns {Pointer<ITEMIDLIST>} Type: <b>LPITEMIDLIST*</b>
      * 
-     * @returns {Pointer<ITEMIDLIST>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipersistfolder2-getcurfolder
+     * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> pointer. This PIDL represents the absolute location of the folder and must be relative to the desktop. This is typically a copy of the PIDL passed to <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipersistfolder-initialize">Initialize</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipersistfolder2-getcurfolder
      */
     GetCurFolder() {
         result := ComCall(5, this, "ptr*", &ppidl := 0, "HRESULT")

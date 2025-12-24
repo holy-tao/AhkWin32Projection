@@ -32,9 +32,11 @@ class ISyncMgrConflictResolutionItems extends IUnknown{
     static VTableNames => ["GetCount", "GetItem"]
 
     /**
+     * Gets item count.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolutionitems-getcount
+     * A pointer to an item count.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolutionitems-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pCount := 0, "HRESULT")
@@ -42,10 +44,14 @@ class ISyncMgrConflictResolutionItems extends IUnknown{
     }
 
     /**
+     * Gets result information for a specified item, when successful.
+     * @param {Integer} iIndex Type: <b>UINT</b>
      * 
-     * @param {Integer} iIndex 
-     * @returns {CONFIRM_CONFLICT_RESULT_INFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictresolutionitems-getitem
+     * The index of the item.
+     * @returns {CONFIRM_CONFLICT_RESULT_INFO} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-confirm_conflict_result_info">CONFIRM_CONFLICT_RESULT_INFO</a>*</b>
+     * 
+     * On success, contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/ns-syncmgr-confirm_conflict_result_info">CONFIRM_CONFLICT_RESULT_INFO</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictresolutionitems-getitem
      */
     GetItem(iIndex) {
         pItemInfo := CONFIRM_CONFLICT_RESULT_INFO()

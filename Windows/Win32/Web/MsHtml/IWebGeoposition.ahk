@@ -36,6 +36,20 @@ class IWebGeoposition extends IDispatch{
     static VTableNames => ["get_coords", "get_timestamp"]
 
     /**
+     * @type {IWebGeocoordinates} 
+     */
+    coords {
+        get => this.get_coords()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    timestamp {
+        get => this.get_timestamp()
+    }
+
+    /**
      * 
      * @returns {IWebGeocoordinates} 
      */

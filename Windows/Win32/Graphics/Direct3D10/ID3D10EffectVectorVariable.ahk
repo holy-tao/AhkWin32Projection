@@ -31,10 +31,14 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     static VTableNames => ["SetBoolVector", "SetIntVector", "SetFloatVector", "GetBoolVector", "GetIntVector", "GetFloatVector", "SetBoolVectorArray", "SetIntVectorArray", "SetFloatVectorArray", "GetBoolVectorArray", "GetIntVectorArray", "GetFloatVectorArray"]
 
     /**
+     * Set a four-component vector that contains boolean data.
+     * @param {Pointer<BOOL>} pData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @param {Pointer<BOOL>} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setboolvector
+     * A pointer to the first component.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setboolvector
      */
     SetBoolVector(pData) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
@@ -44,10 +48,14 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Set a four-component vector that contains integer data.
+     * @param {Pointer<Integer>} pData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">int</a>*</b>
      * 
-     * @param {Pointer<Integer>} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setintvector
+     * A pointer to the first component.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setintvector
      */
     SetIntVector(pData) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
@@ -57,10 +65,14 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Set a four-component vector that contains floating-point data.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setfloatvector
+     * A pointer to the first component.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setfloatvector
      */
     SetFloatVector(pData) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
@@ -70,10 +82,14 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get a four-component vector that contains boolean data.
+     * @param {Pointer<BOOL>} pData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @param {Pointer<BOOL>} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getboolvector
+     * A pointer to the first component.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getboolvector
      */
     GetBoolVector(pData) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
@@ -83,10 +99,14 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get a four-component vector that contains integer data.
+     * @param {Pointer<Integer>} pData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">int</a>*</b>
      * 
-     * @param {Pointer<Integer>} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getintvector
+     * A pointer to the first component.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getintvector
      */
     GetIntVector(pData) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
@@ -96,10 +116,14 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get a four-component vector that contains floating-point data.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getfloatvector
+     * A pointer to the first component.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getfloatvector
      */
     GetFloatVector(pData) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
@@ -109,12 +133,20 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Set an array of four-component vectors that contain boolean data.
+     * @param {Pointer<BOOL>} pData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @param {Pointer<BOOL>} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setboolvectorarray
+     * A pointer to the start of the data to set.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Must be set to 0; this is reserved for future use.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of array elements to set.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setboolvectorarray
      */
     SetBoolVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
@@ -124,12 +156,20 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Set an array of four-component vectors that contain integer data.
+     * @param {Pointer<Integer>} pData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">int</a>*</b>
      * 
-     * @param {Pointer<Integer>} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setintvectorarray
+     * A pointer to the start of the data to set.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Must be set to 0; this is reserved for future use.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of array elements to set.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setintvectorarray
      */
     SetIntVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
@@ -139,12 +179,20 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Set an array of four-component vectors that contain floating-point data.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setfloatvectorarray
+     * A pointer to the start of the data to set.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Must be set to 0; this is reserved for future use.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of array elements to set.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-setfloatvectorarray
      */
     SetFloatVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"
@@ -154,12 +202,20 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get an array of four-component vectors that contain boolean data.
+     * @param {Pointer<BOOL>} pData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
-     * @param {Pointer<BOOL>} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getboolvectorarray
+     * A pointer to the start of the data to set.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Must be set to 0; this is reserved for future use.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of array elements to set.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getboolvectorarray
      */
     GetBoolVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
@@ -169,12 +225,20 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get an array of four-component vectors that contain integer data.
+     * @param {Pointer<Integer>} pData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">int</a>*</b>
      * 
-     * @param {Pointer<Integer>} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getintvectorarray
+     * A pointer to the start of the data to set.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Must be set to 0; this is reserved for future use.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of array elements to set.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getintvectorarray
      */
     GetIntVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "int*" : "ptr"
@@ -184,12 +248,20 @@ class ID3D10EffectVectorVariable extends ID3D10EffectVariable{
     }
 
     /**
+     * Get an array of four-component vectors that contain floating-point data.
+     * @param {Pointer<Float>} pData Type: <b>float*</b>
      * 
-     * @param {Pointer<Float>} pData 
-     * @param {Integer} Offset 
-     * @param {Integer} Count 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getfloatvectorarray
+     * A pointer to the start of the data to set.
+     * @param {Integer} Offset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * Must be set to 0; this is reserved for future use.
+     * @param {Integer} Count Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of array elements to set.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3d10/d3d10-graphics-reference-returnvalues">Direct3D 10 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d10effect/nf-d3d10effect-id3d10effectvectorvariable-getfloatvectorarray
      */
     GetFloatVectorArray(pData, Offset, Count) {
         pDataMarshal := pData is VarRef ? "float*" : "ptr"

@@ -31,9 +31,17 @@ class ITMediaSupport extends IDispatch{
     static VTableNames => ["get_MediaTypes", "QueryMediaType"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediasupport-get_mediatypes
+     * @type {Integer} 
+     */
+    MediaTypes {
+        get => this.get_MediaTypes()
+    }
+
+    /**
+     * The get_MediaTypes method gets the media type or types supported on the current address.
+     * @returns {Integer} Pointer to bitmask of ORed of 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediasupport-get_mediatypes
      */
     get_MediaTypes() {
         result := ComCall(7, this, "int*", &plMediaTypes := 0, "HRESULT")
@@ -41,10 +49,10 @@ class ITMediaSupport extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} lMediaType 
-     * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itmediasupport-querymediatype
+     * The QueryMediaType method indicates whether the service provider associated with the current address supports the media type or types indicated by lMediaType.
+     * @param {Integer} lMediaType <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">Media type</a> or types being queried.
+     * @returns {VARIANT_BOOL} Pointer to a VARIANT_BOOL indicating whether the media type is supported. If the returned value is VARIANT_TRUE, the media is supported; if it is VARIANT_FALSE, the media is not supported.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itmediasupport-querymediatype
      */
     QueryMediaType(lMediaType) {
         result := ComCall(8, this, "int", lMediaType, "short*", &pfSupport := 0, "HRESULT")

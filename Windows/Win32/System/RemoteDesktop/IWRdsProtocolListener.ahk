@@ -36,10 +36,10 @@ class IWRdsProtocolListener extends IUnknown{
     static VTableNames => ["GetSettings", "StartListen", "StopListen"]
 
     /**
-     * 
-     * @param {Integer} WRdsListenerSettingLevel 
-     * @returns {WRDS_LISTENER_SETTINGS} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollistener-getsettings
+     * Gets the listener setting information for client connection requests.
+     * @param {Integer} WRdsListenerSettingLevel The listener setting level to use.
+     * @returns {WRDS_LISTENER_SETTINGS} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/wtsdefs/ns-wtsdefs-wrds_listener_settings">WRDS_LISTENER_SETTINGS</a> structure that contains the returned listener settings.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocollistener-getsettings
      */
     GetSettings(WRdsListenerSettingLevel) {
         pWRdsListenerSettings := WRDS_LISTENER_SETTINGS()
@@ -48,10 +48,19 @@ class IWRdsProtocolListener extends IUnknown{
     }
 
     /**
+     * Notifies the protocol to start listening for client connection requests.
+     * @param {IWRdsProtocolListenerCallback} pCallback A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocollistenercallback">IWRdsProtocolListenerCallback</a> object 
+     * implemented by the Remote Desktop Servicesservice. The protocol uses the 
+     * <b>IWRdsProtocolListenerCallback</b> object to notify 
+     * the 
      * 
-     * @param {IWRdsProtocolListenerCallback} pCallback 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollistener-startlisten
+     * Remote Desktop Services 
+     * service about incoming connection requests. The protocol must add a reference to this object and release it when 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollistener-stoplisten">StopListen</a> is called.
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, 
+     * return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, 
+     * see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocollistener-startlisten
      */
     StartListen(pCallback) {
         result := ComCall(4, this, "ptr", pCallback, "HRESULT")
@@ -59,9 +68,9 @@ class IWRdsProtocolListener extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocollistener-stoplisten
+     * Notifies the protocol to stop listening for client connection requests.
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocollistener-stoplisten
      */
     StopListen() {
         result := ComCall(5, this, "HRESULT")

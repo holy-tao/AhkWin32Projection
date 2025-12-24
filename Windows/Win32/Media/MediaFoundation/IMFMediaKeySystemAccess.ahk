@@ -32,6 +32,20 @@ class IMFMediaKeySystemAccess extends IUnknown{
     static VTableNames => ["CreateMediaKeys", "get_SupportedConfiguration", "get_KeySystem"]
 
     /**
+     * @type {IPropertyStore} 
+     */
+    SupportedConfiguration {
+        get => this.get_SupportedConfiguration()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    KeySystem {
+        get => this.get_KeySystem()
+    }
+
+    /**
      * 
      * @param {IPropertyStore} pCdmCustomConfig 
      * @returns {IMFMediaKeys2} 

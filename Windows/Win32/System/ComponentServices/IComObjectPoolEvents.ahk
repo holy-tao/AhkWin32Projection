@@ -31,14 +31,14 @@ class IComObjectPoolEvents extends IUnknown{
     static VTableNames => ["OnObjPoolPutObject", "OnObjPoolGetObject", "OnObjPoolRecycleToTx", "OnObjPoolGetFromTx"]
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidObject 
-     * @param {Integer} nReason 
-     * @param {Integer} dwAvailable 
-     * @param {Integer} oid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents-onobjpoolputobject
+     * Generated when a new object is added to the pool.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidObject The CLSID for the objects in the pool.
+     * @param {Integer} nReason This parameter is always 0.
+     * @param {Integer} dwAvailable The number of objects in the pool.
+     * @param {Integer} oid The unique identifier for this object.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents-onobjpoolputobject
      */
     OnObjPoolPutObject(pInfo, guidObject, nReason, dwAvailable, oid) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", guidObject, "int", nReason, "uint", dwAvailable, "uint", oid, "HRESULT")
@@ -46,14 +46,14 @@ class IComObjectPoolEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidActivity 
-     * @param {Pointer<Guid>} guidObject 
-     * @param {Integer} dwAvailable 
-     * @param {Integer} oid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents-onobjpoolgetobject
+     * Generated when a non-transactional object is obtained from the pool.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidActivity The activity ID for which the object is created.
+     * @param {Pointer<Guid>} guidObject The CLSID for the objects in the pool.
+     * @param {Integer} dwAvailable The number of objects in the pool.
+     * @param {Integer} oid The unique identifier for this object.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents-onobjpoolgetobject
      */
     OnObjPoolGetObject(pInfo, guidActivity, guidObject, dwAvailable, oid) {
         result := ComCall(4, this, "ptr", pInfo, "ptr", guidActivity, "ptr", guidObject, "uint", dwAvailable, "uint", oid, "HRESULT")
@@ -61,14 +61,14 @@ class IComObjectPoolEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidActivity 
-     * @param {Pointer<Guid>} guidObject 
-     * @param {Pointer<Guid>} guidTx 
-     * @param {Integer} objid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents-onobjpoolrecycletotx
+     * Generated when a transactional object is returned to the pool.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidActivity The activity ID for which the object is created.
+     * @param {Pointer<Guid>} guidObject The CLSID for the objects in the pool.
+     * @param {Pointer<Guid>} guidTx The GUID representing the transaction identifier.
+     * @param {Integer} objid The unique identifier for this object.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents-onobjpoolrecycletotx
      */
     OnObjPoolRecycleToTx(pInfo, guidActivity, guidObject, guidTx, objid) {
         result := ComCall(5, this, "ptr", pInfo, "ptr", guidActivity, "ptr", guidObject, "ptr", guidTx, "uint", objid, "HRESULT")
@@ -76,14 +76,14 @@ class IComObjectPoolEvents extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<COMSVCSEVENTINFO>} pInfo 
-     * @param {Pointer<Guid>} guidActivity 
-     * @param {Pointer<Guid>} guidObject 
-     * @param {Pointer<Guid>} guidTx 
-     * @param {Integer} objid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectpoolevents-onobjpoolgetfromtx
+     * Generated when a transactional object is obtained from the pool.
+     * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
+     * @param {Pointer<Guid>} guidActivity The activity ID for which the object is created.
+     * @param {Pointer<Guid>} guidObject The CLSID for the objects in the pool.
+     * @param {Pointer<Guid>} guidTx The transaction identifier.
+     * @param {Integer} objid The unique identifier for this object.
+     * @returns {HRESULT} The user verifies the return values from this method.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectpoolevents-onobjpoolgetfromtx
      */
     OnObjPoolGetFromTx(pInfo, guidActivity, guidObject, guidTx, objid) {
         result := ComCall(6, this, "ptr", pInfo, "ptr", guidActivity, "ptr", guidObject, "ptr", guidTx, "uint", objid, "HRESULT")

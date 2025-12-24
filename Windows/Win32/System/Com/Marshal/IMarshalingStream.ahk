@@ -36,10 +36,10 @@ class IMarshalingStream extends IStream{
     static VTableNames => ["GetMarshalingContextAttribute"]
 
     /**
-     * 
-     * @param {Integer} attribute 
-     * @returns {Pointer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-imarshalingstream-getmarshalingcontextattribute
+     * Gets information about the marshaling context.
+     * @param {Integer} attribute The attribute to query.
+     * @returns {Pointer} The value of <i>attribute</i>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-imarshalingstream-getmarshalingcontextattribute
      */
     GetMarshalingContextAttribute(attribute) {
         result := ComCall(14, this, "int", attribute, "ptr*", &pAttributeValue := 0, "HRESULT")

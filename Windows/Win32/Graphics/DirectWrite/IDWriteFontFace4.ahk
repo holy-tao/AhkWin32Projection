@@ -31,12 +31,12 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
     static VTableNames => ["GetGlyphImageFormats", "GetGlyphImageFormats1", "GetGlyphImageData", "ReleaseGlyphImageData"]
 
     /**
-     * 
+     * Gets all the glyph image formats supported by the entire font.
      * @param {Integer} glyphId 
      * @param {Integer} pixelsPerEmFirst 
      * @param {Integer} pixelsPerEmLast 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
      */
     GetGlyphImageFormats(glyphId, pixelsPerEmFirst, pixelsPerEmLast) {
         result := ComCall(49, this, "ushort", glyphId, "uint", pixelsPerEmFirst, "uint", pixelsPerEmLast, "int*", &glyphImageFormats := 0, "HRESULT")
@@ -44,9 +44,11 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
     }
 
     /**
+     * Gets all the glyph image formats supported by the entire font.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
+     * Returns all the glyph image formats supported by the entire font.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
      */
     GetGlyphImageFormats1() {
         result := ComCall(50, this, "int")
@@ -54,14 +56,24 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
     }
 
     /**
+     * Gets a pointer to the glyph data based on the desired image format.
+     * @param {Integer} glyphId Type: <b>UINT16</b>
      * 
-     * @param {Integer} glyphId 
-     * @param {Integer} pixelsPerEm 
-     * @param {Integer} glyphImageFormat 
-     * @param {Pointer<DWRITE_GLYPH_IMAGE_DATA>} glyphData 
-     * @param {Pointer<Pointer<Void>>} glyphDataContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimagedata
+     * The ID of the glyph to retrieve image data for.
+     * @param {Integer} pixelsPerEm Type: <b>UINT32</b>
+     * 
+     * Requested pixels per em.
+     * @param {Integer} glyphImageFormat Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
+     * 
+     * Specifies which formats are supported in the font.
+     * @param {Pointer<DWRITE_GLYPH_IMAGE_DATA>} glyphData Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_glyph_image_data">DWRITE_GLYPH_IMAGE_DATA</a>*</b>
+     * 
+     * On return contains data for a glyph.
+     * @param {Pointer<Pointer<Void>>} glyphDataContext Type: <b>void**</b>
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimagedata
      */
     GetGlyphImageData(glyphId, pixelsPerEm, glyphImageFormat, glyphData, glyphDataContext) {
         glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr*" : "ptr"
@@ -71,10 +83,12 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
     }
 
     /**
+     * Releases the table data obtained from ReadGlyphData.
+     * @param {Pointer<Void>} glyphDataContext Type: <b>void*</b>
      * 
-     * @param {Pointer<Void>} glyphDataContext 
+     * Opaque context from ReadGlyphData.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-releaseglyphimagedata
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface4-releaseglyphimagedata
      */
     ReleaseGlyphImageData(glyphDataContext) {
         glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr" : "ptr"

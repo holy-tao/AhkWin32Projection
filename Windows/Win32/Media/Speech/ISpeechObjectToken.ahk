@@ -33,6 +33,27 @@ class ISpeechObjectToken extends IDispatch{
     static VTableNames => ["get_Id", "get_DataKey", "get_Category", "GetDescription", "SetId", "GetAttribute", "CreateInstance", "Remove", "GetStorageFileName", "RemoveStorageFileName", "IsUISupported", "DisplayUI", "MatchesAttributes"]
 
     /**
+     * @type {BSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {ISpeechDataKey} 
+     */
+    DataKey {
+        get => this.get_DataKey()
+    }
+
+    /**
+     * @type {ISpeechObjectTokenCategory} 
+     */
+    Category {
+        get => this.get_Category()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

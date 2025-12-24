@@ -33,6 +33,50 @@ class IXMLElement2 extends IDispatch{
     static VTableNames => ["get_tagName", "put_tagName", "get_parent", "setAttribute", "getAttribute", "removeAttribute", "get_children", "get_type", "get_text", "put_text", "addChild", "removeChild", "get_attributes"]
 
     /**
+     * @type {BSTR} 
+     */
+    tagName {
+        get => this.get_tagName()
+        set => this.put_tagName(value)
+    }
+
+    /**
+     * @type {IXMLElement2} 
+     */
+    parent {
+        get => this.get_parent()
+    }
+
+    /**
+     * @type {IXMLElementCollection} 
+     */
+    children {
+        get => this.get_children()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    type {
+        get => this.get_type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    text {
+        get => this.get_text()
+        set => this.put_text(value)
+    }
+
+    /**
+     * @type {IXMLElementCollection} 
+     */
+    attributes {
+        get => this.get_attributes()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

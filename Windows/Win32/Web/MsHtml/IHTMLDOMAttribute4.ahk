@@ -32,6 +32,64 @@ class IHTMLDOMAttribute4 extends IDispatch{
     static VTableNames => ["put_nodeValue", "get_nodeValue", "get_nodeName", "get_name", "put_value", "get_value", "get_firstChild", "get_lastChild", "get_childNodes", "hasAttributes", "hasChildNodes", "normalize", "get_specified"]
 
     /**
+     * @type {VARIANT} 
+     */
+    nodeValue {
+        get => this.get_nodeValue()
+        set => this.put_nodeValue(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    nodeName {
+        get => this.get_nodeName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    value {
+        get => this.get_value()
+        set => this.put_value(value)
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    firstChild {
+        get => this.get_firstChild()
+    }
+
+    /**
+     * @type {IHTMLDOMNode} 
+     */
+    lastChild {
+        get => this.get_lastChild()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    childNodes {
+        get => this.get_childNodes()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    specified {
+        get => this.get_specified()
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

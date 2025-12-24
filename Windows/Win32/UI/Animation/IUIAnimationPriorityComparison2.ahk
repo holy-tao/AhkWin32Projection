@@ -40,12 +40,41 @@ class IUIAnimationPriorityComparison2 extends IUnknown{
     static VTableNames => ["HasPriority"]
 
     /**
+     * Determines the relative priority between a scheduled storyboard and a new storyboard.
+     * @param {IUIAnimationStoryboard2} scheduledStoryboard The currently scheduled storyboard.
+     * @param {IUIAnimationStoryboard2} newStoryboard The new storyboard that is interrupting the scheduled storyboard specified by <i>scheduledStoryboard</i>.
+     * @param {Integer} priorityEffect The potential effect on <i>newStoryboard</i> if <i>scheduledStoryboard</i> has a higher priority.
+     * @returns {HRESULT} Returns the following if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
      * 
-     * @param {IUIAnimationStoryboard2} scheduledStoryboard 
-     * @param {IUIAnimationStoryboard2} newStoryboard 
-     * @param {Integer} priorityEffect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationprioritycomparison2-haspriority
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>newStoryboard</i> has priority.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>scheduledStoryboard</i> has priority.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationprioritycomparison2-haspriority
      */
     HasPriority(scheduledStoryboard, newStoryboard, priorityEffect) {
         result := ComCall(3, this, "ptr", scheduledStoryboard, "ptr", newStoryboard, "int", priorityEffect, "HRESULT")

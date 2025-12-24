@@ -33,14 +33,14 @@ class IWbemPropertyProvider extends IUnknown{
     static VTableNames => ["GetProperty", "PutProperty"]
 
     /**
-     * 
-     * @param {Integer} lFlags 
-     * @param {BSTR} strLocale 
-     * @param {BSTR} strClassMapping 
-     * @param {BSTR} strInstMapping 
-     * @param {BSTR} strPropMapping 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbempropertyprovider-getproperty
+     * The IWbemPropertyProvider::GetProperty method is called by Windows Management to retrieve an individual property value.
+     * @param {Integer} lFlags Reserved. This parameter must be 0.
+     * @param {BSTR} strLocale String indicating the desired locale in cases where the returned property value can be localized. If the property cannot be localized, the implementation can ignore this value.
+     * @param {BSTR} strClassMapping Literal copy of the string value for the <b>ClassContext</b> qualifier for the class. This points to a valid <b>BSTR</b>, which is treated as read-only, or <b>NULL</b> if the qualifier does not exist.
+     * @param {BSTR} strInstMapping Literal copy of the string value for the <b>InstanceContext</b> qualifier for the instance. This must point to a valid <b>BSTR</b>, which is treated as read-only, or <b>NULL</b> if the qualifier does not exist.
+     * @param {BSTR} strPropMapping Literal copy of the value of the <b>PropertyContext</b> qualifier for the property. This must point to a valid <b>BSTR</b>, which is treated as read-only, or <b>NULL</b> if the qualifier does not exist.
+     * @returns {VARIANT} Pointer to an uninitialized <b>VARIANT</b> that receives the value for the property. The implementation must call <b>VariantInit</b> and return the value. If an error occurs, the implementation is expected to ignore the pointer.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbempropertyprovider-getproperty
      */
     GetProperty(lFlags, strLocale, strClassMapping, strInstMapping, strPropMapping) {
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
@@ -54,15 +54,15 @@ class IWbemPropertyProvider extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lFlags 
-     * @param {BSTR} strLocale 
-     * @param {BSTR} strClassMapping 
-     * @param {BSTR} strInstMapping 
-     * @param {BSTR} strPropMapping 
-     * @param {Pointer<VARIANT>} pvValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbempropertyprovider-putproperty
+     * The IWbemPropertyProvider::PutProperty method is called by Windows Management to update a property value supported by a property provider.
+     * @param {Integer} lFlags Reserved. This parameter must be 0.
+     * @param {BSTR} strLocale String indicating the desired locale in cases where the returned property value can be localized. If the property cannot be localized, the implementation can ignore this value.
+     * @param {BSTR} strClassMapping Literal copy of the string value for the <b>ClassContext</b> qualifier for the class. This points to a valid <b>BSTR</b>, which is treated as read-only, or <b>NULL</b> if the qualifier does not exist.
+     * @param {BSTR} strInstMapping Literal copy of the string value for the <b>InstanceContext</b> qualifier for the instance. This must point to a valid <b>BSTR</b>, which is treated as read-only, or <b>NULL</b> if the qualifier does not exist.
+     * @param {BSTR} strPropMapping Literal copy of the value of the <b>PropertyContext</b> qualifier for the property. This must point to a valid <b>BSTR</b>, which is treated as read-only, or <b>NULL</b> if the qualifier does not exist.
+     * @param {Pointer<VARIANT>} pvValue Pointer to an existing <b>VARIANT</b> that contains the value to be written.
+     * @returns {HRESULT} This method must return <b>WBEM_S_NO_ERROR</b> if the operation succeeds, or <b>WBEM_S_FALSE</b> if the operation fails.
+     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbempropertyprovider-putproperty
      */
     PutProperty(lFlags, strLocale, strClassMapping, strInstMapping, strPropMapping, pvValue) {
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale

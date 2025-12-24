@@ -31,10 +31,10 @@ class IRpcProxyBuffer extends IUnknown{
     static VTableNames => ["Connect", "Disconnect"]
 
     /**
-     * 
-     * @param {IRpcChannelBuffer} pRpcChannelBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcproxybuffer-connect
+     * Initializes a client proxy, binding it to the specified RPC channel.
+     * @param {IRpcChannelBuffer} pRpcChannelBuffer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-irpcchannelbuffer">IRpcChannelBuffer</a> interface that the proxy uses to marshal data.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irpcproxybuffer-connect
      */
     Connect(pRpcChannelBuffer) {
         result := ComCall(3, this, "ptr", pRpcChannelBuffer, "HRESULT")
@@ -42,9 +42,9 @@ class IRpcProxyBuffer extends IUnknown{
     }
 
     /**
-     * 
+     * Disconnects a client proxy from any RPC channel to which it is connected.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcproxybuffer-disconnect
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irpcproxybuffer-disconnect
      */
     Disconnect() {
         ComCall(4, this)

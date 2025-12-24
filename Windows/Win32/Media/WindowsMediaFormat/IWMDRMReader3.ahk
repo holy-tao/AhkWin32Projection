@@ -31,11 +31,29 @@ class IWMDRMReader3 extends IWMDRMReader2{
     static VTableNames => ["GetInclusionList"]
 
     /**
+     * The GetInclusionList method retrieves a list of identifiers specifying approved protection systems.
+     * @param {Pointer<Pointer<Guid>>} ppGuids Address of a variable that receives a pointer to an array of identifiers. The array is allocated by using <b>CoTaskMemAlloc</b>. When finished with the list, release the memory by calling <b>CoTaskMemFree</b>.
+     * @param {Pointer<Integer>} pcGuids Number of elements in the array received by the <i>ppGuids</i> parameter.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<Pointer<Guid>>} ppGuids 
-     * @param {Pointer<Integer>} pcGuids 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmdrmreader3-getinclusionlist
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmdrmreader3-getinclusionlist
      */
     GetInclusionList(ppGuids, pcGuids) {
         ppGuidsMarshal := ppGuids is VarRef ? "ptr*" : "ptr"

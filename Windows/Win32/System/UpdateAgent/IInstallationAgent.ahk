@@ -32,12 +32,12 @@ class IInstallationAgent extends IDispatch{
     static VTableNames => ["RecordInstallationResult"]
 
     /**
-     * 
-     * @param {BSTR} installationResultCookie 
-     * @param {Integer} hresult 
-     * @param {IStringCollection} extendedReportingData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationagent-recordinstallationresult
+     * Records the result for an update. The result is specified by an IStringCollection object.
+     * @param {BSTR} installationResultCookie A string value that identifies the result cookie.
+     * @param {Integer} hresult The identifier of the result.
+     * @param {IStringCollection} extendedReportingData An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-istringcollection">IStringCollection</a> interface that represents a collection of strings that contain the result for an update.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationagent-recordinstallationresult
      */
     RecordInstallationResult(installationResultCookie, hresult, extendedReportingData) {
         installationResultCookie := installationResultCookie is String ? BSTR.Alloc(installationResultCookie).Value : installationResultCookie

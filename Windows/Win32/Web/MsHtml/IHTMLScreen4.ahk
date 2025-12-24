@@ -29,6 +29,13 @@ class IHTMLScreen4 extends IDispatch{
     static VTableNames => ["get_pixelDepth"]
 
     /**
+     * @type {Integer} 
+     */
+    pixelDepth {
+        get => this.get_pixelDepth()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

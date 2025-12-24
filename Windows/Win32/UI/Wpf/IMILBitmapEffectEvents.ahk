@@ -32,11 +32,17 @@ class IMILBitmapEffectEvents extends IUnknown{
     static VTableNames => ["PropertyChange", "DirtyRegion"]
 
     /**
+     * Notifies an IMILBitmapEffectPrimitive of a property change.
+     * @param {IMILBitmapEffect} pEffect Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>*</b>
      * 
-     * @param {IMILBitmapEffect} pEffect 
-     * @param {BSTR} bstrPropertyName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectevents-propertychange
+     * The effect primitive to notify.
+     * @param {BSTR} bstrPropertyName Type: <b>BSTR</b>
+     * 
+     * The property that has changed.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectevents-propertychange
      */
     PropertyChange(pEffect, bstrPropertyName) {
         bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
@@ -46,11 +52,17 @@ class IMILBitmapEffectEvents extends IUnknown{
     }
 
     /**
+     * Invalidates the specified region of the given IMILBitmapEffectPrimitive.
+     * @param {IMILBitmapEffect} pEffect Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>*</b>
      * 
-     * @param {IMILBitmapEffect} pEffect 
-     * @param {Pointer<MilRectD>} pRect 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectevents-dirtyregion
+     * A pointer to the primitive to dirty.
+     * @param {Pointer<MilRectD>} pRect Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/ns-mileffects-milrectd">MIL_RECTD</a>*</b>
+     * 
+     * A pointer to the rectangle to dirty.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectevents-dirtyregion
      */
     DirtyRegion(pEffect, pRect) {
         result := ComCall(4, this, "ptr", pEffect, "ptr", pRect, "HRESULT")

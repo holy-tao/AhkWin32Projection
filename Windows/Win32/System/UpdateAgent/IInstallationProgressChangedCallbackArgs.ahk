@@ -32,9 +32,16 @@ class IInstallationProgressChangedCallbackArgs extends IDispatch{
     static VTableNames => ["get_Progress"]
 
     /**
-     * 
+     * @type {IInstallationProgress} 
+     */
+    Progress {
+        get => this.get_Progress()
+    }
+
+    /**
+     * Gets an interface that contains the progress of the asynchronous installation or uninstallation at the time the callback was made.
      * @returns {IInstallationProgress} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationprogresschangedcallbackargs-get_progress
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationprogresschangedcallbackargs-get_progress
      */
     get_Progress() {
         result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")

@@ -31,9 +31,9 @@ class IMFCdmSuspendNotify extends IUnknown{
     static VTableNames => ["Begin", "End"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfcdmsuspendnotify-begin
+     * Indicates that the suspend process is starting and resources should be brought into a consistent state.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfcdmsuspendnotify-begin
      */
     Begin() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +41,9 @@ class IMFCdmSuspendNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfcdmsuspendnotify-end
+     * The actual suspend is about to occur and no more calls will be made into the Content Decryption Module (CDM).
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfcdmsuspendnotify-end
      */
     End() {
         result := ComCall(4, this, "HRESULT")

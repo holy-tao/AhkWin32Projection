@@ -31,10 +31,14 @@ class IDCompositionMatrixTransform extends IDCompositionTransform{
     static VTableNames => ["SetMatrix", "SetMatrixElement", "SetMatrixElement1"]
 
     /**
+     * Changes all values of the matrix of this 2D transform.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ns-dcommon-d2d_matrix_3x2_f">D2D_MATRIX_3X2_F</a></b>
      * 
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositionmatrixtransform-setmatrix
+     * The new matrix for this 2D transform.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositionmatrixtransform-setmatrix
      */
     SetMatrix(matrix) {
         result := ComCall(3, this, "ptr", matrix, "HRESULT")

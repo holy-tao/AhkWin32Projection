@@ -32,11 +32,17 @@ class IAccessibleHandler extends IUnknown{
     static VTableNames => ["AccessibleObjectFromID"]
 
     /**
+     * The AccessibleObjectFromID method retrieves an IAccessibleinterface pointer for the interface associated with the given object ID. Oleacc.dll uses this method to obtain an IAccessible interface pointer for proxies that are supplied by other code.
+     * @param {Integer} hwnd Type: <b>long</b>
      * 
-     * @param {Integer} hwnd 
-     * @param {Integer} lObjectID 
-     * @returns {IAccessible} 
-     * @see https://learn.microsoft.com/windows/win32/api/oleacc/nf-oleacc-iaccessiblehandler-accessibleobjectfromid
+     * Specifies the handle of a window for which an <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface pointer is to be retrieved.
+     * @param {Integer} lObjectID Type: <b>long</b>
+     * 
+     * Specifies the object ID. This value is one of the standard <a href="https://docs.microsoft.com/windows/desktop/WinAuto/object-identifiers">object identifier</a> constants or a custom object ID.
+     * @returns {IAccessible} Type: <b>LPACCESSIBLE*</b>
+     * 
+     * Specifies the address of a pointer variable that receives the address of the object's <a href="https://docs.microsoft.com/windows/desktop/api/oleacc/nn-oleacc-iaccessible">IAccessible</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//oleacc/nf-oleacc-iaccessiblehandler-accessibleobjectfromid
      */
     AccessibleObjectFromID(hwnd, lObjectID) {
         result := ComCall(3, this, "int", hwnd, "int", lObjectID, "ptr*", &pIAccessible := 0, "HRESULT")

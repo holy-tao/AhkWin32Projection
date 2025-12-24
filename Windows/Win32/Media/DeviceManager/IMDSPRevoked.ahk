@@ -31,11 +31,18 @@ class IMDSPRevoked extends IUnknown{
     static VTableNames => ["GetRevocationURL"]
 
     /**
+     * The GetRevocationURL method retrieves the URL from which updated components can be downloaded.
+     * @param {Pointer<PWSTR>} ppwszRevocationURL Pointer to a Unicode string where the revocation URL should be written.
+     * @param {Pointer<Integer>} pdwBufferLen Number of <b>WCHAR</b> characters that the buffer supplied by the client can hold; on return it contains the required number of characters.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Pointer<PWSTR>} ppwszRevocationURL 
-     * @param {Pointer<Integer>} pdwBufferLen 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdsprevoked-getrevocationurl
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdsprevoked-getrevocationurl
      */
     GetRevocationURL(ppwszRevocationURL, pdwBufferLen) {
         ppwszRevocationURLMarshal := ppwszRevocationURL is VarRef ? "ptr*" : "ptr"

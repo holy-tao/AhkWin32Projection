@@ -31,10 +31,50 @@ class IDirectDrawKernel extends IUnknown{
     static VTableNames => ["GetCaps", "GetKernelHandle", "ReleaseKernelHandle"]
 
     /**
-     * 
+     * The IDirectDrawKernel::GetCaps method returns the capabilities of this kernel-mode device.
      * @param {Pointer<DDKERNELCAPS>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddkernel/nf-ddkernel-idirectdrawkernel-getcaps
+     * @returns {HRESULT} The method must return one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ddkernel/nf-ddkernel-idirectdrawkernel-getcaps
      */
     GetCaps(param0) {
         result := ComCall(3, this, "ptr", param0, "HRESULT")
@@ -42,10 +82,50 @@ class IDirectDrawKernel extends IUnknown{
     }
 
     /**
-     * 
+     * The IDirectDrawKernel::GetKernelHandle method returns a kernel-mode handle to the DirectDraw object.
      * @param {Pointer<Pointer>} param0 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddkernel/nf-ddkernel-idirectdrawkernel-getkernelhandle
+     * @returns {HRESULT} The method must return one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ddkernel/nf-ddkernel-idirectdrawkernel-getkernelhandle
      */
     GetKernelHandle(param0) {
         param0Marshal := param0 is VarRef ? "ptr*" : "ptr"
@@ -55,9 +135,49 @@ class IDirectDrawKernel extends IUnknown{
     }
 
     /**
+     * The IDirectDrawKernel::ReleaseKernelHandle method releases a kernel-mode handle to the DirectDraw object.
+     * @returns {HRESULT} The method must return one of the following values:
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddkernel/nf-ddkernel-idirectdrawkernel-releasekernelhandle
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The operation failed.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_NOTIMPL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method is not implemented.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ddkernel/nf-ddkernel-idirectdrawkernel-releasekernelhandle
      */
     ReleaseKernelHandle() {
         result := ComCall(5, this, "HRESULT")

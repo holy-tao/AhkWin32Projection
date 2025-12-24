@@ -31,10 +31,10 @@ class IMFVideoMixerControl2 extends IMFVideoMixerControl{
     static VTableNames => ["SetMixingPrefs", "GetMixingPrefs"]
 
     /**
-     * 
-     * @param {Integer} dwMixFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol2-setmixingprefs
+     * Sets the preferences for video deinterlacing.
+     * @param {Integer} dwMixFlags Bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/evr/ne-evr-mfvideomixprefs">MFVideoMixPrefs</a> enumeration.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideomixercontrol2-setmixingprefs
      */
     SetMixingPrefs(dwMixFlags) {
         result := ComCall(7, this, "uint", dwMixFlags, "HRESULT")
@@ -42,9 +42,9 @@ class IMFVideoMixerControl2 extends IMFVideoMixerControl{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol2-getmixingprefs
+     * Gets the current preferences for video deinterlacing.
+     * @returns {Integer} Receives a bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/evr/ne-evr-mfvideomixprefs">MFVideoMixPrefs</a> enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideomixercontrol2-getmixingprefs
      */
     GetMixingPrefs() {
         result := ComCall(8, this, "uint*", &pdwMixFlags := 0, "HRESULT")

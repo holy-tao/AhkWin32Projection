@@ -35,6 +35,13 @@ class IRTCClientPresence2 extends IRTCClientPresence{
     static VTableNames => ["EnablePresenceEx", "DisablePresence", "AddGroup", "RemoveGroup", "EnumerateGroups", "get_Groups", "get_Group", "AddWatcherEx", "get_WatcherEx", "put_PresenceProperty", "get_PresenceProperty", "SetPresenceData", "GetPresenceData", "GetLocalPresenceInfo", "AddBuddyEx"]
 
     /**
+     * @type {IRTCCollection} 
+     */
+    Groups {
+        get => this.get_Groups()
+    }
+
+    /**
      * 
      * @param {IRTCProfile} pProfile 
      * @param {VARIANT} varStorage 

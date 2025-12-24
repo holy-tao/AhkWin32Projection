@@ -32,23 +32,62 @@ class ICertPropertyEnrollment extends ICertProperty{
     static VTableNames => ["Initialize", "get_RequestId", "get_CADnsName", "get_CAName", "get_FriendlyName"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {Integer} RequestId 
-     * @param {BSTR} strCADnsName 
-     * @param {BSTR} strCAName 
-     * @param {BSTR} strFriendlyName 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @type {Integer} 
+     */
+    RequestId {
+        get => this.get_RequestId()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CADnsName {
+        get => this.get_CADnsName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CAName {
+        get => this.get_CAName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FriendlyName {
+        get => this.get_FriendlyName()
+    }
+
+    /**
+     * Initializes the property from the certificate request ID, the certification authority (CA) configuration string, and an optional certificate display name.
+     * @param {Integer} RequestId A <b>LONG</b> variable that contains the certificate request ID. A request ID is created by the enrollment process. You can retrieve this value by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-get_requestid">RequestId</a> property on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollment">IX509Enrollment</a> interface.
+     * @param {BSTR} strCADnsName A <b>BSTR</b> variable that contains the Domain Name System (DNS) name of the CA. This is the first name in the <i>CADnsName\CAName</i> CA configuration string. The configuration string is typically set during the enrollment process. The DNS name can be retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-get_caconfigstring">CAConfigString</a> property and separating the  string into its constituent parts.
+     * @param {BSTR} strCAName A <b>BSTR</b> variable that contains the subject common name (CN) of the CA. This is the second name in the <i>CADnsName\CAName</i> CA configuration string. The configuration string is typically set during the enrollment process. The CN name can be retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-get_caconfigstring">CAConfigString</a> property and separating the  string into its constituent parts.
+     * @param {BSTR} strFriendlyName A <b>BSTR</b> variable that contains an optional display name for the certificate. The default value is <b>NULL</b>. This value is typically set during the enrollment process. You can retrieve it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-get_certificatefriendlyname">CertificateFriendlyName</a> property.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
+     * 
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>HRESULT_FROM_WIN32(ERROR_ALREADY_INITIALIZED)</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The object is already initialized.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollment-initialize
      */
     Initialize(RequestId, strCADnsName, strCAName, strFriendlyName) {
         strCADnsName := strCADnsName is String ? BSTR.Alloc(strCADnsName).Value : strCADnsName
@@ -60,9 +99,28 @@ class ICertPropertyEnrollment extends ICertProperty{
     }
 
     /**
+     * Retrieves a unique certificate request identifier.
+     * @remarks
+     * 
+     * Set the  <b>RequestId</b> property by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-initialize">Initialize</a> method. The request ID is created during the enrollment process. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-get_requestid">RequestId</a> property on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollment">IX509Enrollment</a> interface.
+     * 
+     * The ID can be used during subsequent communication between the client and the CA. For example, if a CA marks a request as pending when initially submitted, the client can use the request ID and the configuration string when it again contacts the CA and attempts to retrieve the certificate response.
+     * 
+     * You can also call the following properties to retrieve the other values specified during initialization:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_cadnsname">CADnsName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_caname">CAName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_friendlyname">FriendlyName</a>
+     * </li>
+     * </ul>
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollment-get_requestid
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollment-get_requestid
      */
     get_RequestId() {
         result := ComCall(15, this, "int*", &pValue := 0, "HRESULT")
@@ -70,9 +128,26 @@ class ICertPropertyEnrollment extends ICertProperty{
     }
 
     /**
+     * Retrieves the Domain Naming System (DNS) name of the certification authority (CA).
+     * @remarks
+     * 
+     * Set the  <b>CADnsName</b> property by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-initialize">Initialize</a> method. The DNS name is returned to the client during the enrollment process and is part of the CA  configuration string. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-get_caconfigstring">CAConfigString</a> property on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollment">IX509Enrollment</a> interface.
+     * 
+     * You can also call the following properties to retrieve the other values specified during initialization:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_caname">CAName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_friendlyname">FriendlyName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_requestid">RequestId</a>
+     * </li>
+     * </ul>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollment-get_cadnsname
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollment-get_cadnsname
      */
     get_CADnsName() {
         pValue := BSTR()
@@ -81,9 +156,26 @@ class ICertPropertyEnrollment extends ICertProperty{
     }
 
     /**
+     * Retrieves the common name (CN) of the certification authority (CA).
+     * @remarks
+     * 
+     * Set the  <b>CAName</b> property by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-initialize">Initialize</a> method. The common name is returned to the client during the enrollment process and is part of the certification authority  configuration string. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-get_caconfigstring">CAConfigString</a> property on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollment">IX509Enrollment</a> interface.
+     * 
+     * You can also call the following properties to retrieve the other values specified during initialization:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_cadnsname">CADnsName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_friendlyname">FriendlyName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_requestid">RequestId</a>
+     * </li>
+     * </ul>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollment-get_caname
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollment-get_caname
      */
     get_CAName() {
         pValue := BSTR()
@@ -92,9 +184,26 @@ class ICertPropertyEnrollment extends ICertProperty{
     }
 
     /**
+     * Retrieves the display name of the certificate.
+     * @remarks
+     * 
+     * Set the  <b>FriendlyName</b> property by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-initialize">Initialize</a> method. The display name is specified during the enrollment process. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-get_certificatefriendlyname">CertificateFriendlyName</a> property on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollment">IX509Enrollment</a> interface.
+     * 
+     * You can also call the following properties to retrieve the other values specified during initialization:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_cadnsname">CADnsName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_caname">CAName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollment-get_requestid">RequestId</a>
+     * </li>
+     * </ul>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollment-get_friendlyname
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollment-get_friendlyname
      */
     get_FriendlyName() {
         pValue := BSTR()

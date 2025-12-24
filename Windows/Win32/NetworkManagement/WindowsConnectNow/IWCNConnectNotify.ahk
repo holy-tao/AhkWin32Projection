@@ -31,9 +31,9 @@ class IWCNConnectNotify extends IUnknown{
     static VTableNames => ["ConnectSucceeded", "ConnectFailed"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcnconnectnotify-connectsucceeded
+     * The IWCNConnectNotify::ConnectSucceeded callback method that indicates a successful IWCNDevice::Connect operation.
+     * @returns {HRESULT} ...
+     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcnconnectnotify-connectsucceeded
      */
     ConnectSucceeded() {
         result := ComCall(3, this, "HRESULT")
@@ -41,10 +41,10 @@ class IWCNConnectNotify extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HRESULT} hrFailure 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcnconnectnotify-connectfailed
+     * Callback method indicates a IWCNDevice::Connect failure.
+     * @param {HRESULT} hrFailure An <b>HRESULT</b> that specifies the reason for the connection failure.
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcnconnectnotify-connectfailed
      */
     ConnectFailed(hrFailure) {
         result := ComCall(4, this, "int", hrFailure, "HRESULT")

@@ -32,9 +32,9 @@ class IXpsOMPrintTicketResource extends IXpsOMResource{
     static VTableNames => ["GetStream", "SetContent"]
 
     /**
-     * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomprintticketresource-getstream
+     * Gets a new, read-only copy of the stream that is associated with this resource.
+     * @returns {IStream} A new, read-only copy of the stream that is associated with this resource.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomprintticketresource-getstream
      */
     GetStream() {
         result := ComCall(5, this, "ptr*", &stream := 0, "HRESULT")
@@ -42,11 +42,11 @@ class IXpsOMPrintTicketResource extends IXpsOMResource{
     }
 
     /**
-     * 
-     * @param {IStream} sourceStream 
-     * @param {IOpcPartUri} partName 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomprintticketresource-setcontent
+     * Sets the read-only stream to be associated with this resource.
+     * @param {IStream} sourceStream The read-only stream to be associated with this resource.
+     * @param {IOpcPartUri} partName The part name to be assigned to this resource.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomprintticketresource-setcontent
      */
     SetContent(sourceStream, partName) {
         result := ComCall(6, this, "ptr", sourceStream, "ptr", partName, "HRESULT")

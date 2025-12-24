@@ -38,9 +38,9 @@ class ITfCandidateList extends IUnknown{
     static VTableNames => ["EnumCandidates", "GetCandidate", "GetCandidateNum", "SetResult"]
 
     /**
-     * 
-     * @returns {IEnumTfCandidates} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-enumcandidates
+     * ITfCandidateList::EnumCandidates method
+     * @returns {IEnumTfCandidates} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-ienumtfcandidates">IEnumTfCandidates</a> interface pointer that receives the enumerator object. The caller must release this interface when it is no longer required.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfcandidatelist-enumcandidates
      */
     EnumCandidates() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -48,10 +48,10 @@ class ITfCandidateList extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} nIndex 
-     * @returns {ITfCandidateString} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-getcandidate
+     * ITfCandidateList::GetCandidate method
+     * @param {Integer} nIndex Specifies the zero-based index of the candidate string to obtain.
+     * @returns {ITfCandidateString} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-itfcandidatestring">ITfCandidateString</a> interface pointer that receives the candidate string object. The caller must release this interface when it is no longer required.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfcandidatelist-getcandidate
      */
     GetCandidate(nIndex) {
         result := ComCall(4, this, "uint", nIndex, "ptr*", &ppCand := 0, "HRESULT")
@@ -59,9 +59,9 @@ class ITfCandidateList extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-getcandidatenum
+     * ITfCandidateList::GetCandidateNum method
+     * @returns {Integer} Pointer to a <b>ULONG</b> value that receives the number of candidate string objects in the candidate list.
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfcandidatelist-getcandidatenum
      */
     GetCandidateNum() {
         result := ComCall(5, this, "uint*", &pnCnt := 0, "HRESULT")
@@ -69,11 +69,40 @@ class ITfCandidateList extends IUnknown{
     }
 
     /**
+     * ITfCandidateList::SetResult method
+     * @param {Integer} nIndex Specifies the zero-based index of the candidate string to set the result for. This parameter is ignored if <i>imcr</i> contains CAND_CANCELED.
+     * @param {Integer} imcr Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfcandidateresult">TfCandidateResult</a> values that specifies the result of the reconversion operation.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} nIndex 
-     * @param {Integer} imcr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-setresult
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfcandidatelist-setresult
      */
     SetResult(nIndex, imcr) {
         result := ComCall(6, this, "uint", nIndex, "int", imcr, "HRESULT")

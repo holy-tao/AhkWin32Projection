@@ -33,6 +33,62 @@ class ISpeechGrammarRuleStateTransition extends IDispatch{
     static VTableNames => ["get_Type", "get_Text", "get_Rule", "get_Weight", "get_PropertyName", "get_PropertyId", "get_PropertyValue", "get_NextState"]
 
     /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Text {
+        get => this.get_Text()
+    }
+
+    /**
+     * @type {ISpeechGrammarRule} 
+     */
+    Rule {
+        get => this.get_Rule()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Weight {
+        get => this.get_Weight()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    PropertyName {
+        get => this.get_PropertyName()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PropertyId {
+        get => this.get_PropertyId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    PropertyValue {
+        get => this.get_PropertyValue()
+    }
+
+    /**
+     * @type {ISpeechGrammarRuleState} 
+     */
+    NextState {
+        get => this.get_NextState()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

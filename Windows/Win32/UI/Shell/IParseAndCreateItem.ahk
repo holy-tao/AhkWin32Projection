@@ -31,10 +31,14 @@ class IParseAndCreateItem extends IUnknown{
     static VTableNames => ["SetItem", "GetItem"]
 
     /**
+     * IParseAndCreateItem::SetItem method
+     * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
-     * @param {IShellItem} psi 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iparseandcreateitem-setitem
+     * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iparseandcreateitem-setitem
      */
     SetItem(psi) {
         result := ComCall(3, this, "ptr", psi, "HRESULT")
@@ -42,10 +46,14 @@ class IParseAndCreateItem extends IUnknown{
     }
 
     /**
+     * IParseAndCreateItem::GetItem method
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iparseandcreateitem-getitem
+     * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_IShellItem.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iparseandcreateitem-getitem
      */
     GetItem(riid) {
         result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

@@ -44,21 +44,17 @@ class IInitializeCommand extends IUnknown{
     static VTableNames => ["Initialize"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {PWSTR} pszCommandName 
-     * @param {IPropertyBag} ppb 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initialize objects that share an implementation of IExplorerCommandState, IExecuteCommand or IDropTarget with the application-specified command name and its registered properties.
+     * @param {PWSTR} pszCommandName Type: <b>LPCWSTR</b>
+     * 
+     * Pointer to a string that contains the command name (the name of the command key as found in the registry). For instance, if the command is registered under <b>...</b>&#92;<b>shell</b>&#92;<b>MyCommand</b>, <i>pszCommandName</i> points to "MyCommand".
+     * @param {IPropertyBag} ppb Type: <b><a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a>*</b>
+     * 
+     * Pointer to an <a href="../oaidl/nn-oaidl-ipropertybag.md">IPropertyBag</a> instance that can be used to read the properties related to the command in the registry. For example, a command may registry a string property under its <b>...</b>&#92;<b>shell</b>&#92;<b>MyCommand</b> subkey.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iinitializecommand-initialize
      */
     Initialize(pszCommandName, ppb) {
         pszCommandName := pszCommandName is String ? StrPtr(pszCommandName) : pszCommandName

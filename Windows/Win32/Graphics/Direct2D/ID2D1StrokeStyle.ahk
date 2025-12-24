@@ -40,9 +40,11 @@ class ID2D1StrokeStyle extends ID2D1Resource{
     static VTableNames => ["GetStartCap", "GetEndCap", "GetDashCap", "GetMiterLimit", "GetLineJoin", "GetDashOffset", "GetDashStyle", "GetDashesCount", "GetDashes"]
 
     /**
+     * Retrieves the type of shape used at the beginning of a stroke.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getstartcap
+     * The type of shape used at the beginning of a stroke.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1strokestyle-getstartcap
      */
     GetStartCap() {
         result := ComCall(4, this, "int")
@@ -50,9 +52,11 @@ class ID2D1StrokeStyle extends ID2D1Resource{
     }
 
     /**
+     * Retrieves the type of shape used at the end of a stroke.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getendcap
+     * The type of shape used at the end of a stroke.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1strokestyle-getendcap
      */
     GetEndCap() {
         result := ComCall(5, this, "int")
@@ -60,9 +64,11 @@ class ID2D1StrokeStyle extends ID2D1Resource{
     }
 
     /**
+     * Gets a value that specifies how the ends of each dash are drawn.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/d2d1/ne-d2d1-d2d1_cap_style">D2D1_CAP_STYLE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getdashcap
+     * A value that specifies how the ends of each dash are drawn.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1strokestyle-getdashcap
      */
     GetDashCap() {
         result := ComCall(6, this, "int")
@@ -70,11 +76,11 @@ class ID2D1StrokeStyle extends ID2D1Resource{
     }
 
     /**
-     * The GetMiterLimit function retrieves the miter limit for the specified device context.
-     * @returns {Float} If the function succeeds, the return value is nonzero.
+     * Retrieves the limit on the ratio of the miter length to half the stroke's thickness.
+     * @returns {Float} Type: <b>FLOAT</b>
      * 
-     * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-getmiterlimit
+     * A positive number greater than or equal to 1.0f that describes the limit on the ratio of the miter length to half the stroke's thickness.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1strokestyle-getmiterlimit
      */
     GetMiterLimit() {
         result := ComCall(7, this, "float")
@@ -82,9 +88,11 @@ class ID2D1StrokeStyle extends ID2D1Resource{
     }
 
     /**
+     * Retrieves the type of joint used at the vertices of a shape's outline.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/d2d1/ne-d2d1-d2d1_line_join">D2D1_LINE_JOIN</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getlinejoin
+     * A value that specifies the type of joint used at the vertices of a shape's outline.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1strokestyle-getlinejoin
      */
     GetLineJoin() {
         result := ComCall(8, this, "int")
@@ -92,9 +100,11 @@ class ID2D1StrokeStyle extends ID2D1Resource{
     }
 
     /**
+     * Retrieves a value that specifies how far in the dash sequence the stroke will start.
+     * @returns {Float} Type: <b>FLOAT</b>
      * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getdashoffset
+     * A value that specifies how far in the dash sequence the stroke will start.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1strokestyle-getdashoffset
      */
     GetDashOffset() {
         result := ComCall(9, this, "float")
@@ -102,9 +112,11 @@ class ID2D1StrokeStyle extends ID2D1Resource{
     }
 
     /**
+     * Gets a value that describes the stroke's dash pattern.
+     * @returns {Integer} Type: <b><a href="/windows/win32/api/d2d1/ne-d2d1-d2d1_dash_style">D2D1_DASH_STYLE</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getdashstyle
+     * A value that describes the predefined dash pattern used, or <a href="/windows/win32/api/d2d1/ne-d2d1-d2d1_dash_style">D2D1_DASH_STYLE_CUSTOM</a> if a custom dash style is used.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1strokestyle-getdashstyle
      */
     GetDashStyle() {
         result := ComCall(10, this, "int")
@@ -112,9 +124,11 @@ class ID2D1StrokeStyle extends ID2D1Resource{
     }
 
     /**
+     * Retrieves the number of entries in the dashes array.
+     * @returns {Integer} Type: <b>UINT32</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getdashescount
+     * The number of entries in the dashes array if the stroke is dashed; otherwise, 0.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1strokestyle-getdashescount
      */
     GetDashesCount() {
         result := ComCall(11, this, "uint")
@@ -122,11 +136,20 @@ class ID2D1StrokeStyle extends ID2D1Resource{
     }
 
     /**
+     * Copies the dash pattern to the specified array.
+     * @remarks
      * 
-     * @param {Pointer<Float>} dashes 
-     * @param {Integer} dashesCount 
+     * The dashes are specified in units that are a multiple of the stroke width, with subsequent members of the array indicating the dashes and gaps between dashes: the first entry indicates a filled dash, the second a gap, and so on.
+     * 
+     * 
+     * @param {Pointer<Float>} dashes Type: <b>FLOAT*</b>
+     * 
+     * A pointer to an array that will receive the dash pattern. The array must be able to contain at least as many elements as specified by <i>dashesCount</i>. You must allocate storage for this array.
+     * @param {Integer} dashesCount Type: <b>UINT</b>
+     * 
+     * The number of dashes to copy. If this value is less than the number of dashes in the stroke style's dashes array, the returned dashes are truncated to <i>dashesCount</i>. If this value is greater than the number of dashes in the stroke style's dashes array, the extra dashes are set to 0.0f. To obtain the actual number of dashes in the stroke style's dashes array, use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getdashescount">GetDashesCount</a> method.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1strokestyle-getdashes
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1strokestyle-getdashes
      */
     GetDashes(dashes, dashesCount) {
         dashesMarshal := dashes is VarRef ? "float*" : "ptr"

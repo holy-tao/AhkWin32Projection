@@ -33,12 +33,12 @@ class IMFMediaEngineClassFactory2 extends IUnknown{
     static VTableNames => ["CreateMediaKeys2"]
 
     /**
-     * 
-     * @param {BSTR} keySystem 
-     * @param {BSTR} defaultCdmStorePath 
-     * @param {BSTR} inprivateCdmStorePath 
-     * @returns {IMFMediaKeys} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory2-createmediakeys2
+     * Creates a media keys object based on the specified key system.
+     * @param {BSTR} keySystem The media key system.
+     * @param {BSTR} defaultCdmStorePath Points to the default file location for the  store Content Decryption Module (CDM) data.
+     * @param {BSTR} inprivateCdmStorePath Points to a the inprivate location for the  store Content Decryption Module (CDM) data. Specifying this path allows the CDM to comply with the application’s privacy policy by putting personal information in the file location indicated by this path.
+     * @returns {IMFMediaKeys} Receives the media keys.
+     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediaengineclassfactory2-createmediakeys2
      */
     CreateMediaKeys2(keySystem, defaultCdmStorePath, inprivateCdmStorePath) {
         keySystem := keySystem is String ? BSTR.Alloc(keySystem).Value : keySystem

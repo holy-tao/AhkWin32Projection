@@ -39,21 +39,36 @@ class IContactManager extends IUnknown{
     static VTableNames => ["Initialize", "Load", "MergeContactIDs", "GetMeContact", "SetMeContact", "GetContactCollection"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {PWSTR} pszAppName 
-     * @param {PWSTR} pszAppVersion 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the contact manager with the unique application name and application version being used to manipulate contacts.
+     * @param {PWSTR} pszAppName Type: <b>LPWSTR</b>
+     * 
+     * Specifies the application name.
+     * @param {PWSTR} pszAppVersion Type: <b>LPCWSTR</b>
+     * 
+     * Specifies the application version.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * 
+     * <a href="/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactmanager">IContactManager</a> is initialized. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-initialize
      */
     Initialize(pszAppName, pszAppVersion) {
         pszAppName := pszAppName is String ? StrPtr(pszAppName) : pszAppName
@@ -64,10 +79,14 @@ class IContactManager extends IUnknown{
     }
 
     /**
+     * Loads an IContact object with the data from the contact referenced by the computer-local contact ID.
+     * @param {PWSTR} pszContactID Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszContactID 
-     * @returns {IContact} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-load
+     * Specifies the contact ID to load.
+     * @returns {IContact} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontact">IContact</a>**</b>
+     * 
+     * Specifies the destination <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontact">IContact</a> object.
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-load
      */
     Load(pszContactID) {
         pszContactID := pszContactID is String ? StrPtr(pszContactID) : pszContactID
@@ -77,11 +96,35 @@ class IContactManager extends IUnknown{
     }
 
     /**
+     * Makes an old Contact ID resolve to the same value as a new Contact ID. Subsequent calls to IContactManager::Load with the old contact ID now loads the new contact ID contact.
+     * @param {PWSTR} pszNewContactID Type: <b>LPWSTR</b>
      * 
-     * @param {PWSTR} pszNewContactID 
-     * @param {PWSTR} pszOldContactID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-mergecontactids
+     * Specifies the ID of the new contact, representing both the old and new contacts.
+     * @param {PWSTR} pszOldContactID Type: <b>LPCWSTR</b>
+     * 
+     * Specifies the ID representing the old contact.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Address change was successful. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-mergecontactids
      */
     MergeContactIDs(pszNewContactID, pszOldContactID) {
         pszNewContactID := pszNewContactID is String ? StrPtr(pszNewContactID) : pszNewContactID
@@ -92,9 +135,11 @@ class IContactManager extends IUnknown{
     }
 
     /**
+     * Retrieves the local user account concept of 'me'.
+     * @returns {IContact} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontact">IContact</a>**</b>
      * 
-     * @returns {IContact} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-getmecontact
+     * Specifies where to store a pointer to the 'me' contact.
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-getmecontact
      */
     GetMeContact() {
         result := ComCall(6, this, "ptr*", &ppMeContact := 0, "HRESULT")
@@ -102,10 +147,32 @@ class IContactManager extends IUnknown{
     }
 
     /**
+     * Sets the local user account concept of 'me' to specified user.
+     * @param {IContact} pMeContact Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontact">IContact</a>*</b>
      * 
-     * @param {IContact} pMeContact 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-setmecontact
+     * Specifies the contact to treat as 'me' for the current user.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns one of the following values:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Specification was successful. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-setmecontact
      */
     SetMeContact(pMeContact) {
         result := ComCall(7, this, "ptr", pMeContact, "HRESULT")
@@ -113,9 +180,11 @@ class IContactManager extends IUnknown{
     }
 
     /**
+     * Returns an IContactCollection object that contains all known contacts.
+     * @returns {IContactCollection} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactcollection">IContactCollection</a>**</b>
      * 
-     * @returns {IContactCollection} 
-     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactmanager-getcontactcollection
+     * On success, contains an enumeration of the contact collection.
+     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactmanager-getcontactcollection
      */
     GetContactCollection() {
         result := ComCall(8, this, "ptr*", &ppContactCollection := 0, "HRESULT")

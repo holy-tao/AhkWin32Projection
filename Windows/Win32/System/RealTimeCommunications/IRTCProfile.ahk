@@ -30,6 +30,118 @@ class IRTCProfile extends IUnknown{
     static VTableNames => ["get_Key", "get_Name", "get_XML", "get_ProviderName", "get_ProviderURI", "get_ProviderData", "get_ClientName", "get_ClientBanner", "get_ClientMinVer", "get_ClientCurVer", "get_ClientUpdateURI", "get_ClientData", "get_UserURI", "get_UserName", "get_UserAccount", "SetCredentials", "get_SessionCapabilities", "get_State"]
 
     /**
+     * @type {BSTR} 
+     */
+    Key {
+        get => this.get_Key()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    XML {
+        get => this.get_XML()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProviderName {
+        get => this.get_ProviderName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ProviderData {
+        get => this.get_ProviderData()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClientName {
+        get => this.get_ClientName()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ClientBanner {
+        get => this.get_ClientBanner()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClientMinVer {
+        get => this.get_ClientMinVer()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClientCurVer {
+        get => this.get_ClientCurVer()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClientUpdateURI {
+        get => this.get_ClientUpdateURI()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ClientData {
+        get => this.get_ClientData()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserURI {
+        get => this.get_UserURI()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserName {
+        get => this.get_UserName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    UserAccount {
+        get => this.get_UserAccount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SessionCapabilities {
+        get => this.get_SessionCapabilities()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

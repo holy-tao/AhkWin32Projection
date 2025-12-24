@@ -42,20 +42,24 @@ class ID2D1TransformedGeometry extends ID2D1Geometry{
     static VTableNames => ["GetSourceGeometry", "GetTransform"]
 
     /**
+     * Retrieves the source geometry of this transformed geometry object.
+     * @param {Pointer<ID2D1Geometry>} sourceGeometry Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1geometry">ID2D1Geometry</a>**</b>
      * 
-     * @param {Pointer<ID2D1Geometry>} sourceGeometry 
+     * When this method returns, contains a pointer to a pointer to the source geometry for this transformed geometry object. This parameter is passed uninitialized.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1transformedgeometry-getsourcegeometry
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1transformedgeometry-getsourcegeometry
      */
     GetSourceGeometry(sourceGeometry) {
         ComCall(17, this, "ptr*", sourceGeometry)
     }
 
     /**
+     * Retrieves the matrix used to transform the ID2D1TransformedGeometry object's source geometry.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} transform Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
-     * @param {Pointer<D2D_MATRIX_3X2_F>} transform 
+     * A pointer that receives the matrix used to transform the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1transformedgeometry">ID2D1TransformedGeometry</a> object's source geometry. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1transformedgeometry-gettransform
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1transformedgeometry-gettransform
      */
     GetTransform(transform) {
         ComCall(18, this, "ptr", transform)

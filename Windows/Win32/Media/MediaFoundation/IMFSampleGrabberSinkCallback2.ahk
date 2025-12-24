@@ -47,16 +47,18 @@ class IMFSampleGrabberSinkCallback2 extends IMFSampleGrabberSinkCallback{
     static VTableNames => ["OnProcessSampleEx"]
 
     /**
+     * Called when the sample-grabber sink receives a new media sample.
+     * @param {Pointer<Guid>} guidMajorMediaType The major type GUID that specifies the format of the data. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-type-guids">Major Media Types</a>.
+     * @param {Integer} dwSampleFlags Sample flags. The sample-grabber sink gets the value of this parameter by calling the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfsample-getsampleflags">IMFSample::GetSampleFlags</a> method of the media sample.
+     * @param {Integer} llSampleTime The presentation time for this sample, in 100-nanosecond units. If the sample does not have a presentation time, the value of this parameter is <b>_I64_MAX</b>
+     * @param {Integer} llSampleDuration The duration of the sample, in 100-nanosecond units.
      * 
-     * @param {Pointer<Guid>} guidMajorMediaType 
-     * @param {Integer} dwSampleFlags 
-     * @param {Integer} llSampleTime 
-     * @param {Integer} llSampleDuration 
-     * @param {Pointer} pSampleBuffer 
-     * @param {Integer} dwSampleSize 
-     * @param {IMFAttributes} pAttributes 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsamplegrabbersinkcallback2-onprocesssampleex
+     * If the sample does not have a duration, the value of this parameter is <b>_I64_MAX</b>.
+     * @param {Pointer} pSampleBuffer A pointer to a buffer that contains the sample data.
+     * @param {Integer} dwSampleSize The size, in bytes, of the <i>pSampleBuffer</i> buffer.
+     * @param {IMFAttributes} pAttributes A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface. Use this interface to get the attributes for this sample (if any). For a list of sample attributes, see <a href="https://docs.microsoft.com/windows/desktop/medfound/sample-attributes">Sample Attributes</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsamplegrabbersinkcallback2-onprocesssampleex
      */
     OnProcessSampleEx(guidMajorMediaType, dwSampleFlags, llSampleTime, llSampleDuration, pSampleBuffer, dwSampleSize, pAttributes) {
         result := ComCall(11, this, "ptr", guidMajorMediaType, "uint", dwSampleFlags, "int64", llSampleTime, "int64", llSampleDuration, "ptr", pSampleBuffer, "uint", dwSampleSize, "ptr", pAttributes, "HRESULT")

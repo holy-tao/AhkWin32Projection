@@ -35,6 +35,14 @@ class ISVGPathSegLinetoVerticalRel extends IDispatch{
     static VTableNames => ["put_y", "get_y"]
 
     /**
+     * @type {Float} 
+     */
+    y {
+        get => this.get_y()
+        set => this.put_y(value)
+    }
+
+    /**
      * 
      * @param {Float} v 
      * @returns {HRESULT} 

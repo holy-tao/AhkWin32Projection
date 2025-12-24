@@ -32,10 +32,10 @@ class IX509CertificateTemplate extends IDispatch{
     static VTableNames => ["get_Property"]
 
     /**
-     * 
+     * Retrieves a template property value.
      * @param {Integer} property 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplate-get_property
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplate-get_property
      */
     get_Property(property) {
         pValue := VARIANT()

@@ -38,6 +38,20 @@ class IPrinterQueue extends IDispatch{
     static VTableNames => ["get_Handle", "get_Name", "SendBidiQuery", "GetProperties"]
 
     /**
+     * @type {PRINTER_HANDLE} 
+     */
+    Handle {
+        get => this.get_Handle()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
      * 
      * @returns {PRINTER_HANDLE} 
      */

@@ -32,9 +32,16 @@ class IWdsTransportServer2 extends IWdsTransportServer{
     static VTableNames => ["get_TftpManager"]
 
     /**
-     * 
+     * @type {IWdsTransportTftpManager} 
+     */
+    TftpManager {
+        get => this.get_TftpManager()
+    }
+
+    /**
+     * Receives a pointer to the object of the IWdsTransportTftpManager interface used to manage the WDS TFTP server.
      * @returns {IWdsTransportTftpManager} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportserver2-get_tftpmanager
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportserver2-get_tftpmanager
      */
     get_TftpManager() {
         result := ComCall(12, this, "ptr*", &ppWdsTransportTftpManager := 0, "HRESULT")

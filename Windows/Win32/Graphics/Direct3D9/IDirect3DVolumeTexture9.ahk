@@ -53,11 +53,17 @@ class IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9{
     static VTableNames => ["GetLevelDesc", "GetVolumeLevel", "LockBox", "UnlockBox", "AddDirtyBox"]
 
     /**
+     * Retrieves a level description of a volume texture resource.
+     * @param {Integer} Level Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Level 
-     * @param {Pointer<D3DVOLUME_DESC>} pDesc 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-getleveldesc
+     * Identifies a level of the volume texture resource. This method returns a volume description for the level specified by this parameter.
+     * @param {Pointer<D3DVOLUME_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dvolume-desc">D3DVOLUME_DESC</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dvolume-desc">D3DVOLUME_DESC</a> structure, describing the returned volume texture level.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. D3DERR_INVALIDCALL is returned if one or more of the arguments are invalid.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolumetexture9-getleveldesc
      */
     GetLevelDesc(Level, pDesc) {
         result := ComCall(17, this, "uint", Level, "ptr", pDesc, "HRESULT")
@@ -65,10 +71,14 @@ class IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9{
     }
 
     /**
+     * Retrieves the specified volume texture level.
+     * @param {Integer} Level Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Level 
-     * @returns {IDirect3DVolume9} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-getvolumelevel
+     * Identifies a level of the volume texture resource. This method returns a volume for the level specified by this parameter.
+     * @returns {IDirect3DVolume9} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dvolume9">IDirect3DVolume9</a>**</b>
+     * 
+     * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dvolume9">IDirect3DVolume9</a> interface, representing the returned volume level.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolumetexture9-getvolumelevel
      */
     GetVolumeLevel(Level) {
         result := ComCall(18, this, "uint", Level, "ptr*", &ppVolumeLevel := 0, "HRESULT")
@@ -76,13 +86,33 @@ class IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9{
     }
 
     /**
+     * Locks a box on a volume texture resource.
+     * @param {Integer} Level Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Level 
-     * @param {Pointer<D3DLOCKED_BOX>} pLockedVolume 
-     * @param {Pointer<D3DBOX>} pBox 
-     * @param {Integer} Flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-lockbox
+     * Specifies the level of the volume texture resource to lock.
+     * @param {Pointer<D3DLOCKED_BOX>} pLockedVolume Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlocked-box">D3DLOCKED_BOX</a>*</b>
+     * 
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlocked-box">D3DLOCKED_BOX</a> structure, describing the locked region.
+     * @param {Pointer<D3DBOX>} pBox Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dbox">D3DBOX</a>*</b>
+     * 
+     * Pointer to the volume to lock. This parameter is specified by a pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dbox">D3DBOX</a> structure. Specifying <b>NULL</b> for this parameter locks the entire volume level.
+     * @param {Integer} Flags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * 
+     * Combination of zero or more locking flags that describe the type of lock to perform. For this method, the valid flags are: 
+     *     
+     * 
+     * 
+     * <ul>
+     * <li>D3DLOCK_DISCARD</li>
+     * <li>D3DLOCK_NO_DIRTY_UPDATE</li>
+     * <li>D3DLOCK_NOSYSLOCK</li>
+     * <li>D3DLOCK_READONLY</li>
+     * </ul>
+     * For a description of the flags, see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dlock">D3DLOCK</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolumetexture9-lockbox
      */
     LockBox(Level, pLockedVolume, pBox, Flags) {
         result := ComCall(19, this, "uint", Level, "ptr", pLockedVolume, "ptr", pBox, "uint", Flags, "HRESULT")
@@ -90,10 +120,14 @@ class IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9{
     }
 
     /**
+     * Unlocks a box on a volume texture resource.
+     * @param {Integer} Level Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} Level 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-unlockbox
+     * Specifies the level of the volume texture resource to unlock.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolumetexture9-unlockbox
      */
     UnlockBox(Level) {
         result := ComCall(20, this, "uint", Level, "HRESULT")
@@ -101,10 +135,14 @@ class IDirect3DVolumeTexture9 extends IDirect3DBaseTexture9{
     }
 
     /**
+     * Adds a dirty region to a volume texture resource.
+     * @param {Pointer<D3DBOX>} pDirtyBox Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dbox">D3DBOX</a>*</b>
      * 
-     * @param {Pointer<D3DBOX>} pDirtyBox 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvolumetexture9-adddirtybox
+     * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dbox">D3DBOX</a> structure, specifying the dirty region to add. Specifying <b>NULL</b> expands the dirty region to cover the entire volume texture.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvolumetexture9-adddirtybox
      */
     AddDirtyBox(pDirtyBox) {
         result := ComCall(21, this, "ptr", pDirtyBox, "HRESULT")

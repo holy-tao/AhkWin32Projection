@@ -63,10 +63,10 @@ class IBroadcastEvent extends IUnknown{
     static VTableNames => ["Fire"]
 
     /**
-     * 
-     * @param {Guid} EventID 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ibroadcastevent-fire
+     * The Fire method fires a broadcast event.
+     * @param {Guid} EventID GUID that specifies the event.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ibroadcastevent-fire
      */
     Fire(EventID) {
         result := ComCall(3, this, "ptr", EventID, "HRESULT")

@@ -31,9 +31,9 @@ class IWMVideoMediaProps extends IWMMediaProps{
     static VTableNames => ["GetMaxKeyFrameSpacing", "SetMaxKeyFrameSpacing", "GetQuality", "SetQuality"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-getmaxkeyframespacing
+     * The GetMaxKeyFrameSpacing method retrieves the maximum interval between key frames.
+     * @returns {Integer} Pointer to a variable that receives the interval in 100-nanosecond units.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-getmaxkeyframespacing
      */
     GetMaxKeyFrameSpacing() {
         result := ComCall(6, this, "int64*", &pllTime := 0, "HRESULT")
@@ -41,10 +41,10 @@ class IWMVideoMediaProps extends IWMMediaProps{
     }
 
     /**
-     * 
-     * @param {Integer} llTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-setmaxkeyframespacing
+     * The SetMaxKeyFrameSpacing method specifies the maximum interval between key frames.
+     * @param {Integer} llTime Maximum key-frame spacing in 100-nanosecond units.
+     * @returns {HRESULT} This method always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-setmaxkeyframespacing
      */
     SetMaxKeyFrameSpacing(llTime) {
         result := ComCall(7, this, "int64", llTime, "HRESULT")
@@ -52,9 +52,9 @@ class IWMVideoMediaProps extends IWMMediaProps{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-getquality
+     * The GetQuality method retrieves the quality setting for the video stream.
+     * @returns {Integer} Pointer to a <b>DWORD</b> containing the quality setting.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-getquality
      */
     GetQuality() {
         result := ComCall(8, this, "uint*", &pdwQuality := 0, "HRESULT")
@@ -62,10 +62,10 @@ class IWMVideoMediaProps extends IWMMediaProps{
     }
 
     /**
-     * 
-     * @param {Integer} dwQuality 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-setquality
+     * The SetQuality method specifies the quality setting for the video stream.
+     * @param {Integer} dwQuality <b>DWORD</b> specifying the quality setting, in the range from zero (maximum <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">frame rate</a>) to 100 (maximum image quality).
+     * @returns {HRESULT} This method always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmvideomediaprops-setquality
      */
     SetQuality(dwQuality) {
         result := ComCall(9, this, "uint", dwQuality, "HRESULT")

@@ -30,6 +30,13 @@ class ICorrelationVectorSource extends IUnknown{
     static VTableNames => ["get_CorrelationVector"]
 
     /**
+     * @type {HSTRING} 
+     */
+    CorrelationVector {
+        get => this.get_CorrelationVector()
+    }
+
+    /**
      * 
      * @returns {HSTRING} 
      */

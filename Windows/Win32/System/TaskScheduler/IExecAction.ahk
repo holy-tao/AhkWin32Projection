@@ -42,10 +42,40 @@ class IExecAction extends IAction{
     static VTableNames => ["get_Path", "put_Path", "get_Arguments", "put_Arguments", "get_WorkingDirectory", "put_WorkingDirectory"]
 
     /**
+     */
+    Path {
+        get => this.get_Path()
+        set => this.put_Path(value)
+    }
+
+    /**
+     */
+    Arguments {
+        get => this.get_Arguments()
+        set => this.put_Arguments(value)
+    }
+
+    /**
+     */
+    WorkingDirectory {
+        get => this.get_WorkingDirectory()
+        set => this.put_WorkingDirectory(value)
+    }
+
+    /**
+     * Gets or sets the path to an executable file.
+     * @remarks
+     * 
+     * This action performs a command-line operation. For example, the action could run a script or launch an executable.
+     * 
+     * When reading or writing XML, the command-line operation path is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-command-exectype-element">Command</a> element of the Task Scheduler schema.
+     * 
+     * The path is checked to make sure it is valid when the task is registered, not when this property is set.
+     * 
      * 
      * @param {Pointer<BSTR>} pPath 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iexecaction-get_path
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iexecaction-get_path
      */
     get_Path(pPath) {
         result := ComCall(10, this, "ptr", pPath, "HRESULT")
@@ -53,10 +83,19 @@ class IExecAction extends IAction{
     }
 
     /**
+     * Gets or sets the path to an executable file.
+     * @remarks
+     * 
+     * This action performs a command-line operation. For example, the action could run a script or launch an executable.
+     * 
+     * When reading or writing XML, the command-line operation path is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-command-exectype-element">Command</a> element of the Task Scheduler schema.
+     * 
+     * The path is checked to make sure it is valid when the task is registered, not when this property is set.
+     * 
      * 
      * @param {BSTR} path 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iexecaction-put_path
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iexecaction-put_path
      */
     put_Path(path) {
         path := path is String ? BSTR.Alloc(path).Value : path
@@ -66,10 +105,15 @@ class IExecAction extends IAction{
     }
 
     /**
+     * Gets or sets the arguments associated with the command-line operation.
+     * @remarks
+     * 
+     * When reading or writing XML, the command-line operation arguments are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-arguments-exectype-element">Arguments</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {Pointer<BSTR>} pArgument 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iexecaction-get_arguments
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iexecaction-get_arguments
      */
     get_Arguments(pArgument) {
         result := ComCall(12, this, "ptr", pArgument, "HRESULT")
@@ -77,10 +121,15 @@ class IExecAction extends IAction{
     }
 
     /**
+     * Gets or sets the arguments associated with the command-line operation.
+     * @remarks
+     * 
+     * When reading or writing XML, the command-line operation arguments are specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-arguments-exectype-element">Arguments</a> element of the Task Scheduler schema.
+     * 
      * 
      * @param {BSTR} argument 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iexecaction-put_arguments
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iexecaction-put_arguments
      */
     put_Arguments(argument) {
         argument := argument is String ? BSTR.Alloc(argument).Value : argument
@@ -90,10 +139,17 @@ class IExecAction extends IAction{
     }
 
     /**
+     * Gets or sets the directory that contains either the executable file or the files that are used by the executable file.
+     * @remarks
+     * 
+     * When reading or writing XML, the working directory of the application is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-workingdirectory-exectype-element">WorkingDirectory</a> element of the Task Scheduler schema.
+     * 
+     * The path is checked to make sure it is valid when the task is registered, not when this property is set.
+     * 
      * 
      * @param {Pointer<BSTR>} pWorkingDirectory 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iexecaction-get_workingdirectory
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iexecaction-get_workingdirectory
      */
     get_WorkingDirectory(pWorkingDirectory) {
         result := ComCall(14, this, "ptr", pWorkingDirectory, "HRESULT")
@@ -101,10 +157,17 @@ class IExecAction extends IAction{
     }
 
     /**
+     * Gets or sets the directory that contains either the executable file or the files that are used by the executable file.
+     * @remarks
+     * 
+     * When reading or writing XML, the working directory of the application is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-workingdirectory-exectype-element">WorkingDirectory</a> element of the Task Scheduler schema.
+     * 
+     * The path is checked to make sure it is valid when the task is registered, not when this property is set.
+     * 
      * 
      * @param {BSTR} workingDirectory 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iexecaction-put_workingdirectory
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iexecaction-put_workingdirectory
      */
     put_WorkingDirectory(workingDirectory) {
         workingDirectory := workingDirectory is String ? BSTR.Alloc(workingDirectory).Value : workingDirectory

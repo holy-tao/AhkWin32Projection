@@ -31,6 +31,41 @@ class IMSMQApplication2 extends IMSMQApplication{
     static VTableNames => ["RegisterCertificate", "MachineNameOfMachineId", "get_MSMQVersionMajor", "get_MSMQVersionMinor", "get_MSMQVersionBuild", "get_IsDsEnabled", "get_Properties"]
 
     /**
+     * @type {Integer} 
+     */
+    MSMQVersionMajor {
+        get => this.get_MSMQVersionMajor()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MSMQVersionMinor {
+        get => this.get_MSMQVersionMinor()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MSMQVersionBuild {
+        get => this.get_MSMQVersionBuild()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    IsDsEnabled {
+        get => this.get_IsDsEnabled()
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    Properties {
+        get => this.get_Properties()
+    }
+
+    /**
      * 
      * @param {Pointer<VARIANT>} Flags 
      * @param {Pointer<VARIANT>} ExternalCertificate 

@@ -36,6 +36,14 @@ class IHTMLHtmlElement extends IDispatch{
     static VTableNames => ["put_version", "get_version"]
 
     /**
+     * @type {BSTR} 
+     */
+    version {
+        get => this.get_version()
+        set => this.put_version(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

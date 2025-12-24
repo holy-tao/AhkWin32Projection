@@ -30,6 +30,82 @@ class IPMLiveTileJobInfo extends IUnknown{
     static VTableNames => ["get_ProductID", "get_TileID", "get_NextSchedule", "set_NextSchedule", "get_StartSchedule", "set_StartSchedule", "get_IntervalDuration", "set_IntervalDuration", "get_RunForever", "set_RunForever", "get_MaxRunCount", "set_MaxRunCount", "get_RunCount", "set_RunCount", "get_RecurrenceType", "set_RecurrenceType", "get_TileXML", "set_TileXML", "get_UrlXML", "set_UrlXML", "get_AttemptCount", "set_AttemptCount", "get_DownloadState", "set_DownloadState"]
 
     /**
+     * @type {Guid} 
+     */
+    ProductID {
+        get => this.get_ProductID()
+    }
+
+    /**
+     */
+    TileID {
+        get => this.get_TileID()
+    }
+
+    /**
+     * @type {FILETIME} 
+     */
+    NextSchedule {
+        get => this.get_NextSchedule()
+    }
+
+    /**
+     * @type {FILETIME} 
+     */
+    StartSchedule {
+        get => this.get_StartSchedule()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    IntervalDuration {
+        get => this.get_IntervalDuration()
+    }
+
+    /**
+     * @type {BOOL} 
+     */
+    RunForever {
+        get => this.get_RunForever()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxRunCount {
+        get => this.get_MaxRunCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RunCount {
+        get => this.get_RunCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RecurrenceType {
+        get => this.get_RecurrenceType()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AttemptCount {
+        get => this.get_AttemptCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DownloadState {
+        get => this.get_DownloadState()
+    }
+
+    /**
      * 
      * @returns {Guid} 
      */

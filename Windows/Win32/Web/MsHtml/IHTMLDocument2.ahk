@@ -40,6 +40,451 @@ class IHTMLDocument2 extends IHTMLDocument{
     static VTableNames => ["get_all", "get_body", "get_activeElement", "get_images", "get_applets", "get_links", "get_forms", "get_anchors", "put_title", "get_title", "get_scripts", "put_designMode", "get_designMode", "get_selection", "get_readyState", "get_frames", "get_embeds", "get_plugins", "put_alinkColor", "get_alinkColor", "put_bgColor", "get_bgColor", "put_fgColor", "get_fgColor", "put_linkColor", "get_linkColor", "put_vlinkColor", "get_vlinkColor", "get_referrer", "get_location", "get_lastModified", "put_URL", "get_URL", "put_domain", "get_domain", "put_cookie", "get_cookie", "put_expando", "get_expando", "put_charset", "get_charset", "put_defaultCharset", "get_defaultCharset", "get_mimeType", "get_fileSize", "get_fileCreatedDate", "get_fileModifiedDate", "get_fileUpdatedDate", "get_security", "get_protocol", "get_nameProp", "write", "writeln", "open", "close", "clear", "queryCommandSupported", "queryCommandEnabled", "queryCommandState", "queryCommandIndeterm", "queryCommandText", "queryCommandValue", "execCommand", "execCommandShowHelp", "createElement", "put_onhelp", "get_onhelp", "put_onclick", "get_onclick", "put_ondblclick", "get_ondblclick", "put_onkeyup", "get_onkeyup", "put_onkeydown", "get_onkeydown", "put_onkeypress", "get_onkeypress", "put_onmouseup", "get_onmouseup", "put_onmousedown", "get_onmousedown", "put_onmousemove", "get_onmousemove", "put_onmouseout", "get_onmouseout", "put_onmouseover", "get_onmouseover", "put_onreadystatechange", "get_onreadystatechange", "put_onafterupdate", "get_onafterupdate", "put_onrowexit", "get_onrowexit", "put_onrowenter", "get_onrowenter", "put_ondragstart", "get_ondragstart", "put_onselectstart", "get_onselectstart", "elementFromPoint", "get_parentWindow", "get_styleSheets", "put_onbeforeupdate", "get_onbeforeupdate", "put_onerrorupdate", "get_onerrorupdate", "toString", "createStyleSheet"]
 
     /**
+     * @type {IHTMLElementCollection} 
+     */
+    all {
+        get => this.get_all()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    body {
+        get => this.get_body()
+    }
+
+    /**
+     * @type {IHTMLElement} 
+     */
+    activeElement {
+        get => this.get_activeElement()
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    images {
+        get => this.get_images()
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    applets {
+        get => this.get_applets()
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    links {
+        get => this.get_links()
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    forms {
+        get => this.get_forms()
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    anchors {
+        get => this.get_anchors()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    title {
+        get => this.get_title()
+        set => this.put_title(value)
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    scripts {
+        get => this.get_scripts()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    designMode {
+        get => this.get_designMode()
+        set => this.put_designMode(value)
+    }
+
+    /**
+     * @type {IHTMLSelectionObject} 
+     */
+    selection {
+        get => this.get_selection()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {IHTMLFramesCollection2} 
+     */
+    frames {
+        get => this.get_frames()
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    embeds {
+        get => this.get_embeds()
+    }
+
+    /**
+     * @type {IHTMLElementCollection} 
+     */
+    plugins {
+        get => this.get_plugins()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    alinkColor {
+        get => this.get_alinkColor()
+        set => this.put_alinkColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    bgColor {
+        get => this.get_bgColor()
+        set => this.put_bgColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    fgColor {
+        get => this.get_fgColor()
+        set => this.put_fgColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    linkColor {
+        get => this.get_linkColor()
+        set => this.put_linkColor(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    vlinkColor {
+        get => this.get_vlinkColor()
+        set => this.put_vlinkColor(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    referrer {
+        get => this.get_referrer()
+    }
+
+    /**
+     * @type {IHTMLLocation} 
+     */
+    location {
+        get => this.get_location()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    lastModified {
+        get => this.get_lastModified()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    URL {
+        get => this.get_URL()
+        set => this.put_URL(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    domain {
+        get => this.get_domain()
+        set => this.put_domain(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    cookie {
+        get => this.get_cookie()
+        set => this.put_cookie(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    expando {
+        get => this.get_expando()
+        set => this.put_expando(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    charset {
+        get => this.get_charset()
+        set => this.put_charset(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    defaultCharset {
+        get => this.get_defaultCharset()
+        set => this.put_defaultCharset(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    mimeType {
+        get => this.get_mimeType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fileSize {
+        get => this.get_fileSize()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fileCreatedDate {
+        get => this.get_fileCreatedDate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fileModifiedDate {
+        get => this.get_fileModifiedDate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fileUpdatedDate {
+        get => this.get_fileUpdatedDate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    security {
+        get => this.get_security()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    protocol {
+        get => this.get_protocol()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    nameProp {
+        get => this.get_nameProp()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onhelp {
+        get => this.get_onhelp()
+        set => this.put_onhelp(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onclick {
+        get => this.get_onclick()
+        set => this.put_onclick(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondblclick {
+        get => this.get_ondblclick()
+        set => this.put_ondblclick(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onkeyup {
+        get => this.get_onkeyup()
+        set => this.put_onkeyup(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onkeydown {
+        get => this.get_onkeydown()
+        set => this.put_onkeydown(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onkeypress {
+        get => this.get_onkeypress()
+        set => this.put_onkeypress(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseup {
+        get => this.get_onmouseup()
+        set => this.put_onmouseup(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmousedown {
+        get => this.get_onmousedown()
+        set => this.put_onmousedown(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmousemove {
+        get => this.get_onmousemove()
+        set => this.put_onmousemove(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseout {
+        get => this.get_onmouseout()
+        set => this.put_onmouseout(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onmouseover {
+        get => this.get_onmouseover()
+        set => this.put_onmouseover(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreadystatechange {
+        get => this.get_onreadystatechange()
+        set => this.put_onreadystatechange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onafterupdate {
+        get => this.get_onafterupdate()
+        set => this.put_onafterupdate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onrowexit {
+        get => this.get_onrowexit()
+        set => this.put_onrowexit(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onrowenter {
+        get => this.get_onrowenter()
+        set => this.put_onrowenter(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ondragstart {
+        get => this.get_ondragstart()
+        set => this.put_ondragstart(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onselectstart {
+        get => this.get_onselectstart()
+        set => this.put_onselectstart(value)
+    }
+
+    /**
+     * @type {IHTMLWindow2} 
+     */
+    parentWindow {
+        get => this.get_parentWindow()
+    }
+
+    /**
+     * @type {IHTMLStyleSheetsCollection} 
+     */
+    styleSheets {
+        get => this.get_styleSheets()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onbeforeupdate {
+        get => this.get_onbeforeupdate()
+        set => this.put_onbeforeupdate(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onerrorupdate {
+        get => this.get_onerrorupdate()
+        set => this.put_onerrorupdate(value)
+    }
+
+    /**
      * 
      * @returns {IHTMLElementCollection} 
      */

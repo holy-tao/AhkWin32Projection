@@ -31,9 +31,17 @@ class ITILSConfig extends IDispatch{
     static VTableNames => ["get_Port", "put_Port"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itilsconfig-get_port
+     * @type {Integer} 
+     */
+    Port {
+        get => this.get_Port()
+        set => this.put_Port(value)
+    }
+
+    /**
+     * The get_Port method gets the port number used to connect to the server of a given ILS directory.
+     * @returns {Integer} Pointer to receive the port number used in the connection.
+     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itilsconfig-get_port
      */
     get_Port() {
         result := ComCall(7, this, "int*", &pPort := 0, "HRESULT")
@@ -41,10 +49,50 @@ class ITILSConfig extends IDispatch{
     }
 
     /**
+     * The put_Port method sets the port number used to connect to the server of a specified ILS directory.
+     * @param {Integer} Port The port number that will be used to connect to the server. This can be any port number in the range of 16-bit unsigned integers.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} Port 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-itilsconfig-put_port
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>Port</i> parameter is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>RND_ALREADY_CONNECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A successful connection has been made. Port cannot be reset.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-itilsconfig-put_port
      */
     put_Port(Port) {
         result := ComCall(8, this, "int", Port, "HRESULT")

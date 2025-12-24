@@ -31,10 +31,28 @@ class IDataRetrieverCallback extends IUnknown{
     static VTableNames => ["LoadChangeDataComplete", "LoadChangeDataError"]
 
     /**
+     * Indicates that IAsynchronousDataRetriever::LoadChangeData has finished successfully.
+     * @param {IUnknown} pUnkData An object that can be used to access the data that was loaded by <b>LoadChangeData</b>.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {IUnknown} pUnkData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-idataretrievercallback-loadchangedatacomplete
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-idataretrievercallback-loadchangedatacomplete
      */
     LoadChangeDataComplete(pUnkData) {
         result := ComCall(3, this, "ptr", pUnkData, "HRESULT")
@@ -42,10 +60,28 @@ class IDataRetrieverCallback extends IUnknown{
     }
 
     /**
+     * Indicates that an IAsynchronousDataRetriever method failed.
+     * @param {HRESULT} hrError The error code that represents the reason for the failure.
+     * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
-     * @param {HRESULT} hrError 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-idataretrievercallback-loadchangedataerror
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-idataretrievercallback-loadchangedataerror
      */
     LoadChangeDataError(hrError) {
         result := ComCall(4, this, "int", hrError, "HRESULT")

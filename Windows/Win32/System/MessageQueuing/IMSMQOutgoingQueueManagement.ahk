@@ -37,6 +37,20 @@ class IMSMQOutgoingQueueManagement extends IMSMQManagement{
     static VTableNames => ["get_State", "get_NextHops", "EodGetSendInfo", "Resume", "Pause", "EodResend"]
 
     /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    NextHops {
+        get => this.get_NextHops()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

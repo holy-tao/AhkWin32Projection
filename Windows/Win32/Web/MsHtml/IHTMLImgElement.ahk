@@ -31,6 +31,228 @@ class IHTMLImgElement extends IDispatch{
     static VTableNames => ["put_isMap", "get_isMap", "put_useMap", "get_useMap", "get_mimeType", "get_fileSize", "get_fileCreatedDate", "get_fileModifiedDate", "get_fileUpdatedDate", "get_protocol", "get_href", "get_nameProp", "put_border", "get_border", "put_vspace", "get_vspace", "put_hspace", "get_hspace", "put_alt", "get_alt", "put_src", "get_src", "put_lowsrc", "get_lowsrc", "put_vrml", "get_vrml", "put_dynsrc", "get_dynsrc", "get_readyState", "get_complete", "put_loop", "get_loop", "put_align", "get_align", "put_onload", "get_onload", "put_onerror", "get_onerror", "put_onabort", "get_onabort", "put_name", "get_name", "put_width", "get_width", "put_height", "get_height", "put_start", "get_start"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    isMap {
+        get => this.get_isMap()
+        set => this.put_isMap(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    useMap {
+        get => this.get_useMap()
+        set => this.put_useMap(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    mimeType {
+        get => this.get_mimeType()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fileSize {
+        get => this.get_fileSize()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fileCreatedDate {
+        get => this.get_fileCreatedDate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fileModifiedDate {
+        get => this.get_fileModifiedDate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    fileUpdatedDate {
+        get => this.get_fileUpdatedDate()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    protocol {
+        get => this.get_protocol()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    href {
+        get => this.get_href()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    nameProp {
+        get => this.get_nameProp()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    border {
+        get => this.get_border()
+        set => this.put_border(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    vspace {
+        get => this.get_vspace()
+        set => this.put_vspace(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    hspace {
+        get => this.get_hspace()
+        set => this.put_hspace(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    alt {
+        get => this.get_alt()
+        set => this.put_alt(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    src {
+        get => this.get_src()
+        set => this.put_src(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    lowsrc {
+        get => this.get_lowsrc()
+        set => this.put_lowsrc(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    vrml {
+        get => this.get_vrml()
+        set => this.put_vrml(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    dynsrc {
+        get => this.get_dynsrc()
+        set => this.put_dynsrc(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    complete {
+        get => this.get_complete()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    loop {
+        get => this.get_loop()
+        set => this.put_loop(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    align {
+        get => this.get_align()
+        set => this.put_align(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onload {
+        get => this.get_onload()
+        set => this.put_onload(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onerror {
+        get => this.get_onerror()
+        set => this.put_onerror(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onabort {
+        get => this.get_onabort()
+        set => this.put_onabort(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    name {
+        get => this.get_name()
+        set => this.put_name(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    width {
+        get => this.get_width()
+        set => this.put_width(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    height {
+        get => this.get_height()
+        set => this.put_height(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    start {
+        get => this.get_start()
+        set => this.put_start(value)
+    }
+
+    /**
      * 
      * @param {VARIANT_BOOL} v 
      * @returns {HRESULT} 

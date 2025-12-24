@@ -32,9 +32,38 @@ class ITDigitGenerationEvent extends IDispatch{
     static VTableNames => ["get_Call", "get_GenerationTermination", "get_TickCount", "get_CallbackInstance"]
 
     /**
-     * 
-     * @returns {ITCallInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitgenerationevent-get_call
+     * @type {ITCallInfo} 
+     */
+    Call {
+        get => this.get_Call()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    GenerationTermination {
+        get => this.get_GenerationTermination()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TickCount {
+        get => this.get_TickCount()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CallbackInstance {
+        get => this.get_CallbackInstance()
+    }
+
+    /**
+     * The get_Call method returns an ITCallInfo interface pointer for the call on which the event is required.
+     * @returns {ITCallInfo} Pointer to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdigitgenerationevent-get_call
      */
     get_Call() {
         result := ComCall(7, this, "ptr*", &ppCallInfo := 0, "HRESULT")
@@ -42,9 +71,9 @@ class ITDigitGenerationEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitgenerationevent-get_generationtermination
+     * The get_GenerationTermination method gets the digit or digits that indicate the end of the generated digit series.
+     * @returns {Integer} Pointer to digit or digits that indicate the end of the generated digit series.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdigitgenerationevent-get_generationtermination
      */
     get_GenerationTermination() {
         result := ComCall(8, this, "int*", &plGenerationTermination := 0, "HRESULT")
@@ -52,9 +81,9 @@ class ITDigitGenerationEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitgenerationevent-get_tickcount
+     * The get_TickCount method gets the &quot;tick count&quot; (number of milliseconds since Windows started) at which the digit generation completed.
+     * @returns {Integer} Pointer to tick count.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdigitgenerationevent-get_tickcount
      */
     get_TickCount() {
         result := ComCall(9, this, "int*", &plTickCount := 0, "HRESULT")
@@ -62,9 +91,10 @@ class ITDigitGenerationEvent extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdigitgenerationevent-get_callbackinstance
+     * The get_CallbackInstance method gets a pointer to the callback instance associated with the event.
+     * @returns {Integer} Pointer to the callback instance returned by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications">ITTAPI::RegisterCallNotifications</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdigitgenerationevent-get_callbackinstance
      */
     get_CallbackInstance() {
         result := ComCall(10, this, "int*", &plCallbackInstance := 0, "HRESULT")

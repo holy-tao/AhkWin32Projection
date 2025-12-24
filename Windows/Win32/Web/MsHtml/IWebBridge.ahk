@@ -30,6 +30,44 @@ class IWebBridge extends IDispatch{
     static VTableNames => ["put_URL", "get_URL", "put_Scrollbar", "get_Scrollbar", "put_embed", "get_embed", "get_event", "get_readyState", "AboutBox"]
 
     /**
+     * @type {BSTR} 
+     */
+    URL {
+        get => this.get_URL()
+        set => this.put_URL(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Scrollbar {
+        get => this.get_Scrollbar()
+        set => this.put_Scrollbar(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    embed {
+        get => this.get_embed()
+        set => this.put_embed(value)
+    }
+
+    /**
+     * @type {IDispatch} 
+     */
+    event {
+        get => this.get_event()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

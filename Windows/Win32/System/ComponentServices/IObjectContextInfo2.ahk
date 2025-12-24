@@ -31,10 +31,39 @@ class IObjectContextInfo2 extends IObjectContextInfo{
     static VTableNames => ["GetPartitionId", "GetApplicationId", "GetApplicationInstanceId"]
 
     /**
+     * Retrieves the identifier of the partition of the current object context.
+     * @param {Pointer<Guid>} pGuid A GUID that identifies the COM+ partition.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
-     * @param {Pointer<Guid>} pGuid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontextinfo2-getpartitionid
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>COMADMIN_E_PARTITIONS_DISABLED </b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * COM+ partitions are not enabled.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextinfo2-getpartitionid
      */
     GetPartitionId(pGuid) {
         result := ComCall(8, this, "ptr", pGuid, "HRESULT")
@@ -42,10 +71,10 @@ class IObjectContextInfo2 extends IObjectContextInfo{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} pGuid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontextinfo2-getapplicationid
+     * Retrieves the identifier of the application of the current object context.
+     * @param {Pointer<Guid>} pGuid A GUID that identifies the application.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextinfo2-getapplicationid
      */
     GetApplicationId(pGuid) {
         result := ComCall(9, this, "ptr", pGuid, "HRESULT")
@@ -53,10 +82,10 @@ class IObjectContextInfo2 extends IObjectContextInfo{
     }
 
     /**
-     * 
-     * @param {Pointer<Guid>} pGuid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontextinfo2-getapplicationinstanceid
+     * Retrieves the identifier of the application instance of the current object context.
+     * @param {Pointer<Guid>} pGuid A GUID that identifies the application instance.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextinfo2-getapplicationinstanceid
      */
     GetApplicationInstanceId(pGuid) {
         result := ComCall(10, this, "ptr", pGuid, "HRESULT")

@@ -31,6 +31,74 @@ class IHTMLControlElement extends IDispatch{
     static VTableNames => ["put_tabIndex", "get_tabIndex", "focus", "put_accessKey", "get_accessKey", "put_onblur", "get_onblur", "put_onfocus", "get_onfocus", "put_onresize", "get_onresize", "blur", "addFilter", "removeFilter", "get_clientHeight", "get_clientWidth", "get_clientTop", "get_clientLeft"]
 
     /**
+     * @type {Integer} 
+     */
+    tabIndex {
+        get => this.get_tabIndex()
+        set => this.put_tabIndex(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    accessKey {
+        get => this.get_accessKey()
+        set => this.put_accessKey(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onblur {
+        get => this.get_onblur()
+        set => this.put_onblur(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onfocus {
+        get => this.get_onfocus()
+        set => this.put_onfocus(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onresize {
+        get => this.get_onresize()
+        set => this.put_onresize(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientHeight {
+        get => this.get_clientHeight()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientWidth {
+        get => this.get_clientWidth()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientTop {
+        get => this.get_clientTop()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    clientLeft {
+        get => this.get_clientLeft()
+    }
+
+    /**
      * 
      * @param {Integer} v 
      * @returns {HRESULT} 

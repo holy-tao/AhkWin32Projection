@@ -31,9 +31,9 @@ class IOfflineFilesGhostInfo extends IUnknown{
     static VTableNames => ["IsGhosted"]
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesghostinfo-isghosted
+     * Determines whether the item is ghosted.
+     * @returns {BOOL} Receives <b>TRUE</b> if the item is ghosted, or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesghostinfo-isghosted
      */
     IsGhosted() {
         result := ComCall(3, this, "int*", &pbGhosted := 0, "HRESULT")

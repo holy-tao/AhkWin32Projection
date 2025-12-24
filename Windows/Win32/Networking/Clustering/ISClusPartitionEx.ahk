@@ -32,6 +32,41 @@ class ISClusPartitionEx extends ISClusPartition{
     static VTableNames => ["get_TotalSize", "get_FreeSpace", "get_DeviceNumber", "get_PartitionNumber", "get_VolumeGuid"]
 
     /**
+     * @type {Integer} 
+     */
+    TotalSize {
+        get => this.get_TotalSize()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FreeSpace {
+        get => this.get_FreeSpace()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DeviceNumber {
+        get => this.get_DeviceNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PartitionNumber {
+        get => this.get_PartitionNumber()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VolumeGuid {
+        get => this.get_VolumeGuid()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -46,9 +46,37 @@ class IUpdateSession extends IDispatch{
     static VTableNames => ["get_ClientApplicationID", "put_ClientApplicationID", "get_ReadOnly", "get_WebProxy", "put_WebProxy", "CreateUpdateSearcher", "CreateUpdateDownloader", "CreateUpdateInstaller"]
 
     /**
+     * @type {BSTR} 
+     */
+    ClientApplicationID {
+        get => this.get_ClientApplicationID()
+        set => this.put_ClientApplicationID(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ReadOnly {
+        get => this.get_ReadOnly()
+    }
+
+    /**
+     * @type {IWebProxy} 
+     */
+    WebProxy {
+        get => this.get_WebProxy()
+        set => this.put_WebProxy(value)
+    }
+
+    /**
+     * Gets and sets the current client application.
+     * @remarks
+     * 
+     * Returns the Unknown value if the client application has not set the property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-get_clientapplicationid
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession-get_clientapplicationid
      */
     get_ClientApplicationID() {
         retval := BSTR()
@@ -57,10 +85,15 @@ class IUpdateSession extends IDispatch{
     }
 
     /**
+     * Gets and sets the current client application.
+     * @remarks
+     * 
+     * Returns the Unknown value if the client application has not set the property.
+     * 
      * 
      * @param {BSTR} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-put_clientapplicationid
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession-put_clientapplicationid
      */
     put_ClientApplicationID(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -70,9 +103,9 @@ class IUpdateSession extends IDispatch{
     }
 
     /**
-     * 
+     * Gets a Boolean value that indicates whether the session object is read-only.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-get_readonly
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession-get_readonly
      */
     get_ReadOnly() {
         result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
@@ -80,9 +113,9 @@ class IUpdateSession extends IDispatch{
     }
 
     /**
-     * 
+     * Gets and sets the proxy settings that are used to access the server.
      * @returns {IWebProxy} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-get_webproxy
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession-get_webproxy
      */
     get_WebProxy() {
         result := ComCall(10, this, "ptr*", &retval := 0, "HRESULT")
@@ -90,10 +123,10 @@ class IUpdateSession extends IDispatch{
     }
 
     /**
-     * 
+     * Gets and sets the proxy settings that are used to access the server.
      * @param {IWebProxy} value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-put_webproxy
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession-put_webproxy
      */
     put_WebProxy(value) {
         result := ComCall(11, this, "ptr", value, "HRESULT")
@@ -101,9 +134,9 @@ class IUpdateSession extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUpdateSearcher} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-createupdatesearcher
+     * Returns an IUpdateSearcher interface for this session.
+     * @returns {IUpdateSearcher} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher">IUpdateSearcher</a> interface for this session.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession-createupdatesearcher
      */
     CreateUpdateSearcher() {
         result := ComCall(12, this, "ptr*", &retval := 0, "HRESULT")
@@ -111,9 +144,9 @@ class IUpdateSession extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUpdateDownloader} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-createupdatedownloader
+     * Returns an IUpdateDownloader interface for this session.
+     * @returns {IUpdateDownloader} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatedownloader">IUpdateDownloader</a> interface for this session.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession-createupdatedownloader
      */
     CreateUpdateDownloader() {
         result := ComCall(13, this, "ptr*", &retval := 0, "HRESULT")
@@ -121,9 +154,9 @@ class IUpdateSession extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IUpdateInstaller} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession-createupdateinstaller
+     * Returns an IUpdateInstaller interface for this session.
+     * @returns {IUpdateInstaller} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdateinstaller">IUpdateInstaller</a> interface for this session.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession-createupdateinstaller
      */
     CreateUpdateInstaller() {
         result := ComCall(14, this, "ptr*", &retval := 0, "HRESULT")

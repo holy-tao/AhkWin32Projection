@@ -36,10 +36,10 @@ class IMFSignedLibrary extends IUnknown{
     static VTableNames => ["GetProcedureAddress"]
 
     /**
-     * 
-     * @param {PSTR} name 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsignedlibrary-getprocedureaddress
+     * Gets the procedure address of the specified function in the signed library.
+     * @param {PSTR} name The entry point name in the DLL that specifies the function.
+     * @returns {Pointer<Void>} Receives the address of the entry point.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsignedlibrary-getprocedureaddress
      */
     GetProcedureAddress(name) {
         name := name is String ? StrPtr(name) : name

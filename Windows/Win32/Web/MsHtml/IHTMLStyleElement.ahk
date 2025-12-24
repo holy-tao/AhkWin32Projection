@@ -38,6 +38,68 @@ class IHTMLStyleElement extends IDispatch{
     static VTableNames => ["put_type", "get_type", "get_readyState", "put_onreadystatechange", "get_onreadystatechange", "put_onload", "get_onload", "put_onerror", "get_onerror", "get_styleSheet", "put_disabled", "get_disabled", "put_media", "get_media"]
 
     /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    readyState {
+        get => this.get_readyState()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onreadystatechange {
+        get => this.get_onreadystatechange()
+        set => this.put_onreadystatechange(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onload {
+        get => this.get_onload()
+        set => this.put_onload(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onerror {
+        get => this.get_onerror()
+        set => this.put_onerror(value)
+    }
+
+    /**
+     * @type {IHTMLStyleSheet} 
+     */
+    styleSheet {
+        get => this.get_styleSheet()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    disabled {
+        get => this.get_disabled()
+        set => this.put_disabled(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    media {
+        get => this.get_media()
+        set => this.put_media(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

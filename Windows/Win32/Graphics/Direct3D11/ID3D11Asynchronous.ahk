@@ -45,9 +45,11 @@ class ID3D11Asynchronous extends ID3D11DeviceChild{
     static VTableNames => ["GetDataSize"]
 
     /**
+     * Get the size of the data (in bytes) that is output when calling ID3D11DeviceContext::GetData.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11asynchronous-getdatasize
+     * Size of the data (in bytes) that is output when calling GetData.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11asynchronous-getdatasize
      */
     GetDataSize() {
         result := ComCall(7, this, "uint")

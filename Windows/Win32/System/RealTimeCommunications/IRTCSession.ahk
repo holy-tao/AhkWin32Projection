@@ -35,6 +35,62 @@ class IRTCSession extends IUnknown{
     static VTableNames => ["get_Client", "get_State", "get_Type", "get_Profile", "get_Participants", "Answer", "Terminate", "Redirect", "AddParticipant", "RemoveParticipant", "EnumerateParticipants", "get_CanAddParticipants", "get_RedirectedUserURI", "get_RedirectedUserName", "NextRedirectedUser", "SendMessage", "SendMessageStatus", "AddStream", "RemoveStream", "put_EncryptionKey"]
 
     /**
+     * @type {IRTCClient} 
+     */
+    Client {
+        get => this.get_Client()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    State {
+        get => this.get_State()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {IRTCProfile} 
+     */
+    Profile {
+        get => this.get_Profile()
+    }
+
+    /**
+     * @type {IRTCCollection} 
+     */
+    Participants {
+        get => this.get_Participants()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    CanAddParticipants {
+        get => this.get_CanAddParticipants()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RedirectedUserURI {
+        get => this.get_RedirectedUserURI()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RedirectedUserName {
+        get => this.get_RedirectedUserName()
+    }
+
+    /**
      * 
      * @returns {IRTCClient} 
      */

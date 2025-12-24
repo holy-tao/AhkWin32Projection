@@ -32,6 +32,30 @@ class IADsPath extends IDispatch{
     static VTableNames => ["get_Type", "put_Type", "get_VolumeName", "put_VolumeName", "get_Path", "put_Path"]
 
     /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+        set => this.put_Type(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VolumeName {
+        get => this.get_VolumeName()
+        set => this.put_VolumeName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Path {
+        get => this.get_Path()
+        set => this.put_Path(value)
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

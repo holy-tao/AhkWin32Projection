@@ -31,13 +31,13 @@ class IImePad extends IUnknown{
     static VTableNames => ["Request"]
 
     /**
-     * 
-     * @param {IImePadApplet} pIImePadApplet 
+     * Called by an IImePadApplet to insert text into an app.
+     * @param {IImePadApplet} pIImePadApplet The interface pointer of the calling applet.
      * @param {Integer} reqId 
-     * @param {WPARAM} wParam 
-     * @param {LPARAM} lParam 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimepad-request
+     * @param {WPARAM} wParam Additional information specific to <i>reqId</i>.
+     * @param {LPARAM} lParam Additional information specific to <i>reqId</i>.
+     * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//imepad/nf-imepad-iimepad-request
      */
     Request(pIImePadApplet, reqId, wParam, lParam) {
         result := ComCall(3, this, "ptr", pIImePadApplet, "int", reqId, "ptr", wParam, "ptr", lParam, "HRESULT")

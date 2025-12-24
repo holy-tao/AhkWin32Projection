@@ -36,6 +36,27 @@ class IDOMProgressEvent extends IDispatch{
     static VTableNames => ["get_lengthComputable", "get_loaded", "get_total", "initProgressEvent"]
 
     /**
+     * @type {VARIANT_BOOL} 
+     */
+    lengthComputable {
+        get => this.get_lengthComputable()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    loaded {
+        get => this.get_loaded()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    total {
+        get => this.get_total()
+    }
+
+    /**
      * 
      * @returns {VARIANT_BOOL} 
      */

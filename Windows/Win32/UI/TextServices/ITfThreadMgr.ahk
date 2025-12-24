@@ -44,9 +44,9 @@ class ITfThreadMgr extends IUnknown{
     static VTableNames => ["Activate", "Deactivate", "CreateDocumentMgr", "EnumDocumentMgrs", "GetFocus", "SetFocus", "AssociateFocus", "IsThreadFocus", "GetFunctionProvider", "EnumFunctionProviders", "GetGlobalCompartment"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-activate
+     * ITfThreadMgr::Activate method
+     * @returns {Integer} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/TSF/tfclientid">TfClientId</a> value that receives a client identifier.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr-activate
      */
     Activate() {
         result := ComCall(3, this, "uint*", &ptid := 0, "HRESULT")
@@ -54,9 +54,38 @@ class ITfThreadMgr extends IUnknown{
     }
 
     /**
+     * ITfThreadMgr::Deactivate method
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-deactivate
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_UNEXPECTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This method was called while the thread was activating or this call had no corresponding <a href="/windows/desktop/api/msctf/nf-msctf-itfthreadmgr-activate">ITfThreadMgr::Activate</a> call.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr-deactivate
      */
     Deactivate() {
         result := ComCall(4, this, "HRESULT")
@@ -64,9 +93,9 @@ class ITfThreadMgr extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ITfDocumentMgr} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-createdocumentmgr
+     * ITfThreadMgr::CreateDocumentMgr method
+     * @returns {ITfDocumentMgr} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfdocumentmgr">ITfDocumentMgr</a> interface that receives the document manager object.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr-createdocumentmgr
      */
     CreateDocumentMgr() {
         result := ComCall(5, this, "ptr*", &ppdim := 0, "HRESULT")
@@ -74,9 +103,9 @@ class ITfThreadMgr extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumTfDocumentMgrs} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-enumdocumentmgrs
+     * ITfThreadMgr::EnumDocumentMgrs method
+     * @returns {IEnumTfDocumentMgrs} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfdocumentmgrs">IEnumTfDocumentMgrs</a> interface that receives the enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr-enumdocumentmgrs
      */
     EnumDocumentMgrs() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -84,9 +113,9 @@ class ITfThreadMgr extends IUnknown{
     }
 
     /**
-     * Retrieves the handle to the window that has the keyboard focus, if the window is attached to the calling thread's message queue.
-     * @returns {ITfDocumentMgr} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getfocus
+     * ITfThreadMgr::GetFocus method
+     * @returns {ITfDocumentMgr} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfdocumentmgr">ITfDocumentMgr</a> interface that receives the document manager with the current input focus. Receives <b>NULL</b> if no document manager has the focus.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr-getfocus
      */
     GetFocus() {
         result := ComCall(7, this, "ptr*", &ppdimFocus := 0, "HRESULT")
@@ -94,14 +123,39 @@ class ITfThreadMgr extends IUnknown{
     }
 
     /**
-     * Sets the keyboard focus to the specified window. The window must be attached to the calling thread's message queue.
-     * @param {ITfDocumentMgr} pdimFocus 
-     * @returns {HRESULT} Type: **HWND**
+     * ITfThreadMgr::SetFocus method
+     * @param {ITfDocumentMgr} pdimFocus Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfdocumentmgr">ITfDocumentMgr</a> interface that receives the input focus. This parameter cannot be <b>NULL</b>.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * If the function succeeds, the return value is the handle to the window that previously had the keyboard focus. If the *hWnd* parameter is invalid or the window is not attached to the calling thread's message queue, the return value is NULL. To get extended error information, call [GetLastError function](../errhandlingapi/nf-errhandlingapi-getlasterror.md).
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
      * 
-     * Extended error ERROR_INVALID_PARAMETER (0x57) means that window is in disabled state.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setfocus
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pdimFocus</i> is invalid.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr-setfocus
      */
     SetFocus(pdimFocus) {
         result := ComCall(8, this, "ptr", pdimFocus, "HRESULT")
@@ -109,11 +163,11 @@ class ITfThreadMgr extends IUnknown{
     }
 
     /**
-     * 
-     * @param {HWND} hwnd 
-     * @param {ITfDocumentMgr} pdimNew 
-     * @returns {ITfDocumentMgr} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-associatefocus
+     * ITfThreadMgr::AssociateFocus method
+     * @param {HWND} hwnd Handle of the window to associate the focus with.
+     * @param {ITfDocumentMgr} pdimNew Pointer to the document manager to associate the focus with. The TSF manager does not increment the object reference count. This value can be <b>NULL</b>.
+     * @returns {ITfDocumentMgr} Receives the document manager previously associated with the window. Receives <b>NULL</b> if there is no previous association. This parameter cannot be <b>NULL</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr-associatefocus
      */
     AssociateFocus(hwnd, pdimNew) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -123,9 +177,9 @@ class ITfThreadMgr extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-isthreadfocus
+     * ITfThreadMgr::IsThreadFocus method
+     * @returns {BOOL} Pointer to a BOOL that receives a value that indicates if the calling thread has input focus. This parameter receives a nonzero value if the calling thread has the focus or zero otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr-isthreadfocus
      */
     IsThreadFocus() {
         result := ComCall(10, this, "int*", &pfThreadFocus := 0, "HRESULT")
@@ -133,10 +187,37 @@ class ITfThreadMgr extends IUnknown{
     }
 
     /**
+     * ITfThreadMgr::GetFunctionProvider method
+     * @param {Pointer<Guid>} clsid CLSID of the desired function provider. This can be the CLSID of a function provider registered for the calling thread or one of the following predefined values.
      * 
-     * @param {Pointer<Guid>} clsid 
-     * @returns {ITfFunctionProvider} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-getfunctionprovider
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="GUID_SYSTEM_FUNCTIONPROVIDER"></a><a id="guid_system_functionprovider"></a><dl>
+     * <dt><b>GUID_SYSTEM_FUNCTIONPROVIDER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Obtains the TSF system function provider.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="GUID_APP_FUNCTIONPROVIDER"></a><a id="guid_app_functionprovider"></a><dl>
+     * <dt><b>GUID_APP_FUNCTIONPROVIDER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Obtains the function provider implemented by the current application. This object is not available if the application does not register itself as a function provider.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {ITfFunctionProvider} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itffunctionprovider">ITfFunctionProvider</a> interface that receives the function provider.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr-getfunctionprovider
      */
     GetFunctionProvider(clsid) {
         result := ComCall(11, this, "ptr", clsid, "ptr*", &ppFuncProv := 0, "HRESULT")
@@ -144,9 +225,9 @@ class ITfThreadMgr extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumTfFunctionProviders} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-enumfunctionproviders
+     * ITfThreadMgr::EnumFunctionProviders method
+     * @returns {IEnumTfFunctionProviders} Address of a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtffunctionproviders">IEnumTfFunctionProviders</a> interface that receives the function provider enumerator.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr-enumfunctionproviders
      */
     EnumFunctionProviders() {
         result := ComCall(12, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -154,9 +235,9 @@ class ITfThreadMgr extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {ITfCompartmentMgr} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfthreadmgr-getglobalcompartment
+     * ITfThreadMgr::GetGlobalCompartment method
+     * @returns {ITfCompartmentMgr} Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcompartmentmgr">ITfCompartmentMgr</a> interface that receives the global compartment manager.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfthreadmgr-getglobalcompartment
      */
     GetGlobalCompartment() {
         result := ComCall(13, this, "ptr*", &ppCompMgr := 0, "HRESULT")

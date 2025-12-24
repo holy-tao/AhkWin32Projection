@@ -57,10 +57,50 @@ class IMFSimpleAudioVolume extends IUnknown{
     static VTableNames => ["SetMasterVolume", "GetMasterVolume", "SetMute", "GetMute"]
 
     /**
+     * Sets the master volume level.
+     * @param {Float} fLevel Volume level. Volume is expressed as an attenuation level, where 0.0 indicates silence and 1.0 indicates full volume (no attenuation).
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Float} fLevel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-setmastervolume
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_NOT_INITIALIZED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The audio renderer is not initialized.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_STREAMSINK_REMOVED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The audio renderer was removed from the pipeline.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsimpleaudiovolume-setmastervolume
      */
     SetMasterVolume(fLevel) {
         result := ComCall(3, this, "float", fLevel, "HRESULT")
@@ -68,9 +108,9 @@ class IMFSimpleAudioVolume extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-getmastervolume
+     * Retrieves the master volume level.
+     * @returns {Float} Receives the volume level. Volume is expressed as an attenuation level, where 0.0 indicates silence and 1.0 indicates full volume (no attenuation).
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsimpleaudiovolume-getmastervolume
      */
     GetMasterVolume() {
         result := ComCall(4, this, "float*", &pfLevel := 0, "HRESULT")
@@ -78,10 +118,50 @@ class IMFSimpleAudioVolume extends IUnknown{
     }
 
     /**
+     * Mutes or unmutes the audio.
+     * @param {BOOL} bMute Specify <b>TRUE</b> to mute the audio, or <b>FALSE</b> to unmute the audio.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BOOL} bMute 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-setmute
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_NOT_INITIALIZED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The audio renderer is not initialized.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>MF_E_STREAMSINK_REMOVED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The audio renderer was removed from the pipeline.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsimpleaudiovolume-setmute
      */
     SetMute(bMute) {
         result := ComCall(5, this, "int", bMute, "HRESULT")
@@ -89,9 +169,9 @@ class IMFSimpleAudioVolume extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsimpleaudiovolume-getmute
+     * Queries whether the audio is muted.
+     * @returns {BOOL} Receives a Boolean value. If <b>TRUE</b>, the audio is muted; otherwise, the audio is not muted.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsimpleaudiovolume-getmute
      */
     GetMute() {
         result := ComCall(6, this, "int*", &pbMute := 0, "HRESULT")

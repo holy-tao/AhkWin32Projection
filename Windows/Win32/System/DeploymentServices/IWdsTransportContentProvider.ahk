@@ -38,9 +38,37 @@ class IWdsTransportContentProvider extends IDispatch{
     static VTableNames => ["get_Name", "get_Description", "get_FilePath", "get_InitializationRoutine"]
 
     /**
-     * 
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    FilePath {
+        get => this.get_FilePath()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    InitializationRoutine {
+        get => this.get_InitializationRoutine()
+    }
+
+    /**
+     * Retrieves the name of the content provider.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_name
      */
     get_Name() {
         pbszName := BSTR()
@@ -49,9 +77,9 @@ class IWdsTransportContentProvider extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the description of the content provider.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_description
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_description
      */
     get_Description() {
         pbszDescription := BSTR()
@@ -60,9 +88,9 @@ class IWdsTransportContentProvider extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the path to the content provider’s DLL.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_filepath
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_filepath
      */
     get_FilePath() {
         pbszFilePath := BSTR()
@@ -71,9 +99,9 @@ class IWdsTransportContentProvider extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the name of the method called to initialize the content provider.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_initializationroutine
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_initializationroutine
      */
     get_InitializationRoutine() {
         pbszInitializationRoutine := BSTR()

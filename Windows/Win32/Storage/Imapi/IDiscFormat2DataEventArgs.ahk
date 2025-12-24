@@ -31,9 +31,37 @@ class IDiscFormat2DataEventArgs extends IWriteEngine2EventArgs{
     static VTableNames => ["get_ElapsedTime", "get_RemainingTime", "get_TotalTime", "get_CurrentAction"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2dataeventargs-get_elapsedtime
+     * @type {Integer} 
+     */
+    ElapsedTime {
+        get => this.get_ElapsedTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    RemainingTime {
+        get => this.get_RemainingTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TotalTime {
+        get => this.get_TotalTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CurrentAction {
+        get => this.get_CurrentAction()
+    }
+
+    /**
+     * Retrieves the total elapsed time of the write operation.
+     * @returns {Integer} Elapsed time, in seconds, of the write operation.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2dataeventargs-get_elapsedtime
      */
     get_ElapsedTime() {
         result := ComCall(14, this, "int*", &value := 0, "HRESULT")
@@ -41,9 +69,9 @@ class IDiscFormat2DataEventArgs extends IWriteEngine2EventArgs{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2dataeventargs-get_remainingtime
+     * Retrieves the estimated remaining time of the write operation.
+     * @returns {Integer} Estimated time, in seconds, needed for the remainder of the write operation.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2dataeventargs-get_remainingtime
      */
     get_RemainingTime() {
         result := ComCall(15, this, "int*", &value := 0, "HRESULT")
@@ -51,9 +79,9 @@ class IDiscFormat2DataEventArgs extends IWriteEngine2EventArgs{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2dataeventargs-get_totaltime
+     * Retrieves the estimated total time for write operation.
+     * @returns {Integer} Estimated time, in seconds, for write operation.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2dataeventargs-get_totaltime
      */
     get_TotalTime() {
         result := ComCall(16, this, "int*", &value := 0, "HRESULT")
@@ -61,9 +89,9 @@ class IDiscFormat2DataEventArgs extends IWriteEngine2EventArgs{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2dataeventargs-get_currentaction
+     * Retrieves the current write action being performed.
+     * @returns {Integer} Current write action being performed. For a list of possible actions, see  the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_format2_data_write_action">IMAPI_FORMAT2_DATA_WRITE_ACTION</a> enumeration type.
+     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2dataeventargs-get_currentaction
      */
     get_CurrentAction() {
         result := ComCall(17, this, "int*", &value := 0, "HRESULT")

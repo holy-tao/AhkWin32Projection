@@ -37,9 +37,11 @@ class IDestinationStreamFactory extends IUnknown{
     static VTableNames => ["GetDestinationStream"]
 
     /**
+     * Gets an empty stream that receives the new version of the file being copied.
+     * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idestinationstreamfactory-getdestinationstream
+     * The address of a pointer to the new stream.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idestinationstreamfactory-getdestinationstream
      */
     GetDestinationStream() {
         result := ComCall(3, this, "ptr*", &ppstm := 0, "HRESULT")

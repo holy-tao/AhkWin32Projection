@@ -15,6 +15,14 @@ class GuidTests {
         Yunit.Assert(NumGet(test, 8, "uint64") == 0, "Guid is not empty`n" . test.HexDump())
     }
 
+    Constructor_WithNoArgs_CreatesEmptyGuid(){
+        test := Guid()
+
+        Yunit.Assert(test.ptr != 0)
+        Yunit.Assert(NumGet(test, 0, "uint64") == 0, "Guid is not empty`n" . test.HexDump())
+        Yunit.Assert(NumGet(test, 8, "uint64") == 0, "Guid is not empty`n" . test.HexDump())
+    }
+
     Constructor_WithNumericPtr_UsesIt(){
         testBuf := Buffer(16, 0)
         NumPut("uint64", 0x42, testBuf, 0)

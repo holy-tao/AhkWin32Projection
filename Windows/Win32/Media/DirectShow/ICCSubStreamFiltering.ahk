@@ -36,9 +36,17 @@ class ICCSubStreamFiltering extends IUnknown{
     static VTableNames => ["get_SubstreamTypes", "put_SubstreamTypes"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-iccsubstreamfiltering-get_substreamtypes
+     * @type {Integer} 
+     */
+    SubstreamTypes {
+        get => this.get_SubstreamTypes()
+        set => this.put_SubstreamTypes(value)
+    }
+
+    /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @returns {Integer} Receives a bitwise OR of flags that specify the closed captioning services. For a list of flags, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/ks-cc-substream">KS_CC_SUBSTREAM Constants</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-iccsubstreamfiltering-get_substreamtypes
      */
     get_SubstreamTypes() {
         result := ComCall(3, this, "int*", &pTypes := 0, "HRESULT")
@@ -46,10 +54,28 @@ class ICCSubStreamFiltering extends IUnknown{
     }
 
     /**
+     * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
+     * @param {Integer} Types Bitwise OR of flags that specify the closed captioning services. For a list of flags, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/ks-cc-substream">KS_CC_SUBSTREAM Constants</a>. Any services that are not selected are simply dropped.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} Types 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-iccsubstreamfiltering-put_substreamtypes
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-iccsubstreamfiltering-put_substreamtypes
      */
     put_SubstreamTypes(Types) {
         result := ComCall(4, this, "int", Types, "HRESULT")

@@ -33,10 +33,14 @@ class IUIAutomationSpreadsheetPattern extends IUnknown{
     static VTableNames => ["GetItemByName"]
 
     /**
+     * Retrieves a UI Automation element that represents the spreadsheet cell that has the specified name.
+     * @param {BSTR} name Type: <b>BSTR</b>
      * 
-     * @param {BSTR} name 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetpattern-getitembyname
+     * The name of the target cell.
+     * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
+     * 
+     * Receives the element that represents the target cell.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetpattern-getitembyname
      */
     GetItemByName(name) {
         name := name is String ? BSTR.Alloc(name).Value : name

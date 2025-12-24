@@ -45,12 +45,20 @@ class IADsSecurityUtility extends IDispatch{
     static VTableNames => ["GetSecurityDescriptor", "SetSecurityDescriptor", "ConvertSecurityDescriptor", "get_SecurityMask", "put_SecurityMask"]
 
     /**
-     * 
-     * @param {VARIANT} varPath 
-     * @param {Integer} lPathFormat 
-     * @param {Integer} lFormat 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-getsecuritydescriptor
+     * @type {Integer} 
+     */
+    SecurityMask {
+        get => this.get_SecurityMask()
+        set => this.put_SecurityMask(value)
+    }
+
+    /**
+     * Retrieves a security descriptor for the specified file, fileshare, or registry key.
+     * @param {VARIANT} varPath A <b>VARIANT</b> string that contains the path of the object to retrieve the security descriptor for.
+     * @param {Integer} lPathFormat Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_pathtype_enum">ADS_PATHTYPE_ENUM</a> values which specifies the format of the <i>varPath</i> parameter.
+     * @param {Integer} lFormat Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_sd_format_enum">ADS_SD_FORMAT_ENUM</a> values which specifies the format of the security descriptor returned in the <i>pVariant</i> parameter. The following list identifies the possible values for this parameter and the format that is supplied in the <i>pVariant</i> parameter.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> that receives the returned security descriptor. The format of the retrieved security descriptor is specified by the <i>lFormat</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadssecurityutility-getsecuritydescriptor
      */
     GetSecurityDescriptor(varPath, lPathFormat, lFormat) {
         pVariant := VARIANT()
@@ -59,13 +67,13 @@ class IADsSecurityUtility extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} varPath 
-     * @param {Integer} lPathFormat 
-     * @param {VARIANT} varData 
-     * @param {Integer} lDataFormat 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-setsecuritydescriptor
+     * Sets the security descriptor for the specified file, file share, or registry key.
+     * @param {VARIANT} varPath A <b>VARIANT</b> string that contains the path of the object to set the security descriptor for. Possible values are listed in the following list.
+     * @param {Integer} lPathFormat Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_pathtype_enum">ADS_PATHTYPE_ENUM</a> values which specifies the format of the <i>varPath</i> parameter.
+     * @param {VARIANT} varData A <b>VARIANT</b> that contains the new security descriptor. The format of the security descriptor is specified by the <i>lDataFormat</i> parameter.
+     * @param {Integer} lDataFormat Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_sd_format_enum">ADS_SD_FORMAT_ENUM</a> values which specifies the format of the security descriptor contained in the <i>VarData</i> parameter. The following list identifies the possible values for this parameter and the format of the <i>VarData</i> parameter.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful or a COM or Win32 error code otherwise. Possible error codes are listed in the following list.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadssecurityutility-setsecuritydescriptor
      */
     SetSecurityDescriptor(varPath, lPathFormat, varData, lDataFormat) {
         result := ComCall(8, this, "ptr", varPath, "int", lPathFormat, "ptr", varData, "int", lDataFormat, "HRESULT")
@@ -73,12 +81,12 @@ class IADsSecurityUtility extends IDispatch{
     }
 
     /**
-     * 
-     * @param {VARIANT} varSD 
-     * @param {Integer} lDataFormat 
-     * @param {Integer} lOutFormat 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-convertsecuritydescriptor
+     * Converts a security descriptor from one format to another.
+     * @param {VARIANT} varSD A <b>VARIANT</b> that contains the security descriptor to convert. The format of this <b>VARIANT</b> is defined  by the <i>lDataFormat</i> parameter.
+     * @param {Integer} lDataFormat Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_sd_format_enum">ADS_SD_FORMAT_ENUM</a> values which specifies the format of the security descriptor in the <i>varSD</i> parameter. The following list identifies the possible values for this parameter and the format of the <i>varSD</i> parameter.
+     * @param {Integer} lOutFormat Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/iads/ne-iads-ads_sd_format_enum">ADS_SD_FORMAT_ENUM</a> values which specifies the format that the security descriptor should be converted to. The following list identifies the possible values for this parameter and the format of the <i>pvResult</i> parameter.
+     * @returns {VARIANT} Pointer to a <b>VARIANT</b> that receives the converted security descriptor. The format of the retrieved security descriptor is specified by the <i>lOutFormat</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadssecurityutility-convertsecuritydescriptor
      */
     ConvertSecurityDescriptor(varSD, lDataFormat, lOutFormat) {
         pResult := VARIANT()
@@ -87,9 +95,9 @@ class IADsSecurityUtility extends IDispatch{
     }
 
     /**
-     * 
+     * Determines which elements of the security descriptor to retrieve or set.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-get_securitymask
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadssecurityutility-get_securitymask
      */
     get_SecurityMask() {
         result := ComCall(10, this, "int*", &retval := 0, "HRESULT")
@@ -97,10 +105,10 @@ class IADsSecurityUtility extends IDispatch{
     }
 
     /**
-     * 
+     * Determines which elements of the security descriptor to retrieve or set.
      * @param {Integer} lnSecurityMask 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadssecurityutility-put_securitymask
+     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadssecurityutility-put_securitymask
      */
     put_SecurityMask(lnSecurityMask) {
         result := ComCall(11, this, "int", lnSecurityMask, "HRESULT")

@@ -36,10 +36,10 @@ class ISurrogate extends IUnknown{
     static VTableNames => ["LoadDllServer", "FreeSurrogate"]
 
     /**
-     * 
-     * @param {Pointer<Guid>} Clsid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-isurrogate-loaddllserver
+     * Loads a DLL server into the implementing surrogate. COM calls this method when there is an activation request for the DLL server's class, if the class is registered as DllSurrogate.
+     * @param {Pointer<Guid>} Clsid The CLSID of the DLL server to be loaded.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isurrogate-loaddllserver
      */
     LoadDllServer(Clsid) {
         result := ComCall(3, this, "ptr", Clsid, "HRESULT")
@@ -47,9 +47,9 @@ class ISurrogate extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-isurrogate-freesurrogate
+     * Unloads a DLL server.
+     * @returns {HRESULT} This method can return the standard return values E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isurrogate-freesurrogate
      */
     FreeSurrogate() {
         result := ComCall(4, this, "HRESULT")

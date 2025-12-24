@@ -51,13 +51,20 @@ class IDedupBackupSupport extends IUnknown{
     static VTableNames => ["RestoreFiles"]
 
     /**
-     * 
-     * @param {Integer} NumberOfFiles 
-     * @param {Pointer<BSTR>} FileFullPaths 
-     * @param {IDedupReadFileCallback} Store 
-     * @param {Integer} Flags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ddpbackup/nf-ddpbackup-idedupbackupsupport-restorefiles
+     * Reconstructs a set of files from a backup store that contains the fully optimized version of the files (reparse points) and the Data Deduplication store.
+     * @param {Integer} NumberOfFiles The number of files to restore. If this exceeds 10,000 then the method will fail with 
+     *       <b>E_INVALIDARG</b> (0x80070057).
+     * @param {Pointer<BSTR>} FileFullPaths For each file, this parameter contains the full path from the root directory of the volume to the reparse 
+     *       point previously restored by the application.
+     * @param {IDedupReadFileCallback} Store <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ddpbackup/nn-ddpbackup-idedupreadfilecallback">IDedupReadFileCallback</a> interface pointer 
+     *       for the backup store. This parameter is required and cannot be <b>NULL</b>.
+     * @param {Integer} Flags This parameter must be <b>DEDUP_RECONSTRUCT_UNOPTIMIZED</b> on input. For more 
+     *       information, see the 
+     *       <a href="https://docs.microsoft.com/windows/win32/api/ddpbackup/ne-ddpbackup-dedup_backup_support_param_type">DEDUP_BACKUP_SUPPORT_PARAM_TYPE</a> 
+     *        enumeration.
+     * @returns {HRESULT} For each file, this parameter contains the results of the restore operation for that file. This parameter 
+     *       is optional and can be <b>NULL</b> if the application doesn't need to know the results for each individual file.
+     * @see https://docs.microsoft.com/windows/win32/api//ddpbackup/nf-ddpbackup-idedupbackupsupport-restorefiles
      */
     RestoreFiles(NumberOfFiles, FileFullPaths, Store, Flags) {
         result := ComCall(3, this, "uint", NumberOfFiles, "ptr", FileFullPaths, "ptr", Store, "uint", Flags, "int*", &FileResults := 0, "HRESULT")

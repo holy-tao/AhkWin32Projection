@@ -33,10 +33,24 @@ class IUpdateServiceCollection extends IDispatch{
     static VTableNames => ["get_Item", "get__NewEnum", "get_Count"]
 
     /**
-     * 
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * Gets and sets an IUpdateService interface in a collection.
      * @param {Integer} index 
      * @returns {IUpdateService} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicecollection-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicecollection-get_item
      */
     get_Item(index) {
         result := ComCall(7, this, "int", index, "ptr*", &retval := 0, "HRESULT")
@@ -44,9 +58,9 @@ class IUpdateServiceCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets an IEnumVARIANT interface that can be used to enumerate the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicecollection-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicecollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
@@ -54,9 +68,9 @@ class IUpdateServiceCollection extends IDispatch{
     }
 
     /**
-     * 
+     * Gets the number of elements in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservicecollection-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservicecollection-get_count
      */
     get_Count() {
         result := ComCall(9, this, "int*", &retval := 0, "HRESULT")

@@ -36,6 +36,20 @@ class ISVGAnimatedPreserveAspectRatio extends IDispatch{
     static VTableNames => ["putref_baseVal", "get_baseVal", "putref_animVal", "get_animVal"]
 
     /**
+     * @type {ISVGPreserveAspectRatio} 
+     */
+    baseVal {
+        get => this.get_baseVal()
+    }
+
+    /**
+     * @type {ISVGPreserveAspectRatio} 
+     */
+    animVal {
+        get => this.get_animVal()
+    }
+
+    /**
      * 
      * @param {ISVGPreserveAspectRatio} v 
      * @returns {HRESULT} 

@@ -31,10 +31,10 @@ class IMFVideoSampleAllocatorCallback extends IUnknown{
     static VTableNames => ["SetCallback", "GetFreeSampleCount"]
 
     /**
-     * 
-     * @param {IMFVideoSampleAllocatorNotify} pNotify 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocatorcallback-setcallback
+     * Sets the callback object that receives notification whenever a video sample is returned to the allocator.
+     * @param {IMFVideoSampleAllocatorNotify} pNotify A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfvideosampleallocatornotify">IMFVideoSampleAllocatorNotify</a> interface that receives notification, or <b>NULL</b> to remove the callback.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocatorcallback-setcallback
      */
     SetCallback(pNotify) {
         result := ComCall(3, this, "ptr", pNotify, "HRESULT")
@@ -42,9 +42,9 @@ class IMFVideoSampleAllocatorCallback extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfvideosampleallocatorcallback-getfreesamplecount
+     * Gets the number of video samples that are currently available for use.
+     * @returns {Integer} Receives the number of available samples.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfvideosampleallocatorcallback-getfreesamplecount
      */
     GetFreeSampleCount() {
         result := ComCall(4, this, "int*", &plSamples := 0, "HRESULT")

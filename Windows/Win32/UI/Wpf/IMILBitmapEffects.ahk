@@ -33,9 +33,25 @@ class IMILBitmapEffects extends IUnknown{
     static VTableNames => ["_NewEnum", "get_Parent", "Item", "get_Count"]
 
     /**
+     * @type {IMILBitmapEffectGroup} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * Retrieves a new enumeration.
+     * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffects-_newenum
+     * A pointer that receives a pointer to the new enumeration item.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffects-_newenum
      */
     _NewEnum() {
         result := ComCall(3, this, "ptr*", &ppiuReturn := 0, "HRESULT")
@@ -43,9 +59,11 @@ class IMILBitmapEffects extends IUnknown{
     }
 
     /**
+     * Retrieves the parent effect group of enumeration.
+     * @returns {IMILBitmapEffectGroup} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectgroup">IMILBitmapEffectGroup</a>**</b>
      * 
-     * @returns {IMILBitmapEffectGroup} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffects-get_parent
+     * A pointer that receives a pointer to the parent group.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffects-get_parent
      */
     get_Parent() {
         result := ComCall(4, this, "ptr*", &ppEffect := 0, "HRESULT")
@@ -53,10 +71,14 @@ class IMILBitmapEffects extends IUnknown{
     }
 
     /**
+     * Retrieves the effect at the given index.
+     * @param {Integer} uindex Type: <b>ULONG</b>
      * 
-     * @param {Integer} uindex 
-     * @returns {IMILBitmapEffect} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffects-item
+     * The index of the effect.
+     * @returns {IMILBitmapEffect} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>**</b>
+     * 
+     * A pointer that receives a pointer to the bitmap effect.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffects-item
      */
     Item(uindex) {
         result := ComCall(5, this, "uint", uindex, "ptr*", &ppEffect := 0, "HRESULT")
@@ -64,9 +86,11 @@ class IMILBitmapEffects extends IUnknown{
     }
 
     /**
+     * Retrieves the number of items in the enumeration.
+     * @returns {Integer} Type: <b>ULONG*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffects-get_count
+     * A pointer that receives the number of items in the enumeration.
+     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffects-get_count
      */
     get_Count() {
         result := ComCall(6, this, "uint*", &puiCount := 0, "HRESULT")

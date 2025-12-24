@@ -32,10 +32,10 @@ class IUIAutomationCustomNavigationPattern extends IUnknown{
     static VTableNames => ["Navigate"]
 
     /**
-     * 
+     * Gets the next element in the specified direction within the logical UI tree.
      * @param {Integer} direction 
-     * @returns {IUIAutomationElement} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcustomnavigationpattern-navigate
+     * @returns {IUIAutomationElement} The next element as specified by the <i>direction</i> parameter.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationcustomnavigationpattern-navigate
      */
     Navigate(direction) {
         result := ComCall(3, this, "int", direction, "ptr*", &pRetVal := 0, "HRESULT")

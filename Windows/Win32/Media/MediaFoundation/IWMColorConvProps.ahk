@@ -31,10 +31,28 @@ class IWMColorConvProps extends IUnknown{
     static VTableNames => ["SetMode", "SetFullCroppingParam"]
 
     /**
-     * 
+     * Specifies whether the input video stream is interlaced.
      * @param {Integer} lMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcolorconvprops-setmode
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcolorconvprops-setmode
      */
     SetMode(lMode) {
         result := ComCall(3, this, "int", lMode, "HRESULT")
@@ -42,15 +60,33 @@ class IWMColorConvProps extends IUnknown{
     }
 
     /**
+     * Sets the source and destination rectangles.
+     * @param {Integer} lSrcCropLeft Specifies the left edge of the source rectangle, in pixels.
+     * @param {Integer} lSrcCropTop Specifies the top edge of the source rectangle, in pixels.
+     * @param {Integer} lDstCropLeft Specifies the left edge of the destination rectangle, in pixels.
+     * @param {Integer} lDstCropTop Specifies the top edge of the destination rectangle, in pixels.
+     * @param {Integer} lCropWidth Specifies the width of the source and destination rectangles, in pixels.
+     * @param {Integer} lCropHeight Specifies the height of the source and destination rectangles, in pixels.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} lSrcCropLeft 
-     * @param {Integer} lSrcCropTop 
-     * @param {Integer} lDstCropLeft 
-     * @param {Integer} lDstCropTop 
-     * @param {Integer} lCropWidth 
-     * @param {Integer} lCropHeight 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcolorconvprops-setfullcroppingparam
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcolorconvprops-setfullcroppingparam
      */
     SetFullCroppingParam(lSrcCropLeft, lSrcCropTop, lDstCropLeft, lDstCropTop, lCropWidth, lCropHeight) {
         result := ComCall(4, this, "int", lSrcCropLeft, "int", lSrcCropTop, "int", lDstCropLeft, "int", lDstCropTop, "int", lCropWidth, "int", lCropHeight, "HRESULT")

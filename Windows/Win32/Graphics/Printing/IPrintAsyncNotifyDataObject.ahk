@@ -40,12 +40,14 @@ class IPrintAsyncNotifyDataObject extends IUnknown{
     static VTableNames => ["AcquireData", "ReleaseData"]
 
     /**
+     * Directs listening applications to the notification data, including the data's size and type.
+     * @param {Pointer<Pointer<Integer>>} ppNotificationData A buffer containing the notification data.
+     * @param {Pointer<Integer>} pSize The size of the data buffer.
+     * @param {Pointer<Pointer<Guid>>} ppSchema A GUID pointer to the data schema.
+     * @returns {HRESULT} See <a href="/windows/desktop/api/prnasnot/ne-prnasnot-printasyncnotifyerror">PrintAsyncNotifyError</a> for the possible values.
      * 
-     * @param {Pointer<Pointer<Integer>>} ppNotificationData 
-     * @param {Pointer<Integer>} pSize 
-     * @param {Pointer<Pointer<Guid>>} ppSchema 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-iprintasyncnotifydataobject-acquiredata
+     * For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//prnasnot/nf-prnasnot-iprintasyncnotifydataobject-acquiredata
      */
     AcquireData(ppNotificationData, pSize, ppSchema) {
         ppNotificationDataMarshal := ppNotificationData is VarRef ? "ptr*" : "ptr"
@@ -57,9 +59,11 @@ class IPrintAsyncNotifyDataObject extends IUnknown{
     }
 
     /**
+     * Releases the memory used by the data encapsulated in IPrintAsyncNotifyDataObject.
+     * @returns {HRESULT} See <a href="/windows/desktop/api/prnasnot/ne-prnasnot-printasyncnotifyerror">PrintAsyncNotifyError</a> for the possible values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/prnasnot/nf-prnasnot-iprintasyncnotifydataobject-releasedata
+     * For more information about COM error codes, see <a href="/windows/desktop/SetupApi/error-handling">Error Handling</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//prnasnot/nf-prnasnot-iprintasyncnotifydataobject-releasedata
      */
     ReleaseData() {
         result := ComCall(4, this, "HRESULT")

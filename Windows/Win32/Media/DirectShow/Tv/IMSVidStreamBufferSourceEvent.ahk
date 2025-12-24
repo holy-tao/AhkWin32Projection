@@ -36,9 +36,9 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     static VTableNames => ["CertificateFailure", "CertificateSuccess", "RatingsBlocked", "RatingsUnblocked", "RatingsChanged", "TimeHole", "StaleDataRead", "ContentBecomingStale", "StaleFileDeleted"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-certificatefailure
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-certificatefailure
      */
     CertificateFailure() {
         result := ComCall(8, this, "HRESULT")
@@ -46,9 +46,9 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-certificatesuccess
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-certificatesuccess
      */
     CertificateSuccess() {
         result := ComCall(9, this, "HRESULT")
@@ -56,9 +56,9 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-ratingsblocked
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-ratingsblocked
      */
     RatingsBlocked() {
         result := ComCall(10, this, "HRESULT")
@@ -66,9 +66,9 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-ratingsunblocked
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-ratingsunblocked
      */
     RatingsUnblocked() {
         result := ComCall(11, this, "HRESULT")
@@ -76,9 +76,9 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-ratingschanged
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-ratingschanged
      */
     RatingsChanged() {
         result := ComCall(12, this, "HRESULT")
@@ -86,11 +86,11 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     }
 
     /**
-     * 
-     * @param {Integer} StreamOffsetMS 
-     * @param {Integer} SizeMS 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-timehole
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @param {Integer} StreamOffsetMS Specifies the start of the gap, in milliseconds, relative to the content start.
+     * @param {Integer} SizeMS Specifies the length of the gap, in milliseconds.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-timehole
      */
     TimeHole(StreamOffsetMS, SizeMS) {
         result := ComCall(13, this, "int", StreamOffsetMS, "int", SizeMS, "HRESULT")
@@ -98,9 +98,9 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-staledataread
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-staledataread
      */
     StaleDataRead() {
         result := ComCall(14, this, "HRESULT")
@@ -108,9 +108,9 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-contentbecomingstale
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-contentbecomingstale
      */
     ContentBecomingStale() {
         result := ComCall(15, this, "HRESULT")
@@ -118,9 +118,9 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-stalefiledeleted
+     * This topic applies to Windows XP Service Pack 1 or later.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-stalefiledeleted
      */
     StaleFileDeleted() {
         result := ComCall(16, this, "HRESULT")

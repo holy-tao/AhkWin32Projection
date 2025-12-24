@@ -32,10 +32,10 @@ class ITfPersistentPropertyLoaderACP extends IUnknown{
     static VTableNames => ["LoadProperty"]
 
     /**
-     * 
-     * @param {Pointer<TF_PERSISTENT_PROPERTY_HEADER_ACP>} pHdr 
-     * @returns {IStream} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfpersistentpropertyloaderacp-loadproperty
+     * ITfPersistentPropertyLoaderACP::LoadProperty method
+     * @param {Pointer<TF_PERSISTENT_PROPERTY_HEADER_ACP>} pHdr Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/ns-msctf-tf_persistent_property_header_acp">TF_PERSISTENT_PROPERTY_HEADER_ACP</a> structure that identifies the property to load. This structure contains the same data as the structure passed to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itextstoreacpservices-unserialize">ITextStoreACPServices::Unserialize</a>.
+     * @returns {IStream} Pointer to an <b>IStream</b> interface pointer that receives the stream object.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfpersistentpropertyloaderacp-loadproperty
      */
     LoadProperty(pHdr) {
         result := ComCall(3, this, "ptr", pHdr, "ptr*", &ppStream := 0, "HRESULT")

@@ -33,10 +33,24 @@ class ISmimeCapabilities extends IDispatch{
     static VTableNames => ["get_ItemByIndex", "get_Count", "get__NewEnum", "Add", "Remove", "Clear", "AddFromCsp", "AddAvailableSmimeCapabilities"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * Retrieves an object from the collection by index number.
      * @param {Integer} Index 
      * @returns {ISmimeCapability} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapabilities-get_itembyindex
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ismimecapabilities-get_itembyindex
      */
     get_ItemByIndex(Index) {
         result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
@@ -44,9 +58,9 @@ class ISmimeCapabilities extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the number of objects in the collection.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapabilities-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ismimecapabilities-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -54,9 +68,9 @@ class ISmimeCapabilities extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the enumerator for the collection.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapabilities-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ismimecapabilities-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
@@ -64,10 +78,12 @@ class ISmimeCapabilities extends IDispatch{
     }
 
     /**
+     * Adds an ISmimeCapability object to the collection.
+     * @param {ISmimeCapability} pVal Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ismimecapability">ISmimeCapability</a> interface to add.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {ISmimeCapability} pVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapabilities-add
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ismimecapabilities-add
      */
     Add(pVal) {
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
@@ -75,10 +91,12 @@ class ISmimeCapabilities extends IDispatch{
     }
 
     /**
+     * Removes an object from the collection by index value.
+     * @param {Integer} Index A <b>LONG</b> variable that contains the index of the object to remove.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {Integer} Index 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapabilities-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ismimecapabilities-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")
@@ -86,9 +104,11 @@ class ISmimeCapabilities extends IDispatch{
     }
 
     /**
+     * Removes all objects from the collection.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapabilities-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ismimecapabilities-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -96,10 +116,12 @@ class ISmimeCapabilities extends IDispatch{
     }
 
     /**
+     * Adds objects to the collection by identifying the encryption algorithms supported by a specific cryptographic provider.
+     * @param {ICspInformation} pValue Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> interface that represents the provider.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {ICspInformation} pValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapabilities-addfromcsp
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ismimecapabilities-addfromcsp
      */
     AddFromCsp(pValue) {
         result := ComCall(13, this, "ptr", pValue, "HRESULT")
@@ -107,10 +129,12 @@ class ISmimeCapabilities extends IDispatch{
     }
 
     /**
+     * Adds ISmimeCapability objects to the collection by identifying the encryption algorithms supported by the default RSA cryptographic provider.
+     * @param {VARIANT_BOOL} MachineContext A <b>VARIANT_BOOL</b> variable that identifies the certificate store context. Specify <b>VARIANT_TRUE</b> for the computer and <b>VARIANT_FALSE</b> for the user.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * @param {VARIANT_BOOL} MachineContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ismimecapabilities-addavailablesmimecapabilities
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ismimecapabilities-addavailablesmimecapabilities
      */
     AddAvailableSmimeCapabilities(MachineContext) {
         result := ComCall(14, this, "short", MachineContext, "HRESULT")

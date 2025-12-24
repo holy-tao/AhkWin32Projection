@@ -43,11 +43,17 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
     static VTableNames => ["CreateModuleInstance", "SetInputSignature", "SetOutputSignature", "CallFunction", "PassValue", "PassValueWithSwizzle", "GetLastError", "GenerateHlsl"]
 
     /**
+     * Initializes a shader module from the function-linking-graph object.
+     * @param {Pointer<ID3D11ModuleInstance>} ppModuleInstance Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11moduleinstance">ID3D11ModuleInstance</a>**</b>
      * 
-     * @param {Pointer<ID3D11ModuleInstance>} ppModuleInstance 
-     * @param {Pointer<ID3DBlob>} ppErrorBuffer 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-createmoduleinstance
+     * The address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11moduleinstance">ID3D11ModuleInstance</a> interface for the shader module to initialize.
+     * @param {Pointer<ID3DBlob>} ppErrorBuffer Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
+     * 
+     * An optional pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that you can use to access compiler error messages, or <b>NULL</b> if there are no errors.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns S_OK if successful; otherwise, returns one of the <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-createmoduleinstance
      */
     CreateModuleInstance(ppModuleInstance, ppErrorBuffer) {
         result := ComCall(3, this, "ptr*", ppModuleInstance, "ptr*", ppErrorBuffer, "HRESULT")
@@ -55,11 +61,17 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
     }
 
     /**
+     * Sets the input signature of the function-linking-graph.
+     * @param {Pointer<D3D11_PARAMETER_DESC>} pInputParameters Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_parameter_desc">D3D11_PARAMETER_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D11_PARAMETER_DESC>} pInputParameters 
-     * @param {Integer} cInputParameters 
-     * @returns {ID3D11LinkingNode} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-setinputsignature
+     * An array of  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_parameter_desc">D3D11_PARAMETER_DESC</a> structures for the parameters of the input signature.
+     * @param {Integer} cInputParameters Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of input parameters in the <i>pInputParameters</i> array.
+     * @returns {ID3D11LinkingNode} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a>**</b>
+     * 
+     * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a> interface that represents the input signature of the function-linking-graph.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-setinputsignature
      */
     SetInputSignature(pInputParameters, cInputParameters) {
         result := ComCall(4, this, "ptr", pInputParameters, "uint", cInputParameters, "ptr*", &ppInputNode := 0, "HRESULT")
@@ -67,11 +79,17 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
     }
 
     /**
+     * Sets the output signature of the function-linking-graph.
+     * @param {Pointer<D3D11_PARAMETER_DESC>} pOutputParameters Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_parameter_desc">D3D11_PARAMETER_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D11_PARAMETER_DESC>} pOutputParameters 
-     * @param {Integer} cOutputParameters 
-     * @returns {ID3D11LinkingNode} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-setoutputsignature
+     * An array of  <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/ns-d3d11shader-d3d11_parameter_desc">D3D11_PARAMETER_DESC</a> structures for the parameters of the output signature.
+     * @param {Integer} cOutputParameters Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The number of output parameters in the <i>pOutputParameters</i> array.
+     * @returns {ID3D11LinkingNode} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a>**</b>
+     * 
+     * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a> interface that represents the output signature of the function-linking-graph.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-setoutputsignature
      */
     SetOutputSignature(pOutputParameters, cOutputParameters) {
         result := ComCall(5, this, "ptr", pOutputParameters, "uint", cOutputParameters, "ptr*", &ppOutputNode := 0, "HRESULT")
@@ -79,12 +97,20 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
     }
 
     /**
+     * Creates a call-function linking node to use in the function-linking-graph.
+     * @param {PSTR} pModuleInstanceNamespace Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} pModuleInstanceNamespace 
-     * @param {ID3D11Module} pModuleWithFunctionPrototype 
-     * @param {PSTR} pFunctionName 
-     * @returns {ID3D11LinkingNode} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-callfunction
+     * The optional namespace for the function, or <b>NULL</b> if no namespace is needed.
+     * @param {ID3D11Module} pModuleWithFunctionPrototype Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11module">ID3D11Module</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11moduleinstance">ID3D11ModuleInstance</a> interface for the library module that contains the function prototype.
+     * @param {PSTR} pFunctionName Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * 
+     * The name of the function.
+     * @returns {ID3D11LinkingNode} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a>**</b>
+     * 
+     * A pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a> interface that represents the function in the function-linking-graph.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-callfunction
      */
     CallFunction(pModuleInstanceNamespace, pModuleWithFunctionPrototype, pFunctionName) {
         pModuleInstanceNamespace := pModuleInstanceNamespace is String ? StrPtr(pModuleInstanceNamespace) : pModuleInstanceNamespace
@@ -95,13 +121,23 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
     }
 
     /**
+     * Passes a value from a source linking node to a destination linking node.
+     * @param {ID3D11LinkingNode} pSrcNode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a>*</b>
      * 
-     * @param {ID3D11LinkingNode} pSrcNode 
-     * @param {Integer} SrcParameterIndex 
-     * @param {ID3D11LinkingNode} pDstNode 
-     * @param {Integer} DstParameterIndex 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-passvalue
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a> interface for the source linking node.
+     * @param {Integer} SrcParameterIndex Type: <b>INT</b>
+     * 
+     * The zero-based index of the source parameter.
+     * @param {ID3D11LinkingNode} pDstNode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a> interface for the destination linking node.
+     * @param {Integer} DstParameterIndex Type: <b>INT</b>
+     * 
+     * The zero-based index of the destination parameter.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns S_OK if successful; otherwise, returns one of the <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-passvalue
      */
     PassValue(pSrcNode, SrcParameterIndex, pDstNode, DstParameterIndex) {
         result := ComCall(7, this, "ptr", pSrcNode, "int", SrcParameterIndex, "ptr", pDstNode, "int", DstParameterIndex, "HRESULT")
@@ -109,15 +145,29 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
     }
 
     /**
+     * Passes a value with swizzle from a source linking node to a destination linking node.
+     * @param {ID3D11LinkingNode} pSrcNode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a>*</b>
      * 
-     * @param {ID3D11LinkingNode} pSrcNode 
-     * @param {Integer} SrcParameterIndex 
-     * @param {PSTR} pSrcSwizzle 
-     * @param {ID3D11LinkingNode} pDstNode 
-     * @param {Integer} DstParameterIndex 
-     * @param {PSTR} pDstSwizzle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-passvaluewithswizzle
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a> interface for the source linking node.
+     * @param {Integer} SrcParameterIndex Type: <b>INT</b>
+     * 
+     * The zero-based index of the source parameter.
+     * @param {PSTR} pSrcSwizzle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * 
+     * The name of the source swizzle.
+     * @param {ID3D11LinkingNode} pDstNode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a>*</b>
+     * 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nn-d3d11shader-id3d11linkingnode">ID3D11LinkingNode</a> interface for the destination linking node.
+     * @param {Integer} DstParameterIndex Type: <b>INT</b>
+     * 
+     * The zero-based index of the destination parameter.
+     * @param {PSTR} pDstSwizzle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * 
+     * The name of the destination swizzle.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns S_OK if successful; otherwise, returns one of the <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-passvaluewithswizzle
      */
     PassValueWithSwizzle(pSrcNode, SrcParameterIndex, pSrcSwizzle, pDstNode, DstParameterIndex, pDstSwizzle) {
         pSrcSwizzle := pSrcSwizzle is String ? StrPtr(pSrcSwizzle) : pSrcSwizzle
@@ -128,9 +178,11 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
     }
 
     /**
-     * Retrieves the calling thread's last-error code value.
-     * @returns {ID3DBlob} 
-     * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
+     * Gets the error from the last function call of the function-linking-graph.
+     * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
+     * 
+     * An pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that you can use to access the error.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-getlasterror
      */
     GetLastError() {
         result := ComCall(9, this, "ptr*", &ppErrorBuffer := 0, "HRESULT")
@@ -138,10 +190,14 @@ class ID3D11FunctionLinkingGraph extends IUnknown{
     }
 
     /**
+     * Generates Microsoft High Level Shader Language (HLSL) shader code that represents the function-linking-graph.
+     * @param {Integer} uFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} uFlags 
-     * @returns {ID3DBlob} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-generatehlsl
+     * Reserved
+     * @returns {ID3DBlob} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a>**</b>
+     * 
+     * An pointer to a variable that receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff728743(v=vs.85)">ID3DBlob</a> interface that you can use to access the HLSL shader source code that represents the function-linking-graph. You can compile this HLSL code, but first you must  add code or include statements for the functions called in the function-linking-graph.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-generatehlsl
      */
     GenerateHlsl(uFlags) {
         result := ComCall(10, this, "uint", uFlags, "ptr*", &ppBuffer := 0, "HRESULT")

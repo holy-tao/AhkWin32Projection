@@ -37,10 +37,72 @@ class IVMRMixerBitmap9 extends IUnknown{
     static VTableNames => ["SetAlphaBitmap", "UpdateAlphaBitmapParameters", "GetAlphaBitmapParameters"]
 
     /**
+     * The SetAlphaBitmap method specifies a new bitmap image and the source location of the bitmap and how and where it should be rendered on the destination rectangle.
+     * @param {Pointer<VMR9AlphaBitmap>} pBmpParms Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9alphabitmap">VMR9AlphaBitmap</a> structure that contains information about the bitmap.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Pointer<VMR9AlphaBitmap>} pBmpParms 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixerbitmap9-setalphabitmap
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * <i>pBmpParms</i> is <b>NULL</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument. See Remarks.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Could not create a destination DC or DIBSection for the bitmap.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * BitBlt to bitmap surface failed.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrmixerbitmap9-setalphabitmap
      */
     SetAlphaBitmap(pBmpParms) {
         result := ComCall(3, this, "ptr", pBmpParms, "HRESULT")
@@ -48,10 +110,28 @@ class IVMRMixerBitmap9 extends IUnknown{
     }
 
     /**
+     * The UpdateAlphaBitmapParameters method changes the bitmap location, size and blending value.
+     * @param {Pointer<VMR9AlphaBitmap>} pBmpParms Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9alphabitmap">VMR9AlphaBitmap</a> structure.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
-     * @param {Pointer<VMR9AlphaBitmap>} pBmpParms 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixerbitmap9-updatealphabitmapparameters
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrmixerbitmap9-updatealphabitmapparameters
      */
     UpdateAlphaBitmapParameters(pBmpParms) {
         result := ComCall(4, this, "ptr", pBmpParms, "HRESULT")
@@ -59,9 +139,9 @@ class IVMRMixerBitmap9 extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {VMR9AlphaBitmap} 
-     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixerbitmap9-getalphabitmapparameters
+     * The GetAlphaBitmapParameters method retrieves a copy of the current image and related blending parameters.
+     * @returns {VMR9AlphaBitmap} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9alphabitmap">VMR9AlphaBitmap</a> structure that receives the bitmap, information about the blending values, and the location to blend it.
+     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrmixerbitmap9-getalphabitmapparameters
      */
     GetAlphaBitmapParameters() {
         pBmpParms := VMR9AlphaBitmap()

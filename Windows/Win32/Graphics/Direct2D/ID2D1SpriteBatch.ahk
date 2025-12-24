@@ -43,18 +43,56 @@ class ID2D1SpriteBatch extends ID2D1Resource{
     static VTableNames => ["AddSprites", "SetSprites", "GetSprites", "GetSpriteCount", "Clear"]
 
     /**
+     * Adds the given sprites to the end of this sprite batch.
+     * @param {Integer} spriteCount Type: <b>UINT32</b>
      * 
-     * @param {Integer} spriteCount 
-     * @param {Pointer<D2D_RECT_F>} destinationRectangles 
-     * @param {Pointer<D2D_RECT_U>} sourceRectangles 
-     * @param {Pointer<D2D1_COLOR_F>} colors 
-     * @param {Pointer<D2D_MATRIX_3X2_F>} transforms 
-     * @param {Integer} destinationRectanglesStride 
-     * @param {Integer} sourceRectanglesStride 
-     * @param {Integer} colorsStride 
-     * @param {Integer} transformsStride 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1spritebatch-addsprites
+     * The number of sprites to be added. This determines how many strides into each given array Direct2D will read.
+     * @param {Pointer<D2D_RECT_F>} destinationRectangles Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
+     * 
+     * A pointer to an array containing the destination rectangles specifying where to draw the sprites on the destination device context.
+     * @param {Pointer<D2D_RECT_U>} sourceRectangles Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-u">D2D1_RECT_U</a>*</b>
+     * 
+     * A pointer to an array containing the source rectangles specifying the regions of the source bitmap to draw as sprites.
+     *           Direct2D will use the entire source bitmap for sprites that are assigned a null value or the InfiniteRectU. 
+     *           If this parameter is omitted entirely or set to a null value, then Direct2D will use the entire source bitmap for all the added sprites.
+     * @param {Pointer<D2D1_COLOR_F>} colors Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a>*</b>
+     * 
+     * A pointer to an array containing the colors to apply to each sprite. 
+     *           The output color is the result of component-wise multiplication of the source bitmap color and the provided color. 
+     *           The output color is not clamped.
+     * 
+     *           
+     * 
+     * Direct2D will not change the color of sprites that are assigned a null value. If this parameter is omitted entirely or set to a null value, 
+     *           then Direct2D will not change the color of any of the added sprites.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} transforms Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * 
+     * A pointer to an array containing the transforms to apply to each sprite’s destination rectangle.
+     *             
+     * 
+     * Direct2D will not transform the destination rectangle of any sprites that are assigned a null value. 
+     *             If this parameter is omitted entirely or set to a null value, 
+     *             then Direct2D will not transform the destination rectangle of any of the added sprites.
+     * @param {Integer} destinationRectanglesStride Type: <b>UINT32</b>
+     * 
+     * Specifies the distance, in bytes, between each rectangle in the destinationRectangles array. 
+     *           If you provide a stride of 0, then the same destination rectangle will be used for each added sprite.
+     * @param {Integer} sourceRectanglesStride Type: <b>UINT32</b>
+     * 
+     * Specifies the distance, in bytes, between each rectangle in the sourceRectangles array (if that array is given). 
+     *           If you provide a stride of 0, then the same source rectangle will be used for each added sprite.
+     * @param {Integer} colorsStride Type: <b>UINT32</b>
+     * 
+     * Specifies the distance, in bytes, between each color in the colors array (if that array is given). 
+     *           If you provide a stride of 0, then the same color will be used for each added sprite.
+     * @param {Integer} transformsStride Type: <b>UINT32</b>
+     * 
+     * Specifies the distance, in bytes, between each transform in the transforms array (if that array is given). 
+     *           If you provide a stride of 0, then the same transform will be used for each added sprite.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1spritebatch-addsprites
      */
     AddSprites(spriteCount, destinationRectangles, sourceRectangles, colors, transforms, destinationRectanglesStride, sourceRectanglesStride, colorsStride, transformsStride) {
         result := ComCall(4, this, "uint", spriteCount, "ptr", destinationRectangles, "ptr", sourceRectangles, "ptr", colors, "ptr", transforms, "uint", destinationRectanglesStride, "uint", sourceRectanglesStride, "uint", colorsStride, "uint", transformsStride, "HRESULT")
@@ -62,19 +100,61 @@ class ID2D1SpriteBatch extends ID2D1Resource{
     }
 
     /**
+     * Updates the properties of the specified sprites in this sprite batch.
+     * @param {Integer} startIndex Type: <b>UINT32</b>
      * 
-     * @param {Integer} startIndex 
-     * @param {Integer} spriteCount 
-     * @param {Pointer<D2D_RECT_F>} destinationRectangles 
-     * @param {Pointer<D2D_RECT_U>} sourceRectangles 
-     * @param {Pointer<D2D1_COLOR_F>} colors 
-     * @param {Pointer<D2D_MATRIX_3X2_F>} transforms 
-     * @param {Integer} destinationRectanglesStride 
-     * @param {Integer} sourceRectanglesStride 
-     * @param {Integer} colorsStride 
-     * @param {Integer} transformsStride 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1spritebatch-setsprites
+     * The index of the first sprite in this sprite batch to update.
+     * @param {Integer} spriteCount Type: <b>UINT32</b>
+     * 
+     * The number of sprites to update with new properties. This determines how many strides into each given array Direct2D will read.
+     * @param {Pointer<D2D_RECT_F>} destinationRectangles Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
+     * 
+     * A pointer to an array containing the destination rectangles specifying where to draw the sprites on the destination device context.
+     * @param {Pointer<D2D_RECT_U>} sourceRectangles Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-u">D2D1_RECT_U</a>*</b>
+     * 
+     * A pointer to an array containing the source rectangles specifying the regions of the source bitmap to draw as sprites.
+     * 
+     *           
+     * 
+     * Direct2D will use the entire source bitmap for sprites that are assigned a null value or the InfiniteRectU. 
+     *           If this parameter is omitted entirely or set to a null value, then Direct2D will use the entire source bitmap for all the updated sprites.
+     * @param {Pointer<D2D1_COLOR_F>} colors Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a>*</b>
+     * 
+     * A pointer to an array containing the colors to apply to each sprite. The output color is the result of component-wise multiplication of the source bitmap color and the provided color. 
+     *           The output color is not clamped.
+     * 
+     *           
+     * 
+     * Direct2D will not change the color of sprites that are assigned a null value. If this parameter is omitted entirely or set to a null value, 
+     *           then Direct2D will not change the color of any of the updated sprites.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} transforms Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * 
+     * A pointer to an array containing the transforms to apply to each sprite’s destination rectangle.
+     * 
+     *           
+     * 
+     * Direct2D will not transform the destination rectangle of any sprites that are assigned a null value. 
+     *           If this parameter is omitted entirely or set to a null value, then Direct2D will not transform the destination rectangle of any of the updated sprites.
+     * @param {Integer} destinationRectanglesStride Type: <b>UINT32</b>
+     * 
+     * Specifies the distance, in bytes, between each rectangle in the destinationRectangles array. 
+     *           If you provide a stride of 0, then the same destination rectangle will be used for each updated sprite.
+     * @param {Integer} sourceRectanglesStride Type: <b>UINT32</b>
+     * 
+     * Specifies the distance, in bytes, between each rectangle in the sourceRectangles array (if that array is given). 
+     *           If you provide a stride of 0, then the same source rectangle will be used for each updated sprite.
+     * @param {Integer} colorsStride Type: <b>UINT32</b>
+     * 
+     * Specifies the distance, in bytes, between each color in the colors array (if that array is given). 
+     *           If you provide a stride of 0, then the same color will be used for each updated sprite.
+     * @param {Integer} transformsStride Type: <b>UINT32</b>
+     * 
+     * Specifies the distance, in bytes, between each transform in the transforms array (if that array is given). 
+     *           If you provide a stride of 0, then the same transform will be used for each updated sprite.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns S_OK on success. Returns E_INVALIDARG if an invalid value was passed to the method. In this case, no sprites are modified by this call to SetSprites.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1spritebatch-setsprites
      */
     SetSprites(startIndex, spriteCount, destinationRectangles, sourceRectangles, colors, transforms, destinationRectanglesStride, sourceRectanglesStride, colorsStride, transformsStride) {
         result := ComCall(5, this, "uint", startIndex, "uint", spriteCount, "ptr", destinationRectangles, "ptr", sourceRectangles, "ptr", colors, "ptr", transforms, "uint", destinationRectanglesStride, "uint", sourceRectanglesStride, "uint", colorsStride, "uint", transformsStride, "HRESULT")
@@ -82,15 +162,41 @@ class ID2D1SpriteBatch extends ID2D1Resource{
     }
 
     /**
+     * Retrieves the specified subset of sprites from this sprite batch. For the best performance, use nullptr for properties that you do not need to retrieve.
+     * @param {Integer} startIndex Type: <b>UINT32</b>
      * 
-     * @param {Integer} startIndex 
-     * @param {Integer} spriteCount 
-     * @param {Pointer<D2D_RECT_F>} destinationRectangles 
-     * @param {Pointer<D2D_RECT_U>} sourceRectangles 
-     * @param {Pointer<D2D1_COLOR_F>} colors 
-     * @param {Pointer<D2D_MATRIX_3X2_F>} transforms 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1spritebatch-getsprites
+     * The index of the first sprite in this sprite batch to retrieve.
+     * @param {Integer} spriteCount Type: <b>UINT32</b>
+     * 
+     * The number of sprites to retrieve.
+     * @param {Pointer<D2D_RECT_F>} destinationRectangles Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
+     * 
+     * When this method returns, contains a pointer to an array containing the destination rectangles for the retrieved sprites.
+     * @param {Pointer<D2D_RECT_U>} sourceRectangles Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-u">D2D1_RECT_U</a>*</b>
+     * 
+     * When this method returns, contains a pointer to an array containing the source rectangles for the retrieved sprites.
+     * 
+     *           
+     * 
+     * The InfiniteRectU is returned for any sprites that were not assigned a source rectangle.
+     * @param {Pointer<D2D1_COLOR_F>} colors Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a>*</b>
+     * 
+     * When this method returns, contains a pointer to an array containing the colors to be applied to the retrieved sprites.
+     * 
+     *           
+     * 
+     * The color {1.0f, 1.0f, 1.0f, 1.0f} is returned for any sprites that were not assigned a color.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} transforms Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * 
+     * When this method returns, contains a pointer to an array containing the transforms to be applied to the retrieved sprites.
+     * 
+     *             
+     * 
+     * The identity matrix is returned for any sprites that were not assigned a transform.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1spritebatch-getsprites
      */
     GetSprites(startIndex, spriteCount, destinationRectangles, sourceRectangles, colors, transforms) {
         result := ComCall(6, this, "uint", startIndex, "uint", spriteCount, "ptr", destinationRectangles, "ptr", sourceRectangles, "ptr", colors, "ptr", transforms, "HRESULT")
@@ -98,9 +204,11 @@ class ID2D1SpriteBatch extends ID2D1Resource{
     }
 
     /**
+     * Retrieves the number of sprites in this sprite batch.
+     * @returns {Integer} Type: <b>UINT32</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1spritebatch-getspritecount
+     * Returns the number of sprites in this sprite batch
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1spritebatch-getspritecount
      */
     GetSpriteCount() {
         result := ComCall(7, this, "uint")
@@ -108,9 +216,9 @@ class ID2D1SpriteBatch extends ID2D1Resource{
     }
 
     /**
-     * 
+     * Removes all sprites from this sprite batch.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1spritebatch-clear
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1spritebatch-clear
      */
     Clear() {
         ComCall(8, this)

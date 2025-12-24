@@ -15,13 +15,13 @@
  */
 class INPUTCONTEXT extends Win32Struct
 {
-    static sizeof => 256
+    static sizeof => 264
 
     static packingSize => 8
 
     class _lfFont_e__Union extends Win32Struct {
-        static sizeof => 92
-        static packingSize => 4
+        static sizeof => 96
+        static packingSize => 8
 
         /**
          * @type {LOGFONTA}
@@ -72,7 +72,7 @@ class INPUTCONTEXT extends Win32Struct
     ptStatusWndPos{
         get {
             if(!this.HasProp("__ptStatusWndPos"))
-                this.__ptStatusWndPos := POINT(12, this)
+                this.__ptStatusWndPos := POINT(16, this)
             return this.__ptStatusWndPos
         }
     }
@@ -83,7 +83,7 @@ class INPUTCONTEXT extends Win32Struct
     ptSoftKbdPos{
         get {
             if(!this.HasProp("__ptSoftKbdPos"))
-                this.__ptSoftKbdPos := POINT(20, this)
+                this.__ptSoftKbdPos := POINT(24, this)
             return this.__ptSoftKbdPos
         }
     }
@@ -92,16 +92,16 @@ class INPUTCONTEXT extends Win32Struct
      * @type {Integer}
      */
     fdwConversion {
-        get => NumGet(this, 28, "uint")
-        set => NumPut("uint", value, this, 28)
+        get => NumGet(this, 32, "uint")
+        set => NumPut("uint", value, this, 32)
     }
 
     /**
      * @type {Integer}
      */
     fdwSentence {
-        get => NumGet(this, 32, "uint")
-        set => NumPut("uint", value, this, 32)
+        get => NumGet(this, 36, "uint")
+        set => NumPut("uint", value, this, 36)
     }
 
     /**
@@ -110,7 +110,7 @@ class INPUTCONTEXT extends Win32Struct
     lfFont{
         get {
             if(!this.HasProp("__lfFont"))
-                this.__lfFont := %this.__Class%._lfFont_e__Union(36, this)
+                this.__lfFont := %this.__Class%._lfFont_e__Union(40, this)
             return this.__lfFont
         }
     }
@@ -121,7 +121,7 @@ class INPUTCONTEXT extends Win32Struct
     cfCompForm{
         get {
             if(!this.HasProp("__cfCompForm"))
-                this.__cfCompForm := COMPOSITIONFORM(128, this)
+                this.__cfCompForm := COMPOSITIONFORM(136, this)
             return this.__cfCompForm
         }
     }
@@ -132,7 +132,7 @@ class INPUTCONTEXT extends Win32Struct
     cfCandForm{
         get {
             if(!this.HasProp("__cfCandFormProxyArray"))
-                this.__cfCandFormProxyArray := Win32FixedArray(this.ptr + 160, 4, CANDIDATEFORM, "")
+                this.__cfCandFormProxyArray := Win32FixedArray(this.ptr + 168, 4, CANDIDATEFORM, "")
             return this.__cfCandFormProxyArray
         }
     }
@@ -143,7 +143,7 @@ class INPUTCONTEXT extends Win32Struct
     hCompStr{
         get {
             if(!this.HasProp("__hCompStr"))
-                this.__hCompStr := HIMCC(192, this)
+                this.__hCompStr := HIMCC(200, this)
             return this.__hCompStr
         }
     }
@@ -154,7 +154,7 @@ class INPUTCONTEXT extends Win32Struct
     hCandInfo{
         get {
             if(!this.HasProp("__hCandInfo"))
-                this.__hCandInfo := HIMCC(200, this)
+                this.__hCandInfo := HIMCC(208, this)
             return this.__hCandInfo
         }
     }
@@ -165,7 +165,7 @@ class INPUTCONTEXT extends Win32Struct
     hGuideLine{
         get {
             if(!this.HasProp("__hGuideLine"))
-                this.__hGuideLine := HIMCC(208, this)
+                this.__hGuideLine := HIMCC(216, this)
             return this.__hGuideLine
         }
     }
@@ -176,7 +176,7 @@ class INPUTCONTEXT extends Win32Struct
     hPrivate{
         get {
             if(!this.HasProp("__hPrivate"))
-                this.__hPrivate := HIMCC(216, this)
+                this.__hPrivate := HIMCC(224, this)
             return this.__hPrivate
         }
     }
@@ -185,8 +185,8 @@ class INPUTCONTEXT extends Win32Struct
      * @type {Integer}
      */
     dwNumMsgBuf {
-        get => NumGet(this, 224, "uint")
-        set => NumPut("uint", value, this, 224)
+        get => NumGet(this, 232, "uint")
+        set => NumPut("uint", value, this, 232)
     }
 
     /**
@@ -195,7 +195,7 @@ class INPUTCONTEXT extends Win32Struct
     hMsgBuf{
         get {
             if(!this.HasProp("__hMsgBuf"))
-                this.__hMsgBuf := HIMCC(232, this)
+                this.__hMsgBuf := HIMCC(240, this)
             return this.__hMsgBuf
         }
     }
@@ -204,8 +204,8 @@ class INPUTCONTEXT extends Win32Struct
      * @type {Integer}
      */
     fdwInit {
-        get => NumGet(this, 240, "uint")
-        set => NumPut("uint", value, this, 240)
+        get => NumGet(this, 248, "uint")
+        set => NumPut("uint", value, this, 248)
     }
 
     /**
@@ -214,7 +214,7 @@ class INPUTCONTEXT extends Win32Struct
     dwReserve{
         get {
             if(!this.HasProp("__dwReserveProxyArray"))
-                this.__dwReserveProxyArray := Win32FixedArray(this.ptr + 244, 3, Primitive, "uint")
+                this.__dwReserveProxyArray := Win32FixedArray(this.ptr + 252, 3, Primitive, "uint")
             return this.__dwReserveProxyArray
         }
     }

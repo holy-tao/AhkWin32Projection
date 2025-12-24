@@ -32,9 +32,10 @@ class IBackgroundCopyFile extends IUnknown{
     static VTableNames => ["GetRemoteName", "GetLocalName", "GetProgress"]
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyfile-getremotename
+     * Retrieves the remote name of the file.
+     * @returns {PWSTR} Null-terminated string that contains the remote name of the file to transfer. The name is fully qualified. Call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free <i>ppName</i> when done.
+     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopyfile-getremotename
      */
     GetRemoteName() {
         result := ComCall(3, this, "ptr*", &pVal := 0, "HRESULT")
@@ -42,9 +43,10 @@ class IBackgroundCopyFile extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyfile-getlocalname
+     * Retrieves the local name of the file.
+     * @returns {PWSTR} Null-terminated string that contains the name of the file on the client. The name is fully qualified. Call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free <i>ppName</i> when done.
+     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopyfile-getlocalname
      */
     GetLocalName() {
         result := ComCall(4, this, "ptr*", &pVal := 0, "HRESULT")
@@ -52,9 +54,10 @@ class IBackgroundCopyFile extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BG_FILE_PROGRESS} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopyfile-getprogress
+     * Retrieves information on the progress of the file transfer.
+     * @returns {BG_FILE_PROGRESS} Structure whose members indicate the progress of the file transfer. For details on the type of progress information available, see the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/bits/ns-bits-bg_file_progress">BG_FILE_PROGRESS</a> structure.
+     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopyfile-getprogress
      */
     GetProgress() {
         pVal := BG_FILE_PROGRESS()

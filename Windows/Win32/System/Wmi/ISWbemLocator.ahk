@@ -38,6 +38,13 @@ class ISWbemLocator extends IDispatch{
     static VTableNames => ["ConnectServer", "get_Security_"]
 
     /**
+     * @type {ISWbemSecurity} 
+     */
+    Security_ {
+        get => this.get_Security_()
+    }
+
+    /**
      * 
      * @param {BSTR} strServer 
      * @param {BSTR} strNamespace 

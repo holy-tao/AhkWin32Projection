@@ -33,11 +33,11 @@ class IEnumBstr extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * 
-     * @param {Integer} celt 
-     * @param {Pointer<Integer>} pceltFetched 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumbstr-next
+     * The Next method gets the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages.
+     * @param {Integer} celt Number of elements requested.
+     * @param {Pointer<Integer>} pceltFetched Pointer to number of elements actually supplied. May be <b>NULL</b> if <i>celt</i> is one.
+     * @returns {BSTR} Pointer to the list of <b>BSTR</b> pointers returned.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumbstr-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -48,9 +48,27 @@ class IEnumBstr extends IUnknown{
     }
 
     /**
+     * The Reset method resets to the beginning of the enumeration sequence. This method is hidden from Visual Basic and scripting languages.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumbstr-reset
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumbstr-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -58,10 +76,39 @@ class IEnumBstr extends IUnknown{
     }
 
     /**
+     * The Skip method skips over the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages.
+     * @param {Integer} celt Number of elements to skip.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} celt 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumbstr-skip
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Number of elements skipped was <i>celt</i>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_FALSE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Number of elements skipped was not <i>celt</i>.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumbstr-skip
      */
     Skip(celt) {
         result := ComCall(5, this, "uint", celt, "HRESULT")
@@ -69,9 +116,10 @@ class IEnumBstr extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IEnumBstr} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumbstr-clone
+     * The Clone method creates another enumerator that contains the same enumeration state as the current one. This method is hidden from Visual Basic and scripting languages.
+     * @returns {IEnumBstr} Pointer to new 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumbstr">IEnumBstr</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumbstr-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

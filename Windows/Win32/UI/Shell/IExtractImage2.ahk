@@ -41,9 +41,11 @@ class IExtractImage2 extends IExtractImage{
     static VTableNames => ["GetDateStamp"]
 
     /**
+     * Requests the date the image was last modified. This method allows the Shell to determine whether cached images are out-of-date.
+     * @returns {FILETIME} Type: <b>FILETIME*</b>
      * 
-     * @returns {FILETIME} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iextractimage2-getdatestamp
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> structure used to return the last time the image was modified.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iextractimage2-getdatestamp
      */
     GetDateStamp() {
         pDateStamp := FILETIME()

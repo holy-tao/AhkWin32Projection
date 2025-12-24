@@ -33,6 +33,48 @@ class IRTCUserSearchResultsEvent extends IDispatch{
     static VTableNames => ["EnumerateResults", "get_Results", "get_Profile", "get_Query", "get_Cookie", "get_StatusCode", "get_MoreAvailable"]
 
     /**
+     * @type {IRTCCollection} 
+     */
+    Results {
+        get => this.get_Results()
+    }
+
+    /**
+     * @type {IRTCProfile2} 
+     */
+    Profile {
+        get => this.get_Profile()
+    }
+
+    /**
+     * @type {IRTCUserSearchQuery} 
+     */
+    Query {
+        get => this.get_Query()
+    }
+
+    /**
+     * @type {Pointer} 
+     */
+    Cookie {
+        get => this.get_Cookie()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    MoreAvailable {
+        get => this.get_MoreAvailable()
+    }
+
+    /**
      * 
      * @returns {IRTCEnumUserSearchResults} 
      */

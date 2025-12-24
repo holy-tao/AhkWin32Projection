@@ -32,21 +32,27 @@ class IX509NameValuePair extends IDispatch{
     static VTableNames => ["Initialize", "get_Value", "get_Name"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {BSTR} strName 
-     * @param {BSTR} strValue 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @type {BSTR} 
+     */
+    Value {
+        get => this.get_Value()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * Initializes the object from strings that contain the name and associated value.
+     * @param {BSTR} strName A <b>BSTR</b> variable that contains the name.
+     * @param {BSTR} strValue A <b>BSTR</b> variable that contains the value.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
+     * 
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509namevaluepair-initialize
      */
     Initialize(strName, strValue) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
@@ -57,9 +63,14 @@ class IX509NameValuePair extends IDispatch{
     }
 
     /**
+     * Retrieves the value portion of the name-value pair.
+     * @remarks
+     * 
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509namevaluepair-initialize">Initialize</a> method before calling this property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509namevaluepair-get_value
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509namevaluepair-get_value
      */
     get_Value() {
         pValue := BSTR()
@@ -68,9 +79,14 @@ class IX509NameValuePair extends IDispatch{
     }
 
     /**
+     * Retrieves the name portion of the name-value pair.
+     * @remarks
+     * 
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509namevaluepair-initialize">Initialize</a> method before calling this property.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509namevaluepair-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509namevaluepair-get_name
      */
     get_Name() {
         pValue := BSTR()

@@ -39,11 +39,17 @@ class IInputObject extends IUnknown{
     static VTableNames => ["UIActivateIO", "HasFocusIO", "TranslateAcceleratorIO"]
 
     /**
+     * UI-activates or deactivates the object.
+     * @param {BOOL} fActivate Type: <b>BOOL</b>
      * 
-     * @param {BOOL} fActivate 
-     * @param {Pointer<MSG>} pMsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iinputobject-uiactivateio
+     * Indicates if the object is being activated or deactivated. If this value is nonzero, the object is being activated. If this value is zero, the object is being deactivated.
+     * @param {Pointer<MSG>} pMsg Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a>*</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains the message that caused the activation change. This value may be <b>NULL</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iinputobject-uiactivateio
      */
     UIActivateIO(fActivate, pMsg) {
         result := ComCall(3, this, "int", fActivate, "ptr", pMsg, "HRESULT")
@@ -51,9 +57,11 @@ class IInputObject extends IUnknown{
     }
 
     /**
+     * Determines if one of the object's windows has the keyboard focus.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iinputobject-hasfocusio
+     * Returns S_OK if one of the object's windows has the keyboard focus, or S_FALSE otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iinputobject-hasfocusio
      */
     HasFocusIO() {
         result := ComCall(4, this, "HRESULT")
@@ -61,10 +69,14 @@ class IInputObject extends IUnknown{
     }
 
     /**
+     * Enables the object to process keyboard accelerators.
+     * @param {Pointer<MSG>} pMsg Type: <b>LPMSG</b>
      * 
-     * @param {Pointer<MSG>} pMsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iinputobject-translateacceleratorio
+     * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains the keyboard message that is being translated.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns <b>S_OK</b> if the accelerator was translated, or <b>S_FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iinputobject-translateacceleratorio
      */
     TranslateAcceleratorIO(pMsg) {
         result := ComCall(5, this, "ptr", pMsg, "HRESULT")

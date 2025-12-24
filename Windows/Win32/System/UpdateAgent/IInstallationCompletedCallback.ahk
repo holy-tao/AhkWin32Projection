@@ -31,11 +31,11 @@ class IInstallationCompletedCallback extends IUnknown{
     static VTableNames => ["Invoke"]
 
     /**
-     * 
-     * @param {IInstallationJob} installationJob 
-     * @param {IInstallationCompletedCallbackArgs} callbackArgs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationcompletedcallback-invoke
+     * Handles the notification of the completion of an asynchronous installation or uninstallation that is initiated by a call to IUpdateInstaller.BeginInstall or IUpdateInstaller.BeginUninstall.
+     * @param {IInstallationJob} installationJob An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iinstallationjob">IInstallationJob</a> interface that contains the installation information.
+     * @param {IInstallationCompletedCallbackArgs} callbackArgs This parameter is reserved for future use and can be ignored.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationcompletedcallback-invoke
      */
     Invoke(installationJob, callbackArgs) {
         result := ComCall(3, this, "ptr", installationJob, "ptr", callbackArgs, "HRESULT")

@@ -30,6 +30,14 @@ class IHTMLButtonElement2 extends IDispatch{
     static VTableNames => ["put_type", "get_type"]
 
     /**
+     * @type {BSTR} 
+     */
+    type {
+        get => this.get_type()
+        set => this.put_type(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

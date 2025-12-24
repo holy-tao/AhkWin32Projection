@@ -36,9 +36,11 @@ class IPreviewHandlerFrame extends IUnknown{
     static VTableNames => ["GetWindowContext", "TranslateAccelerator"]
 
     /**
+     * Gets a list of the keyboard shortcuts for the preview host.
+     * @returns {PREVIEWHANDLERFRAMEINFO} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-previewhandlerframeinfo">PREVIEWHANDLERFRAMEINFO</a>*</b>
      * 
-     * @returns {PREVIEWHANDLERFRAMEINFO} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlerframe-getwindowcontext
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-previewhandlerframeinfo">PREVIEWHANDLERFRAMEINFO</a> structure that receives accelerator table information.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandlerframe-getwindowcontext
      */
     GetWindowContext() {
         pinfo := PREVIEWHANDLERFRAMEINFO()
@@ -47,10 +49,14 @@ class IPreviewHandlerFrame extends IUnknown{
     }
 
     /**
+     * Directs the host to handle an keyboard shortcut passed from the preview handler.
+     * @param {Pointer<MSG>} pmsg Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a>*</b>
      * 
-     * @param {Pointer<MSG>} pmsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipreviewhandlerframe-translateaccelerator
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> or <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-syscommand">WM_SYSCOMMAND</a> window message that corresponds to a keyboard shortcut.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If the keyboard shortcut is one that the host intends to handle, the host will process it and return <b>S_OK</b>; otherwise, it returns <b>S_FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipreviewhandlerframe-translateaccelerator
      */
     TranslateAccelerator(pmsg) {
         result := ComCall(4, this, "ptr", pmsg, "HRESULT")

@@ -29,6 +29,20 @@ class IHTMLRect2 extends IDispatch{
     static VTableNames => ["get_width", "get_height"]
 
     /**
+     * @type {Float} 
+     */
+    width {
+        get => this.get_width()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    height {
+        get => this.get_height()
+    }
+
+    /**
      * 
      * @returns {Float} 
      */

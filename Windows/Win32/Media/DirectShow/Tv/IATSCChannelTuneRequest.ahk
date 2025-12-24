@@ -64,9 +64,17 @@ class IATSCChannelTuneRequest extends IChannelTuneRequest{
     static VTableNames => ["get_MinorChannel", "put_MinorChannel"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatscchanneltunerequest-get_minorchannel
+     * @type {Integer} 
+     */
+    MinorChannel {
+        get => this.get_MinorChannel()
+        set => this.put_MinorChannel(value)
+    }
+
+    /**
+     * The get_MinorChannel method gets the current minor channel.
+     * @returns {Integer} Receives the current minor channel. If the value received is -1, the tuner should tune to the first valid minor channel it finds.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatscchanneltunerequest-get_minorchannel
      */
     get_MinorChannel() {
         result := ComCall(14, this, "int*", &MinorChannel := 0, "HRESULT")
@@ -74,10 +82,10 @@ class IATSCChannelTuneRequest extends IChannelTuneRequest{
     }
 
     /**
-     * 
-     * @param {Integer} MinorChannel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-iatscchanneltunerequest-put_minorchannel
+     * The put_MinorChannel method sets the minor channel to be tuned.
+     * @param {Integer} MinorChannel Specifies the minor channel. If the value is -1, the tuner tunes to the first valid minor channel it finds.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iatscchanneltunerequest-put_minorchannel
      */
     put_MinorChannel(MinorChannel) {
         result := ComCall(15, this, "int", MinorChannel, "HRESULT")

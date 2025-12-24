@@ -30,6 +30,13 @@ class ISVGTransformable extends IDispatch{
     static VTableNames => ["get_transform"]
 
     /**
+     * @type {ISVGAnimatedTransformList} 
+     */
+    transform {
+        get => this.get_transform()
+    }
+
+    /**
      * 
      * @returns {ISVGAnimatedTransformList} 
      */

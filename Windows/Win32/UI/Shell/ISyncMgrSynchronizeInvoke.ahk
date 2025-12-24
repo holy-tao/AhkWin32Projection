@@ -39,13 +39,52 @@ class ISyncMgrSynchronizeInvoke extends IUnknown{
     static VTableNames => ["UpdateItems", "UpdateAll"]
 
     /**
+     * Programmatically starts an update for specified items.
+     * @param {Integer} dwInvokeFlags Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwInvokeFlags 
-     * @param {Pointer<Guid>} clsid 
-     * @param {Integer} cbCookie 
-     * @param {Pointer<Integer>} pCookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateitems
+     * Specifies how an item should be invoked using the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ne-mobsync-syncmgrinvokeflags">SYNCMGRINVOKEFLAGS</a> enumeration values.
+     * @param {Pointer<Guid>} clsid Type: <b>REFCLSID</b>
+     * 
+     * The CLSID of a registered application to be invoked for an update.
+     * @param {Integer} cbCookie Type: <b>DWORD</b>
+     * 
+     * The size of <i>pCookie</i> data, in bytes.
+     * @param {Pointer<Integer>} pCookie Type: <b>const BYTE*</b>
+     * 
+     * A pointer to a private token that identifies an application. The token is passed in the <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronize-initialize">Initialize</a> method.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method supports the standard return values E_INVALIDARG, E_UNEXPECTED and E_OUTOFMEMORY, and the following:
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The synchronization is successfully updated.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The errors occur during a synchronization update.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateitems
      */
     UpdateItems(dwInvokeFlags, clsid, cbCookie, pCookie) {
         pCookieMarshal := pCookie is VarRef ? "char*" : "ptr"
@@ -55,9 +94,29 @@ class ISyncMgrSynchronizeInvoke extends IUnknown{
     }
 
     /**
+     * Programmatically starts an update for all items.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateall
+     * This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Call was completed successfully.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mobsync/nf-mobsync-isyncmgrsynchronizeinvoke-updateall
      */
     UpdateAll() {
         result := ComCall(4, this, "HRESULT")

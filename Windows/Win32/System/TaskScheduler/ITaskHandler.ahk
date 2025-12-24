@@ -32,11 +32,11 @@ class ITaskHandler extends IUnknown{
     static VTableNames => ["Start", "Stop", "Pause", "Resume"]
 
     /**
-     * 
-     * @param {IUnknown} pHandlerServices 
-     * @param {BSTR} data 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskhandler-start
+     * Called to start the COM handler.
+     * @param {IUnknown} pHandlerServices An <b>IUnkown</b> interface that is used to communicate back with the Task Scheduler.
+     * @param {BSTR} data The arguments that are required by the handler.  These arguments are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-icomhandleraction-get_data">Data</a> property of the COM handler action.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandler-start
      */
     Start(pHandlerServices, data) {
         data := data is String ? BSTR.Alloc(data).Value : data
@@ -46,9 +46,9 @@ class ITaskHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskhandler-stop
+     * Called to stop the COM handler.
+     * @returns {HRESULT} The return code that the Task Schedule will raise as an event when the COM handler action is completed.
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandler-stop
      */
     Stop() {
         result := ComCall(4, this, "int*", &pRetCode := 0, "HRESULT")
@@ -56,9 +56,9 @@ class ITaskHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskhandler-pause
+     * Called to pause the COM handler.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandler-pause
      */
     Pause() {
         result := ComCall(5, this, "HRESULT")
@@ -66,9 +66,9 @@ class ITaskHandler extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskhandler-resume
+     * Called to resume the COM handler.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandler-resume
      */
     Resume() {
         result := ComCall(6, this, "HRESULT")

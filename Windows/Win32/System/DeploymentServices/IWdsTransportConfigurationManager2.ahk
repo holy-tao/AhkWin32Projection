@@ -32,9 +32,16 @@ class IWdsTransportConfigurationManager2 extends IWdsTransportConfigurationManag
     static VTableNames => ["get_MulticastSessionPolicy"]
 
     /**
-     * 
+     * @type {IWdsTransportMulticastSessionPolicy} 
+     */
+    MulticastSessionPolicy {
+        get => this.get_MulticastSessionPolicy()
+    }
+
+    /**
+     * Receives an interface pointer to the Configuration Manager’s Multicast Session Policy object. This object can be used to configure multicast session parameters that are available beginning with Windows Server 2008 R2.
      * @returns {IWdsTransportMulticastSessionPolicy} 
-     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager2-get_multicastsessionpolicy
+     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportconfigurationmanager2-get_multicastsessionpolicy
      */
     get_MulticastSessionPolicy() {
         result := ComCall(16, this, "ptr*", &ppWdsTransportMulticastSessionPolicy := 0, "HRESULT")

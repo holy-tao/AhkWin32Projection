@@ -31,9 +31,9 @@ class IWMPacketSize2 extends IWMPacketSize{
     static VTableNames => ["GetMinPacketSize", "SetMinPacketSize"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmpacketsize2-getminpacketsize
+     * The GetMinPacketSize method retrieves the minimum packet size for files created with the profile. If you use this method from an interface belonging to a reader or synchronous reader object, the retrieved minimum packet size will always be zero.
+     * @returns {Integer} Pointer to a <b>DWORD</b> that will receive the minimum packet size.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmpacketsize2-getminpacketsize
      */
     GetMinPacketSize() {
         result := ComCall(5, this, "uint*", &pdwMinPacketSize := 0, "HRESULT")
@@ -41,10 +41,10 @@ class IWMPacketSize2 extends IWMPacketSize{
     }
 
     /**
-     * 
-     * @param {Integer} dwMinPacketSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmpacketsize2-setminpacketsize
+     * The SetMinPacketSize method sets the minimum packet size for files created with the profile. This method cannot be called from an interface belonging to a reader or synchronous reader object.
+     * @param {Integer} dwMinPacketSize <b>DWORD</b> specifying the new minimum packet size for files created with the profile.
+     * @returns {HRESULT} This method always returns S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmpacketsize2-setminpacketsize
      */
     SetMinPacketSize(dwMinPacketSize) {
         result := ComCall(6, this, "uint", dwMinPacketSize, "HRESULT")

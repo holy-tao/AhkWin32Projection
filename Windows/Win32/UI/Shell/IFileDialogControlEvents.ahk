@@ -38,12 +38,20 @@ class IFileDialogControlEvents extends IUnknown{
     static VTableNames => ["OnItemSelected", "OnButtonClicked", "OnCheckButtonToggled", "OnControlActivating"]
 
     /**
+     * Called when an item is selected in a combo box, when a user clicks an option button (also known as a radio button), or an item is chosen from the Tools menu.
+     * @param {IFileDialogCustomize} pfdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialogcustomize">IFileDialogCustomize</a>*</b>
      * 
-     * @param {IFileDialogCustomize} pfdc 
-     * @param {Integer} dwIDCtl 
-     * @param {Integer} dwIDItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifiledialogcontrolevents-onitemselected
+     * A pointer to the interface through which the application added controls to the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
+     * 
+     * The ID of the control in which the user made a selection.
+     * @param {Integer} dwIDItem Type: <b>DWORD</b>
+     * 
+     * The ID of the selection.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifiledialogcontrolevents-onitemselected
      */
     OnItemSelected(pfdc, dwIDCtl, dwIDItem) {
         result := ComCall(3, this, "ptr", pfdc, "uint", dwIDCtl, "uint", dwIDItem, "HRESULT")
@@ -51,11 +59,17 @@ class IFileDialogControlEvents extends IUnknown{
     }
 
     /**
+     * Called when the user clicks a command button.
+     * @param {IFileDialogCustomize} pfdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialogcustomize">IFileDialogCustomize</a>*</b>
      * 
-     * @param {IFileDialogCustomize} pfdc 
-     * @param {Integer} dwIDCtl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifiledialogcontrolevents-onbuttonclicked
+     * A pointer to the interface through which the application added controls to the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
+     * 
+     * The ID of the button that the user clicked.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifiledialogcontrolevents-onbuttonclicked
      */
     OnButtonClicked(pfdc, dwIDCtl) {
         result := ComCall(4, this, "ptr", pfdc, "uint", dwIDCtl, "HRESULT")
@@ -63,12 +77,20 @@ class IFileDialogControlEvents extends IUnknown{
     }
 
     /**
+     * Called when the user changes the state of a check button (check box).
+     * @param {IFileDialogCustomize} pfdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialogcustomize">IFileDialogCustomize</a>*</b>
      * 
-     * @param {IFileDialogCustomize} pfdc 
-     * @param {Integer} dwIDCtl 
-     * @param {BOOL} bChecked 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifiledialogcontrolevents-oncheckbuttontoggled
+     * A pointer to the interface through which the application added controls to the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
+     * 
+     * The ID of the button that the user clicked.
+     * @param {BOOL} bChecked Type: <b>BOOL</b>
+     * 
+     * A <b>BOOL</b> indicating the current state of the check button. <b>TRUE</b> if checked; <b>FALSE</b> otherwise.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifiledialogcontrolevents-oncheckbuttontoggled
      */
     OnCheckButtonToggled(pfdc, dwIDCtl, bChecked) {
         result := ComCall(5, this, "ptr", pfdc, "uint", dwIDCtl, "int", bChecked, "HRESULT")
@@ -76,11 +98,17 @@ class IFileDialogControlEvents extends IUnknown{
     }
 
     /**
+     * Called when an Open button drop-down list customized through EnableOpenDropDown or a Tools menu is about to display its contents.
+     * @param {IFileDialogCustomize} pfdc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialogcustomize">IFileDialogCustomize</a>*</b>
      * 
-     * @param {IFileDialogCustomize} pfdc 
-     * @param {Integer} dwIDCtl 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ifiledialogcontrolevents-oncontrolactivating
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifiledialogcustomize">IFileDialogCustomize</a> object through which the application adds controls to the dialog.
+     * @param {Integer} dwIDCtl Type: <b>DWORD</b>
+     * 
+     * The ID of the list or menu about to display.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ifiledialogcontrolevents-oncontrolactivating
      */
     OnControlActivating(pfdc, dwIDCtl) {
         result := ComCall(6, this, "ptr", pfdc, "uint", dwIDCtl, "HRESULT")

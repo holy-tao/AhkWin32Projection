@@ -31,9 +31,9 @@ class IGraphVersion extends IUnknown{
     static VTableNames => ["QueryVersion"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphversion-queryversion
+     * The QueryVersion method retrieves the current graph version number.
+     * @returns {Integer} Pointer to the current graph version.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igraphversion-queryversion
      */
     QueryVersion() {
         result := ComCall(3, this, "int*", &pVersion := 0, "HRESULT")

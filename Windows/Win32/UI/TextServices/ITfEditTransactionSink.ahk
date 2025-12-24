@@ -36,10 +36,10 @@ class ITfEditTransactionSink extends IUnknown{
     static VTableNames => ["OnStartEditTransaction", "OnEndEditTransaction"]
 
     /**
-     * 
-     * @param {ITfContext} pic 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfedittransactionsink-onstartedittransaction
+     * ITfEditTransactionSink::OnStartEditTransaction method
+     * @param {ITfContext} pic Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface involved in the transaction.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfedittransactionsink-onstartedittransaction
      */
     OnStartEditTransaction(pic) {
         result := ComCall(3, this, "ptr", pic, "HRESULT")
@@ -47,10 +47,10 @@ class ITfEditTransactionSink extends IUnknown{
     }
 
     /**
-     * 
-     * @param {ITfContext} pic 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfedittransactionsink-onendedittransaction
+     * ITfEditTransactionSink::OnEndEditTransaction method
+     * @param {ITfContext} pic Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface involved in the transaction.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfedittransactionsink-onendedittransaction
      */
     OnEndEditTransaction(pic) {
         result := ComCall(4, this, "ptr", pic, "HRESULT")

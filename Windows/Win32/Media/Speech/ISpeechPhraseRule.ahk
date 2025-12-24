@@ -32,6 +32,62 @@ class ISpeechPhraseRule extends IDispatch{
     static VTableNames => ["get_Name", "get_Id", "get_FirstElement", "get_NumberOfElements", "get_Parent", "get_Children", "get_Confidence", "get_EngineConfidence"]
 
     /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FirstElement {
+        get => this.get_FirstElement()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    NumberOfElements {
+        get => this.get_NumberOfElements()
+    }
+
+    /**
+     * @type {ISpeechPhraseRule} 
+     */
+    Parent {
+        get => this.get_Parent()
+    }
+
+    /**
+     * @type {ISpeechPhraseRules} 
+     */
+    Children {
+        get => this.get_Children()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Confidence {
+        get => this.get_Confidence()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    EngineConfidence {
+        get => this.get_EngineConfidence()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

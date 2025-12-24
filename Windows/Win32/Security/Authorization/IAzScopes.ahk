@@ -33,10 +33,24 @@ class IAzScopes extends IDispatch{
     static VTableNames => ["get_Item", "get_Count", "get__NewEnum"]
 
     /**
-     * 
+     * @type {Integer} 
+     */
+    Count {
+        get => this.get_Count()
+    }
+
+    /**
+     * @type {IUnknown} 
+     */
+    _NewEnum {
+        get => this.get__NewEnum()
+    }
+
+    /**
+     * Retrieves the IAzScope object at the specified index into the IAzScopes collection.
      * @param {Integer} Index 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscopes-get_item
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazscopes-get_item
      */
     get_Item(Index) {
         pvarObtPtr := VARIANT()
@@ -45,9 +59,13 @@ class IAzScopes extends IDispatch{
     }
 
     /**
+     * Retrieves the number of IAzScope objects in the collection.
+     * @remarks
+     * 
+     * The <b>Count</b> property can be used to specify the last <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope">IAzScope</a> object in a collection when retrieving a specific <b>IAzScope</b> object using the  <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazscopes-get_item">IAzScopes.Item</a> property.
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscopes-get_count
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazscopes-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &plCount := 0, "HRESULT")
@@ -55,9 +73,13 @@ class IAzScopes extends IDispatch{
     }
 
     /**
+     * The _NewEnum property of IAzScopes retrieves an IEnumVARIANT interface on an object that can be used to enumerate the collection. This property is hidden within Visual Basic and Visual Basic Scripting Edition (VBScript).
+     * @remarks
+     * 
+     * This property is provided for use by the <c>For Each</code> keyword in Visual Basic and the <code>foreach</c> keyword in Visual C#.
      * 
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazscopes-get__newenum
+     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazscopes-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppEnumPtr := 0, "HRESULT")

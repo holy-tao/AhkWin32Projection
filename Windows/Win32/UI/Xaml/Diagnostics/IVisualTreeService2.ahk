@@ -32,11 +32,11 @@ class IVisualTreeService2 extends IVisualTreeService{
     static VTableNames => ["GetPropertyIndex", "GetProperty", "ReplaceResource", "RenderTargetBitmap"]
 
     /**
-     * 
-     * @param {Integer} object 
-     * @param {PWSTR} propertyName 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice2-getpropertyindex
+     * Gets the property index for the specified property name.
+     * @param {Integer} object The dependency object to get the property index from.
+     * @param {PWSTR} propertyName The name of the dependency property for which to get the index.
+     * @returns {Integer} The index of the specified property.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ivisualtreeservice2-getpropertyindex
      */
     GetPropertyIndex(object, propertyName) {
         propertyName := propertyName is String ? StrPtr(propertyName) : propertyName
@@ -46,11 +46,11 @@ class IVisualTreeService2 extends IVisualTreeService{
     }
 
     /**
-     * 
-     * @param {Integer} object 
-     * @param {Integer} propertyIndex 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice2-getproperty
+     * Gets the effective value of the specified dependency property.
+     * @param {Integer} object The dependency object to get the property value from.
+     * @param {Integer} propertyIndex The index of the  property to get the value from.
+     * @returns {Integer} The effective value of the property.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ivisualtreeservice2-getproperty
      */
     GetProperty(object, propertyIndex) {
         result := ComCall(16, this, "uint", object, "uint", propertyIndex, "uint*", &pValue := 0, "HRESULT")
@@ -58,12 +58,12 @@ class IVisualTreeService2 extends IVisualTreeService{
     }
 
     /**
-     * 
-     * @param {Integer} resourceDictionary 
-     * @param {Integer} key 
-     * @param {Integer} newValue 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice2-replaceresource
+     * Replaces an existing resource with a new one of the same type.
+     * @param {Integer} resourceDictionary The dictionary that contains the resource to replace.
+     * @param {Integer} key The key of the resource to replace.
+     * @param {Integer} newValue The value to replace the resource with.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ivisualtreeservice2-replaceresource
      */
     ReplaceResource(resourceDictionary, key, newValue) {
         result := ComCall(17, this, "uint", resourceDictionary, "uint", key, "uint", newValue, "HRESULT")
@@ -71,13 +71,13 @@ class IVisualTreeService2 extends IVisualTreeService{
     }
 
     /**
-     * 
-     * @param {Integer} handle 
-     * @param {Integer} options 
-     * @param {Integer} maxPixelWidth 
-     * @param {Integer} maxPixelHeight 
-     * @returns {IBitmapData} 
-     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice2-rendertargetbitmap
+     * Returns an image that represents the object described by handle, or returns an error if the object does not have or cannot provide such an image.
+     * @param {Integer} handle The handle associated with the visual for which the caller is requesting a bitmap.
+     * @param {Integer} options A flag that specifies whether only the texture associated with the visual should be rendered, or whether the texture and its children should be rendered.
+     * @param {Integer} maxPixelWidth The maximum width, in pixels, of the returned bitmap.
+     * @param {Integer} maxPixelHeight The maximum height, in pixels, of the returned bitmap.
+     * @returns {IBitmapData} The structure containing the requested bitmap information as well as information pertaining to that bitmap.
+     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ivisualtreeservice2-rendertargetbitmap
      */
     RenderTargetBitmap(handle, options, maxPixelWidth, maxPixelHeight) {
         result := ComCall(18, this, "uint", handle, "int", options, "uint", maxPixelWidth, "uint", maxPixelHeight, "ptr*", &ppBitmapData := 0, "HRESULT")

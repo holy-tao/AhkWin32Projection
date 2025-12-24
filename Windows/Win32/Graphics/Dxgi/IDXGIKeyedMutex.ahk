@@ -40,11 +40,30 @@ class IDXGIKeyedMutex extends IDXGIDeviceSubObject{
     static VTableNames => ["AcquireSync", "ReleaseSync"]
 
     /**
+     * Using a key, acquires exclusive rendering access to a shared resource.
+     * @param {Integer} Key Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
-     * @param {Integer} Key 
-     * @param {Integer} dwMilliseconds 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgikeyedmutex-acquiresync
+     * A value that indicates which device to give access to. This method will succeed when the device that currently owns the surface calls 
+     *           the <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgikeyedmutex-releasesync">IDXGIKeyedMutex::ReleaseSync</a> method using the same value. This value can be any UINT64 value.
+     * @param {Integer} dwMilliseconds Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * 
+     * The time-out interval, in milliseconds. This method will return if the interval elapses, and the keyed mutex has not been released  using the specified <i>Key</i>. 
+     *           If this value is set to zero, the <b>AcquireSync</b> method will test to see if the keyed mutex has been released and returns immediately. 
+     *           If this value is set to INFINITE, the time-out interval will never elapse.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Return S_OK if successful.
+     * 
+     * If the owning device attempted to create another keyed mutex on the same shared resource, <b>AcquireSync</b> returns E_FAIL.
+     * 
+     * <b>AcquireSync</b> can also return the following <a href="/windows/desktop/WinProg/windows-data-types">DWORD</a> constants. Therefore, you should explicitly check for these constants. If you only use the <a href="/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> macro on the return value to determine if  <b>AcquireSync</b> succeeded, you will not catch these constants.
+     * 
+     * <ul>
+     * <li>WAIT_ABANDONED - The shared surface and keyed mutex are no longer in a consistent state. 
+     *         If <b>AcquireSync</b> returns this value, you should release and recreate both the keyed mutex and the shared surface.</li>
+     * <li>WAIT_TIMEOUT - The time-out interval elapsed before the specified key was released.</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgikeyedmutex-acquiresync
      */
     AcquireSync(Key, dwMilliseconds) {
         result := ComCall(8, this, "uint", Key, "uint", dwMilliseconds, "HRESULT")
@@ -52,10 +71,16 @@ class IDXGIKeyedMutex extends IDXGIDeviceSubObject{
     }
 
     /**
+     * Using a key, releases exclusive rendering access to a shared resource.
+     * @param {Integer} Key Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a></b>
      * 
-     * @param {Integer} Key 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgikeyedmutex-releasesync
+     * A value that indicates which device to give access to. This method succeeds when the device that currently owns the surface calls the <b>ReleaseSync</b> method using the same value. This value can be any UINT64 value.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns S_OK if successful.
+     * 
+     * If the device attempted to release a keyed mutex that is not valid or owned by the device, <b>ReleaseSync</b> returns E_FAIL.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgikeyedmutex-releasesync
      */
     ReleaseSync(Key) {
         result := ComCall(9, this, "uint", Key, "HRESULT")

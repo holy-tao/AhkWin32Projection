@@ -32,9 +32,57 @@ class INetFwRule3 extends INetFwRule2{
     static VTableNames => ["get_LocalAppPackageId", "put_LocalAppPackageId", "get_LocalUserOwner", "put_LocalUserOwner", "get_LocalUserAuthorizedList", "put_LocalUserAuthorizedList", "get_RemoteUserAuthorizedList", "put_RemoteUserAuthorizedList", "get_RemoteMachineAuthorizedList", "put_RemoteMachineAuthorizedList", "get_SecureFlags", "put_SecureFlags"]
 
     /**
-     * 
+     * @type {BSTR} 
+     */
+    LocalAppPackageId {
+        get => this.get_LocalAppPackageId()
+        set => this.put_LocalAppPackageId(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalUserOwner {
+        get => this.get_LocalUserOwner()
+        set => this.put_LocalUserOwner(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    LocalUserAuthorizedList {
+        get => this.get_LocalUserAuthorizedList()
+        set => this.put_LocalUserAuthorizedList(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteUserAuthorizedList {
+        get => this.get_RemoteUserAuthorizedList()
+        set => this.put_RemoteUserAuthorizedList(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RemoteMachineAuthorizedList {
+        get => this.get_RemoteMachineAuthorizedList()
+        set => this.put_RemoteMachineAuthorizedList(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SecureFlags {
+        get => this.get_SecureFlags()
+        set => this.put_SecureFlags(value)
+    }
+
+    /**
+     * Specifies the package identifier or the app container identifier of a process, whether from a Windows Store app or a desktop app.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_localapppackageid
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-get_localapppackageid
      */
     get_LocalAppPackageId() {
         wszPackageId := BSTR()
@@ -43,10 +91,10 @@ class INetFwRule3 extends INetFwRule2{
     }
 
     /**
-     * 
+     * Specifies the package identifier or the app container identifier of a process, whether from a Windows Store app or a desktop app.
      * @param {BSTR} wszPackageId 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-put_localapppackageid
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-put_localapppackageid
      */
     put_LocalAppPackageId(wszPackageId) {
         wszPackageId := wszPackageId is String ? BSTR.Alloc(wszPackageId).Value : wszPackageId
@@ -56,9 +104,14 @@ class INetFwRule3 extends INetFwRule2{
     }
 
     /**
+     * Specifies the user security identifier (SID) of the user who is the owner of the rule.
+     * @remarks
+     * 
+     * If this rule does not specify <b>localUserConditions</b>, all the traffic that this rule matches must be destined to or originated from this user.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_localuserowner
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-get_localuserowner
      */
     get_LocalUserOwner() {
         wszUserOwner := BSTR()
@@ -67,10 +120,15 @@ class INetFwRule3 extends INetFwRule2{
     }
 
     /**
+     * Specifies the user security identifier (SID) of the user who is the owner of the rule.
+     * @remarks
+     * 
+     * If this rule does not specify <b>localUserConditions</b>, all the traffic that this rule matches must be destined to or originated from this user.
+     * 
      * 
      * @param {BSTR} wszUserOwner 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-put_localuserowner
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-put_localuserowner
      */
     put_LocalUserOwner(wszUserOwner) {
         wszUserOwner := wszUserOwner is String ? BSTR.Alloc(wszUserOwner).Value : wszUserOwner
@@ -80,9 +138,9 @@ class INetFwRule3 extends INetFwRule2{
     }
 
     /**
-     * 
+     * Specifies a list of authorized local users for an app container.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_localuserauthorizedlist
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-get_localuserauthorizedlist
      */
     get_LocalUserAuthorizedList() {
         wszUserAuthList := BSTR()
@@ -91,10 +149,10 @@ class INetFwRule3 extends INetFwRule2{
     }
 
     /**
-     * 
+     * Specifies a list of authorized local users for an app container.
      * @param {BSTR} wszUserAuthList 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-put_localuserauthorizedlist
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-put_localuserauthorizedlist
      */
     put_LocalUserAuthorizedList(wszUserAuthList) {
         wszUserAuthList := wszUserAuthList is String ? BSTR.Alloc(wszUserAuthList).Value : wszUserAuthList
@@ -104,9 +162,9 @@ class INetFwRule3 extends INetFwRule2{
     }
 
     /**
-     * 
+     * Specifies a list of remote users who are authorized to access an app container.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_remoteuserauthorizedlist
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-get_remoteuserauthorizedlist
      */
     get_RemoteUserAuthorizedList() {
         wszUserAuthList := BSTR()
@@ -115,10 +173,10 @@ class INetFwRule3 extends INetFwRule2{
     }
 
     /**
-     * 
+     * Specifies a list of remote users who are authorized to access an app container.
      * @param {BSTR} wszUserAuthList 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-put_remoteuserauthorizedlist
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-put_remoteuserauthorizedlist
      */
     put_RemoteUserAuthorizedList(wszUserAuthList) {
         wszUserAuthList := wszUserAuthList is String ? BSTR.Alloc(wszUserAuthList).Value : wszUserAuthList
@@ -128,9 +186,9 @@ class INetFwRule3 extends INetFwRule2{
     }
 
     /**
-     * 
+     * Specifies a list of remote computers which are authorized to access an app container.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_remotemachineauthorizedlist
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-get_remotemachineauthorizedlist
      */
     get_RemoteMachineAuthorizedList() {
         wszUserAuthList := BSTR()
@@ -139,10 +197,10 @@ class INetFwRule3 extends INetFwRule2{
     }
 
     /**
-     * 
+     * Specifies a list of remote computers which are authorized to access an app container.
      * @param {BSTR} wszUserAuthList 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-put_remotemachineauthorizedlist
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-put_remotemachineauthorizedlist
      */
     put_RemoteMachineAuthorizedList(wszUserAuthList) {
         wszUserAuthList := wszUserAuthList is String ? BSTR.Alloc(wszUserAuthList).Value : wszUserAuthList
@@ -152,9 +210,9 @@ class INetFwRule3 extends INetFwRule2{
     }
 
     /**
-     * 
+     * Specifies which firewall verifications of security levels provided by IPsec must be guaranteed to allow the collection. The allowed values must correspond to those of the NET_FW_AUTHENTICATE_TYPE enumeration.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-get_secureflags
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-get_secureflags
      */
     get_SecureFlags() {
         result := ComCall(55, this, "int*", &lOptions := 0, "HRESULT")
@@ -162,10 +220,10 @@ class INetFwRule3 extends INetFwRule2{
     }
 
     /**
-     * 
+     * Specifies which firewall verifications of security levels provided by IPsec must be guaranteed to allow the collection. The allowed values must correspond to those of the NET_FW_AUTHENTICATE_TYPE enumeration.
      * @param {Integer} lOptions 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwrule3-put_secureflags
+     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwrule3-put_secureflags
      */
     put_SecureFlags(lOptions) {
         result := ComCall(56, this, "int", lOptions, "HRESULT")

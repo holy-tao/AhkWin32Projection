@@ -31,10 +31,10 @@ class IServiceSynchronizationConfig extends IUnknown{
     static VTableNames => ["ConfigureSynchronization"]
 
     /**
-     * 
-     * @param {Integer} synchConfig 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicesynchronizationconfig-configuresynchronization
+     * Configures the synchronization for the enclosed work.
+     * @param {Integer} synchConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_synchronizationconfig">CSC_SynchronizationConfig</a> enumeration.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicesynchronizationconfig-configuresynchronization
      */
     ConfigureSynchronization(synchConfig) {
         result := ComCall(3, this, "int", synchConfig, "HRESULT")

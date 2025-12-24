@@ -32,13 +32,21 @@ class IRestrictedErrorInfo extends IUnknown{
     static VTableNames => ["GetErrorDetails", "GetReference"]
 
     /**
+     * Returns information about an error, including the restricted error description.
+     * @param {Pointer<BSTR>} description Type: <b>BSTR*</b>
      * 
-     * @param {Pointer<BSTR>} description 
-     * @param {Pointer<HRESULT>} error 
-     * @param {Pointer<BSTR>} restrictedDescription 
-     * @param {Pointer<BSTR>} capabilitySid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-geterrordetails
+     * The error description.
+     * @param {Pointer<HRESULT>} error Type: <b>HRESULT*</b>
+     * 
+     * The error code associated with the error condition.
+     * @param {Pointer<BSTR>} restrictedDescription Type: <b>BSTR*</b>
+     * 
+     * The restricted error description.
+     * @param {Pointer<BSTR>} capabilitySid TBD
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-geterrordetails
      */
     GetErrorDetails(description, error, restrictedDescription, capabilitySid) {
         errorMarshal := error is VarRef ? "int*" : "ptr"
@@ -48,9 +56,11 @@ class IRestrictedErrorInfo extends IUnknown{
     }
 
     /**
+     * Returns a reference to restricted error information.
+     * @returns {BSTR} Type: <b>BSTR*</b>
      * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-getreference
+     * A reference to the error information.
+     * @see https://docs.microsoft.com/windows/win32/api//restrictederrorinfo/nf-restrictederrorinfo-irestrictederrorinfo-getreference
      */
     GetReference() {
         reference := BSTR()

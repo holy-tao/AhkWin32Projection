@@ -32,10 +32,41 @@ class IWMPCdrom extends IDispatch{
     static VTableNames => ["get_driveSpecifier", "get_playlist", "eject"]
 
     /**
+     */
+    driveSpecifier {
+        get => this.get_driveSpecifier()
+    }
+
+    /**
+     * @type {IWMPPlaylist} 
+     */
+    playlist {
+        get => this.get_playlist()
+    }
+
+    /**
+     * The get_driveSpecifier method retrieves the CD or DVD drive letter.
+     * @param {Pointer<BSTR>} pbstrDrive Pointer to a <b>BSTR</b> containing the drive.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Pointer<BSTR>} pbstrDrive 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdrom-get_drivespecifier
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcdrom-get_drivespecifier
      */
     get_driveSpecifier(pbstrDrive) {
         result := ComCall(7, this, "ptr", pbstrDrive, "HRESULT")
@@ -43,9 +74,9 @@ class IWMPCdrom extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {IWMPPlaylist} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdrom-get_playlist
+     * The get_playlist method retrieves a pointer to an IWMPPlaylist interface representing the tracks on the CD currently in the CD drive or the root-level title entries for a DVD.
+     * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcdrom-get_playlist
      */
     get_playlist() {
         result := ComCall(8, this, "ptr*", &ppPlaylist := 0, "HRESULT")
@@ -53,9 +84,27 @@ class IWMPCdrom extends IDispatch{
     }
 
     /**
+     * The eject method ejects the CD or DVD from the drive.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcdrom-eject
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcdrom-eject
      */
     eject() {
         result := ComCall(9, this, "HRESULT")

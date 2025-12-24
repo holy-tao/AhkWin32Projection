@@ -31,12 +31,59 @@ class ITfTextInputProcessorEx extends ITfTextInputProcessor{
     static VTableNames => ["ActivateEx"]
 
     /**
+     * The ITfTextInputProcessorEx::ActivateEx method activates a text service when a user session starts. If the text service implements ITfTextInputProcessorEx and ActivateEx is called, ITfTextInputProcessor::Activate will not be called.
+     * @param {ITfThreadMgr} ptim [in] Pointer to the ITfThreadMgr interface for the thread manager that owns the text service.
+     * @param {Integer} tid [in] Specifies the client identifier for the text service.
+     * @param {Integer} dwFlags [in] The combination of the following bits:
      * 
-     * @param {ITfThreadMgr} ptim 
-     * @param {Integer} tid 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftextinputprocessorex-activateex
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TF_TMAE_SECUREMODE"></a><a id="tf_tmae_securemode"></a><dl>
+     * <dt><b>TF_TMAE_SECUREMODE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A text service is activated as secure mode. A text service may not want to show the setting dialog box.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TF_TMAE_COMLESS"></a><a id="tf_tmae_comless"></a><dl>
+     * <dt><b>TF_TMAE_COMLESS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A text service is activated as com less mode. TSF was activated without COM. COM may not be initialized or COM may be initialized as MTA.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TF_TMAE_WOW16"></a><a id="tf_tmae_wow16"></a><dl>
+     * <dt><b>TF_TMAE_WOW16</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The current thread is 16 bit task.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="TF_TMAE_CONSOLE"></a><a id="tf_tmae_console"></a><dl>
+     * <dt><b>TF_TMAE_CONSOLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A text service is activated for console usage.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {HRESULT} The TSF manager ignores the return value of this method.
+     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itftextinputprocessorex-activateex
      */
     ActivateEx(ptim, tid, dwFlags) {
         result := ComCall(5, this, "ptr", ptim, "uint", tid, "uint", dwFlags, "HRESULT")

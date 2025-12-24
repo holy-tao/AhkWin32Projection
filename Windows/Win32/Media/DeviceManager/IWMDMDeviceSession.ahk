@@ -31,12 +31,19 @@ class IWMDMDeviceSession extends IUnknown{
     static VTableNames => ["BeginSession", "EndSession"]
 
     /**
+     * The BeginSession method begins a device session.
+     * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-session-type">WMDM_SESSION_TYPE</a> describing the type of session to begin. This is a bitwise <b>OR</b> of any values except WMDM_SESSION_NONE. The same type (or combination of types) must be specified during <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmdevicesession-endsession">EndSession</a>.
+     * @param {Pointer<Integer>} pCtx Optional pointer to a caller-allocated session context buffer for private communication between the application and the service provider. Applications having knowledge of the underlying service provider can use this buffer to pass context-specific data to it. Windows Media Device Manager does not do anything with this context. The caller is responsible for freeing this buffer.
+     * @param {Integer} dwSizeCtx Size of the context buffer, in bytes. If the size is 0, <i>pCtx</i> is ignored. If the size is non-zero, <i>pCtx</i> must be a valid pointer.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} pCtx 
-     * @param {Integer} dwSizeCtx 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevicesession-beginsession
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmdevicesession-beginsession
      */
     BeginSession(type, pCtx, dwSizeCtx) {
         pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"
@@ -46,12 +53,19 @@ class IWMDMDeviceSession extends IUnknown{
     }
 
     /**
+     * The EndSession method ends a device session.
+     * @param {Integer} type A <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdm-session-type">WMDM_SESSION_TYPE</a> describing the type of session to end. This must be the same bitwise <b>OR</b> of the values specified in <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmdevicesession-beginsession">BeginSession</a>.
+     * @param {Pointer<Integer>} pCtx Optional pointer to a caller-allocated session context buffer for private communication between the application and the service provider. Applications having knowledge of the underlying service provider can use this buffer to pass context-specific data to it. Windows Media Device Manager does not do anything with this context. The caller is responsible for freeing this buffer.
+     * @param {Integer} dwSizeCtx Size of the context buffer, in bytes. If the size is 0, <i>pCtx</i> is ignored. If the size is non-zero, <i>pCtx</i> must be a valid pointer
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
-     * @param {Integer} type 
-     * @param {Pointer<Integer>} pCtx 
-     * @param {Integer} dwSizeCtx 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmdevicesession-endsession
+     * <ul>
+     * <li>Standard COM error codes </li>
+     * <li>Windows error codes converted to HRESULT values </li>
+     * <li>Windows Media Device Manager error codes </li>
+     * </ul>
+     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmdevicesession-endsession
      */
     EndSession(type, pCtx, dwSizeCtx) {
         pCtxMarshal := pCtx is VarRef ? "char*" : "ptr"

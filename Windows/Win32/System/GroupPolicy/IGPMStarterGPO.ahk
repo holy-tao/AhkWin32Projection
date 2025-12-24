@@ -50,6 +50,85 @@ class IGPMStarterGPO extends IDispatch{
     static VTableNames => ["get_DisplayName", "put_DisplayName", "get_Description", "put_Description", "get_Author", "get_Product", "get_CreationTime", "get_ID", "get_ModifiedTime", "get_Type", "get_ComputerVersion", "get_UserVersion", "get_StarterGPOVersion", "Delete", "Save", "Backup", "CopyTo", "GenerateReport", "GenerateReportToFile", "GetSecurityInfo", "SetSecurityInfo"]
 
     /**
+     * @type {BSTR} 
+     */
+    DisplayName {
+        get => this.get_DisplayName()
+        set => this.put_DisplayName(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Description {
+        get => this.get_Description()
+        set => this.put_Description(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Author {
+        get => this.get_Author()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Product {
+        get => this.get_Product()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    CreationTime {
+        get => this.get_CreationTime()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    ID {
+        get => this.get_ID()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    ModifiedTime {
+        get => this.get_ModifiedTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Type {
+        get => this.get_Type()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    ComputerVersion {
+        get => this.get_ComputerVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    UserVersion {
+        get => this.get_UserVersion()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StarterGPOVersion {
+        get => this.get_StarterGPOVersion()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */
@@ -179,9 +258,9 @@ class IGPMStarterGPO extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-delete
+     * Deletes the GPO from the current domain's system volume folder(SysVol).
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpo-delete
      */
     Delete() {
         result := ComCall(20, this, "HRESULT")
@@ -189,19 +268,19 @@ class IGPMStarterGPO extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrSaveFile 
-     * @param {VARIANT_BOOL} bOverwrite 
-     * @param {VARIANT_BOOL} bSaveAsSystem 
-     * @param {Pointer<VARIANT>} bstrLanguage 
-     * @param {Pointer<VARIANT>} bstrAuthor 
-     * @param {Pointer<VARIANT>} bstrProduct 
-     * @param {Pointer<VARIANT>} bstrUniqueID 
-     * @param {Pointer<VARIANT>} bstrVersion 
-     * @param {Pointer<VARIANT>} pvarGPMProgress 
-     * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @returns {IGPMResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-save
+     * Saves all Starter GPO settings into a single CAB file.
+     * @param {BSTR} bstrSaveFile Name of the file to which the Starter GPO should be saved.  Use null-terminated string.
+     * @param {VARIANT_BOOL} bOverwrite Boolean value that determines whether the file  should be  overwritten, if it exists.
+     * @param {VARIANT_BOOL} bSaveAsSystem Boolean value that specifies whether to convert the Starter GPO into a system template as part of the save.  By default, the value is <b>VARIANT_FALSE</b>, save as a system Starter GPO.  This option must be VARIANT_FALSE if the Starter GPO being saved is a system Starter GPO; entering VARIANT_TRUE for a system Starter GPO will return an invalid argument error.
+     * @param {Pointer<VARIANT>} bstrLanguage Specifies the MUI language code all the language specific strings of the custom Starter GPO will be exported during the save.  The custom Starter GPO strings are converted into MUI resources without performing any language checks on the strings.  If bSaveAsSystem is VARIANT_FALSE this parameter is ignored.  If this parameter is <b>NULL</b>, the user's current language code is used.
+     * @param {Pointer<VARIANT>} bstrAuthor Specifies the Author property of the new system Starter GPO.  If bSaveAsSystem is VARIANT_FALSE this parameter is ignored.
+     * @param {Pointer<VARIANT>} bstrProduct Specifies the Product property of the new system Starter GPO.  If bSaveAsSystem is VARIANT_FALSE this parameter is ignored
+     * @param {Pointer<VARIANT>} bstrUniqueID Specifies the ID property of the new system Starter GPO.  If the parameter is <b>NULL</b> a new unique ID will be generated.  If bSaveAsSystem is VARIANT_FALSE this parameter is ignored.
+     * @param {Pointer<VARIANT>} bstrVersion Specifies the Starter GPO version of the new system Starter GPO.  The format of the string must be 4 digits-dot-5 digits.  If the value is <b>NULL</b> the version is set to 1.0.  If bSaveAsSystem is VARIANT_FALSE this parameter is ignored
+     * @param {Pointer<VARIANT>} pvarGPMProgress Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasyncprogress">IGPMAsyncProgress</a> interface that allows the client to receive status notifications about the progress of the copy operation. If not <b>NULL</b>, the call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmbackup-generatereport">GenerateReport</a> is handled asynchronously and <i>pvarGPMCancel</i> receives a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface.   If this parameter is <b>NULL</b> the call to <b>GenerateReport</b> is handled synchronously. The <i>pvarGPMProgress</i> parameter must be <b>NULL</b> if the client should not receive asynchronous notifications.
+     * @param {Pointer<VARIANT>} pvarGPMCancel Receives a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface that the client can use to cancel the copy operation. This parameter is not returned if <i>pvarGPMProgress</i> is <b>NULL</b>.
+     * @returns {IGPMResult} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a>. The Result property contains a string representing the GUID of the saved Starter GPO.  If bSaveAsSystem is <b>VARIANT_TRUE</b>, the Starter GPO will be saved with a new GUID as specified by bstrUniqueID. The Status property contains a reference to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpo-save
      */
     Save(bstrSaveFile, bOverwrite, bSaveAsSystem, bstrLanguage, bstrAuthor, bstrProduct, bstrUniqueID, bstrVersion, pvarGPMProgress, pvarGPMCancel) {
         bstrSaveFile := bstrSaveFile is String ? BSTR.Alloc(bstrSaveFile).Value : bstrSaveFile
@@ -211,13 +290,18 @@ class IGPMStarterGPO extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrBackupDir 
-     * @param {BSTR} bstrComment 
-     * @param {Pointer<VARIANT>} pvarGPMProgress 
-     * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @returns {IGPMResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-backup
+     * Creates a backup of the current Starter GPO.
+     * @param {BSTR} bstrBackupDir Name of the file system directory in which the <b>GPMStarterGPOBackup</b> object should be stored.  The directory must already exist.  Use a null-terminated string.
+     * @param {BSTR} bstrComment Comment to associate with the <b>GPMStarterGPOBackup</b> object.
+     * @param {Pointer<VARIANT>} pvarGPMProgress Specifies a pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasyncprogress">IGPMAsyncProgress</a> interface that allows the client to receive status notifications about the progress of the backup operation. The method runs synchronously if this parameter is <b>NULL</b>. The method runs asynchronously if this parameter is not <b>NULL</b>. This parameter must be <b>NULL</b> if the client should not receive asynchronous notifications.
+     * @param {Pointer<VARIANT>} pvarGPMCancel Receives a pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface that the client can use to cancel the backup operation. This parameter is not returned if <i>pvarGPMProgress</i> is <b>NULL</b>.
+     * @returns {IGPMResult} Address of a pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface representing the result of the backup operation. That interface contains pointers to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">IGPMBackup</a> interface and an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpo-backup
      */
     Backup(bstrBackupDir, bstrComment, pvarGPMProgress, pvarGPMCancel) {
         bstrBackupDir := bstrBackupDir is String ? BSTR.Alloc(bstrBackupDir).Value : bstrBackupDir
@@ -228,12 +312,17 @@ class IGPMStarterGPO extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT>} pvarNewDisplayName 
-     * @param {Pointer<VARIANT>} pvarGPMProgress 
-     * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @returns {IGPMResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-copyto
+     * The CopyTo method copies the current Starter GPO and returns a pointer to the copy of the Starter GPO.
+     * @param {Pointer<VARIANT>} pvarNewDisplayName Display name to be put on the copied Starter GPO. A display name is assigned if the <b>VARIANT</b> structure does not contain a <b>BSTR</b>, or if <i>pvarNewDisplayName</i> is <b>NULL</b>.
+     * @param {Pointer<VARIANT>} pvarGPMProgress Specifies a pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasyncprogress">IGPMAsyncProgress</a> interface that allows the client to receive status notifications about the progress of the copy operation. This parameter must be <b>NULL</b> if the client does not receive asynchronous notifications.
+     * @param {Pointer<VARIANT>} pvarGPMCancel Receives a pointer to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface that the client can use to cancel the copy operation. This parameter is not returned if <i>pvarGPMProgress</i> is <b>NULL</b>.
+     * @returns {IGPMResult} Address of a pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface that represents the result of the copy operation. That interface contains pointers to an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmgpo">IGPMGPO</a> interface and an 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpo-copyto
      */
     CopyTo(pvarNewDisplayName, pvarGPMProgress, pvarGPMCancel) {
         result := ComCall(23, this, "ptr", pvarNewDisplayName, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
@@ -241,12 +330,12 @@ class IGPMStarterGPO extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} gpmReportType 
-     * @param {Pointer<VARIANT>} pvarGPMProgress 
-     * @param {Pointer<VARIANT>} pvarGPMCancel 
-     * @returns {IGPMResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-generatereport
+     * Gets the report for the Starter GPO.
+     * @param {Integer} gpmReportType Specifies whether the report is in XML or HTML.
+     * @param {Pointer<VARIANT>} pvarGPMProgress Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasyncprogress">IGPMAsyncProgress</a> interface that allows the client to receive status notifications about the progress of the copy operation. If not <b>NULL</b>, the call to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nf-gpmgmt-igpmbackup-generatereport">GenerateReport</a> is handled asynchronously and <i>pvarGPMCancel</i> receives a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface.   If this parameter is <b>NULL</b> the call to <b>GenerateReport</b> is handled synchronously. The <i>pvarGPMProgress</i> parameter must be <b>NULL</b> if the client should not receive asynchronous notifications.
+     * @param {Pointer<VARIANT>} pvarGPMCancel Receives a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmasynccancel">IGPMAsyncCancel</a> interface that the client can use to cancel the copy operation. This parameter is not returned if <i>pvarGPMProgress</i> is <b>NULL</b>.
+     * @returns {IGPMResult} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a>. The Result property contains  a binary string of XML or HTML. The Status property contains a reference to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpo-generatereport
      */
     GenerateReport(gpmReportType, pvarGPMProgress, pvarGPMCancel) {
         result := ComCall(24, this, "int", gpmReportType, "ptr", pvarGPMProgress, "ptr", pvarGPMCancel, "ptr*", &ppIGPMResult := 0, "HRESULT")
@@ -254,11 +343,14 @@ class IGPMStarterGPO extends IDispatch{
     }
 
     /**
+     * The GenerateReportToFile method gets the report for the GPO and saves it to a file at a specified path.
+     * @param {Integer} gpmReportType Specifies whether the report is in XML or HTML.
+     * @param {BSTR} bstrTargetFilePath Binary string that contains the path to the file where the report is being saved. Use null-terminated string.
+     * @returns {IGPMResult} Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface. The <b>Status</b> property contains a reference to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmstatusmsgcollection">IGPMStatusMsgCollection</a>.
      * 
-     * @param {Integer} gpmReportType 
-     * @param {BSTR} bstrTargetFilePath 
-     * @returns {IGPMResult} 
-     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstartergpo-generatereporttofile
+     * <div class="alert"><b>Note</b>  The value of the <b>Result</b> property of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmresult">IGPMResult</a> interface is indeterminate and should not be relied upon.</div>
+     * <div> </div>
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpo-generatereporttofile
      */
     GenerateReportToFile(gpmReportType, bstrTargetFilePath) {
         bstrTargetFilePath := bstrTargetFilePath is String ? BSTR.Alloc(bstrTargetFilePath).Value : bstrTargetFilePath
@@ -268,9 +360,10 @@ class IGPMStarterGPO extends IDispatch{
     }
 
     /**
-     * Retrieves a copy of the security descriptor for an object specified by a handle.
-     * @returns {IGPMSecurityInfo} 
-     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-getsecurityinfo
+     * Retrieves the set of permissions for the Starter GPO, such as who is granted permission to edit it.
+     * @returns {IGPMSecurityInfo} Address of a pointer to the 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsecurityinfo">IGPMSecurityInfo</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpo-getsecurityinfo
      */
     GetSecurityInfo() {
         result := ComCall(26, this, "ptr*", &ppSecurityInfo := 0, "HRESULT")
@@ -278,12 +371,10 @@ class IGPMStarterGPO extends IDispatch{
     }
 
     /**
-     * Sets specified security information in the security descriptor of a specified object. The caller identifies the object by a handle.
-     * @param {IGPMSecurityInfo} pSecurityInfo 
-     * @returns {HRESULT} If the function succeeds, the function returns ERROR_SUCCESS.
-     * 
-     * If the function fails, it returns a nonzero error code defined in WinError.h.
-     * @see https://docs.microsoft.com/windows/win32/api//aclapi/nf-aclapi-setsecurityinfo
+     * Sets the list of permissions for the Group Policy object (GPO).
+     * @param {IGPMSecurityInfo} pSecurityInfo Pointer to the security information to apply to the GPO.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
+     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstartergpo-setsecurityinfo
      */
     SetSecurityInfo(pSecurityInfo) {
         result := ComCall(27, this, "ptr", pSecurityInfo, "HRESULT")

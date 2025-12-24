@@ -38,10 +38,87 @@ class IAMNetShowConfig extends IDispatch{
     static VTableNames => ["get_BufferingTime", "put_BufferingTime", "get_UseFixedUDPPort", "put_UseFixedUDPPort", "get_FixedUDPPort", "put_FixedUDPPort", "get_UseHTTPProxy", "put_UseHTTPProxy", "get_EnableAutoProxy", "put_EnableAutoProxy", "get_HTTPProxyHost", "put_HTTPProxyHost", "get_HTTPProxyPort", "put_HTTPProxyPort", "get_EnableMulticast", "put_EnableMulticast", "get_EnableUDP", "put_EnableUDP", "get_EnableTCP", "put_EnableTCP", "get_EnableHTTP", "put_EnableHTTP"]
 
     /**
-     * 
-     * @param {Pointer<Float>} pBufferingTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_bufferingtime
+     */
+    BufferingTime {
+        get => this.get_BufferingTime()
+        set => this.put_BufferingTime(value)
+    }
+
+    /**
+     */
+    UseFixedUDPPort {
+        get => this.get_UseFixedUDPPort()
+        set => this.put_UseFixedUDPPort(value)
+    }
+
+    /**
+     */
+    FixedUDPPort {
+        get => this.get_FixedUDPPort()
+        set => this.put_FixedUDPPort(value)
+    }
+
+    /**
+     */
+    UseHTTPProxy {
+        get => this.get_UseHTTPProxy()
+        set => this.put_UseHTTPProxy(value)
+    }
+
+    /**
+     */
+    EnableAutoProxy {
+        get => this.get_EnableAutoProxy()
+        set => this.put_EnableAutoProxy(value)
+    }
+
+    /**
+     */
+    HTTPProxyHost {
+        get => this.get_HTTPProxyHost()
+        set => this.put_HTTPProxyHost(value)
+    }
+
+    /**
+     */
+    HTTPProxyPort {
+        get => this.get_HTTPProxyPort()
+        set => this.put_HTTPProxyPort(value)
+    }
+
+    /**
+     */
+    EnableMulticast {
+        get => this.get_EnableMulticast()
+        set => this.put_EnableMulticast(value)
+    }
+
+    /**
+     */
+    EnableUDP {
+        get => this.get_EnableUDP()
+        set => this.put_EnableUDP(value)
+    }
+
+    /**
+     */
+    EnableTCP {
+        get => this.get_EnableTCP()
+        set => this.put_EnableTCP(value)
+    }
+
+    /**
+     */
+    EnableHTTP {
+        get => this.get_EnableHTTP()
+        set => this.put_EnableHTTP(value)
+    }
+
+    /**
+     * The get_BufferingTime method retrieves the buffering time.
+     * @param {Pointer<Float>} pBufferingTime Pointer that receives the buffering time, in seconds.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-get_bufferingtime
      */
     get_BufferingTime(pBufferingTime) {
         pBufferingTimeMarshal := pBufferingTime is VarRef ? "double*" : "ptr"
@@ -51,10 +128,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Float} BufferingTime 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_bufferingtime
+     * The put_BufferingTime method specifies the buffering time.
+     * @param {Float} BufferingTime Specifies the buffering time, in seconds.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-put_bufferingtime
      */
     put_BufferingTime(BufferingTime) {
         result := ComCall(8, this, "double", BufferingTime, "HRESULT")
@@ -62,10 +139,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT_BOOL>} pUseFixedUDPPort 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_usefixedudpport
+     * The get_UseFixedUDPPort method queries whether the filter should use the fixed UDP port.
+     * @param {Pointer<VARIANT_BOOL>} pUseFixedUDPPort Pointer to a variable that receives a Boolean value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-get_usefixedudpport
      */
     get_UseFixedUDPPort(pUseFixedUDPPort) {
         pUseFixedUDPPortMarshal := pUseFixedUDPPort is VarRef ? "short*" : "ptr"
@@ -75,10 +152,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
+     * The put_UseFixedUDPPort method specifies whether to use a fixed UDP port number.
      * @param {VARIANT_BOOL} UseFixedUDPPort 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_usefixedudpport
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-put_usefixedudpport
      */
     put_UseFixedUDPPort(UseFixedUDPPort) {
         result := ComCall(10, this, "short", UseFixedUDPPort, "HRESULT")
@@ -86,10 +163,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pFixedUDPPort 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_fixedudpport
+     * The get_FixedUDPPort method gets the fixed UDP port number.
+     * @param {Pointer<Integer>} pFixedUDPPort Pointer to a variable that receives the fixed UDP port number.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-get_fixedudpport
      */
     get_FixedUDPPort(pFixedUDPPort) {
         pFixedUDPPortMarshal := pFixedUDPPort is VarRef ? "int*" : "ptr"
@@ -99,10 +176,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} FixedUDPPort 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_fixedudpport
+     * The put_FixedUDPPort method specifies the fixed UDP port.
+     * @param {Integer} FixedUDPPort Specifies the fixed UDP port number.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-put_fixedudpport
      */
     put_FixedUDPPort(FixedUDPPort) {
         result := ComCall(12, this, "int", FixedUDPPort, "HRESULT")
@@ -110,10 +187,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT_BOOL>} pUseHTTPProxy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_usehttpproxy
+     * The get_UseHTTPProxy method queries whether the filter should use the HTTP proxy server.
+     * @param {Pointer<VARIANT_BOOL>} pUseHTTPProxy Pointer to a variable that receives a Boolean value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-get_usehttpproxy
      */
     get_UseHTTPProxy(pUseHTTPProxy) {
         pUseHTTPProxyMarshal := pUseHTTPProxy is VarRef ? "short*" : "ptr"
@@ -123,10 +200,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
+     * The put_UseHTTPProxy method specifies whether to use an HTTP proxy server.
      * @param {VARIANT_BOOL} UseHTTPProxy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_usehttpproxy
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-put_usehttpproxy
      */
     put_UseHTTPProxy(UseHTTPProxy) {
         result := ComCall(14, this, "short", UseHTTPProxy, "HRESULT")
@@ -134,10 +211,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT_BOOL>} pEnableAutoProxy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enableautoproxy
+     * The get_EnableAutoProxy method queries whether the control or filter should use the browser's proxy settings.
+     * @param {Pointer<VARIANT_BOOL>} pEnableAutoProxy Pointer to a variable that receives a Boolean value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-get_enableautoproxy
      */
     get_EnableAutoProxy(pEnableAutoProxy) {
         pEnableAutoProxyMarshal := pEnableAutoProxy is VarRef ? "short*" : "ptr"
@@ -147,10 +224,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
+     * The put_EnableAutoProxy method enables or disables auto-proxy.
      * @param {VARIANT_BOOL} EnableAutoProxy 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_enableautoproxy
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-put_enableautoproxy
      */
     put_EnableAutoProxy(EnableAutoProxy) {
         result := ComCall(16, this, "short", EnableAutoProxy, "HRESULT")
@@ -158,10 +235,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<BSTR>} pbstrHTTPProxyHost 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_httpproxyhost
+     * The get_HTTPProxyHost method retrieves the HTTP address of the proxy host.
+     * @param {Pointer<BSTR>} pbstrHTTPProxyHost Pointer to a variable that receives the HTTP address.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-get_httpproxyhost
      */
     get_HTTPProxyHost(pbstrHTTPProxyHost) {
         result := ComCall(17, this, "ptr", pbstrHTTPProxyHost, "HRESULT")
@@ -169,10 +246,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrHTTPProxyHost 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_httpproxyhost
+     * The put_HTTPProxyHost method specifies the address of the HTTP proxy server.
+     * @param {BSTR} bstrHTTPProxyHost Specifies the proxy's address.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-put_httpproxyhost
      */
     put_HTTPProxyHost(bstrHTTPProxyHost) {
         bstrHTTPProxyHost := bstrHTTPProxyHost is String ? BSTR.Alloc(bstrHTTPProxyHost).Value : bstrHTTPProxyHost
@@ -182,10 +259,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pHTTPProxyPort 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_httpproxyport
+     * The get_HTTPProxyPort method retrieves the HTTP proxy port.
+     * @param {Pointer<Integer>} pHTTPProxyPort Pointer to a variable that receives the port number.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-get_httpproxyport
      */
     get_HTTPProxyPort(pHTTPProxyPort) {
         pHTTPProxyPortMarshal := pHTTPProxyPort is VarRef ? "int*" : "ptr"
@@ -195,10 +272,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} HTTPProxyPort 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_httpproxyport
+     * The put_HTTPProxyPort method specifies the port for the HTTP proxy server.
+     * @param {Integer} HTTPProxyPort Specifies the HTTP proxy port.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-put_httpproxyport
      */
     put_HTTPProxyPort(HTTPProxyPort) {
         result := ComCall(20, this, "int", HTTPProxyPort, "HRESULT")
@@ -206,10 +283,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT_BOOL>} pEnableMulticast 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enablemulticast
+     * The get_EnableMulticast method queries whether multicast-type streaming is enabled.
+     * @param {Pointer<VARIANT_BOOL>} pEnableMulticast Pointer to a variable that receives a Boolean value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-get_enablemulticast
      */
     get_EnableMulticast(pEnableMulticast) {
         pEnableMulticastMarshal := pEnableMulticast is VarRef ? "short*" : "ptr"
@@ -219,10 +296,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
+     * The put_EnableMulticast method enables or disables multicast-based streaming.
      * @param {VARIANT_BOOL} EnableMulticast 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_enablemulticast
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-put_enablemulticast
      */
     put_EnableMulticast(EnableMulticast) {
         result := ComCall(22, this, "short", EnableMulticast, "HRESULT")
@@ -230,10 +307,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT_BOOL>} pEnableUDP 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enableudp
+     * The get_EnableUDP method queries whether UDP-based streaming is enabled.
+     * @param {Pointer<VARIANT_BOOL>} pEnableUDP Pointer to a variable that receives a Boolean value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-get_enableudp
      */
     get_EnableUDP(pEnableUDP) {
         pEnableUDPMarshal := pEnableUDP is VarRef ? "short*" : "ptr"
@@ -243,10 +320,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
+     * The put_EnableUDP method enables or disablles UDP-based streaming.
      * @param {VARIANT_BOOL} EnableUDP 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_enableudp
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-put_enableudp
      */
     put_EnableUDP(EnableUDP) {
         result := ComCall(24, this, "short", EnableUDP, "HRESULT")
@@ -254,10 +331,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT_BOOL>} pEnableTCP 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enabletcp
+     * The get_EnableTCP method queries whether TCP-based streaming is enabled.
+     * @param {Pointer<VARIANT_BOOL>} pEnableTCP Pointer to a variable that receives a Boolean value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-get_enabletcp
      */
     get_EnableTCP(pEnableTCP) {
         pEnableTCPMarshal := pEnableTCP is VarRef ? "short*" : "ptr"
@@ -267,10 +344,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
+     * The put_EnableTCP method enables or disables TCP-based streaming.
      * @param {VARIANT_BOOL} EnableTCP 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_enabletcp
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-put_enabletcp
      */
     put_EnableTCP(EnableTCP) {
         result := ComCall(26, this, "short", EnableTCP, "HRESULT")
@@ -278,10 +355,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Pointer<VARIANT_BOOL>} pEnableHTTP 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-get_enablehttp
+     * The get_EnableHTTP method queries whether HTTP-type streaming is enabled.
+     * @param {Pointer<VARIANT_BOOL>} pEnableHTTP Pointer to a variable that receives a Boolean value.
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-get_enablehttp
      */
     get_EnableHTTP(pEnableHTTP) {
         pEnableHTTPMarshal := pEnableHTTP is VarRef ? "short*" : "ptr"
@@ -291,10 +368,10 @@ class IAMNetShowConfig extends IDispatch{
     }
 
     /**
-     * 
+     * The put_EnableHTTP method enables or disables HTTP-based streaming.
      * @param {VARIANT_BOOL} EnableHTTP 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamnetshowconfig-put_enablehttp
+     * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetshowconfig-put_enablehttp
      */
     put_EnableHTTP(EnableHTTP) {
         result := ComCall(28, this, "short", EnableHTTP, "HRESULT")

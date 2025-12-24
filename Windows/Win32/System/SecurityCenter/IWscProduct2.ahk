@@ -29,6 +29,48 @@ class IWscProduct2 extends IWscProduct{
     static VTableNames => ["get_AntivirusScanSubstatus", "get_AntivirusSettingsSubstatus", "get_AntivirusProtectionUpdateSubstatus", "get_FirewallDomainProfileSubstatus", "get_FirewallPrivateProfileSubstatus", "get_FirewallPublicProfileSubstatus"]
 
     /**
+     * @type {Integer} 
+     */
+    AntivirusScanSubstatus {
+        get => this.get_AntivirusScanSubstatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AntivirusSettingsSubstatus {
+        get => this.get_AntivirusSettingsSubstatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    AntivirusProtectionUpdateSubstatus {
+        get => this.get_AntivirusProtectionUpdateSubstatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FirewallDomainProfileSubstatus {
+        get => this.get_FirewallDomainProfileSubstatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FirewallPrivateProfileSubstatus {
+        get => this.get_FirewallPrivateProfileSubstatus()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FirewallPublicProfileSubstatus {
+        get => this.get_FirewallPublicProfileSubstatus()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

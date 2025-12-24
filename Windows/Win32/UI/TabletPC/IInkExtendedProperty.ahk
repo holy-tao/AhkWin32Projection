@@ -40,9 +40,30 @@ class IInkExtendedProperty extends IDispatch{
     static VTableNames => ["get_Guid", "get_Data", "put_Data"]
 
     /**
+     * @type {BSTR} 
+     */
+    Guid {
+        get => this.get_Guid()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Data {
+        get => this.get_Data()
+        set => this.put_Data(value)
+    }
+
+    /**
+     * Gets the globally unique identifier (GUID) of the IInkExtendedProperty object.
+     * @remarks
+     * 
+     * <div class="alert"><b>Note</b>  When using managed code, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdevice-id-vb">Id</a> property; when using Automation, use the <b>Guid</b> property.</div>
+     * <div> </div>
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperty-get_guid
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperty-get_guid
      */
     get_Guid() {
         Guid := BSTR()
@@ -51,9 +72,14 @@ class IInkExtendedProperty extends IDispatch{
     }
 
     /**
+     * Gets or sets the data of the extended property.
+     * @remarks
+     * 
+     * The data consists of information that cannot otherwise be set on the object, such as the time or date that a stroke was made.
+     * 
      * 
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperty-get_data
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperty-get_data
      */
     get_Data() {
         Data := VARIANT()
@@ -62,10 +88,15 @@ class IInkExtendedProperty extends IDispatch{
     }
 
     /**
+     * Gets or sets the data of the extended property.
+     * @remarks
+     * 
+     * The data consists of information that cannot otherwise be set on the object, such as the time or date that a stroke was made.
+     * 
      * 
      * @param {VARIANT} Data 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkextendedproperty-put_data
+     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperty-put_data
      */
     put_Data(Data) {
         result := ComCall(9, this, "ptr", Data, "HRESULT")

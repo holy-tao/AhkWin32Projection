@@ -31,9 +31,9 @@ class IAMDevMemoryControl extends IUnknown{
     static VTableNames => ["QueryWriteSync", "WriteSync", "GetDevId"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemorycontrol-querywritesync
+     * Note  The IAMDevMemoryControl interface is deprecated. Checks if the memory supported by the allocator requires the use of the IAMDevMemoryControl::WriteSync method.
+     * @returns {HRESULT} Returns S_OK if the method is required, or S_FALSE otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdevmemorycontrol-querywritesync
      */
     QueryWriteSync() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +41,49 @@ class IAMDevMemoryControl extends IUnknown{
     }
 
     /**
+     * Note  The IAMDevMemoryControl interface is deprecated. Used to synchronize with the completed write. This method returns when any data being written to the particular allocator region is fully written into the memory.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemorycontrol-writesync
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * A time-out has occurred without this method confirming that data was written.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The data was successfully written into memory.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>VFW_E_NOT_COMMITTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The allocator hasn't called the <a href="/windows/desktop/api/strmif/nf-strmif-imemallocator-commit">IMemAllocator::Commit</a> method.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdevmemorycontrol-writesync
      */
     WriteSync() {
         result := ComCall(4, this, "HRESULT")
@@ -51,9 +91,9 @@ class IAMDevMemoryControl extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdevmemorycontrol-getdevid
+     * Note  The IAMDevMemoryControl interface is deprecated. Retrieves the device ID of the on-board memory allocator.
+     * @returns {Integer} Pointer to the device ID.
+     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdevmemorycontrol-getdevid
      */
     GetDevId() {
         result := ComCall(5, this, "uint*", &pdwDevId := 0, "HRESULT")

@@ -31,6 +31,34 @@ class ISpeechGrammarRule extends IDispatch{
     static VTableNames => ["get_Attributes", "get_InitialState", "get_Name", "get_Id", "Clear", "AddResource", "AddState"]
 
     /**
+     * @type {Integer} 
+     */
+    Attributes {
+        get => this.get_Attributes()
+    }
+
+    /**
+     * @type {ISpeechGrammarRuleState} 
+     */
+    InitialState {
+        get => this.get_InitialState()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

@@ -30,6 +30,34 @@ class ISVGAnimatedPathData extends IDispatch{
     static VTableNames => ["putref_pathSegList", "get_pathSegList", "putref_normalizedPathSegList", "get_normalizedPathSegList", "putref_animatedPathSegList", "get_animatedPathSegList", "putref_animatedNormalizedPathSegList", "get_animatedNormalizedPathSegList"]
 
     /**
+     * @type {ISVGPathSegList} 
+     */
+    pathSegList {
+        get => this.get_pathSegList()
+    }
+
+    /**
+     * @type {ISVGPathSegList} 
+     */
+    normalizedPathSegList {
+        get => this.get_normalizedPathSegList()
+    }
+
+    /**
+     * @type {ISVGPathSegList} 
+     */
+    animatedPathSegList {
+        get => this.get_animatedPathSegList()
+    }
+
+    /**
+     * @type {ISVGPathSegList} 
+     */
+    animatedNormalizedPathSegList {
+        get => this.get_animatedNormalizedPathSegList()
+    }
+
+    /**
      * 
      * @param {ISVGPathSegList} v 
      * @returns {HRESULT} 

@@ -91,10 +91,14 @@ class IWICBitmapDecoder extends IUnknown{
     static VTableNames => ["QueryCapability", "Initialize", "GetContainerFormat", "GetDecoderInfo", "CopyPalette", "GetMetadataQueryReader", "GetPreview", "GetColorContexts", "GetThumbnail", "GetFrameCount", "GetFrame"]
 
     /**
+     * Retrieves the capabilities of the decoder based on the specified stream.
+     * @param {IStream} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
      * 
-     * @param {IStream} pIStream 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-querycapability
+     * The stream to retrieve the decoder capabilities from.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicbitmapdecodercapabilities">WICBitmapDecoderCapabilities</a> of the decoder.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoder-querycapability
      */
     QueryCapability(pIStream) {
         result := ComCall(3, this, "ptr", pIStream, "uint*", &pdwCapability := 0, "HRESULT")
@@ -102,21 +106,19 @@ class IWICBitmapDecoder extends IUnknown{
     }
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IStream} pIStream 
-     * @param {Integer} cacheOptions 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Initializes the decoder with the provided stream.
+     * @param {IStream} pIStream Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>*</b>
+     * 
+     * The stream to use for initialization.
+     * 
+     * The stream contains the encoded pixels which are decoded each time the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapsource-copypixels">CopyPixels</a> method on the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframedecode">IWICBitmapFrameDecode</a> interface (see <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicbitmapdecoder-getframe">GetFrame</a>) is invoked.
+     * @param {Integer} cacheOptions Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a></b>
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicdecodeoptions">WICDecodeOptions</a> to use for initialization.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoder-initialize
      */
     Initialize(pIStream, cacheOptions) {
         result := ComCall(4, this, "ptr", pIStream, "int", cacheOptions, "HRESULT")
@@ -124,9 +126,11 @@ class IWICBitmapDecoder extends IUnknown{
     }
 
     /**
+     * Retrieves the image's container format.
+     * @returns {Guid} Type: <b>GUID*</b>
      * 
-     * @returns {Guid} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getcontainerformat
+     * A pointer that receives the image's container format GUID.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoder-getcontainerformat
      */
     GetContainerFormat() {
         pguidContainerFormat := Guid()
@@ -135,9 +139,11 @@ class IWICBitmapDecoder extends IUnknown{
     }
 
     /**
+     * Retrieves an IWICBitmapDecoderInfo for the image.
+     * @returns {IWICBitmapDecoderInfo} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoderinfo">IWICBitmapDecoderInfo</a>**</b>
      * 
-     * @returns {IWICBitmapDecoderInfo} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getdecoderinfo
+     * A pointer that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapdecoderinfo">IWICBitmapDecoderInfo</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoder-getdecoderinfo
      */
     GetDecoderInfo() {
         result := ComCall(6, this, "ptr*", &ppIDecoderInfo := 0, "HRESULT")
@@ -145,10 +151,14 @@ class IWICBitmapDecoder extends IUnknown{
     }
 
     /**
+     * Copies the decoder's IWICPalette .
+     * @param {IWICPalette} pIPalette Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a>*</b>
      * 
-     * @param {IWICPalette} pIPalette 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-copypalette
+     * An<a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicpalette">IWICPalette</a> to which the decoder's global palette is to be copied. Use <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicimagingfactory-createpalette">CreatePalette</a> to create the destination palette before calling <b>CopyPalette</b>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoder-copypalette
      */
     CopyPalette(pIPalette) {
         result := ComCall(7, this, "ptr", pIPalette, "HRESULT")
@@ -156,9 +166,11 @@ class IWICBitmapDecoder extends IUnknown{
     }
 
     /**
+     * Retrieves the metadata query reader from the decoder.
+     * @returns {IWICMetadataQueryReader} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataqueryreader">IWICMetadataQueryReader</a>**</b>
      * 
-     * @returns {IWICMetadataQueryReader} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getmetadataqueryreader
+     * Receives a pointer to the decoder's <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicmetadataqueryreader">IWICMetadataQueryReader</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoder-getmetadataqueryreader
      */
     GetMetadataQueryReader() {
         result := ComCall(8, this, "ptr*", &ppIMetadataQueryReader := 0, "HRESULT")
@@ -166,9 +178,11 @@ class IWICBitmapDecoder extends IUnknown{
     }
 
     /**
+     * Retrieves a preview image, if supported.
+     * @returns {IWICBitmapSource} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>**</b>
      * 
-     * @returns {IWICBitmapSource} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getpreview
+     * Receives a pointer to the preview bitmap if supported.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoder-getpreview
      */
     GetPreview() {
         result := ComCall(9, this, "ptr*", &ppIBitmapSource := 0, "HRESULT")
@@ -176,11 +190,19 @@ class IWICBitmapDecoder extends IUnknown{
     }
 
     /**
+     * Retrieves the IWICColorContext objects of the image.
+     * @param {Integer} cCount Type: <b>UINT</b>
      * 
-     * @param {Integer} cCount 
-     * @param {Pointer<IWICColorContext>} ppIColorContexts 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getcolorcontexts
+     * The number of color contexts to retrieve.
+     * 
+     * This value must be the size of, or smaller than, the size available to <i>ppIColorContexts</i>.
+     * @param {Pointer<IWICColorContext>} ppIColorContexts Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a>**</b>
+     * 
+     * A pointer that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwiccolorcontext">IWICColorContext</a>.
+     * @returns {Integer} Type: <b>UINT*</b>
+     * 
+     * A pointer that receives the number of color contexts contained in the image.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoder-getcolorcontexts
      */
     GetColorContexts(cCount, ppIColorContexts) {
         result := ComCall(10, this, "uint", cCount, "ptr*", ppIColorContexts, "uint*", &pcActualCount := 0, "HRESULT")
@@ -188,9 +210,11 @@ class IWICBitmapDecoder extends IUnknown{
     }
 
     /**
+     * Retrieves a bitmap thumbnail of the image, if one exists
+     * @returns {IWICBitmapSource} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>**</b>
      * 
-     * @returns {IWICBitmapSource} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getthumbnail
+     * Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> of the thumbnail.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoder-getthumbnail
      */
     GetThumbnail() {
         result := ComCall(11, this, "ptr*", &ppIThumbnail := 0, "HRESULT")
@@ -198,9 +222,11 @@ class IWICBitmapDecoder extends IUnknown{
     }
 
     /**
+     * Retrieves the total number of frames in the image.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getframecount
+     * A pointer that receives the total number of frames in the image.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoder-getframecount
      */
     GetFrameCount() {
         result := ComCall(12, this, "uint*", &pCount := 0, "HRESULT")
@@ -208,10 +234,14 @@ class IWICBitmapDecoder extends IUnknown{
     }
 
     /**
+     * Retrieves the specified frame of the image.
+     * @param {Integer} index Type: <b>UINT</b>
      * 
-     * @param {Integer} index 
-     * @returns {IWICBitmapFrameDecode} 
-     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicbitmapdecoder-getframe
+     * The particular frame to retrieve.
+     * @returns {IWICBitmapFrameDecode} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframedecode">IWICBitmapFrameDecode</a>**</b>
+     * 
+     * A pointer that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapframedecode">IWICBitmapFrameDecode</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicbitmapdecoder-getframe
      */
     GetFrame(index) {
         result := ComCall(13, this, "uint", index, "ptr*", &ppIBitmapFrame := 0, "HRESULT")

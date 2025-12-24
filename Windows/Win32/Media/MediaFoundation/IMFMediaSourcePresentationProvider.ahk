@@ -31,10 +31,28 @@ class IMFMediaSourcePresentationProvider extends IUnknown{
     static VTableNames => ["ForceEndOfPresentation"]
 
     /**
+     * Notifies the source when playback has reached the end of a segment. For timelines, this corresponds to reaching a mark-out point.
+     * @param {IMFPresentationDescriptor} pPresentationDescriptor Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationdescriptor">IMFPresentationDescriptor</a> interface of the presentation descriptor for the segment that has ended.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IMFPresentationDescriptor} pPresentationDescriptor 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasourcepresentationprovider-forceendofpresentation
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasourcepresentationprovider-forceendofpresentation
      */
     ForceEndOfPresentation(pPresentationDescriptor) {
         result := ComCall(3, this, "ptr", pPresentationDescriptor, "HRESULT")

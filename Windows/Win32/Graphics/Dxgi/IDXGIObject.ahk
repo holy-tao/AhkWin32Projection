@@ -54,12 +54,20 @@ class IDXGIObject extends IUnknown{
     static VTableNames => ["SetPrivateData", "SetPrivateDataInterface", "GetPrivateData", "GetParent"]
 
     /**
+     * Sets application-defined data to the object and associates that data with a GUID.
+     * @param {Pointer<Guid>} Name Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
-     * @param {Pointer<Guid>} Name 
-     * @param {Integer} DataSize 
-     * @param {Pointer} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiobject-setprivatedata
+     * A GUID that identifies the data. Use this GUID in a call to <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiobject-getprivatedata">GetPrivateData</a> to get the data.
+     * @param {Integer} DataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * 
+     * The size of the object's data.
+     * @param {Pointer} pData Type: <b>const void*</b>
+     * 
+     * A pointer to the object's data.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a> values.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiobject-setprivatedata
      */
     SetPrivateData(Name, DataSize, pData) {
         result := ComCall(3, this, "ptr", Name, "uint", DataSize, "ptr", pData, "HRESULT")
@@ -67,11 +75,17 @@ class IDXGIObject extends IUnknown{
     }
 
     /**
+     * Set an interface in the object's private data.
+     * @param {Pointer<Guid>} Name Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
-     * @param {Pointer<Guid>} Name 
-     * @param {IUnknown} pUnknown 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiobject-setprivatedatainterface
+     * A GUID identifying the interface.
+     * @param {IUnknown} pUnknown Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * 
+     * The interface to set.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiobject-setprivatedatainterface
      */
     SetPrivateDataInterface(Name, pUnknown) {
         result := ComCall(4, this, "ptr", Name, "ptr", pUnknown, "HRESULT")
@@ -79,12 +93,20 @@ class IDXGIObject extends IUnknown{
     }
 
     /**
+     * Get a pointer to the object's data.
+     * @param {Pointer<Guid>} Name Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
-     * @param {Pointer<Guid>} Name 
-     * @param {Pointer<Integer>} pDataSize 
-     * @param {Pointer} pData 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dxgi/nf-dxgi-idxgiobject-getprivatedata
+     * A GUID identifying the data.
+     * @param {Pointer<Integer>} pDataSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
+     * 
+     * The size of the data.
+     * @param {Pointer} pData Type: <b>void*</b>
+     * 
+     * Pointer to the data.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns one of the following <a href="/windows/desktop/direct3ddxgi/dxgi-error">DXGI_ERROR</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiobject-getprivatedata
      */
     GetPrivateData(Name, pDataSize, pData) {
         pDataSizeMarshal := pDataSize is VarRef ? "uint*" : "ptr"
@@ -94,10 +116,14 @@ class IDXGIObject extends IUnknown{
     }
 
     /**
-     * Retrieves a handle to the specified window's parent or owner.
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
+     * Gets the parent of the object.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
+     * 
+     * The ID of the requested interface.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * The address of a pointer to the parent object.
+     * @see https://docs.microsoft.com/windows/win32/api//dxgi/nf-dxgi-idxgiobject-getparent
      */
     GetParent(riid) {
         result := ComCall(6, this, "ptr", riid, "ptr*", &ppParent := 0, "HRESULT")

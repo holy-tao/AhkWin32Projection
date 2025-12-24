@@ -34,6 +34,34 @@ class IRTCBuddy2 extends IRTCBuddy{
     static VTableNames => ["get_Profile", "Refresh", "EnumerateGroups", "get_Groups", "get_PresenceProperty", "EnumeratePresenceDevices", "get_PresenceDevices", "get_SubscriptionType"]
 
     /**
+     * @type {IRTCProfile2} 
+     */
+    Profile {
+        get => this.get_Profile()
+    }
+
+    /**
+     * @type {IRTCCollection} 
+     */
+    Groups {
+        get => this.get_Groups()
+    }
+
+    /**
+     * @type {IRTCCollection} 
+     */
+    PresenceDevices {
+        get => this.get_PresenceDevices()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    SubscriptionType {
+        get => this.get_SubscriptionType()
+    }
+
+    /**
      * 
      * @returns {IRTCProfile2} 
      */

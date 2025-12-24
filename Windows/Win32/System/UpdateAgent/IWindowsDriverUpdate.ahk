@@ -37,9 +37,65 @@ class IWindowsDriverUpdate extends IUpdate{
     static VTableNames => ["get_DriverClass", "get_DriverHardwareID", "get_DriverManufacturer", "get_DriverModel", "get_DriverProvider", "get_DriverVerDate", "get_DeviceProblemNumber", "get_DeviceStatus"]
 
     /**
-     * 
+     * @type {BSTR} 
+     */
+    DriverClass {
+        get => this.get_DriverClass()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DriverHardwareID {
+        get => this.get_DriverHardwareID()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DriverManufacturer {
+        get => this.get_DriverManufacturer()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DriverModel {
+        get => this.get_DriverModel()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    DriverProvider {
+        get => this.get_DriverProvider()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    DriverVerDate {
+        get => this.get_DriverVerDate()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DeviceProblemNumber {
+        get => this.get_DeviceProblemNumber()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    DeviceStatus {
+        get => this.get_DeviceStatus()
+    }
+
+    /**
+     * Gets the class of the Windows driver update.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverclass
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate-get_driverclass
      */
     get_DriverClass() {
         retval := BSTR()
@@ -48,9 +104,9 @@ class IWindowsDriverUpdate extends IUpdate{
     }
 
     /**
-     * 
+     * Gets the hardware ID or compatible ID that the Windows driver update must match to be installable.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverhardwareid
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate-get_driverhardwareid
      */
     get_DriverHardwareID() {
         retval := BSTR()
@@ -59,9 +115,9 @@ class IWindowsDriverUpdate extends IUpdate{
     }
 
     /**
-     * 
+     * Gets the language-invariant name of the manufacturer of the Windows driver update.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_drivermanufacturer
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate-get_drivermanufacturer
      */
     get_DriverManufacturer() {
         retval := BSTR()
@@ -70,9 +126,9 @@ class IWindowsDriverUpdate extends IUpdate{
     }
 
     /**
-     * 
+     * Gets the language-invariant model name of the device for which the Windows driver update is intended.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_drivermodel
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate-get_drivermodel
      */
     get_DriverModel() {
         retval := BSTR()
@@ -81,9 +137,9 @@ class IWindowsDriverUpdate extends IUpdate{
     }
 
     /**
-     * 
+     * Gets the language-invariant name of the provider of the Windows driver update.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driverprovider
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate-get_driverprovider
      */
     get_DriverProvider() {
         retval := BSTR()
@@ -92,9 +148,9 @@ class IWindowsDriverUpdate extends IUpdate{
     }
 
     /**
-     * 
+     * Gets the driver version date of the Windows driver update.
      * @returns {Float} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_driververdate
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate-get_driververdate
      */
     get_DriverVerDate() {
         result := ComCall(57, this, "double*", &retval := 0, "HRESULT")
@@ -102,9 +158,9 @@ class IWindowsDriverUpdate extends IUpdate{
     }
 
     /**
-     * 
+     * Gets the problem number of the matching device for the Windows driver update.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_deviceproblemnumber
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate-get_deviceproblemnumber
      */
     get_DeviceProblemNumber() {
         result := ComCall(58, this, "int*", &retval := 0, "HRESULT")
@@ -112,9 +168,9 @@ class IWindowsDriverUpdate extends IUpdate{
     }
 
     /**
-     * 
+     * Gets the status of the matching device for the Windows driver update.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate-get_devicestatus
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate-get_devicestatus
      */
     get_DeviceStatus() {
         result := ComCall(59, this, "int*", &retval := 0, "HRESULT")

@@ -31,9 +31,17 @@ class IFsrmFileScreenTemplateImported extends IFsrmFileScreenTemplate{
     static VTableNames => ["get_OverwriteOnCommit", "put_OverwriteOnCommit"]
 
     /**
-     * 
+     * @type {VARIANT_BOOL} 
+     */
+    OverwriteOnCommit {
+        get => this.get_OverwriteOnCommit()
+        set => this.put_OverwriteOnCommit(value)
+    }
+
+    /**
+     * Retrieves or sets a value that determines whether a file screen template is overwritten if it exists when the template is imported.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplateimported-get_overwriteoncommit
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplateimported-get_overwriteoncommit
      */
     get_OverwriteOnCommit() {
         result := ComCall(22, this, "short*", &overwrite := 0, "HRESULT")
@@ -41,10 +49,10 @@ class IFsrmFileScreenTemplateImported extends IFsrmFileScreenTemplate{
     }
 
     /**
-     * 
+     * Retrieves or sets a value that determines whether a file screen template is overwritten if it exists when the template is imported.
      * @param {VARIANT_BOOL} overwrite 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplateimported-put_overwriteoncommit
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplateimported-put_overwriteoncommit
      */
     put_OverwriteOnCommit(overwrite) {
         result := ComCall(23, this, "short", overwrite, "HRESULT")

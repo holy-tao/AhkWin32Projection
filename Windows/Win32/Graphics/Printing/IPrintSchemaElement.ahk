@@ -31,6 +31,27 @@ class IPrintSchemaElement extends IDispatch{
     static VTableNames => ["get_XmlNode", "get_Name", "get_NamespaceUri"]
 
     /**
+     * @type {IUnknown} 
+     */
+    XmlNode {
+        get => this.get_XmlNode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    NamespaceUri {
+        get => this.get_NamespaceUri()
+    }
+
+    /**
      * 
      * @returns {IUnknown} 
      */

@@ -38,6 +38,41 @@ class IGPMTrustee extends IDispatch{
     static VTableNames => ["get_TrusteeSid", "get_TrusteeName", "get_TrusteeDomain", "get_TrusteeDSPath", "get_TrusteeType"]
 
     /**
+     * @type {BSTR} 
+     */
+    TrusteeSid {
+        get => this.get_TrusteeSid()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TrusteeName {
+        get => this.get_TrusteeName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TrusteeDomain {
+        get => this.get_TrusteeDomain()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    TrusteeDSPath {
+        get => this.get_TrusteeDSPath()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    TrusteeType {
+        get => this.get_TrusteeType()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

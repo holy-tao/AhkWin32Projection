@@ -32,10 +32,23 @@ class IWMPSkinManager extends IUnknown{
     static VTableNames => ["SetVisualStyle"]
 
     /**
+     * The SetVisualStyle method specifies the path to a theme file in Windows XP to which Windows Media Player synchronizes the skin.
+     * @param {BSTR} bstrPath <b>BSTR</b> containing the path to the theme file.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpskinmanager-setvisualstyle
+     * <table>
+     * <tr>
+     * <th>Value
+     *                 </th>
+     * <th>Description
+     *                 </th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method succeeded.</td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpskinmanager-setvisualstyle
      */
     SetVisualStyle(bstrPath) {
         bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath

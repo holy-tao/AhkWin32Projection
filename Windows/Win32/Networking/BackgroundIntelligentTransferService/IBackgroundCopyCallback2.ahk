@@ -37,11 +37,11 @@ class IBackgroundCopyCallback2 extends IBackgroundCopyCallback{
     static VTableNames => ["FileTransferred"]
 
     /**
-     * 
-     * @param {IBackgroundCopyJob} pJob 
-     * @param {IBackgroundCopyFile} pFile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibackgroundcopycallback2-filetransferred
+     * BITS calls your implementation of the FileTransferred method when BITS successfully finishes transferring a file.
+     * @param {IBackgroundCopyJob} pJob Contains job-related information. Do not release <i>pJob</i>; BITS releases the interface when this method returns.
+     * @param {IBackgroundCopyFile} pFile Contains file-related information. Do not release <i>pFile</i>; BITS releases the interface when this method returns.
+     * @returns {HRESULT} This method should return <b>S_OK</b>; otherwise,  if negative, BITS continues to call this method until <b>S_OK</b> is returned. For performance reasons, you should limit the number  of times you return a value other than <b>S_OK</b> to a few times. As an alternative to returning an error code, consider always returning <b>S_OK</b> and handling the error internally. The interval at which this method is called is arbitrary.
+     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibackgroundcopycallback2-filetransferred
      */
     FileTransferred(pJob, pFile) {
         result := ComCall(6, this, "ptr", pJob, "ptr", pFile, "HRESULT")

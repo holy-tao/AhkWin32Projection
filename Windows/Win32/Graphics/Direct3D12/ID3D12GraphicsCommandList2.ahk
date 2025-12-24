@@ -31,12 +31,19 @@ class ID3D12GraphicsCommandList2 extends ID3D12GraphicsCommandList1{
     static VTableNames => ["WriteBufferImmediate"]
 
     /**
+     * Writes a number of 32-bit immediate values to the specified buffer locations directly from the command stream.
+     * @remarks
      * 
-     * @param {Integer} Count 
-     * @param {Pointer<D3D12_WRITEBUFFERIMMEDIATE_PARAMETER>} pParams 
-     * @param {Pointer<Integer>} pModes 
+     * <b>WriteBufferImmediate</b> performs <i>Count</i> number of 32-bit writes: one for each value and destination specified in <i>pParams</i>.
+     * 
+     * The receiving buffer (resource) must be in the <b>D3D12_RESOURCE_STATE_COPY_DEST</b> state to be a valid destination for <b>WriteBufferImmediate</b>.
+     * 
+     * 
+     * @param {Integer} Count The number of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_writebufferimmediate_parameter">D3D12_WRITEBUFFERIMMEDIATE_PARAMETER</a> structures that are pointed to by <i>pParams</i> and <i>pModes</i>.
+     * @param {Pointer<D3D12_WRITEBUFFERIMMEDIATE_PARAMETER>} pParams The address of an array containing a number of <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_writebufferimmediate_parameter">D3D12_WRITEBUFFERIMMEDIATE_PARAMETER</a> structures equal to <i>Count</i>.
+     * @param {Pointer<Integer>} pModes The address of an array containing a number of  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_writebufferimmediate_mode">D3D12_WRITEBUFFERIMMEDIATE_MODE</a> structures equal to <i>Count</i>. The default value is <b>null</b>; passing <b>null</b> causes the system to write all immediate values using <b>D3D12_WRITEBUFFERIMMEDIATE_MODE_DEFAULT</b>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist2-writebufferimmediate
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist2-writebufferimmediate
      */
     WriteBufferImmediate(Count, pParams, pModes) {
         pModesMarshal := pModes is VarRef ? "int*" : "ptr"

@@ -77,9 +77,134 @@ class IMFByteStream extends IUnknown{
     static VTableNames => ["GetCapabilities", "GetLength", "SetLength", "GetCurrentPosition", "SetCurrentPosition", "IsEndOfStream", "Read", "BeginRead", "EndRead", "Write", "BeginWrite", "EndWrite", "Seek", "Flush", "Close"]
 
     /**
+     * Retrieves the characteristics of the byte stream.
+     * @returns {Integer} Receives a bitwise <b>OR</b> of zero or more flags. The following flags are defined.
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-getcapabilities
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MFBYTESTREAM_IS_READABLE"></a><a id="mfbytestream_is_readable"></a><dl>
+     * <dt><b>MFBYTESTREAM_IS_READABLE</b></dt>
+     * <dt>0x00000001</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The byte stream can be read.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MFBYTESTREAM_IS_WRITABLE"></a><a id="mfbytestream_is_writable"></a><dl>
+     * <dt><b>MFBYTESTREAM_IS_WRITABLE</b></dt>
+     * <dt>0x00000002</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The byte stream can be written to.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MFBYTESTREAM_IS_SEEKABLE"></a><a id="mfbytestream_is_seekable"></a><dl>
+     * <dt><b>MFBYTESTREAM_IS_SEEKABLE</b></dt>
+     * <dt>0x00000004</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The byte stream can be seeked.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MFBYTESTREAM_IS_REMOTE"></a><a id="mfbytestream_is_remote"></a><dl>
+     * <dt><b>MFBYTESTREAM_IS_REMOTE</b></dt>
+     * <dt>0x00000008</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The byte stream is from a remote source, such as a network.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MFBYTESTREAM_IS_DIRECTORY"></a><a id="mfbytestream_is_directory"></a><dl>
+     * <dt><b>MFBYTESTREAM_IS_DIRECTORY</b></dt>
+     * <dt>0x00000080</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The byte stream represents a file directory.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MFBYTESTREAM_HAS_SLOW_SEEK"></a><a id="mfbytestream_has_slow_seek"></a><dl>
+     * <dt><b>MFBYTESTREAM_HAS_SLOW_SEEK</b></dt>
+     * <dt>0x00000100</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Seeking within this stream might be slow. For example, the byte stream might download from a network.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MFBYTESTREAM_IS_PARTIALLY_DOWNLOADED"></a><a id="mfbytestream_is_partially_downloaded"></a><dl>
+     * <dt><b>MFBYTESTREAM_IS_PARTIALLY_DOWNLOADED</b></dt>
+     * <dt>0x00000200</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The byte stream is currently downloading data to a local cache.
+     *               Read operations on the byte stream might take longer until the data is completely downloaded.
+     * 
+     * This flag is cleared after all of the data has been downloaded.
+     * 
+     * If the <b>MFBYTESTREAM_HAS_SLOW_SEEK</b> flag is also set, it means the byte stream must download the entire file sequentially. Otherwise, the byte stream can respond to seek requests by restarting the download from a new point in the stream.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MFBYTESTREAM_SHARE_WRITE"></a><a id="mfbytestream_share_write"></a><dl>
+     * <dt><b>MFBYTESTREAM_SHARE_WRITE</b></dt>
+     * <dt>0x00000400</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Another thread or process can open this byte stream for writing. If this flag is present, the length of the
+     * byte stream could change while it is being read. 
+     * 
+     * This flag can affect the behavior of byte-stream handlers. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-bytestreamhandler-accepts-share-write">MF_BYTESTREAMHANDLER_ACCEPTS_SHARE_WRITE</a>.
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 7 or later.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MFBYTESTREAM_DOES_NOT_USE_NETWORK"></a><a id="mfbytestream_does_not_use_network"></a><dl>
+     * <dt><b>MFBYTESTREAM_DOES_NOT_USE_NETWORK</b></dt>
+     * <dt>0x00000800</dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The byte stream is not currently
+     * using the network to receive the content.  Networking hardware
+     * may enter a power saving state when this bit is set.
+     * 
+     * <div class="alert"><b>Note</b>  Requires Windows 8 or later.</div>
+     * <div> </div>
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-getcapabilities
      */
     GetCapabilities() {
         result := ComCall(3, this, "uint*", &pdwCapabilities := 0, "HRESULT")
@@ -87,9 +212,9 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-getlength
+     * Retrieves the length of the stream.
+     * @returns {Integer} Receives the length of the stream, in bytes. If the length is unknown, this value is -1.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-getlength
      */
     GetLength() {
         result := ComCall(4, this, "uint*", &pqwLength := 0, "HRESULT")
@@ -97,10 +222,10 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} qwLength 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-setlength
+     * Sets the length of the stream.
+     * @param {Integer} qwLength Length of the stream in bytes.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-setlength
      */
     SetLength(qwLength) {
         result := ComCall(5, this, "uint", qwLength, "HRESULT")
@@ -108,9 +233,9 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-getcurrentposition
+     * Retrieves the current read or write position in the stream.
+     * @returns {Integer} Receives the current position, in bytes.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-getcurrentposition
      */
     GetCurrentPosition() {
         result := ComCall(6, this, "uint*", &pqwPosition := 0, "HRESULT")
@@ -118,10 +243,41 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
+     * Sets the current read or write position.
+     * @param {Integer} qwPosition New position in the stream, as a byte offset from the start of the stream.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {Integer} qwPosition 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-setcurrentposition
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-setcurrentposition
      */
     SetCurrentPosition(qwPosition) {
         result := ComCall(7, this, "uint", qwPosition, "HRESULT")
@@ -129,9 +285,9 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-isendofstream
+     * Queries whether the current position has reached the end of the stream.
+     * @returns {BOOL} Receives the value <b>TRUE</b> if the end of the stream has been reached, or <b>FALSE</b> otherwise.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-isendofstream
      */
     IsEndOfStream() {
         result := ComCall(8, this, "int*", &pfEndOfStream := 0, "HRESULT")
@@ -139,12 +295,12 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pb 
-     * @param {Integer} cb 
-     * @param {Pointer<Integer>} pcbRead 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-read
+     * Reads data from the stream.
+     * @param {Pointer<Integer>} pb Pointer to a buffer that receives the data. The caller must allocate the buffer.
+     * @param {Integer} cb Size of the buffer in bytes.
+     * @param {Pointer<Integer>} pcbRead Receives the number of bytes that are copied into the buffer. This parameter cannot be <b>NULL</b>.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-read
      */
     Read(pb, cb, pcbRead) {
         pbMarshal := pb is VarRef ? "char*" : "ptr"
@@ -155,13 +311,13 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} pb 
-     * @param {Integer} cb 
-     * @param {IMFAsyncCallback} pCallback 
-     * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-beginread
+     * Begins an asynchronous read operation from the stream.
+     * @param {Pointer} pb Pointer to a buffer that receives the data. The caller must allocate the buffer.
+     * @param {Integer} cb Size of the buffer in bytes.
+     * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
+     * @param {IUnknown} punkState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-beginread
      */
     BeginRead(pb, cb, pCallback, punkState) {
         result := ComCall(10, this, "ptr", pb, "uint", cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
@@ -169,10 +325,10 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFAsyncResult} pResult 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-endread
+     * Completes an asynchronous read operation.
+     * @param {IMFAsyncResult} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
+     * @returns {Integer} Receives the number of bytes that were read.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-endread
      */
     EndRead(pResult) {
         result := ComCall(11, this, "ptr", pResult, "uint*", &pcbRead := 0, "HRESULT")
@@ -180,11 +336,11 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pb 
-     * @param {Integer} cb 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-write
+     * Writes data to the stream.
+     * @param {Pointer<Integer>} pb Pointer to a buffer that contains the data to write.
+     * @param {Integer} cb Size of the buffer in bytes.
+     * @returns {Integer} Receives the number of bytes that are written.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-write
      */
     Write(pb, cb) {
         pbMarshal := pb is VarRef ? "char*" : "ptr"
@@ -194,13 +350,13 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer} pb 
-     * @param {Integer} cb 
-     * @param {IMFAsyncCallback} pCallback 
-     * @param {IUnknown} punkState 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-beginwrite
+     * Begins an asynchronous write operation to the stream.
+     * @param {Pointer} pb Pointer to a buffer containing the data to write.
+     * @param {Integer} cb Size of the buffer in bytes.
+     * @param {IMFAsyncCallback} pCallback Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasynccallback">IMFAsyncCallback</a> interface of a callback object. The caller must implement this interface.
+     * @param {IUnknown} punkState Pointer to the <b>IUnknown</b> interface of a state object, defined by the caller. This parameter can be <b>NULL</b>. You can use this object to hold state information. The object is returned to the caller when the callback is invoked.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-beginwrite
      */
     BeginWrite(pb, cb, pCallback, punkState) {
         result := ComCall(13, this, "ptr", pb, "uint", cb, "ptr", pCallback, "ptr", punkState, "HRESULT")
@@ -208,10 +364,10 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IMFAsyncResult} pResult 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-endwrite
+     * Completes an asynchronous write operation.
+     * @param {IMFAsyncResult} pResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass in the same pointer that your callback object received in the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method.
+     * @returns {Integer} Receives the number of bytes that were written.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-endwrite
      */
     EndWrite(pResult) {
         result := ComCall(14, this, "ptr", pResult, "uint*", &pcbWritten := 0, "HRESULT")
@@ -219,12 +375,31 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
+     * Moves the current position in the stream by a specified offset.
+     * @param {Integer} SeekOrigin Specifies the origin of the seek as a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mfbytestream_seek_origin">MFBYTESTREAM_SEEK_ORIGIN</a> enumeration. The offset is calculated relative to this position.
+     * @param {Integer} llSeekOffset Specifies the new position, as a byte offset from the seek origin.
+     * @param {Integer} dwSeekFlags Specifies zero or more flags. The following flags are defined.
+     *           
      * 
-     * @param {Integer} SeekOrigin 
-     * @param {Integer} llSeekOffset 
-     * @param {Integer} dwSeekFlags 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-seek
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td width="40%"><a id="MFBYTESTREAM_SEEK_FLAG_CANCEL_PENDING_IO"></a><a id="mfbytestream_seek_flag_cancel_pending_io"></a><dl>
+     * <dt><b>MFBYTESTREAM_SEEK_FLAG_CANCEL_PENDING_IO</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * All pending I/O requests are canceled after the seek request completes successfully.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @returns {Integer} Receives the new position after the seek.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-seek
      */
     Seek(SeekOrigin, llSeekOffset, dwSeekFlags) {
         result := ComCall(15, this, "int", SeekOrigin, "int64", llSeekOffset, "uint", dwSeekFlags, "uint*", &pqwCurrentPosition := 0, "HRESULT")
@@ -232,9 +407,9 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-flush
+     * Clears any internal buffers used by the stream. If you are writing to the stream, the buffered data is written to the underlying file or device.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-flush
      */
     Flush() {
         result := ComCall(16, this, "HRESULT")
@@ -242,9 +417,9 @@ class IMFByteStream extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestream-close
+     * Closes the stream and releases any resources associated with the stream, such as sockets or file handles. This method also cancels any pending asynchronous I/O requests.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestream-close
      */
     Close() {
         result := ComCall(17, this, "HRESULT")

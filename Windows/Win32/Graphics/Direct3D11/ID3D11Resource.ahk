@@ -36,10 +36,18 @@ class ID3D11Resource extends ID3D11DeviceChild{
     static VTableNames => ["GetType", "SetEvictionPriority", "GetEvictionPriority"]
 
     /**
+     * Get the type of the resource.
+     * @remarks
      * 
-     * @param {Pointer<Integer>} pResourceDimension 
+     * <b>Windows Phone 8:
+     *         </b> This API is supported.
+     * 
+     * 
+     * @param {Pointer<Integer>} pResourceDimension Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_resource_dimension">D3D11_RESOURCE_DIMENSION</a>*</b>
+     * 
+     * Pointer to the resource type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ne-d3d11-d3d11_resource_dimension">D3D11_RESOURCE_DIMENSION</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11resource-gettype
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11resource-gettype
      */
     GetType(pResourceDimension) {
         pResourceDimensionMarshal := pResourceDimension is VarRef ? "int*" : "ptr"
@@ -48,19 +56,38 @@ class ID3D11Resource extends ID3D11DeviceChild{
     }
 
     /**
+     * Set the eviction priority of a resource.
+     * @remarks
      * 
-     * @param {Integer} EvictionPriority 
+     * Resource priorities determine which resource to evict from video memory when the system has run out of video memory. The resource will not be lost; it will be removed from video memory and placed into system memory, or possibly placed onto the hard drive. The resource will be loaded back into video memory when it is required.
+     * 
+     * A resource that is set to the maximum priority, DXGI_RESOURCE_PRIORITY_MAXIMUM, is only evicted if there is no other way of resolving the incoming memory request. The Windows Display Driver Model (WDDM) tries to split an incoming memory request to its minimum size and evict lower-priority resources before evicting a resource with maximum priority.
+     * 
+     * Changing the priorities of resources should be done carefully. The wrong eviction priorities could be a detriment to performance rather than an improvement.
+     * 
+     * 
+     * @param {Integer} EvictionPriority Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11resource-setevictionpriority
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11resource-setevictionpriority
      */
     SetEvictionPriority(EvictionPriority) {
         ComCall(8, this, "uint", EvictionPriority)
     }
 
     /**
+     * Get the eviction priority of a resource.
+     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11resource-getevictionpriority
+     * One of the following values, which specifies the eviction priority for the resource:
+     * 
+     * <ul>
+     * <li>DXGI_RESOURCE_PRIORITY_MINIMUM</li>
+     * <li>DXGI_RESOURCE_PRIORITY_LOW</li>
+     * <li>DXGI_RESOURCE_PRIORITY_NORMAL</li>
+     * <li>DXGI_RESOURCE_PRIORITY_HIGH</li>
+     * <li>DXGI_RESOURCE_PRIORITY_MAXIMUM</li>
+     * </ul>
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11resource-getevictionpriority
      */
     GetEvictionPriority() {
         result := ComCall(9, this, "uint")

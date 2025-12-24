@@ -36,9 +36,11 @@ class IAppxManifestPackageDependency extends IUnknown{
     static VTableNames => ["GetName", "GetPublisher", "GetMinVersion"]
 
     /**
+     * Gets the name of the package on which the current package has a dependency.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getname
+     * The name of the package.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getname
      */
     GetName() {
         result := ComCall(3, this, "ptr*", &name := 0, "HRESULT")
@@ -46,9 +48,11 @@ class IAppxManifestPackageDependency extends IUnknown{
     }
 
     /**
+     * Gets the name of the publisher that produced the package on which the current package depends.
+     * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
-     * @returns {PWSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getpublisher
+     * The name of the publisher.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getpublisher
      */
     GetPublisher() {
         result := ComCall(4, this, "ptr*", &publisher := 0, "HRESULT")
@@ -56,9 +60,11 @@ class IAppxManifestPackageDependency extends IUnknown{
     }
 
     /**
+     * Gets the minimum version of the package on which the current package has a dependency.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT64</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getminversion
+     * The minimum version of the package.
+     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getminversion
      */
     GetMinVersion() {
         result := ComCall(5, this, "uint*", &minVersion := 0, "HRESULT")

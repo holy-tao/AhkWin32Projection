@@ -35,10 +35,38 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     static VTableNames => ["put_GuardInterval", "get_GuardInterval", "put_TransmissionMode", "get_TransmissionMode", "put_RollOff", "get_RollOff", "put_Pilot", "get_Pilot"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pGuardInterval 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_guardinterval
+     */
+    GuardInterval {
+        get => this.get_GuardInterval()
+        set => this.put_GuardInterval(value)
+    }
+
+    /**
+     */
+    TransmissionMode {
+        get => this.get_TransmissionMode()
+        set => this.put_TransmissionMode(value)
+    }
+
+    /**
+     */
+    RollOff {
+        get => this.get_RollOff()
+        set => this.put_RollOff(value)
+    }
+
+    /**
+     */
+    Pilot {
+        get => this.get_Pilot()
+        set => this.put_Pilot(value)
+    }
+
+    /**
+     * Sets the demodulator's guard interval.
+     * @param {Pointer<Integer>} pGuardInterval Pointer to a variable that contains the guard interval, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> enumeration.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_guardinterval
      */
     put_GuardInterval(pGuardInterval) {
         pGuardIntervalMarshal := pGuardInterval is VarRef ? "int*" : "ptr"
@@ -48,10 +76,10 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pGuardInterval 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_guardinterval
+     * Gets the demodulator's guard interval.
+     * @param {Pointer<Integer>} pGuardInterval Receives the guard interval, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/guardinterval">GuardInterval</a> enumeration.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_guardinterval
      */
     get_GuardInterval(pGuardInterval) {
         pGuardIntervalMarshal := pGuardInterval is VarRef ? "int*" : "ptr"
@@ -61,10 +89,10 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pTransmissionMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_transmissionmode
+     * Sets the demodulator's transmission mode.
+     * @param {Pointer<Integer>} pTransmissionMode Pointer to a variable that contains the transmission mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/transmissionmode">TransmissionMode</a> enumeration.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_transmissionmode
      */
     put_TransmissionMode(pTransmissionMode) {
         pTransmissionModeMarshal := pTransmissionMode is VarRef ? "int*" : "ptr"
@@ -74,10 +102,10 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pTransmissionMode 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_transmissionmode
+     * Gets the demodulator's transmission mode.
+     * @param {Pointer<Integer>} pTransmissionMode Receives the transmission mode, specified as a member of the <b>TransmissionMode</b> enumeration.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_transmissionmode
      */
     get_TransmissionMode(pTransmissionMode) {
         pTransmissionModeMarshal := pTransmissionMode is VarRef ? "int*" : "ptr"
@@ -87,10 +115,10 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pRollOff 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_rolloff
+     * Sets the demodulator's roll-off factor.
+     * @param {Pointer<Integer>} pRollOff Pointer to a variable that contains the roll-off factor, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/rolloff">RollOff</a> enumeration.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_rolloff
      */
     put_RollOff(pRollOff) {
         pRollOffMarshal := pRollOff is VarRef ? "int*" : "ptr"
@@ -100,10 +128,10 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pRollOff 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_rolloff
+     * Gets the demodulator's roll-off factor.
+     * @param {Pointer<Integer>} pRollOff Receives the roll-off factor, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/rolloff">RollOff</a> enumeration.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_rolloff
      */
     get_RollOff(pRollOff) {
         pRollOffMarshal := pRollOff is VarRef ? "int*" : "ptr"
@@ -113,10 +141,10 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pPilot 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_pilot
+     * Sets the current pilot mode for Digital Video Broadcasting-S2 (DVB-S2).
+     * @param {Pointer<Integer>} pPilot Pointer to a variable that contains the pilot mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/pilot">Pilot</a> enumeration.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-put_pilot
      */
     put_Pilot(pPilot) {
         pPilotMarshal := pPilot is VarRef ? "int*" : "ptr"
@@ -126,10 +154,10 @@ class IBDA_DigitalDemodulator2 extends IBDA_DigitalDemodulator{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pPilot 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_pilot
+     * Gets the current pilot mode for Digital Video Broadcasting-S2 (DVB-S2).
+     * @param {Pointer<Integer>} pPilot Receives the pilot mode, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/pilot">Pilot</a> enumeration.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_digitaldemodulator2-get_pilot
      */
     get_Pilot(pPilot) {
         pPilotMarshal := pPilot is VarRef ? "int*" : "ptr"

@@ -29,6 +29,13 @@ class IPMExtensionFileSavePickerInfo extends IUnknown{
     static VTableNames => ["get_AllFileTypes", "get_SupportsAllFileTypes"]
 
     /**
+     * @type {BOOL} 
+     */
+    SupportsAllFileTypes {
+        get => this.get_SupportsAllFileTypes()
+    }
+
+    /**
      * 
      * @param {Pointer<Integer>} pcTypes 
      * @param {Pointer<Pointer<BSTR>>} ppTypes 

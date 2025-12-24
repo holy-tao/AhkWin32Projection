@@ -73,22 +73,20 @@ class IExplorerBrowser extends IUnknown{
     static VTableNames => ["Initialize", "Destroy", "SetRect", "SetPropertyBag", "SetEmptyText", "SetFolderSettings", "Advise", "Unadvise", "SetOptions", "GetOptions", "BrowseToIDList", "BrowseToObject", "FillFromObject", "RemoveAll", "GetCurrentView"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {HWND} hwndParent 
-     * @param {Pointer<RECT>} prc 
-     * @param {Pointer<FOLDERSETTINGS>} pfs 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * Prepares the browser to be navigated.
+     * @param {HWND} hwndParent Type: <b>HWND</b>
+     * 
+     * A handle to the owner window or control.
+     * @param {Pointer<RECT>} prc Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> that contains the coordinates of the bounding rectangle that the browser will occupy. The coordinates are relative to <i>hwndParent</i>.
+     * @param {Pointer<FOLDERSETTINGS>} pfs Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a> structure that determines how the folder will be displayed in the view. If this parameter is <b>NULL</b>, then you must call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setfoldersettings">IExplorerBrowser::SetFolderSettings</a>; otherwise, the default view settings for the folder are used.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-initialize
      */
     Initialize(hwndParent, prc, pfs) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -98,9 +96,11 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Destroys the browser.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-destroy
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-destroy
      */
     Destroy() {
         result := ComCall(4, this, "HRESULT")
@@ -108,13 +108,17 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
-     * The SetRect function sets the coordinates of the specified rectangle. This is equivalent to assigning the left, top, right, and bottom arguments to the appropriate members of the RECT structure.
-     * @param {Pointer<HDWP>} phdwp 
-     * @param {RECT} rcBrowser 
-     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * Sets the size and position of the view windows created by the browser.
+     * @param {Pointer<HDWP>} phdwp Type: <b>HDWP*</b>
      * 
-     * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-setrect
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-deferwindowpos">DeferWindowPos</a> handle. This parameter can be <b>NULL</b>.
+     * @param {RECT} rcBrowser Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a></b>
+     * 
+     * The coordinates that the browser will occupy.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setrect
      */
     SetRect(phdwp, rcBrowser) {
         result := ComCall(5, this, "ptr", phdwp, "ptr", rcBrowser, "HRESULT")
@@ -122,10 +126,15 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Sets the name of the property bag.
+     * @param {PWSTR} pszPropertyBag Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszPropertyBag 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setpropertybag
+     * A pointer to a constant, null-terminated, Unicode string that contains the name of the property bag.
+     *                    View state information that is specific to the application of the client is stored (persisted) using this name.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setpropertybag
      */
     SetPropertyBag(pszPropertyBag) {
         pszPropertyBag := pszPropertyBag is String ? StrPtr(pszPropertyBag) : pszPropertyBag
@@ -135,10 +144,14 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Sets the default empty text.
+     * @param {PWSTR} pszEmptyText Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} pszEmptyText 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setemptytext
+     * A pointer to a constant, null-terminated, Unicode string that contains the empty text.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setemptytext
      */
     SetEmptyText(pszEmptyText) {
         pszEmptyText := pszEmptyText is String ? StrPtr(pszEmptyText) : pszEmptyText
@@ -148,10 +161,14 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Sets the folder settings for the current view.
+     * @param {Pointer<FOLDERSETTINGS>} pfs Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a>*</b>
      * 
-     * @param {Pointer<FOLDERSETTINGS>} pfs 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setfoldersettings
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-foldersettings">FOLDERSETTINGS</a> structure that contains the folder settings to be applied.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setfoldersettings
      */
     SetFolderSettings(pfs) {
         result := ComCall(8, this, "ptr", pfs, "HRESULT")
@@ -159,10 +176,14 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Initiates a connection with IExplorerBrowser for event callbacks.
+     * @param {IExplorerBrowserEvents} psbe Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iexplorerbrowserevents">IExplorerBrowserEvents</a>*</b>
      * 
-     * @param {IExplorerBrowserEvents} psbe 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-advise
+     * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iexplorerbrowserevents">IExplorerBrowserEvents</a> interface of the object to be advised of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iexplorerbrowser">IExplorerBrowser</a> events.
+     * @returns {Integer} Type: <b>DWORD*</b>
+     * 
+     * When this method returns, contains a token that uniquely identifies the event listener.  This allows several event listeners to be subscribed at a time.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-advise
      */
     Advise(psbe) {
         result := ComCall(9, this, "ptr", psbe, "uint*", &pdwCookie := 0, "HRESULT")
@@ -170,10 +191,14 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Terminates an advisory connection.
+     * @param {Integer} dwCookie Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwCookie 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-unadvise
+     * A connection token previously returned from <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-advise">IExplorerBrowser::Advise</a>. Identifies the connection to be terminated.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-unadvise
      */
     Unadvise(dwCookie) {
         result := ComCall(10, this, "uint", dwCookie, "HRESULT")
@@ -181,10 +206,14 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Sets the current browser options.
+     * @param {Integer} dwFlag Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_options">EXPLORER_BROWSER_OPTIONS</a></b>
      * 
-     * @param {Integer} dwFlag 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setoptions
+     * One or more <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_options">EXPLORER_BROWSER_OPTIONS</a> flags to be set.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-setoptions
      */
     SetOptions(dwFlag) {
         result := ComCall(11, this, "int", dwFlag, "HRESULT")
@@ -192,9 +221,11 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Gets the current browser options.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_options">EXPLORER_BROWSER_OPTIONS</a>*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-getoptions
+     * When this method returns, contains the current <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_options">EXPLORER_BROWSER_OPTIONS</a> for the browser.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-getoptions
      */
     GetOptions() {
         result := ComCall(12, this, "int*", &pdwFlag := 0, "HRESULT")
@@ -202,11 +233,15 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Browses to a pointer to an item identifier list (PIDL)
+     * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUIDLIST_RELATIVE</b>
      * 
-     * @param {Pointer<ITEMIDLIST>} pidl 
-     * @param {Integer} uFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-browsetoidlist
+     * A pointer to a const <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> (item identifier list) that specifies an object's location as the destination to navigate to. This parameter can be <b>NULL</b>. For more information, see Remarks.
+     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-browsetoidlist
      */
     BrowseToIDList(pidl, uFlags) {
         result := ComCall(13, this, "ptr", pidl, "uint", uFlags, "HRESULT")
@@ -214,11 +249,15 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Browses to an object.
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punk 
-     * @param {Integer} uFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-browsetoobject
+     * A pointer to an object to browse to. If the object cannot be browsed, an error value is returned.
+     * @param {Integer} uFlags Type: <b>UINT</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-browsetoobject
      */
     BrowseToObject(punk, uFlags) {
         result := ComCall(14, this, "ptr", punk, "uint", uFlags, "HRESULT")
@@ -226,11 +265,17 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Creates a results folder and fills it with items.
+     * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
-     * @param {IUnknown} punk 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-fillfromobject
+     * An interface pointer on the source object that will fill the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nn-shobjidl-iresultsfolder">IResultsFolder</a>. This can be an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> or any object that can be used with <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inamespacewalk">INamespaceWalk</a>.
+     * @param {Integer} dwFlags Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_fill_flags">EXPLORER_BROWSER_FILL_FLAGS</a></b>
+     * 
+     * One of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-explorer_browser_fill_flags">EXPLORER_BROWSER_FILL_FLAGS</a> values.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-fillfromobject
      */
     FillFromObject(punk, dwFlags) {
         result := ComCall(15, this, "ptr", punk, "int", dwFlags, "HRESULT")
@@ -238,9 +283,11 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Removes all items from the results folder.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-removeall
+     * Returns S_OK if successful, or  E_UNEXPECTED if this method is called before a call to <a href="/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-fillfromobject">IExplorerBrowser::FillFromObject</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-removeall
      */
     RemoveAll() {
         result := ComCall(16, this, "HRESULT")
@@ -248,10 +295,14 @@ class IExplorerBrowser extends IUnknown{
     }
 
     /**
+     * Gets an interface for the current view of the browser.
+     * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorerbrowser-getcurrentview
+     * A reference to the desired interface ID.
+     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * 
+     * When this method returns, contains the interface pointer requested in <i>riid</i>. This will typically be <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview">IShellView</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellview2">IShellView2</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifolderview">IFolderView</a>, or a related interface.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorerbrowser-getcurrentview
      */
     GetCurrentView(riid) {
         result := ComCall(17, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

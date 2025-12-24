@@ -14,6 +14,7 @@
 #Include ../Windows/Win32/System/Com/Urlmon/Apis.ahk
 #Include ../Windows/Win32/Security/Authentication/Identity/Apis.ahk
 #Include ../Windows/Win32/UI/Shell/Apis.ahk
+#Include ../Windows/Win32/System/WinRT/Apis.ahk
 
 class GeneratedApiSmokeTests {
 
@@ -245,6 +246,11 @@ class GeneratedApiSmokeTests {
             ; Downside of the logical return value thing is that we now leak the PWSTR on failure
             ; See https://github.com/holy-tao/AhkWin32Projection/issues/58#issuecomment-3494255901
             Assert.Throws((*) => Shell.SHGetKnownFolderPath(Guid(0), 0, 0), OSError)
+        }
+
+        ComLikeApis_ThatReturnHandles_ReturnHandles() {
+            val := WinRT.WindowsCreateString(0, 0)
+            Assert.Equals(type(val), "HSTRING")
         }
     }
 }

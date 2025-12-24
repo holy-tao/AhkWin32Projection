@@ -36,10 +36,30 @@ class IMFClockConsumer extends IUnknown{
     static VTableNames => ["SetPresentationClock", "GetPresentationClock"]
 
     /**
+     * Called by the media pipeline to provide the app with an instance of IMFPresentationClock.
+     * @param {IMFPresentationClock} pPresentationClock An instance of <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationclock">IMFPresentationClock</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
+     *           
      * 
-     * @param {IMFPresentationClock} pPresentationClock 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockconsumer-setpresentationclock
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     *               
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclockconsumer-setpresentationclock
      */
     SetPresentationClock(pPresentationClock) {
         result := ComCall(3, this, "ptr", pPresentationClock, "HRESULT")
@@ -47,9 +67,9 @@ class IMFClockConsumer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IMFPresentationClock} 
-     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfclockconsumer-getpresentationclock
+     * Called by the media pipeline to get an instance of IMFPresentationClock.
+     * @returns {IMFPresentationClock} Pointer to an object that implements the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationclock">IMFPresentationClock</a> interface. This value can be null.
+     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfclockconsumer-getpresentationclock
      */
     GetPresentationClock() {
         result := ComCall(4, this, "ptr*", &ppPresentationClock := 0, "HRESULT")

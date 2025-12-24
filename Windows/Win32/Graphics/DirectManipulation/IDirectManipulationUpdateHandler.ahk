@@ -31,9 +31,9 @@ class IDirectManipulationUpdateHandler extends IUnknown{
     static VTableNames => ["Update"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationupdatehandler-update
+     * Notifies the compositor when to update inertia animation.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationupdatehandler-update
      */
     Update() {
         result := ComCall(3, this, "HRESULT")

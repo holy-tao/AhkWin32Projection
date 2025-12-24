@@ -47,12 +47,20 @@ class IFolderFilter extends IUnknown{
     static VTableNames => ["ShouldShow", "GetEnumFlags"]
 
     /**
+     * Specifies whether an individual item should be allowed through the filter and which should be blocked.
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
-     * @param {IShellFolder} psf 
-     * @param {Pointer<ITEMIDLIST>} pidlFolder 
-     * @param {Pointer<ITEMIDLIST>} pidlItem 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-shouldshow
+     * A pointer to the folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface.
+     * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE</b>
+     * 
+     * The PIDL of the folder.
+     * @param {Pointer<ITEMIDLIST>} pidlItem Type: <b>PCUITEMID_CHILD</b>
+     * 
+     * The relative PIDL of the child item of <i>pidlFolder</i> in question.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns S_OK if the item should be shown, S_FALSE if it should not be shown, or a standard error code if an error is encountered. If an error is encountered, the item is not shown.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderfilter-shouldshow
      */
     ShouldShow(psf, pidlFolder, pidlItem) {
         result := ComCall(3, this, "ptr", psf, "ptr", pidlFolder, "ptr", pidlItem, "HRESULT")
@@ -60,12 +68,20 @@ class IFolderFilter extends IUnknown{
     }
 
     /**
+     * Allows a client to specify which classes of objects in a Shell folder should be enumerated. When used with SHBrowseForFolder, specifies the class or classes of items that should be shown in the dialog box tree view and which class or classes should not.
+     * @param {IShellFolder} psf Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a>*</b>
      * 
-     * @param {IShellFolder} psf 
-     * @param {Pointer<ITEMIDLIST>} pidlFolder 
-     * @param {Pointer<Integer>} pgrfFlags 
-     * @returns {HWND} 
-     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderfilter-getenumflags
+     * A pointer to the folder's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellfolder">IShellFolder</a> interface.
+     * @param {Pointer<ITEMIDLIST>} pidlFolder Type: <b>PCIDLIST_ABSOLUTE </b>
+     * 
+     * The PIDL of the folder.
+     * @param {Pointer<Integer>} pgrfFlags Type: <b>DWORD*</b>
+     * 
+     * One or more <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_shcontf">SHCONTF</a> values that specify the classes of object to enumerate.
+     * @returns {HWND} Type: <b>HWND*</b>
+     * 
+     * A pointer to the host's window handle.
+     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderfilter-getenumflags
      */
     GetEnumFlags(psf, pidlFolder, pgrfFlags) {
         pgrfFlagsMarshal := pgrfFlags is VarRef ? "uint*" : "ptr"

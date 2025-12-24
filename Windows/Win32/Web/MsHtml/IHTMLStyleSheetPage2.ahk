@@ -31,6 +31,21 @@ class IHTMLStyleSheetPage2 extends IDispatch{
     static VTableNames => ["put_selectorText", "get_selectorText", "get_style"]
 
     /**
+     * @type {BSTR} 
+     */
+    selectorText {
+        get => this.get_selectorText()
+        set => this.put_selectorText(value)
+    }
+
+    /**
+     * @type {IHTMLRuleStyle} 
+     */
+    style {
+        get => this.get_style()
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

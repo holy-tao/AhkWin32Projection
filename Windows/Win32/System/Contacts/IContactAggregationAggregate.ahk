@@ -31,6 +31,29 @@ class IContactAggregationAggregate extends IUnknown{
     static VTableNames => ["Save", "GetComponentItems", "Link", "get_Groups", "get_AntiLink", "put_AntiLink", "get_FavoriteOrder", "put_FavoriteOrder", "get_Id"]
 
     /**
+     * @type {PWSTR} 
+     */
+    AntiLink {
+        get => this.get_AntiLink()
+        set => this.put_AntiLink(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    FavoriteOrder {
+        get => this.get_FavoriteOrder()
+        set => this.put_FavoriteOrder(value)
+    }
+
+    /**
+     * @type {PWSTR} 
+     */
+    Id {
+        get => this.get_Id()
+    }
+
+    /**
      * 
      * @returns {HRESULT} 
      */

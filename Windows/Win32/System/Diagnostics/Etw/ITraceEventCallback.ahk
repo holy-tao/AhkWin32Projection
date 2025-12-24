@@ -31,11 +31,19 @@ class ITraceEventCallback extends IUnknown{
     static VTableNames => ["OnBeginProcessTrace", "OnFinalizeProcessTrace", "OnEvent"]
 
     /**
+     * Indicates that a trace is about to begin so that relogging can be started.
+     * @param {ITraceEvent} HeaderEvent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/relogger/nn-relogger-itraceevent">ITraceEvent</a>*</b>
      * 
-     * @param {ITraceEvent} HeaderEvent 
-     * @param {ITraceRelogger} Relogger 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceeventcallback-onbeginprocesstrace
+     * Supplies a pointer to the header event.
+     * @param {ITraceRelogger} Relogger Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/relogger/nn-relogger-itracerelogger">ITraceRelogger</a>*</b>
+     * 
+     * Supplies a pointer to the <b>ITraceRelogger</b> interface, which exposes
+     *         APIs for actual event injection, synthesizing new events, and cloning
+     *         existing events.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceeventcallback-onbeginprocesstrace
      */
     OnBeginProcessTrace(HeaderEvent, Relogger) {
         result := ComCall(3, this, "ptr", HeaderEvent, "ptr", Relogger, "HRESULT")
@@ -43,10 +51,14 @@ class ITraceEventCallback extends IUnknown{
     }
 
     /**
+     * Indicates that a trace is about to end so that relogging can be finalized.
+     * @param {ITraceRelogger} Relogger Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/relogger/nn-relogger-itracerelogger">ITraceRelogger</a>*</b>
      * 
-     * @param {ITraceRelogger} Relogger 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceeventcallback-onfinalizeprocesstrace
+     * The trace relogger that was used to register this callback and relog this trace.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceeventcallback-onfinalizeprocesstrace
      */
     OnFinalizeProcessTrace(Relogger) {
         result := ComCall(4, this, "ptr", Relogger, "HRESULT")
@@ -54,11 +66,17 @@ class ITraceEventCallback extends IUnknown{
     }
 
     /**
+     * Indicates that an event has been received on the trace streams associated with a relogger.
+     * @param {ITraceEvent} Event Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/relogger/nn-relogger-itraceevent">ITraceEvent</a>*</b>
      * 
-     * @param {ITraceEvent} Event 
-     * @param {ITraceRelogger} Relogger 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceeventcallback-onevent
+     * The event being logged.
+     * @param {ITraceRelogger} Relogger Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/relogger/nn-relogger-itracerelogger">ITraceRelogger</a>*</b>
+     * 
+     * The trace relogger that was used to register this callback and relog this trace.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceeventcallback-onevent
      */
     OnEvent(Event, Relogger) {
         result := ComCall(5, this, "ptr", Event, "ptr", Relogger, "HRESULT")

@@ -30,6 +30,14 @@ class IHTMLLinkElement2 extends IDispatch{
     static VTableNames => ["put_target", "get_target"]
 
     /**
+     * @type {BSTR} 
+     */
+    target {
+        get => this.get_target()
+        set => this.put_target(value)
+    }
+
+    /**
      * 
      * @param {BSTR} v 
      * @returns {HRESULT} 

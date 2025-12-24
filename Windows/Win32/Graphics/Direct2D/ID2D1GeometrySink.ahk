@@ -39,10 +39,12 @@ class ID2D1GeometrySink extends ID2D1SimplifiedGeometrySink{
     static VTableNames => ["AddLine", "AddBezier", "AddQuadraticBezier", "AddQuadraticBeziers", "AddArc"]
 
     /**
+     * Creates a line segment between the current point and the specified end point and adds it to the geometry sink.
+     * @param {D2D_POINT_2F} point Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
-     * @param {D2D_POINT_2F} point 
+     * The end point of the line to draw.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1geometrysink-addline
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1geometrysink-addline
      */
     AddLine(point) {
         ComCall(10, this, "ptr", point)
@@ -69,11 +71,15 @@ class ID2D1GeometrySink extends ID2D1SimplifiedGeometrySink{
     }
 
     /**
+     * Adds a sequence of quadratic Bezier segments as an array in a single call.
+     * @param {Pointer<D2D1_QUADRATIC_BEZIER_SEGMENT>} beziers Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ns-d2d1-d2d1_quadratic_bezier_segment">D2D1_QUADRATIC_BEZIER_SEGMENT</a>*</b>
      * 
-     * @param {Pointer<D2D1_QUADRATIC_BEZIER_SEGMENT>} beziers 
-     * @param {Integer} beziersCount 
+     * An array of a sequence of quadratic Bezier segments.
+     * @param {Integer} beziersCount Type: <b>UINT</b>
+     * 
+     * A value indicating the number of quadratic Bezier segments in <i>beziers</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1geometrysink-addquadraticbeziers
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1geometrysink-addquadraticbeziers
      */
     AddQuadraticBeziers(beziers, beziersCount) {
         ComCall(13, this, "ptr", beziers, "uint", beziersCount)

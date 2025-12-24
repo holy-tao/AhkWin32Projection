@@ -36,6 +36,20 @@ class IDOMMSTransitionEvent extends IDispatch{
     static VTableNames => ["get_propertyName", "get_elapsedTime", "initMSTransitionEvent"]
 
     /**
+     * @type {BSTR} 
+     */
+    propertyName {
+        get => this.get_propertyName()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    elapsedTime {
+        get => this.get_elapsedTime()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

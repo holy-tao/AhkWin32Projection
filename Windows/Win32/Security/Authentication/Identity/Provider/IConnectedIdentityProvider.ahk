@@ -31,11 +31,64 @@ class IConnectedIdentityProvider extends IUnknown{
     static VTableNames => ["ConnectIdentity", "DisconnectIdentity", "IsConnected", "GetUrl", "GetAccountState"]
 
     /**
+     * Connects an identity to a domain user.
+     * @param {Pointer<Integer>} AuthBuffer A marshaled authentication buffer <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure that contains the credential of the online identity. The buffer can be constructed by the caller by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credpackauthenticationbuffera">CredPackAuthenticationBuffer</a> function with the CRED_PACK_ID_PROVIDER_CREDENTIALS option or returned by an online identity credential provider from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforwindowscredentialsa">CredUIPromptForWindowsCredentials</a> function. The buffer can be optionally encrypted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspiencryptauthidentityex">SspiEncryptAuthIdentityEx</a> function with the SEC_WINNT_AUTH_IDENTITY_ENCRYPT_SAME_LOGON option.
+     * @param {Integer} AuthBufferSize Size, in bytes, of the <i>AuthBuffer</i> parameter.
+     * @returns {HRESULT} If the method succeeds, returns S_OK.
      * 
-     * @param {Pointer<Integer>} AuthBuffer 
-     * @param {Integer} AuthBufferSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iconnectedidentityprovider-connectidentity
+     * If the method fails, returns a Win32 error code.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_LOGON_FAILURE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The user name or password is not correct. 
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_USER_EXISTS</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The domain user is already connected or associated with an online identity from this provider.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_ACCOUNT_NAME</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The format of the online user name is not valid. 
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iconnectedidentityprovider-connectidentity
      */
     ConnectIdentity(AuthBuffer, AuthBufferSize) {
         AuthBufferMarshal := AuthBuffer is VarRef ? "char*" : "ptr"
@@ -45,9 +98,40 @@ class IConnectedIdentityProvider extends IUnknown{
     }
 
     /**
+     * Disconnects an online identity from the current domain user.
+     * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iconnectedidentityprovider-disconnectidentity
+     * If the method fails, the method returns a Win32 error code.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_NO_SUCH_USER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The domain user is not connected to an online identity.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iconnectedidentityprovider-disconnectidentity
      */
     DisconnectIdentity() {
         result := ComCall(4, this, "HRESULT")
@@ -64,13 +148,15 @@ class IConnectedIdentityProvider extends IUnknown{
     }
 
     /**
+     * Returns the URL string for the specified wizard or webpage.
+     * @param {Integer} Identifier Identifies the wizard or webpage that should be returned.
+     * @param {IBindCtx} Context Describes the context in which the URL will be displayed.
+     * @param {Pointer<VARIANT>} PostData A <b>VARIANT</b> of type VT_ARRAY and VT_UI1 that will be posted to the provided URL. If the post data is not required, this parameter should be set to VT_EMPTY.
+     * @param {Pointer<PWSTR>} Url Returns a URL for the specified identity wizard or webpage. The URL must begin with <b>https://</b>.
+     * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
-     * @param {Integer} Identifier 
-     * @param {IBindCtx} Context 
-     * @param {Pointer<VARIANT>} PostData 
-     * @param {Pointer<PWSTR>} Url 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iconnectedidentityprovider-geturl
+     * If the method fails, the method returns a Win32 error code.
+     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iconnectedidentityprovider-geturl
      */
     GetUrl(Identifier, Context, PostData, Url) {
         UrlMarshal := Url is VarRef ? "ptr*" : "ptr"

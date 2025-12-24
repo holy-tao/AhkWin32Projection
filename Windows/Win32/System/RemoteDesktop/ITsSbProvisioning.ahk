@@ -32,12 +32,12 @@ class ITsSbProvisioning extends ITsSbPlugin{
     static VTableNames => ["CreateVirtualMachines", "PatchVirtualMachines", "DeleteVirtualMachines", "CancelJob"]
 
     /**
-     * 
-     * @param {BSTR} JobXmlString 
-     * @param {BSTR} JobGuid 
-     * @param {ITsSbProvisioningPluginNotifySink} pSink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovisioning-createvirtualmachines
+     * Creates a virtual machine asynchronously.
+     * @param {BSTR} JobXmlString Defines the job.
+     * @param {BSTR} JobGuid A <b>GUID</b> that identifies the job.
+     * @param {ITsSbProvisioningPluginNotifySink} pSink The <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbprovisioningpluginnotifysink">ITsSbProvisioningPluginNotifySink</a> object that notifies the RD Connection Broker about the job.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioning-createvirtualmachines
      */
     CreateVirtualMachines(JobXmlString, JobGuid, pSink) {
         JobXmlString := JobXmlString is String ? BSTR.Alloc(JobXmlString).Value : JobXmlString
@@ -48,13 +48,13 @@ class ITsSbProvisioning extends ITsSbPlugin{
     }
 
     /**
-     * 
-     * @param {BSTR} JobXmlString 
-     * @param {BSTR} JobGuid 
-     * @param {ITsSbProvisioningPluginNotifySink} pSink 
-     * @param {Pointer<VM_PATCH_INFO>} pVMPatchInfo 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovisioning-patchvirtualmachines
+     * Patches a virtual machine asynchronously.
+     * @param {BSTR} JobXmlString Defines the job.
+     * @param {BSTR} JobGuid A <b>GUID</b> that identifies the job.
+     * @param {ITsSbProvisioningPluginNotifySink} pSink The <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbprovisioningpluginnotifysink">ITsSbProvisioningPluginNotifySink</a> object that notifies the RD Connection Broker about the job.
+     * @param {Pointer<VM_PATCH_INFO>} pVMPatchInfo Patch information.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioning-patchvirtualmachines
      */
     PatchVirtualMachines(JobXmlString, JobGuid, pSink, pVMPatchInfo) {
         JobXmlString := JobXmlString is String ? BSTR.Alloc(JobXmlString).Value : JobXmlString
@@ -65,12 +65,12 @@ class ITsSbProvisioning extends ITsSbPlugin{
     }
 
     /**
-     * 
-     * @param {BSTR} JobXmlString 
-     * @param {BSTR} JobGuid 
-     * @param {ITsSbProvisioningPluginNotifySink} pSink 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovisioning-deletevirtualmachines
+     * Deletes a virtual machine asynchronously.
+     * @param {BSTR} JobXmlString Defines the job.
+     * @param {BSTR} JobGuid A <b>GUID</b> that identifies the job.
+     * @param {ITsSbProvisioningPluginNotifySink} pSink The <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbprovisioningpluginnotifysink">ITsSbProvisioningPluginNotifySink</a> object that notifies the RD Connection Broker about the job.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioning-deletevirtualmachines
      */
     DeleteVirtualMachines(JobXmlString, JobGuid, pSink) {
         JobXmlString := JobXmlString is String ? BSTR.Alloc(JobXmlString).Value : JobXmlString
@@ -81,10 +81,10 @@ class ITsSbProvisioning extends ITsSbPlugin{
     }
 
     /**
-     * 
-     * @param {BSTR} JobGuid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbprovisioning-canceljob
+     * Cancels a provisioning job.
+     * @param {BSTR} JobGuid A <b>GUID</b> that identifies the job.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovisioning-canceljob
      */
     CancelJob(JobGuid) {
         JobGuid := JobGuid is String ? BSTR.Alloc(JobGuid).Value : JobGuid

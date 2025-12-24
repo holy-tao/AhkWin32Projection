@@ -33,6 +33,125 @@ class IOmNavigator extends IDispatch{
     static VTableNames => ["get_appCodeName", "get_appName", "get_appVersion", "get_userAgent", "javaEnabled", "taintEnabled", "get_mimeTypes", "get_plugins", "get_cookieEnabled", "get_opsProfile", "toString", "get_cpuClass", "get_systemLanguage", "get_browserLanguage", "get_userLanguage", "get_platform", "get_appMinorVersion", "get_connectionSpeed", "get_onLine", "get_userProfile"]
 
     /**
+     * @type {BSTR} 
+     */
+    appCodeName {
+        get => this.get_appCodeName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    appName {
+        get => this.get_appName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    appVersion {
+        get => this.get_appVersion()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    userAgent {
+        get => this.get_userAgent()
+    }
+
+    /**
+     * @type {IHTMLMimeTypesCollection} 
+     */
+    mimeTypes {
+        get => this.get_mimeTypes()
+    }
+
+    /**
+     * @type {IHTMLPluginsCollection} 
+     */
+    plugins {
+        get => this.get_plugins()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    cookieEnabled {
+        get => this.get_cookieEnabled()
+    }
+
+    /**
+     * @type {IHTMLOpsProfile} 
+     */
+    opsProfile {
+        get => this.get_opsProfile()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    cpuClass {
+        get => this.get_cpuClass()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    systemLanguage {
+        get => this.get_systemLanguage()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    browserLanguage {
+        get => this.get_browserLanguage()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    userLanguage {
+        get => this.get_userLanguage()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    platform {
+        get => this.get_platform()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    appMinorVersion {
+        get => this.get_appMinorVersion()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    connectionSpeed {
+        get => this.get_connectionSpeed()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    onLine {
+        get => this.get_onLine()
+    }
+
+    /**
+     * @type {IHTMLOpsProfile} 
+     */
+    userProfile {
+        get => this.get_userProfile()
+    }
+
+    /**
      * 
      * @returns {BSTR} 
      */

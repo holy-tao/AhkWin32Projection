@@ -36,21 +36,29 @@ class IStreamBufferRecComp extends IUnknown{
     static VTableNames => ["Initialize", "Append", "AppendEx", "GetCurrentLength", "Close", "Cancel"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {PWSTR} pszTargetFilename 
-     * @param {PWSTR} pszSBRecProfileRef 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * The Initialize method sets the file name and the profile for the new recording. Call this method once, after creating the RecComp object.
+     * @param {PWSTR} pszTargetFilename Null-terminated, wide character string that specifies the file name of the new recording.
+     * @param {PWSTR} pszSBRecProfileRef Null-terminated, wide character string that specifies an existing file. This file must be a complete recording, already created by the Stream Buffer Engine.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferreccomp-initialize
      */
     Initialize(pszTargetFilename, pszSBRecProfileRef) {
         pszTargetFilename := pszTargetFilename is String ? StrPtr(pszTargetFilename) : pszTargetFilename
@@ -61,10 +69,28 @@ class IStreamBufferRecComp extends IUnknown{
     }
 
     /**
+     * The Append method appends an entire recording to the target file.
+     * @param {PWSTR} pszSBRecording Null-terminated, wide character string that contains the name of the file to append.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
      * 
-     * @param {PWSTR} pszSBRecording 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferreccomp-append
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferreccomp-append
      */
     Append(pszSBRecording) {
         pszSBRecording := pszSBRecording is String ? StrPtr(pszSBRecording) : pszSBRecording
@@ -74,12 +100,30 @@ class IStreamBufferRecComp extends IUnknown{
     }
 
     /**
+     * The AppendEx method appends part of a recording to the target file.
+     * @param {PWSTR} pszSBRecording Null-terminated, wide character string that contains the name of the file to append.
+     * @param {Integer} rtStart Specifies the start time of the segment to append, in 100-nanosecond units.
+     * @param {Integer} rtStop Specifies the stop time of the segment to append, in 100-nanosecond units.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
      * 
-     * @param {PWSTR} pszSBRecording 
-     * @param {Integer} rtStart 
-     * @param {Integer} rtStop 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferreccomp-appendex
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferreccomp-appendex
      */
     AppendEx(pszSBRecording, rtStart, rtStop) {
         pszSBRecording := pszSBRecording is String ? StrPtr(pszSBRecording) : pszSBRecording
@@ -89,9 +133,9 @@ class IStreamBufferRecComp extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferreccomp-getcurrentlength
+     * The GetCurrentLength method retrieves the length of the target file.
+     * @returns {Integer} Pointer to a variable that receives the current length, in seconds.
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferreccomp-getcurrentlength
      */
     GetCurrentLength() {
         result := ComCall(6, this, "uint*", &pcSeconds := 0, "HRESULT")
@@ -99,9 +143,27 @@ class IStreamBufferRecComp extends IUnknown{
     }
 
     /**
+     * The Close method closes the target file.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferreccomp-close
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferreccomp-close
      */
     Close() {
         result := ComCall(7, this, "HRESULT")
@@ -109,9 +171,27 @@ class IStreamBufferRecComp extends IUnknown{
     }
 
     /**
+     * The Cancel method cancels an append operation, if one is in progress. Otherwise, it has no effect.
+     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include those in the following table.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferreccomp-cancel
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferreccomp-cancel
      */
     Cancel() {
         result := ComCall(8, this, "HRESULT")

@@ -51,9 +51,128 @@ class IFsrmPropertyBag extends IDispatch{
     static VTableNames => ["get_Name", "get_RelativePath", "get_VolumeName", "get_RelativeNamespaceRoot", "get_VolumeIndex", "get_FileId", "get_ParentDirectoryId", "get_Size", "get_SizeAllocated", "get_CreationTime", "get_LastAccessTime", "get_LastModificationTime", "get_Attributes", "get_OwnerSid", "get_FilePropertyNames", "get_Messages", "get_PropertyBagFlags", "GetFileProperty", "SetFileProperty", "AddMessage", "GetFileStreamInterface"]
 
     /**
-     * 
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RelativePath {
+        get => this.get_RelativePath()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    VolumeName {
+        get => this.get_VolumeName()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    RelativeNamespaceRoot {
+        get => this.get_RelativeNamespaceRoot()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    VolumeIndex {
+        get => this.get_VolumeIndex()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    FileId {
+        get => this.get_FileId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    ParentDirectoryId {
+        get => this.get_ParentDirectoryId()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    Size {
+        get => this.get_Size()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    SizeAllocated {
+        get => this.get_SizeAllocated()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    CreationTime {
+        get => this.get_CreationTime()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    LastAccessTime {
+        get => this.get_LastAccessTime()
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    LastModificationTime {
+        get => this.get_LastModificationTime()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    Attributes {
+        get => this.get_Attributes()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    OwnerSid {
+        get => this.get_OwnerSid()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    FilePropertyNames {
+        get => this.get_FilePropertyNames()
+    }
+
+    /**
+     * @type {Pointer<SAFEARRAY>} 
+     */
+    Messages {
+        get => this.get_Messages()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    PropertyBagFlags {
+        get => this.get_PropertyBagFlags()
+    }
+
+    /**
+     * The name of the file that contains the properties in the bag.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_name
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_name
      */
     get_Name() {
         name := BSTR()
@@ -62,9 +181,16 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
+     * The relative path to the file.
+     * @remarks
+     * 
+     * The relative path is the path of the file relative to the volume root.  For example, if the path to the file is "P:\folder1\subfolderA\test.txt", the relative path would be "\folder1\subfolderA".
+     * 
+     * The caller should not expect that the relative path returned will consistently have leading or trailing backslashes.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_relativepath
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_relativepath
      */
     get_RelativePath() {
         path := BSTR()
@@ -73,9 +199,18 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
+     * The name of the volume on which the file exists.
+     * @remarks
+     * 
+     * This property contains the volume name of the location of the file being scanned. For example, if the path to a file is "P:\folder1\subfolderA\test.txt", the volume name is "P:\".
+     * 
+     * The caller should not expect that the volume name returned will consistently have a trailing backslash.
+     * 
+     * The volume name that is returned will always be the name of a live volume. In the case where the file being classified is on a snapshot, the name of the live volume that the snapshot corresponds to will be returned.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_volumename
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_volumename
      */
     get_VolumeName() {
         volumeName := BSTR()
@@ -84,9 +219,18 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
+     * The relative path of the namespace root under which the file is being evaluated.
+     * @remarks
+     * 
+     * This property is only valid under an evaluation context. Classifier modules that retrieve this property will get the namespace root of the rule under which the file is being evaluated. Because storage modules do not have evaluation contexts, they must not retrieve this property.
+     * 
+     * The relative namespace root is the path of the namespace root relative to the volume root.  For example, if the path to the file is "P:\folder1\subfolderA\test.txt", and the file is being evaluated by a rule with a namespace root of "P:\folder1", then the relative namespace root would be "\folder1\". Note that the rule's namespace root determines the relative namespace root.
+     * 
+     * The caller should not expect that the relative namespace root returned will consistently have leading or trailing backslashes.
+     * 
      * 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_relativenamespaceroot
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_relativenamespaceroot
      */
     get_RelativeNamespaceRoot() {
         relativeNamespaceRoot := BSTR()
@@ -95,9 +239,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * The index that the scanner uses to refer to the volume on which the file exists.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_volumeindex
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_volumeindex
      */
     get_VolumeIndex() {
         result := ComCall(11, this, "uint*", &volumeId := 0, "HRESULT")
@@ -105,9 +249,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * The NTFS file identifier of the file.
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_fileid
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_fileid
      */
     get_FileId() {
         fileId := VARIANT()
@@ -116,9 +260,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * The NTFS identifier of the file's parent directory.
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_parentdirectoryid
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_parentdirectoryid
      */
     get_ParentDirectoryId() {
         parentDirectoryId := VARIANT()
@@ -127,9 +271,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * The size of the file.
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_size
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_size
      */
     get_Size() {
         size := VARIANT()
@@ -138,9 +282,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * The allocation size of the file.
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_sizeallocated
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_sizeallocated
      */
     get_SizeAllocated() {
         sizeAllocated := VARIANT()
@@ -149,9 +293,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * The date and time that the file was created.
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_creationtime
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_creationtime
      */
     get_CreationTime() {
         creationTime := VARIANT()
@@ -160,9 +304,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * The date and time of when the file was last accessed.
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_lastaccesstime
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_lastaccesstime
      */
     get_LastAccessTime() {
         lastAccessTime := VARIANT()
@@ -171,9 +315,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * The date and time of when the file was last modified.
      * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_lastmodificationtime
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_lastmodificationtime
      */
     get_LastModificationTime() {
         lastModificationTime := VARIANT()
@@ -182,9 +326,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * The attributes of the file.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_attributes
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_attributes
      */
     get_Attributes() {
         result := ComCall(19, this, "uint*", &attributes := 0, "HRESULT")
@@ -192,9 +336,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * The SID of the owner of the file.
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_ownersid
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_ownersid
      */
     get_OwnerSid() {
         ownerSid := BSTR()
@@ -203,9 +347,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * A list of the names of the properties that the bag contains.
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_filepropertynames
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_filepropertynames
      */
     get_FilePropertyNames() {
         result := ComCall(21, this, "ptr*", &filePropertyNames := 0, "HRESULT")
@@ -213,9 +357,18 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
+     * A list of the error messages that have been added to the bag.
+     * @remarks
+     * 
+     * The format of the message is 
+     *     <i>module_name</i>,<i>rule_name</i>|<i>message</i> 
+     *     (FSRM adds the <i>module_name</i>,<i>rule_name</i>| components to the 
+     *     message that you specified when calling the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-addmessage">IFsrmPropertyBag::AddMessage</a> method).
+     * 
      * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_messages
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_messages
      */
     get_Messages() {
         result := ComCall(22, this, "ptr*", &messages := 0, "HRESULT")
@@ -223,9 +376,9 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * A set of flags that provide additional information about the property bag.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_propertybagflags
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-get_propertybagflags
      */
     get_PropertyBagFlags() {
         result := ComCall(23, this, "uint*", &flags := 0, "HRESULT")
@@ -233,10 +386,10 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @returns {IFsrmProperty} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-getfileproperty
+     * Retrieves the specified property from the property bag.
+     * @param {BSTR} name The name of the property to retrieve.
+     * @returns {IFsrmProperty} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nn-fsrmpipeline-ifsrmproperty">IFsrmProperty</a> interface to the retrieved property.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-getfileproperty
      */
     GetFileProperty(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -246,11 +399,11 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} name 
-     * @param {BSTR} value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-setfileproperty
+     * Sets the specified property in the property bag.
+     * @param {BSTR} name The name of the property to set.
+     * @param {BSTR} value The value to set the property to.
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-setfileproperty
      */
     SetFileProperty(name, value) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -261,10 +414,10 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
-     * @param {BSTR} message 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-addmessage
+     * Adds an error message to the bag.
+     * @param {BSTR} message The error message to add to the bag. The message is limited to 4096 characters (the message is truncated if longer than 4096 characters).
+     * @returns {HRESULT} The method returns the following return values.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-addmessage
      */
     AddMessage(message) {
         message := message is String ? BSTR.Alloc(message).Value : message
@@ -274,11 +427,16 @@ class IFsrmPropertyBag extends IDispatch{
     }
 
     /**
-     * 
-     * @param {Integer} accessMode 
-     * @param {Integer} interfaceType 
-     * @returns {VARIANT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-getfilestreaminterface
+     * Retrieves a file stream interface that you can use to access the contents of the file.
+     * @param {Integer} accessMode One or more access modes. For possible values, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmfilestreamingmode">FsrmFileStreamingMode</a> enumeration.
+     * @param {Integer} interfaceType The type of streaming interface to use. For possible interface types, see the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmfilestreaminginterfacetype">FsrmFileStreamingInterfaceType</a> 
+     *       enumeration.
+     * @returns {VARIANT} A <b>VARIANT</b> that contains the streaming interface that you can use to access the 
+     *       contents of the file. The variant is of type <b>VT_DISPATCH</b>. Query the 
+     *       <b>dispval</b> member of the variant to get the specified streaming interface.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmpropertybag-getfilestreaminterface
      */
     GetFileStreamInterface(accessMode, interfaceType) {
         pStreamInterface := VARIANT()

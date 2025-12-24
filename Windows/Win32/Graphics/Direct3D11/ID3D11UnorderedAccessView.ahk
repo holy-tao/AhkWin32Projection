@@ -38,10 +38,12 @@ class ID3D11UnorderedAccessView extends ID3D11View{
     static VTableNames => ["GetDesc"]
 
     /**
+     * Get a description of the resource.
+     * @param {Pointer<D3D11_UNORDERED_ACCESS_VIEW_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_unordered_access_view_desc">D3D11_UNORDERED_ACCESS_VIEW_DESC</a>*</b>
      * 
-     * @param {Pointer<D3D11_UNORDERED_ACCESS_VIEW_DESC>} pDesc 
+     * Pointer to a resource description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_unordered_access_view_desc">D3D11_UNORDERED_ACCESS_VIEW_DESC</a>.)
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11unorderedaccessview-getdesc
+     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11unorderedaccessview-getdesc
      */
     GetDesc(pDesc) {
         ComCall(8, this, "ptr", pDesc)

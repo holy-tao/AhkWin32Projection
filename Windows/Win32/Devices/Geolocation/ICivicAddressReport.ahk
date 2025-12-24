@@ -42,9 +42,9 @@ class ICivicAddressReport extends ILocationReport{
     static VTableNames => ["GetAddressLine1", "GetAddressLine2", "GetCity", "GetStateProvince", "GetPostalCode", "GetCountryRegion", "GetDetailLevel"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getaddressline1
+     * Retrieves the first line of a street address.
+     * @returns {BSTR} Address of a <b>BSTR</b> that receives the first line of a street address.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getaddressline1
      */
     GetAddressLine1() {
         pbstrAddress1 := BSTR()
@@ -53,9 +53,9 @@ class ICivicAddressReport extends ILocationReport{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getaddressline2
+     * Retrieves the second line of a street address.
+     * @returns {BSTR} Address of a <b>BSTR</b> that receives the second line of a street address.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getaddressline2
      */
     GetAddressLine2() {
         pbstrAddress2 := BSTR()
@@ -64,9 +64,9 @@ class ICivicAddressReport extends ILocationReport{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getcity
+     * Retrieves the city name.
+     * @returns {BSTR} Address of a <b>BSTR</b> that receives the city name.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getcity
      */
     GetCity() {
         pbstrCity := BSTR()
@@ -75,9 +75,9 @@ class ICivicAddressReport extends ILocationReport{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getstateprovince
+     * Retrieves the state or province name.
+     * @returns {BSTR} Address of a <b>BSTR</b> that receives the state or province name.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getstateprovince
      */
     GetStateProvince() {
         pbstrStateProvince := BSTR()
@@ -86,9 +86,9 @@ class ICivicAddressReport extends ILocationReport{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getpostalcode
+     * Retrieves the postal code.
+     * @returns {BSTR} Address of a <b>BSTR</b> that receives the postal code.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getpostalcode
      */
     GetPostalCode() {
         pbstrPostalCode := BSTR()
@@ -97,9 +97,9 @@ class ICivicAddressReport extends ILocationReport{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getcountryregion
+     * Retrieves the two-letter country or region code.
+     * @returns {BSTR} Address of a <b>BSTR</b> that receives the country or region code.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getcountryregion
      */
     GetCountryRegion() {
         pbstrCountryRegion := BSTR()
@@ -108,9 +108,9 @@ class ICivicAddressReport extends ILocationReport{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/locationapi/nf-locationapi-icivicaddressreport-getdetaillevel
+     * Reserved.
+     * @returns {Integer} Reserved.
+     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-icivicaddressreport-getdetaillevel
      */
     GetDetailLevel() {
         result := ComCall(12, this, "uint*", &pDetailLevel := 0, "HRESULT")

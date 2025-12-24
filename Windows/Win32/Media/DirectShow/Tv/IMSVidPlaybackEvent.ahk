@@ -36,10 +36,10 @@ class IMSVidPlaybackEvent extends IMSVidInputDeviceEvent{
     static VTableNames => ["EndOfMedia"]
 
     /**
-     * 
-     * @param {IMSVidPlayback} lpd 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidplaybackevent-endofmedia
+     * This topic applies to Windows XP or later.
+     * @param {IMSVidPlayback} lpd Specifies a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/segment/nn-segment-imsvidplayback">IMSVidPlayback</a> interface of the playback device.
+     * @returns {HRESULT} Return S_OK or an error code.
+     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidplaybackevent-endofmedia
      */
     EndOfMedia(lpd) {
         result := ComCall(7, this, "ptr", lpd, "HRESULT")

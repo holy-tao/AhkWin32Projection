@@ -55,19 +55,27 @@ class ITfSpeechUIServer extends IUnknown{
     static VTableNames => ["Initialize", "ShowUI", "UpdateBalloon"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * ITfSpeechUIServer::Initialize method
+     * @returns {HRESULT} This method can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfspui/nf-ctfspui-itfspeechuiserver-initialize
      */
     Initialize() {
         result := ComCall(3, this, "HRESULT")
@@ -75,10 +83,28 @@ class ITfSpeechUIServer extends IUnknown{
     }
 
     /**
+     * ITfSpeechUIServer::ShowUI method
+     * @param {BOOL} fShow Specifies whether to show (TRUE) or not show (FALSE) the speech-related user interface elements.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {BOOL} fShow 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfspui/nf-ctfspui-itfspeechuiserver-showui
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfspui/nf-ctfspui-itfspeechuiserver-showui
      */
     ShowUI(fShow) {
         result := ComCall(4, this, "int", fShow, "HRESULT")
@@ -86,12 +112,30 @@ class ITfSpeechUIServer extends IUnknown{
     }
 
     /**
+     * ITfSpeechUIServer::UpdateBalloon method
+     * @param {Integer} style Contains a <a href="https://docs.microsoft.com/windows/win32/api/ctfutb/ne-ctfutb-tflbballoonstyle">TfLBBalloonStyle</a> element that specifies the balloon style.
+     * @param {PWSTR} pch Pointer to a zero-terminated Unicode string that contains the text to show in the balloon.
+     * @param {Integer} cch Specifies the number of characters in the string of the <i>pch</i> parameter.
+     * @returns {HRESULT} This method can return one of these values.
      * 
-     * @param {Integer} style 
-     * @param {PWSTR} pch 
-     * @param {Integer} cch 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/ctfspui/nf-ctfspui-itfspeechuiserver-updateballoon
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method was successful.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//ctfspui/nf-ctfspui-itfspeechuiserver-updateballoon
      */
     UpdateBalloon(style, pch, cch) {
         pch := pch is String ? StrPtr(pch) : pch

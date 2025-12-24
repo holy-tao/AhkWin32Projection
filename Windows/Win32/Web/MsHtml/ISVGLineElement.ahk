@@ -36,6 +36,34 @@ class ISVGLineElement extends IDispatch{
     static VTableNames => ["putref_x1", "get_x1", "putref_y1", "get_y1", "putref_x2", "get_x2", "putref_y2", "get_y2"]
 
     /**
+     * @type {ISVGAnimatedLength} 
+     */
+    x1 {
+        get => this.get_x1()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    y1 {
+        get => this.get_y1()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    x2 {
+        get => this.get_x2()
+    }
+
+    /**
+     * @type {ISVGAnimatedLength} 
+     */
+    y2 {
+        get => this.get_y2()
+    }
+
+    /**
      * 
      * @param {ISVGAnimatedLength} v 
      * @returns {HRESULT} 

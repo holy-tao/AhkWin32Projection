@@ -77,8 +77,8 @@ class WINBIO_PRESENCE_PROPERTIES extends Win32Struct
     }
 
     class _Iris extends Win32Struct {
-        static sizeof => 52
-        static packingSize => 4
+        static sizeof => 56
+        static packingSize => 8
 
         /**
          * @type {RECT}

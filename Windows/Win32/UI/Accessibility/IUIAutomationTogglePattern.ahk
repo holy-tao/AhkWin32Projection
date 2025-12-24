@@ -31,9 +31,25 @@ class IUIAutomationTogglePattern extends IUnknown{
     static VTableNames => ["Toggle", "get_CurrentToggleState", "get_CachedToggleState"]
 
     /**
+     * @type {Integer} 
+     */
+    CurrentToggleState {
+        get => this.get_CurrentToggleState()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    CachedToggleState {
+        get => this.get_CachedToggleState()
+    }
+
+    /**
+     * Cycles through the toggle states of the control.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtogglepattern-toggle
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtogglepattern-toggle
      */
     Toggle() {
         result := ComCall(3, this, "HRESULT")
@@ -41,9 +57,9 @@ class IUIAutomationTogglePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the state of the control.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtogglepattern-get_currenttogglestate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtogglepattern-get_currenttogglestate
      */
     get_CurrentToggleState() {
         result := ComCall(4, this, "int*", &retVal := 0, "HRESULT")
@@ -51,9 +67,9 @@ class IUIAutomationTogglePattern extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cached state of the control.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationtogglepattern-get_cachedtogglestate
+     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationtogglepattern-get_cachedtogglestate
      */
     get_CachedToggleState() {
         result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")

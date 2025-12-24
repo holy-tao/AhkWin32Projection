@@ -31,10 +31,14 @@ class IDWriteFontSetBuilder1 extends IDWriteFontSetBuilder{
     static VTableNames => ["AddFontFile"]
 
     /**
+     * Adds references to all the fonts in the specified font file.
+     * @param {IDWriteFontFile} fontFile Type: <b>IDWriteFontFile*</b>
      * 
-     * @param {IDWriteFontFile} fontFile 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontsetbuilder1-addfontfile
+     * Font file reference object to add to the set. If the file is not a supported OpenType font file, then a DWRITE_E_FILEFORMAT error will be returned.
+     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * This method returns an HRESULT success or error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontsetbuilder1-addfontfile
      */
     AddFontFile(fontFile) {
         result := ComCall(7, this, "ptr", fontFile, "HRESULT")

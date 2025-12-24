@@ -30,6 +30,22 @@ class IHTMLBodyElement2 extends IDispatch{
     static VTableNames => ["put_onbeforeprint", "get_onbeforeprint", "put_onafterprint", "get_onafterprint"]
 
     /**
+     * @type {VARIANT} 
+     */
+    onbeforeprint {
+        get => this.get_onbeforeprint()
+        set => this.put_onbeforeprint(value)
+    }
+
+    /**
+     * @type {VARIANT} 
+     */
+    onafterprint {
+        get => this.get_onafterprint()
+        set => this.put_onafterprint(value)
+    }
+
+    /**
      * 
      * @param {VARIANT} v 
      * @returns {HRESULT} 

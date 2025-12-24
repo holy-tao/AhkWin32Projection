@@ -42,10 +42,17 @@ class IDWriteGlyphRunAnalysis extends IUnknown{
     static VTableNames => ["GetAlphaTextureBounds", "CreateAlphaTexture", "GetAlphaBlendParams"]
 
     /**
+     * Gets the bounding rectangle of the physical pixels affected by the glyph run.
+     * @param {Integer} textureType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_texture_type">DWRITE_TEXTURE_TYPE</a></b>
      * 
-     * @param {Integer} textureType 
-     * @returns {RECT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteglyphrunanalysis-getalphatexturebounds
+     * Specifies the type of texture requested. If a bi-level texture is requested, the
+     *      bounding rectangle includes only bi-level glyphs. Otherwise, the bounding rectangle includes only antialiased
+     *      glyphs.
+     * @returns {RECT} Type: <b>RECT*</b>
+     * 
+     * When this method returns, contains the bounding rectangle of the physical pixels affected by the glyph run, or an empty rectangle if there are no glyphs
+     *      of the specified texture type.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriteglyphrunanalysis-getalphatexturebounds
      */
     GetAlphaTextureBounds(textureType) {
         textureBounds := RECT()
@@ -54,13 +61,26 @@ class IDWriteGlyphRunAnalysis extends IUnknown{
     }
 
     /**
+     * Creates an alpha texture of the specified type for glyphs within a specified bounding rectangle.
+     * @param {Integer} textureType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_texture_type">DWRITE_TEXTURE_TYPE</a></b>
      * 
-     * @param {Integer} textureType 
-     * @param {Pointer<RECT>} textureBounds 
-     * @param {Pointer} alphaValues 
-     * @param {Integer} bufferSize 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteglyphrunanalysis-createalphatexture
+     * A value that specifies the type of texture requested. This can be <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_texture_type">DWRITE_TEXTURE_BILEVEL_1x1</a> or <b>DWRITE_TEXTURE_CLEARTYPE_3x1</b>. If a bi-level texture is requested, the
+     *      texture contains only bi-level glyphs. Otherwise, the texture contains only antialiased glyphs.
+     * @param {Pointer<RECT>} textureBounds Type: <b>const RECT*</b>
+     * 
+     * The bounding rectangle of the texture, which can be different than
+     *      the bounding rectangle returned by <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteglyphrunanalysis-getalphatexturebounds">GetAlphaTextureBounds</a>.
+     * @param {Pointer} alphaValues Type: <b>BYTE*</b>
+     * 
+     * When this method returns, contains  the array of alpha values from the texture. The buffer allocated for this array must be at least the size of <i>bufferSize</i>.
+     * @param {Integer} bufferSize Type: <b>UINT32</b>
+     * 
+     * The size of the <i>alphaValues</i> array, in bytes. The minimum size depends on the dimensions of the
+     *      rectangle and the type of texture requested.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriteglyphrunanalysis-createalphatexture
      */
     CreateAlphaTexture(textureType, textureBounds, alphaValues, bufferSize) {
         result := ComCall(4, this, "int", textureType, "ptr", textureBounds, "ptr", alphaValues, "uint", bufferSize, "HRESULT")
@@ -68,13 +88,25 @@ class IDWriteGlyphRunAnalysis extends IUnknown{
     }
 
     /**
+     * Gets alpha blending properties required for ClearType blending.
+     * @param {IDWriteRenderingParams} renderingParams Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a>*</b>
      * 
-     * @param {IDWriteRenderingParams} renderingParams 
-     * @param {Pointer<Float>} blendGamma 
-     * @param {Pointer<Float>} blendEnhancedContrast 
-     * @param {Pointer<Float>} blendClearTypeLevel 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwriteglyphrunanalysis-getalphablendparams
+     * An object that specifies the ClearType level and enhanced contrast, gamma, pixel geometry, and rendering mode. In most cases, the values returned by the output
+     *      parameters of this method are based on the properties of this object, unless a GDI-compatible rendering mode
+     *      was specified.
+     * @param {Pointer<Float>} blendGamma Type: <b>FLOAT*</b>
+     * 
+     * When this method returns, contains  the gamma value to use for gamma correction.
+     * @param {Pointer<Float>} blendEnhancedContrast Type: <b>FLOAT*</b>
+     * 
+     * When this method returns, contains the enhanced contrast value to be used for blending.
+     * @param {Pointer<Float>} blendClearTypeLevel Type: <b>FLOAT*</b>
+     * 
+     * When this method returns, contains  the ClearType level used in the alpha blending.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwriteglyphrunanalysis-getalphablendparams
      */
     GetAlphaBlendParams(renderingParams, blendGamma, blendEnhancedContrast, blendClearTypeLevel) {
         blendGammaMarshal := blendGamma is VarRef ? "float*" : "ptr"

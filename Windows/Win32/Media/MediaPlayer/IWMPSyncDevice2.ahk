@@ -32,11 +32,29 @@ class IWMPSyncDevice2 extends IWMPSyncDevice{
     static VTableNames => ["setItemInfo"]
 
     /**
+     * The setItemInfo method specifies an attribute value for a device.
+     * @param {BSTR} bstrItemName <b>BSTR</b>specifying the name of the attribute on which to set the new value. For supported attribute names, see Remarks.
+     * @param {BSTR} bstrVal <b>BSTR</b>specifying the new value. For information about supported values, see Remarks.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {BSTR} bstrItemName 
-     * @param {BSTR} bstrVal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice2-setiteminfo
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The method succeeded or a partnership exists.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice2-setiteminfo
      */
     setItemInfo(bstrItemName, bstrVal) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName

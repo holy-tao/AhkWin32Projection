@@ -31,12 +31,12 @@ class IWTSVirtualChannel extends IUnknown{
     static VTableNames => ["Write", "Close"]
 
     /**
-     * 
-     * @param {Integer} cbSize 
-     * @param {Pointer<Integer>} pBuffer 
-     * @param {IUnknown} pReserved 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-write
+     * Starts a write request on the channel.
+     * @param {Integer} cbSize The size, in bytes, of the buffer to which to write.
+     * @param {Pointer<Integer>} pBuffer A pointer to a buffer on the channel to which to write the data. You can reuse this buffer as soon as the call returns.
+     * @param {IUnknown} pReserved Reserved for future use. The value must be <b>NULL</b>.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-write
      */
     Write(cbSize, pBuffer, pReserved) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
@@ -46,9 +46,9 @@ class IWTSVirtualChannel extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-close
+     * Closes the channel.
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful.
+     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-close
      */
     Close() {
         result := ComCall(4, this, "HRESULT")

@@ -37,9 +37,9 @@ class IDTFilter3 extends IDTFilter2{
     static VTableNames => ["GetProtectionType", "LicenseHasExpirationDate", "SetRights"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter3-getprotectiontype
+     * The GetProtectionType method retrieves the type of content protection that is currently in effect.
+     * @returns {Integer} Receives the current protection type, specified as a member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/encdec/ne-encdec-prottype">ProtType</a> enumeration type.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-idtfilter3-getprotectiontype
      */
     GetProtectionType() {
         result := ComCall(14, this, "int*", &pProtectionType := 0, "HRESULT")
@@ -47,9 +47,9 @@ class IDTFilter3 extends IDTFilter2{
     }
 
     /**
-     * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter3-licensehasexpirationdate
+     * The LicenseHasExpirationDate method queries whether the license for the content has an expiration date.
+     * @returns {BOOL} Receives a Boolean value. If <b>TRUE</b>, the license has an expiration date. If <b>FALSE</b>, the license does not expire.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-idtfilter3-licensehasexpirationdate
      */
     LicenseHasExpirationDate() {
         result := ComCall(15, this, "int*", &pfLicenseHasExpirationDate := 0, "HRESULT")
@@ -57,10 +57,10 @@ class IDTFilter3 extends IDTFilter2{
     }
 
     /**
-     * 
-     * @param {BSTR} bstrRights 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-idtfilter3-setrights
+     * Not implemented in this release.
+     * @param {BSTR} bstrRights Reserved.
+     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-idtfilter3-setrights
      */
     SetRights(bstrRights) {
         bstrRights := bstrRights is String ? BSTR.Alloc(bstrRights).Value : bstrRights

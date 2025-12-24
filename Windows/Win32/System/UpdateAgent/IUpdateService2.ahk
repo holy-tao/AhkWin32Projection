@@ -31,9 +31,16 @@ class IUpdateService2 extends IUpdateService{
     static VTableNames => ["get_IsDefaultAUService"]
 
     /**
-     * 
+     * @type {VARIANT_BOOL} 
+     */
+    IsDefaultAUService {
+        get => this.get_IsDefaultAUService()
+    }
+
+    /**
+     * Gets a Boolean value that indicates whether the service is registered with Automatic Updates and whether the service is currently used by Automatic Updates as the default service.
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice2-get_isdefaultauservice
+     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice2-get_isdefaultauservice
      */
     get_IsDefaultAUService() {
         result := ComCall(20, this, "short*", &retval := 0, "HRESULT")

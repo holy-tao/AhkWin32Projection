@@ -31,10 +31,15 @@ class IFsrmStorageModuleImplementation extends IFsrmPipelineModuleImplementation
     static VTableNames => ["UseDefinitions", "LoadProperties", "SaveProperties"]
 
     /**
+     * Specifies the property definitions FSRM recognizes.
+     * @param {IFsrmCollection} propertyDefinitions Collection of property definitions that are currently defined by FSRM.
+     * @returns {HRESULT} The method returns the following return values.
      * 
-     * @param {IFsrmCollection} propertyDefinitions 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduleimplementation-usedefinitions
+     * Other values will result in the client application receiving a 
+     *          <b>FSRM_E_MODULE_SESSION_INITIALIZATION</b> error.
+     * 
+     * <b>Windows Server 2008 R2:  </b>The client application will receive a <b>FSRM_E_UNEXPECTED</b> error.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduleimplementation-usedefinitions
      */
     UseDefinitions(propertyDefinitions) {
         result := ComCall(9, this, "ptr", propertyDefinitions, "HRESULT")
@@ -42,10 +47,10 @@ class IFsrmStorageModuleImplementation extends IFsrmPipelineModuleImplementation
     }
 
     /**
-     * 
-     * @param {IFsrmPropertyBag} propertyBag 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduleimplementation-loadproperties
+     * Instructs the storage module to load all properties.
+     * @param {IFsrmPropertyBag} propertyBag Specifies the properties to load.
+     * @returns {HRESULT} The method returns the following return values. Implementers should return an HRESULT error code for any other errors.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduleimplementation-loadproperties
      */
     LoadProperties(propertyBag) {
         result := ComCall(10, this, "ptr", propertyBag, "HRESULT")
@@ -53,10 +58,10 @@ class IFsrmStorageModuleImplementation extends IFsrmPipelineModuleImplementation
     }
 
     /**
-     * 
-     * @param {IFsrmPropertyBag} propertyBag 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduleimplementation-saveproperties
+     * Instructs the storage module to save properties associated with a file.
+     * @param {IFsrmPropertyBag} propertyBag Specifies the location to save properties.
+     * @returns {HRESULT} The method returns the following return values. Implementers should return an HRESULT error code for any other errors.
+     * @see https://docs.microsoft.com/windows/win32/api//fsrmpipeline/nf-fsrmpipeline-ifsrmstoragemoduleimplementation-saveproperties
      */
     SaveProperties(propertyBag) {
         result := ComCall(11, this, "ptr", propertyBag, "HRESULT")

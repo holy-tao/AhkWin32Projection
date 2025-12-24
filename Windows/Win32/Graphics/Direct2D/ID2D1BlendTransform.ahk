@@ -31,20 +31,24 @@ class ID2D1BlendTransform extends ID2D1ConcreteTransform{
     static VTableNames => ["SetDescription", "GetDescription"]
 
     /**
+     * Changes the blend description of the corresponding blend transform object.
+     * @param {Pointer<D2D1_BLEND_DESCRIPTION>} description Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_blend_description">D2D1_BLEND_DESCRIPTION</a>*</b>
      * 
-     * @param {Pointer<D2D1_BLEND_DESCRIPTION>} description 
+     * The new blend description specified for the blend transform.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1blendtransform-setdescription
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1blendtransform-setdescription
      */
     SetDescription(description) {
         ComCall(6, this, "ptr", description)
     }
 
     /**
+     * Gets the blend description of the corresponding blend transform object.
+     * @param {Pointer<D2D1_BLEND_DESCRIPTION>} description Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ns-d2d1effectauthor-d2d1_blend_description">D2D1_BLEND_DESCRIPTION</a>*</b>
      * 
-     * @param {Pointer<D2D1_BLEND_DESCRIPTION>} description 
+     * When this method returns, contains the blend description specified for the blend transform.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1blendtransform-getdescription
+     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1blendtransform-getdescription
      */
     GetDescription(description) {
         ComCall(7, this, "ptr", description)

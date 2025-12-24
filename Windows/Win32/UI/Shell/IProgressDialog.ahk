@@ -67,12 +67,18 @@ class IProgressDialog extends IUnknown{
     static VTableNames => ["StartProgressDialog", "StopProgressDialog", "SetTitle", "SetAnimation", "HasUserCancelled", "SetProgress", "SetProgress64", "SetLine", "SetCancelMsg", "Timer"]
 
     /**
+     * Starts the progress dialog box.
+     * @param {HWND} hwndParent Type: <b>HWND</b>
      * 
-     * @param {HWND} hwndParent 
-     * @param {IUnknown} punkEnableModless 
-     * @param {Integer} dwFlags 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-startprogressdialog
+     * A handle to the dialog box's parent window.
+     * @param {IUnknown} punkEnableModless Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
+     * 
+     * Reserved. Set to <b>NULL</b>.
+     * @param {Integer} dwFlags Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iprogressdialog-startprogressdialog
      */
     StartProgressDialog(hwndParent, punkEnableModless, dwFlags) {
         static pvResevered := 0 ;Reserved parameters must always be NULL
@@ -84,9 +90,11 @@ class IProgressDialog extends IUnknown{
     }
 
     /**
+     * Stops the progress dialog box and removes it from the screen.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-stopprogressdialog
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iprogressdialog-stopprogressdialog
      */
     StopProgressDialog() {
         result := ComCall(4, this, "HRESULT")
@@ -94,10 +102,14 @@ class IProgressDialog extends IUnknown{
     }
 
     /**
+     * Sets the title of the progress dialog box.
+     * @param {PWSTR} pwzTitle Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} pwzTitle 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-settitle
+     * A pointer to a null-terminated Unicode string that contains the dialog box title.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iprogressdialog-settitle
      */
     SetTitle(pwzTitle) {
         pwzTitle := pwzTitle is String ? StrPtr(pwzTitle) : pwzTitle
@@ -107,11 +119,17 @@ class IProgressDialog extends IUnknown{
     }
 
     /**
+     * Specifies an Audio-Video Interleaved (AVI) clip that runs in the dialog box.
+     * @param {HINSTANCE} hInstAnimation Type: <b>HINSTANCE</b>
      * 
-     * @param {HINSTANCE} hInstAnimation 
-     * @param {Integer} idAnimation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-setanimation
+     * An instance handle to the module from which the AVI resource should be loaded.
+     * @param {Integer} idAnimation Type: <b>UINT</b>
+     * 
+     * An AVI resource identifier. To create this value, use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-makeintresourcea">MAKEINTRESOURCE</a> macro. The control loads the AVI resource from the module specified by <i>hInstAnimation</i>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * Returns <b>S_OK</b> if successful, or an error value otherwise. In Windows Vista and later versions, always returns <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iprogressdialog-setanimation
      */
     SetAnimation(hInstAnimation, idAnimation) {
         hInstAnimation := hInstAnimation is Win32Handle ? NumGet(hInstAnimation, "ptr") : hInstAnimation
@@ -121,9 +139,11 @@ class IProgressDialog extends IUnknown{
     }
 
     /**
+     * Checks whether the user has canceled the operation.
+     * @returns {BOOL} Type: <b>BOOL</b>
      * 
-     * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-hasusercancelled
+     * <b>TRUE</b> if the user has canceled the operation; otherwise, <b>FALSE</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iprogressdialog-hasusercancelled
      */
     HasUserCancelled() {
         result := ComCall(7, this, "int")
@@ -131,11 +151,17 @@ class IProgressDialog extends IUnknown{
     }
 
     /**
+     * Updates the progress dialog box with the current state of the operation.
+     * @param {Integer} dwCompleted Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwCompleted 
-     * @param {Integer} dwTotal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-setprogress
+     * An application-defined value that indicates what proportion of the operation has been completed at the time the method was called.
+     * @param {Integer} dwTotal Type: <b>DWORD</b>
+     * 
+     * An application-defined value that specifies what value <i>dwCompleted</i> will have when the operation is complete.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iprogressdialog-setprogress
      */
     SetProgress(dwCompleted, dwTotal) {
         result := ComCall(8, this, "uint", dwCompleted, "uint", dwTotal, "HRESULT")
@@ -143,11 +169,17 @@ class IProgressDialog extends IUnknown{
     }
 
     /**
+     * Updates the progress dialog box with the current state of the operation.
+     * @param {Integer} ullCompleted Type: <b>ULONGLONG</b>
      * 
-     * @param {Integer} ullCompleted 
-     * @param {Integer} ullTotal 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-setprogress64
+     * An application-defined value that indicates what proportion of the operation has been completed at the time the method was called.
+     * @param {Integer} ullTotal Type: <b>ULONGLONG</b>
+     * 
+     * An application-defined value that specifies what value <i>ullCompleted</i> will have when the operation is complete.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iprogressdialog-setprogress64
      */
     SetProgress64(ullCompleted, ullTotal) {
         result := ComCall(9, this, "uint", ullCompleted, "uint", ullTotal, "HRESULT")
@@ -155,12 +187,20 @@ class IProgressDialog extends IUnknown{
     }
 
     /**
+     * Displays a message in the progress dialog.
+     * @param {Integer} dwLineNum Type: <b>DWORD</b>
      * 
-     * @param {Integer} dwLineNum 
-     * @param {PWSTR} pwzString 
-     * @param {BOOL} fCompactPath 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-setline
+     * The line number on which the text is to be displayed. Currently there are three lines—1, 2, and 3. If the <b>PROGDLG_AUTOTIME</b> flag was included in the <i>dwFlags</i> parameter when <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-iprogressdialog-startprogressdialog">IProgressDialog::StartProgressDialog</a> was called, only lines 1 and 2 can be used. The estimated time will be displayed on line 3.
+     * @param {PWSTR} pwzString Type: <b>PCWSTR</b>
+     * 
+     * A null-terminated Unicode string that contains the text.
+     * @param {BOOL} fCompactPath Type: <b>BOOL</b>
+     * 
+     * <b>TRUE</b> to have path strings compacted if they are too large to fit on a line. The paths are compacted with <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-pathcompactpatha">PathCompactPath</a>.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iprogressdialog-setline
      */
     SetLine(dwLineNum, pwzString, fCompactPath) {
         static pvResevered := 0 ;Reserved parameters must always be NULL
@@ -172,10 +212,14 @@ class IProgressDialog extends IUnknown{
     }
 
     /**
+     * Sets a message to be displayed if the user cancels the operation.
+     * @param {PWSTR} pwzCancelMsg Type: <b>PCWSTR</b>
      * 
-     * @param {PWSTR} pwzCancelMsg 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-setcancelmsg
+     * A pointer to a null-terminated Unicode string that contains the message to be displayed.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iprogressdialog-setcancelmsg
      */
     SetCancelMsg(pwzCancelMsg) {
         static pvResevered := 0 ;Reserved parameters must always be NULL
@@ -187,10 +231,12 @@ class IProgressDialog extends IUnknown{
     }
 
     /**
+     * Resets the progress dialog box timer to zero.
+     * @param {Integer} dwTimerAction Type: <b>DWORD</b>
+     * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * @param {Integer} dwTimerAction 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-iprogressdialog-timer
+     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iprogressdialog-timer
      */
     Timer(dwTimerAction) {
         static pvResevered := 0 ;Reserved parameters must always be NULL

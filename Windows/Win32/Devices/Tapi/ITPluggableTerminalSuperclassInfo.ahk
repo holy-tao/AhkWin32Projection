@@ -32,9 +32,24 @@ class ITPluggableTerminalSuperclassInfo extends IDispatch{
     static VTableNames => ["get_Name", "get_CLSID"]
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalsuperclassinfo-get_name
+     * @type {BSTR} 
+     */
+    Name {
+        get => this.get_Name()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    CLSID {
+        get => this.get_CLSID()
+    }
+
+    /**
+     * The get_Name method gets the terminal's friendly name.
+     * @returns {BSTR} The <b>BSTR</b> representation of the friendly name. The <b>BSTR</b> is allocated using 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The <b>BSTR</b> argument should be deallocated by the client.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itpluggableterminalsuperclassinfo-get_name
      */
     get_Name() {
         pName := BSTR()
@@ -43,9 +58,10 @@ class ITPluggableTerminalSuperclassInfo extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itpluggableterminalsuperclassinfo-get_clsid
+     * The get_CLSID method gets the CLSID used to CoCreateInstance the terminal.
+     * @returns {BSTR} The <b>BSTR</b> representation of the CLSID. The <b>BSTR</b> is allocated using 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The <b>BSTR</b> argument should be deallocated by the client.
+     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itpluggableterminalsuperclassinfo-get_clsid
      */
     get_CLSID() {
         pCLSID := BSTR()

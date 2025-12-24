@@ -31,11 +31,11 @@ class IRpcChannelBuffer extends IUnknown{
     static VTableNames => ["GetBuffer", "SendReceive", "FreeBuffer", "GetDestCtx", "IsConnected"]
 
     /**
-     * 
-     * @param {Pointer<RPCOLEMESSAGE>} pMessage 
-     * @param {Pointer<Guid>} riid 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-getbuffer
+     * Retrieves a buffer into which data can be marshaled for transmission.
+     * @param {Pointer<RPCOLEMESSAGE>} pMessage A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-rpcolemessage">RPCOLEMESSAGE</a> data structure.
+     * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be marshaled.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irpcchannelbuffer-getbuffer
      */
     GetBuffer(pMessage, riid) {
         result := ComCall(3, this, "ptr", pMessage, "ptr", riid, "HRESULT")
@@ -43,10 +43,10 @@ class IRpcChannelBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<RPCOLEMESSAGE>} pMessage 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-sendreceive
+     * Sends a method invocation across an RPC channel to the server stub.
+     * @param {Pointer<RPCOLEMESSAGE>} pMessage A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-rpcolemessage">RPCOLEMESSAGE</a> structure that has been populated with marshaled data.
+     * @returns {Integer} If not <b>NULL</b>, set to 0 on successful execution.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irpcchannelbuffer-sendreceive
      */
     SendReceive(pMessage) {
         result := ComCall(4, this, "ptr", pMessage, "uint*", &pStatus := 0, "HRESULT")
@@ -54,10 +54,10 @@ class IRpcChannelBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<RPCOLEMESSAGE>} pMessage 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-freebuffer
+     * Frees a previously allocated RPC channel buffer.
+     * @param {Pointer<RPCOLEMESSAGE>} pMessage A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-rpcolemessage">RPCOLEMESSAGE</a> data structure.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irpcchannelbuffer-freebuffer
      */
     FreeBuffer(pMessage) {
         result := ComCall(5, this, "ptr", pMessage, "HRESULT")
@@ -65,11 +65,11 @@ class IRpcChannelBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Pointer<Integer>} pdwDestContext 
-     * @param {Pointer<Pointer<Void>>} ppvDestContext 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-getdestctx
+     * Retrieves the destination context for the RPC channel.
+     * @param {Pointer<Integer>} pdwDestContext The destination context in which the interface is unmarshaled. Possible values come from the <a href="https://docs.microsoft.com/windows/desktop/api/wtypesbase/ne-wtypesbase-mshctx">MSHCTX</a> enumeration.
+     * @param {Pointer<Pointer<Void>>} ppvDestContext This parameter is reserved and must be <b>NULL</b>.
+     * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irpcchannelbuffer-getdestctx
      */
     GetDestCtx(pdwDestContext, ppvDestContext) {
         pdwDestContextMarshal := pdwDestContext is VarRef ? "uint*" : "ptr"
@@ -80,9 +80,10 @@ class IRpcChannelBuffer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-irpcchannelbuffer-isconnected
+     * Determines whether the RPC channel is connected.
+     * @returns {HRESULT} If the RPC channel knows that the server object has been disconnected,
+     * the return value is <b>S_FALSE</b>. Otherwise, it is <b>S_OK</b>.
+     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-irpcchannelbuffer-isconnected
      */
     IsConnected() {
         result := ComCall(7, this, "HRESULT")

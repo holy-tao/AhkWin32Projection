@@ -38,10 +38,10 @@ class IRealTimeStylusSynchronization extends IUnknown{
     static VTableNames => ["AcquireLock", "ReleaseLock"]
 
     /**
-     * 
-     * @param {Integer} lock 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylussynchronization-acquirelock
+     * Retrieves the specified lock.
+     * @param {Integer} lock The <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/ne-rtscom-realtimestyluslocktype">RealTimeStylusLockType Enumeration</a> value that indicates which object lock to use.
+     * @returns {HRESULT} For a description of the return values, see <a href="/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-irealtimestylussynchronization-acquirelock
      */
     AcquireLock(lock) {
         result := ComCall(3, this, "int", lock, "HRESULT")
@@ -49,10 +49,10 @@ class IRealTimeStylusSynchronization extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} lock 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-irealtimestylussynchronization-releaselock
+     * Releases the specified lock.
+     * @param {Integer} lock The <a href="https://docs.microsoft.com/windows/desktop/api/rtscom/ne-rtscom-realtimestyluslocktype">RealTimeStylusLockType Enumeration</a> value that indicates which object lock to release.
+     * @returns {HRESULT} For a description of the return values, see <a href="/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-irealtimestylussynchronization-releaselock
      */
     ReleaseLock(lock) {
         result := ComCall(4, this, "int", lock, "HRESULT")

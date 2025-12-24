@@ -37,6 +37,20 @@ class IHTMLStorage extends IDispatch{
     static VTableNames => ["get_length", "get_remainingSpace", "key", "getItem", "setItem", "removeItem", "clear"]
 
     /**
+     * @type {Integer} 
+     */
+    length {
+        get => this.get_length()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    remainingSpace {
+        get => this.get_remainingSpace()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

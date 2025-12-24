@@ -31,6 +31,34 @@ class IRTCRoamingEvent extends IDispatch{
     static VTableNames => ["get_EventType", "get_Profile", "get_StatusCode", "get_StatusText"]
 
     /**
+     * @type {Integer} 
+     */
+    EventType {
+        get => this.get_EventType()
+    }
+
+    /**
+     * @type {IRTCProfile2} 
+     */
+    Profile {
+        get => this.get_Profile()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    StatusCode {
+        get => this.get_StatusCode()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    StatusText {
+        get => this.get_StatusText()
+    }
+
+    /**
      * 
      * @returns {Integer} 
      */

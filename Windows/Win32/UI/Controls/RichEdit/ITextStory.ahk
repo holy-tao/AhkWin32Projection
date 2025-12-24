@@ -33,9 +33,9 @@ class ITextStory extends IUnknown{
     static VTableNames => ["GetActive", "SetActive", "GetDisplay", "GetIndex", "GetType", "SetType", "GetProperty", "GetRange", "GetText", "SetFormattedText", "SetProperty", "SetText"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getactive
+     * Sets the active state of a story.
+     * @returns {Integer} Type: <b>long*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-getactive
      */
     GetActive() {
         result := ComCall(3, this, "int*", &pValue := 0, "HRESULT")
@@ -43,10 +43,14 @@ class ITextStory extends IUnknown{
     }
 
     /**
+     * Sets the active state of a story.
+     * @param {Integer} Value Type: <b>long</b>
      * 
-     * @param {Integer} Value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-setactive
+     * The active state. For values, see the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextstory-getactive">ITextStory::GetActive</a> method.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-setactive
      */
     SetActive(Value) {
         result := ComCall(4, this, "int", Value, "HRESULT")
@@ -54,9 +58,11 @@ class ITextStory extends IUnknown{
     }
 
     /**
+     * Gets a new display for a story.
+     * @returns {IUnknown} Type: <b>IUnknown**</b>
      * 
-     * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getdisplay
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for a display.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-getdisplay
      */
     GetDisplay() {
         result := ComCall(5, this, "ptr*", &ppDisplay := 0, "HRESULT")
@@ -64,9 +70,11 @@ class ITextStory extends IUnknown{
     }
 
     /**
+     * Gets the index of a story.
+     * @returns {Integer} Type: <b>long*</b>
      * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getindex
+     * The index.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-getindex
      */
     GetIndex() {
         result := ComCall(6, this, "int*", &pValue := 0, "HRESULT")
@@ -74,9 +82,9 @@ class ITextStory extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-gettype
+     * Gets this story's type.
+     * @returns {Integer} Type: <b>long*</b>
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-gettype
      */
     GetType() {
         result := ComCall(7, this, "int*", &pValue := 0, "HRESULT")
@@ -84,10 +92,14 @@ class ITextStory extends IUnknown{
     }
 
     /**
+     * Sets the story type.
+     * @param {Integer} Value Type: <b>long</b>
      * 
-     * @param {Integer} Value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-settype
+     * The story type. The type values are defined in <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextstory-gettype">ITextStory::GetType</a>.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-settype
      */
     SetType(Value) {
         result := ComCall(8, this, "int", Value, "HRESULT")
@@ -95,10 +107,14 @@ class ITextStory extends IUnknown{
     }
 
     /**
+     * Gets the value of the specified property.
+     * @param {Integer} Type Type: <b>long</b>
      * 
-     * @param {Integer} Type 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getproperty
+     * The ID of the property.  Currently, no extra properties are defined.
+     * @returns {Integer} Type: <b>long*</b>
+     * 
+     * The property value.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-getproperty
      */
     GetProperty(Type) {
         result := ComCall(9, this, "int", Type, "int*", &pValue := 0, "HRESULT")
@@ -106,11 +122,17 @@ class ITextStory extends IUnknown{
     }
 
     /**
+     * Gets a text range object for the story.
+     * @param {Integer} cpActive Type: <b>long</b>
      * 
-     * @param {Integer} cpActive 
-     * @param {Integer} cpAnchor 
-     * @returns {ITextRange2} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-getrange
+     * The active end of the range.
+     * @param {Integer} cpAnchor Type: <b>long</b>
+     * 
+     * The anchor end of the range.
+     * @returns {ITextRange2} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a>**</b>
+     * 
+     * The text range object.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-getrange
      */
     GetRange(cpActive, cpAnchor) {
         result := ComCall(10, this, "int", cpActive, "int", cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
@@ -118,10 +140,20 @@ class ITextStory extends IUnknown{
     }
 
     /**
+     * Gets the text in a story according to the specified conversion flags.
+     * @param {Integer} Flags Type: <b>long</b>
      * 
-     * @param {Integer} Flags 
-     * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-gettext
+     * The conversion flags.
+     * 
+     * A <i>Flags</i> value of 0 retrieves text the same as <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-gettext">ITextRange::GetText</a>.  Other values include the following.
+     * 
+     * <a id="tomAdjustCRLF"></a>
+     * <a id="tomadjustcrlf"></a>
+     * <a id="TOMADJUSTCRLF"></a>
+     * @returns {BSTR} Type: <b>BSTR*</b>
+     * 
+     * The text in the story.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-gettext
      */
     GetText(Flags) {
         pbstr := BSTR()
@@ -130,10 +162,54 @@ class ITextStory extends IUnknown{
     }
 
     /**
+     * Replaces a story’s text with specified formatted text.
+     * @param {IUnknown} pUnk Type: <b>IUnknown*</b>
      * 
-     * @param {IUnknown} pUnk 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-setformattedtext
+     * The formatted text to replace the story’s text.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Write access is denied.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-setformattedtext
      */
     SetFormattedText(pUnk) {
         result := ComCall(12, this, "ptr", pUnk, "HRESULT")
@@ -141,11 +217,17 @@ class ITextStory extends IUnknown{
     }
 
     /**
+     * Sets the value of the specified property.
+     * @param {Integer} Type Type: <b>long</b>
      * 
-     * @param {Integer} Type 
-     * @param {Integer} Value 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-setproperty
+     * The Microsoft accountID that identifies the property. Currently, no extra properties are defined.
+     * @param {Integer} Value Type: <b>long</b>
+     * 
+     * The new property value.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-setproperty
      */
     SetProperty(Type, Value) {
         result := ComCall(13, this, "int", Type, "int", Value, "HRESULT")
@@ -153,11 +235,62 @@ class ITextStory extends IUnknown{
     }
 
     /**
+     * Replaces the text in a story with the specified text.
+     * @param {Integer} Flags Type: <b>long</b>
      * 
-     * @param {Integer} Flags 
-     * @param {BSTR} bstr 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstory-settext
+     * Flags controlling how the text is inserted as defined in the following table:
+     * 
+     * 
+     * <a id="tomCheckTextLimit"></a>
+     * <a id="tomchecktextlimit"></a>
+     * <a id="TOMCHECKTEXTLIMIT"></a>
+     * @param {BSTR} bstr Type: <b>BSTR</b>
+     * 
+     * The new text for this story. If this parameter is <b>NULL</b>, the text in the story is deleted.
+     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Invalid argument.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_ACCESSDENIED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Write access is denied.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_OUTOFMEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Insufficient memory.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstory-settext
      */
     SetText(Flags, bstr) {
         bstr := bstr is String ? BSTR.Alloc(bstr).Value : bstr

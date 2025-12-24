@@ -42,9 +42,11 @@ class ID3D12FunctionReflection extends Win32ComInterface{
     static VTableNames => ["GetDesc", "GetConstantBufferByIndex", "GetConstantBufferByName", "GetResourceBindingDesc", "GetVariableByName", "GetResourceBindingDescByName", "GetFunctionParameter"]
 
     /**
+     * Fills the function descriptor structure for the function.
+     * @returns {D3D12_FUNCTION_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/ns-d3d12shader-d3d12_function_desc">D3D12_FUNCTION_DESC</a>*</b>
      * 
-     * @returns {D3D12_FUNCTION_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getdesc
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/ns-d3d12shader-d3d12_function_desc">D3D12_FUNCTION_DESC</a> structure that receives a description of the function.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12functionreflection-getdesc
      */
     GetDesc() {
         pDesc := D3D12_FUNCTION_DESC()
@@ -53,10 +55,14 @@ class ID3D12FunctionReflection extends Win32ComInterface{
     }
 
     /**
+     * Gets a constant buffer by index for a function.
+     * @param {Integer} BufferIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} BufferIndex 
-     * @returns {ID3D12ShaderReflectionConstantBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getconstantbufferbyindex
+     * Zero-based index.
+     * @returns {ID3D12ShaderReflectionConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectionconstantbuffer">ID3D12ShaderReflectionConstantBuffer</a>*</b>
+     * 
+     * A pointer to a <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectionconstantbuffer">ID3D12ShaderReflectionConstantBuffer</a> interface that represents the constant buffer.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12functionreflection-getconstantbufferbyindex
      */
     GetConstantBufferByIndex(BufferIndex) {
         result := ComCall(1, this, "uint", BufferIndex, "ptr")
@@ -64,10 +70,14 @@ class ID3D12FunctionReflection extends Win32ComInterface{
     }
 
     /**
+     * Gets a constant buffer by name for a function.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D12ShaderReflectionConstantBuffer} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getconstantbufferbyname
+     * The constant-buffer name.
+     * @returns {ID3D12ShaderReflectionConstantBuffer} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectionconstantbuffer">ID3D12ShaderReflectionConstantBuffer</a>*</b>
+     * 
+     * A pointer to a <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectionconstantbuffer">ID3D12ShaderReflectionConstantBuffer</a> interface that represents the constant buffer.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12functionreflection-getconstantbufferbyname
      */
     GetConstantBufferByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -77,10 +87,14 @@ class ID3D12FunctionReflection extends Win32ComInterface{
     }
 
     /**
+     * Gets a description of how a resource is bound to a function.
+     * @param {Integer} ResourceIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
-     * @param {Integer} ResourceIndex 
-     * @returns {D3D12_SHADER_INPUT_BIND_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getresourcebindingdesc
+     * A zero-based resource index.
+     * @returns {D3D12_SHADER_INPUT_BIND_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12shader/ns-d3d12shader-d3d12_shader_input_bind_desc">D3D12_SHADER_INPUT_BIND_DESC</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/d3d12shader/ns-d3d12shader-d3d12_shader_input_bind_desc">D3D12_SHADER_INPUT_BIND_DESC</a> structure that describes input binding of the resource.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12functionreflection-getresourcebindingdesc
      */
     GetResourceBindingDesc(ResourceIndex) {
         pDesc := D3D12_SHADER_INPUT_BIND_DESC()
@@ -89,10 +103,14 @@ class ID3D12FunctionReflection extends Win32ComInterface{
     }
 
     /**
+     * Gets a variable by name.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {ID3D12ShaderReflectionVariable} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getvariablebyname
+     * A pointer to a string containing the variable name.
+     * @returns {ID3D12ShaderReflectionVariable} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectionvariable">ID3D12ShaderReflectionVariable</a>*</b>
+     * 
+     * Returns a <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectionvariable">ID3D12ShaderReflectionVariable Interface</a> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12functionreflection-getvariablebyname
      */
     GetVariableByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -102,10 +120,14 @@ class ID3D12FunctionReflection extends Win32ComInterface{
     }
 
     /**
+     * Gets a description of how a resource is bound to a function.
+     * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
-     * @param {PSTR} Name 
-     * @returns {D3D12_SHADER_INPUT_BIND_DESC} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getresourcebindingdescbyname
+     * The constant-buffer name of the resource.
+     * @returns {D3D12_SHADER_INPUT_BIND_DESC} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d3d12shader/ns-d3d12shader-d3d12_shader_input_bind_desc">D3D12_SHADER_INPUT_BIND_DESC</a>*</b>
+     * 
+     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/d3d12shader/ns-d3d12shader-d3d12_shader_input_bind_desc">D3D12_SHADER_INPUT_BIND_DESC</a> structure that describes input binding of the resource.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12functionreflection-getresourcebindingdescbyname
      */
     GetResourceBindingDescByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -116,10 +138,14 @@ class ID3D12FunctionReflection extends Win32ComInterface{
     }
 
     /**
+     * Gets the function parameter reflector.
+     * @param {Integer} ParameterIndex Type: <b>INT</b>
      * 
-     * @param {Integer} ParameterIndex 
-     * @returns {ID3D12FunctionParameterReflection} 
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12functionreflection-getfunctionparameter
+     * The zero-based index of the function parameter reflector to retrieve.
+     * @returns {ID3D12FunctionParameterReflection} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12functionparameterreflection">ID3D12FunctionParameterReflection</a>*</b>
+     * 
+     * A pointer to a <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12functionparameterreflection">ID3D12FunctionParameterReflection</a> interface that represents the function parameter reflector.
+     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12functionreflection-getfunctionparameter
      */
     GetFunctionParameter(ParameterIndex) {
         result := ComCall(6, this, "int", ParameterIndex, "ptr")

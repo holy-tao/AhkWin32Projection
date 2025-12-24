@@ -42,9 +42,17 @@ class IDVBTuningSpace extends ITuningSpace{
     static VTableNames => ["get_SystemType", "put_SystemType"]
 
     /**
-     * 
-     * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace-get_systemtype
+     * @type {Integer} 
+     */
+    SystemType {
+        get => this.get_SystemType()
+        set => this.put_SystemType(value)
+    }
+
+    /**
+     * The get_SystemType method retrieves the system type.
+     * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/dvbsystemtype">DVBSystemType</a> that receives the system type.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtuningspace-get_systemtype
      */
     get_SystemType() {
         result := ComCall(26, this, "int*", &SysType := 0, "HRESULT")
@@ -52,10 +60,10 @@ class IDVBTuningSpace extends ITuningSpace{
     }
 
     /**
-     * 
-     * @param {Integer} SysType 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idvbtuningspace-put_systemtype
+     * The put_SystemType method sets the system type.
+     * @param {Integer} SysType Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/dvbsystemtype">DVBSystemType</a> that specifies the system type.
+     * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
+     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idvbtuningspace-put_systemtype
      */
     put_SystemType(SysType) {
         result := ComCall(27, this, "int", SysType, "HRESULT")

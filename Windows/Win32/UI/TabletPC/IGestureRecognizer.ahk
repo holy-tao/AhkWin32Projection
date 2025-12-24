@@ -46,9 +46,25 @@ class IGestureRecognizer extends IUnknown{
     static VTableNames => ["get_Enabled", "put_Enabled", "get_MaxStrokeCount", "put_MaxStrokeCount", "EnableGestures", "Reset"]
 
     /**
-     * 
+     * @type {BOOL} 
+     */
+    Enabled {
+        get => this.get_Enabled()
+        set => this.put_Enabled(value)
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    MaxStrokeCount {
+        get => this.get_MaxStrokeCount()
+        set => this.put_MaxStrokeCount(value)
+    }
+
+    /**
+     * Gets or sets a value that indicates whether gesture recognition is enabled.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-get_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-get_enabled
      */
     get_Enabled() {
         result := ComCall(3, this, "int*", &pfEnabled := 0, "HRESULT")
@@ -56,10 +72,10 @@ class IGestureRecognizer extends IUnknown{
     }
 
     /**
-     * 
+     * Gets or sets a value that indicates whether gesture recognition is enabled.
      * @param {BOOL} fEnabled 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-put_enabled
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-put_enabled
      */
     put_Enabled(fEnabled) {
         result := ComCall(4, this, "int", fEnabled, "HRESULT")
@@ -67,9 +83,14 @@ class IGestureRecognizer extends IUnknown{
     }
 
     /**
+     * Gets or sets the maximum number of strokes allowed per gesture recognition.
+     * @remarks
+     * 
+     * Valid values are 1 and 2. When the <b>MaxStrokeCount</b> property is 2, gesture recognizer looks back to the most recent two strokes and attempts to recognize them as gestures. This may result in multiple recognition calls and multiple gesture events flowing through the system.
+     * 
      * 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-get_maxstrokecount
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-get_maxstrokecount
      */
     get_MaxStrokeCount() {
         result := ComCall(5, this, "int*", &pcStrokes := 0, "HRESULT")
@@ -77,10 +98,15 @@ class IGestureRecognizer extends IUnknown{
     }
 
     /**
+     * Gets or sets the maximum number of strokes allowed per gesture recognition.
+     * @remarks
+     * 
+     * Valid values are 1 and 2. When the <b>MaxStrokeCount</b> property is 2, gesture recognizer looks back to the most recent two strokes and attempts to recognize them as gestures. This may result in multiple recognition calls and multiple gesture events flowing through the system.
+     * 
      * 
      * @param {Integer} cStrokes 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-put_maxstrokecount
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-put_maxstrokecount
      */
     put_MaxStrokeCount(cStrokes) {
         result := ComCall(6, this, "int", cStrokes, "HRESULT")
@@ -88,11 +114,11 @@ class IGestureRecognizer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {Integer} cGestures 
-     * @param {Pointer<Integer>} pGestures 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-enablegestures
+     * Sets a value that indicates to which application gestures the GestureRecognizer Class object responds.
+     * @param {Integer} cGestures The size of the array to which the <i>pGestures</i> parameter points. Valid values are between 0 and 64, inclusive.
+     * @param {Pointer<Integer>} pGestures An array of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkapplicationgesture">InkApplicationGesture Enumeration</a> values that indicates to which application gestures the <a href="https://docs.microsoft.com/windows/desktop/tablet/gesturerecognizer-class">GestureRecognizer Class</a> object responds.
+     * @returns {HRESULT} For a description of return values, see <a href="/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-enablegestures
      */
     EnableGestures(cGestures, pGestures) {
         pGesturesMarshal := pGestures is VarRef ? "int*" : "ptr"
@@ -102,9 +128,9 @@ class IGestureRecognizer extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/rtscom/nf-rtscom-igesturerecognizer-reset
+     * Deletes past stroke information from the GestureRecognizer Class object.
+     * @returns {HRESULT} For a description of return values see <a href="/windows/desktop/tablet/realtimestylus-classes-and-interfaces">RealTimeStylus Classes and Interfaces</a>.
+     * @see https://docs.microsoft.com/windows/win32/api//rtscom/nf-rtscom-igesturerecognizer-reset
      */
     Reset() {
         result := ComCall(8, this, "HRESULT")

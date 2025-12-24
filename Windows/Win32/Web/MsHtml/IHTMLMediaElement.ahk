@@ -38,6 +38,171 @@ class IHTMLMediaElement extends IDispatch{
     static VTableNames => ["get_error", "put_src", "get_src", "get_currentSrc", "get_networkState", "put_preload", "get_preload", "get_buffered", "load", "canPlayType", "get_seeking", "put_currentTime", "get_currentTime", "get_initialTime", "get_duration", "get_paused", "put_defaultPlaybackRate", "get_defaultPlaybackRate", "put_playbackRate", "get_playbackRate", "get_played", "get_seekable", "get_ended", "put_autoplay", "get_autoplay", "put_loop", "get_loop", "play", "pause", "put_controls", "get_controls", "put_volume", "get_volume", "put_muted", "get_muted", "put_autobuffer", "get_autobuffer"]
 
     /**
+     * @type {IHTMLMediaError} 
+     */
+    error {
+        get => this.get_error()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    src {
+        get => this.get_src()
+        set => this.put_src(value)
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    currentSrc {
+        get => this.get_currentSrc()
+    }
+
+    /**
+     * @type {Integer} 
+     */
+    networkState {
+        get => this.get_networkState()
+    }
+
+    /**
+     * @type {BSTR} 
+     */
+    preload {
+        get => this.get_preload()
+        set => this.put_preload(value)
+    }
+
+    /**
+     * @type {IHTMLTimeRanges} 
+     */
+    buffered {
+        get => this.get_buffered()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    seeking {
+        get => this.get_seeking()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    currentTime {
+        get => this.get_currentTime()
+        set => this.put_currentTime(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    initialTime {
+        get => this.get_initialTime()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    duration {
+        get => this.get_duration()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    paused {
+        get => this.get_paused()
+    }
+
+    /**
+     * @type {Float} 
+     */
+    defaultPlaybackRate {
+        get => this.get_defaultPlaybackRate()
+        set => this.put_defaultPlaybackRate(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    playbackRate {
+        get => this.get_playbackRate()
+        set => this.put_playbackRate(value)
+    }
+
+    /**
+     * @type {IHTMLTimeRanges} 
+     */
+    played {
+        get => this.get_played()
+    }
+
+    /**
+     * @type {IHTMLTimeRanges} 
+     */
+    seekable {
+        get => this.get_seekable()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    ended {
+        get => this.get_ended()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    autoplay {
+        get => this.get_autoplay()
+        set => this.put_autoplay(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    loop {
+        get => this.get_loop()
+        set => this.put_loop(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    controls {
+        get => this.get_controls()
+        set => this.put_controls(value)
+    }
+
+    /**
+     * @type {Float} 
+     */
+    volume {
+        get => this.get_volume()
+        set => this.put_volume(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    muted {
+        get => this.get_muted()
+        set => this.put_muted(value)
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    autobuffer {
+        get => this.get_autobuffer()
+        set => this.put_autobuffer(value)
+    }
+
+    /**
      * 
      * @returns {IHTMLMediaError} 
      */

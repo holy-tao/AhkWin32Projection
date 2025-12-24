@@ -33,22 +33,48 @@ class IX509Extension extends IDispatch{
     static VTableNames => ["Initialize", "get_ObjectId", "get_RawData", "get_Critical", "put_Critical"]
 
     /**
-     * Initializes a thread to use Windows Runtime APIs.
-     * @param {IObjectId} pObjectId 
-     * @param {Integer} Encoding 
-     * @param {BSTR} strEncodedData 
-     * @returns {HRESULT} <ul>
-     * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
-     * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
-     *         initialized for the specified apartment type)</li>
-     * <li><b>E_INVALIDARG</b> - Invalid <i>initType</i> value</li>
-     * <li><b>CO_E_INIT_TLS</b> - Failed to allocate COM's internal TLS structure</li>
-     * <li><b>E_OUTOFMEMORY</b> - Failed to allocate per-thread/per-apartment structures other 
-     *         than the TLS</li>
-     * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
-     *         apartment type from what is specified.</li>
-     * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @type {IObjectId} 
+     */
+    ObjectId {
+        get => this.get_ObjectId()
+    }
+
+    /**
+     * @type {VARIANT_BOOL} 
+     */
+    Critical {
+        get => this.get_Critical()
+        set => this.put_Critical(value)
+    }
+
+    /**
+     * Initializes an IX509Extension object by using an object identifier (OID) and a byte array that contains the Distinguished Encoding Rules (DER) encoded extension.
+     * @param {IObjectId} pObjectId Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface that contains the extension OID.
+     * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to  the input string.
+     * @param {BSTR} strEncodedData A <b>BSTR</b> variable that contains the DER-encoded extension value.
+     * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
+     * 
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code/value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b><b>CERTSRV_E_PROPERTY_EMPTY</b></b></dt>
+     * <dt></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The OID could not be found.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extension-initialize
      */
     Initialize(pObjectId, Encoding, strEncodedData) {
         strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
@@ -58,9 +84,14 @@ class IX509Extension extends IDispatch{
     }
 
     /**
+     * Retrieves the object identifier (OID) for the extension.
+     * @remarks
+     * 
+     * You can specify the OID when you call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extension-initialize">Initialize</a> method to create an extension value.
+     * 
      * 
      * @returns {IObjectId} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extension-get_objectid
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extension-get_objectid
      */
     get_ObjectId() {
         result := ComCall(8, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -68,10 +99,15 @@ class IX509Extension extends IDispatch{
     }
 
     /**
+     * Retrieves a byte array that contains the extension value.
+     * @remarks
+     * 
+     * A certificate extension is defined by an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) structure, and the extension is encoded into a byte array by using DER. The byte array is returned in a string to simplify use in languages other than C++. You can use the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration to specify the type of Unicode encoding to apply to the string. You can call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509extension-initialize">Initialize</a> method to specify the extension.
+     * 
      * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extension-get_rawdata
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extension-get_rawdata
      */
     get_RawData(Encoding) {
         pValue := BSTR()
@@ -80,9 +116,14 @@ class IX509Extension extends IDispatch{
     }
 
     /**
+     * Specifies and retrieves a Boolean value that identifies whether the certificate extension is critical.
+     * @remarks
+     * 
+     * A certificate extension consists of an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID), a Boolean value that identifies whether the extension is critical, and a byte array that contains the extension value. The criticality indicates whether an application that uses a certificate can ignore the extension type and value. If an extension is identified as critical but the application does not recognize the extension type, the application should reject the certificate.
+     * 
      * 
      * @returns {VARIANT_BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extension-get_critical
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extension-get_critical
      */
     get_Critical() {
         result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
@@ -90,10 +131,15 @@ class IX509Extension extends IDispatch{
     }
 
     /**
+     * Specifies and retrieves a Boolean value that identifies whether the certificate extension is critical.
+     * @remarks
+     * 
+     * A certificate extension consists of an <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID), a Boolean value that identifies whether the extension is critical, and a byte array that contains the extension value. The criticality indicates whether an application that uses a certificate can ignore the extension type and value. If an extension is identified as critical but the application does not recognize the extension type, the application should reject the certificate.
+     * 
      * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extension-put_critical
+     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extension-put_critical
      */
     put_Critical(Value) {
         result := ComCall(11, this, "short", Value, "HRESULT")
