@@ -2313,6 +2313,11 @@ class SystemServices {
     /**
      * @type {Integer (UInt32)}
      */
+    static LOCALE_UNASSIGNED_LCID => 4096
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static MAXIMUM_WAIT_OBJECTS => 64
 
     /**

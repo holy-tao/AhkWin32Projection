@@ -33,6 +33,31 @@ class Globalization {
     /**
      * @type {Integer (UInt32)}
      */
+    static LOCALE_CUSTOM_DEFAULT => 3072
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static LOCALE_CUSTOM_UNSPECIFIED => 4096
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static LOCALE_CUSTOM_UI_DEFAULT => 5120
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static LOCALE_NEUTRAL => 0
+
+    /**
+     * @type {Integer (UInt32)}
+     */
+    static LOCALE_INVARIANT => 127
+
+    /**
+     * @type {Integer (UInt32)}
+     */
     static ALL_SERVICE_TYPES => 0
 
     /**
