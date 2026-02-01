@@ -69,19 +69,30 @@ class Win32ComInterface extends Win32Struct {
             throw Error("Cannot implement an unowned interface instance")
         }
 
-        ; NOTE: we need to account for C++ calling conventions, which include an implicit "this" as their first parmeters
-        this.__vTable[1] := CallbackCreate(ObjBindMethod(this, "__DefaultQueryInterface"), callbackCreateFlags, 3)
-        this.__vTable[2] := CallbackCreate(ObjBindMethod(this, "__DefaultAddRef"), callbackCreateFlags, 1)
-        this.__vTable[3] := CallbackCreate(ObjBindMethod(this, "__DefaultRelease"), callbackCreateFlags, 1)
+        ; Special handling for IUnknown methods since we have defaults when the caller doesn't override them
+        for(i, fnName in ["QueryInterface", "AddRef", "Release"]) {
+            minParams := fnName == "QueryInterface" ? 3 : 1
+            fn := implObj.HasMethod(fnName, minParams) ? 
+                ObjBindMethod(implObj, fnName) : 
+                ObjBindMethod(this, "__Default" fnName)
+
+            addr := CallbackCreate(fn, callbackCreateFlags, minParams)
+            this.__vTable[i] := addr
+        }
 
         iFace := Win32Struct.ResolveClassName(this.__Class)
         while((iFaceName := iFace.Prototype.__Class) != "IUnknown"){
             for(i, fnName in iFace.VTableNames){
                 paramCount := GetMethod(iFace.Prototype, fnName).MinParams
-                fnImpl := GetMethod(implObj, fnName)
-                
-                addr := CallbackCreate(fnImpl.Bind(implObj), callbackCreateFlags, paramCount)
 
+                ; Note MinParams is unreliable because it varies between fat arrow functions and methods
+                if(!HasMethod(implObj, fnName)) {
+                    msg := Format("Cannot implement '{1}' using object of type '{2}': missing method '{3}::{4}'", 
+                        type(this), type(implObj), iFaceName, fnName)
+                    throw MethodError(msg, -2, implObj)
+                }
+
+                addr := CallbackCreate(ObjBindMethod(implObj, fnName), callbackCreateFlags, paramCount)
                 this.__vTable[i + iFace.vTableOffset] := addr
             }
 
@@ -162,6 +173,13 @@ class Win32ComInterface extends Win32Struct {
         ; Spec says we must do this if the out pointer is null
         if(comOutPtr == 0){
             return E_POINTER
+        }
+
+        ; Allow instances (e.g. parameterized types) to provide their own IID
+        if(this.HasProp("IID") && this.IID.Equals(riid)) {
+            NumPut("ptr", this.ptr, comOutPtr)
+            ComCall(1, this, "uint")    ; Call AddRef()
+            return S_OK
         }
 
         obj := Win32Struct.ResolveClassName(this.__Class)
