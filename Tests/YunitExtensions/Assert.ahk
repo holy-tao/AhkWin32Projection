@@ -49,7 +49,7 @@ class Assert {
     }
 
     static IsType(obj, expected){
-        if(!obj is expected){
+        if(!(obj is expected)){
             throw TypeError(Format("Expected a(n) {1} but got a(n) {2}", expected.Prototype.__Class, Type(obj)))
         }
     }

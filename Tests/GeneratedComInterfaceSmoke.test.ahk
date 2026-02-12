@@ -75,7 +75,7 @@ class GeneratedComInterfaceTests {
 
             ixmlDoc2 := IXMLDOMDocument2(pUnk)
 
-            Assert.IsType(ixmlDoc2.documentElement, IXMLDOMElement)
+            Assert.Equals(ixmlDoc2.preserveWhiteSpace, false)
         }
 
         InterfaceProperty_Set_SetsValue(){

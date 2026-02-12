@@ -10,6 +10,8 @@ class GuidTests {
     Constructor_WithNullPtr_CreatesEmptyGuid(){
         test := Guid(0)
 
+        FileAppend("Created Guid: " test.ToString() "`n", "*")
+
         Yunit.Assert(test.ptr != 0)
         Yunit.Assert(NumGet(test, 0, "uint64") == 0, "Guid is not empty`n" . test.HexDump())
         Yunit.Assert(NumGet(test, 8, "uint64") == 0, "Guid is not empty`n" . test.HexDump())
@@ -17,6 +19,8 @@ class GuidTests {
 
     Constructor_WithNoArgs_CreatesEmptyGuid(){
         test := Guid()
+
+        FileAppend("Created Guid: " test.ToString() "`n", "*")
 
         Yunit.Assert(test.ptr != 0)
         Yunit.Assert(NumGet(test, 0, "uint64") == 0, "Guid is not empty`n" . test.HexDump())
@@ -30,6 +34,8 @@ class GuidTests {
 
         test := Guid(testBuf.ptr)
 
+        FileAppend("Created Guid: " test.ToString() "`n", "*")
+
         Yunit.Assert(test.ptr == testBuf.ptr)
         Yunit.Assert(NumGet(test, 0, "uint64") == 0x42, "Unexpected value`n" . test.HexDump())
         Yunit.Assert(NumGet(test, 8, "uint64") == 0x24, "Unexpected value`n" . test.HexDump())
@@ -37,6 +43,8 @@ class GuidTests {
 
     Constructor_WithStringValue_SetsBuffer(){
         test := Guid("{6B29FC40-CA47-1067-B31D-00DD010662DA}")
+
+        FileAppend("Created Guid: " test.ToString() "`n", "*")
 
         Yunit.Assert(test.ptr != 0)
 
@@ -48,12 +56,16 @@ class GuidTests {
         expected := "{00000000-0000-0000-0000-000000000000}"
         test := Guid(0)
 
+        FileAppend("Created Guid: " test.ToString() "`n", "*")
+
         Yunit.Assert(String(test) == expected, Format("{1} != {2}", String(test), expected))
     }
 
     ToString_WithNonEmptyGuid_ReturnsStringRepresentation(){
         expected := "{6B29FC40-CA47-1067-B31D-00DD010662DA}"
         test := Guid(expected)
+
+        FileAppend("Created Guid: " test.ToString() "`n", "*")
 
         Yunit.Assert(String(test) == expected, Format("{1} != {2}", String(test), expected))
     }
@@ -62,6 +74,9 @@ class GuidTests {
         empty := "{00000000-0000-0000-0000-000000000000}"
 
         newGuid := Guid.Create()
+
+        FileAppend("Created Guid: " newGuid.ToString() "`n", "*")
+
         Yunit.Assert(newGuid.ptr != 0)
         Yunit.Assert(String(newGuid) != empty)
     }
